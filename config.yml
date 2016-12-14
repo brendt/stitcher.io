@@ -1,0 +1,46 @@
+# The production config uses a few different paths to load files.
+# There are also only some image dimensions specified by default.
+
+# This production environment should be accessed via a separate virtualhost.
+# An Apache example of such host configuration could be:
+#
+# <VirtualHost *:80>
+#     DocumentRoot "<path_to_project>/public"
+#     ServerName stitcher.local
+#     ErrorLog "<log_path>/error.log"
+#     CustomLog "<log_path>/access.log" common
+#
+#     <Directory "<path_to_project>/public">
+#         AllowOverride All
+#         Require all granted
+#     </Directory>
+# </VirtualHost>
+
+# Configure the paths of several directories
+directories:
+    # The source directory containing
+    src: ./src
+
+    # The public directory in which the site is generated
+    public: ./public
+
+    # Cache directory used by smarty
+    cache: ./.cache
+
+# Configure which image versions should be created
+image:
+    dimensions:
+        960x640: { width: 690, height: 640}
+        1024x768: { width: 1024, height: 768}
+        1920x1080: { width: 1920, height: 1080}
+        1600x1200: { width: 1600, height: 1200}
+
+# Configure meta tags
+meta:
+    viewport: width=device-width, initial-scale=1
+
+# Minify CSS and JavaScript
+minify: true
+
+# Choose the template engine. Available options: smarty, twig
+engine: smarty

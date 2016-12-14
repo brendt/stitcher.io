@@ -1,0 +1,43 @@
+entries:
+    entry-a:
+        title: Example Entry A
+        intro: Lorem ipsum dolor sit amet
+        body: entry-a.md
+        image:
+            src: img/blue.jpg
+            alt: A Blue image
+    entry-b:
+        title: Example Entry B
+        intro: This is the second entry
+        body: entry-a.md
+        image: img/orange.jpg
+
+    entry-c:
+        title: Example Entry C
+        intro: And the third one
+        body: entry-a.md
+        image: img/orange.jpg
+
+    entry-d:
+        title: Example Entry D
+        intro: Fourth
+        body: entry-a.md
+        image: img/orange.jpg
+
+    entry-e:
+        title: Example Entry E
+        intro: Number 5
+        body: entry-a.md
+        image: img/orange.jpg
+
+    entry-f:
+        title: Example Entry F
+        intro: And 6
+        body: entry-a.md
+        image: img/orange.jpg
+
+    entry-g:
+        title: Example Entry G
+        intro: Last one
+        body: entry-a.md
+        image: img/orange.jpg

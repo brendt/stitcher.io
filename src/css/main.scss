@@ -1,0 +1,146 @@
+@import "css/_variables";
+
+body {
+    padding:0;
+    margin:0;
+    position:relative;
+    background: #FDFDFD;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: $font-size-base;
+}
+
+.wrapper {
+    width: 960px;
+    margin:0 auto;
+}
+
+.vwrapper {
+    margin-top: 2em;
+}
+
+img {
+    display: block;
+    max-width: 25%;
+}
+
+a {
+    color: $color-blue;
+}
+
+h1 {
+    color: $color-blue;
+}
+
+h2 {
+    margin-top:40px;
+}
+
+h4 {
+    margin-top:2.5em;
+    margin-bottom:1em;
+}
+
+p {
+    line-height:1.7em;
+}
+
+li {
+    margin: 10px 0;
+}
+
+li, p {
+    & > code {
+        display: inline-block;
+        border-bottom: 1px solid $color-orange;
+        cursor: pointer;
+        padding-left:2px;
+        padding-right:2px;
+        line-height: 1em;
+        padding-bottom:2px;
+    }
+}
+
+code {
+    background:#FFF;
+    font-family: Monaco, monospace;
+}
+
+pre > code {
+    display: block;
+    border-left:5px solid $color-orange;
+    padding:1.3em 30px;
+    font-size: 0.8em;
+    line-height:1.5em;
+    cursor: pointer;
+    margin-left:-20px;
+    overflow-x: scroll;
+}
+
+.button {
+    cursor: pointer;
+    color:#fff;
+    border:1px solid #fff;
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    margin-right:10px;
+
+    &:last-child {
+        margin-right:0;
+    }
+}
+
+.button-link {
+    margin-right:10px;
+    color:#fff;
+    font-weight: 100;
+}
+
+header {
+    display:block;
+    background:$color-blue;
+    color:#fff;
+
+    nav > a {
+        color: inherit;
+        display: inline-block;
+        text-decoration: none;
+        padding:15px 20px;
+
+        &:first-child {
+            padding-left:0;
+        }
+    }
+}
+
+.stitcher {
+    color: inherit;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.next {
+    display:block;
+    float:right;
+}
+.prev {
+    display:block;
+    float:left;
+}
+
+footer {
+    margin-top:40px;
+    background:$color-gray;
+    color:#fff;
+    padding: 30px 0;
+
+    &:after {
+        clear:both;
+        display: block;
+        content: ' ';
+    }
+}
+
+footer a {
+    color:inherit;
+}

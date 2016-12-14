@@ -1,0 +1,47 @@
+# The development config uses a few different paths to load files.
+# There is also only one image dimension specified by default.
+
+# This dev environment should be accessed via a separate virtualhost.
+# An Apache example of such host configuration could be:
+#
+# <VirtualHost *:80>
+#     DocumentRoot "<path_to_project>"
+#     ServerName dev.stitcher.local
+#     ErrorLog "<log_path>/error.log"
+#     CustomLog "<log_path>/access.log" common
+#
+#     <Directory "<path_to_project>">
+#         AllowOverride All
+#         Require all granted
+#     </Directory>
+# </VirtualHost>
+
+# Configure the paths of several directories
+directories:
+    # The source directory containing
+    src: ../src
+
+    # The public directory for the dev controller is used to save images
+    public: ./
+
+    # Cache directory used by smarty
+    cache: ./cache
+
+meta:
+    viewport: width=device-width, initial-scale=1
+
+# Do not minify CSS or JavaScript
+minify: false
+
+# Configure engines
+engines:
+    # Choose the template engine. Available options: smarty, twig
+    template: smarty
+
+    # Use gd as image engine. Possible configurations: `gd` or `imagick`.
+    image: gd
+
+caches:
+    # Enable image caching while rendering
+    image: true
+

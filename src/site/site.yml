@@ -1,0 +1,75 @@
+/:
+    template: home
+
+/guide:
+    template: guide
+    data:
+        title: Guide
+        content: guide.md
+
+/guide/setting-up:
+    template: guide.page
+    data:
+        title: Setting up
+        content: guide/setting-up.md
+        nextUrl: /guide/project-structure
+        nextTitle: Project structure
+
+/guide/project-structure:
+    template: guide.page
+    data:
+        title: Project structure
+        content: guide/project-structure.md
+        prevUrl: /guide/setting-up
+        prevTitle: Setting up
+        nextUrl: /guide/working-with-data
+        nextTitle: Working with data
+
+/guide/working-with-data:
+    template: guide.page
+    data:
+        title: Working with data
+        content: guide/working-with-data.md
+        nextUrl: /guide/working-with-images
+        nextTitle: Working with images
+        prevUrl: /guide/setting-up
+        prevTitle: Setting up
+
+/guide/working-with-images:
+    template: guide.page
+    data:
+        title: Working with images
+        content: guide/working-with-images.md
+        nextUrl: /guide/helper-functions
+        nextTitle: Helper functions
+        prevUrl: /guide/working-with-data
+        prevTitle: Working with data
+
+/guide/helper-functions:
+    template: guide.page
+    data:
+        title: Helper functions
+        content: guide/helper-functions.md
+        prevUrl: /guide/working-with-images
+        prevTitle: Working with images
+
+
+/examples:
+    template: examples/overview
+    data:
+        collection: collection.yml
+    adapters:
+        # Enable pagination for the field `collection`, paginate per 4 entries.
+        pagination:
+            variable: collection
+            amount: 4
+
+/examples/{id}:
+    template: examples/detail
+    data:
+        example: collection.yml
+    adapters:
+        # Enable detail pages for the variable `example`, map by the field `id`.
+        collection:
+            variable: example
+            field: id
