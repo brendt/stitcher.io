@@ -10,7 +10,8 @@ php vendor/brendt/stitcher/install/stitcher site:install
 ```
 
 Running the `site:install` command will generate the needed directory structure to create a Stitcher project. 
- It also copies the Stitcher commandline tool to the root of your project. From now on, you can use the following command to use the Stitcher console.
+ It also copies the Stitcher commandline tool to the root of your project. From now on, you can use the following command 
+ to use the Stitcher console.
  
 ```sh
 ./stitcher
@@ -21,8 +22,8 @@ The Stitcher console offers you a set of tools to help create your website.
 ### Configuration
 
 Stitcher uses YAML for configuration files. Some configuration entries are mandatory, some are optional. 
-The main configuration file should be called `config.yml` and saved in the root directory of your project. A second config file, 
- `config.dev.yml`, can be used while using the developer controller. More about that one later.
+The main configuration file should be called `config.yml` and saved in the root directory of your project. A second config file
+ for the developer controller is called `config.dev.yml` by default, and saved in the `dev/` directory. More about that one later.
  
  Note that running the `site:install` command already sets up the correct config files for you.
 
@@ -33,7 +34,7 @@ data entries, configs, templates, css, etc.; and see these changes in real-time,
 
 **Note:** This approach takes a bit more rendering time, so web pages will be slower.
 
-To set up the developer controller, a separate virtual host should be created, pointing at `index.dev.php`.
+To set up the developer controller, a separate virtual host should be created, pointing at the `dev/` directory.
 
 ```xml
 <VirtualHost *:80>
