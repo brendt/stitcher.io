@@ -1,0 +1,28 @@
+@import "css/_variables";
+
+body {
+    background: $color-blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading {
+    display: block;
+    text-align: center;
+    flex: 0 1 auto;
+
+    h2, h3 {
+        margin:0;
+        font-weight: 200;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        margin-top:0.3em;
+        font-size: 1.05em;
+    }
+}

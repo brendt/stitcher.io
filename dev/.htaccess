@@ -1,0 +1,19 @@
+# Stitcher development htaccess
+
+Options +FollowSymLinks
+DirectoryIndex index.dev.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Route to index.php
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^.* - [L]
+    RewriteRule ^(.*)$ index.php [NE,L,QSA]
+</IfModule>
+
+# Enable GZIP
+<ifmodule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+</ifmodule>
