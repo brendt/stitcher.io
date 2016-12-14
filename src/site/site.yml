@@ -3,13 +3,13 @@
 
 /guide:
     template: guide
-    data:
+    variables:
         title: Guide
         content: guide.md
 
 /guide/setting-up:
     template: guide.page
-    data:
+    variables:
         title: Setting up
         content: guide/setting-up.md
         nextUrl: /guide/project-structure
@@ -17,7 +17,7 @@
 
 /guide/project-structure:
     template: guide.page
-    data:
+    variables:
         title: Project structure
         content: guide/project-structure.md
         prevUrl: /guide/setting-up
@@ -27,7 +27,7 @@
 
 /guide/working-with-data:
     template: guide.page
-    data:
+    variables:
         title: Working with data
         content: guide/working-with-data.md
         nextUrl: /guide/working-with-images
@@ -37,7 +37,7 @@
 
 /guide/working-with-images:
     template: guide.page
-    data:
+    variables:
         title: Working with images
         content: guide/working-with-images.md
         nextUrl: /guide/helper-functions
@@ -47,7 +47,7 @@
 
 /guide/helper-functions:
     template: guide.page
-    data:
+    variables:
         title: Helper functions
         content: guide/helper-functions.md
         prevUrl: /guide/working-with-images
@@ -56,7 +56,7 @@
 
 /examples:
     template: examples/overview
-    data:
+    variables:
         collection: collection.yml
     adapters:
         # Enable pagination for the field `collection`, paginate per 4 entries.
@@ -66,7 +66,7 @@
 
 /examples/{id}:
     template: examples/detail
-    data:
+    variables:
         example: collection.yml
     adapters:
         # Enable detail pages for the variable `example`, map by the field `id`.
