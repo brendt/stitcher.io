@@ -47,3 +47,16 @@ To set up the developer controller, a separate virtual host should be created, p
     </Directory>
 </VirtualHost>
 ```
+
+### Creating a website
+
+While the developer controller will generate pages on the fly; a production website made with Stitcher is of course 
+completely generated as HTML before the website is visited.
+
+```sh
+./stitcher site:generate
+```
+
+This command will generate your website in the `directories.src` directory. It will "stitch" all templates, data, images, 
+assets, etc. together into one whole result.
+
