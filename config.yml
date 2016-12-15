@@ -25,15 +25,7 @@ directories:
     public: ./public
 
     # Cache directory used by smarty
-    cache: ./.cache
-
-# Configure which image versions should be created
-image:
-    dimensions:
-        960x640: { width: 690, height: 640}
-        1024x768: { width: 1024, height: 768}
-        1920x1080: { width: 1920, height: 1080}
-        1600x1200: { width: 1600, height: 1200}
+    cache: ./cache
 
 # Configure meta tags
 meta:
@@ -42,5 +34,14 @@ meta:
 # Minify CSS and JavaScript
 minify: true
 
-# Choose the template engine. Available options: smarty, twig
-engine: smarty
+# Configure engines
+engines:
+    # Choose the template engine. Available options: smarty, twig
+    template: smarty
+
+    # Use gd as image engine. Possible configurations: `gd` or `imagick`.
+    image: gd
+
+caches:
+    # Enable image caching while rendering
+    image: true

@@ -1,0 +1,80 @@
+<html>
+    <head>
+        
+            <title>Setting up - Stitcher 1.0</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>body{padding:0;margin:0;position:relative;background:#fdfdfd;font-family:"Helvetica Neue",Helvetica,sans-serif;font-size:18px}.wrapper{width:960px;margin:0 auto}.vwrapper{margin-top:2em}img{display:block;max-width:25%}a{color:#128d9e}h1{color:#128d9e}h2{margin-top:40px}h3{margin-top:1.6em;margin-bottom:.7em}h4{margin-top:2.5em;margin-bottom:1em}p{line-height:1.7em}li{margin:10px 0}li>code,p>code{display:inline-block;border-bottom:1px solid #ff8719;cursor:pointer;padding-left:2px;padding-right:2px;line-height:1em;padding-bottom:2px}code{background:#fff;font-family:Monaco,monospace}pre>code{display:block;border-left:5px solid #ff8719;padding:1.3em 30px;font-size:.8em;line-height:1.5em;cursor:pointer;margin-left:-20px;overflow-x:scroll}.button{cursor:pointer;color:#fff;border:1px solid #fff;padding:10px;display:inline-block;text-decoration:none;margin-right:10px}.button:last-child{margin-right:0}.button-link{margin-right:10px;color:#fff;font-weight:100}header{display:block;background:#128d9e;color:#fff}header nav>a{color:inherit;display:inline-block;text-decoration:none;padding:15px 20px}header nav>a:first-child{padding-left:0}.stitcher{color:inherit;font-weight:100;font-style:italic}.next{display:block;float:right}.prev{display:block;float:left}footer{margin-top:40px;background:#484848;color:#fff;padding:30px 0}footer:after{clear:both;display:block;content:' '}footer a{color:inherit}</style>
+        
+    </head>
+    <body>
+        
+            
+                <header>
+                    <nav class="wrapper">
+                        <a href="/" class="stitcher">Stitcher</a>
+                        <a href="/guide">Guide</a>
+                        <a href="/examples">Examples</a>
+                    </nav>
+                </header>
+            
+
+            
+                                    <div class="wrapper">
+                        <h2>Setting up</h2>
+                    </div>
+                            
+
+            <div class="wrapper">
+                
+            <h3>Installation</h3>
+<p><strong>Note</strong>: Stitcher is currently in alpha. This means things can break with updates!</p>
+<p>Stitcher is installed via Composer. It requires a PHP version of at least 5.6, but 7.0 or higher is advided.</p>
+<pre><code class="language-sh">composer require brendt/stitcher:1.0.0-alpha
+php vendor/brendt/stitcher/install/stitcher site:install</code></pre>
+<p>Running the <code>site:install</code> command will generate the needed directory structure to create a Stitcher project.
+It also copies the Stitcher commandline tool to the root of your project. From now on, you can use the following command
+to use the Stitcher console.</p>
+<pre><code class="language-sh">./stitcher</code></pre>
+<p>The Stitcher console offers you a set of tools to help create your website.</p>
+<h3>Configuration</h3>
+<p>Stitcher uses YAML for configuration files. Some configuration entries are mandatory, some are optional.
+The main configuration file should be called <code>config.yml</code> and saved in the root directory of your project. A second config file
+for the developer controller is called <code>config.dev.yml</code> by default, and saved in the <code>dev/</code> directory. More about that one later.</p>
+<p>Note that running the <code>site:install</code> command already sets up the correct config files for you.</p>
+<h3>Development setup</h3>
+<p>The developer controller can be used to generate a single URL on-the-fly. Thus enabling a developer to make changes to
+data entries, configs, templates, css, etc.; and see these changes in real-time, without the need of manually generating the website again.</p>
+<p><strong>Note:</strong> This approach takes a bit more rendering time, so web pages will be slower.</p>
+<p>To set up the developer controller, a separate virtual host should be created, pointing at the <code>dev/</code> directory.</p>
+<pre><code class="language-xml">&lt;VirtualHost *:80&gt;
+    DocumentRoot "path_to_project"
+    ServerName dev.stitcher.local
+
+    &lt;Directory "path_to_project"&gt;
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</code></pre>
+<h3>Creating a website</h3>
+<p>While the developer controller will generate pages on the fly; a production website made with Stitcher is of course
+completely generated as HTML before the website is visited.</p>
+<pre><code class="language-sh">./stitcher site:generate</code></pre>
+<p>This command will generate your website in the <code>directories.src</code> directory. It will &quot;stitch&quot; all templates, data, images,
+assets, etc. together into one whole result.</p>
+    
+            </div>
+
+            <footer>
+                
+    <div class="wrapper">
+                            <a class="next" href="/guide/project-structure">Next: project structure</a>
+            </div>
+
+            </footer>
+
+            
+    <script>document.addEventListener('DOMContentLoaded',codeClick);function codeClick(){var codeBlocks=document.querySelectorAll('code');for(var codeBlock of codeBlocks){codeBlock.addEventListener('click',function(){var range=document.createRange();range.selectNode(this);window.getSelection().addRange(range);});}}</script>
+
+        
+    </body>
+</html>

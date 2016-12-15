@@ -1,0 +1,100 @@
+<html>
+    <head>
+        
+            <title>Project structure - Stitcher 1.0</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>body{padding:0;margin:0;position:relative;background:#fdfdfd;font-family:"Helvetica Neue",Helvetica,sans-serif;font-size:18px}.wrapper{width:960px;margin:0 auto}.vwrapper{margin-top:2em}img{display:block;max-width:25%}a{color:#128d9e}h1{color:#128d9e}h2{margin-top:40px}h3{margin-top:1.6em;margin-bottom:.7em}h4{margin-top:2.5em;margin-bottom:1em}p{line-height:1.7em}li{margin:10px 0}li>code,p>code{display:inline-block;border-bottom:1px solid #ff8719;cursor:pointer;padding-left:2px;padding-right:2px;line-height:1em;padding-bottom:2px}code{background:#fff;font-family:Monaco,monospace}pre>code{display:block;border-left:5px solid #ff8719;padding:1.3em 30px;font-size:.8em;line-height:1.5em;cursor:pointer;margin-left:-20px;overflow-x:scroll}.button{cursor:pointer;color:#fff;border:1px solid #fff;padding:10px;display:inline-block;text-decoration:none;margin-right:10px}.button:last-child{margin-right:0}.button-link{margin-right:10px;color:#fff;font-weight:100}header{display:block;background:#128d9e;color:#fff}header nav>a{color:inherit;display:inline-block;text-decoration:none;padding:15px 20px}header nav>a:first-child{padding-left:0}.stitcher{color:inherit;font-weight:100;font-style:italic}.next{display:block;float:right}.prev{display:block;float:left}footer{margin-top:40px;background:#484848;color:#fff;padding:30px 0}footer:after{clear:both;display:block;content:' '}footer a{color:inherit}</style>
+        
+    </head>
+    <body>
+        
+            
+                <header>
+                    <nav class="wrapper">
+                        <a href="/" class="stitcher">Stitcher</a>
+                        <a href="/guide">Guide</a>
+                        <a href="/examples">Examples</a>
+                    </nav>
+                </header>
+            
+
+            
+                                    <div class="wrapper">
+                        <h2>Project structure</h2>
+                    </div>
+                            
+
+            <div class="wrapper">
+                
+            <p>A Stitcher project consists of three base directories: <code>src/</code>, <code>dev/</code> and <code>public/</code>. The <code>src/</code> directory contains all
+the files needed to build your site. The <code>public/</code> is the public site directory, in which all pages will be rendered or
+&quot;stitched&quot; together. In addition to these two directories, the <code>dev/</code> directory will be useful in many cases during development. </p>
+<p>A basic Stitcher site might look something like this.</p>
+<pre><code>.
+├── public/
+│   └── .htaccess
+├── dev/
+│   ├── .htaccess
+│   ├── config.dev.yml
+│   └── index.php
+├── src/
+│   ├── css/
+│   ├── data/
+│   ├── img/
+│   ├── js/
+│   ├── site/
+│   └── template/
+├── config.yml
+└── stitcher</code></pre>
+<h3>Site</h3>
+<p>The <code>src/site/</code> directory is used for yaml files describing the pages of the website. Each yaml file (default <code>site.yml</code>)
+holds be a collection of routes for pages and their configuration. A basic example would be the following.</p>
+<pre><code class="language-yaml">/:
+    template: home
+
+/guide:
+    template: guide
+    data:
+        title: Guide
+
+/guide/setting-up:
+    template: guide.page
+    variables:
+        title: Setting up
+        content: guide/setting-up.md
+        nextUrl: /guide/project-structure
+        nextTitle: Project structure</code></pre>
+<h3>Data</h3>
+<p>The <code>src/data/</code> directory is used to store all kinds of different data files. Data entries can be provided in many formats:
+JSON, YAML, MarkDown, image, folder,.. A data file can either contain data of a single entry, or a collection of multiple entries.
+In the second case, when using JSON or YAML files, An extra root key <code>entries</code> is required.</p>
+<p>Examples of data usage can be found in <a href="/guide/working-with-data">the next chapter</a>.</p>
+<h3>Templates</h3>
+<p>Stitcher offers support for two template engines: smarty and twig. Both have the same helper functions available.
+Which engine you want to use is up to you, and configured in <code>config.yml</code>.</p>
+<pre><code class="language-yaml">engines:
+    template: smarty</code></pre>
+<p>Templates are stored by default in the <code>src/template/</code> directory, but this path can be changed in <code>config.yml</code>.</p>
+<pre><code class="language-yaml">directories:
+    template: ./src/my_templates</code></pre>
+<h3>Images, JS and CSS</h3>
+<p>Stitcher provides many helper functions to load different asset files. There's support for responsive image rendering, sass or scss compiling,
+minification, inline script loading and more. For now, the most important thing to know is that your source files should go in these folders.</p>
+    
+            </div>
+
+            <footer>
+                
+    <div class="wrapper">
+                    <a class="prev" href="/guide/setting-up">Previous: setting up</a>
+                            <a class="next" href="/guide/working-with-data">Next: working with data</a>
+            </div>
+
+            </footer>
+
+            
+    <script>document.addEventListener('DOMContentLoaded',codeClick);function codeClick(){var codeBlocks=document.querySelectorAll('code');for(var codeBlock of codeBlocks){codeBlock.addEventListener('click',function(){var range=document.createRange();range.selectNode(this);window.getSelection().addRange(range);});}}</script>
+
+        
+    </body>
+</html>
