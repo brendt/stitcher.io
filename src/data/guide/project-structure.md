@@ -42,8 +42,9 @@ holds be a collection of routes for pages and their configuration. A basic examp
     variables:
         title: Setting up
         content: guide/setting-up.md
-        nextUrl: /guide/project-structure
-        nextTitle: Project structure
+        next:
+            url: /guide/project-structure
+            title: Project structure
 ```
 
 ### Data
