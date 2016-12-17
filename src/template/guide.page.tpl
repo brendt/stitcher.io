@@ -8,11 +8,11 @@
 
 {block 'footer'}
     <div class="wrapper">
-        {if isset($prevUrl)}
-            <a class="prev" href="{$prevUrl}">Previous{if isset($prevTitle)}: {$prevTitle|strtolower}{/if}</a>
+        {if isset($prev)}
+            <a class="prev" href="{$prev.url}">Previous{if isset($prev.title)}: {$prev.title|strtolower}{/if}</a>
         {/if}
-        {if isset($nextUrl)}
-            <a class="next" href="{$nextUrl}">Next{if isset($nextTitle)}: {$nextTitle|strtolower}{/if}</a>
+        {if isset($next)}
+            <a class="next" href="{$next.url}">Next{if isset($next.title)}: {$next.title|strtolower}{/if}</a>
         {/if}
     </div>
 {/block}

@@ -4,3 +4,5 @@ JSON or YAML files, MarkDown files, images, SASS or CSS, JavaScript, folders and
 
 The goal is simple: create blazing fast websites. Stitcher will parse all your templates into static HTML pages, will parse and minify CSS and JavaScript,
  will optimize images using ``srcset`` and provides useful developer tools to aid you in setting things up smoothly.
+
+Ready to get started? Take 5 more minutes to read through the following guide and you'll be ready to go!

@@ -1,22 +1,2 @@
 /:
     template: home
-
-/examples:
-    template: examples/overview
-    variables:
-        collection: collection.yml
-    adapters:
-        # Enable pagination for the field `collection`, paginate per 4 entries.
-        pagination:
-            variable: collection
-            amount: 4
-
-/examples/{id}:
-    template: examples/detail
-    variables:
-        example: collection.yml
-    adapters:
-        # Enable detail pages for the variable `example`, map by the field `id`.
-        collection:
-            variable: example
-            field: id
