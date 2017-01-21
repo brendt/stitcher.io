@@ -3,12 +3,18 @@
     variables:
         title: Guide
         content: guide.md
+        next:
+            url: /guide/setting-up
+            title: Setting up
 
 /guide/setting-up:
     template: guide.page
     variables:
         title: Setting up
         content: guide/setting-up.md
+        prev:
+            url: /guide
+            title: Overview
         next:
             url: /guide/project-structure
             title: Project structure
@@ -34,27 +40,14 @@
             url: /guide/project-structure
             title: Project structure
         next:
-            url: /guide/working-with-images
-            title: Working with images
+            url: /guide/templates
+            title: Templates
 
-/guide/working-with-images:
+/guide/templates:
     template: guide.page
     variables:
-        title: Working with images
-        content: guide/working-with-images.md
+        title: Templates
+        content: guide/templates.md
         prev:
             url: /guide/working-with-data
             title: Working with data
-        next:
-            url: /guide/helper-functions
-            title: Helper functions
-
-/guide/helper-functions:
-    template: guide.page
-    variables:
-        title: Helper functions
-        content: guide/helper-functions.md
-        prev:
-            url: /guide/working-with-images
-            title: Working with images
-
