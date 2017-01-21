@@ -1,5 +1,5 @@
 A Stitcher project consists of three base directories: `src/`, `dev/` and `public/`. The `src/` directory contains all 
-the files needed to build your site. The `public/` is the public site directory, in which all pages will be rendered or 
+the files needed to build your site. `public/` is the public site directory, in which all pages will be rendered or 
 "stitched" together. In addition to these two directories, the `dev/` directory will be useful in many cases during development. 
 
 A basic Stitcher site might look something like this.

@@ -13,7 +13,7 @@
                     <nav class="wrapper">
                         <a href="/" class="stitcher">Stitcher</a>
                         <a href="/guide">Guide</a>
-                        <a href="/examples">Examples</a>
+                        <a href="/blog">Blog</a>
                     </nav>
                 </header>
             {/block}
