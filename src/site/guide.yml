@@ -51,3 +51,15 @@
         prev:
             url: /guide/working-with-data
             title: Working with data
+        next:
+            url: /guide/adapters
+            title: Adapters
+
+/guide/adapters:
+    template: guide.page
+    variables:
+        title: Adapters
+        content: guide/adapters.md
+        prev:
+            url: /guide/templates
+            title: Templates

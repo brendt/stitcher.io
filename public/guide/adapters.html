@@ -1,8 +1,9 @@
 <html>
     <head>
         
-            <title>Working with images - Stitcher 1.0</title>
+            <title>Adapters - Stitcher 1.0</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Static websites with PHP, YAML, MarkDown, JSON and Smarty/Twig">
             <style>body{padding:0;margin:0;position:relative;background:#fdfdfd;font-family:"Helvetica Neue",Helvetica,sans-serif;font-size:18px}.wrapper{width:960px;margin:0 auto}.vwrapper{margin-top:2em}img{display:block;max-width:25%}a{color:#128d9e}h1{color:#128d9e}h2{margin-top:40px}h3{margin-top:1.6em;margin-bottom:.7em}h4{margin-top:2.5em;margin-bottom:1em}p{line-height:1.7em}li{margin:10px 0}li>code,p>code{display:inline-block;border-bottom:1px solid #ff8719;cursor:pointer;padding-left:2px;padding-right:2px;line-height:1em;padding-bottom:2px}code{background:#fff;font-family:Monaco,monospace}pre>code{display:block;border-left:5px solid #ff8719;padding:1.3em 30px;font-size:.8em;line-height:1.5em;cursor:pointer;margin-left:-20px;overflow-x:scroll}.button{cursor:pointer;color:#fff;border:1px solid #fff;padding:10px;display:inline-block;text-decoration:none;margin-right:10px}.button:last-child{margin-right:0}.button-link{margin-right:10px;color:#fff;font-weight:100}header{display:block;background:#128d9e;color:#fff}header nav>a{color:inherit;display:inline-block;text-decoration:none;padding:15px 20px}header nav>a:first-child{padding-left:0}.stitcher{color:inherit;font-weight:100;font-style:italic}.next{display:block;float:right}.prev{display:block;float:left}footer{margin-top:40px;background:#484848;color:#fff;padding:30px 0}footer:after{clear:both;display:block;content:' '}footer a{color:inherit}</style>
         
     </head>
@@ -13,29 +14,79 @@
                     <nav class="wrapper">
                         <a href="/" class="stitcher">Stitcher</a>
                         <a href="/guide">Guide</a>
-                        <a href="/examples">Examples</a>
+                        
                     </nav>
                 </header>
             
 
             
                                     <div class="wrapper">
-                        <h2>Working with images</h2>
+                        <h2>Adapters</h2>
                     </div>
                             
 
             <div class="wrapper">
                 
-            <h2>Working with images</h2>
+            <p>Adapters are used in site configuration files to change the way that page is rendered. An adapter will take the page's
+configuration and change or adapt it into one or more new configurations. Currently, two adapters are supported:</p>
+<ul>
+<li>Pagination</li>
+<li>Collection</li>
+</ul>
+<h4>Pagination</h4>
+<p>The pagination adapter takes a page with a collection of entries and generates pagination for that collection. This
+adapter will generate several pages instead of one, and adds the <code>$pagination</code> variable to the template.</p>
+<pre><code class="language-yaml"># site/site.yml
+
+/examples:
+    template: examples/overview
+    data:
+        collection: collection.yml
+    adapters:
+    pagination:
+        variable: collection
+        entriesPerPage: 4</code></pre>
+<p>In <code>examples/overview.tpl</code>, this <code>$pagination</code> variable is now available.</p>
+<pre><code class="language-html">{$pagination}
+
+{$pagination.next.url}
+{$pagination.next.index}
+{$pagination.prev.url}
+{$pagination.prev.index}
+{$pagination.current}
+{$pagination.pages}
+
+{if $pagination.prev}
+    &lt;a href="{$pagination.prev.url}"&gt;Previous page&lt;/a&gt;
+{/if}
+
+{for $page = 1 to $pagination.pages}
+    &lt;a href="/my-url/page-{$page}"&gt;
+        {$page}
+    &lt;/a&gt;
+{/for}
+
+{if $pagination.next}
+    &lt;a href="{$pagination.next.url}"&gt;Next page&lt;/a&gt;
+{/if}</code></pre>
+<h4>Collection</h4>
+<p>The collection adapter takes a page with a collection of entries, and generates a detail page for each entry in the collection.</p>
+<pre><code class="language-yaml">/examples/{id}:
+    template: examples/detail
+    data:
+        example: collection.yml
+    adapters:
+        collection:
+            variable: example
+            field: id</code></pre>
     
             </div>
 
             <footer>
                 
     <div class="wrapper">
-                    <a class="prev" href="/guide/working-with-data">Previous: working with data</a>
-                            <a class="next" href="/guide/helper-functions">Next: helper functions</a>
-            </div>
+                    <a class="prev" href="/guide/templates">Previous: templates</a>
+                    </div>
 
             </footer>
 

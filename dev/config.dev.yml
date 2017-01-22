@@ -29,6 +29,7 @@ directories:
 
 meta:
     viewport: width=device-width, initial-scale=1
+    description: Static websites with PHP, YAML, MarkDown, JSON and Smarty/Twig
 
 # Do not minify CSS or JavaScript
 minify: false

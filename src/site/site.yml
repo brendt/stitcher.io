@@ -1,2 +1,8 @@
 /:
-    template: home
+    template: guide
+    variables:
+        title: Welcome to Stitcher!
+        content: guide.md
+        next:
+            url: /guide/setting-up
+            title: Setting up
