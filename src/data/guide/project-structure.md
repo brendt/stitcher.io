@@ -5,22 +5,21 @@ the files needed to build your site. `public/` is the public site directory, in 
 A basic Stitcher site might look something like this.
 
 ```
-.
-    public/
-        .htaccess
-    dev/
-        .htaccess
-        config.dev.yml
-        index.php
-    src/
-        css/
-        data/
-        img/
-        js/
-        site/
-        template/
-    config.yml
-    stitcher
+public/
+    .htaccess
+dev/
+    .htaccess
+    config.dev.yml
+    index.php
+src/
+    css/
+    data/
+    img/
+    js/
+    site/
+    template/
+config.yml
+stitcher
 ```
 
 ### Site
