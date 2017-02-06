@@ -2,7 +2,7 @@
     template: guide
     variables:
         title: Welcome to Stitcher!
-        content: guide.md
+        content: home.md
         next:
             url: /guide/setting-up
             title: Setting up
