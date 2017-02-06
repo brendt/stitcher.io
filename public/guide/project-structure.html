@@ -32,21 +32,21 @@ the files needed to build your site. <code>public/</code> is the public site dir
 &quot;stitched&quot; together. In addition to these two directories, the <code>dev/</code> directory will be useful in many cases during development. </p>
 <p>A basic Stitcher site might look something like this.</p>
 <pre><code>.
-├── public/
-│   └── .htaccess
-├── dev/
-│   ├── .htaccess
-│   ├── config.dev.yml
-│   └── index.php
-├── src/
-│   ├── css/
-│   ├── data/
-│   ├── img/
-│   ├── js/
-│   ├── site/
-│   └── template/
-├── config.yml
-└── stitcher</code></pre>
+    public/
+        .htaccess
+    dev/
+        .htaccess
+        config.dev.yml
+        index.php
+    src/
+        css/
+        data/
+        img/
+        js/
+        site/
+        template/
+    config.yml
+    stitcher</code></pre>
 <h3>Site</h3>
 <p>The <code>src/site/</code> directory is used for yaml files describing the pages of the website. Each yaml file (default <code>site.yml</code>)
 holds be a collection of routes for pages and their configuration. A basic example would be the following.</p>

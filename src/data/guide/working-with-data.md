@@ -111,12 +111,12 @@ variables:
 
 ```sh
 data/
- └── folder/
-      ├── entry-a.yml
-      ├── entry-b.yml
-      ├── entry-c.yml
-      ├── entry-d.yml
-      └── entry-e.yml
+   folder/
+        entry-a.yml
+        entry-b.yml
+        entry-c.yml
+        entry-d.yml
+        entry-e.yml
 ```
 
 ```yaml
