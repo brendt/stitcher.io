@@ -1,6 +1,6 @@
 vendor/
 .idea
-/dev/cache
-/cache
-/public/img
-/cache
+dev/
+public/
+cache
+.DS_Store

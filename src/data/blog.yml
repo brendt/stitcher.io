@@ -1,0 +1,39 @@
+entries:
+    async_images:
+        date: 2017-03-10
+        news: true
+        title: Generating images asynchronous
+        content: blog/async_images.md
+
+    static_sites_vs_caching:
+        date: 2017-03-02
+        highlight: true
+        title: Static site generators vs. caching
+        content: blog/static_sites_vs_caching.md
+
+    php_7_1:
+        date: 2017-02-26
+        news: true
+        title: Updating to PHP 7.1
+        content: blog/php_7_1.md
+
+    image_optimizers:
+        date: 2017-02-26
+        news: true
+        title: Image optimizers
+        content: blog/image_optimizers.md
+
+    tackling_repsonsive_images-part_1:
+        date: 2017-02-17
+        highlight: true
+        title: Tackling repsonsive images - part 1
+        content: blog/tackling_repsonsive_images-part_1.md
+#        image: img/html.png
+        next:
+            id: tackling_repsonsive_images-part_2
+            title: Tackling repsonsive images - part 2
+
+    tackling_repsonsive_images-part_2:
+        date: 2017-02-18
+        title: Tackling repsonsive images - part 2
+        content: blog/tackling_repsonsive_images-part_2.md

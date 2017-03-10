@@ -1,8 +1,10 @@
 Adapters are used in site configuration files to change the way that page is rendered. An adapter will take the page's 
- configuration and change or adapt it into one or more new configurations. Currently, two adapters are supported:
+ configuration and change or adapt it into one or more new configurations. Currently, these adapters are supported:
  
 - Pagination
 - Collection
+- Order
+- Filter
 
 #### Pagination
 
@@ -62,4 +64,35 @@ The collection adapter takes a page with a collection of entries, and generates 
         collection:
             variable: example
             field: id
+```
+
+#### Order
+
+Applies order to a data set, based on a field of that data.
+
+```yaml
+/blog:
+    template: blog/overview
+    data:
+        posts: data/blog.yml
+    adapters:
+        order:
+            posts:
+                field: date
+                direction: desc
+```
+
+#### Filter
+
+Filter a data set.
+
+```yaml
+/blog:
+    template: blog/overview
+    data:
+        posts: data/blog.yml
+    adapters:
+        filter:
+            posts:
+                highlight: true
 ```

@@ -1,24 +1,35 @@
 {extends 'index.tpl'}
 
-{block 'head' append}
-    {css src='home.scss' inline=true}
+{include 'helper/render.tpl'}
+
+{block 'header'}
+    <header class="home">
+        <div class="wrapper">
+            <h1>Stitcher :</h1>
+            <em>high performance, static websites for PHP developers.</em>
+            <div class="vwrapper">
+                <a href="/guide" class="btn">read the guide</a>
+                <a href="#read" class="btn">news</a>
+            </div>
+            <div class="vwrapper">
+                <a href="/blog" class="highlight">Read all blogposts</a>
+            </div>
+        </div>
+        <img src="{$banner.src}" srcset="{$banner.srcset}" alt="">
+    </header>
 {/block}
 
-{block 'header'}{/block}
-
-{block 'body'}
-    <div class="heading">
-        <h2>
-            Welcome to Stitcher
-        </h2>
-        <h3>
-            a tool to create <em>blazing</em> fast websites.
-        </h3>
-
-        <div class="vwrapper">
-            <a class="button" href="./guide">Read the guide</a>
-            <em class="button-link">or</em>
-            <a class="button" href="./examples">Show examples</a>
-        </div>
+{block 'content'}
+    <a name="read"></a>
+    <h2>News</h2>
+    {foreach $news as $newsPost}
+        {call blog post=$newsPost}
+    {/foreach}
+    <h2>Latest blog posts</h2>
+    {foreach $blog as $blogPost}
+        {call blog post=$blogPost}
+    {/foreach}
+    <div class="vwrapper">
+        <a href="/blog">Read all blogposts</a>
     </div>
 {/block}

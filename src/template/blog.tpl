@@ -1,13 +1,11 @@
 {extends 'index.tpl'}
 
+{include 'helper/render.tpl'}
+
 {block 'content'}
-    {foreach $posts as $id => $post}
-        <div>
-            {$post.content|truncate:100}
-        </div>
-        <a href="/blog/{$id}">
-            Read more
-        </a>
+    <h2>Blog</h2>
+    {foreach $posts as $post}
+        {call blog post=$post tag=true}
     {/foreach}
 {/block}
 
