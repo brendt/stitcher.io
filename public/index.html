@@ -1,60 +1,128 @@
 <html>
     <head>
         
-            <title>Welcome to Stitcher! - Stitcher 1.0</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Stitcher 1.0</title>
+            
+                <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Static websites with PHP, YAML, MarkDown, JSON and Smarty/Twig">
-            <style>body{padding:0;margin:0;position:relative;background:#fdfdfd;font-family:"Helvetica Neue",Helvetica,sans-serif;font-size:18px}.wrapper{width:960px;margin:0 auto}.vwrapper{margin-top:2em}img{display:block;max-width:25%}a{color:#128d9e}h1{color:#128d9e}h2{margin-top:40px}h3{margin-top:1.6em;margin-bottom:.7em}h4{margin-top:2.5em;margin-bottom:1em}p{line-height:1.7em}li{margin:10px 0}li>code,p>code{display:inline-block;border-bottom:1px solid #ff8719;cursor:pointer;padding-left:2px;padding-right:2px;line-height:1em;padding-bottom:2px}code{background:#fff;font-family:Monaco,monospace}pre>code{display:block;border-left:5px solid #ff8719;padding:1.3em 30px;font-size:.8em;line-height:1.5em;cursor:pointer;margin-left:-20px;overflow-x:scroll}.button{cursor:pointer;color:#fff;border:1px solid #fff;padding:10px;display:inline-block;text-decoration:none;margin-right:10px}.button:last-child{margin-right:0}.button-link{margin-right:10px;color:#fff;font-weight:100}header{display:block;background:#128d9e;color:#fff}header nav>a{color:inherit;display:inline-block;text-decoration:none;padding:15px 20px}header nav>a:first-child{padding-left:0}.stitcher{color:inherit;font-weight:100;font-style:italic}.next{display:block;float:right}.prev{display:block;float:left}footer{margin-top:40px;background:#484848;color:#fff;padding:30px 0}footer:after{clear:both;display:block;content:' '}footer a{color:inherit}</style>
+            
+            <style>body{padding:0;margin:0;position:relative;background:#f5f5f5;font-family:"Helvetica Neue",Helvetica,sans-serif;font-size:18px}.wrapper{width:960px;margin:0 auto}.vwrapper{margin-top:2em}img{display:block}a{color:#128d9e}h1{color:#128d9e}h2{margin-top:40px}h3{margin-top:1.6em;margin-bottom:.7em}h4{margin-top:2.5em;margin-bottom:1em}p{line-height:1.7em}li{margin:10px 0}li>code,p>code{display:inline-block;border-bottom:1px solid #ff8719;cursor:pointer;padding-left:2px;padding-right:2px;line-height:1em;padding-bottom:2px}code{background:#fff;font-family:Monaco,monospace}blockquote,pre>code{display:block;border-left:5px solid #ff8719;line-height:1.5em;overflow-x:scroll}pre>code{cursor:pointer;font-size:.8em;margin-left:-20px;padding:1.3em 30px}blockquote{font-style:italic;padding:.8em 30px}blockquote>p{margin:0}.button{cursor:pointer;color:#fff;border:1px solid #fff;padding:10px;display:inline-block;text-decoration:none;margin-right:10px}.button:last-child{margin-right:0}.button-link{margin-right:10px;color:#fff;font-weight:100}header{display:block;background:#128d9e;color:#fff}header.home{height:90vh;overflow:hidden;position:relative;background:rgba(18,141,158,.7)}header.home>img{display:block;position:absolute;top:0;left:0;z-index:-1;min-height:90vh;width:100%}header.home>.wrapper{padding-top:35vh;z-index:1;position:relative}header.home h1{color:#fff;margin-bottom:.1em}header.home em{font-style:normal}header.home a.highlight{color:#fff;font-weight:100}header.home a.btn{display:inline-block;padding:.6em 10px;color:#fff;border:1px solid #fff;text-decoration:none;min-width:150px;text-align:center;font-weight:100;margin-right:.6em}header.home a.btn:hover{color:#128d9e;background:#fff}header nav>a{color:inherit;display:inline-block;text-decoration:none;padding:15px 20px}header nav>a:first-child{padding-left:0}.stitcher{color:inherit;font-weight:100;font-style:italic}.next{display:block;float:right}.prev{display:block;float:left}footer{margin-top:40px;background:#484848;color:#fff;padding:30px 0}footer:after{clear:both;display:block;content:' '}footer a{color:inherit}.blog{width:90%;background:#fff;margin-top:4em;padding-bottom:2em}.blog>h1{padding:1.5em 4% .5em}.blog>h2,.blog>h3,.blog>h4,.blog>h5{padding:0 5%}.blog img+h1{padding-top:.75em}.blog>p{padding-left:5%;padding-right:5%}.blog>pre>code{margin-left:0}.blog>img{display:block;width:100%;max-width:100%}.gallery:after{clear:both;display:block;content:' '}.gallery>img{float:left;width:32.7%;margin-right:.5%;margin-bottom:1em;display:block}@media(max-width:1000px){.wrapper{width:100vw;padding:2%}.gallery>img{width:96%;clear:both}}article{margin-bottom:3em}article h1{font-size:1em}article h1.news:before{display:inline-block;content:'news';padding:.1em 3px;color:#fff;background:#ff8719;border-radius:2px;margin-right:5px}article.blog>h1{font-size:1.5em;margin-left:1%}article>ul{margin-left:50px;padding:0}</style>
         
     </head>
     <body>
         
+            <a href="https://github.com/brendt/stitcher" target="_blank" rel="nofollow noopener"><img style="position: absolute; z-index:99;top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork Stitcher on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+        
+        
             
-                <header>
-                    <nav class="wrapper">
-                        <a href="/" class="stitcher">Stitcher</a>
-                        <a href="/guide">Guide</a>
-                        
-                    </nav>
-                </header>
-            
+    <header class="home">
+        <div class="wrapper">
+            <h1>Stitcher :</h1>
+            <em>high performance, static websites for PHP developers.</em>
+            <div class="vwrapper">
+                <a href="/guide" class="btn">read the guide</a>
+                <a href="#read" class="btn">news</a>
+            </div>
+            <div class="vwrapper">
+                <a href="/blog" class="highlight">Read all blogposts</a>
+            </div>
+        </div>
+        <img src="/img/home_banner2.jpg" srcset="/img/home_banner2-5151.jpg 5151w,/img/home_banner2-3642.jpg 3642w,/img/home_banner2-2575.jpg 2575w,/img/home_banner2-1821.jpg 1821w,/img/home_banner2-1287.jpg 1287w,/img/home_banner2-910.jpg 910w,/img/home_banner2-643.jpg 643w,/img/home_banner2-455.jpg 455w,/img/home_banner2-321.jpg 321w" alt="">
+    </header>
+
 
             
-                                    <div class="wrapper">
-                        <h2>Welcome to Stitcher!</h2>
-                    </div>
                             
 
             <div class="wrapper">
                 
-    <p>Stitcher sites can be built by anyone with basic HTML knowledge: <strong>data entries</strong> are mapped onto <strong>templates</strong> which are accessible via <strong>a URL</strong>.
-These two components (entries and templates) are mapped - <em>stitched</em> - together via a <strong>config file</strong>. Data entries can be provided in many ways:
-JSON or YAML files, MarkDown files, images, SASS or CSS, JavaScript, folders and more.</p>
-<p>The goal is simple: create blazing fast websites. Stitcher will parse all your templates into static HTML pages, will parse and minify CSS and JavaScript,
-will optimize images using <code>srcset</code> and provides useful developer tools to aid you in setting things up smoothly.</p>
-<p>Ready to get started? Take 5 more minutes to read through the following guide and you'll be ready to go!</p>
+    <a name="read"></a>
+    <h2>News</h2>
+                <article>
+                    <h1 >Generating images asynchronous</h1>
+                            <em>2017-03-10</em>
+                            <div>
+                <p>
+                     Stitcher now support asynchronous image generation. The option is enabled by default, but if your system doesn't support PHPs  pcntl  extension, it will fall back to synchronous rendering. The goal of this new feature is to speed up image...
+                </p>
+            </div>
+                <a href="/blog/async_images">
+            Read more
+        </a>
+    </article>
 
-    <ul>
-        <li><a href="/guide/setting-up">Setting up</a></li>
-        <li><a href="/guide/project-structure">Project Structure</a></li>
-        <li><a href="/guide/working-with-data">Working with data</a></li>
-        <li><a href="/guide/templates">Templates</a></li>
-        <li><a href="/guide/adapters">Adapters</a></li>
-    </ul>
+                <article>
+                    <h1 >Updating to PHP 7.1</h1>
+                            <em>2017-02-26</em>
+                            <div>
+                <p>
+                     As of version 1.0.0-alpha2, the minimum PHP requirement for the Stitcher library is 7.1. This decision was made because of two reasons: 
+ 
+ It would be a bad choice to keep supporting end of life- and deprecated PHP versions. 
+ Because PHP 7.0...
+                </p>
+            </div>
+                <a href="/blog/php_7_1">
+            Read more
+        </a>
+    </article>
+
+                <article>
+                    <h1 >Image optimizers</h1>
+                            <em>2017-02-26</em>
+                            <div>
+                <p>
+                     I've been working lately on image optimisation in Stitcher. As a try-out, I've added  this library  to the responsive images module.  
+ Enabling the optimizer is done by updating Stitcher (1.0.0-alpha2), and adding the following parameter in...
+                </p>
+            </div>
+                <a href="/blog/image_optimizers">
+            Read more
+        </a>
+    </article>
+
+    
+    <h2>Latest blog posts</h2>
+                <article>
+                    <h1 >Static site generators vs. caching</h1>
+                            <em>2017-03-02</em>
+                            <div>
+                <p>
+                     What's the difference between static site generators and caching you ask?  
+ A short answer might be: there is no technical benefit between both. But the mindset behind the two is completely different. 
+ I think the topic is too interesting to...
+                </p>
+            </div>
+                <a href="/blog/static_sites_vs_caching">
+            Read more
+        </a>
+    </article>
+
+                <article>
+                    <h1 >Tackling repsonsive images - part 1</h1>
+                            <em>2017-02-17</em>
+                            <div>
+                <p>
+                     One of the main goals when I started with Stitcher was heavily optimized images. Looking at the  HTTP Archive  stats, it's clear we're doing something wrong. Luckily, the  Responsive images spec  has been made by a lot of smart people to counter...
+                </p>
+            </div>
+                <a href="/blog/tackling_repsonsive_images-part_1">
+            Read more
+        </a>
+    </article>
+
+    
+    <div class="vwrapper">
+        <a href="/blog">Read all blogposts</a>
+    </div>
 
             </div>
 
             <footer>
                 
-    <div class="wrapper">
-                            <a class="next" href="/guide/setting-up">Next: setting up</a>
-            </div>
-
             </footer>
 
             
-    <script>document.addEventListener('DOMContentLoaded',codeClick);function codeClick(){var codeBlocks=document.querySelectorAll('code');for(var codeBlock of codeBlocks){codeBlock.addEventListener('click',function(){var range=document.createRange();range.selectNode(this);window.getSelection().addRange(range);});}}</script>
-
         
     </body>
 </html>

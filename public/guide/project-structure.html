@@ -2,19 +2,24 @@
     <head>
         
             <title>Project structure - Stitcher 1.0</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+            
+                <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Static websites with PHP, YAML, MarkDown, JSON and Smarty/Twig">
-            <style>body{padding:0;margin:0;position:relative;background:#fdfdfd;font-family:"Helvetica Neue",Helvetica,sans-serif;font-size:18px}.wrapper{width:960px;margin:0 auto}.vwrapper{margin-top:2em}img{display:block;max-width:25%}a{color:#128d9e}h1{color:#128d9e}h2{margin-top:40px}h3{margin-top:1.6em;margin-bottom:.7em}h4{margin-top:2.5em;margin-bottom:1em}p{line-height:1.7em}li{margin:10px 0}li>code,p>code{display:inline-block;border-bottom:1px solid #ff8719;cursor:pointer;padding-left:2px;padding-right:2px;line-height:1em;padding-bottom:2px}code{background:#fff;font-family:Monaco,monospace}pre>code{display:block;border-left:5px solid #ff8719;padding:1.3em 30px;font-size:.8em;line-height:1.5em;cursor:pointer;margin-left:-20px;overflow-x:scroll}.button{cursor:pointer;color:#fff;border:1px solid #fff;padding:10px;display:inline-block;text-decoration:none;margin-right:10px}.button:last-child{margin-right:0}.button-link{margin-right:10px;color:#fff;font-weight:100}header{display:block;background:#128d9e;color:#fff}header nav>a{color:inherit;display:inline-block;text-decoration:none;padding:15px 20px}header nav>a:first-child{padding-left:0}.stitcher{color:inherit;font-weight:100;font-style:italic}.next{display:block;float:right}.prev{display:block;float:left}footer{margin-top:40px;background:#484848;color:#fff;padding:30px 0}footer:after{clear:both;display:block;content:' '}footer a{color:inherit}</style>
+            
+            <style>body{padding:0;margin:0;position:relative;background:#f5f5f5;font-family:"Helvetica Neue",Helvetica,sans-serif;font-size:18px}.wrapper{width:960px;margin:0 auto}.vwrapper{margin-top:2em}img{display:block}a{color:#128d9e}h1{color:#128d9e}h2{margin-top:40px}h3{margin-top:1.6em;margin-bottom:.7em}h4{margin-top:2.5em;margin-bottom:1em}p{line-height:1.7em}li{margin:10px 0}li>code,p>code{display:inline-block;border-bottom:1px solid #ff8719;cursor:pointer;padding-left:2px;padding-right:2px;line-height:1em;padding-bottom:2px}code{background:#fff;font-family:Monaco,monospace}blockquote,pre>code{display:block;border-left:5px solid #ff8719;line-height:1.5em;overflow-x:scroll}pre>code{cursor:pointer;font-size:.8em;margin-left:-20px;padding:1.3em 30px}blockquote{font-style:italic;padding:.8em 30px}blockquote>p{margin:0}.button{cursor:pointer;color:#fff;border:1px solid #fff;padding:10px;display:inline-block;text-decoration:none;margin-right:10px}.button:last-child{margin-right:0}.button-link{margin-right:10px;color:#fff;font-weight:100}header{display:block;background:#128d9e;color:#fff}header.home{height:90vh;overflow:hidden;position:relative;background:rgba(18,141,158,.7)}header.home>img{display:block;position:absolute;top:0;left:0;z-index:-1;min-height:90vh;width:100%}header.home>.wrapper{padding-top:35vh;z-index:1;position:relative}header.home h1{color:#fff;margin-bottom:.1em}header.home em{font-style:normal}header.home a.highlight{color:#fff;font-weight:100}header.home a.btn{display:inline-block;padding:.6em 10px;color:#fff;border:1px solid #fff;text-decoration:none;min-width:150px;text-align:center;font-weight:100;margin-right:.6em}header.home a.btn:hover{color:#128d9e;background:#fff}header nav>a{color:inherit;display:inline-block;text-decoration:none;padding:15px 20px}header nav>a:first-child{padding-left:0}.stitcher{color:inherit;font-weight:100;font-style:italic}.next{display:block;float:right}.prev{display:block;float:left}footer{margin-top:40px;background:#484848;color:#fff;padding:30px 0}footer:after{clear:both;display:block;content:' '}footer a{color:inherit}.blog{width:90%;background:#fff;margin-top:4em;padding-bottom:2em}.blog>h1{padding:1.5em 4% .5em}.blog>h2,.blog>h3,.blog>h4,.blog>h5{padding:0 5%}.blog img+h1{padding-top:.75em}.blog>p{padding-left:5%;padding-right:5%}.blog>pre>code{margin-left:0}.blog>img{display:block;width:100%;max-width:100%}.gallery:after{clear:both;display:block;content:' '}.gallery>img{float:left;width:32.7%;margin-right:.5%;margin-bottom:1em;display:block}@media(max-width:1000px){.wrapper{width:100vw;padding:2%}.gallery>img{width:96%;clear:both}}article{margin-bottom:3em}article h1{font-size:1em}article h1.news:before{display:inline-block;content:'news';padding:.1em 3px;color:#fff;background:#ff8719;border-radius:2px;margin-right:5px}article.blog>h1{font-size:1.5em;margin-left:1%}article>ul{margin-left:50px;padding:0}</style>
         
     </head>
     <body>
+        
+            <a href="https://github.com/brendt/stitcher" target="_blank" rel="nofollow noopener"><img style="position: absolute; z-index:99;top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork Stitcher on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+        
         
             
                 <header>
                     <nav class="wrapper">
                         <a href="/" class="stitcher">Stitcher</a>
                         <a href="/guide">Guide</a>
-                        
+                        <a href="/blog">Blog</a>
                     </nav>
                 </header>
             
@@ -48,7 +53,7 @@ config.yml
 stitcher</code></pre>
 <h3>Site</h3>
 <p>The <code>src/site/</code> directory is used for yaml files describing the pages of the website. Each yaml file (default <code>site.yml</code>)
-holds be a collection of routes for pages and their configuration. A basic example would be the following.</p>
+holds a collection of routes for pages and their configuration. A basic example would be the following.</p>
 <pre><code class="language-yaml">/:
     template: home
 
@@ -69,7 +74,7 @@ holds be a collection of routes for pages and their configuration. A basic examp
 <p>The <code>src/data/</code> directory is used to store all kinds of different data files. Data entries can be provided in many formats:
 JSON, YAML, MarkDown, image, folder,.. A data file can either contain data of a single entry, or a collection of multiple entries.
 In the second case, when using JSON or YAML files, An extra root key <code>entries</code> is required.</p>
-<p>Examples of data usage can be found in <a href="/guide/working-with-data">the next chapter</a>.</p>
+<p>Examples of data usage can be found in the next chapter.</p>
 <h3>Templates</h3>
 <p>Stitcher offers support for two template engines: smarty and twig. Both have the same helper functions available.
 Which engine you want to use is up to you, and configured in <code>config.yml</code>.</p>

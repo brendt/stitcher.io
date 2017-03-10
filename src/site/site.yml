@@ -1,8 +1,44 @@
 /:
-    template: guide
+    template: home
     variables:
-        title: Welcome to Stitcher!
         content: home.md
-        next:
-            url: /guide/setting-up
-            title: Setting up
+        blog: data/blog.yml
+        news: data/blog.yml
+        banner: img/home_banner2.jpg
+    adapters:
+        filter:
+            blog:
+                highlight: true
+            news:
+                news: true
+        order:
+            blog:
+                field: date
+                direction: -
+            news:
+                field: date
+                direction: -
+/blog:
+    template: blog
+    variables:
+        posts: data/blog.yml
+    adapters:
+        order:
+            variable: posts
+            field: date
+            direction: -
+
+/blog/{id}:
+    template: blog.post
+    variables:
+        post: data/blog.yml
+    adapters:
+        collection:
+            variable: post
+            field: id
+
+/gallery:
+    template: gallery
+    variables:
+        content: gallery.md
+        images: gallery.yml

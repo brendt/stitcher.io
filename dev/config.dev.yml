@@ -27,6 +27,9 @@ directories:
     # Cache directory used by smarty
     cache: ./cache
 
+    # Template directory
+    template: ../src/template
+
 meta:
     viewport: width=device-width, initial-scale=1
     description: Static websites with PHP, YAML, MarkDown, JSON and Smarty/Twig
@@ -41,6 +44,8 @@ engines:
 
     # Use gd as image engine. Possible configurations: `gd` or `imagick`.
     image: gd
+
+    optimizer: false
 
 caches:
     # Enable image caching while rendering

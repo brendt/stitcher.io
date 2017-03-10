@@ -1,8 +1,14 @@
 {
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "brendt/stitcher": "dev-master"
+        "brendt/stitcher": "dev-develop",
+        "ps/image-optimizer": "^1.0"
     },
     "require-dev": {
+        "amphp/loop": "dev-master@dev",
+        "amphp/amp": "2.0.x-dev@dev",
+        "amphp/parallel": "0.1.x-dev@dev",
         "larapack/dd": "^1.0"
     }
 }
