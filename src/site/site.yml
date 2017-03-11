@@ -4,7 +4,7 @@
         content: home.md
         blog: data/blog.yml
         news: data/blog.yml
-        banner: img/home_banner2.jpg
+        banner: img/home_banner.jpg
     adapters:
         filter:
             blog:

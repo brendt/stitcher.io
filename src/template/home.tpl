@@ -15,6 +15,7 @@
                 <a href="/blog" class="highlight">Read all blogposts</a>
             </div>
         </div>
+        <div class="overlay"></div>
         <img src="{$banner.src}" srcset="{$banner.srcset}" alt="">
     </header>
 {/block}
