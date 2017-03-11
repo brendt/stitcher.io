@@ -49,6 +49,10 @@ engines:
     # Try to use several image optimizers
     optimizer: true
 
+    # Use asynchronous processes to render resource-intensive stuff. Currently: images.
+    # NOTE: When using async rendering, the current image library in use might not be able to render very large images.
+    async: false
+
 caches:
     # Enable image caching while rendering
-    image: false
+    image: true
