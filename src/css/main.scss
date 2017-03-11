@@ -122,21 +122,31 @@ header {
         height: 90vh;
         overflow: hidden;
         position: relative;
-        background: rgba($color-blue, 0.7);
+        background-color:#fff;
 
         & > img {
             display: block;
             position: absolute;
-            top: 0;
+            bottom: -65px;
             left: 0;
-            z-index: -1;
+            z-index: 1;
             min-height: 90vh;
             width: 100%;
         }
 
+        & > .overlay {
+            background-color: rgba($color-blue, 0.7);
+            position: absolute;
+            top:0;
+            bottom:0;
+            left: 0;
+            right:0;
+            z-index:2;
+        }
+
         & > .wrapper {
-            padding-top: 35vh;
-            z-index: 1;
+            padding-top: 33vh;
+            z-index: 3;
             position: relative;
         }
 
@@ -152,6 +162,10 @@ header {
         a.highlight {
             color: #fff;
             font-weight: 100;
+
+            &:hover {
+                text-decoration: none;
+            }
         }
 
         a.btn {
@@ -183,6 +197,25 @@ header {
         }
     }
 }
+
+@media (max-width: 1000px) {
+    .wrapper {
+        width:100%;
+    }
+
+    header.home {
+        height:auto;
+
+        & > .wrapper {
+            padding: 50px 3%;
+        }
+
+        & > img {
+            display: none;
+        }
+    }
+}
+
 
 .stitcher {
     color: inherit;
