@@ -4,3 +4,4 @@ dev/
 public/
 cache
 .DS_Store
+config.yml
