@@ -5,7 +5,7 @@
 Stitcher is installed via Composer. It requires PHP 7.1 or higher.
 
 ```sh
-composer require brendt/stitcher:1.0.0-alpha2
+composer require brendt/stitcher:1.0.0-alpha3
 php vendor/brendt/stitcher/install/stitcher install
 ```
 
