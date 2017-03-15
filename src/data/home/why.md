@@ -1,0 +1,69 @@
+Stitcher differs from many other static site generator in two things. **Performance is key**. Stitcher is built around 
+ high performance websites. All tools available to you put performance on the first place. Second, it doesn't 
+ try to add extra syntax to existing formats. Stitcher provides a robust set of tools **for developers** to build with,
+ and not a lot of hacks so everything fits in one file.
+ 
+Also important to note:
+
+- Built-in SASS support
+- Twig and Smarty support
+- Automatic image optimization, as easy as `$image.srcset`
+- Markdown, YAML and JSON
+- JavaScript and CSS minification
+- Data set overviews and details; pagination, sorting and filtering
+
+A quick look at Stitcher:
+
+```yaml
+# site.yml
+
+/blog:
+    template: blog
+    variables:
+        posts: data/blog.yml
+    
+/blog/{id}:
+    template: blog.post
+    variables:
+        post: data/blog.yml
+    adapters:
+        collection:
+            variable: post
+            field: id
+```
+
+```yaml
+# data/blog.yml
+
+hello_world:
+    date: 2017-03-10
+    highlight: false
+    title: Hello world
+    content: blog/hello.md
+    image: hello_world.jpg
+
+foo_bar:
+    date: 2017-03-14
+    highlight: true
+    title: Foo Bar
+    content: blog/far_bar.md
+    image: foo_bar.jpg 
+```
+
+```html
+<!-- blog.post.html --> 
+
+{% extends 'index.html' %}
+
+{% block content %}
+    <article>
+        <h1>{{ blog.title }}</h1>
+        
+       <img src="{{ blog.image.src }}" 
+            srcset="{{ blog.image.srcset }}" 
+            sizes="{{ blog.image.sizes }}" alt="{{ blog.image.alt }}"/>
+        
+        {{ blog.content }}
+    </article>
+{% endblock %}
+```

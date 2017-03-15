@@ -10,6 +10,7 @@ entries:
         highlight: true
         title: Static site generators vs. caching
         content: blog/static_sites_vs_caching.md
+        description: What is caching and what's the difference between a cached website and a staticly generated website?
 
     php_7_1:
         date: 2017-02-26

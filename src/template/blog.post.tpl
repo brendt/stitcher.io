@@ -1,5 +1,14 @@
 {extends 'index.tpl'}
 
+{block 'meta'}
+    {$description = $post.content|strip_tags|truncate:150}
+    {if isset($post.description)}
+        {$description = $post.description}
+    {/if}
+    
+    {meta meta=['description' => $description, 'og:description' => $description]}
+{/block}
+
 {block 'content'}
     <article class="blog">
         {if isset($post.image)}

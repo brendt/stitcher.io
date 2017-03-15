@@ -8,8 +8,8 @@
             <h1>Stitcher :</h1>
             <em>high performance, static websites for PHP developers.</em>
             <div class="vwrapper">
-                <a href="/guide" class="btn">read the guide</a>
-                <a href="#read" class="btn">news</a>
+                <a href="#installation" class="btn">Install now</a>
+                <a href="/guide/setting-up" class="btn">Setting Up</a>
             </div>
             <div class="vwrapper">
                 <a href="/blog" class="highlight">Read all blogposts</a>
@@ -21,7 +21,18 @@
 {/block}
 
 {block 'content'}
-    <a name="read"></a>
+    <h2>Why Stitcher?</h2>
+
+    <div class="why">
+        {$content_why}
+    </div>
+
+    <div class="installation" id="installation">
+        {$content_installation}
+    </div>
+
+    <hr>
+
     <h2>News</h2>
     {foreach $news as $newsPost}
         {call blog post=$newsPost}
@@ -33,4 +44,8 @@
     <div class="vwrapper">
         <a href="/blog">Read all blogposts</a>
     </div>
+{/block}
+
+{block 'scripts'}
+    {js src="js/codeClick.js" inline=true}
 {/block}
