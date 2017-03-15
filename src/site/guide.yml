@@ -2,6 +2,7 @@
     template: guide
     variables:
         title: Guide
+        description: A beginners guide to learn Stitcher.
         content: guide.md
         next:
             url: /guide/setting-up
@@ -11,6 +12,7 @@
     template: guide.page
     variables:
         title: Setting up
+        description: Setting up Stitcher from scratch.
         content: guide/setting-up.md
         prev:
             url: /guide
@@ -23,6 +25,7 @@
     template: guide.page
     variables:
         title: Project structure
+        description: Learning about a Stitcher website's project structure.
         content: guide/project-structure.md
         prev:
             url: /guide/setting-up
@@ -35,6 +38,7 @@
     template: guide.page
     variables:
         title: Working with data
+        description: Stitcher can read YAML, MarkDown, JSON, folders and more.
         content: guide/working-with-data.md
         prev:
             url: /guide/project-structure
@@ -48,6 +52,7 @@
     variables:
         title: Templates
         content: guide/templates.md
+        description: Stitcher offers Tiwg and Smarty support out of the box.
         prev:
             url: /guide/working-with-data
             title: Working with data
@@ -59,6 +64,7 @@
     template: guide.page
     variables:
         title: Adapters
+        description: Learn how to build more complex pages with Stitcher.
         content: guide/adapters.md
         prev:
             url: /guide/templates

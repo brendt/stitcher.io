@@ -1,5 +1,13 @@
 {extends 'index.tpl'}
 
+{block 'meta'}
+    {if isset($description)}
+        {meta meta=['description' => $description, 'og:description' => $description]}
+    {else}
+        {meta}
+    {/if}
+{/block}
+
 {block 'content'}
     {if isset($content)}
         {$content}

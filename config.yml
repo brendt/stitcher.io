@@ -33,7 +33,9 @@ directories:
 # Configure meta tags
 meta:
     viewport: width=device-width, initial-scale=1
-    description: Static websites with PHP, YAML, MarkDown, JSON and Smarty/Twig
+    chartset: utf-8
+    description: High performance, static websites for PHP developers
+    og:description: High performance, static websites for PHP developers
 
 # Minify CSS and JavaScript
 minify: true
