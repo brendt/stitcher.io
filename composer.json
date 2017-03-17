@@ -1,0 +1,10 @@
+{
+    "name": "brendt/stitcher-site",
+    "description": "A Stitcher Project",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "brendt/stitcher": "^1.0@alpha"
+    }
+}
