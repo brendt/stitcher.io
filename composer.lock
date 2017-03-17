@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cbf06395a7a7b92838589d644e2a3218",
-    "content-hash": "7ecaffd460dd07b440a0b1917ccb89c5",
+    "hash": "6df433b77f1ad5cd469bf2fb00ea622e",
+    "content-hash": "bf6508310471e6f83762649e7ba69333",
     "packages": [
         {
             "name": "amphp/amp",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "39b95255d2032caf1f29619bc798f4833ad7c1db"
+                "reference": "72378e2b82d9f1dee6b93de2bee8aa138e7f67e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/39b95255d2032caf1f29619bc798f4833ad7c1db",
-                "reference": "39b95255d2032caf1f29619bc798f4833ad7c1db",
+                "url": "https://api.github.com/repos/amphp/amp/zipball/72378e2b82d9f1dee6b93de2bee8aa138e7f67e1",
+                "reference": "72378e2b82d9f1dee6b93de2bee8aa138e7f67e1",
                 "shasum": ""
             },
             "require": {
@@ -78,7 +78,7 @@
                 "non-blocking",
                 "promise"
             ],
-            "time": "2017-03-16 00:10:23"
+            "time": "2017-02-22 21:52:30"
         },
         {
             "name": "amphp/loop",
@@ -133,12 +133,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/parallel.git",
-                "reference": "34d07fcd3495fb825f4e3ba19605128f0a9913a7"
+                "reference": "9cc70c1f86bf8ffa8ca744e40702502410b733f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/parallel/zipball/34d07fcd3495fb825f4e3ba19605128f0a9913a7",
-                "reference": "34d07fcd3495fb825f4e3ba19605128f0a9913a7",
+                "url": "https://api.github.com/repos/amphp/parallel/zipball/9cc70c1f86bf8ffa8ca744e40702502410b733f0",
+                "reference": "9cc70c1f86bf8ffa8ca744e40702502410b733f0",
                 "shasum": ""
             },
             "require": {
@@ -192,7 +192,7 @@
                 "multi-processing",
                 "multi-threading"
             ],
-            "time": "2017-03-17 03:26:05"
+            "time": "2017-03-09 22:55:11"
         },
         {
             "name": "amphp/process",
@@ -200,12 +200,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/process.git",
-                "reference": "9c8fe73b2c173a2637b6f7dbe12d9732c612b0e9"
+                "reference": "86479bc591d974fcf48e6340fd15a22f12a8f907"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/process/zipball/9c8fe73b2c173a2637b6f7dbe12d9732c612b0e9",
-                "reference": "9c8fe73b2c173a2637b6f7dbe12d9732c612b0e9",
+                "url": "https://api.github.com/repos/amphp/process/zipball/86479bc591d974fcf48e6340fd15a22f12a8f907",
+                "reference": "86479bc591d974fcf48e6340fd15a22f12a8f907",
                 "shasum": ""
             },
             "require": {
@@ -238,7 +238,7 @@
             ],
             "description": "Asynchronous process manager",
             "homepage": "https://github.com/amphp/process",
-            "time": "2017-03-17 03:25:26"
+            "time": "2017-03-05 17:08:34"
         },
         {
             "name": "async-interop/event-loop",
@@ -1587,9 +1587,13 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "brendt/stitcher": 15
+        "brendt/stitcher": 15,
+        "amphp/process": 20,
+        "amphp/loop": 20,
+        "amphp/amp": 20,
+        "amphp/parallel": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": []

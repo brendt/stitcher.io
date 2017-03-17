@@ -1,0 +1,112 @@
+@import "css/_variables";
+
+body {
+    padding:0;
+    margin:0;
+    position:relative;
+    background: #FDFDFD;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: $font-size-base;
+}
+
+.wrapper {
+    width: 960px;
+    margin:0 auto;
+}
+
+.vwrapper {
+    margin-top: 2em;
+}
+
+img {
+    display: block;
+    max-width: 25%;
+}
+
+a {
+    color: $color-blue;
+}
+
+h1 {
+    color: $color-blue;
+}
+
+h2 {
+    margin-top:40px;
+}
+
+p {
+    line-height:1.7em;
+}
+
+code {
+    background:#F6F6F6;
+    font-family: Monaco, monospace;
+}
+
+li {
+    margin: 10px 0;
+}
+
+li, p {
+    & > code {
+        display: inline-block;
+        border-bottom: 1px solid $color-orange;
+        cursor: pointer;
+        padding-left:2px;
+        padding-right:2px;
+    }
+}
+
+pre > code {
+    display: block;
+    border-left:5px solid $color-orange;
+    padding:10px 0px 10px 20px;
+    line-height:1.5em;
+    cursor: pointer;
+    margin-left:-10px;
+    overflow-x: scroll;
+}
+
+.button {
+    cursor: pointer;
+    color:#fff;
+    border:1px solid #fff;
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    margin-right:10px;
+
+    &:last-child {
+        margin-right:0;
+    }
+}
+
+.button-link {
+    margin-right:10px;
+    color:#fff;
+    font-weight: 100;
+}
+
+header {
+    display:block;
+    background:$color-blue;
+    color:#fff;
+
+    nav > a {
+        color: inherit;
+        display: inline-block;
+        text-decoration: none;
+        padding:15px 20px;
+
+        &:first-child {
+            padding-left:0;
+        }
+    }
+}
+
+.stitcher {
+    color: inherit;
+    font-weight: 100;
+    font-style: italic;
+}
