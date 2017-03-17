@@ -378,16 +378,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "9174742b47bb8968e26c65fecf75f9aa9e98669b"
+                "reference": "9fb9398b9f7c2c356390e422e7d2ff594e84407a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/9174742b47bb8968e26c65fecf75f9aa9e98669b",
-                "reference": "9174742b47bb8968e26c65fecf75f9aa9e98669b",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/9fb9398b9f7c2c356390e422e7d2ff594e84407a",
+                "reference": "9fb9398b9f7c2c356390e422e7d2ff594e84407a",
                 "shasum": ""
             },
             "require": {
-                "brendt/responsive-images": "^1.0",
+                "amphp/amp": "dev-master#72378e2b82d9f1dee6b93de2bee8aa138e7f67e1",
+                "brendt/responsive-images": "^1.3",
                 "erusev/parsedown": "^1.6",
                 "leafo/scssphp": "^0.6.6",
                 "mrclay/minify": "^2.3",
@@ -424,7 +425,7 @@
                 }
             ],
             "description": "Create blazing fast websites with PHP, a template engine of your choice and YAML or JSON.",
-            "time": "2017-03-11 11:49:48"
+            "time": "2017-03-17 08:59:08"
         },
         {
             "name": "erusev/parsedown",
