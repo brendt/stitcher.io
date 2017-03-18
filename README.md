@@ -1,3 +1,3 @@
 ```bash
-composer create-project brendt/stitcher-site
+composer create-project pageon/stitcher
 ```
