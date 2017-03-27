@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6df433b77f1ad5cd469bf2fb00ea622e",
-    "content-hash": "bf6508310471e6f83762649e7ba69333",
+    "hash": "d83d9b7bfcf03c5051561c8ce065a9f9",
+    "content-hash": "da632ad2f009ed4bb46a045374524468",
     "packages": [
         {
             "name": "amphp/amp",
@@ -27,7 +27,7 @@
             "require-dev": {
                 "amphp/phpunit-util": "dev-master",
                 "friendsofphp/php-cs-fixer": "~1.9",
-                "phpunit/phpunit": "^6",
+                "phpunit/phpunit": "^6.0.9",
                 "react/promise": "^2"
             },
             "type": "library",
@@ -146,8 +146,9 @@
                 "amphp/process": "dev-amp_v2 as 0.2"
             },
             "require-dev": {
+                "amphp/phpunit-util": "dev-master",
                 "amphp/stream": "dev-master as 0.1",
-                "phpunit/phpunit": "^5.0"
+                "phpunit/phpunit": "^6.0"
             },
             "suggest": {
                 "ext-pcntl": "Required for fork contexts",
@@ -325,16 +326,16 @@
         },
         {
             "name": "brendt/responsive-images",
-            "version": "1.3.2",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/responsive-images.git",
-                "reference": "b712c28f0f550f37953b3afa7d92c1a9e2901232"
+                "reference": "c011efe84ca0e76df5e67d6e7e54f991d5a533ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/responsive-images/zipball/b712c28f0f550f37953b3afa7d92c1a9e2901232",
-                "reference": "b712c28f0f550f37953b3afa7d92c1a9e2901232",
+                "url": "https://api.github.com/repos/brendt/responsive-images/zipball/c011efe84ca0e76df5e67d6e7e54f991d5a533ed",
+                "reference": "c011efe84ca0e76df5e67d6e7e54f991d5a533ed",
                 "shasum": ""
             },
             "require": {
@@ -371,7 +372,7 @@
                 }
             ],
             "description": "Create responsive images with PHP, using the srcset and sizes spec.",
-            "time": "2017-03-16 08:13:40"
+            "time": "2017-03-24 06:00:46"
         },
         {
             "name": "brendt/stitcher",
@@ -379,17 +380,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "003724b2eb089534e9bef18eb5efadb2aadacc22"
+                "reference": "db97d88f76b2cbb07da50e92f7bc80720b7aa11e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/003724b2eb089534e9bef18eb5efadb2aadacc22",
-                "reference": "003724b2eb089534e9bef18eb5efadb2aadacc22",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/db97d88f76b2cbb07da50e92f7bc80720b7aa11e",
+                "reference": "db97d88f76b2cbb07da50e92f7bc80720b7aa11e",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "dev-master#72378e2b82d9f1dee6b93de2bee8aa138e7f67e1",
-                "brendt/responsive-images": "^1.3",
+                "brendt/responsive-images": "^1.4",
                 "erusev/parsedown": "^1.6",
                 "leafo/scssphp": "^0.6.6",
                 "mrclay/minify": "^2.3",
@@ -426,7 +427,7 @@
                 }
             ],
             "description": "Create blazing fast websites with PHP, a template engine of your choice and YAML or JSON.",
-            "time": "2017-03-16 17:45:36"
+            "time": "2017-03-27 05:06:02"
         },
         {
             "name": "erusev/parsedown",
@@ -472,16 +473,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "0d6c7ca039329247e4f0f8f8f6506810e8248855"
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/0d6c7ca039329247e4f0f8f8f6506810e8248855",
-                "reference": "0d6c7ca039329247e4f0f8f8f6506810e8248855",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
                 "shasum": ""
             },
             "require": {
@@ -533,7 +534,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-02-27 10:51:17"
+            "time": "2017-03-20 17:10:46"
         },
         {
             "name": "intervention/image",
@@ -1522,16 +1523,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.32.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9935b662e24d6e634da88901ab534cc12e8c728f"
+                "reference": "05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9935b662e24d6e634da88901ab534cc12e8c728f",
-                "reference": "9935b662e24d6e634da88901ab534cc12e8c728f",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a",
+                "reference": "05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a",
                 "shasum": ""
             },
             "require": {
@@ -1540,12 +1541,12 @@
             "require-dev": {
                 "psr/container": "^1.0",
                 "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~3.2"
+                "symfony/phpunit-bridge": "~3.3@dev"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.32-dev"
+                    "dev-master": "1.33-dev"
                 }
             },
             "autoload": {
@@ -1580,7 +1581,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-02-27 00:07:03"
+            "time": "2017-03-22 15:40:09"
         }
     ],
     "packages-dev": [],
