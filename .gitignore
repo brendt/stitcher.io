@@ -2,5 +2,6 @@ vendor/
 .idea
 .DS_Store
 /public/**/*.html
+/public/img/
 /dev/img/
 .cache
