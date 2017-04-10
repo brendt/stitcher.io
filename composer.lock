@@ -58,12 +58,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "ab628ca68fa62768a5b3d8d191b3a4db28dab557"
+                "reference": "ef2a1c501b9c737eb2d14cd6ae2bedd3bdc0aab9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/ab628ca68fa62768a5b3d8d191b3a4db28dab557",
-                "reference": "ab628ca68fa62768a5b3d8d191b3a4db28dab557",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/ef2a1c501b9c737eb2d14cd6ae2bedd3bdc0aab9",
+                "reference": "ef2a1c501b9c737eb2d14cd6ae2bedd3bdc0aab9",
                 "shasum": ""
             },
             "require": {
