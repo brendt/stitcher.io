@@ -1,9 +1,10 @@
 entries:
-    async_images:
-        date: 2017-03-10
+    stitcher-alpha-4:
+        date: 2017-04-21
+        highlight: false
         news: true
-        title: Generating images asynchronous
-        content: blog/async_images.md
+        title: Stitcher alpha-4
+        content: data/blog/stitcher-alpha-4.md
 
     static_sites_vs_caching:
         date: 2017-03-02
@@ -14,13 +15,13 @@ entries:
 
     php_7_1:
         date: 2017-02-26
-        news: true
+        news: false
         title: Updating to PHP 7.1
         content: blog/php_7_1.md
 
     image_optimizers:
         date: 2017-02-26
-        news: true
+        news: false
         title: Image optimizers
         content: blog/image_optimizers.md
 
@@ -29,7 +30,6 @@ entries:
         highlight: true
         title: Tackling repsonsive images - part 1
         content: blog/tackling_repsonsive_images-part_1.md
-#        image: img/html.png
         next:
             id: tackling_repsonsive_images-part_2
             title: Tackling repsonsive images - part 2
