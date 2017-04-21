@@ -15,11 +15,11 @@ engines:
 
 ```html
 <head>
-    {meta}
+    {meta extra=[]}
 </head>
 ```
 
-Render all configured meta tags. Meta tags can be added in `config.yml`.
+Render all configured meta tags. Meta tags can be added in `config.yml`; are automatically added from `meta` variables in pages and entries; are parsed from `title`, `description` and `image` fields; and finally, the `extra` variable can be added within the template to add even more meta.
  
 ```yaml
 # config.yml
@@ -33,11 +33,12 @@ meta:
 ```html
 <head>
     {css src='main.scss' inline=true}
+    {css src='main.scss' push=true}
     {css src='extra.css'}
 </head>
 ```
 
-The CSS function can take a normal CSS, Sass or SCSS file, and render it; either inline for critical CSS, or via a separate request.
+The CSS function can take a normal CSS, Sass or SCSS file, and render it; either inline for critical CSS, via a separate request or by enabling HTTP/2 server push.
 
 **Note: ** when the `minify` option is set to true, files loaded with the `css` function will be minified.
 
@@ -53,11 +54,12 @@ minify: true
 <body>
     {js src='main.js' inline=true}
     {js src='extraAsync.js' async=true}
+    {js src='extraPushed.js' push=true}
     {js src='extra.js'}
 </body>
 ```
 
-Load a JavaScript file, either inline, async or normal.
+Load a JavaScript file, either inline, async, pushed or normal.
 
 **Note: ** when the `minify` option is set to true, files loaded with the `js` function will be minified.
 
@@ -71,9 +73,9 @@ minify: true
 
 ```html
 <body>
-    {image src='img/blue.jpg' var='image'}
+    {image src='img/blue.jpg' var='image' push=true}
     <img src="{$image.src}" srcset="{$image.srcset}" alt="">
 </body>
 ```
 
-Create a new image object from a path.
+Create a new image object from a path. By setting the `push` parameter, this image will be pushed when HTTP/2 is enabled on your server. Take note that pushing images might not be the best idea when working with `srcset`.

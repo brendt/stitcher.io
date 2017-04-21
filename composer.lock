@@ -4,344 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d7690bfcdec90978cae389b3ee1f3075",
-    "content-hash": "c55d340f554ca8942cef2f39d01fb0ff",
+    "hash": "9facb09f6d67ffe867a7d045727f22c8",
+    "content-hash": "6caa6fc2f820176be3ca9af930043441",
     "packages": [
         {
-            "name": "amphp/amp",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/amphp/amp.git",
-                "reference": "72378e2b82d9f1dee6b93de2bee8aa138e7f67e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/72378e2b82d9f1dee6b93de2bee8aa138e7f67e1",
-                "reference": "72378e2b82d9f1dee6b93de2bee8aa138e7f67e1",
-                "shasum": ""
-            },
-            "require": {
-                "async-interop/event-loop": "^0.5",
-                "async-interop/event-loop-implementation": "^0.5",
-                "async-interop/promise": "^0.4",
-                "php": ">=7"
-            },
-            "require-dev": {
-                "amphp/loop": "dev-master",
-                "async-interop/promise-test": "^0.4.1",
-                "friendsofphp/php-cs-fixer": "~1.9",
-                "humbug/humbug": "^1@dev",
-                "phpunit/phpunit": "^5.7"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Amp\\": "lib/"
-                },
-                "files": [
-                    "lib/bootstrap.php",
-                    "lib/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Daniel Lowrey",
-                    "email": "rdlowrey@php.net",
-                    "role": "Creator / Lead Developer"
-                },
-                {
-                    "name": "Aaron Piotrowski",
-                    "email": "aaron@trowski.com",
-                    "role": "v2.0 Developer"
-                }
-            ],
-            "description": "A non-blocking concurrency framework for PHP applications",
-            "homepage": "https://github.com/amphp/amp",
-            "keywords": [
-                "async",
-                "asynchronous",
-                "awaitable",
-                "concurrency",
-                "event",
-                "future",
-                "non-blocking",
-                "promise"
-            ],
-            "time": "2017-02-22 21:52:30"
-        },
-        {
-            "name": "amphp/loop",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/amphp/loop.git",
-                "reference": "302a5c714c2700d32ca9444be09f21b2835b213f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/amphp/loop/zipball/302a5c714c2700d32ca9444be09f21b2835b213f",
-                "reference": "302a5c714c2700d32ca9444be09f21b2835b213f",
-                "shasum": ""
-            },
-            "require": {
-                "async-interop/event-loop": "^0.5"
-            },
-            "provide": {
-                "async-interop/event-loop-implementation": "0.5"
-            },
-            "require-dev": {
-                "async-interop/event-loop-test": "^0.5",
-                "friendsofphp/php-cs-fixer": "~1.9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Amp\\Loop\\": "lib"
-                },
-                "files": [
-                    "lib/bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "homepage": "http://amphp.org",
-            "keywords": [
-                "async",
-                "asynchronous",
-                "event",
-                "loop",
-                "reactor"
-            ],
-            "time": "2017-02-17 06:02:04"
-        },
-        {
-            "name": "amphp/parallel",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/amphp/parallel.git",
-                "reference": "9cc70c1f86bf8ffa8ca744e40702502410b733f0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/amphp/parallel/zipball/9cc70c1f86bf8ffa8ca744e40702502410b733f0",
-                "reference": "9cc70c1f86bf8ffa8ca744e40702502410b733f0",
-                "shasum": ""
-            },
-            "require": {
-                "amphp/amp": "^2.0",
-                "amphp/process": "dev-amp_v2 as 0.2"
-            },
-            "require-dev": {
-                "amphp/loop": "dev-master",
-                "amphp/stream": "dev-master as 0.1",
-                "phpunit/phpunit": "^5.0"
-            },
-            "suggest": {
-                "ext-pcntl": "Required for fork contexts",
-                "ext-pthreads": "Required for thread contexts",
-                "ext-sysvsem": "Required for fork synchronization",
-                "ext-sysvshm": "Required for fork contexts"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Amp\\Parallel\\": "lib"
-                },
-                "files": [
-                    "lib/Worker/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stephen Coakley",
-                    "email": "me@stephencoakley.com"
-                },
-                {
-                    "name": "Aaron Piotrowski",
-                    "email": "aaron@trowski.com"
-                }
-            ],
-            "description": "Parallel processing component for Amp.",
-            "homepage": "https://github.com/amphp/parallel",
-            "keywords": [
-                "async",
-                "asynchronous",
-                "concurrent",
-                "multi-processing",
-                "multi-threading"
-            ],
-            "time": "2017-03-09 22:55:11"
-        },
-        {
-            "name": "amphp/process",
-            "version": "dev-amp_v2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/amphp/process.git",
-                "reference": "86479bc591d974fcf48e6340fd15a22f12a8f907"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/amphp/process/zipball/86479bc591d974fcf48e6340fd15a22f12a8f907",
-                "reference": "86479bc591d974fcf48e6340fd15a22f12a8f907",
-                "shasum": ""
-            },
-            "require": {
-                "amphp/amp": "dev-master as 2.0"
-            },
-            "require-dev": {
-                "amphp/loop": "dev-master",
-                "friendsofphp/php-cs-fixer": "~1.9",
-                "kelunik/fqn-check": "^0.1.3",
-                "phpunit/phpunit": "^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Amp\\Process\\": "lib"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bob Weinand",
-                    "email": "bobwei9@hotmail.com"
-                },
-                {
-                    "name": "Aaron Piotrowski",
-                    "email": "aaron@trowski.com"
-                }
-            ],
-            "description": "Asynchronous process manager",
-            "homepage": "https://github.com/amphp/process",
-            "time": "2017-03-05 17:08:34"
-        },
-        {
-            "name": "async-interop/event-loop",
-            "version": "v0.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/async-interop/event-loop.git",
-                "reference": "372272601b3f43064bd06e90fa1c8f3a009accd8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/async-interop/event-loop/zipball/372272601b3f43064bd06e90fa1c8f3a009accd8",
-                "reference": "372272601b3f43064bd06e90fa1c8f3a009accd8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "jakub-onderka/php-console-highlighter": "^0.3.2",
-                "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "phpunit/phpunit": "^4|^5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "AsyncInterop\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "An event loop interface for interoperability.",
-            "keywords": [
-                "async",
-                "event",
-                "interop",
-                "loop"
-            ],
-            "time": "2017-01-05 10:19:16"
-        },
-        {
-            "name": "async-interop/promise",
-            "version": "v0.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/async-interop/promise.git",
-                "reference": "a617ac4083303969c35f606a3effb908f10c5d07"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/async-interop/promise/zipball/a617ac4083303969c35f606a3effb908f10c5d07",
-                "reference": "a617ac4083303969c35f606a3effb908f10c5d07",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "jakub-onderka/php-console-highlighter": "^0.3.2",
-                "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "phpunit/phpunit": "^4.8.25|^5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "AsyncInterop\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A promise interface for interoperability in async operations.",
-            "keywords": [
-                "async",
-                "awaitable",
-                "future",
-                "interop",
-                "promise"
-            ],
-            "time": "2017-03-02 16:26:32"
-        },
-        {
             "name": "brendt/responsive-images",
-            "version": "1.3.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/responsive-images.git",
-                "reference": "5c308e22f9db6f2aeec45cd3469fed9d55b98885"
+                "reference": "64028cba0129686c83d557ccd8cb825a621ab114"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/responsive-images/zipball/5c308e22f9db6f2aeec45cd3469fed9d55b98885",
-                "reference": "5c308e22f9db6f2aeec45cd3469fed9d55b98885",
+                "url": "https://api.github.com/repos/brendt/responsive-images/zipball/64028cba0129686c83d557ccd8cb825a621ab114",
+                "reference": "64028cba0129686c83d557ccd8cb825a621ab114",
                 "shasum": ""
             },
             "require": {
-                "amphp/amp": "2.0.x-dev@dev",
-                "amphp/loop": "dev-master@dev",
-                "amphp/parallel": "0.1.x-dev@dev",
                 "intervention/image": "^2.3",
                 "php": ">=7.1",
                 "ps/image-optimizer": "^1.0",
@@ -355,8 +35,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Brendt\\Image\\": "src/",
-                    "Brendt\\Image\\Tests\\Phpunit\\": "tests/"
+                    "Brendt\\Image\\": "src/Brendt/Image"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -370,7 +49,7 @@
                 }
             ],
             "description": "Create responsive images with PHP, using the srcset and sizes spec.",
-            "time": "2017-03-11 11:19:39"
+            "time": "2017-04-20 19:46:59"
         },
         {
             "name": "brendt/stitcher",
@@ -378,20 +57,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "9fb9398b9f7c2c356390e422e7d2ff594e84407a"
+                "reference": "fc6859b78b18928c3d178482cd34d134f9f75fb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/9fb9398b9f7c2c356390e422e7d2ff594e84407a",
-                "reference": "9fb9398b9f7c2c356390e422e7d2ff594e84407a",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/fc6859b78b18928c3d178482cd34d134f9f75fb6",
+                "reference": "fc6859b78b18928c3d178482cd34d134f9f75fb6",
                 "shasum": ""
             },
             "require": {
-                "amphp/amp": "dev-master#72378e2b82d9f1dee6b93de2bee8aa138e7f67e1",
-                "brendt/responsive-images": "^1.3",
+                "brendt/responsive-images": "^1.5",
                 "erusev/parsedown": "^1.6",
                 "leafo/scssphp": "^0.6.6",
                 "mrclay/minify": "^2.3",
+                "pageon/html-meta": "@dev",
                 "php": ">=7.1",
                 "smarty/smarty": "^3.1",
                 "symfony/config": "^3.2",
@@ -401,6 +80,7 @@
                 "symfony/finder": "^3.1",
                 "symfony/routing": "^3.1",
                 "symfony/yaml": "^3.1",
+                "tivie/htaccess-parser": "^0.2@dev",
                 "twig/twig": "~1.0"
             },
             "require-dev": {
@@ -410,8 +90,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Brendt\\Stitcher\\": "src/",
-                    "Brendt\\Stitcher\\Tests\\Phpunit\\": "tests/phpunit"
+                    "Brendt\\Stitcher\\": "src/Brendt/Stitcher"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -425,20 +104,20 @@
                 }
             ],
             "description": "Create blazing fast websites with PHP, a template engine of your choice and YAML or JSON.",
-            "time": "2017-03-17 08:59:08"
+            "time": "2017-04-20 19:51:25"
         },
         {
             "name": "erusev/parsedown",
-            "version": "1.6.1",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/erusev/parsedown.git",
-                "reference": "20ff8bbb57205368b4b42d094642a3e52dac85fb"
+                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/20ff8bbb57205368b4b42d094642a3e52dac85fb",
-                "reference": "20ff8bbb57205368b4b42d094642a3e52dac85fb",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/1bf24f7334fe16c88bf9d467863309ceaf285b01",
+                "reference": "1bf24f7334fe16c88bf9d467863309ceaf285b01",
                 "shasum": ""
             },
             "require": {
@@ -467,20 +146,20 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2016-11-02 15:56:58"
+            "time": "2017-03-29 16:04:15"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "0d6c7ca039329247e4f0f8f8f6506810e8248855"
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/0d6c7ca039329247e4f0f8f8f6506810e8248855",
-                "reference": "0d6c7ca039329247e4f0f8f8f6506810e8248855",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
                 "shasum": ""
             },
             "require": {
@@ -532,7 +211,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-02-27 10:51:17"
+            "time": "2017-03-20 17:10:46"
         },
         {
             "name": "intervention/image",
@@ -651,16 +330,16 @@
         },
         {
             "name": "mrclay/minify",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mrclay/minify.git",
-                "reference": "f4cb31135d288f951bb0af1f23a03d4c00ba9446"
+                "reference": "fefc85d48190c97a1c692b29b3acbdc07d7fd73f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mrclay/minify/zipball/f4cb31135d288f951bb0af1f23a03d4c00ba9446",
-                "reference": "f4cb31135d288f951bb0af1f23a03d4c00ba9446",
+                "url": "https://api.github.com/repos/mrclay/minify/zipball/fefc85d48190c97a1c692b29b3acbdc07d7fd73f",
+                "reference": "fefc85d48190c97a1c692b29b3acbdc07d7fd73f",
                 "shasum": ""
             },
             "require": {
@@ -692,26 +371,69 @@
             ],
             "description": "Minify is a PHP5 app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
             "homepage": "http://code.google.com/p/minify/",
-            "time": "2016-03-08 11:49:57"
+            "time": "2017-04-03 19:58:28"
         },
         {
-            "name": "ps/image-optimizer",
-            "version": "1.0.6",
+            "name": "pageon/html-meta",
+            "version": "0.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/psliwa/image-optimizer.git",
-                "reference": "1baef5d585e1af2728bed93717c30e8163846439"
+                "url": "https://github.com/pageon/html-meta.git",
+                "reference": "41ab9f465cf48befdbd2ba1c400e4fe6368f61c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psliwa/image-optimizer/zipball/1baef5d585e1af2728bed93717c30e8163846439",
-                "reference": "1baef5d585e1af2728bed93717c30e8163846439",
+                "url": "https://api.github.com/repos/pageon/html-meta/zipball/41ab9f465cf48befdbd2ba1c400e4fe6368f61c9",
+                "reference": "41ab9f465cf48befdbd2ba1c400e4fe6368f61c9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.1",
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brendt\\Html\\Meta\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BrenDt",
+                    "email": "brent@pageon.be"
+                }
+            ],
+            "description": "Manage HTML meta tags in PHP",
+            "time": "2017-04-13 05:14:45"
+        },
+        {
+            "name": "ps/image-optimizer",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/psliwa/image-optimizer.git",
+                "reference": "6e7461722d798ab6e77fb7f483d679ac37b71bec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/psliwa/image-optimizer/zipball/6e7461722d798ab6e77fb7f483d679ac37b71bec",
+                "reference": "6e7461722d798ab6e77fb7f483d679ac37b71bec",
                 "shasum": ""
             },
             "require": {
                 "psr/log": "1.0.*",
                 "symfony/options-resolver": "~2.1 | ~3.0",
                 "symfony/process": "~2.0 | ~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0"
             },
             "type": "library",
             "autoload": {
@@ -738,7 +460,7 @@
                 "optimization",
                 "optipng"
             ],
-            "time": "2016-01-16 15:05:52"
+            "time": "2017-03-25 15:42:56"
         },
         {
             "name": "psr/http-message",
@@ -892,16 +614,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "741d6d4cd1414d67d48eb71aba6072b46ba740c2"
+                "reference": "8444bde28e3c2a33e571e6f180c2d78bfdc4480d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/741d6d4cd1414d67d48eb71aba6072b46ba740c2",
-                "reference": "741d6d4cd1414d67d48eb71aba6072b46ba740c2",
+                "url": "https://api.github.com/repos/symfony/config/zipball/8444bde28e3c2a33e571e6f180c2d78bfdc4480d",
+                "reference": "8444bde28e3c2a33e571e6f180c2d78bfdc4480d",
                 "shasum": ""
             },
             "require": {
@@ -944,20 +666,20 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-01 18:18:25"
+            "time": "2017-04-04 15:30:56"
         },
         {
             "name": "symfony/console",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "28fb243a2b5727774ca309ec2d92da240f1af0dd"
+                "reference": "c30243cc51f726812be3551316b109a2f5deaf8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/28fb243a2b5727774ca309ec2d92da240f1af0dd",
-                "reference": "28fb243a2b5727774ca309ec2d92da240f1af0dd",
+                "url": "https://api.github.com/repos/symfony/console/zipball/c30243cc51f726812be3551316b109a2f5deaf8d",
+                "reference": "c30243cc51f726812be3551316b109a2f5deaf8d",
                 "shasum": ""
             },
             "require": {
@@ -1007,20 +729,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-06 19:30:27"
+            "time": "2017-04-04 14:33:42"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "b90c9f91ad8ac37d9f114e369042d3226b34dc1a"
+                "reference": "56f613406446a4a0a031475cfd0a01751de22659"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/b90c9f91ad8ac37d9f114e369042d3226b34dc1a",
-                "reference": "b90c9f91ad8ac37d9f114e369042d3226b34dc1a",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/56f613406446a4a0a031475cfd0a01751de22659",
+                "reference": "56f613406446a4a0a031475cfd0a01751de22659",
                 "shasum": ""
             },
             "require": {
@@ -1064,20 +786,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-18 17:28:00"
+            "time": "2017-03-28 21:38:24"
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "74e0935e414ad33d5e82074212c0eedb4681a691"
+                "reference": "923bb014708b666e4092c9ba39993895c9c8fcd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/74e0935e414ad33d5e82074212c0eedb4681a691",
-                "reference": "74e0935e414ad33d5e82074212c0eedb4681a691",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/923bb014708b666e4092c9ba39993895c9c8fcd7",
+                "reference": "923bb014708b666e4092c9ba39993895c9c8fcd7",
                 "shasum": ""
             },
             "require": {
@@ -1127,20 +849,20 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-05 00:06:55"
+            "time": "2017-04-04 07:26:27"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "bc0f17bed914df2cceb989972c3b996043c4da4a"
+                "reference": "64421e6479c4a8e60d790fb666bd520992861b66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/bc0f17bed914df2cceb989972c3b996043c4da4a",
-                "reference": "bc0f17bed914df2cceb989972c3b996043c4da4a",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/64421e6479c4a8e60d790fb666bd520992861b66",
+                "reference": "64421e6479c4a8e60d790fb666bd520992861b66",
                 "shasum": ""
             },
             "require": {
@@ -1176,20 +898,20 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-06 19:30:27"
+            "time": "2017-03-26 15:47:15"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "92d7476d2df60cd851a3e13e078664b1deb8ce10"
+                "reference": "b20900ce5ea164cd9314af52725b0bb5a758217a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/92d7476d2df60cd851a3e13e078664b1deb8ce10",
-                "reference": "92d7476d2df60cd851a3e13e078664b1deb8ce10",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/b20900ce5ea164cd9314af52725b0bb5a758217a",
+                "reference": "b20900ce5ea164cd9314af52725b0bb5a758217a",
                 "shasum": ""
             },
             "require": {
@@ -1225,20 +947,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-21 09:12:04"
+            "time": "2017-03-20 09:32:19"
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "56e3d0a41313f8a54326851f10690d591e62a24c"
+                "reference": "6a19be85237fe8bbd4975f86942b4763bb0da6ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/56e3d0a41313f8a54326851f10690d591e62a24c",
-                "reference": "56e3d0a41313f8a54326851f10690d591e62a24c",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/6a19be85237fe8bbd4975f86942b4763bb0da6ca",
+                "reference": "6a19be85237fe8bbd4975f86942b4763bb0da6ca",
                 "shasum": ""
             },
             "require": {
@@ -1279,7 +1001,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2017-02-21 09:12:04"
+            "time": "2017-03-21 21:44:32"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1342,16 +1064,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "68bfa8c83f24c0ac04ea7193bcdcda4519f41892"
+                "reference": "57fdaa55827ae14d617550ebe71a820f0a5e2282"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/68bfa8c83f24c0ac04ea7193bcdcda4519f41892",
-                "reference": "68bfa8c83f24c0ac04ea7193bcdcda4519f41892",
+                "url": "https://api.github.com/repos/symfony/process/zipball/57fdaa55827ae14d617550ebe71a820f0a5e2282",
+                "reference": "57fdaa55827ae14d617550ebe71a820f0a5e2282",
                 "shasum": ""
             },
             "require": {
@@ -1387,11 +1109,11 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-04 12:23:14"
+            "time": "2017-03-27 18:07:02"
         },
         {
             "name": "symfony/routing",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
@@ -1466,16 +1188,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "093e416ad096355149e265ea2e4cc1f9ee40ab1a"
+                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/093e416ad096355149e265ea2e4cc1f9ee40ab1a",
-                "reference": "093e416ad096355149e265ea2e4cc1f9ee40ab1a",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/62b4cdb99d52cb1ff253c465eb1532a80cebb621",
+                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621",
                 "shasum": ""
             },
             "require": {
@@ -1517,20 +1239,65 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-07 16:47:02"
+            "time": "2017-03-20 09:45:15"
         },
         {
-            "name": "twig/twig",
-            "version": "v1.32.0",
+            "name": "tivie/htaccess-parser",
+            "version": "0.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "9935b662e24d6e634da88901ab534cc12e8c728f"
+                "url": "https://github.com/tivie/php-htaccess-parser.git",
+                "reference": "d12e9f6945a6aa79c0c1fd55c77010e798e6ce28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9935b662e24d6e634da88901ab534cc12e8c728f",
-                "reference": "9935b662e24d6e634da88901ab534cc12e8c728f",
+                "url": "https://api.github.com/repos/tivie/php-htaccess-parser/zipball/d12e9f6945a6aa79c0c1fd55c77010e798e6ce28",
+                "reference": "d12e9f6945a6aa79c0c1fd55c77010e798e6ce28",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.8.1",
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tivie\\HtaccessParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Estevão Soares dos Santos",
+                    "email": "estevao@soares-dos-santos.com"
+                }
+            ],
+            "description": "A .htaccess parser and validator implemented in PHP",
+            "homepage": "https://github.com/tivie/php-htaccess-parser",
+            "keywords": [
+                ".htaccess",
+                "htaccess"
+            ],
+            "time": "2015-02-04 18:36:08"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.33.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "dd6ca96227917e1e85b41c7c3cc6507b411e0927"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/dd6ca96227917e1e85b41c7c3cc6507b411e0927",
+                "reference": "dd6ca96227917e1e85b41c7c3cc6507b411e0927",
                 "shasum": ""
             },
             "require": {
@@ -1539,12 +1306,12 @@
             "require-dev": {
                 "psr/container": "^1.0",
                 "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~3.2"
+                "symfony/phpunit-bridge": "~3.3@dev"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.32-dev"
+                    "dev-master": "1.33-dev"
                 }
             },
             "autoload": {
@@ -1579,7 +1346,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-02-27 00:07:03"
+            "time": "2017-04-20 17:39:48"
         }
     ],
     "packages-dev": [
@@ -1621,16 +1388,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "4100f347aff890bc16b0b4b42843b599db257b2d"
+                "reference": "81dce20f69a8b40427e1f4e6462178df87cafc03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/4100f347aff890bc16b0b4b42843b599db257b2d",
-                "reference": "4100f347aff890bc16b0b4b42843b599db257b2d",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/81dce20f69a8b40427e1f4e6462178df87cafc03",
+                "reference": "81dce20f69a8b40427e1f4e6462178df87cafc03",
                 "shasum": ""
             },
             "require": {
@@ -1683,7 +1450,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2017-02-20 13:45:48"
+            "time": "2017-03-12 16:07:05"
         }
     ],
     "aliases": [],
