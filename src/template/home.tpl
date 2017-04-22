@@ -12,7 +12,7 @@
                 <a href="/guide/setting-up" class="btn">Setting Up</a>
             </div>
             <div class="vwrapper">
-                <a href="/blog" class="highlight">Read all blogposts</a>
+                <a href="/blog" class="highlight">News &amp; blogposts</a>
             </div>
         </div>
         <div class="overlay"></div>

@@ -11,8 +11,10 @@
         filter:
             blog:
                 highlight: true
+                type: blog
             news:
-                news: true
+                highlight: true
+                type: news
         order:
             blog:
                 field: date
@@ -29,6 +31,9 @@
             variable: posts
             field: date
             direction: -
+        pagination:
+            variable: posts
+            entriesPerPage: 4
 
 /blog/{id}:
     template: blog.post

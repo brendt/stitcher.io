@@ -1,16 +1,15 @@
-Stitcher differs from many other static site generator in two things. **Performance is key**. Stitcher is built around 
- high performance websites. All tools available to you put performance on the first place. Second, it doesn't 
- try to add extra syntax to existing formats. Stitcher provides a robust set of tools **for developers** to build with,
- and not a lot of hacks so everything fits in one file.
+Stitcher differs from many other static site generator in two areas. First of all: **performance is key**. Stitcher is built from its core for high performance websites. All tools available to you put performance on the first place. Secondly, it doesn't try to add extra syntax to existing formats. Stitcher provides a robust set of tools **for developers** to build with, and not a lot of hacks so everything fits in one file.
  
-Also important to note:
+Also important to note, included with Stitcher:
 
-- Built-in SASS support
-- Twig and Smarty support
-- Automatic image optimization, as easy as `$image.srcset`
+- Automatic image optimization, as easy as `image.srcset`
+- HTTP/2 server push support
 - Markdown, YAML and JSON
-- JavaScript and CSS minification
+- Twig and Smarty support
 - Data set overviews and details; pagination, sorting and filtering
+- Built-in SASS support
+- JavaScript and CSS minification
+- Built-in SEO and meta tag optimizations
 
 A quick look at Stitcher:
 
