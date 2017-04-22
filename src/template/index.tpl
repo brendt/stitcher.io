@@ -18,7 +18,7 @@
                     <nav class="wrapper">
                         <a href="/" class="stitcher">Stitcher</a>
                         <a href="/guide">Guide</a>
-                        <a href="/blog">Blog</a>
+                        <a href="/blog">News &amp; blogposts</a>
                     </nav>
                 </header>
             {/block}
