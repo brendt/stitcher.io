@@ -5,7 +5,7 @@ entries:
         type: blog
         title: The simplest plugin support
         content: data/blog/simplest-plugin-support.md
-        description: Super simple plugin support explained when using composer and Symfony's service container.
+        description: Simple plugin support explained when using composer and Symfony's service container.
 
     stitcher-alpha-4:
         date: 2017-04-21
