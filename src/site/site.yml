@@ -22,6 +22,9 @@
             news:
                 field: date
                 direction: -
+        limit:
+            blog: 2
+            news: 2
 /blog:
     template: blog
     variables:

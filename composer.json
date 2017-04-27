@@ -3,7 +3,7 @@
     "prefer-stable": true,
     "require": {
         "brendt/stitcher": "dev-master",
-        "pageon/html-meta": "^0.2.1"
+        "symfony/event-dispatcher": "^3.2"
     },
     "require-dev": {
         "larapack/dd": "^1.0"

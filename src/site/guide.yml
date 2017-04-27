@@ -69,3 +69,18 @@
         prev:
             url: /guide/templates
             title: Templates
+
+/guide/specs:
+    template: specs
+    variables:
+        specs: ../../vendor/brendt/stitcher/specs/
+
+/guide/specs/{id}:
+    template: specs.detail
+    variables:
+        spec: ../../vendor/brendt/stitcher/specs/
+    adapters:
+        collection:
+            variable: spec
+            field: id
+
