@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "451245dbaca6db289893470b467df91f803dfa29"
+                "reference": "6cd73c429ffbcbeb74ef757c1995792afaca188c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/451245dbaca6db289893470b467df91f803dfa29",
-                "reference": "451245dbaca6db289893470b467df91f803dfa29",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/6cd73c429ffbcbeb74ef757c1995792afaca188c",
+                "reference": "6cd73c429ffbcbeb74ef757c1995792afaca188c",
                 "shasum": ""
             },
             "require": {
@@ -76,6 +76,7 @@
                 "symfony/config": "^3.2",
                 "symfony/console": "^3.1",
                 "symfony/dependency-injection": "^3.1",
+                "symfony/event-dispatcher": "^3.2",
                 "symfony/filesystem": "^3.1",
                 "symfony/finder": "^3.1",
                 "symfony/routing": "^3.1",
@@ -114,7 +115,7 @@
                 "static site",
                 "twig"
             ],
-            "time": "2017-04-23 14:44:46"
+            "time": "2017-04-27 11:21:56"
         },
         {
             "name": "erusev/parsedown",
@@ -225,16 +226,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.3.12",
+            "version": "2.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "5c92ea4503ccb000ce6a922efbf272638c64a68c"
+                "reference": "15a517f052ee15d373ffa145c9642d5fec7ddf5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/5c92ea4503ccb000ce6a922efbf272638c64a68c",
-                "reference": "5c92ea4503ccb000ce6a922efbf272638c64a68c",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/15a517f052ee15d373ffa145c9642d5fec7ddf5c",
+                "reference": "15a517f052ee15d373ffa145c9642d5fec7ddf5c",
                 "shasum": ""
             },
             "require": {
@@ -283,7 +284,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2017-04-22 14:50:13"
+            "time": "2017-04-23 18:45:36"
         },
         {
             "name": "leafo/scssphp",
