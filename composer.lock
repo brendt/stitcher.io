@@ -4,26 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9facb09f6d67ffe867a7d045727f22c8",
-    "content-hash": "6caa6fc2f820176be3ca9af930043441",
+    "hash": "39d63bb0e5e4f28bf1316b8ea8c55811",
+    "content-hash": "c0c129506dce6cf3412d7d05c212f3c4",
     "packages": [
         {
             "name": "brendt/responsive-images",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/responsive-images.git",
-                "reference": "64028cba0129686c83d557ccd8cb825a621ab114"
+                "reference": "c3ba0c66abf404db34a1d683470b58595433471e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/responsive-images/zipball/64028cba0129686c83d557ccd8cb825a621ab114",
-                "reference": "64028cba0129686c83d557ccd8cb825a621ab114",
+                "url": "https://api.github.com/repos/brendt/responsive-images/zipball/c3ba0c66abf404db34a1d683470b58595433471e",
+                "reference": "c3ba0c66abf404db34a1d683470b58595433471e",
                 "shasum": ""
             },
             "require": {
                 "intervention/image": "^2.3",
-                "php": ">=7.1",
+                "php": ">=7.0",
                 "ps/image-optimizer": "^1.0",
                 "symfony/filesystem": "^3.1",
                 "symfony/finder": "^3.1"
@@ -49,7 +49,7 @@
                 }
             ],
             "description": "Create responsive images with PHP, using the srcset and sizes spec.",
-            "time": "2017-04-20 19:46:59"
+            "time": "2017-04-23 07:10:30"
         },
         {
             "name": "brendt/stitcher",
@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "fc6859b78b18928c3d178482cd34d134f9f75fb6"
+                "reference": "451245dbaca6db289893470b467df91f803dfa29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/fc6859b78b18928c3d178482cd34d134f9f75fb6",
-                "reference": "fc6859b78b18928c3d178482cd34d134f9f75fb6",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/451245dbaca6db289893470b467df91f803dfa29",
+                "reference": "451245dbaca6db289893470b467df91f803dfa29",
                 "shasum": ""
             },
             "require": {
@@ -70,8 +70,8 @@
                 "erusev/parsedown": "^1.6",
                 "leafo/scssphp": "^0.6.6",
                 "mrclay/minify": "^2.3",
-                "pageon/html-meta": "@dev",
-                "php": ">=7.1",
+                "pageon/html-meta": "^1.0",
+                "php": ">=7.0",
                 "smarty/smarty": "^3.1",
                 "symfony/config": "^3.2",
                 "symfony/console": "^3.1",
@@ -104,7 +104,17 @@
                 }
             ],
             "description": "Create blazing fast websites with PHP, a template engine of your choice and YAML or JSON.",
-            "time": "2017-04-20 19:51:25"
+            "homepage": "http://stitcher.pageon.be",
+            "keywords": [
+                "generator",
+                "performance",
+                "seo",
+                "smarty",
+                "static",
+                "static site",
+                "twig"
+            ],
+            "time": "2017-04-23 14:44:46"
         },
         {
             "name": "erusev/parsedown",
@@ -215,16 +225,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.3.11",
+            "version": "2.3.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "e8881fd99b9804b29e02d6d1c2c15ee459335cf1"
+                "reference": "5c92ea4503ccb000ce6a922efbf272638c64a68c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/e8881fd99b9804b29e02d6d1c2c15ee459335cf1",
-                "reference": "e8881fd99b9804b29e02d6d1c2c15ee459335cf1",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/5c92ea4503ccb000ce6a922efbf272638c64a68c",
+                "reference": "5c92ea4503ccb000ce6a922efbf272638c64a68c",
                 "shasum": ""
             },
             "require": {
@@ -273,7 +283,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2017-02-04 10:37:19"
+            "time": "2017-04-22 14:50:13"
         },
         {
             "name": "leafo/scssphp",
@@ -375,20 +385,20 @@
         },
         {
             "name": "pageon/html-meta",
-            "version": "0.2.2",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/html-meta.git",
-                "reference": "41ab9f465cf48befdbd2ba1c400e4fe6368f61c9"
+                "reference": "1a07ccea6ad426d4182173fa96be7d4878491b8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/html-meta/zipball/41ab9f465cf48befdbd2ba1c400e4fe6368f61c9",
-                "reference": "41ab9f465cf48befdbd2ba1c400e4fe6368f61c9",
+                "url": "https://api.github.com/repos/pageon/html-meta/zipball/1a07ccea6ad426d4182173fa96be7d4878491b8d",
+                "reference": "1a07ccea6ad426d4182173fa96be7d4878491b8d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": "^7.0"
             },
             "require-dev": {
                 "larapack/dd": "^1.1",
@@ -411,7 +421,13 @@
                 }
             ],
             "description": "Manage HTML meta tags in PHP",
-            "time": "2017-04-13 05:14:45"
+            "keywords": [
+                "html meta",
+                "meta",
+                "meta tags",
+                "seo"
+            ],
+            "time": "2017-04-23 14:38:19"
         },
         {
             "name": "ps/image-optimizer",
@@ -848,6 +864,66 @@
                 }
             ],
             "description": "Symfony DependencyInjection Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-04-04 07:26:27"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v3.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
+                "reference": "154bb1ef7b0e42ccc792bd53edbce18ed73440ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/154bb1ef7b0e42ccc792bd53edbce18ed73440ca",
+                "reference": "154bb1ef7b0e42ccc792bd53edbce18ed73440ca",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~2.8|~3.0",
+                "symfony/dependency-injection": "~2.8|~3.0",
+                "symfony/expression-language": "~2.8|~3.0",
+                "symfony/stopwatch": "~2.8|~3.0"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
             "time": "2017-04-04 07:26:27"
         },

@@ -20,9 +20,8 @@ function codeClick() {
 
         codeBlock.addEventListener('mouseup', function() {
             if (!isDragging) {
-                const range = document.createRange();
-                range.selectNode(this);
-                window.getSelection().addRange(range);
+                window.getSelection().removeAllRanges();
+                window.getSelection().selectAllChildren(this);
             }
 
             codeBlock.classList.remove('dragging');

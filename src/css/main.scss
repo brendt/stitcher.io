@@ -127,7 +127,7 @@ header {
     color: #fff;
 
     &.home {
-        height: 90vh;
+        height: 800px;
         overflow: hidden;
         position: relative;
         background-color: #fff;
@@ -135,10 +135,9 @@ header {
         & > img {
             display: block;
             position: absolute;
-            bottom: -65px;
+            bottom: -150px;
             left: 0;
             z-index: 1;
-            min-height: 90vh;
             width: 100%;
         }
 
@@ -153,8 +152,8 @@ header {
         }
 
         & > .wrapper {
-            padding-top: 33vh;
             z-index: 3;
+            margin-top:280px;
             position: relative;
         }
 
@@ -216,7 +215,8 @@ header {
         height: auto;
 
         & > .wrapper {
-            padding: 50px 3%;
+            margin:50px 0;
+            padding: 0 3%;
         }
 
         & > img {
