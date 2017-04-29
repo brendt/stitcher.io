@@ -4,6 +4,7 @@ function codeClick() {
     const codeBlocks = document.querySelectorAll('code');
     let isDragging = false;
     let isMouseDown = false;
+    let isSelected = false;
 
     for (let codeBlock of codeBlocks) {
         codeBlock.addEventListener("mousedown", function(){
@@ -19,9 +20,12 @@ function codeClick() {
         }, false);
 
         codeBlock.addEventListener('mouseup', function() {
-            if (!isDragging) {
+            if (!isDragging && !isSelected) {
                 window.getSelection().removeAllRanges();
                 window.getSelection().selectAllChildren(this);
+                isSelected = true;
+            } else if (!isDragging) {
+                isSelected = false;
             }
 
             codeBlock.classList.remove('dragging');
