@@ -120,6 +120,7 @@ blockquote {
     font-weight: 100;
 }
 
+
 header {
     display: block;
     background: $color-blue;
@@ -218,6 +219,12 @@ header {
                 background: darken($color-orange, 8);
             }
         }
+    }
+}
+
+@media (max-width: 500px) {
+    header nav > a.ribbon {
+        display: none;
     }
 }
 
