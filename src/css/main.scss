@@ -1,4 +1,4 @@
-@import "css/_variables";
+@import "_variables";
 
 body {
     padding: 0;
@@ -88,7 +88,6 @@ pre > code {
 pre > code {
     cursor: pointer;
     font-size: 0.8em;
-    margin-left: -20px;
     padding: 1.3em 30px;
 }
 
@@ -202,6 +201,23 @@ header {
         &:first-child {
             padding-left: 0;
         }
+
+        &.ribbon {
+            background: $color-orange;
+            float:right;
+            display: block;
+            margin: 6px 0;
+            padding: 9px 20px;
+            border-radius: 2px;
+
+            &:hover {
+                background: darken($color-orange, 3);
+            }
+
+            &:active {
+                background: darken($color-orange, 8);
+            }
+        }
     }
 }
 
@@ -258,8 +274,18 @@ footer a {
     color: inherit;
 }
 
+.link-hidden {
+    text-decoration: inherit;
+    color:inherit;
+}
+
+.link {
+    text-decoration: underline;
+    color: $color-blue;
+}
+
 .blog {
-    width: 90%;
+    width: 100%;
     background: #fff;
     margin-top: 2em;
     padding-bottom: 2em;
