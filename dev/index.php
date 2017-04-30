@@ -2,9 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Brendt\Stitcher\Controller\DevController;
+use Brendt\Stitcher\App;
 
-// This controller will render HTML pages on the fly.
+// This index file will render HTML pages on the fly.
 // See config.dev.yml for more information.
-$controller = new DevController(__DIR__ . '/../dev');
-echo $controller->run();
+echo App::init('./config.dev.yml')::get('app.dev.controller')->run();
