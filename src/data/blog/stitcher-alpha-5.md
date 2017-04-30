@@ -21,6 +21,9 @@ rm ./stitcher
 rm ./dev/index.php
 cp vendor/brendt/stitcher/install/stitcher ./stitcher
 cp vendor/brendt/stitcher/install/dev/index.php ./dev/index.php
+
+# Remove the cache dir, this might be another directory depending on your configuration.
+rm -r .cache/
 ```
 
 ### Changelog
