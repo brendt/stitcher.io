@@ -4,26 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ea311af145d8d424369763e0ae627f15",
-    "content-hash": "fd22e83491bf3fad580e442e6ba4ef6a",
+    "hash": "b81f16a9aa814d7826d8f61a53af1453",
+    "content-hash": "827f046e52a383c32f53e7e153bd9066",
     "packages": [
         {
             "name": "brendt/responsive-images",
-            "version": "1.7.2",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/responsive-images.git",
-                "reference": "5dac06b34fe5f526e478b0b7e039ac6f2143296c"
+                "reference": "c3ba0c66abf404db34a1d683470b58595433471e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/responsive-images/zipball/5dac06b34fe5f526e478b0b7e039ac6f2143296c",
-                "reference": "5dac06b34fe5f526e478b0b7e039ac6f2143296c",
+                "url": "https://api.github.com/repos/brendt/responsive-images/zipball/c3ba0c66abf404db34a1d683470b58595433471e",
+                "reference": "c3ba0c66abf404db34a1d683470b58595433471e",
                 "shasum": ""
             },
             "require": {
                 "intervention/image": "^2.3",
-                "php": ">=7.1",
+                "php": ">=7.0",
                 "ps/image-optimizer": "^1.0",
                 "symfony/filesystem": "^3.1",
                 "symfony/finder": "^3.1"
@@ -35,7 +35,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Brendt\\Image\\": "src/"
+                    "Brendt\\Image\\": "src/Brendt/Image"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -49,20 +49,20 @@
                 }
             ],
             "description": "Create responsive images with PHP, using the srcset and sizes spec.",
-            "time": "2017-04-15 12:12:40"
+            "time": "2017-04-23 07:10:30"
         },
         {
             "name": "brendt/stitcher",
-            "version": "1.0.0-alpha3",
+            "version": "1.0.0-alpha5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "a814c00fb8ac25ce0b8376e3a18261cb60d577a2"
+                "reference": "158ff3b6fe6fefff88a9e59045f5c63870852e7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/a814c00fb8ac25ce0b8376e3a18261cb60d577a2",
-                "reference": "a814c00fb8ac25ce0b8376e3a18261cb60d577a2",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/158ff3b6fe6fefff88a9e59045f5c63870852e7d",
+                "reference": "158ff3b6fe6fefff88a9e59045f5c63870852e7d",
                 "shasum": ""
             },
             "require": {
@@ -70,15 +70,18 @@
                 "erusev/parsedown": "^1.6",
                 "leafo/scssphp": "^0.6.6",
                 "mrclay/minify": "^2.3",
-                "php": ">=7.1",
+                "pageon/html-meta": "^1.0",
+                "php": ">=7.0",
                 "smarty/smarty": "^3.1",
                 "symfony/config": "^3.2",
                 "symfony/console": "^3.1",
                 "symfony/dependency-injection": "^3.1",
+                "symfony/event-dispatcher": "^3.2",
                 "symfony/filesystem": "^3.1",
                 "symfony/finder": "^3.1",
                 "symfony/routing": "^3.1",
                 "symfony/yaml": "^3.1",
+                "tivie/htaccess-parser": "^0.2@dev",
                 "twig/twig": "~1.0"
             },
             "require-dev": {
@@ -88,8 +91,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Brendt\\Stitcher\\": "src/",
-                    "Brendt\\Stitcher\\Tests\\Phpunit\\": "tests/phpunit"
+                    "Brendt\\Stitcher\\": "src/Brendt/Stitcher"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -103,7 +105,17 @@
                 }
             ],
             "description": "Create blazing fast websites with PHP, a template engine of your choice and YAML or JSON.",
-            "time": "2017-03-29 05:05:26"
+            "homepage": "http://stitcher.pageon.be",
+            "keywords": [
+                "generator",
+                "performance",
+                "seo",
+                "smarty",
+                "static",
+                "static site",
+                "twig"
+            ],
+            "time": "2017-04-30 15:56:18"
         },
         {
             "name": "erusev/parsedown",
@@ -214,16 +226,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.3.11",
+            "version": "2.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "e8881fd99b9804b29e02d6d1c2c15ee459335cf1"
+                "reference": "15a517f052ee15d373ffa145c9642d5fec7ddf5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/e8881fd99b9804b29e02d6d1c2c15ee459335cf1",
-                "reference": "e8881fd99b9804b29e02d6d1c2c15ee459335cf1",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/15a517f052ee15d373ffa145c9642d5fec7ddf5c",
+                "reference": "15a517f052ee15d373ffa145c9642d5fec7ddf5c",
                 "shasum": ""
             },
             "require": {
@@ -272,7 +284,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2017-02-04 10:37:19"
+            "time": "2017-04-23 18:45:36"
         },
         {
             "name": "leafo/scssphp",
@@ -373,23 +385,72 @@
             "time": "2017-04-03 19:58:28"
         },
         {
-            "name": "ps/image-optimizer",
-            "version": "1.0.6",
+            "name": "pageon/html-meta",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/psliwa/image-optimizer.git",
-                "reference": "1baef5d585e1af2728bed93717c30e8163846439"
+                "url": "https://github.com/pageon/html-meta.git",
+                "reference": "1a07ccea6ad426d4182173fa96be7d4878491b8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psliwa/image-optimizer/zipball/1baef5d585e1af2728bed93717c30e8163846439",
-                "reference": "1baef5d585e1af2728bed93717c30e8163846439",
+                "url": "https://api.github.com/repos/pageon/html-meta/zipball/1a07ccea6ad426d4182173fa96be7d4878491b8d",
+                "reference": "1a07ccea6ad426d4182173fa96be7d4878491b8d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.1",
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brendt\\Html\\Meta\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BrenDt",
+                    "email": "brent@pageon.be"
+                }
+            ],
+            "description": "Manage HTML meta tags in PHP",
+            "keywords": [
+                "html meta",
+                "meta",
+                "meta tags",
+                "seo"
+            ],
+            "time": "2017-04-23 14:38:19"
+        },
+        {
+            "name": "ps/image-optimizer",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/psliwa/image-optimizer.git",
+                "reference": "6e7461722d798ab6e77fb7f483d679ac37b71bec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/psliwa/image-optimizer/zipball/6e7461722d798ab6e77fb7f483d679ac37b71bec",
+                "reference": "6e7461722d798ab6e77fb7f483d679ac37b71bec",
                 "shasum": ""
             },
             "require": {
                 "psr/log": "1.0.*",
                 "symfony/options-resolver": "~2.1 | ~3.0",
                 "symfony/process": "~2.0 | ~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0"
             },
             "type": "library",
             "autoload": {
@@ -416,7 +477,7 @@
                 "optimization",
                 "optipng"
             ],
-            "time": "2016-01-16 15:05:52"
+            "time": "2017-03-25 15:42:56"
         },
         {
             "name": "psr/http-message",
@@ -804,6 +865,66 @@
                 }
             ],
             "description": "Symfony DependencyInjection Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-04-04 07:26:27"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v3.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
+                "reference": "154bb1ef7b0e42ccc792bd53edbce18ed73440ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/154bb1ef7b0e42ccc792bd53edbce18ed73440ca",
+                "reference": "154bb1ef7b0e42ccc792bd53edbce18ed73440ca",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~2.8|~3.0",
+                "symfony/dependency-injection": "~2.8|~3.0",
+                "symfony/expression-language": "~2.8|~3.0",
+                "symfony/stopwatch": "~2.8|~3.0"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
             "time": "2017-04-04 07:26:27"
         },
@@ -1198,17 +1319,62 @@
             "time": "2017-03-20 09:45:15"
         },
         {
-            "name": "twig/twig",
-            "version": "v1.33.0",
+            "name": "tivie/htaccess-parser",
+            "version": "0.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a"
+                "url": "https://github.com/tivie/php-htaccess-parser.git",
+                "reference": "d12e9f6945a6aa79c0c1fd55c77010e798e6ce28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a",
-                "reference": "05cf49921b13f6f01d3cfdf9018cfa7a8086fd5a",
+                "url": "https://api.github.com/repos/tivie/php-htaccess-parser/zipball/d12e9f6945a6aa79c0c1fd55c77010e798e6ce28",
+                "reference": "d12e9f6945a6aa79c0c1fd55c77010e798e6ce28",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.8.1",
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Tivie\\HtaccessParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Estevão Soares dos Santos",
+                    "email": "estevao@soares-dos-santos.com"
+                }
+            ],
+            "description": "A .htaccess parser and validator implemented in PHP",
+            "homepage": "https://github.com/tivie/php-htaccess-parser",
+            "keywords": [
+                ".htaccess",
+                "htaccess"
+            ],
+            "time": "2015-02-04 18:36:08"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.33.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "dd6ca96227917e1e85b41c7c3cc6507b411e0927"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/dd6ca96227917e1e85b41c7c3cc6507b411e0927",
+                "reference": "dd6ca96227917e1e85b41c7c3cc6507b411e0927",
                 "shasum": ""
             },
             "require": {
@@ -1257,7 +1423,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-03-22 15:40:09"
+            "time": "2017-04-20 17:39:48"
         }
     ],
     "packages-dev": [],

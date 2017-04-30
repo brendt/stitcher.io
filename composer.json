@@ -5,6 +5,6 @@
     "license": "MIT",
     "prefer-stable": true,
     "require": {
-        "brendt/stitcher": "1.0-alpha3"
+        "brendt/stitcher": "1.0-alpha5"
     }
 }
