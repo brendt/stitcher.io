@@ -24,7 +24,7 @@
                 direction: -
         limit:
             blog: 2
-            news: 2
+            news: 1
 /blog:
     template: blog
     variables:

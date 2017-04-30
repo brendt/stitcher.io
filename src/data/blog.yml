@@ -1,4 +1,12 @@
 entries:
+    stitcher-alpha-5:
+        date: 2017-05-01
+        highlight: true
+        type: news
+        title: Stitcher alpha 5
+        content: data/blog/stitcher-alpha-5.md
+        description: Alpha 5 of Stitcher adds the last new 1.0 features to Stitcher.
+
     simplest-plugin-support:
         date: 2017-04-27
         highlight: true
@@ -11,7 +19,7 @@ entries:
         date: 2017-04-21
         highlight: true
         type: news
-        title: Stitcher alpha4
+        title: Stitcher alpha 4
         content: data/blog/stitcher-alpha-4.md
         description: Changes, new features and future update plans with the new Stitcher alpha4 release.
 
@@ -22,13 +30,6 @@ entries:
         title: Static site generators vs. caching
         content: blog/static_sites_vs_caching.md
         description: What is caching and what's the difference between a cached website and a staticly generated website?
-
-    php_7_1:
-        date: 2017-02-26
-        highlight: false
-        type: news
-        title: Updating to PHP 7.1
-        content: blog/php_7_1.md
 
     image_optimizers:
         date: 2017-02-26

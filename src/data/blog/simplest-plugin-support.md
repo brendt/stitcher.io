@@ -1,3 +1,5 @@
+*Stitcher's plugin support is available as of [stitcher 1.0.0-alpha5](/blog/stitcher-alpha-5).*
+
 In this post, you'll read about Stitcher's plugin system. It might get a bit technical, but is definitely worth the read.
 
 Stitcher plugins are built on top of two powerful components, which already exist in many modern projects.
