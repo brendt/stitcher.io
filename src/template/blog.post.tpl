@@ -22,7 +22,7 @@
 
 {block 'footer'}
     <div class="wrapper">
-        <a class="prev" href="/blog">Back</a>
+        <a class="prev" href="/blog">Back to overview</a>
         {if isset($post.next)}
             <a class="next" href="/blog/{$post.next.id}">Next: {$post.next.title}</a>
         {/if}
