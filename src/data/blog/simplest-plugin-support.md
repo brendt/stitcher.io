@@ -29,7 +29,7 @@ The only requirement for a package to be "a plugin" is a class implementing the 
 
 ### Plugin interface
 
-The `Plugin` interface requires you to only implement two methods. These methods tell Stitcher where the `services.yml` and `config.yml` files are located. Any other binding with Stitcher is done via the service container.
+The `Plugin` interface requires you to only implement three methods. These methods tell Stitcher where the `services.yml` and `config.yml` files are located and how to intialise the plugin. Any other binding with Stitcher is done via the service container.
 
 ```php
 namespace My;
@@ -38,6 +38,10 @@ use Brendt\Stitcher\Plugin\Plugin;
 
 class MyPlugin implements Plugin
 {
+    public function init() {
+        return;
+    }
+
     public function getConfigPath() {
         return __DIR__ . '/plugin.config.yml';
     }
@@ -45,6 +49,22 @@ class MyPlugin implements Plugin
     public function getServicesPath() {
         return __DIR__ . '/plugin.services.yml';
     }
+}
+```
+
+### `init` method
+
+The `init` method is called after all plugin config is loaded. This method can be used as a hook to add plugin configuration to existing services. An example would be adding a command to the console application.
+
+```php
+/**
+ * @return void
+ */
+public function init() {
+    /** @var Console $console */
+    $console = App::get('app.console');
+
+    $console->add(App::get('my.plugin.command.my.cmd'));
 }
 ```
 
