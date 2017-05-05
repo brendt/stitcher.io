@@ -1,5 +1,5 @@
 ```
-git clone 
+git clone https://github.com/brendt/stitcher-demo.git
 cd stitcher-demo
 git checkout develop
 
