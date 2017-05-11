@@ -5,7 +5,9 @@ require './vendor/autoload.php';
 
 use Brendt\Stitcher\App;
 
+
 // The console provides some helper commands while creating your website.
 // Run ./stitcher in your terminal to see all options.
 // See ./config.yml for more information.
-App::init()::get('app.console')->run();
+$config = @file_get_contents(__DIR__ . '/.env');
+App::init($config ? $config : './config.yml')::get('app.console')->run();
