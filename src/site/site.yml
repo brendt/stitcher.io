@@ -47,6 +47,16 @@
             variable: post
             field: id
 
+/guide/{id}:
+    template: guide/detail
+    variables:
+        page: data/guide/_guide.yml
+        pages: data/guide/_guide.yml
+    adapters:
+        collection:
+            variable: page
+            field: id
+
 /gallery:
     template: gallery
     variables:

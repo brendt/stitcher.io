@@ -34,9 +34,11 @@
                 {/if}
             {/block}
 
-            <div class="wrapper">
-                {block 'content'}{/block}
-            </div>
+            {block 'content_wide'}
+                <div class="wrapper">
+                    {block 'content'}{/block}
+                </div>
+            {/block}
 
             <footer>
                 {block 'footer'}{/block}

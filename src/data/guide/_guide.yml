@@ -1,0 +1,16 @@
+entries:
+    setting-up:
+        title: Setting up
+        content: data/guide/setting-up.md
+    project-structure:
+        title: Project structure
+        content: data/guide/project-structure.md
+    working-with-data:
+        title: Working with data
+        content: data/guide/working-with-data.md
+    templates:
+        title: Templates
+        content: data/guide/templates.md
+    adapters:
+        title: Adapters
+        content: data/guide/adapters.md
