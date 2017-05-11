@@ -7,3 +7,4 @@ public/
 .cache/
 cache/
 .DS_Store
+.env
