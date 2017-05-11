@@ -414,3 +414,35 @@ article {
         margin-left: 0;
     }
 }
+
+.guide {
+    position: relative;
+
+    &:after {
+        clear: both;
+        display: block;
+        content: ' ';
+    }
+
+    & > nav {
+        background: $color-blue;
+        width: 30vw;
+        float:left;
+        height: 100%;
+        position: fixed;
+
+        & > a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: .5em 2em;
+        }
+    }
+
+    & > article {
+        width: 960px;
+        margin-left: 30vw;
+        padding-left:2em;
+        float:left;
+    }
+}
