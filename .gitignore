@@ -1,7 +1,10 @@
 vendor/
 .idea
-dev/
+dev/img
+dev/cache
+dev/public
 public/
-cache
+.cache/
+cache/
 .DS_Store
-config.yml
+.env
