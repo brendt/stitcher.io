@@ -16,6 +16,9 @@
 #     </Directory>
 # </VirtualHost>
 
+imports:
+    - ../config/config.yml
+
 # Configure the paths of several directories
 directories:
     # The source directory containing
@@ -25,29 +28,13 @@ directories:
     public: ./
 
     # Cache directory used by smarty
-    cache: ./cache
+    cache: ../cache
 
     # Template directory
     template: ../src/template
 
-meta:
-    viewport: width=device-width, initial-scale=1
-    chartset: utf-8
-    description: High performance, static websites for PHP developers
-    og:description: High performance, static websites for PHP developers
-
 # Do not minify CSS or JavaScript
 minify: false
-
-# Configure engines
-engines:
-    # Choose the template engine. Available options: smarty, twig
-    template: smarty
-
-    # Use gd as image engine. Possible configurations: `gd` or `imagick`.
-    image: gd
-
-    optimizer: false
 
 caches:
     # Enable image caching while rendering

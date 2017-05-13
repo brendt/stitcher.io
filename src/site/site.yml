@@ -53,6 +53,8 @@
         page: data/guide/_guide.yml
         pages: data/guide/_guide.yml
     adapters:
+        guide:
+            variable: pages
         collection:
             variable: page
             field: id

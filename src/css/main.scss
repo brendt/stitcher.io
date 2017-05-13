@@ -120,17 +120,32 @@ blockquote {
     font-weight: 100;
 }
 
+.content {
+    position: relative;
+}
 
 header {
     display: block;
     background: $color-blue;
     color: #fff;
+    position: fixed;
+    width:100%;
+    z-index: 99;
+    top: 0;
+
+    & + .content {
+        margin-top: 5em;
+    }
 
     &.home {
         height: 780px;
         overflow: hidden;
         position: relative;
         background-color: #fff;
+
+        & + .content {
+            margin-top: inherit;
+        }
 
         & > img {
             display: block;
@@ -416,8 +431,6 @@ article {
 }
 
 .guide {
-    position: relative;
-
     &:after {
         clear: both;
         display: block;
@@ -425,24 +438,44 @@ article {
     }
 
     & > nav {
-        background: $color-blue;
-        width: 30vw;
+        background: $color-gray;
+        width: calc((100% - 960px) / 2);
+        min-width:350px;
         float:left;
         height: 100%;
         position: fixed;
+        padding-top:3em;
+        top: 0;
 
         & > a {
             display: block;
             color: #fff;
             text-decoration: none;
             padding: .5em 2em;
+
+            &.active {
+                color: $color-orange;
+            }
+        }
+
+        & > h2 {
+            color: darken(#fff, 50);
+            font-weight: normal;
+            font-size: 1em;
+            padding: 0 1em;
+            margin: 2em 0 .8em 0;
         }
     }
 
     & > article {
+        box-sizing: border-box;
         width: 960px;
-        margin-left: 30vw;
         padding-left:2em;
+        margin-left: calc((100% - 960px) / 2);
         float:left;
+
+        & > h1 {
+            margin-top: 0;
+        }
     }
 }
