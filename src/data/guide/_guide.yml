@@ -1,21 +1,33 @@
 entries:
     setting-up:
         title: Setting up
-        category: Starting a Stitcher project
-        content: data/guide/setting-up.md
+        category: Setup and general
+        content: data/guide/general/setting-up.md
     project-structure:
         title: Project structure
-        category: Starting a Stitcher project
-        content: data/guide/project-structure.md
+        category: Setup and general
+        content: data/guide/general/project-structure.md
     working-with-data:
         title: Working with data
-        category: Stitcher concepts
-        content: data/guide/working-with-data.md
+        category: Basic setup
+        content: data/guide/data/working-with-data.md
     templates:
         title: Templates
-        category: Stitcher concepts
-        content: data/guide/templates.md
+        category: Basic setup
+        content: data/guide/data/templates.md
     adapters:
-        title: Adapters
-        category: Stitcher concepts
-        content: data/guide/adapters.md
+        title: Intro
+        category: Adapters
+        content: data/guide/adapters/adapters.md
+    data-manipulation:
+        title: Data manipulation
+        category: Adapters
+        content: data/guide/adapters/data-manipulation.md
+    pagination-adapter:
+        title: Pagination
+        category: Adapters
+        content: data/guide/adapters/pagination.md
+    collection-adapter:
+        title: Collection - detail & overview
+        category: Adapters
+        content: data/guide/adapters/collection.md

@@ -3,7 +3,7 @@
 {include 'helper/render.tpl'}
 
 {block 'content'}
-    <h2>Blog</h2>
+    <h2 class="spacer">Blog</h2>
     {foreach $posts as $post}
         {call blog post=$post tag=true}
     {/foreach}
