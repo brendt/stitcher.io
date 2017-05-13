@@ -1,10 +1,22 @@
 @import "_variables";
 
+* {
+    box-sizing: border-box;
+}
+
+.clearfix {
+    @include clearfix();
+}
+
+html, body {
+    height: 100%;
+}
+
 body {
     padding: 0;
     margin: 0;
     position: relative;
-    background: darken(#FDFDFD, 3);
+    background: $color-background;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     font-size: $font-size-base;
 }
@@ -73,7 +85,7 @@ code {
     font-family: Monaco, monospace;
 
     &.dragging {
-        cursor:default;
+        cursor: default;
     }
 }
 
@@ -129,12 +141,18 @@ header {
     background: $color-blue;
     color: #fff;
     position: fixed;
-    width:100%;
+    width: 100%;
     z-index: 99;
     top: 0;
 
     & + .content {
-        margin-top: 5em;
+        margin-top:45px;
+    }
+
+    &:after {
+        clear: both;
+        position: fixed;
+        content: ' ';
     }
 
     &.home {
@@ -168,7 +186,7 @@ header {
 
         & > .wrapper {
             z-index: 3;
-            margin-top:280px;
+            margin-top: 280px;
             position: relative;
         }
 
@@ -220,7 +238,7 @@ header {
 
         &.ribbon {
             background: $color-orange;
-            float:right;
+            float: right;
             display: block;
             margin: 6px 0;
             padding: 9px 20px;
@@ -253,7 +271,7 @@ header {
         height: auto;
 
         & > .wrapper {
-            margin:50px 0;
+            margin: 50px 0;
             padding: 0 3%;
         }
 
@@ -298,7 +316,7 @@ footer a {
 
 .link-hidden {
     text-decoration: inherit;
-    color:inherit;
+    color: inherit;
 }
 
 .link {
@@ -361,7 +379,7 @@ footer a {
 @media (max-width: 1000px) {
     .wrapper {
         width: 96%;
-        padding: 2%;
+        padding: .4em;
     }
 
     .gallery > img {
@@ -419,8 +437,8 @@ article {
 @media (max-width: 1000px) {
     .why > pre {
         width: 100%;
-        clear:both;
-        margin-right:0;
+        clear: both;
+        margin-right: 0;
     }
 }
 
@@ -432,20 +450,15 @@ article {
 
 .guide {
     &:after {
-        clear: both;
-        display: block;
-        content: ' ';
+        @include clearfix();
     }
 
     & > nav {
         background: $color-gray;
         width: calc((100% - 960px) / 2);
-        min-width:350px;
-        float:left;
+        min-width: 300px;
         height: 100%;
         position: fixed;
-        padding-top:3em;
-        top: 0;
 
         & > a {
             display: block;
@@ -469,13 +482,22 @@ article {
 
     & > article {
         box-sizing: border-box;
-        width: 960px;
-        padding-left:2em;
+        width: calc(100% - 301px);
         margin-left: calc((100% - 960px) / 2);
-        float:left;
+        max-width: 960px;
+        padding-left: 2em;
+        padding-top: 2em;
 
         & > h1 {
             margin-top: 0;
         }
+
+        @media (max-width: 1550px) {
+            margin-left:300px;
+        }
     }
+}
+
+h2.spacer {
+    margin-top:3em;
 }

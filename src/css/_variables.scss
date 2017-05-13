@@ -4,6 +4,7 @@ $color-dark-blue: darken($color-blue, 20%);
 $color-yellow: #FFCE19;
 $color-gray: #484848;
 $font-size-base: 18px;
+$color-background: darken(#FDFDFD, 3);
 
 @mixin clearfix() {
     clear: both;
