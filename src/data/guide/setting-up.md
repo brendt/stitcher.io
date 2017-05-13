@@ -2,7 +2,7 @@
 
 **Note**: Stitcher is currently in alpha. This means things can break with updates!
 
-Stitcher is installed via Composer. It requires PHP 7.1 or higher.
+Stitcher is installed via Composer. It requires PHP 7.0 or higher.
 
 ```sh
 composer create-project pageon/stitcher

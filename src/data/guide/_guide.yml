@@ -1,16 +1,21 @@
 entries:
     setting-up:
         title: Setting up
+        category: Starting a Stitcher project
         content: data/guide/setting-up.md
     project-structure:
         title: Project structure
+        category: Starting a Stitcher project
         content: data/guide/project-structure.md
     working-with-data:
         title: Working with data
+        category: Stitcher concepts
         content: data/guide/working-with-data.md
     templates:
         title: Templates
+        category: Stitcher concepts
         content: data/guide/templates.md
     adapters:
         title: Adapters
+        category: Stitcher concepts
         content: data/guide/adapters.md

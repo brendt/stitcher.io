@@ -1,6 +1,11 @@
 {
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Brendt\\Stitcher\\Plugin\\" : "src/Brendt/Stitcher/Plugin"
+        }
+    },
     "require": {
         "brendt/stitcher": "dev-master",
         "symfony/event-dispatcher": "^3.2"
