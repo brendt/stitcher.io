@@ -1,28 +1,86 @@
-@import "css/_variables";
+@import 'variables';
 
-body {
-    background: $color-blue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.banner__home {
+    height: 80vh;
+    background: $color-orange;
+    background: linear-gradient(20deg, $color-red, $color-orange);
+    color: #fff;
+    text-align: center;
+    padding: 0 15px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 87%);
+
+    & > h1 {
+        display: inline-block;
+        padding: 25vh 15px .3em;
+        margin-bottom: .7em;
+        position:relative;
+
+        &:before,
+        &:after {
+            position: absolute;
+            display: block;
+            content: ' ';
+            background: $color-white;
+            padding: 2px 0;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+        }
+
+        &:before {
+            clip-path: polygon(0 0, 49% 0, 46% 100%, 0% 100%);
+        }
+
+        &:after {
+            clip-path: polygon(53% 0, 100% 0, 100% 100%, 50% 100%);
+        }
+    }
+
+    & > h2 {
+        margin-top: 0;
+        padding-top: 0;
+        font-size: 1.4em;
+        font-weight: normal;
+        margin-bottom: 3em;
+    }
+
+    @media (max-width: 37.5em) {
+        clip-path: none;
+        height: auto;
+        padding-bottom: 2em;
+
+        & > h1 {
+            padding-top: 2.5em;
+        }
+
+        & .cta {
+            margin-top: 1em;
+            margin-right: 0;
+        }
+
+        & > h2 {
+            margin-bottom:1em;
+        }
+    }
 }
 
-.heading {
-    display: block;
-    text-align: center;
-    flex: 0 1 auto;
+.nav__main > a {
+    color: $color-white;
+}
 
-    h2, h3 {
-        margin:0;
-        font-weight: 200;
-    }
+.content__why {
+    pre {
+        float:left;
+        width: 33%;
+        margin-right:.5%;
+        overflow-x: scroll;
 
-    h2 {
-        font-size: 2em;
-    }
+        &:nth-child(3n + 2) {
+            margin-right: 0;
+        }
 
-    h3 {
-        margin-top:0.3em;
-        font-size: 1.05em;
+        @media (max-width: $width-container) {
+            width:100%;
+        }
     }
 }
