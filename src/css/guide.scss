@@ -1,0 +1,50 @@
+@import 'variables';
+
+.content__guide {
+    & > nav {
+        position: fixed;
+        width: 30vw;
+        min-width: 300px;
+        top: 0;
+        left:0;
+        bottom:0;
+        color: #fff;
+        padding: 3em 1em 0;
+
+        background: $color-orange;
+        background: linear-gradient(60deg, $color-red, $color-orange);
+
+        & > a,
+        & > h2 {
+            display: block;
+            width:300px;
+            float:right;
+            clear:both;
+        }
+
+        & > h2 {
+            margin: 1.2em 0 0.4em;
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+
+        & > a {
+            padding:.3em 0 .3em .5em;
+        }
+    }
+
+    & > article {
+        width:70vw;
+        margin-top: 3em;
+        margin-left:30vw;
+        padding: 0 4vw 0 1.5em;
+    }
+
+    @media (max-width: $width-container) {
+        & > nav {
+            position: relative;
+        }
+    }
+}

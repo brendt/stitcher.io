@@ -2,11 +2,17 @@
 
 {include 'helper/render.tpl'}
 
+{block 'head' append}
+    {css src='blog.scss' inline=true}
+{/block}
+
 {block 'content'}
-    <h2 class="spacer">Blog</h2>
-    {foreach $posts as $post}
-        {call blog post=$post tag=true}
-    {/foreach}
+    <div class="content__blog container container--content">
+        <h2>Blog</h2>
+        {foreach $posts as $post}
+            {call blog post=$post tag=true}
+        {/foreach}
+    </div>
 {/block}
 
 {block 'footer'}

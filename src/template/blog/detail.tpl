@@ -5,7 +5,7 @@
     {if isset($post.description)}
         {$description = $post.description}
     {/if}
-    
+
     {meta meta=['description' => $description, 'og:description' => $description]}
 {/block}
 

@@ -1,7 +1,11 @@
 {extends 'index.tpl'}
 
-{block 'content_wide'}
-    <div class="guide">
+{block 'head' append}
+    {css src='guide.scss' inline=true}
+{/block}
+
+{block 'content'}
+    <div class="content__guide">
         <nav>
             {foreach $menu as $category => $pages}
                 {if $category}

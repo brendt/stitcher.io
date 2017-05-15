@@ -1,3 +1,5 @@
+## Why Stitcher?
+
 Stitcher differs from many other static site generator in two areas. First of all: **performance is key**. Stitcher is built from its core for high performance websites. All tools available to you put performance on the first place. Secondly, it doesn't try to add extra syntax to existing formats. Stitcher provides a robust set of tools **for developers** to build with, and not a lot of hacks so everything fits in one file.
  
 Also important to note, included with Stitcher:

@@ -10,37 +10,15 @@
     </head>
     <body>
         {block 'body'}
-            {block 'header'}
-                <header>
-                    <nav class="wrapper">
-                        <a href="/" class="stitcher">Stitcher</a>
-                        <a href="/guide/setting-up">Guide</a>
-                        <a href="/blog">News &amp; blogposts</a>
-                        <a class="ribbon"
-                           href="https://github.com/pageon/stitcher"
-                           target="_blank"
-                           rel="nofollow noopener">
-                            GitHub
-                        </a>
-                    </nav>
-                </header>
+            {block 'nav__main'}
+                <nav class="nav__main">
+                    <a href="/" {call active category='home'}>Install</a>
+                    <a href="/guide/setting-up" {call active category='guide'}>Guide</a>
+                    <a href="/blog" {call active category='blog'}>Blog</a>
+                </nav>
             {/block}
 
-            {block 'title'}
-                {if isset($title)}
-                    <div class="wrapper">
-                        <h2>{$title}</h2>
-                    </div>
-                {/if}
-            {/block}
-
-            <div class="content">
-                {block 'content_wide'}
-                    <div class="wrapper">
-                        {block 'content'}{/block}
-                    </div>
-                {/block}
-            </div>
+            {block 'content'}{/block}
 
             <footer>
                 {block 'footer'}{/block}
@@ -50,3 +28,9 @@
         {/block}
     </body>
 </html>
+
+{function 'active' category=null}
+    {if $category && isset($pageCategory) && $pageCategory === $category}
+        class="active"
+    {/if}
+{/function}

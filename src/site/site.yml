@@ -7,6 +7,7 @@
         blog: data/blog.yml
         news: data/blog.yml
         banner: img/home_banner.jpg
+        pageCategory: home
     adapters:
         filter:
             blog:
@@ -25,10 +26,25 @@
         limit:
             blog: 2
             news: 1
+
+/guide/{id}:
+    template: guide/detail
+    variables:
+        page: data/guide/_guide.yml
+        pages: data/guide/_guide.yml
+        pageCategory: guide
+    adapters:
+        guide:
+            variable: pages
+        collection:
+            variable: page
+            field: id
+
 /blog:
-    template: blog
+    template: blog/overview
     variables:
         posts: data/blog.yml
+        pageCategory: blog
     adapters:
         order:
             variable: posts
@@ -39,24 +55,13 @@
             entriesPerPage: 4
 
 /blog/{id}:
-    template: blog.post
+    template: blog/detail
     variables:
         post: data/blog.yml
+        pageCategory: blog
     adapters:
         collection:
             variable: post
-            field: id
-
-/guide/{id}:
-    template: guide/detail
-    variables:
-        page: data/guide/_guide.yml
-        pages: data/guide/_guide.yml
-    adapters:
-        guide:
-            variable: pages
-        collection:
-            variable: page
             field: id
 
 /gallery:

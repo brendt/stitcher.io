@@ -1,0 +1,18 @@
+@import 'variables';
+
+.content__blog {
+    article {
+        & > a {
+            text-decoration: none;
+        }
+
+        & p {
+            margin-left: 0;
+        }
+
+        & span {
+            display: inline-block;
+            margin-top: 1em;
+        }
+    }
+}
