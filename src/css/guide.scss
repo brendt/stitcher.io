@@ -6,8 +6,8 @@
         width: 30vw;
         min-width: 300px;
         top: 0;
-        left:0;
-        bottom:0;
+        left: 0;
+        bottom: 0;
         color: #fff;
         padding: 3em 1em 0;
 
@@ -17,12 +17,19 @@
         & > a,
         & > h2 {
             display: block;
-            width:300px;
-            float:right;
-            clear:both;
+            width: 300px;
+            float: right;
+            clear: both;
+            text-decoration: none;
+        }
+
+        & > a.active {
+            font-weight: 800;
         }
 
         & > h2 {
+            font-weight: bold;
+            color: lighten($color-orange, 40);
             margin: 1.2em 0 0.4em;
 
             &:first-child {
@@ -31,14 +38,14 @@
         }
 
         & > a {
-            padding:.3em 0 .3em .5em;
+            padding: .3em 0 .3em .5em;
         }
     }
 
     & > article {
-        width:70vw;
+        width: 70vw;
         margin-top: 3em;
-        margin-left:30vw;
+        margin-left: 30vw;
         padding: 0 4vw 0 1.5em;
     }
 
@@ -46,5 +53,25 @@
         & > nav {
             position: relative;
         }
+
+        & > article {
+            width: auto;
+            margin-left:1em;
+            margin-right: 1em;
+            padding-left:0;
+            padding-right: 0;
+        }
+    }
+}
+
+footer {
+    & > .container {
+        margin-left: 30vw;
+        width: 70vw;
+    }
+
+    & > .container > nav {
+        margin: 0;
+        padding: 0 4vw 0 1.5em;
     }
 }

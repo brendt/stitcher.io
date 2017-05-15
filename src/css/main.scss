@@ -22,26 +22,10 @@ li {
     width: $width-container;
     margin: 0 auto;
 
-    &--content {
-        article,
-        ul,
-        h2,
-        p {
-            margin: 1em 120px 0;
-        }
-    }
-
     @media (max-width: $width-container) {
+        padding-left:1em;
+        padding-right:1em;
         width: 100vw;
-
-        &--content {
-            ul,
-            h2,
-            p {
-                margin-left:1em;
-                margin-right:1em;
-            }
-        }
     }
 }
 
@@ -70,6 +54,11 @@ li {
 
 a {
     color: inherit;
+
+    &:hover {
+        color: $color-red;
+        text-decoration: none;
+    }
 }
 
 .cta {
@@ -83,10 +72,18 @@ a {
     color: $color-red;
     margin-right: .8em;
 
+    &:hover {
+        color: $color-red;
+    }
+
     &--ghost {
         background: none;
         box-shadow: inset 0 0 0 2px $color-white;
         color: $color-white;
+
+        &:hover {
+            color: $color-white;
+        }
     }
 
     &:last-child {
@@ -95,7 +92,103 @@ a {
 }
 
 pre {
-    background: darken($color-white, 4);
+    position: relative;
+    background: darken($color-white, 1);
+    box-shadow: 0 0 10px 0px rgba(20, 20, 20, 0.3);
     padding: 1.5em 2em;
     font-family: Monaco, monospace;
+    cursor: pointer;
+
+    &::before {
+        content: ' ';
+        position: absolute;
+        display: block;
+        top:0;
+        left:0;
+        bottom:0;
+        width:7px;
+        background: $color-orange;
+        background: linear-gradient(45deg, $color-red, $color-orange);
+    }
+}
+
+code {
+    font-family: Monaco, monospace;
+    background: darken($color-white, 1);
+    padding: .2em .3em;
+}
+
+footer {
+    padding: 1em 0;
+
+    & nav {
+        &:after {
+            @include clearfix();
+        }
+
+        & .next {
+            display: inline-block;
+            float: right;
+        }
+
+        & .prev {
+            display: inline-block;
+            float:left;
+        }
+    }
+}
+
+h2 {
+    margin-top:1.5em;
+    margin-bottom:1em;
+    font-weight:bold;
+
+    & em {
+        font-style: normal;
+        font-weight: normal;
+    }
+}
+
+h3 {
+    margin-top:1.8em;
+    margin-bottom:.4em;
+}
+
+.underline--highlight {
+    display: inline-block;
+    padding-right:5em;
+
+    &::after {
+        //display: block;
+        //content: ' ';
+        //width:100%;
+        //height:10px;
+
+        //clip-path: polygon(0 20%, 97% 0, 100% 80%, 3% 80%);
+
+        //background: $color-orange;
+        //background: linear-gradient(45deg, $color-red, $color-orange);
+    }
+}
+
+article {
+    & h1 {
+        font-size: 1.3em;
+        font-weight: normal;
+    }
+
+    & + article {
+        margin-top: 2em;
+    }
+
+    & > a:hover {
+        color: inherit;
+    }
+
+    &:hover {
+        h1,
+        .link {
+            color: $color-red;
+        }
+    }
 }
