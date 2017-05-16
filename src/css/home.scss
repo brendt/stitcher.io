@@ -76,6 +76,25 @@
             display: none;
         }
     }
+
+    .cta {
+        &:hover {
+            background:none;
+            box-shadow: inset 0 0 0 2px $color-white;
+            color: $color-white;
+        }
+    }
+
+    .cta--ghost {
+        box-shadow: inset 0 0 0 2px $color-white;
+        color: $color-white;
+
+        &:hover {
+            box-shadow: inset 0 0 0 2px $color-white;
+            background: $color-white;
+            color: $color-red;
+        }
+    }
 }
 
 .nav__main > a {

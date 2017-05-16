@@ -54,8 +54,10 @@ li {
 
 a {
     color: inherit;
+}
 
-    &:hover {
+p {
+    & a:hover {
         color: $color-red;
         text-decoration: none;
     }
@@ -63,27 +65,28 @@ a {
 
 .cta {
     display: inline-block;
+    color: $color-black;
     background: $color-white;
     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
     padding: .7em 2em .8em;
     border-radius: 2.2em;
     text-decoration: none;
     font-size: 1em;
-    color: $color-red;
     margin-right: .8em;
 
     &:hover {
+        color: $color-red;
+        box-shadow: inset 0 0 0 2px $color-red;
+    }
+
+    &--primary {
         color: $color-red;
     }
 
     &--ghost {
         background: none;
-        box-shadow: inset 0 0 0 2px $color-white;
-        color: $color-white;
-
-        &:hover {
-            color: $color-white;
-        }
+        box-shadow: inset 0 0 0 2px $color-black;
+        color: $color-black;
     }
 
     &:last-child {
@@ -92,6 +95,8 @@ a {
 }
 
 pre {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
     position: relative;
     background: darken($color-white, 1);
     box-shadow: 0 0 10px 0px rgba(20, 20, 20, 0.3);
@@ -113,6 +118,8 @@ pre {
 }
 
 code {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
     font-family: Monaco, monospace;
     background: darken($color-white, 1);
     padding: .2em .3em;
@@ -120,6 +127,7 @@ code {
 
 footer {
     padding: 1em 0;
+    margin-bottom: 1em;
 
     & nav {
         &:after {
@@ -129,11 +137,23 @@ footer {
         & .next {
             display: inline-block;
             float: right;
+
+            &:after {
+                display: inline-block;
+                padding-left: .3em;
+                content: '\203A';
+            }
         }
 
         & .prev {
             display: inline-block;
             float:left;
+
+            &:before {
+                display: inline-block;
+                padding-right: .3em;
+                content: '\2039 ';
+            }
         }
     }
 }
@@ -175,6 +195,11 @@ article {
     & h1 {
         font-size: 1.3em;
         font-weight: normal;
+        color: $color-red;
+    }
+
+    &.overview h1 {
+        color: $color-black;
     }
 
     & + article {
@@ -185,7 +210,7 @@ article {
         color: inherit;
     }
 
-    &:hover {
+    &:hover > a {
         h1,
         .link {
             color: $color-red;

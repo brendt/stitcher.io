@@ -11,7 +11,7 @@
         <h1>Stitcher</h1>
         <h2>High performance, static websites for PHP developers.</h2>
 
-        <a href="#install" class="cta">Install now</a>
+        <a href="#install" class="cta cta--primary">Install now</a>
         <a href="#" class="cta cta--ghost">Setting up</a>
 
         <svg id="curve" style="width:100%;;" viewBox="0 0 1440 126" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

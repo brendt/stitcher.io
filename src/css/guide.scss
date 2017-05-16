@@ -9,7 +9,8 @@
         left: 0;
         bottom: 0;
         color: #fff;
-        padding: 3em 1em 0;
+        padding: 3em 1em;
+        overflow-y:scroll;
 
         background: $color-orange;
         background: linear-gradient(60deg, $color-red, $color-orange);
@@ -24,12 +25,13 @@
         }
 
         & > a.active {
-            font-weight: 800;
+            font-weight: 700;
         }
 
         & > h2 {
-            font-weight: bold;
-            color: lighten($color-orange, 40);
+            font-weight: normal;
+            font-size: 1.3em;
+            color: $color-orange-dark;
             margin: 1.2em 0 0.4em;
 
             &:first-child {
@@ -38,7 +40,7 @@
         }
 
         & > a {
-            padding: .3em 0 .3em .5em;
+            padding: .3em 0;
         }
     }
 
