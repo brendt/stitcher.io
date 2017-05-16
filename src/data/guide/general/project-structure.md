@@ -50,9 +50,7 @@ holds a collection of routes for pages and their configuration. A basic example 
 
 The `src/data/` directory is used to store all kinds of different data files. Data entries can be provided in many formats: 
 JSON, YAML, MarkDown, image, folder,.. A data file can either contain data of a single entry, or a collection of multiple entries. 
-In the second case, when using JSON or YAML files, An extra root key `entries` is required.
-
-Examples of data usage can be found in the next chapter.
+In the second case, when using JSON or YAML files, An extra root key `entries` is required. Examples of data usage can be found later.
 
 ### Templates
 

@@ -1,6 +1,11 @@
 @import 'variables';
 @import 'normalize';
 
+*::selection {
+    background: $color-orange;
+    color: $color-white;
+}
+
 body {
     font-size: $em-base;
     color: $color-black;
@@ -23,21 +28,21 @@ li {
     margin: 0 auto;
 
     @media (max-width: $width-container) {
-        padding-left:1em;
-        padding-right:1em;
+        padding-left: 1em;
+        padding-right: 1em;
         width: 100vw;
     }
 }
 
 .nav__main {
     color: $color-black;
-    position:absolute;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     text-align: right;
     text-decoration: none;
-    padding-right:4vw;
+    padding-right: 4vw;
     z-index: 99;
 
     & > a {
@@ -108,12 +113,17 @@ pre {
         content: ' ';
         position: absolute;
         display: block;
-        top:0;
-        left:0;
-        bottom:0;
-        width:7px;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 7px;
         background: $color-orange;
         background: linear-gradient(45deg, $color-red, $color-orange);
+    }
+
+    & > code {
+        font-size: 1em;
+        background: none;
     }
 }
 
@@ -123,6 +133,7 @@ code {
     font-family: Monaco, monospace;
     background: darken($color-white, 1);
     padding: .2em .3em;
+    font-size: .85em;
 }
 
 footer {
@@ -147,7 +158,7 @@ footer {
 
         & .prev {
             display: inline-block;
-            float:left;
+            float: left;
 
             &:before {
                 display: inline-block;
@@ -159,9 +170,9 @@ footer {
 }
 
 h2 {
-    margin-top:1.5em;
-    margin-bottom:1em;
-    font-weight:bold;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    font-weight: bold;
 
     & em {
         font-style: normal;
@@ -170,22 +181,22 @@ h2 {
 }
 
 h3 {
-    margin-top:1.8em;
-    margin-bottom:.4em;
+    margin-top: 1.8em;
+    margin-bottom: .4em;
 }
 
 .underline--highlight {
     display: inline-block;
-    padding-right:5em;
+    padding-right: 5em;
 
     &::after {
         //display: block;
         //content: ' ';
         //width:100%;
         //height:10px;
-
+        //
         //clip-path: polygon(0 20%, 97% 0, 100% 80%, 3% 80%);
-
+        //
         //background: $color-orange;
         //background: linear-gradient(45deg, $color-red, $color-orange);
     }

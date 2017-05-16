@@ -1,5 +1,7 @@
 @import 'variables';
 
+$article-width: 1200px;
+
 .content__guide {
     & > nav {
         position: fixed;
@@ -46,6 +48,7 @@
 
     & > article {
         width: 70vw;
+        max-width:$article-width;
         margin-top: 3em;
         margin-left: 30vw;
         padding: 0 4vw 0 1.5em;
@@ -70,6 +73,7 @@ footer {
     & > .container {
         margin-left: 30vw;
         width: 70vw;
+        max-width:$article-width;
     }
 
     & > .container > nav {
