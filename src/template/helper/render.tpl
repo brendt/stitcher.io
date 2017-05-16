@@ -1,5 +1,5 @@
 {function blog post=null url='/blog' tag=false}
-    <article>
+    <article class="overview">
         <a href="{$url}/{$post.id}" class="link-hidden">
             {if isset($post.title)}
                 <h1 {if $tag && isset($post.type) && $post.type === 'news'}class="news"{/if}>

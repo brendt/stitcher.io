@@ -1,20 +1,24 @@
 entries:
     setting-up:
         title: Setting up
-        category: Setup and general
+        category: Basic setup
         content: data/guide/general/setting-up.md
     project-structure:
         title: Project structure
-        category: Setup and general
-        content: data/guide/general/project-structure.md
-    working-with-data:
-        title: Working with data
         category: Basic setup
-        content: data/guide/data/working-with-data.md
+        content: data/guide/general/project-structure.md
     templates:
         title: Templates
         category: Basic setup
-        content: data/guide/data/templates.md
+        content: data/guide/general/templates.md
+    deployment:
+        title: Deployment
+        category: Basic setup
+        content: data/guide/general/templates.md
+    data-types:
+        title: Data types
+        category: Data
+        content: data/guide/data/data-types.md
     adapters:
         title: Intro
         category: Adapters
@@ -31,3 +35,15 @@ entries:
         title: Collection - detail & overview
         category: Adapters
         content: data/guide/adapters/collection.md
+    extending-stitcher:
+        title: Extending Stitcher
+        category: Plugins
+        content: data/guide/plugins/plugin.md
+    basic-plugin:
+        title: Basic plugin
+        category: Plugins
+        content: data/guide/plugins/plugin.md
+    advanced-plugin-usage:
+        title: Advanced plugin usage
+        category: Plugins
+        content: data/guide/plugins/plugin.md

@@ -30,10 +30,10 @@
     <div class="container">
         <nav>
             {if $browse.prev}
-                <a class="prev" href="/guide/{$browse.prev.id}">Previous{if isset($browse.prev.title)}: {$browse.prev.title|strtolower}{/if}</a>
+                <a class="prev cta cta--ghost" href="/guide/{$browse.prev.id}">Previous{if isset($browse.prev.title)}: {$browse.prev.title|strtolower}{/if}</a>
             {/if}
             {if $browse.next}
-                <a class="next" href="/guide/{$browse.next.id}">Next{if isset($browse.next.title)}: {$browse.next.title|strtolower}{/if}</a>
+                <a class="next cta cta--ghost" href="/guide/{$browse.next.id}">Next{if isset($browse.next.title)}: {$browse.next.title|strtolower}{/if}</a>
             {/if}
         </nav>
     </div>
