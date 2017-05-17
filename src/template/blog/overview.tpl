@@ -7,23 +7,28 @@
 {/block}
 
 {block 'content'}
-    <div class="content__blog container">
-        <h2>Blog</h2>
-        {foreach $posts as $post}
-            {call blog post=$post tag=true}
-        {/foreach}
+    <header class="banner banner__blog">
+        {include 'helper/curve.tpl'}
+    </header>
+    <div class="content__blog">
+        <div class="container">
+            <h1>Blog</h1>
+            {foreach $posts as $post}
+                {call blog post=$post tag=true}
+            {/foreach}
+
+            <footer>
+                <nav>
+                    {if isset($pagination.previous)}
+                        <a class="prev cta cta--ghost" href="{$pagination.previous.url}">Previous</a>
+                    {/if}
+                    {if isset($pagination.next)}
+                        <a class="next cta cta--ghost" href="{$pagination.next.url}">Next</a>
+                    {/if}
+                </nav>
+            </footer>
+        </div>
     </div>
 {/block}
 
-{block 'footer'}
-    <div class="container container--content">
-        <nav>
-            {if isset($pagination.previous)}
-                <a class="prev" href="{$pagination.previous.url}">Previous</a>
-            {/if}
-            {if isset($pagination.next)}
-                <a class="next" href="{$pagination.next.url}">Next</a>
-            {/if}
-        </nav>
-    </div>
-{/block}
+{block 'footer'}{/block}
