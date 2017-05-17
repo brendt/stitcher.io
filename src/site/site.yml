@@ -43,7 +43,7 @@
 /blog:
     template: blog/overview
     variables:
-        posts: data/blog.yml
+        posts: data/blog/_blog.yml
         pageCategory: blog
     adapters:
         order:
@@ -57,7 +57,7 @@
 /blog/{id}:
     template: blog/detail
     variables:
-        post: data/blog.yml
+        post: data/blog/_blog.yml
         pageCategory: blog
     adapters:
         collection:

@@ -190,6 +190,21 @@ footer {
             }
         }
     }
+
+    @media (max-width: 70em) {
+        .cta {
+            width: 100%;
+            max-width: 450px;
+            margin:0 auto 1.4em auto;
+            text-align: center;
+            display: block !important;
+            float:none !important;
+
+            &:last-child {
+                margin-right: auto;
+            }
+        }
+    }
 }
 
 h2 {
