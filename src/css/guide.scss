@@ -74,6 +74,11 @@ footer {
         margin-left: 30vw;
         width: 70vw;
         max-width:$article-width;
+
+        @media (max-width: $width-container) {
+            width: 100%;
+            margin-left: 0;
+        }
     }
 
     & > .container > nav {
