@@ -12,7 +12,7 @@ The collection adapter takes a page with a collection of entries, and generates 
 ```
 
 Furthermore, an extra variable called `browse` is added. This variable holds the information to browse through detail pages.
- The `browse` variable holds two keys: `next` and `prev`.
+ The `browse` variable has two keys: `next` and `prev`.
  
 ```html
 {if $browse.prev}

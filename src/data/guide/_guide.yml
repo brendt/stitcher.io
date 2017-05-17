@@ -23,18 +23,18 @@ entries:
     site-configuration:
         title: Site configuration
         category: Stitching
-        content: data/guide/general/templates.md
-    templates:
-        title: Templates
-        category: Stitching
-        content: data/guide/general/templates.md
+        content: data/guide/stitching/site-configuration.md
     data-types:
         title: Data types
         category: Stitching
-        content: data/guide/data/data-types.md
+        content: data/guide/stitching/data-types.md
+    templates:
+        title: Templates
+        category: Stitching
+        content: data/guide/stitching/templates.md
 
     adapters:
-        title: Intro
+        title: Adapter intro
         category: Adapters
         content: data/guide/adapters/adapters.md
     data-manipulation:
@@ -46,7 +46,7 @@ entries:
         category: Adapters
         content: data/guide/adapters/pagination.md
     collection-adapter:
-        title: Collection - detail & overview
+        title: 'Collection: detail pages'
         category: Adapters
         content: data/guide/adapters/collection.md
 
