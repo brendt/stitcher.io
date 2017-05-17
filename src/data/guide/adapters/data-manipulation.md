@@ -1,3 +1,6 @@
+Data manipulation adapters are used to modify the data set of a variable. You might want to order, limit or filter your
+ entries. That can be done with these adapters.
+
 ### Order
 
 Applies order to a data set, based on a field of that data.
