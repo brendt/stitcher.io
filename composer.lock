@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "ee60609822c81bb0e80d01e7c69d12dc8fe530ae"
+                "reference": "ae6204c225440753ab6cf407c20e340d00ae6a42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/ee60609822c81bb0e80d01e7c69d12dc8fe530ae",
-                "reference": "ee60609822c81bb0e80d01e7c69d12dc8fe530ae",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/ae6204c225440753ab6cf407c20e340d00ae6a42",
+                "reference": "ae6204c225440753ab6cf407c20e340d00ae6a42",
                 "shasum": ""
             },
             "require": {
@@ -115,7 +115,7 @@
                 "static site",
                 "twig"
             ],
-            "time": "2017-05-03 15:46:58"
+            "time": "2017-05-17 06:41:14"
         },
         {
             "name": "erusev/parsedown",

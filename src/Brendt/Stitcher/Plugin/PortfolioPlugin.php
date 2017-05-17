@@ -21,7 +21,7 @@ class PortfolioPlugin implements Plugin {
      *
      * @return null|string
      */
-    public function getConfigPath() {
+    public static function getConfigPath() {
         return;
     }
 
@@ -30,7 +30,7 @@ class PortfolioPlugin implements Plugin {
      *
      * @return null|string
      */
-    public function getServicesPath() {
+    public static function getServicesPath() {
         return __DIR__ . '/../../../../config/services.portfolio.yml';
     }
 }
