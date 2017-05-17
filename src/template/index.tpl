@@ -20,9 +20,7 @@
 
             {block 'content'}{/block}
 
-            <footer>
-                {block 'footer'}{/block}
-            </footer>
+            {block 'footer'}{/block}
 
             {block 'scripts'}{/block}
         {/block}

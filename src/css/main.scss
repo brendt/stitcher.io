@@ -23,6 +23,17 @@ li {
     line-height: 1.5em;
 }
 
+#curve {
+    position: absolute;
+    bottom:-1px;
+    left:0;
+    right:0;
+}
+
+.banner {
+    position: relative;
+}
+
 .container {
     width: $width-container;
     margin: 0 auto;
@@ -94,6 +105,16 @@ p {
         color: $color-black;
     }
 
+    &--link {
+        border:none;
+        box-shadow: none;
+
+        &:hover {
+            border: none;
+            box-shadow: none;
+        }
+    }
+
     &:last-child {
         margin-right: 0;
     }
@@ -108,6 +129,7 @@ pre {
     padding: 1.5em 2em;
     font-family: Monaco, monospace;
     cursor: pointer;
+    overflow-x: scroll;
 
     &::before {
         content: ' ';
@@ -228,4 +250,8 @@ article {
             color: $color-red;
         }
     }
+}
+
+.center {
+    text-align: center;
 }
