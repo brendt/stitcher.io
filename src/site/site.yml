@@ -4,8 +4,8 @@
         content: data/home/home.md
         content_why: data/home/why.md
         content_installation: data/home/installation.md
-        blog: data/blog.yml
-        news: data/blog.yml
+        blog: data/blog/_blog.yml
+        news: data/blog/_blog.yml
         banner: img/home_banner.jpg
         pageCategory: home
     adapters:

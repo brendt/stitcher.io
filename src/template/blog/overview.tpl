@@ -13,6 +13,7 @@
     <div class="content__blog">
         <div class="container">
             <h1>Blog</h1>
+
             {foreach $posts as $post}
                 {call blog post=$post tag=true}
             {/foreach}
