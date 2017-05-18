@@ -57,12 +57,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brendt/stitcher.git",
-                "reference": "ae6204c225440753ab6cf407c20e340d00ae6a42"
+                "reference": "b6a28ebcbfeb9935f68b5920b28b32b00a70659c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/ae6204c225440753ab6cf407c20e340d00ae6a42",
-                "reference": "ae6204c225440753ab6cf407c20e340d00ae6a42",
+                "url": "https://api.github.com/repos/brendt/stitcher/zipball/b6a28ebcbfeb9935f68b5920b28b32b00a70659c",
+                "reference": "b6a28ebcbfeb9935f68b5920b28b32b00a70659c",
                 "shasum": ""
             },
             "require": {
@@ -115,7 +115,7 @@
                 "static site",
                 "twig"
             ],
-            "time": "2017-05-17 06:41:14"
+            "time": "2017-05-18 05:10:53"
         },
         {
             "name": "erusev/parsedown",
@@ -386,16 +386,16 @@
         },
         {
             "name": "pageon/html-meta",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/html-meta.git",
-                "reference": "1a07ccea6ad426d4182173fa96be7d4878491b8d"
+                "reference": "2e6042292d3555ea750fccc99849f5933c15bde0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/html-meta/zipball/1a07ccea6ad426d4182173fa96be7d4878491b8d",
-                "reference": "1a07ccea6ad426d4182173fa96be7d4878491b8d",
+                "url": "https://api.github.com/repos/pageon/html-meta/zipball/2e6042292d3555ea750fccc99849f5933c15bde0",
+                "reference": "2e6042292d3555ea750fccc99849f5933c15bde0",
                 "shasum": ""
             },
             "require": {
@@ -428,7 +428,7 @@
                 "meta tags",
                 "seo"
             ],
-            "time": "2017-04-23 14:38:19"
+            "time": "2017-05-18 05:09:46"
         },
         {
             "name": "ps/image-optimizer",
