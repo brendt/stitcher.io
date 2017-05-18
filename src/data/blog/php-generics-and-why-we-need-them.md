@@ -4,7 +4,7 @@ Let's say you have a collection of blog posts, loaded from a data source.
 $posts = $blogModel->find();
 ```
 
-Now you want to loop over every post, and do *something* with its data; lets say, its `id`.
+Now you want to loop over every post, and do *something* with its data; lets say, the `id`.
 
 ```php
 foreach ($posts as $post) {
@@ -17,11 +17,11 @@ foreach ($posts as $post) {
 This is a scenario that happens often. And its this scenario we'll explore to discuss why generics are awesome, and why
  the PHP community desperately needs them.
  
-Lets explore some problems of the above approach.
+Lets take a look at the problems of the above approach.
 
 ### Data integrity
 
-An array is a collection of.. things. Take a look at this:
+In PHP, an array is a collection of.. things.
 
 ```php
 $posts = [
@@ -38,8 +38,8 @@ Looping over this set of posts would result in a fatal error.
 PHP Fatal error:  Uncaught Error: Call to a member function getId() on string
 ```
 
-We're calling `->getId()` on the string `'foo'`. Not done. So when looping over an array, and we want to be sure that 
- every value is of a certain type, we could do something like this.
+We're calling `->getId()` on the string `'foo'`. Not done. So when looping over an array, we want to be sure that 
+ every value is of a certain type. We could do something like this.
  
 ```php
 foreach ($posts as $post) {
@@ -57,7 +57,7 @@ This would work, but if you've written some production PHP code, you know these 
  the codebase. But in our example, we could verify the type of each entry in the `->find()` method on `$blogModel`.
  However, that's just moving the problem from one place to another. It's a bit better though.
  
-There's another problem with data integrity, say you have a method which requires an array of `Post`s.
+There's another problem with data integrity. Say you have a method which requires an array of `Post`s.
 
 ```php
 function handlePosts(array $posts) {
@@ -92,7 +92,7 @@ You can imagine it's way better to know beforehand whether an array contains onl
  manually checking the types within a loop, every, single, time.
  
 We can't do benchmarks on generics, because they don't exist yet, so its only guessing as to how they would impact performance.
- It's not insane to assume though, that PHP's optimised behaviour, written in C, is a better way to solve the problem, than
+ It's not insane to assume though, that PHP's optimised behaviour, written in C; is a better way to solve the problem than
  to write lots of userland code.
  
 ### Code completion
@@ -110,7 +110,7 @@ public function find() : array {
 ```
 
 As of PHP 7.0, return types were added, and in PHP 7.1 they were refined with nullables and void. But there's no way 
- our IDE can know, based on this code snippet, what's in the array. So we're falling back to PHPDoc.
+ our IDE can know what's in the array. So we're falling back to PHPDoc.
  
 ```php
 /**
@@ -129,21 +129,21 @@ When using a "generic" implementation of eg. a model class, type hinting the `->
 $posts = $blogModel->find();
 ```
 
-===
-
 Both the uncertainty of what's exactly in an array, the performance and maintenance impact because of scattered code,
  and the inconvenience when writing those extra checks, makes me long for a better solution. 
 
+---
+
 That solution, in my opinion is [generics](https://wiki.php.net/rfc/generics). I won't explain in detail what generics 
- do, you can read the RFC for that. But I will give you an example how generics could solve these issues, guaranteeing 
- the developer would always have the correct data in his collection.
+ do, you can read the RFC to know that. But I will give you an example of how generics could solve these issues, guaranteeing 
+ the developer would always have the correct data in a collection.
  
 Big **note**: generics do not exist in PHP, yet. The RFC targeted PHP 7.1, and has no further information about the 
  future. Some of the following samples are dummy code, based on this RFC, the [the Iterator interface](http://php.net/manual/en/class.iterator.php)
  and [the ArrayAccess interface](http://php.net/manual/en/class.arrayaccess.php).
  
 First we'll create a `Collection` class which works in PHP 5.0+. This class implements `Iterator` to be able to
- loop over its items, and also implements `ArrayAccess` to be able to use array-like syntax to add and access items in the
+ loop over its items, and `ArrayAccess` to be able to use array-like syntax to add and access items in the
  collection.
  
 ```php

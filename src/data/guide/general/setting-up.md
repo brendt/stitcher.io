@@ -1,3 +1,7 @@
+**Note:** if you're new to Stitcher and you want to get to know Stitcher's way of development first, feel free to 
+ [skip the boring part](/guide/site-configuration) and jump right into tinkering with Stitcher. When you're done hacking
+ things together, you can read up on general concepts like deployment and configuration.
+
 ### Installation
 
 Stitcher is installed via Composer. It requires PHP 7.0 or higher.
