@@ -53,12 +53,12 @@ entries:
     extending-stitcher:
         title: Extending Stitcher
         category: Plugins
-        content: data/guide/plugins/plugin.md
+        content: data/guide/plugins/extending-stitcher.md
     basic-plugin:
         title: Basic plugin
         category: Plugins
-        content: data/guide/plugins/plugin.md
-    advanced-plugin-usage:
-        title: Advanced plugin usage
-        category: Plugins
-        content: data/guide/plugins/plugin.md
+        content: data/guide/plugins/basic-plugin.md
+#    advanced-plugin-usage:
+#        title: Advanced plugin usage
+#        category: Plugins
+#        content: data/guide/plugins/plugin.md
