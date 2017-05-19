@@ -74,9 +74,9 @@ $article-width: 1200px;
     & > article {
         width: 70vw;
         max-width: $article-width;
-        margin-top: 3em;
+        padding-top: 1.5em;
         margin-left: 30vw;
-        padding: 0 4vw 0 1.5em;
+        padding: 1.5em 4vw 0 1.5em;
 
         @media (max-width: $width-container) {
             width: auto;
@@ -103,5 +103,12 @@ footer {
     & > .container > nav {
         margin: 0;
         padding: 0 4vw 0 1.5em;
+    }
+}
+
+
+@media (max-width: $width-container) {
+    .nav__main > a {
+        color: $color-white;
     }
 }
