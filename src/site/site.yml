@@ -4,9 +4,10 @@
         content: data/home/home.md
         content_why: data/home/why.md
         content_installation: data/home/installation.md
-        blog: data/blog.yml
-        news: data/blog.yml
+        blog: data/blog/_blog.yml
+        news: data/blog/_blog.yml
         banner: img/home_banner.jpg
+        pageCategory: home
     adapters:
         filter:
             blog:
@@ -25,10 +26,25 @@
         limit:
             blog: 2
             news: 1
-/blog:
-    template: blog
+
+/guide/{id}:
+    template: guide/detail
     variables:
-        posts: data/blog.yml
+        page: data/guide/_guide.yml
+        pages: data/guide/_guide.yml
+        pageCategory: guide
+    adapters:
+        guide:
+            variable: pages
+        collection:
+            variable: page
+            field: id
+
+/blog:
+    template: blog/overview
+    variables:
+        posts: data/blog/_blog.yml
+        pageCategory: blog
     adapters:
         order:
             variable: posts
@@ -39,9 +55,10 @@
             entriesPerPage: 4
 
 /blog/{id}:
-    template: blog.post
+    template: blog/detail
     variables:
-        post: data/blog.yml
+        post: data/blog/_blog.yml
+        pageCategory: blog
     adapters:
         collection:
             variable: post

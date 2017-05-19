@@ -10,4 +10,4 @@ use Brendt\Stitcher\App;
 // Run ./stitcher in your terminal to see all options.
 // See ./config.yml for more information.
 $config = trim(@file_get_contents(__DIR__ . '/.env'));
-App::init($config ? $config : './config.yml')::get('app.console')->run();
+App::init($config ? $config : './config/config.yml')::get('app.console')->run();

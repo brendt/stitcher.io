@@ -2,50 +2,56 @@
 
 {include 'helper/render.tpl'}
 
-{block 'header'}
-    <header class="home">
-        <div class="wrapper">
-            <h1>Stitcher :</h1>
-            <em>high performance, static websites for PHP developers.</em>
-            <div class="vwrapper">
-                <a href="#installation" class="btn">Install now</a>
-                <a href="/guide/setting-up" class="btn">Setting Up</a>
-            </div>
-            <div class="vwrapper">
-                <a href="/blog" class="highlight">News &amp; blogposts</a>
-            </div>
-        </div>
-        <div class="overlay"></div>
-        <img src="{$banner.src}" srcset="{$banner.srcset}" alt="">
-    </header>
+{block 'head' append}
+    {css src='home.scss' inline=true}
 {/block}
 
 {block 'content'}
-    <h2>Why Stitcher?</h2>
+    <header class="banner__home">
+        <h1>Stitcher</h1>
+        <h2>High performance, static websites for PHP developers.</h2>
 
-    <div class="why">
-        {$content_why}
-    </div>
+        <a href="#install" class="cta cta--primary">Install now</a>
+        <a href="/guide/setting-up" class="cta cta--ghost">Setting up</a>
 
-    <div class="installation" id="installation">
+        {include 'helper/curve.tpl'}
+    </header>
+
+    <div class="container">
+        <div class="content__why">
+            {$content_why}
+        </div>
+
         {$content_installation}
-    </div>
 
-    <hr>
+        {*<hr>*}
 
-    <h2>News</h2>
-    {foreach $news as $newsPost}
-        {call blog post=$newsPost}
-    {/foreach}
-    <h2>Latest blog posts</h2>
-    {foreach $blog as $blogPost}
-        {call blog post=$blogPost}
-    {/foreach}
-    <div class="vwrapper">
-        <a href="/blog">Read all blogposts</a>
+        {*<div class="content__news">*}
+            {*<h2>News <em>and</em> blog posts</h2>*}
+            {*{foreach $news as $post}*}
+                {*{call blog post=$post small=true}*}
+            {*{/foreach}*}
+
+            {*{foreach $blog as $post}*}
+                {*{call blog post=$post small=true}*}
+            {*{/foreach}*}
+        {*</div>*}
     </div>
 {/block}
 
-{block 'scripts'}
-    {js src="js/codeClick.js" inline=true}
+{block 'footer'}
+    <footer class="footer__large">
+        <div class="container">
+            <div class="left">
+                &copy; {date('Y', time())}
+            </div>
+            <div class="right">
+                <a href="https://www.github.com/brendt/stitcher" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </footer>
+{/block}
+
+{block 'scripts' append}
+    {js src='codeClick.js' inline=true}
 {/block}
