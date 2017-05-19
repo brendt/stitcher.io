@@ -24,6 +24,10 @@ $article-width: 1200px;
             float: right;
             clear: both;
             text-decoration: none;
+
+            @media (max-width: $width-container) {
+                width:100%;
+            }
         }
 
         & > a.active {
@@ -56,7 +60,8 @@ $article-width: 1200px;
 
     @media (max-width: $width-container) {
         & > nav {
-            position: relative;
+            position: fixed;
+            z-index: 100;
         }
 
         & > article {

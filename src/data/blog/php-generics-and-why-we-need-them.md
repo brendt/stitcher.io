@@ -1,4 +1,4 @@
-Let's say you have a collection of blog posts, loaded from a data source.
+Imagine you have a collection of blog posts, loaded from a data source.
 
 ```php
 $posts = $blogModel->find();
@@ -38,7 +38,7 @@ Looping over this set of posts would result in a fatal error.
 PHP Fatal error:  Uncaught Error: Call to a member function getId() on string
 ```
 
-We're calling `->getId()` on the string `'foo'`. Not done. So when looping over an array, we want to be sure that 
+We're calling `->getId()` on the string `'foo'`. Not done. When looping over an array, we want to be sure that 
  every value is of a certain type. We could do something like this.
  
 ```php
@@ -54,7 +54,7 @@ foreach ($posts as $post) {
 ```
 
 This would work, but if you've written some production PHP code, you know these checks can grow quickly, and pollute 
- the codebase. But in our example, we could verify the type of each entry in the `->find()` method on `$blogModel`.
+ the codebase. In our example, we could verify the type of each entry in the `->find()` method on `$blogModel`.
  However, that's just moving the problem from one place to another. It's a bit better though.
  
 There's another problem with data integrity. Say you have a method which requires an array of `Post`s.
@@ -80,7 +80,7 @@ function handlePosts(Post ...$posts) {
 }
 ```
 
-But the downside of this approach, you would have to call the function with an unpacked array.
+But the downside of this approach: you would have to call the function with an unpacked array.
 
 ```php
 handlePosts(...$posts);
@@ -88,7 +88,7 @@ handlePosts(...$posts);
 
 ### Performance
 
-You can imagine it's way better to know beforehand whether an array contains only elements of a certain type, rather then
+You can imagine it's better to know beforehand whether an array contains only elements of a certain type, rather then
  manually checking the types within a loop, every, single, time.
  
 We can't do benchmarks on generics, because they don't exist yet, so its only guessing as to how they would impact performance.
@@ -98,7 +98,7 @@ We can't do benchmarks on generics, because they don't exist yet, so its only gu
 ### Code completion
 
 I don't know about you, but I use an IDE when writing PHP code. Code completion increases productivity immensely, so I'd also 
- like to use it here. When we're looping over posts, we want our IDE to know each `$post` is an instance of `Post`. Let's take
+ like to use it here. When looping over posts, we want our IDE to know each `$post` is an instance of `Post`. Lets take
  a look at the plain PHP implementation.
  
 ```php
@@ -232,7 +232,7 @@ class PostCollection extends Collection
         return parent::current();
     }
 
-    public function offsetGet($offset) : ?Post{
+    public function offsetGet($offset) : ?Post {
         return parent::offsetGet($offset);
     }
 
@@ -260,7 +260,7 @@ foreach ($collection as $item) {
 }
 ```
 
-It works! Even without generics! This only issue, you might be able to guess it. This is not scaleable. You need a
+It works! Even without generics! There's only one issue, you might be able to guess it. This is not scaleable. You need a
  separate implementation for every type of collection, even though the only difference between those classes would be the
  type.
 
@@ -270,8 +270,8 @@ You could probably make the subclasses even more convenient to create, by "abusi
   
 ### Glorious generics
 
-With all that in mind, lets just view the code we would be able to write if generics were implemented in PHP. Note that 
- this would be **one class** which could be used for every type. For your convenience, I'll only be writing the changes 
+With all that in mind, lets just take a look at the code we would be able to write if generics were implemented in PHP. 
+ This would be **one class** which could be used for every type. For your convenience, I'll only be writing the changes 
  compared to the previous `Collection` class, so keep that in mind.
   
 ```php
