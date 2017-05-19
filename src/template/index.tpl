@@ -3,6 +3,9 @@
         {block 'head'}
             <title>{block 'title'}{if isset($title)}{$title} - {/if}Stitcher 1.0{/block}</title>
             {block 'meta'}
+                <meta property="og:image" content="http://stitcher.pageon.be/img/stitcher.png" />
+                <meta property="twitter:image" content="http://stitcher.pageon.be/img/stitcher.png" />
+                <meta name="image" content="http://stitcher.pageon.be/img/stitcher.png" />
                 {meta}
             {/block}
             {css src="main.scss" inline=true}
