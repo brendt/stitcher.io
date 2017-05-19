@@ -12,7 +12,7 @@
         <h2>High performance, static websites for PHP developers.</h2>
 
         <a href="#install" class="cta cta--primary">Install now</a>
-        <a href="#" class="cta cta--ghost">Setting up</a>
+        <a href="/guide/setting-up" class="cta cta--ghost">Setting up</a>
 
         {include 'helper/curve.tpl'}
     </header>
