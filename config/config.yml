@@ -16,6 +16,9 @@
 #     </Directory>
 # </VirtualHost>
 
+plugins:
+    - Brendt\Stitcher\Plugin\PortfolioPlugin
+
 # Configure the paths of several directories
 directories:
     # The source directory containing

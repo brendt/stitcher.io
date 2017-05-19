@@ -1,4 +1,14 @@
 entries:
+    php-generics-and-why-we-need-them:
+        date: 2017-05-17
+        type: news
+        title: PHP Generics and why we need them
+        content: data/blog/php-generics-and-why-we-need-them.md
+        meta:
+            description: >
+                PHP has some problems with arrays. Generics an fix those problems.
+                In this blog post, we'll be exploring the possibilities if this RFC were to be added.
+
     stitcher-alpha-5:
         date: 2017-05-01
         highlight: true

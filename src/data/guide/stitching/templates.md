@@ -19,7 +19,9 @@ engines:
 </head>
 ```
 
-Render all configured meta tags. Meta tags can be added in `config.yml`; are automatically added from `meta` variables in pages and entries; are parsed from `title`, `description` and `image` fields; and finally, the `extra` variable can be added within the template to add even more meta.
+Render all configured meta tags. Meta tags can be added in `config.yml`; are automatically added from `meta` variables in 
+ pages and entries; are parsed from `title`, `description` and `image` fields; and finally, the `extra` variable can be 
+ added within the template to add even more meta.
  
 ```yaml
 # config.yml
@@ -38,7 +40,7 @@ meta:
 </head>
 ```
 
-The CSS function can take a normal CSS, Sass or SCSS file, and render it; either inline for critical CSS, via a separate request or by enabling HTTP/2 server push.
+The CSS function can take a normal CSS, Sass or SCSS file, and renders it; either inline for critical CSS, via a separate request or by enabling HTTP/2 server push.
 
 **Note: ** when the `minify` option is set to true, files loaded with the `css` function will be minified.
 

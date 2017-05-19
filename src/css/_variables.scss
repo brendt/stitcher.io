@@ -1,23 +1,15 @@
-$color-orange: #FF8719;
-$color-blue: #128D9E;
-$color-dark-blue: darken($color-blue, 20%);
-$color-yellow: #FFCE19;
-$color-gray: #484848;
-$font-size-base: 18px;
+$color-black: #353535;
+$color-white: #ffffff;
+$color-orange: #fd5d1f;
+$color-orange-dark: #742100;
+$color-red: #fc3149;
+
+$em-base: 16px;
+
+$width-container: 1200px;
 
 @mixin clearfix() {
     clear: both;
     content: ' ';
     display: block;
-}
-
-$gradient_start: $color-dark-blue;
-$gradient_middle: lighten($color-dark-blue, 15%);
-$gradient_end: $color-dark-blue;
-
-@mixin gradient() {
-    background: $gradient_start; /* Old browsers */
-    background: -moz-linear-gradient(-60deg, $gradient_start 0%,  $gradient_middle 50%, $gradient_end 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-60deg, $gradient_start 0%, $gradient_middle 50%,$gradient_end 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(100deg, $gradient_start 0%, $gradient_middle 50%,$gradient_end 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }

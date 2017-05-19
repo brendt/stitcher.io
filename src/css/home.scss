@@ -1,28 +1,130 @@
-@import "css/_variables";
+@import 'variables';
 
-body {
-    background: $color-blue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.banner__home {
+    margin-bottom: -2em;
+    height: 80vh;
+    min-height:500px;
+    background: $color-orange;
+    background: linear-gradient(20deg, $color-red, $color-orange);
+    color: #fff;
+    text-align: center;
+    padding: 0 15px;
+    position: relative;
+
+    & > h1 {
+        display: inline-block;
+        padding: 25vh 15px .3em;
+        margin-bottom: .7em;
+        position:relative;
+
+        &:before,
+        &:after {
+            position: absolute;
+            display: block;
+            content: ' ';
+            background: $color-white;
+            padding: 2px 0;
+            width: 100%;
+            left: 0;
+            bottom: 0;
+        }
+
+        &:before {
+            clip-path: polygon(0 0, 49% 0, 46% 100%, 0% 100%);
+        }
+
+        &:after {
+            clip-path: polygon(53% 0, 100% 0, 100% 100%, 50% 100%);
+        }
+    }
+
+    & > h2 {
+        margin-top: 0;
+        padding-top: 0;
+        font-size: 1.4em;
+        font-weight: normal;
+        margin-bottom: 3em;
+    }
+
+    @media (max-width: 37.5em) {
+        height: auto;
+        padding-bottom: 2em;
+        margin-bottom: 0;
+        min-height:300px;
+
+        & > h1 {
+            padding-top: 2.5em;
+        }
+
+        & .cta {
+            margin-top: 1em;
+            margin-right: 0;
+        }
+
+        & > h2 {
+            margin-bottom:1em;
+        }
+
+        #curve {
+            display: none;
+        }
+    }
+
+    .cta {
+        &:hover {
+            background:none;
+            box-shadow: inset 0 0 0 2px $color-white;
+            color: $color-white;
+        }
+    }
+
+    .cta--ghost {
+        box-shadow: inset 0 0 0 2px $color-white;
+        color: $color-white;
+
+        &:hover {
+            box-shadow: inset 0 0 0 2px $color-white;
+            background: $color-white;
+            color: $color-red;
+        }
+    }
 }
 
-.heading {
-    display: block;
-    text-align: center;
-    flex: 0 1 auto;
+.nav__main > a {
+    color: $color-white;
+}
 
-    h2, h3 {
-        margin:0;
-        font-weight: 200;
+.content__why {
+    &:after {
+        @include clearfix;
     }
 
-    h2 {
-        font-size: 2em;
-    }
+    pre {
+        float:left;
+        width: 33%;
+        margin-right:.5%;
+        overflow-x: scroll;
 
-    h3 {
-        margin-top:0.3em;
-        font-size: 1.05em;
+        &:nth-child(3n + 2) {
+            margin-right: 0;
+        }
+
+        @media (max-width: $width-container) {
+            width:100%;
+        }
     }
+}
+
+.content__blog,
+.content__news {
+    article {
+        & > a {
+            text-decoration: none;
+        }
+    }
+}
+
+// Temporary fix to push the "install" section more to the center of the page
+.footer__large {
+    margin-top: 40vh;
 }

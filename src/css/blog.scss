@@ -1,0 +1,66 @@
+@import 'variables';
+
+.banner__blog {
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    height: 70vh;
+    background: $color-orange;
+    background: linear-gradient(20deg, $color-red, $color-orange);
+
+    @media (max-width: $width-container) {
+        height: 4em;
+        position: relative;
+
+        & > svg {
+            display: none;
+        }
+    }
+}
+
+.container {
+    background: $color-white;
+    position: relative;
+    padding: 2em 4em 1em;
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+
+    @media (max-width: $width-container) {
+        box-shadow: none;
+        padding: 1em;
+    }
+}
+
+.nav__main > a {
+    color: $color-white;
+}
+
+.content__blog {
+    margin-top: 20vh;
+
+    article {
+        margin:0 auto;
+        position: relative;
+        z-index: 20;
+    }
+
+    @media (max-width: $width-container) {
+        margin-top: 1em;
+    }
+
+    article > a {
+        text-decoration: none;
+    }
+
+    article + article {
+        margin-top:4em;
+
+        &:before {
+            display: block;
+        }
+    }
+
+    footer {
+        margin-top: 2em;
+    }
+}

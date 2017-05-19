@@ -1,0 +1,5 @@
+services:
+    adapter.guide:
+        class: Brendt\Stitcher\Plugin\Portfolio\GuideAdapter
+        arguments:
+            - '@factory.parser'
