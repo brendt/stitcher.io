@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.7.0
+
+- Stitcher update to 1.0.0-beta1
+
+---
+
+- Add empty array fallback in `FilterAdapter` to prevent undefined index error.
+- Improved plugin initialisation support. The temporary `init` function isn't required anymore, the constructor can now be used.
+- Make the adapter factory extensible.
+- Improve the CollectionAdapter by adding the `browse` variable. This variable can be used to browse the detail pages. 
+ It has a `next` and `prev` key which contains the next and previous entry, if there are any.
+- Moved `Brendt\Stitcher\SiteParser` to `Brendt\Stitcher\Parser\Site\SiteParser` and refactored its service definition.
+- Added `Brendt\Stitcher\Parser\Site\PageParser` to parse a single page, which is no longer the responsibility of `SiteParser`.
+- Bugfix for general meta configuration overriding other meta values.
+
 ## 1.6.0
 
 - Stitcher update to 1.0.0-alpha5
