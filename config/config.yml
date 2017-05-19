@@ -60,3 +60,6 @@ caches:
 
 optimizer.options:
     jpegoptim_bin: /usr/local/bin/jpegoptim
+
+cdn:
+    - img/stitcher.png
