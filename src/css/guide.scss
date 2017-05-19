@@ -12,7 +12,7 @@ $article-width: 1200px;
         bottom: 0;
         color: #fff;
         padding: 3em 1em;
-        overflow-y:scroll;
+        overflow-y: scroll;
 
         background: $color-orange;
         background: linear-gradient(60deg, $color-red, $color-orange);
@@ -24,10 +24,6 @@ $article-width: 1200px;
             float: right;
             clear: both;
             text-decoration: none;
-
-            @media (max-width: $width-container) {
-                width:100%;
-            }
         }
 
         & > a.active {
@@ -48,27 +44,45 @@ $article-width: 1200px;
         & > a {
             padding: .3em 0;
         }
+
+        @media (max-width: $width-container) {
+            position: relative;
+            width:100%;
+            z-index: auto;
+
+            & > a {
+                float: left;
+                display: block;
+                width: auto;
+                clear: none;
+
+                &:before {
+                    display: inline-block;
+                    content: '\203A';
+                    padding-right: .5em;
+                    margin-left: 1em;
+                }
+            }
+
+            & > h2 {
+                clear:both;
+                width:100%;
+            }
+        }
     }
 
     & > article {
         width: 70vw;
-        max-width:$article-width;
+        max-width: $article-width;
         margin-top: 3em;
         margin-left: 30vw;
         padding: 0 4vw 0 1.5em;
-    }
 
-    @media (max-width: $width-container) {
-        & > nav {
-            position: fixed;
-            z-index: 100;
-        }
-
-        & > article {
+        @media (max-width: $width-container) {
             width: auto;
-            margin-left:1em;
+            margin-left: 1em;
             margin-right: 1em;
-            padding-left:0;
+            padding-left: 0;
             padding-right: 0;
         }
     }
@@ -78,7 +92,7 @@ footer {
     & > .container {
         margin-left: 30vw;
         width: 70vw;
-        max-width:$article-width;
+        max-width: $article-width;
 
         @media (max-width: $width-container) {
             width: 100%;
