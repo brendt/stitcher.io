@@ -295,3 +295,28 @@ ul {
         @include clearfix;
     }
 }
+
+.footer__large {
+    color:$color-white;
+    background: lighten($color-black, 10);
+    margin-bottom: 0;
+    margin-top:2em;
+    padding:2em 0 1.5em;
+    
+    &:after {
+        @include clearfix;
+    }
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float:right;
+}
+
+.small {
+    width: 66%;
+    clear: right;
+}

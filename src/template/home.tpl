@@ -24,17 +24,32 @@
 
         {$content_installation}
 
-        <div class="content__news">
-            <h2>News <em>and</em> blog posts</h2>
-            {foreach $news as $post}
-                {call blog post=$post}
-            {/foreach}
+        {*<hr>*}
 
-            {foreach $blog as $post}
-                {call blog post=$post}
-            {/foreach}
-        </div>
+        {*<div class="content__news">*}
+            {*<h2>News <em>and</em> blog posts</h2>*}
+            {*{foreach $news as $post}*}
+                {*{call blog post=$post small=true}*}
+            {*{/foreach}*}
+
+            {*{foreach $blog as $post}*}
+                {*{call blog post=$post small=true}*}
+            {*{/foreach}*}
+        {*</div>*}
     </div>
+{/block}
+
+{block 'footer'}
+    <footer class="footer__large">
+        <div class="container">
+            <div class="left">
+                &copy; {date('Y', time())}
+            </div>
+            <div class="right">
+                <a href="https://www.github.com/brendt/stitcher" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+        </div>
+    </footer>
 {/block}
 
 {block 'scripts' append}
