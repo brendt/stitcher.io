@@ -5,6 +5,8 @@ require './vendor/autoload.php';
 
 use Brendt\Stitcher\App;
 
+error_reporting(E_ALL ^ E_NOTICE);
+
 // The console provides some helper commands while creating your website.
 // Run ./stitcher in your terminal to see all options.
 // See ./config.yml for more information.
