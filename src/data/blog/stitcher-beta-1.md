@@ -5,7 +5,7 @@ The first beta release of Stitcher has arrived. Together with a lot of bugfixes,
 The installation package, `pageon/stitcher`, now loads the beta version by default. If you're running an existing project, your should also require the beta version now: 
 
 ```
-composer require brendt/stitcher 1.0.0-beta1
+composer require pageon/stitcher-core @beta
 ```
 
 ### Changelog

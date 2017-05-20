@@ -7,8 +7,8 @@
         }
     },
     "require": {
-        "brendt/stitcher": "dev-master",
-        "symfony/event-dispatcher": "^3.2"
+        "symfony/event-dispatcher": "^3.2",
+        "pageon/stitcher-core": "@beta"
     },
     "require-dev": {
         "larapack/dd": "^1.0"
