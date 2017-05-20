@@ -26,16 +26,23 @@
 
         {*<hr>*}
 
-        {*<div class="content__news">*}
-            {*<h2>News <em>and</em> blog posts</h2>*}
-            {*{foreach $news as $post}*}
-                {*{call blog post=$post small=true}*}
-            {*{/foreach}*}
+        {* <div class="content__news"> *}
+            {* <h2>Latest news</h2> *}
+            {* {foreach $news as $post} *}
+                {* <article> *}
+                    {* <a href="/blog/{$post.id}"> *}
+                        {* <h1>{$post.title}</h1>  *}
+                        {* <p> *}
+                            {* {$post.meta.description} *}
+                        {* </p> *}
+                    {* </a> *}
+                {* </article> *}
+            {* {/foreach} *}
 
             {*{foreach $blog as $post}*}
                 {*{call blog post=$post small=true}*}
             {*{/foreach}*}
-        {*</div>*}
+        </div>
     </div>
 {/block}
 
