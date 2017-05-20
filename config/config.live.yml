@@ -1,5 +1,5 @@
 imports:
-    - ./config.yml
+    - /home/pageon_ssh/stitcher/config/config.yml
 
 directories:
     public: /web/stitcher
