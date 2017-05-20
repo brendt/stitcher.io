@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d9280e9f3b9af37fba6cd1349099f520",
-    "content-hash": "c0c129506dce6cf3412d7d05c212f3c4",
+    "hash": "e073049673ca9c50f7ae4b6b94f1be39",
+    "content-hash": "0678268f153fc4e507d49ccd1fb820bd",
     "packages": [
         {
             "name": "brendt/responsive-images",
@@ -50,72 +50,6 @@
             ],
             "description": "Create responsive images with PHP, using the srcset and sizes spec.",
             "time": "2017-04-23 07:10:30"
-        },
-        {
-            "name": "brendt/stitcher",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/brendt/stitcher.git",
-                "reference": "b6a28ebcbfeb9935f68b5920b28b32b00a70659c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/brendt/stitcher/zipball/b6a28ebcbfeb9935f68b5920b28b32b00a70659c",
-                "reference": "b6a28ebcbfeb9935f68b5920b28b32b00a70659c",
-                "shasum": ""
-            },
-            "require": {
-                "brendt/responsive-images": "^1.5",
-                "erusev/parsedown": "^1.6",
-                "leafo/scssphp": "^0.6.6",
-                "mrclay/minify": "^2.3",
-                "pageon/html-meta": "^1.0",
-                "php": ">=7.0",
-                "smarty/smarty": "^3.1",
-                "symfony/config": "^3.2",
-                "symfony/console": "^3.1",
-                "symfony/dependency-injection": "^3.1",
-                "symfony/event-dispatcher": "^3.2",
-                "symfony/filesystem": "^3.1",
-                "symfony/finder": "^3.1",
-                "symfony/routing": "^3.1",
-                "symfony/yaml": "^3.1",
-                "tivie/htaccess-parser": "^0.2@dev",
-                "twig/twig": "~1.0"
-            },
-            "require-dev": {
-                "larapack/dd": "^1.0",
-                "phpunit/phpunit": "^6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Brendt\\Stitcher\\": "src/Brendt/Stitcher"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Brent",
-                    "email": "brent@pageon.be"
-                }
-            ],
-            "description": "Create blazing fast websites with PHP, a template engine of your choice and YAML or JSON.",
-            "homepage": "http://stitcher.pageon.be",
-            "keywords": [
-                "generator",
-                "performance",
-                "seo",
-                "smarty",
-                "static",
-                "static site",
-                "twig"
-            ],
-            "time": "2017-05-18 05:10:53"
         },
         {
             "name": "erusev/parsedown",
@@ -429,6 +363,72 @@
                 "seo"
             ],
             "time": "2017-05-18 05:09:46"
+        },
+        {
+            "name": "pageon/stitcher-core",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pageon/stitcher-core.git",
+                "reference": "b6a28ebcbfeb9935f68b5920b28b32b00a70659c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/b6a28ebcbfeb9935f68b5920b28b32b00a70659c",
+                "reference": "b6a28ebcbfeb9935f68b5920b28b32b00a70659c",
+                "shasum": ""
+            },
+            "require": {
+                "brendt/responsive-images": "^1.5",
+                "erusev/parsedown": "^1.6",
+                "leafo/scssphp": "^0.6.6",
+                "mrclay/minify": "^2.3",
+                "pageon/html-meta": "^1.0",
+                "php": ">=7.0",
+                "smarty/smarty": "^3.1",
+                "symfony/config": "^3.2",
+                "symfony/console": "^3.1",
+                "symfony/dependency-injection": "^3.1",
+                "symfony/event-dispatcher": "^3.2",
+                "symfony/filesystem": "^3.1",
+                "symfony/finder": "^3.1",
+                "symfony/routing": "^3.1",
+                "symfony/yaml": "^3.1",
+                "tivie/htaccess-parser": "^0.2@dev",
+                "twig/twig": "~1.0"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brendt\\Stitcher\\": "src/Brendt/Stitcher"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brent",
+                    "email": "brent@pageon.be"
+                }
+            ],
+            "description": "Create blazing fast websites with PHP, a template engine of your choice and YAML or JSON.",
+            "homepage": "http://stitcher.pageon.be",
+            "keywords": [
+                "generator",
+                "performance",
+                "seo",
+                "smarty",
+                "static",
+                "static site",
+                "twig"
+            ],
+            "time": "2017-05-18 05:10:53"
         },
         {
             "name": "ps/image-optimizer",
@@ -1535,7 +1535,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "brendt/stitcher": 20
+        "pageon/stitcher-core": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,
