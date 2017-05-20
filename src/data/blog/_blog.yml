@@ -1,7 +1,17 @@
 entries:
+    stitcher-beta-1:
+        date: 2017-05-20
+        type: news
+        highlight: true
+        title: Stitcher beta 1
+        content: data/blog/stitcher-beta-1.md
+        meta:
+            description: >
+                The first beta release of Stitcher has arrived!
+
     php-generics-and-why-we-need-them:
         date: 2017-05-17
-        type: news
+        type: blog
         title: PHP Generics and why we need them
         content: data/blog/php-generics-and-why-we-need-them.md
         meta:
