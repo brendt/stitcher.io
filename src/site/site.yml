@@ -24,7 +24,7 @@
                 field: date
                 direction: -
         limit:
-            blog: 2
+            blog: 1
             news: 1
 
 /guide/{id}:
