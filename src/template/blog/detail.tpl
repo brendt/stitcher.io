@@ -2,6 +2,7 @@
 
 {block 'head' append}
     {css src='blog.scss' inline=true}
+    {css src='hljs-github.css' inline=true}
 {/block}
 
 {block 'content'}
@@ -41,4 +42,6 @@
 
 {block 'scripts'}
     {js src="js/codeClick.js" inline=true}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 {/block}

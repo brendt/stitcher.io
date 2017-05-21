@@ -3,6 +3,7 @@ vendor/
 dev/img
 dev/cache
 dev/public
+dev/js
 public/
 .cache/
 cache/
