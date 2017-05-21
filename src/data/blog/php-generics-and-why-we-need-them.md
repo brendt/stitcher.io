@@ -1,3 +1,10 @@
+In today's blog post, we'll explore some common problems with arrays in PHP, and look at some solutions. 
+ All the problems and issues I list, could be solved with a pending RFC which would add generics to PHP. We won't explore 
+ in too much detail what generics are. But at the end of this read, you should have a good idea as to why they are useful,
+ and why we really want them in PHP. So without further ado, lets dive into the subject.
+ 
+---
+
 Imagine you have a collection of blog posts, loaded from a data source.
 
 ```php
@@ -57,7 +64,7 @@ This would work, but if you've written some production PHP code, you know these 
  the codebase. In our example, we could verify the type of each entry in the `->find()` method on `$blogModel`.
  However, that's just moving the problem from one place to another. It's a bit better though.
  
-There's another problem with data integrity. Say you have a method which requires an array of `Post`s.
+There's another problem with data integrity. Say you have a method which requires an array of `Posts`.
 
 ```php
 function handlePosts(array $posts) {
@@ -67,7 +74,7 @@ function handlePosts(array $posts) {
 }
 ```
 
-Again, we could add extra checks in this loop, but we could not guarantee that `$posts` only holds a collection of `Post`s.
+Again, we could add extra checks in this loop, but we could not guarantee that `$posts` only holds a collection of `Posts`.
 
 [As of PHP 7.0](http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list), you could use the `...` operator 
  to work around this issue.
@@ -139,8 +146,9 @@ That solution, in my opinion is [generics](https://wiki.php.net/rfc/generics). I
  the developer would always have the correct data in a collection.
  
 Big **note**: generics do not exist in PHP, yet. The RFC targeted PHP 7.1, and has no further information about the 
- future. Some of the following samples are dummy code, based on this RFC, the [the Iterator interface](http://php.net/manual/en/class.iterator.php)
- and [the ArrayAccess interface](http://php.net/manual/en/class.arrayaccess.php).
+ future. The following code is based on the [the Iterator interface](http://php.net/manual/en/class.iterator.php)
+ and [the ArrayAccess interface](http://php.net/manual/en/class.arrayaccess.php), which both exist as of PHP 5.0.
+ At the end, we'll dive into a generics example, which is dummy code.
  
 First we'll create a `Collection` class which works in PHP 5.0+. This class implements `Iterator` to be able to
  loop over its items, and `ArrayAccess` to be able to use array-like syntax to add and access items in the
@@ -210,7 +218,7 @@ foreach ($collection as $item) {
 }
 ```
 
-Note that again, there's no guarantee that `$collection` only holds `Post`s. Adding eg. a string would work fine, but 
+Note that again, there's no guarantee that `$collection` only holds `Posts`. Adding eg. a string would work fine, but 
  would break our loop.
  
 ```php
@@ -246,7 +254,7 @@ class PostCollection extends Collection
 }
 ```
 
-Now only `Post`s can be added to our collection.
+Now only `Posts` can be added to our collection.
 
 ```php
 $collection = new PostCollection();
