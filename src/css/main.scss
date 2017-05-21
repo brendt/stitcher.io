@@ -128,8 +128,6 @@ pre {
     box-shadow: 0 0 10px 0 rgba(20, 20, 20, 0.3);
     font-family: Monaco, monospace;
     cursor: pointer;
-    overflow-x: scroll;
-    padding: 1.5em 2em;
 
     &::before {
         content: ' ';
@@ -147,11 +145,13 @@ pre {
         font-size: 1em;
         background: none;
         display: block;
+        overflow-x: scroll;
+        padding: 1.5em 2em;
     }
 
     &.language-smarty,
     &.language-twig {
-        padding-top: 3em;
+        padding-top: 2em;
 
         @media (min-width: $width-container) {
             width: 49.5%;
