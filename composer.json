@@ -8,7 +8,7 @@
     },
     "require": {
         "symfony/event-dispatcher": "^3.2",
-        "pageon/stitcher-core": "@beta"
+        "pageon/stitcher-core": "dev-master"
     },
     "require-dev": {
         "larapack/dd": "^1.0"
