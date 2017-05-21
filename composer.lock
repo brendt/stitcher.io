@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e073049673ca9c50f7ae4b6b94f1be39",
-    "content-hash": "0678268f153fc4e507d49ccd1fb820bd",
+    "hash": "137a8d93ab2102ee3e07d474b1c416e4",
+    "content-hash": "4fd9169a1466f8acb590eaae3ff0c674",
     "packages": [
         {
             "name": "brendt/responsive-images",
@@ -366,16 +366,16 @@
         },
         {
             "name": "pageon/stitcher-core",
-            "version": "1.0.0-beta1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "b6a28ebcbfeb9935f68b5920b28b32b00a70659c"
+                "reference": "dff342da16be31dcea62ed7ac60e7ed40ce2368d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/b6a28ebcbfeb9935f68b5920b28b32b00a70659c",
-                "reference": "b6a28ebcbfeb9935f68b5920b28b32b00a70659c",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/dff342da16be31dcea62ed7ac60e7ed40ce2368d",
+                "reference": "dff342da16be31dcea62ed7ac60e7ed40ce2368d",
                 "shasum": ""
             },
             "require": {
@@ -428,7 +428,7 @@
                 "static site",
                 "twig"
             ],
-            "time": "2017-05-18 05:10:53"
+            "time": "2017-05-21 13:33:36"
         },
         {
             "name": "ps/image-optimizer",
@@ -1535,7 +1535,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "pageon/stitcher-core": 10
+        "pageon/stitcher-core": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
