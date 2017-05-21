@@ -13,7 +13,13 @@ engines:
 
 #### Meta tags
 
-```html
+```twig
+<head>
+    {{ meta() }}
+</head>
+```
+
+```smarty
 <head>
     {meta extra=[]}
 </head>
@@ -32,7 +38,14 @@ meta:
 
 #### CSS
 
-```html
+```twig
+<head>
+    {{ css('main.scss', true) }}
+    {{ css('main.scss', false, true) }}
+    {{ css('extra.css') }}
+</head>
+```
+```smarty
 <head>
     {css src='main.scss' inline=true}
     {css src='main.scss' push=true}
@@ -52,7 +65,15 @@ minify: true
 
 #### JavaScript
 
-```html
+```twig
+<body>
+    {{ js('main.js', true) }}
+    {{ js('extraAsync.js', false, true) }}
+    {{ js('extraPushed.js', false, false, true) }}
+    {{ js('extra.js') }}
+</body>
+```
+```smarty
 <body>
     {js src='main.js' inline=true}
     {js src='extraAsync.js' async=true}
@@ -73,10 +94,16 @@ minify: true
 
 #### Images
 
-```html
+```twig
+<body>
+    {% set image = image('img/blue.jpg') %}
+    <img src="{{ image.src }}" srcset="{{ image.srcset }}">
+</body>
+```
+```smarty
 <body>
     {image src='img/blue.jpg' var='image' push=true}
-    <img src="{$image.src}" srcset="{$image.srcset}" alt="">
+    <img src="{$image.src}" srcset="{$image.srcset}">
 </body>
 ```
 

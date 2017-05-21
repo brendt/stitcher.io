@@ -148,10 +148,61 @@ pre {
         background: none;
         display: block;
     }
+
+    &.language-smarty,
+    &.language-twig {
+        padding-top: 3em;
+
+        @media (min-width: $width-container) {
+            width: 49.5%;
+            float:left;
+        }
+
+        &::after {
+            position: absolute;
+            display: block;
+            background-color: $color-red;
+            color: $color-white;
+            top: 0;
+            left:0;
+            right: 0;
+            padding: .5em 1em;
+        }
+    }
+
+    &.language-twig {
+        &::after {
+            content: 'Twig';
+        }
+
+        @media (min-width: $width-container) {
+            margin-right: .5%;
+        }
+    }
+
+    &.language-smarty {
+        clear:right;
+        &::after {
+            content: 'Smarty';
+        }
+
+        @media (min-width: $width-container) {
+            margin-left: .5%;
+
+            &::after {
+                text-align: right;
+            }
+
+            &::before {
+                left: auto;
+                right: 0;
+            }
+        }
+    }
 }
 
 pre + p,
-p + pre {
+p + pre:not(.language-twig) {
     margin-top:1.7em;
 }
 
@@ -257,6 +308,10 @@ article {
         .link {
             color: $color-red;
         }
+    }
+
+    &:after {
+        @include clearfix;
     }
 }
 
