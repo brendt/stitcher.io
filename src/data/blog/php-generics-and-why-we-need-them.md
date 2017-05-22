@@ -323,7 +323,7 @@ foreach ($collection as $item) {
 }
 ```
 
-And that's it! We're using `<T>` as a dynamic type, which can be checked for at runtime. And again, the `GenericCollection` 
+And that's it! We're using `<T>` as a dynamic type, which can be checked before runtime. And again, the `GenericCollection` 
  class would be usable for every type, always.
   
 If you're as exited as me for generics (and this is only the tip of the iceberg by the way), you should spread the word 
