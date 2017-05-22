@@ -22,12 +22,12 @@
 
             <footer>
                 <nav>
-                    {if $browse.prev}
-                        <a class="prev cta cta--ghost" href="/blog/{$browse.prev.id}">Previous: {$browse.prev.title}</a>
+                    {if $browse.next}
+                        <a class="prev cta cta--ghost" href="/blog/{$browse.next.id}">Continue reading: {$browse.next.title}</a>
                     {/if}
 
-                    {if $browse.next}
-                        <a class="next cta cta--ghost" href="/blog/{$browse.next.id}">Continue reading: {$browse.next.title}</a>
+                    {if $browse.prev}
+                        <a class="next cta cta--ghost" href="/blog/{$browse.prev.id}">Next: {$browse.prev.title}</a>
                     {/if}
                 </nav>
                 <nav class="center">
