@@ -42,6 +42,5 @@
 
 {block 'scripts'}
     {js src="js/codeClick.js" inline=true}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    {js src="/js/hljs.min.js" async=true}
 {/block}
