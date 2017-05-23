@@ -63,3 +63,4 @@ optimizer.options:
 
 cdn:
     - img/stitcher.png
+    - js/hljs.min.js
