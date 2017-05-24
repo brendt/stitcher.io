@@ -40,6 +40,9 @@
             variable: page
             field: id
 
+/guide:
+    redirect: /guide/setting-up
+
 /blog:
     template: blog/overview
     variables:
