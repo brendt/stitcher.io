@@ -1,8 +1,8 @@
 imports:
-    - /home/pageon_ssh/stitcher/config/config.yml
+    - /home/pageon_stitcher/stitcher.io/config/config.yml
 
 directories:
-    public: /web/stitcher
+    public: /web
 
 caches:
     image: true
