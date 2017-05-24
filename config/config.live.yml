@@ -12,3 +12,6 @@ optimizer.options:
     optipng_bin: /opt/additional_binaries/bin/optipng
     pngquant_bin: /opt/additional_binaries/bin/pngquant
     jpegoptim_bin: /opt/additional_binaries/bin/jpegoptim
+
+redirect.https: true
+redirect.www: true
