@@ -7,7 +7,7 @@ Its important to note that this update has **a breaking change** which existing 
 ### Installation
 
 ```php
-composer require brendt/stitcher 1.0.0-alpha5
+composer require pageon/stitcher-core 1.0.0-alpha5
 ```
 
 ### Update - breaking changes
@@ -19,8 +19,8 @@ A last big refactor has been done to support more extensions in the future. This
 ```
 rm ./stitcher
 rm ./dev/index.php
-cp vendor/brendt/stitcher/install/stitcher ./stitcher
-cp vendor/brendt/stitcher/install/dev/index.php ./dev/index.php
+cp vendor/pageon/stitcher-core/install/stitcher ./stitcher
+cp vendor/pageon/stitcher-core/install/dev/index.php ./dev/index.php
 
 # Remove the cache dir, this might be another directory depending on your configuration.
 rm -r .cache/

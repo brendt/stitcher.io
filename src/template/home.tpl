@@ -53,7 +53,7 @@
                 &copy; {date('Y', time())}
             </div>
             <div class="right">
-                <a href="https://www.github.com/brendt/stitcher" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.github.com/pageon/stitcher-core" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
         </div>
     </footer>

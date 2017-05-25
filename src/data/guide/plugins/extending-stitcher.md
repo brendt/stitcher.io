@@ -12,7 +12,7 @@ A Stitcher Plugin can add behaviour, or modify existing behaviour of the Stitche
 - Whole applications like exposing Stitcher via a REST API.
 
 When writing plugins, it's recommended to follow the existing conventions used in the core. Take a look at the
- [source code](https://github.com/brendt/stitcher) to get familiar with the core. 
+ [source code](https://github.com/pageon/stitcher-core) to get familiar with the core. 
  
 Stitcher is built on top of Symfony components and PSR guidelines. So everything you need to know about a clean and good
  codebase can be found within those communities.
