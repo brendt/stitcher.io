@@ -35,3 +35,28 @@ use Brendt\Stitcher\App;
 $config = trim(@file_get_contents(__DIR__ . '/.env'));
 App::init($config ? $config : './config/config.yml')::get('app.console')->run();
 ```
+
+### CDN files
+
+By default, Stitcher will try and parse all files it encounters. Depending on the file type, Stitcher will do different
+ things with that file. However, there are many situations in which you want to expose a file as-is. Eg: an CSS library,
+ a custom font, a logo, a minified JS file,... You can configure these files individually, or specify one or more folders to expose.
+ 
+```yaml
+# config.yml
+
+caches.cdn: true
+cdn:
+    - css/lib/
+    - js/lib/jquery.min.js
+```
+
+The following config shows the enabled CDN config (which you would almost always want on), and a folder and file to expose.
+ These files are expected to be relative to the `directories.src` folder, and will be exposed in the `directories.public`
+ folder.
+
+This would be an example on how the jquery script could be loaded.
+
+```html
+<script src="/js/lib/jquery.min.js"></script>
+```
