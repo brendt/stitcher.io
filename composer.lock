@@ -320,16 +320,16 @@
         },
         {
             "name": "pageon/html-meta",
-            "version": "1.0.1",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/html-meta.git",
-                "reference": "2e6042292d3555ea750fccc99849f5933c15bde0"
+                "reference": "117d32a50a6ec9f211a6444c1f59bb941668f8a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/html-meta/zipball/2e6042292d3555ea750fccc99849f5933c15bde0",
-                "reference": "2e6042292d3555ea750fccc99849f5933c15bde0",
+                "url": "https://api.github.com/repos/pageon/html-meta/zipball/117d32a50a6ec9f211a6444c1f59bb941668f8a2",
+                "reference": "117d32a50a6ec9f211a6444c1f59bb941668f8a2",
                 "shasum": ""
             },
             "require": {
@@ -342,7 +342,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Brendt\\Html\\Meta\\": "src/"
+                    "Pageon\\Html\\Meta\\": "src/Pageon/Html/Meta"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -362,7 +362,7 @@
                 "meta tags",
                 "seo"
             ],
-            "time": "2017-05-18 05:09:46"
+            "time": "2017-05-25 14:14:03"
         },
         {
             "name": "pageon/stitcher-core",
@@ -370,12 +370,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "e6c7a1e126a9aed4174a1b4c302c00e6d4aa3c39"
+                "reference": "5359ede4eb0c9791c017d4f4e25bac9eea3579c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/e6c7a1e126a9aed4174a1b4c302c00e6d4aa3c39",
-                "reference": "e6c7a1e126a9aed4174a1b4c302c00e6d4aa3c39",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/5359ede4eb0c9791c017d4f4e25bac9eea3579c1",
+                "reference": "5359ede4eb0c9791c017d4f4e25bac9eea3579c1",
                 "shasum": ""
             },
             "require": {
@@ -383,7 +383,7 @@
                 "erusev/parsedown": "^1.6",
                 "leafo/scssphp": "^0.6.6",
                 "mrclay/minify": "^2.3",
-                "pageon/html-meta": "^1.0",
+                "pageon/html-meta": "^2.0",
                 "php": ">=7.0",
                 "smarty/smarty": "^3.1",
                 "symfony/config": "^3.2",
@@ -428,7 +428,7 @@
                 "static site",
                 "twig"
             ],
-            "time": "2017-05-25 09:19:56"
+            "time": "2017-05-25 14:22:04"
         },
         {
             "name": "ps/image-optimizer",
