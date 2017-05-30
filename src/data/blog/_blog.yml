@@ -6,8 +6,9 @@ entries:
         content: data/blog/performance-101-building-the-better-web.md
         meta:
             description: >
-                In this blogpost we'll explore many things to do to improve web performance.
-                We'll be looking at it from the point of both backend-, frontend- and server-side development.
+                Looking into web performance and how to improve it.
+                From the perspective of both backend- and frontend development; 
+                client- and server side optimisations.
     
     stitcher-beta-1:
         date: 2017-05-20
