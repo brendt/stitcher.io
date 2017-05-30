@@ -1,4 +1,15 @@
 entries:
+    performance-101-building-the-better-web:
+        date: 2017-06-01
+        type: blog
+        title: "Performance 101: building the better web"
+        content: data/blog/performance-101-building-the-better-web.md
+        meta:
+            description: >
+                Looking into web performance and how to improve it.
+                From the perspective of both backend- and frontend development; 
+                client- and server side optimisations.
+    
     stitcher-beta-1:
         date: 2017-05-20
         type: news
