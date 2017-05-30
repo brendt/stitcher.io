@@ -2,7 +2,7 @@ Today we're looking into web performance. I'll share some useful links to articl
 
 If you want to reach out, to talk about performance, or with additions to this post, you can always reach me [via email](mailto:brendt@stitcher.io).
 
-Without further ado, let's dive into the mystial subject of web performance. We'll start discussing the mindset you should have when building performant websites. Then we'll move on to a lot of practical examples, and links to other learning resources.
+Without further ado, let's dive into the mystical subject of web performance. We'll start discussing the mindset you should have when building performant websites. Then we'll move on to a lot of practical examples, and links to other learning resources.
 
 ### Performance mindset
 
@@ -18,11 +18,11 @@ One of the key components to understand and improve web performance, is to know 
 
 Another important concept to understand is static HTML pages. In the end, they are what's served to the user. There's no need to generate pages on the fly, while the user is waiting to see the result. Dynamic websites abuse the user's time for the sake of easy development. Now I'm not saying dynamic websites are bad. What I do say is that every dynamic system should have the technology in place to exclude the dynamic phase from the request/response cycle. More on that topic later. If you're into real static websites, [https://staticgen.com](https://www.staticgen.com/) is a good place to find the right tool for your needs.
 
-Moving on to responsive images. Possibly the number one optimisation when it comes to bandwith usage. The responsive images spec is designed to address the issue of large images, or render blocking JavaScript workarounds. It's completely backwards compatible (I'm talking to you Edge), and has a good chance of improving your website's loading time: [https://responsiveimages.org](https://responsiveimages.org/).
+Moving on to responsive images. Possibly the number one optimisation when it comes to bandwidth usage. The responsive images spec is designed to address the issue of large images, or render blocking JavaScript workarounds. It's completely backwards compatible (I'm talking to you Edge), and has a good chance of improving your website's loading time: [https://responsiveimages.org](https://responsiveimages.org/).
 
 ### Backend development
 
-I've already mentioned dynamic websites in the previous section. They are of course a must in the modern web; but you should think about which pages need to render things on the fly, and which could be cacheable. There are many layers of caching possible on the server side. We'll discuss eg. Varnish cache later in this post. Caching your backend code will highly depend on the kind of language and framwork you're using. The most important thing to mention about caching is that you shouldn't view your cache as a layer "on top" of your application. It should be an integral part of all the code you write.
+I've already mentioned dynamic websites in the previous section. They are of course a must in the modern web; but you should think about which pages need to render things on the fly, and which could be cacheable. There are many layers of caching possible on the server side. We'll discuss eg. Varnish cache later in this post. Caching your backend code will highly depend on the kind of language and framework you're using. The most important thing to mention about caching is that you shouldn't view your cache as a layer "on top" of your application. It should be an integral part of all the code you write.
 
 As a PHP developer, I'm used to the strict request/response lifecycle every PHP web application goes through. There are also a lot of other languages which provide the same logic for web applications. This approach is very easy to reason about, but it means the application has to be bootstrapped from scratch for every single request. Libraries like [ReactPHP](http://reactphp.org/) or [AMP](https://github.com/amphp/amp) address this issue by enabling the developer to handle multiple requests from a single bootstrapped application. Asynchronous and parallel applications add a lot of complexity at first, and might be very difficult to wrap your head around. But it might very well mean a huge decrease in response time.
 
@@ -60,6 +60,6 @@ A good place to go from here would be Tim Kadlec's blog: [https://timkadlec.com]
 - Set browser caching headers, use CDNs and take a look at Varnish.
 - Don't load all minified CSS or JS when you only need 10% of it on that page.
 
-Lot's of things to think about. This is my personal checklist I try to keep in mind when developing websites, both professionaly and in my spare time. Like I said at the beginning of this post, you shouldn't always do everything just because. But you should understand these concepts, and know when it's appropriate to use them. By doing so, you're contributing to the better web.
+Lot's of things to think about. This is my personal checklist I try to keep in mind when developing websites, both professionally and in my spare time. Like I said at the beginning of this post, you shouldn't always do everything just because. But you should understand these concepts, and know when it's appropriate to use them. By doing so, you're contributing to the better web.
 
 If you have any questions or remarks, feel free to [send me an email](mailto:brendt@stitcher.io).
