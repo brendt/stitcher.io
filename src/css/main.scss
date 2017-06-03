@@ -95,6 +95,17 @@ p {
         box-shadow: inset 0 0 0 2px $color-red;
     }
 
+    &--highlight {
+        background-color: $color-red;
+        color: $color-white;
+
+        &:hover {
+            color: $color-red;
+            box-shadow: inset 0 0 0 2px $color-red;
+            background-color: $color-white;
+        }
+    }
+
     &--primary {
         color: $color-red;
     }
@@ -118,6 +129,10 @@ p {
     &:last-child {
         margin-right: 0;
     }
+}
+
+span + .cta {
+    margin-left: .8em;
 }
 
 pre {
@@ -374,4 +389,8 @@ ul {
 .small {
     width: 66%;
     clear: right;
+}
+
+.spacer {
+    margin-top: 2.5em;
 }
