@@ -3,6 +3,7 @@ entries:
         date: 2017-05-30
         type: blog
         title: "Performance 101: building the better web"
+        teaserTitle: Performance 101
         content: data/blog/performance-101-building-the-better-web.md
         meta:
             description: >
@@ -24,6 +25,7 @@ entries:
         date: 2017-05-17
         type: blog
         title: PHP Generics and why we need them
+        teaserTitle: PHP Generics
         content: data/blog/php-generics-and-why-we-need-them.md
         meta:
             description: >
@@ -43,6 +45,7 @@ entries:
         highlight: true
         type: blog
         title: The simplest plugin support
+        teaserTitle: Stitcher plugins
         content: data/blog/simplest-plugin-support.md
         description: Simple plugin support explained when using composer and Symfony's service container.
 
@@ -59,6 +62,7 @@ entries:
         highlight: true
         type: blog
         title: Static site generators vs. caching
+        teaserTitle: Static sites
         content: blog/static_sites_vs_caching.md
         description: What is caching and what's the difference between a cached website and a staticly generated website?
 
@@ -74,6 +78,7 @@ entries:
         highlight: true
         type: blog
         title: Tackling repsonsive images - part 1
+        teaserTitle: Responsive images (1)
         content: blog/tackling_repsonsive_images-part_1.md
         next:
             id: tackling_repsonsive_images-part_2
@@ -84,4 +89,5 @@ entries:
         highlight: false
         type: blog
         title: Tackling repsonsive images - part 2
+        teaserTitle: Responsive images (2)
         content: blog/tackling_repsonsive_images-part_2.md
