@@ -22,8 +22,9 @@
 .container {
     background: $color-white;
     position: relative;
-    padding: 2em 10em 1em;
+    padding: 2em 5em 1em;
     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    max-width:1000px;
 
     @media (max-width: $width-container) {
         box-shadow: none;
