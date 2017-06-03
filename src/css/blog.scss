@@ -22,7 +22,7 @@
 .container {
     background: $color-white;
     position: relative;
-    padding: 2em 4em 1em;
+    padding: 2em 10em 1em;
     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
 
     @media (max-width: $width-container) {
@@ -62,5 +62,18 @@
 
     footer {
         margin-top: 2em;
+    }
+}
+
+article.blog {
+    & > h1 {
+        font-size:2em;
+        margin-top:1.5em;
+        margin-bottom:1em;
+    }
+
+    & > p {
+        line-height:1.5em;
+        font-size:1.2em;
     }
 }
