@@ -62,4 +62,11 @@ A good place to go from here would be Tim Kadlec's blog: [https://timkadlec.com]
 
 Lot's of things to think about. This is my personal checklist I try to keep in mind when developing websites, both professionally and in my spare time. Like I said at the beginning of this post, you shouldn't always do everything just because. But you should understand these concepts, and know when it's appropriate to use them. By doing so, you're contributing to the better web.
 
-If you have any questions or remarks, feel free to [send me an email](mailto:brendt@stitcher.io).
+<div class="center spacer">
+    <p>Looking for more?</p>
+    <a href="/guide/setting-up" class="cta cta--highlight">Performance with Stitcher</a>
+    <span>or</span>
+    <a href="mailto:brendt@stitcher.io" class="cta cta--ghist">Send me an e-mail</a>
+</div>
+
+---
