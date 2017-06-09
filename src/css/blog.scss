@@ -19,6 +19,16 @@
     }
 }
 
+.badge--piece-of-code {
+    display: inline-block;
+    background-color: $color-red;
+    color: $color-white;
+    font-size: 0.8em;
+    padding: .2em .6em;
+    margin-left: .5em;
+    border-radius: 2px;
+}
+
 .container {
     background: $color-white;
     position: relative;
@@ -50,6 +60,7 @@
     }
 
     article > a {
+        display: block;
         text-decoration: none;
     }
 

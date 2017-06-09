@@ -12,7 +12,18 @@
     </header>
     <div class="content__blog">
         <div class="container">
-            <h1>Blog</h1>
+            {if isset($title)}
+                <h1>{$title}</h1>
+            {else}
+                <h1>Blog</h1>
+            {/if}
+
+            {if isset($intro)}
+                <p>
+                    {$intro}
+                </p>
+                <hr>
+            {/if}
 
             {foreach $posts as $post}
                 {call blog post=$post tag=true}

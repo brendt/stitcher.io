@@ -57,6 +57,29 @@
             variable: posts
             entriesPerPage: 4
 
+/piece-of-code:
+    template: blog/overview
+    variables:
+        title: Piece of Code
+        posts: data/blog/_blog.yml
+        pageCategory: blog
+        intro: >
+            Piece of Code is a collection of short and to the point PHP code snippets.
+        meta:
+            description: >
+                A collection of short and to the point code snippets.
+    adapters:
+        filter:
+            posts:
+                type: piece of code
+        order:
+            variable: posts
+            field: date
+            direction: -
+        pagination:
+            variable: posts
+            entriesPerPage: 4
+
 /blog/{id}:
     template: blog/detail
     variables:
