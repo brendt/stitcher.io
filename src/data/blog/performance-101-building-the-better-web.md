@@ -65,8 +65,6 @@ Lot's of things to think about. This is my personal checklist I try to keep in m
 <div class="center spacer">
     <p>Looking for more?</p>
     <a href="/guide/setting-up" class="cta cta--highlight">Performance with Stitcher</a>
-    <span>or</span>
-    <a href="mailto:brendt@stitcher.io" class="cta cta--ghist">Send me an e-mail</a>
 </div>
 
 ---
