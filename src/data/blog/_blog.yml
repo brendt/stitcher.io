@@ -1,4 +1,15 @@
 entries:
+    process-forks:
+        date: 2017-06-09
+        type: piece of code
+        title: Process forks
+        teaser: An simple way to manage process forks and execute PHP code in parallel.
+        content: data/blog/piece-of-code-process-forks.md
+        meta:
+            title: Process forks - Piece of Code
+            description: >
+                Create loop-able, array-like collections in PHP with type checking.
+
     performance-101-building-the-better-web:
         date: 2017-05-30
         type: blog
@@ -10,6 +21,17 @@ entries:
                 Looking into web performance and how to improve it.
                 From the perspective of both backend- and frontend development; 
                 client- and server side optimisations.
+
+    aray-objects-with-fixed-types:
+        date: 2017-05-25
+        type: piece of code
+        title: Array objects
+        teaser: Create loop-able, array-like collections in PHP with type checking.
+        content: data/blog/piece-of-code-array-object.md
+        meta:
+            title: Array objects - Piece of Code
+            description: >
+                Create loop-able, array-like collections in PHP with type checking.
     
     stitcher-beta-1:
         date: 2017-05-20
