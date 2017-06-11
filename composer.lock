@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "137a8d93ab2102ee3e07d474b1c416e4",
-    "content-hash": "4fd9169a1466f8acb590eaae3ff0c674",
+    "hash": "70e8197cad5d9815c7021e93f6aa7c48",
+    "content-hash": "c8d9192a1fc9867c5646d1cba917aa38",
     "packages": [
         {
             "name": "brendt/responsive-images",
@@ -366,16 +366,16 @@
         },
         {
             "name": "pageon/stitcher-core",
-            "version": "dev-master",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "5359ede4eb0c9791c017d4f4e25bac9eea3579c1"
+                "reference": "b21277553bc25e068e38525898478f3d22b0fd71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/5359ede4eb0c9791c017d4f4e25bac9eea3579c1",
-                "reference": "5359ede4eb0c9791c017d4f4e25bac9eea3579c1",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/b21277553bc25e068e38525898478f3d22b0fd71",
+                "reference": "b21277553bc25e068e38525898478f3d22b0fd71",
                 "shasum": ""
             },
             "require": {
@@ -404,7 +404,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Brendt\\Stitcher\\": "src/Brendt/Stitcher"
+                    "Brendt\\Stitcher\\": "src/Brendt/Stitcher",
+                    "Pageon\\Pcntl\\": "src/Pageon/Pcntl"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -428,7 +429,7 @@
                 "static site",
                 "twig"
             ],
-            "time": "2017-05-25 14:22:04"
+            "time": "2017-06-11 09:58:18"
         },
         {
             "name": "ps/image-optimizer",

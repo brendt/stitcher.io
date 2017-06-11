@@ -14,27 +14,27 @@ That's it for the philosophical part of this post. Of course I'm completely igno
 
 ### Web basics: HTML
 
-One of the key components to understand and improve web performance, is to know how the browser renders HTML. There's a lot more to it than you might think, and understanding these steps makes you reason completely different about your own code. Google has the best crash course on the topic: [https://developers.google.com/web/fundamentals/performance/](https://developers.google.com/web/fundamentals/performance/), especially the "critical rendering path" opened my eyes.
+One of the key components to understand and improve web performance, is to know how the browser renders HTML. There's a lot more to it than you might think, and understanding these steps makes you reason completely different about your own code. Google has the best crash course on the topic: [https://developers.google.com/web/fundamentals/performance/](*https://developers.google.com/web/fundamentals/performance/), especially the "critical rendering path" opened my eyes.
 
-Another important concept to understand is static HTML pages. In the end, they are what's served to the user. There's no need to generate pages on the fly, while the user is waiting to see the result. Dynamic websites abuse the user's time for the sake of easy development. Now I'm not saying dynamic websites are bad. What I do say is that every dynamic system should have the technology in place to exclude the dynamic phase from the request/response cycle. More on that topic later. If you're into real static websites, [https://staticgen.com](https://www.staticgen.com/) is a good place to find the right tool for your needs.
+Another important concept to understand is static HTML pages. In the end, they are what's served to the user. There's no need to generate pages on the fly, while the user is waiting to see the result. Dynamic websites abuse the user's time for the sake of easy development. Now I'm not saying dynamic websites are bad. What I do say is that every dynamic system should have the technology in place to exclude the dynamic phase from the request/response cycle. More on that topic later. If you're into real static websites, [https://staticgen.com](*https://www.staticgen.com/) is a good place to find the right tool for your needs.
 
-Moving on to responsive images. Possibly the number one optimisation when it comes to bandwidth usage. The responsive images spec is designed to address the issue of large images, or render blocking JavaScript workarounds. It's completely backwards compatible (I'm talking to you Edge), and has a good chance of improving your website's loading time: [https://responsiveimages.org](https://responsiveimages.org/).
+Moving on to responsive images. Possibly the number one optimisation when it comes to bandwidth usage. The responsive images spec is designed to address the issue of large images, or render blocking JavaScript workarounds. It's completely backwards compatible (I'm talking to you Edge), and has a good chance of improving your website's loading time: [https://responsiveimages.org](*https://responsiveimages.org/).
 
 ### Backend development
 
 I've already mentioned dynamic websites in the previous section. They are of course a must in the modern web; but you should think about which pages need to render things on the fly, and which could be cacheable. There are many layers of caching possible on the server side. We'll discuss eg. Varnish cache later in this post. Caching your backend code will highly depend on the kind of language and framework you're using. The most important thing to mention about caching is that you shouldn't view your cache as a layer "on top" of your application. It should be an integral part of all the code you write.
 
-As a PHP developer, I'm used to the strict request/response lifecycle every PHP web application goes through. There are also a lot of other languages which provide the same logic for web applications. This approach is very easy to reason about, but it means the application has to be bootstrapped from scratch for every single request. Libraries like [ReactPHP](http://reactphp.org/) or [AMP](https://github.com/amphp/amp) address this issue by enabling the developer to handle multiple requests from a single bootstrapped application. Asynchronous and parallel applications add a lot of complexity at first, and might be very difficult to wrap your head around. But it might very well mean a huge decrease in response time.
+As a PHP developer, I'm used to the strict request/response lifecycle every PHP web application goes through. There are also a lot of other languages which provide the same logic for web applications. This approach is very easy to reason about, but it means the application has to be bootstrapped from scratch for every single request. Libraries like [ReactPHP](*http://reactphp.org/) or [AMP](*https://github.com/amphp/amp) address this issue by enabling the developer to handle multiple requests from a single bootstrapped application. Asynchronous and parallel applications add a lot of complexity at first, and might be very difficult to wrap your head around. But it might very well mean a huge decrease in response time.
 
 ### Server side
 
-Returning to the topic of caching, there's a lot that can be done server side. First of all there are caching headers which you should definitely implement: [https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control).
+Returning to the topic of caching, there's a lot that can be done server side. First of all there are caching headers which you should definitely implement: [https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control](*https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control).
 
-Second, you should serve content that's ready to be served. Use a CDN and Varnish in front of your real server. This way you're able to serve images, content pages, etc. immediately, while they were generated before. One of the dangers of using a so called "proxy" like Varnish is that many developers might see it as that "layer on top of your own application". In reality, you'll need to communicate a lot with Varnish from within your own application. You can read more about Varnish here: [https://varnish-cache.org](https://varnish-cache.org/).
+Second, you should serve content that's ready to be served. Use a CDN and Varnish in front of your real server. This way you're able to serve images, content pages, etc. immediately, while they were generated before. One of the dangers of using a so called "proxy" like Varnish is that many developers might see it as that "layer on top of your own application". In reality, you'll need to communicate a lot with Varnish from within your own application. You can read more about Varnish here: [https://varnish-cache.org](*https://varnish-cache.org/).
 
 The benefit of your own server? It's **your server**. You have control over the resources used and available. Don't put extra load on the client, when you could let your server take care of it. This is of course a very simplified way of thinking about resources. But it's always possible to upgrade your server's hardware, when you have no control over the hardware clients are using.
 
-And lastely, if you haven't implemented HTTP/2 yet: implement HTTP/2! Not sure why? This might give you an idea: [https://sitepoint.com/what-is-http2](https://www.sitepoint.com/what-is-http2/).
+And lastely, if you haven't implemented HTTP/2 yet: implement HTTP/2! Not sure why? This might give you an idea: [https://sitepoint.com/what-is-http2](*https://www.sitepoint.com/what-is-http2/).
 
 ### Frontend development
 
@@ -44,7 +44,7 @@ You should think what resources a page really needs. If that particular page onl
 
 Also think about inlining the important resources in your HTML pages, at least while HTTP/2 server push hasn't gone mainstream yet.
 
-A good place to go from here would be Tim Kadlec's blog: [https://timkadlec.com](https://timkadlec.com/).
+A good place to go from here would be Tim Kadlec's blog: [https://timkadlec.com](*https://timkadlec.com/).
 
 ---
 
