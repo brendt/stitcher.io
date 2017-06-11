@@ -19,6 +19,8 @@
 plugins:
     - Brendt\Stitcher\Plugin\PortfolioPlugin
 
+environment: live
+
 # Configure the paths of several directories
 directories:
     # The source directory containing
