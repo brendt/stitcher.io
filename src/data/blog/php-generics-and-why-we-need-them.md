@@ -73,7 +73,7 @@ function handlePosts(array $posts) {
 
 Again, we could add extra checks in this loop, but we could not guarantee that `$posts` only holds a collection of `Posts`.
 
-[As of PHP 7.0](http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list), you could use the `...` operator 
+[As of PHP 7.0](*http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list), you could use the `...` operator 
  to work around this issue.
 
 ```php
@@ -138,13 +138,13 @@ Both the uncertainty of what's exactly in an array, the performance and maintena
 
 ---
 
-That solution, in my opinion is [generics](https://wiki.php.net/rfc/generics). I won't explain in detail what generics 
+That solution, in my opinion is [generics](*https://wiki.php.net/rfc/generics). I won't explain in detail what generics 
  do, you can read the RFC to know that. But I will give you an example of how generics could solve these issues, guaranteeing 
  the developer would always have the correct data in a collection.
  
 Big **note**: generics do not exist in PHP, yet. The RFC targeted PHP 7.1, and has no further information about the 
- future. The following code is based on the [the Iterator interface](http://php.net/manual/en/class.iterator.php)
- and [the ArrayAccess interface](http://php.net/manual/en/class.arrayaccess.php), which both exist as of PHP 5.0.
+ future. The following code is based on the [the Iterator interface](*http://php.net/manual/en/class.iterator.php)
+ and [the ArrayAccess interface](*http://php.net/manual/en/class.arrayaccess.php), which both exist as of PHP 5.0.
  At the end, we'll dive into a generics example, which is dummy code.
  
 First we'll create a `Collection` class which works in PHP 5.0+. This class implements `Iterator` to be able to
@@ -327,4 +327,4 @@ And that's it! We're using `<T>` as a dynamic type, which can be checked before 
  class would be usable for every type, always.
   
 If you're as exited as me for generics (and this is only the tip of the iceberg by the way), you should spread the word 
- in the PHP community, and share the RFC: [https://wiki.php.net/rfc/generics](https://wiki.php.net/rfc/generics)
+ in the PHP community, and share the RFC: [https://wiki.php.net/rfc/generics](*https://wiki.php.net/rfc/generics)
