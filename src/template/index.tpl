@@ -10,6 +10,7 @@
             {/block}
             {css src="main.scss" inline=true}
         {/block}
+        <link rel="alternate" hreflang="en" href="https://www.stitcher.io" />
     </head>
     <body>
         {block 'body'}
