@@ -49,7 +49,7 @@
 {block 'footer'}
     <footer class="footer__large">
         <div class="container">
-            <div class="left">
+            <div class="left footer--padding">
                 &copy; {date('Y', time())}
             </div>
             <div class="right">
