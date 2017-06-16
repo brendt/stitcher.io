@@ -265,7 +265,7 @@ foreach ($collection as $item) {
 }
 ```
 
-It works! Even without generics! There's only one issue, you might be able to guess it. This is not scaleable. You need a
+It works! Even without generics! There's only one issue, you might be able to guess it. This is not scalable. You need a
  separate implementation for every type of collection, even though the only difference between those classes would be the
  type.
 
@@ -326,5 +326,5 @@ foreach ($collection as $item) {
 And that's it! We're using `<T>` as a dynamic type, which can be checked before runtime. And again, the `GenericCollection` 
  class would be usable for every type, always.
   
-If you're as exited as me for generics (and this is only the tip of the iceberg by the way), you should spread the word 
+If you're as excited as me for generics (and this is only the tip of the iceberg by the way), you should spread the word 
  in the PHP community, and share the RFC: [https://wiki.php.net/rfc/generics](*https://wiki.php.net/rfc/generics)

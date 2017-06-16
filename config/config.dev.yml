@@ -19,6 +19,8 @@
 imports:
     - ../config/config.yml
 
+environment: development
+
 # Configure the paths of several directories
 directories:
     # The source directory containing
