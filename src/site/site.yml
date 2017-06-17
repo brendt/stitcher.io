@@ -90,8 +90,11 @@
             variable: post
             field: id
 
-/gallery:
-    template: gallery
+/about:
+    template: about/detail
     variables:
-        content: gallery.md
-        images: gallery.yml
+        content: about/about.md
+        pageCategory: about
+        meta: 
+            title: About Stitcher and myself
+            description: "A little information about myself and my favourite project: Stitcher"

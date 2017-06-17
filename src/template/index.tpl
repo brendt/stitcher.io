@@ -18,6 +18,7 @@
                 <nav class="nav__main">
                     <a href="/" {call active category='home'}>Install</a>
                     <a href="/guide/setting-up" {call active category='guide'}>Guide</a>
+                    <a href="/about" {call active category='about'}>About</a>
                     <a href="/blog" {call active category='blog'}>Blog</a>
                 </nav>
             {/block}
