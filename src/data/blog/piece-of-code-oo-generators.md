@@ -54,7 +54,7 @@ foreach ($lines as $line) {
 A comparison to using generators and the `yield` keyword, based on the tests I ran:
 
 - This approach takes the same amount of time to execute.
-- It requires the same amount of memory as a generator function.
+- It has the same memory footprint as a generator function.
 - It has the benefit of easier re-usability (in my opinion).
 
 In comparison to `file_get_contents`: reading the same file required of 15MB of memory, whilst 
