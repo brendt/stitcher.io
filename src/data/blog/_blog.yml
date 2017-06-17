@@ -1,9 +1,19 @@
 entries:
+    object-oriented-generators:
+        date: 2017-06-17
+        type: piece of code
+        title: Object oriented generators
+        teaser: Another way to approach generators, in an object oriented fashion.
+        content: data/blog/piece-of-code-oo-generators.md
+        meta:
+            title: Process forks - Piece of Code
+            description: >
+                Create loop-able, array-like collections in PHP with type checking.
     process-forks:
         date: 2017-06-09
         type: piece of code
         title: Process forks
-        teaser: An simple way to manage process forks and execute PHP code in parallel.
+        teaser: A simple way to manage process forks and execute PHP code in parallel.
         content: data/blog/piece-of-code-process-forks.md
         meta:
             title: Process forks - Piece of Code
