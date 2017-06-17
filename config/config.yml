@@ -21,6 +21,8 @@ plugins:
 
 environment: live
 
+sitemap.url: https://www.stitcher.io
+
 # Configure the paths of several directories
 directories:
     # The source directory containing
