@@ -53,6 +53,18 @@
         margin:0 auto;
         position: relative;
         z-index: 20;
+
+        img {
+            max-width: 100%;
+            display: block;
+            box-shadow: 0 2px 3px 1px $color-gray;
+            border-radius: 2px;
+            border: 1px solid $color-gray;
+
+            &.small {
+                max-width: 66%;
+            }
+        }
     }
 
     @media (max-width: $width-container) {
