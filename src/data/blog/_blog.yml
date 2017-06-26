@@ -2,7 +2,7 @@ entries:
     responsive-images-as-css-background:
         date: 2017-06-24
         type: piece of code
-        title: Repsonsive images as CSS background
+        title: Responsive images as CSS background
         teaser: Integrating the Responsive Images spec together with CSS backgrounds.
         content: data/blog/responsive-images-as-css-background.md
         meta:
