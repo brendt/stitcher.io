@@ -53,6 +53,57 @@
         margin:0 auto;
         position: relative;
         z-index: 20;
+
+        img {
+            max-width: 90%;
+            display: block;
+            box-shadow: 0 2px 5px 1px $color-gray;
+            border-radius: 2px;
+            border: 1px solid $color-gray;
+            margin-left: 3%;
+
+            &.small {
+                max-width: 70%;
+            }
+
+            @media (max-width: $width-container) {
+                max-width: 100%;
+                margin-left: 0;
+
+                &.small {
+                    width: 100%;
+                }
+            }
+        }
+
+        blockquote {
+            font-size: 1.4em;
+            color: lighten($color-black, 15);
+            width: 70%;
+
+            &:before {
+                display: inline;
+                content: '"';
+                float:left;
+                margin-left: -.6em;
+                margin-top:-.2em;
+                color:$color-red;
+                font-size: 2em;
+            }
+
+            a {
+                text-decoration: none;
+                color: lighten($color-black, 25);
+
+                &:hover {
+                    color: $color-red;
+                }
+            }
+
+            @media (max-width: $width-container) {
+                width: 90%;
+            }
+        }
     }
 
     @media (max-width: $width-container) {

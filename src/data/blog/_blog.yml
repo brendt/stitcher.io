@@ -1,8 +1,15 @@
 entries:
+    a-programmers-cognitive-load:
+        date: 2017-06-25
+        type: blog
+        title: A programmer's cognitive load
+        teaserTitle: Mental coding effort
+        content: data/blog/a-programmers-cognitive-load.md
     responsive-images-as-css-background:
         date: 2017-06-24
         type: piece of code
-        title: Responsive images as CSS background
+        title: Repsonsive images as CSS background
+        teaserTitle: Responsive CSS
         teaser: Integrating the Responsive Images spec together with CSS backgrounds.
         content: data/blog/responsive-images-as-css-background.md
         meta:
@@ -39,7 +46,7 @@ entries:
         meta:
             description: >
                 Looking into web performance and how to improve it.
-                From the perspective of both backend- and frontend development; 
+                From the perspective of both backend- and frontend development;
                 client- and server side optimisations.
 
     aray-objects-with-fixed-types:
@@ -52,7 +59,7 @@ entries:
             title: Array objects - Piece of Code
             description: >
                 Create loop-able, array-like collections in PHP with type checking.
-    
+
     stitcher-beta-1:
         date: 2017-05-20
         type: news

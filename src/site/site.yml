@@ -55,7 +55,7 @@
             direction: -
         pagination:
             variable: posts
-            entriesPerPage: 4
+            entriesPerPage: 6
 
 /piece-of-code:
     template: blog/overview
