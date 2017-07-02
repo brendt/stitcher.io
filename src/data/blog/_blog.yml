@@ -1,10 +1,10 @@
 entries:
-    reduce-mental-effort-when-coding:
+    a-programmers-cognitive-load:
         date: 2017-06-25
         type: blog
-        title: Reduce mental effort when coding
+        title: A programmer's cognitive load
         teaserTitle: Mental coding effort
-        content: data/blog/reduce-mental-effort-when-coding.md
+        content: data/blog/a-programmers-cognitive-load.md
     responsive-images-as-css-background:
         date: 2017-06-24
         type: piece of code
@@ -46,7 +46,7 @@ entries:
         meta:
             description: >
                 Looking into web performance and how to improve it.
-                From the perspective of both backend- and frontend development; 
+                From the perspective of both backend- and frontend development;
                 client- and server side optimisations.
 
     aray-objects-with-fixed-types:
@@ -59,7 +59,7 @@ entries:
             title: Array objects - Piece of Code
             description: >
                 Create loop-able, array-like collections in PHP with type checking.
-    
+
     stitcher-beta-1:
         date: 2017-05-20
         type: news
