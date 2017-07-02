@@ -59,8 +59,8 @@ engines:
     optimizer: true
 
 caches:
-    # Enable image caching while rendering
     image: false
+    cdn: false
 
 optimizer.options:
     jpegoptim_bin: /usr/local/bin/jpegoptim
@@ -69,3 +69,4 @@ cdn:
     - img/stitcher.png
     - js/hljs.min.js
     - js/analytics.js
+    - img/blog/
