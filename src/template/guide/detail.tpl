@@ -5,6 +5,10 @@
     {css src='hljs-github.css' inline=true}
 {/block}
 
+{block 'meta' append}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{/block}
+
 {block 'content'}
     <div class="content__guide">
         <nav>
