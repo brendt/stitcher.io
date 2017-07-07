@@ -10,13 +10,9 @@ Fonts have an influence on our mood. The [people at Crew](*https://crew.co/blog/
 
 A comparison between a not-so-good and better font configuration, in my experience.
 
-<p>
-	<img src="/img/blog/fonts/font-size_bad.png" alt="A not-so-good font" class="small">
-</p>
+![A not-so-good font choice](/img/blog/fonts/font-size_bad.png)
 
-<p>
-	<img src="/img/blog/fonts/font-size_good.png" alt="A better font configuration" class="small">
-</p>
+![A better font configuration](/img/blog/fonts/font-size_good.png)
 
 ## Folding
 
