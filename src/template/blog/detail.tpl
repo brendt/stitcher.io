@@ -5,10 +5,6 @@
     {css src='hljs-github.css' inline=true}
 {/block}
 
-{block 'meta' append}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-{/block}
-
 {block 'content'}
     <header class="banner banner__blog">
         {include 'helper/curve.tpl'}
