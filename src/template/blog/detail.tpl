@@ -22,6 +22,15 @@
 
             <footer>
                 <nav>
+                    {if $browse.prev}
+                        {$title = $browse.prev.title}
+
+                        {if isset($browse.prev.teaserTitle)}
+                            {$title = $browse.prev.teaserTitle}
+                        {/if}
+                        <a class="next cta cta--ghost" href="/blog/{$browse.prev.id}">Continue reading: {$title}</a>
+                    {/if}
+
                     {if $browse.next}
                         {$title = $browse.next.title}
 
@@ -30,15 +39,6 @@
                         {/if}
 
                         <a class="prev cta cta--ghost" href="/blog/{$browse.next.id}">Previous post: {$title}</a>
-                    {/if}
-
-                    {if $browse.prev}
-                        {$title = $browse.prev.title}
-
-                        {if isset($browse.prev.teaserTitle)}
-                            {$title = $browse.prev.teaserTitle}
-                        {/if}
-                        <a class="next cta cta--ghost" href="/blog/{$browse.prev.id}">Continue reading: {$title}</a>
                     {/if}
                 </nav>
                 <nav class="center">
