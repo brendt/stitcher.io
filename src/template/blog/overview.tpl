@@ -31,11 +31,11 @@
 
             <footer>
                 <nav>
-                    {if isset($pagination.previous)}
-                        <a class="prev cta cta--ghost" href="{$pagination.previous.url}">Previous</a>
-                    {/if}
                     {if isset($pagination.next)}
                         <a class="next cta cta--ghost" href="{$pagination.next.url}">Next</a>
+                    {/if}
+                    {if isset($pagination.previous)}
+                        <a class="prev cta cta--ghost" href="{$pagination.previous.url}">Previous</a>
                     {/if}
                 </nav>
             </footer>
