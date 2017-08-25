@@ -53,7 +53,7 @@ The control key is used mostly for text- and code related manipulations, like mo
  working with lines, etc. 
  I find it hard to give a formal definition for the Control key, but its use is clear in most cases. 
 
-A note for Windows users: the Control key is much more used in comparison to the Meta (Windows) key. 
+A note for Windows users: the Control key is used much more in comparison to the Meta (Windows) key. 
  Meaning you probably want to switch the definition of the two, or even ditch the Meta key.
  Even though this might seem like a good idea, adding the meta key in your workflow can be a good thing,
  as it adds another modifier key to your availability.
@@ -73,7 +73,7 @@ Keeping my own definitions in mind, it's easy to start defining key bindings. Th
 I choose not to override operating system (OS) key bindings. Things like `copy`, `paste`, `select all` or `quit` are 
  never overridden.
  Key binding defaults provided by your IDE or editor, however, may be changed. 
- If you come from Sublime Text like me, you've probably learned some defaults from there which feel accustomed. 
+ If you come from Sublime Text like me, you've probably learned some defaults which you are accustomed with. 
  When switching to PHPStorm a few years ago, I decided to keep some of those key bindings I knew from Sublime.
  
 > There's no need to change OS-level key bindings 
@@ -96,7 +96,7 @@ Furthermore, when stuck in a situation, I try not to immediately grab the mouse.
 
 You keymap is a very personal file, which slowly grows to match your workflow the best. I recommend you storing a backup
  of your keymap somewhere else, GitHub would be a good place. Here's mine: 
- [https://github.com/brendt/settings-repository/blob/master/keymaps/Brendt.xml](https://github.com/brendt/settings-repository/blob/master/keymaps/Brendt.xml)
+ [https://github.com/brendt/settings-repository/blob/master/keymaps/Brendt.xml](*https://github.com/brendt/settings-repository/blob/master/keymaps/Brendt.xml)
  
 > Check your keymap into version control.
 
@@ -118,7 +118,7 @@ You keymap is a very personal file, which slowly grows to match your workflow th
 
 ## Closing thoughts
 
-I grew in love with key bindings over the years. I still use a mouse for basic navigation, 
+I grew in love with key bindings over the years. I still use the mouse for basic navigation, 
  but once I start coding, I try to use it as little as possible. I find that it's easier to work this way. 
  Not only do I gain time by not switching as often to the mouse; I also find it puts less cognitive load on my brain,
  meaning I'm able to concentrate more on coding.
