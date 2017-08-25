@@ -1,4 +1,10 @@
 entries:
+    mastering-key-bindings:
+        date: 2017-08-25
+        type: blog
+        title: Mastering key bindings
+        teaserTitle: Key bindings
+        content: data/blog/mastering-key-bindings.md
     a-programmers-cognitive-load:
         date: 2017-06-25
         type: blog

@@ -2,9 +2,9 @@
 
 .banner__blog {
     position: fixed;
-    left:0;
-    right:0;
-    top:0;
+    left: 0;
+    right: 0;
+    top: 0;
     height: 70vh;
     background: $color-orange;
     background: linear-gradient(20deg, $color-red, $color-orange);
@@ -29,14 +29,14 @@
     border-radius: 2px;
 
     @media (max-width: $with-container-mobile) {
-        padding:0;
+        padding: 0;
         background: none;
-        color:$color-red;
-        font-size:.9em;
-        line-height:1em;
-        margin-left:0;
+        color: $color-red;
+        font-size: .9em;
+        line-height: 1em;
+        margin-left: 0;
         display: block;
-        margin-top:.3em;
+        margin-top: .3em;
     }
 }
 
@@ -45,7 +45,7 @@
     position: relative;
     padding: 2em 7em 1em;
     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
-    max-width:1000px;
+    max-width: 1000px;
 
     @media (max-width: $width-container) {
         box-shadow: none;
@@ -61,7 +61,7 @@
     margin-top: 20vh;
 
     article {
-        margin:0 auto;
+        margin: 0 auto;
         position: relative;
         z-index: 20;
 
@@ -91,14 +91,15 @@
             font-size: 1.4em;
             color: lighten($color-black, 15);
             width: 70%;
+            margin: 1.5em 0 2em 3em;
 
             &:before {
                 display: inline;
                 content: '"';
-                float:left;
+                float: left;
                 margin-left: -.6em;
-                margin-top:-.2em;
-                color:$color-red;
+                margin-top: -.2em;
+                color: $color-red;
                 font-size: 2em;
             }
 
@@ -127,7 +128,7 @@
     }
 
     article + article {
-        margin-top:4em;
+        margin-top: 4em;
 
         &:before {
             display: block;
@@ -141,13 +142,13 @@
 
 article.blog {
     & > h1 {
-        font-size:2em;
-        margin-top:1.5em;
-        margin-bottom:1em;
+        font-size: 2em;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
     }
 
     & > p {
-        line-height:1.6em;
-        font-size:1.2em;
+        line-height: 1.6em;
+        font-size: 1.2em;
     }
 }
