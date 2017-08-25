@@ -21,7 +21,7 @@
             </article>
 
             <footer>
-                <nav>
+                <nav class="spacer">
                     {if $browse.prev}
                         {$title = $browse.prev.title}
 
@@ -41,7 +41,7 @@
                         <a class="prev cta cta--ghost" href="/blog/{$browse.next.id}">Previous post: {$title}</a>
                     {/if}
                 </nav>
-                <nav class="center">
+                <nav class="center spacer">
                     <a class="cta cta--link" href="/blog">Back to overview</a>
                 </nav>
             </footer>
