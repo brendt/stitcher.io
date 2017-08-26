@@ -1,19 +1,19 @@
 *This blog post aims to make you think about the way you use key bindings whilst programming. 
-You'll read about some techniques I personally use to assign key bindings, how to memorize them, and use them efficiently.
+You'll read about some techniques I use to assign key bindings, how to memorise them, and use them efficiently.
 But before we go on, I'll need to explain why spending time on key bindings is worth the effort.*
   
 ## The need for keys
 
-I can't point to some psychological study to back this claim, just my own experience and common sense. 
+I can't point to some psychological study to back this claim, my own experience and common sense. 
  Using the mouse as less as possible when coding is a good thing. 
- You're not moving your hands around to grab the mouse, and you don't have to make the mental switch
- between using a keyboard and a mouse as input device.
+ You're not moving your hands around to grab the mouse, which saves time. 
+ Also you don't have to make the mental switch between using a keyboard and a mouse as input device.
  
 I believe these small things have to power to improve our skills as professional programmers significantly.
  I've experienced a lot of gain by taking the time to learn to use the keyboard as often as I can.
  While I'm still searching the optimal setup, I can already share some thoughts and techniques.
- The most important thing to know is that key bindings are probably a matter of personal taste, 
- so don't take these next points as law; but rather apply them to your own situation. 
+ The most important thing to know is that key bindings are a matter of personal taste. 
+ So don't take these next points as law, but rather apply them to your own situation. 
 
 > Key bindings are a personal preference. 
 
@@ -21,7 +21,7 @@ I believe these small things have to power to improve our skills as professional
 
 A keyboard has a few modifier keys, which allow you to modify the behaviour of other key presses.
  A long time ago these keys were actually hard wired in the keyboard, to change the electronic bits sent to the computer.
- Nowadays, modifier keys are implemented completely different, but it's still good to look at what their original meaning was.
+ In this modern time, it's still good to look at what their original meaning was.
  It helped me define a formal definition for each modifier key, allowing me to remember what key combination belongs to which action.
  
  > Define a personal meaning for each modifier key, 
@@ -44,13 +44,13 @@ Second, it's also often used to reverse the action.
 I prefer a maximum of two modifier keys, and if complexer combinations are needed, opt for **double key bindings**. 
 One exception though: Shift (⇧) may be used in combination with other modifier keys to reverse the action.
 
-> Prefer a maximum of two modifier keys, 
+> Prefer at most two modifier keys, 
 <br>or use double key bindings.
 
 ### Control/Ctrl (^) 
 
-The control key is used mostly for text- and code related manipulations, like moving the cursor, working with selections,
- working with lines, etc. 
+I use the control key for text- and code related manipulations. 
+ Actions like moving the cursor, working with selections, working with lines, etc. 
  I find it hard to give a formal definition for the Control key, but its use is clear in most cases. 
 
 A note for Windows users: the Control key is used much more in comparison to the Meta (Windows) key. 
@@ -60,8 +60,8 @@ A note for Windows users: the Control key is used much more in comparison to the
 
 ### Function (fn)
 
-Because the function key is often not accessible on desktop keyboards, I choose not to depend on this key,
- except for some edge cases like page-up or page-down. 
+Because the function key is often not accessible on desktop keyboards, I choose not to depend on this key.
+ I only make an exception for some edge cases like page-up or page-down. 
 
 ## Learning
 
