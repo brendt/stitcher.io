@@ -2,28 +2,50 @@ This is a list of all configuration values, with their defaults. Configuration k
  by Stitcher during compile time.
  
 ```yaml
-# See your own config.yml file for thorough documentation
+# imports:
+#    - ./my_main_config.yml
 
-imports: []
-plugins: []
-cdn: []
-meta: []
+# plugins:
+#    - My\Plugin\Namespace\MyPlugin
 
-environment: development
-directories.src: ./src
-directories.public: ./public
-directories.cache: ./.cache
-directories.htaccess: ./public/.htaccess
+environment: production
 
-minify: false
+async: false
 
-engines.template: smarty
-engines.image: gd
-engines.optimizer: true
-engines.async: true
+directories:
+    src: ./src
 
-caches.image: true
-caches.cdn: true
+    public: ./public
 
-optimizer.options: []
+    cache: ./cache
+
+    template: ./src/template
+
+engines:
+    template: smarty
+
+    image: gd
+
+    optimizer: true
+
+    minifier: true
+
+cache:
+    images: true
+
+    cdn: true
+
+meta:
+    viewport: width=device-width, initial-scale=1
+
+redirect.www: true
+
+redirect.https: true
+
+# sitemap.url: https://www.stitcher.io
+
+# cdn:
+#    - lib/js/file.js
+#    - lib/css/
+
 ```
