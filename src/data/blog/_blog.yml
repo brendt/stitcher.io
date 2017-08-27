@@ -1,4 +1,14 @@
 entries:
+    stitcher-beta-2:
+        date: 2017-08-27
+        type: news
+        highlight: true
+        title: Stitcher beta 2
+        content: data/blog/stitcher-beta-2.md
+        teaser: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
+        meta:
+            description: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
+            og:description: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
     mastering-key-bindings:
         date: 2017-08-25
         type: blog
