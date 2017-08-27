@@ -18,6 +18,15 @@ A page configuration file first of all takes a URL as key. The only require para
 Note that template extensions don't need to be added. In this case, two templates should exist: `./src/template/home.tpl`
  and `./src/guide/detail.tpl`.
  
+### Redirects
+
+Redirects can be configured like this.
+ 
+```yaml
+/guide:
+    redirect: /guide/setting-up
+```
+
 ### Other configuration
 
 Page configuration can take a few more arguments: `variables` and `adapters`. Adapters are used to modify the page's 

@@ -6,8 +6,8 @@ environment: live
 directories:
     public: /web/stitcher
 
-caches:
-    image: true
+cache:
+    images: true
     cdn: true
 
 optimizer.options:
