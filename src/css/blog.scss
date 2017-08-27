@@ -101,6 +101,10 @@
                 margin-top: -.2em;
                 color: $color-red;
                 font-size: 2em;
+
+                @media (max-width: $with-container-mobile) {
+                    display: none;
+                }
             }
 
             a {
@@ -112,8 +116,10 @@
                 }
             }
 
-            @media (max-width: $width-container) {
-                width: 90%;
+            @media (max-width: $with-container-mobile) {
+                width: 100%;
+                margin: 1.5em 0;
+                color: $color-red;
             }
         }
     }
