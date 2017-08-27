@@ -1,4 +1,4 @@
-The second beta release of Stitcher ties a lot of missing ends together, getting ready for real production sites. 
+The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites. 
 
 ### Installation
 
