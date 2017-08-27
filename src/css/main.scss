@@ -24,6 +24,10 @@ li {
     font-size: 1.1em;
 }
 
+li > ul > li {
+    font-size: .9em;
+}
+
 #curve {
     position: absolute;
     bottom:-1px;
