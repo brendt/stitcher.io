@@ -95,8 +95,8 @@ Furthermore, when stuck in a situation, I try not to immediately grab the mouse.
 > Don't grab the mouse when panicking.
 
 You keymap is a very personal file, which slowly grows to match your workflow the best. I recommend you storing a backup
- of your keymap somewhere else, GitHub would be a good place. Here's mine: 
- [https://github.com/brendt/settings-repository/blob/master/keymaps/Brendt.xml](*https://github.com/brendt/settings-repository/blob/master/keymaps/Brendt.xml)
+ of your keymap somewhere else, GitHub would be a good place. 
+ [Here's mine](*https://github.com/brendt/settings-repository/blob/master/keymaps/Brendt.xml).
  
 > Check your keymap into version control.
 
