@@ -370,12 +370,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "55ec0506d02cd55e153079007b3b20a154bea91b"
+                "reference": "ed4f04a3ec662fd315845a8aa4986687f1a9880e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/55ec0506d02cd55e153079007b3b20a154bea91b",
-                "reference": "55ec0506d02cd55e153079007b3b20a154bea91b",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/ed4f04a3ec662fd315845a8aa4986687f1a9880e",
+                "reference": "ed4f04a3ec662fd315845a8aa4986687f1a9880e",
                 "shasum": ""
             },
             "require": {
@@ -429,7 +429,7 @@
                 "static site",
                 "twig"
             ],
-            "time": "2017-08-28 06:39:38"
+            "time": "2017-08-31 05:05:37"
         },
         {
             "name": "ps/image-optimizer",
