@@ -9,7 +9,7 @@ Go to `help > Edit Custom VM Options`. You can play around with the settings her
 I for one changed the maximum amount of RAM allocated to PHPStorm, and added two graphics options 
 (at the end of the file).  
 
-```
+```text
 -Xms500m
 -Xmx1500m
 
