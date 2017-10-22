@@ -1,10 +1,10 @@
 imports:
-    - /home/pageon_ssh/stitcher/config/config.yml
+    - /home/pageon_stitcher/stitcher.io/config/config.yml
 
 environment: live
 
 directories:
-    public: /web/stitcher
+    public: /web
 
 cache:
     images: true
