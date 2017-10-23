@@ -4,7 +4,7 @@ But before we go on, I'll need to explain why spending time on key bindings is w
   
 ## The need for keys
 
-I can't point to some psychological study to back this claim, my own experience and common sense. 
+I can't point to some psychological study to back this claim, just my own experience and common sense. 
  Using the mouse as less as possible when coding is a good thing. 
  You're not moving your hands around to grab the mouse, which saves time. 
  Also you don't have to make the mental switch between using a keyboard and a mouse as input device.
