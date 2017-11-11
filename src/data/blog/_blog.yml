@@ -1,4 +1,10 @@
 entries:
+    shorthand-comparisons-in-php:
+        date: 2017-11-11
+        type: blog
+        title: Shorthand comparisons in PHP
+        teaserTitle: Shorthand comparisons
+        content: data/blog/shorthand-comparisons-in-php.md
     phpstorm-performance:
         date: 2017-10-22
         type: blog
