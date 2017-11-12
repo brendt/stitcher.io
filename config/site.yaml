@@ -1,0 +1,7 @@
+/:
+    template: home.twig
+    variables:
+        title: Home
+        posts: src/blog/_blog.yaml
+        meta:
+            title: 'Stitcher 2: high performance static websites with PHP.'

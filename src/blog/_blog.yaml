@@ -1,0 +1,166 @@
+shorthand-comparisons-in-php:
+    date: 2017-11-11
+    type: blog
+    title: Shorthand comparisons in PHP
+    teaserTitle: Shorthand comparisons
+    content: src/blog/shorthand-comparisons-in-php.md
+phpstorm-performance:
+    date: 2017-10-22
+    type: blog
+    title: PHPstorm's performance
+    teaserTitle: PHPstorm's performance
+    content: src/blog/phpstorm-performance.md
+stitcher-beta-2:
+    date: 2017-08-27
+    type: news
+    highlight: true
+    title: Stitcher beta 2
+    content: src/blog/stitcher-beta-2.md
+    teaser: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
+    meta:
+        description: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
+        og:description: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
+mastering-key-bindings:
+    date: 2017-08-25
+    type: blog
+    title: Mastering key bindings
+    teaserTitle: Key bindings
+    content: src/blog/mastering-key-bindings.md
+a-programmers-cognitive-load:
+    date: 2017-06-25
+    type: blog
+    title: A programmer's cognitive load
+    teaserTitle: Mental coding effort
+    content: src/blog/a-programmers-cognitive-load.md
+responsive-images-as-css-background:
+    date: 2017-06-24
+    type: piece of code
+    title: Repsonsive images as CSS background
+    teaserTitle: Responsive CSS
+    teaser: Integrating the Responsive Images spec together with CSS backgrounds.
+    content: src/blog/responsive-images-as-css-background.md
+    meta:
+        title: Repsonsive images as CSS background - Piece of Code
+        description: >
+            Integrating the Responsive Images spec together with CSS backgrounds.
+object-oriented-generators:
+    date: 2017-06-17
+    type: piece of code
+    title: Object oriented generators
+    teaser: Another way to approach generators, in an object oriented fashion.
+    content: src/blog/piece-of-code-oo-generators.md
+    meta:
+        title: Process forks - Piece of Code
+        description: >
+            Create loop-able, array-like collections in PHP with type checking.
+process-forks:
+    date: 2017-06-09
+    type: piece of code
+    title: Process forks
+    teaser: A simple way to manage process forks and execute PHP code in parallel.
+    content: src/blog/piece-of-code-process-forks.md
+    meta:
+        title: Process forks - Piece of Code
+        description: >
+            Create loop-able, array-like collections in PHP with type checking.
+
+performance-101-building-the-better-web:
+    date: 2017-05-30
+    type: blog
+    title: "Performance 101: building the better web"
+    teaserTitle: Performance 101
+    content: src/blog/performance-101-building-the-better-web.md
+    meta:
+        description: >
+            Looking into web performance and how to improve it.
+            From the perspective of both backend- and frontend development;
+            client- and server side optimisations.
+
+aray-objects-with-fixed-types:
+    date: 2017-05-25
+    type: piece of code
+    title: Array objects
+    teaser: Create loop-able, array-like collections in PHP with type checking.
+    content: src/blog/piece-of-code-array-object.md
+    meta:
+        title: Array objects - Piece of Code
+        description: >
+            Create loop-able, array-like collections in PHP with type checking.
+
+stitcher-beta-1:
+    date: 2017-05-20
+    type: news
+    highlight: true
+    title: Stitcher beta 1
+    content: src/blog/stitcher-beta-1.md
+    meta:
+        description: >
+            The first beta release of Stitcher has arrived!
+
+php-generics-and-why-we-need-them:
+    date: 2017-05-17
+    type: blog
+    title: PHP Generics and why we need them
+    teaserTitle: PHP Generics
+    content: src/blog/php-generics-and-why-we-need-them.md
+    meta:
+        description: >
+            PHP has some problems with arrays. Generics an fix those problems.
+            In this blog post, we'll be exploring the possibilities if this RFC were to be added.
+
+stitcher-alpha-5:
+    date: 2017-05-01
+    highlight: true
+    type: news
+    title: Stitcher alpha 5
+    content: src/blog/stitcher-alpha-5.md
+    description: Alpha 5 of Stitcher adds the last new 1.0 features to Stitcher.
+
+simplest-plugin-support:
+    date: 2017-04-27
+    highlight: true
+    type: blog
+    title: The simplest plugin support
+    teaserTitle: Stitcher plugins
+    content: src/blog/simplest-plugin-support.md
+    description: Simple plugin support explained when using composer and Symfony's service container.
+
+stitcher-alpha-4:
+    date: 2017-04-21
+    highlight: true
+    type: news
+    title: Stitcher alpha 4
+    content: src/blog/stitcher-alpha-4.md
+    description: Changes, new features and future update plans with the new Stitcher alpha4 release.
+
+static_sites_vs_caching:
+    date: 2017-03-02
+    highlight: true
+    type: blog
+    title: Static site generators vs. caching
+    teaserTitle: Static sites
+    content: src/blog/static_sites_vs_caching.md
+    description: What is caching and what's the difference between a cached website and a staticly generated website?
+
+image_optimizers:
+    date: 2017-02-26
+    highlight: false
+    type: news
+    title: Image optimizers
+    content: src/blog/image_optimizers.md
+
+tackling_repsonsive_images-part_1:
+    date: 2017-02-17
+    highlight: true
+    type: blog
+    title: Tackling repsonsive images - part 1
+    teaserTitle: Responsive images (1)
+    content: src/blog/tackling_repsonsive_images-part_1.md
+
+tackling_repsonsive_images-part_2:
+    date: 2017-02-18
+    highlight: false
+    type: blog
+    title: Tackling repsonsive images - part 2
+    teaserTitle: Responsive images (2)
+    content: src/blog/tackling_repsonsive_images-part_2.md
