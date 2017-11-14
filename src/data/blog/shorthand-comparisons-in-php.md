@@ -20,7 +20,7 @@ You can write this:
 $result = $condition ? 'foo' : 'bar';
 ```
 
-If this `$condition` evluates to `true`, the lefthand operand will be assigned to `$result`. 
+If this `$condition` evaluates to `true`, the lefthand operand will be assigned to `$result`. 
 If the condition evaluates to `false`, the righand will be used.
 
 Interesting fact: the name **ternary operator** actually means "an operator which acts on three operands". 
@@ -63,7 +63,7 @@ Did you take a look at [the types comparison table](*http://php.net/manual/en/ty
 The null coalescing operator is similar to the ternary operator, 
 but will use `isset` **on the lefthand operand** instead of just its boolean value. 
 This makes this operator especially useful for arrays. 
-It will also use **the left operand for falsy values**:
+It will also use the lefthand operand for falsy values:
 
 ```php
 var_dump($undifined ?? 'fallback'); // 'fallback'

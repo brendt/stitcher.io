@@ -9,8 +9,8 @@ entries:
     phpstorm-performance:
         date: 2017-10-22
         type: blog
-        title: PHPstorm's performance
-        teaserTitle: PHPstorm's performance
+        title: PHPStorm's performance
+        teaserTitle: PHPStorm's performance
         content: data/blog/phpstorm-performance.md
     stitcher-beta-2:
         date: 2017-08-27

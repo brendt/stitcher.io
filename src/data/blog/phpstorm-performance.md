@@ -2,7 +2,7 @@ Let's just dive right in.
 
 ## Java VM options
 
-PHPStorm is made in Java. If you ever played MineCraft, you know you could allocate extra RAM by adding 
+PHPStorm is made in Java. If you ever played Minecraft, you know you could allocate extra RAM by adding 
 flags to your startup command. You can also do this in PHPStorm, it's even built into the UI.
 
 Go to `help > Edit Custom VM Options`. You can play around with the settings here. 
@@ -15,6 +15,9 @@ I for one changed the maximum amount of RAM allocated to PHPStorm, and added two
 
 -Dawt.useSystemAAFontSettings=lcd
 -Dawt.java2d.opengl=true
+
+# Only for people on Mac, it makes Java use an optimised graphics engine.
+-Dapple.awt.graphics.UseQuartz=true
 ```
 
 ## Custom properties
@@ -71,7 +74,7 @@ If you come across a vendor you need auto-completion for, just add it to the lis
 Node modules are "excluded" by default, but they are added as include paths nevertheless. 
 Because of the size of the `node_modules` directory, it can take quite a while to index it.
 
-JavaScript include paths are managed like PHP includes, but in `Settings > Languages & Frameworks > JavaScript`.
+JavaScript include paths are managed like PHP includes, but in `Settings > Languages & Frameworks > JavaScript > Libraries`.
 I personally don't write a lot of JavaScript, so I just remove the inclusion of `node_modules` completely. 
 
 Managing directories requires a bit of time for each project, but it's worth the performance gain in the long run.
@@ -85,7 +88,7 @@ I don't want it to stand in my way though, so good performance is an absolute re
 With the things listed above, I feel that PHPStorm offers the best balance between performance and intelligence.
 I've written PHP in Sublime Text for ± 5 years. I did put some time into tweaking PHPStorm to my needs,
 and now I'm 100% sure I'll never go back to Sublime Text. 
-My IDE is just way to smart and helpful to me. It allows me to focus on real application logic, 
+My IDE is just way too smart and helpful to me. It allows me to focus on real application logic, 
 instead of writing the same boilerplate code over and over again. 
 I'll talk more about the benefits of an IDE over a text editor in another post. 
 For now, I hope that you found these tips helpful. 
