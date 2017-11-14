@@ -5,7 +5,9 @@ entries:
         title: Shorthand comparisons in PHP
         teaserTitle: Shorthand comparisons
         content: data/blog/shorthand-comparisons-in-php.md
-        description: Taking a closer look at the ternary and null coalescing operators in PHP.
+        meta:
+            description: Taking a closer look at the ternary and null coalescing operators in PHP.
+            og:description: Taking a closer look at the ternary and null coalescing operators in PHP.
     phpstorm-performance:
         date: 2017-10-22
         type: blog
