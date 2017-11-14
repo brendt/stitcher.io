@@ -1,11 +1,12 @@
 vendor/
 .idea
-dev/img
-dev/cache
-dev/public
-dev/js
+public/img
+public/cache
+public/public
+public/js
 public/
 .cache/
 cache/
 .DS_Store
 .env
+static

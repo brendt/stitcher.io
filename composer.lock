@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70e8197cad5d9815c7021e93f6aa7c48",
-    "content-hash": "c8d9192a1fc9867c5646d1cba917aa38",
+    "content-hash": "69b5d7ebbe67d07d8e10a682b131eff9",
     "packages": [
         {
             "name": "brendt/responsive-images",
@@ -49,7 +48,7 @@
                 }
             ],
             "description": "Create responsive images with PHP, using the srcset and sizes spec.",
-            "time": "2017-04-23 07:10:30"
+            "time": "2017-04-23T07:10:30+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -91,7 +90,7 @@
                 "markdown",
                 "parser"
             ],
-            "time": "2017-03-29 16:04:15"
+            "time": "2017-03-29T16:04:15+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -156,7 +155,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-03-20 17:10:46"
+            "time": "2017-03-20T17:10:46+00:00"
         },
         {
             "name": "intervention/image",
@@ -218,7 +217,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2017-04-23 18:45:36"
+            "time": "2017-04-23T18:45:36+00:00"
         },
         {
             "name": "leafo/scssphp",
@@ -271,7 +270,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2017-02-23 05:07:33"
+            "time": "2017-02-23T05:07:33+00:00"
         },
         {
             "name": "mrclay/minify",
@@ -316,7 +315,7 @@
             ],
             "description": "Minify is a PHP5 app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
             "homepage": "http://code.google.com/p/minify/",
-            "time": "2017-04-03 19:58:28"
+            "time": "2017-04-03T19:58:28+00:00"
         },
         {
             "name": "pageon/html-meta",
@@ -362,7 +361,7 @@
                 "meta tags",
                 "seo"
             ],
-            "time": "2017-05-25 14:14:03"
+            "time": "2017-05-25T14:14:03+00:00"
         },
         {
             "name": "pageon/stitcher-core",
@@ -429,7 +428,7 @@
                 "static site",
                 "twig"
             ],
-            "time": "2017-08-31 05:05:37"
+            "time": "2017-08-31T05:05:37+00:00"
         },
         {
             "name": "ps/image-optimizer",
@@ -478,7 +477,7 @@
                 "optimization",
                 "optipng"
             ],
-            "time": "2017-03-25 15:42:56"
+            "time": "2017-03-25T15:42:56+00:00"
         },
         {
             "name": "psr/http-message",
@@ -528,7 +527,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -575,7 +574,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "smarty/smarty",
@@ -628,7 +627,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-12-14 21:57:25"
+            "time": "2016-12-14T21:57:25+00:00"
         },
         {
             "name": "symfony/config",
@@ -684,7 +683,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12 14:13:17"
+            "time": "2017-04-12T14:13:17+00:00"
         },
         {
             "name": "symfony/console",
@@ -747,7 +746,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-26 01:39:17"
+            "time": "2017-04-26T01:39:17+00:00"
         },
         {
             "name": "symfony/debug",
@@ -804,7 +803,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-19 20:17:50"
+            "time": "2017-04-19T20:17:50+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -867,7 +866,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-26 01:39:17"
+            "time": "2017-04-26T01:39:17+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -927,7 +926,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01 14:58:48"
+            "time": "2017-05-01T14:58:48+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -976,7 +975,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12 14:13:17"
+            "time": "2017-04-12T14:13:17+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1025,7 +1024,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12 14:13:17"
+            "time": "2017-04-12T14:13:17+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -1079,7 +1078,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2017-04-12 14:13:17"
+            "time": "2017-04-12T14:13:17+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1138,7 +1137,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/process",
@@ -1187,7 +1186,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12 14:13:17"
+            "time": "2017-04-12T14:13:17+00:00"
         },
         {
             "name": "symfony/routing",
@@ -1262,7 +1261,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-04-12 14:13:17"
+            "time": "2017-04-12T14:13:17+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -1317,7 +1316,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01 14:55:58"
+            "time": "2017-05-01T14:55:58+00:00"
         },
         {
             "name": "tivie/htaccess-parser",
@@ -1362,7 +1361,7 @@
                 ".htaccess",
                 "htaccess"
             ],
-            "time": "2015-02-04 18:36:08"
+            "time": "2015-02-04T18:36:08+00:00"
         },
         {
             "name": "twig/twig",
@@ -1424,7 +1423,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-04-20 17:39:48"
+            "time": "2017-04-20T17:39:48+00:00"
         }
     ],
     "packages-dev": [
@@ -1462,7 +1461,7 @@
                 }
             ],
             "description": "`dd` is a helper method in Laravel. This package will add the `dd` to your application.",
-            "time": "2016-12-15 09:34:34"
+            "time": "2016-12-15T09:34:34+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -1530,7 +1529,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2017-05-01 14:55:58"
+            "time": "2017-05-01T14:55:58+00:00"
         }
     ],
     "aliases": [],

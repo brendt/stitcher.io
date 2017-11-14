@@ -11,6 +11,6 @@
         "pageon/stitcher-core": "dev-develop"
     },
     "require-dev": {
-        "larapack/dd": "^1.0"
+        "larapack/dd": "^1.1"
     }
 }

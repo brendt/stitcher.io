@@ -5,6 +5,10 @@
     {css src='hljs-github.css' inline=true}
 {/block}
 
+{block 'title'}
+    {$post.title} -
+{/block}
+
 {block 'content'}
     <header class="banner banner__blog">
         {include 'helper/curve.tpl'}

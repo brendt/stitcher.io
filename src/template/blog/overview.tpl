@@ -6,6 +6,10 @@
     {css src='blog.scss' inline=true}
 {/block}
 
+{block 'title'}
+    Blog -
+{/block}
+
 {block 'content'}
     <header class="banner banner__blog">
         {include 'helper/curve.tpl'}

@@ -1,7 +1,7 @@
 <html>
     <head>
         {block 'head'}
-            <title>{block 'title'}{if isset($title)}{$title} - {/if}Stitcher 1.0{/block}</title>
+            <title>{block 'title'}{/block}Stitcher 1.0</title>
             {block 'meta'}
                 <meta property="og:image" content="http://stitcher.pageon.be/img/stitcher.png" />
                 <meta property="twitter:image" content="http://stitcher.pageon.be/img/stitcher.png" />
