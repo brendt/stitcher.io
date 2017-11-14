@@ -60,10 +60,10 @@ Ironically, by leaving out the second operand of the ternary operator, it actual
 ## Null coalescing operator
 
 Did you take a look at [the types comparison table](*http://php.net/manual/en/types.comparisons.php) earlier? 
-The null coalescing operator is similar to the ternary operator, 
-but will use `isset` **on the lefthand operand** instead of just its boolean value. 
+The null coalescing operator is available since PHP 7.0.
+It similar to the ternary operator, but will behave like `isset` **on the lefthand operand** instead of just using ts boolean value. 
 This makes this operator especially useful for arrays. 
-It will also use the lefthand operand for falsy values:
+It will furthermore use the lefthand operand for falsy values and can work on nested arrays.
 
 ```php
 var_dump($undifined ?? 'fallback'); // 'fallback'
@@ -82,11 +82,20 @@ var_dump(false ?? 'fallback'); // false
 
 $input = [
     'key' => 'key',
+    'nested' => [
+        'key' => true
+    ]
 ];
+
 var_dump($input['key'] ?? 'fallback'); // 'key'
+var_dump($input['nested']['key'] ?? 'fallback'); // true
 var_dump($input['undefined'] ?? 'fallback'); // 'fallback'
+var_dump($input['nested']['undefined'] ?? 'fallback'); // 'fallback'
 
 var_dump(null ?? 'fallback'); // 'fallback'
+
+// This operator can be chained
+var_dump($input['undefined'] ?? $input['key'] ?? 'fallback'); // 'key'
 ```
 
 The null coalescing operator takes two operands, making it a **binary operator**. 

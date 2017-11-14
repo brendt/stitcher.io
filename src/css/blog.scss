@@ -154,9 +154,10 @@ article.blog {
 
         & > em {
             display: block;
-            font-style: normal;
-            font-size:.5em;
-            margin-top:.5em;
+            font-size: .5em;
+            margin-top: .5em;
+            padding-left: .3em;
+            color: $color-black;
         }
     }
 
