@@ -12,6 +12,7 @@
                     {/if}
                 </h1>
             {/if}
+
             {if isset($post.date)}
                 <em>{$post.date|date_format:'%Y-%m-%d'}</em>
             {/if}

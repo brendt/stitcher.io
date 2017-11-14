@@ -151,6 +151,13 @@ article.blog {
         font-size: 2em;
         margin-top: 1.5em;
         margin-bottom: 1em;
+
+        & > em {
+            display: block;
+            font-style: normal;
+            font-size:.5em;
+            margin-top:.5em;
+        }
     }
 
     & > p {

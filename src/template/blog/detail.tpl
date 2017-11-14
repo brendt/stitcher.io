@@ -15,7 +15,14 @@
                 {if isset($post.image)}
                     <img src="{$post.image.src}" srcset="{$post.image.srcset}" sizes="50vw" alt="{$post.image.title}">
                 {/if}
-                <h1>{$post.title}</h1>
+
+                <h1>
+                    {$post.title}
+
+                    {if isset($post.date)}
+                        <em>{$post.date|date_format:'%Y-%m-%d'}</em>
+                    {/if}
+                </h1>
 
                 {$post.content}
             </article>
@@ -28,7 +35,7 @@
                         {if isset($browse.prev.teaserTitle)}
                             {$title = $browse.prev.teaserTitle}
                         {/if}
-                        <a class="next cta cta--ghost" href="/blog/{$browse.prev.id}">Continue reading: {$title}</a>
+                        <a class="next cta cta--ghost" href="/blog/{$browse.prev.id}">Next: {$title}</a>
                     {/if}
 
                     {if $browse.next}
@@ -38,11 +45,11 @@
                             {$title = $browse.next.teaserTitle}
                         {/if}
 
-                        <a class="prev cta cta--ghost" href="/blog/{$browse.next.id}">Previous post: {$title}</a>
+                        <a class="prev cta cta--ghost" href="/blog/{$browse.next.id}">Previous: {$title}</a>
                     {/if}
                 </nav>
                 <nav class="center spacer">
-                    <a class="cta cta--link" href="/blog">Back to overview</a>
+                    <a class="cta cta--link" href="/blog">Show all posts</a>
                 </nav>
             </footer>
         </div>
