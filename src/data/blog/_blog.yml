@@ -162,6 +162,14 @@ entries:
         title: Image optimizers
         content: blog/image_optimizers.md
 
+    tackling_repsonsive_images-part_2:
+        date: 2017-02-18
+        highlight: false
+        type: blog
+        title: Tackling repsonsive images - part 2
+        teaserTitle: Responsive images (2)
+        content: blog/tackling_repsonsive_images-part_2.md
+
     tackling_repsonsive_images-part_1:
         date: 2017-02-17
         highlight: true
@@ -170,10 +178,3 @@ entries:
         teaserTitle: Responsive images (1)
         content: blog/tackling_repsonsive_images-part_1.md
 
-    tackling_repsonsive_images-part_2:
-        date: 2017-02-18
-        highlight: false
-        type: blog
-        title: Tackling repsonsive images - part 2
-        teaserTitle: Responsive images (2)
-        content: blog/tackling_repsonsive_images-part_2.md
