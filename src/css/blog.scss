@@ -28,6 +28,13 @@
     margin-left: .5em;
     border-radius: 2px;
 
+    @media (max-width: $width-container) {
+        display: block;
+        width: 140px;
+        text-align: center;
+        margin-left:0;
+        margin-top:.3em;
+    }
     @media (max-width: $with-container-mobile) {
         padding: 0;
         background: none;
@@ -48,8 +55,12 @@
     max-width: 1000px;
 
     @media (max-width: $width-container) {
-        box-shadow: none;
         padding: 1em;
+        box-shadow: none;
+
+        &.detail {
+            padding: 0;
+        }
     }
 }
 
@@ -143,6 +154,11 @@
 
     footer {
         margin-top: 2em;
+
+        @media (max-width: $width-container) {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
     }
 }
 
@@ -164,5 +180,26 @@ article.blog {
     & > p {
         line-height: 1.6em;
         font-size: 1.2em;
+    }
+
+    @media (max-width: $width-container) {
+        > *:not(pre) {
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+        }
+
+        pre {
+            &:before {
+                display: none;
+            }
+
+            font-size:.9em;
+            box-shadow: none;
+            background-color: darken($color-white, 5);
+
+            > code {
+                padding:1.2em 1.5em;
+            }
+        }
     }
 }

@@ -80,10 +80,29 @@ $article-width: 1200px;
 
         @media (max-width: $width-container) {
             width: auto;
-            margin-left: 1em;
-            margin-right: 1em;
+            margin-left: 0;
+            margin-right: 0;
             padding-left: 0;
             padding-right: 0;
+
+            > *:not(pre) {
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+            }
+
+            pre {
+                &:before {
+                    display: none;
+                }
+
+                font-size:.9em;
+                box-shadow: none;
+                background-color: darken($color-white, 5);
+
+                > code {
+                    padding:1.2em 1.5em;
+                }
+            }
         }
     }
 }

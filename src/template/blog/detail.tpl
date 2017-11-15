@@ -14,7 +14,7 @@
         {include 'helper/curve.tpl'}
     </header>
     <div class="content__blog">
-        <div class="container">
+        <div class="container detail">
             <article class="blog">
                 {if isset($post.image)}
                     <img src="{$post.image.src}" srcset="{$post.image.srcset}" sizes="50vw" alt="{$post.image.title}">
