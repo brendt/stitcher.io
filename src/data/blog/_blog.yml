@@ -1,13 +1,13 @@
 entries:
-    optimised-uuids-in-mysql:
-        date: 2017-11-15
-        type: blog
-        title: Optimised UUIDs in mysql
-        teaserTitle: UUID performance
-        content: data/blog/2017-11-15-optimised-uuids-in-mysql.md
-        meta:
-            description: I spent some time improving the performance of UUIDs on the database level.
-            og:description: I spent some time improving the performance of UUIDs on the database level.
+#    optimised-uuids-in-mysql:
+#        date: 2017-11-15
+#        type: blog
+#        title: Optimised UUIDs in mysql
+#        teaserTitle: UUID performance
+#        content: data/blog/2017-11-15-optimised-uuids-in-mysql.md
+#        meta:
+#            description: I spent some time improving the performance of UUIDs on the database level.
+#            og:description: I spent some time improving the performance of UUIDs on the database level.
     shorthand-comparisons-in-php:
         date: 2017-11-11
         type: blog
