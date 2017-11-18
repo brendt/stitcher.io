@@ -14,7 +14,7 @@
                 {/if}
 
                 {foreach $pages as $menuPage}
-                    <a href="/guide/{$menuPage.id}" {if $menuPage.title === $page.title}class="active"{/if}>{$menuPage.title}</a>
+                    <a href="/guide/{$menuPage.id}#read" {if $menuPage.title === $page.title}class="active"{/if}>{$menuPage.title}</a>
                 {/foreach}
             {/foreach}
         </nav>

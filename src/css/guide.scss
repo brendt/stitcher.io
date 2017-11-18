@@ -3,119 +3,132 @@
 $article-width: 1200px;
 
 .content__guide {
-    & > nav {
-        position: fixed;
-        width: 30vw;
-        min-width: 300px;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        color: #fff;
-        padding: 3em 1em;
-        overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
 
-        background: $color-orange;
-        background: linear-gradient(60deg, $color-red, $color-orange);
+    & > * {
+        flex: 1 1 100%;
+    }
 
-        & > a,
-        & > h2 {
-            display: block;
-            width: 300px;
-            float: right;
-            clear: both;
-            text-decoration: none;
+    @media all and(min-width: $width-container-mobile-lrg) {
+        flex-wrap: nowrap;
+
+        & > nav {
+            flex: 0 1 35vw;
         }
 
-        & > a.active {
-            font-weight: 700;
+        & > article {
+            flex: 0 1 65vw;
         }
+    }
+}
 
-        & > h2 {
-            font-weight: normal;
-            font-size: 1.3em;
-            color: $color-orange-dark;
-            margin: 1.2em 0 0.4em;
+.content__guide > nav {
+    bottom: 0;
+    color: #fff;
+    padding: 3em 1em;
+    display: flex;
+    flex-wrap: wrap;
 
-            &:first-child {
-                margin-top: 0;
-            }
-        }
+    & > * {
+        flex: 1 1 100%;
+        padding: .3em 0;
+        text-decoration: none;
+    }
 
-        & > a {
-            padding: .3em 0;
-        }
+    & > h2 {
+        padding: 1em 0 .5em;
+        margin: 0;
+        font-size:1.3em;
+    }
 
-        @media (max-width: $width-container) {
-            position: relative;
-            width:100%;
-            z-index: auto;
+    @media all and (min-width: $width-container-mobile-lrg) {
+        flex-wrap: nowrap;
+        flex-direction: column;
 
-            & > a {
-                float: left;
-                display: block;
-                width: auto;
-                clear: none;
-
-                &:before {
-                    display: inline-block;
-                    content: '\203A';
-                    padding-right: .5em;
-                    margin-left: 1em;
-                }
-            }
-
-            & > h2 {
-                clear:both;
-                width:100%;
-            }
+        & > * {
+            flex-basis: 0;
+            flex-grow: 0;
         }
     }
 
-    & > article {
-        width: 70vw;
-        max-width: $article-width;
-        margin-top: .5em;
-        margin-left: 30vw;
-        padding: 1.5em 4vw 0 1.5em;
+    & > a {
+        padding-left:.5em;
 
-        @media (max-width: $width-container) {
-            width: auto;
-            margin-left: 0;
-            margin-right: 0;
-            padding-left: 0;
-            padding-right: 0;
+        &:before {
+            content: '\203A';
+            padding-right:.3em;
+        }
 
-            > *:not(pre) {
-                margin-left: 1.5rem;
-                margin-right: 1.5rem;
+        &.active {
+            font-weight:800;
+        }
+    }
+
+    background: $color-orange;
+    background: linear-gradient(60deg, $color-red, $color-orange);
+}
+
+.content__guide > article {
+    margin-top: .5em;
+    padding: 3em 4vw 2em 1.5em;
+    width:100%;
+    max-width:100%;
+
+    @media (min-width: $width-container-mobile-lrg) {
+        max-width:65vw;
+    }
+
+    @media (max-width: $width-container-mobile-lrg) {
+        padding-top:1em;
+    }
+
+    @media (max-width: $width-container) {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+
+        > *:not(pre) {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            max-width: 100%;
+        }
+
+        pre {
+            &:before {
+                display: none;
             }
 
-            pre {
-                &:before {
-                    display: none;
-                }
+            font-size: .9em;
+            box-shadow: none;
+            background-color: darken($color-white, 5);
 
-                font-size:.9em;
-                box-shadow: none;
-                background-color: darken($color-white, 5);
-
-                > code {
-                    padding:1.2em 1.5em;
-                }
+            > code {
+                padding: 1.2em 1.5em;
             }
         }
     }
 }
 
 footer {
-    & > .container {
-        margin-left: 30vw;
-        width: 70vw;
-        max-width: $article-width;
+    background-color: lighten($color-black, 10);
+    padding:2em 0 3em;
+    margin-bottom:0;
 
-        @media (max-width: $width-container) {
+    & > .container {
+        @media (max-width: $width-container-mobile-lrg) {
             width: 100%;
             margin-left: 0;
+        }
+    }
+
+    .cta {
+        color: $color-white;
+        box-shadow: inset 0 0 0 2px $color-white;
+
+        &:last-child {
+            margin-bottom:0;
         }
     }
 
@@ -125,8 +138,7 @@ footer {
     }
 }
 
-
-@media (max-width: $width-container) {
+@media (max-width: $width-container-mobile-lrg) {
     .nav__main > a {
         color: $color-white;
     }
