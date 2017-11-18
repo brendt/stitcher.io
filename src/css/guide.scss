@@ -21,6 +21,16 @@ $article-width: 1200px;
             flex: 0 1 65vw;
         }
     }
+
+    @media all and(min-width: $width-container) {
+        & > nav {
+            flex: 0 1 30vw;
+        }
+
+        & > article {
+            flex: 0 1 70vw;
+        }
+    }
 }
 
 .content__guide > nav {
@@ -63,6 +73,10 @@ $article-width: 1200px;
         &.active {
             font-weight:800;
         }
+    }
+
+    @media all and(min-width: $width-container) {
+        padding-left:10em;
     }
 
     background: $color-orange;
@@ -120,6 +134,7 @@ footer {
         @media (max-width: $width-container-mobile-lrg) {
             width: 100%;
             margin-left: 0;
+            padding:2em 0 3em;
         }
     }
 
