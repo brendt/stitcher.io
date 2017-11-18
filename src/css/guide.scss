@@ -89,8 +89,14 @@ $article-width: 1200px;
     width:100%;
     max-width:100%;
 
+    h1 {
+        font-size:2em;
+        margin-top:.2em;
+    }
+
     @media (min-width: $width-container-mobile-lrg) {
         max-width:65vw;
+        padding-left:3em;
     }
 
     @media (max-width: $width-container-mobile-lrg) {
