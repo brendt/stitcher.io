@@ -58,21 +58,27 @@ li > ul > li {
     right: 0;
     text-align: right;
     text-decoration: none;
-    padding-right: 4vw;
     z-index: 99;
+    display: flex;
+    justify-content:flex-end;
 
     & > a {
-        display: inline-block;
+        flex: 0 1 5vw;
+
         color: inherit;
         text-decoration: inherit;
-        padding: 1.5em 2em 1.5em 0;
+        padding: 1.5em 2em;
 
         &.active {
             text-decoration: underline;
         }
+    }
 
-        @media (max-width: $with-container-mobile) {
-            padding: 1.5em 1em 1.5em 0;
+    @media (max-width: $width-container-mobile-lrg) {
+        & > a {
+            flex: 1 1 25%;
+            padding: 1.5em 0;
+            text-align: center;
         }
     }
 }
@@ -373,6 +379,14 @@ ul {
     &:after {
         @include clearfix;
     }
+
+    @media (max-width: $width-container-mobile-lrg) {
+        padding:0 0;
+
+        li {
+            line-height:1.8em;
+        }
+    }
 }
 
 .footer__large {
@@ -384,6 +398,23 @@ ul {
 
     &:after {
         @include clearfix;
+    }
+
+    @media (max-width: $width-container) {
+        & > .container {
+            display: flex;
+            flex-wrap: wrap;
+
+            & > * {
+                text-align: center;
+                flex: 0 1 100%
+            }
+
+            .left {
+                order: 2;
+                margin-top:1em;
+            }
+        }
     }
 }
 

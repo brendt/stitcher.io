@@ -50,7 +50,7 @@
     <footer class="footer__large">
         <div class="container">
             <div class="left footer--padding">
-                &copy; {date('Y', time())}
+                &copy; {date('Y', time())} Pageon VZW
             </div>
             <div class="right">
                 <a href="/guide/setting-up" class="cta cta--highlight">Get started with Stitcher</a>

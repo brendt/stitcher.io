@@ -127,4 +127,8 @@
 // Temporary fix to push the "install" section more to the center of the page
 .footer__large {
     margin-top: 40vh;
+
+    @media (max-width: $width-container) {
+        margin-top:4em;
+    }
 }
