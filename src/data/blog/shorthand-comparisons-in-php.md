@@ -84,7 +84,7 @@ It similar to the ternary operator, but will behave like `isset` **on the leftha
 This makes this operator especially useful for arrays and assigning defaults when a variable is not set. 
 
 ```php
-var_dump($undifined ?? 'fallback'); // 'fallback'
+var_dump($undefined ?? 'fallback'); // 'fallback'
 
 $unassigned;
 var_dump($unassigned ?? 'fallback'); // 'fallback'
