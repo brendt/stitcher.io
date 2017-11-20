@@ -60,7 +60,7 @@ Ironically, by leaving out the second operand of the ternary operator, it actual
 ### Chaining ternary operators
 
 Because the ternary operator acts on thruty and falsy values, you could as well. 
-Chaining ternary operators should be done with care, becaue it could become messy very quickly.
+Chaining ternary operators should be done with care, because it could become messy very quickly.
 I personally have never seen a valid usecase for chaining ternary operators, but it's good to be able to recognise them nevertheless.
 
 At Spatie, we've opensourced our coding style guidelines, including those of [ternary operators](*https://guidelines.spatie.be/code-style/laravel-php#ternary-operators). 
