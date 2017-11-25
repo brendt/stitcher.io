@@ -29,6 +29,10 @@
                 </h1>
 
                 {$post.content}
+
+                {if isset($post.discuss)}
+                    {include 'blog/discuss.tpl' discuss=$post.discuss}
+                {/if}
             </article>
 
             <footer>
