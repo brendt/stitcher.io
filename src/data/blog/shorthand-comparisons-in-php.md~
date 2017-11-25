@@ -70,10 +70,9 @@ $result = $firstCondition
 ```
 
 The reason because is that the ternary operator in PHP is left-associative, and thus parsed in a very strange way.
-The above example would always evaluate the `$elseCondition` part first, so even when `$firstCondition` would be `true`, you'd never see its output.
 
 I believe the right thing to do is to avoid nested ternary operators alltogether.
-You can read more about this strange behaviour in this [Stack Overflow answer](*https://stackoverflow.com/questions/20559150/ternary-operator-left-associativity/38231137#38231137).
+You can read more about this strange parsin in this [Stack Overflow answer](*https://stackoverflow.com/questions/20559150/ternary-operator-left-associativity/38231137#38231137).
 
 ## Null coalescing operator
 
