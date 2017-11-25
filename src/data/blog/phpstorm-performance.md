@@ -93,8 +93,4 @@ instead of writing the same boilerplate code over and over again.
 I'll talk more about the benefits of an IDE over a text editor in another post. 
 For now, I hope that you found these tips helpful. 
 
-Happy coding!   
-
-### Looking for more ways to improve your PHPStorm workflow?
-
-Ever thought about keybinds? Like, [really thought about it](https://www.stitcher.io/blog/mastering-key-bindings)?
+Happy coding!

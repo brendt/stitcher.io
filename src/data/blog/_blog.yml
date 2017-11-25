@@ -14,6 +14,8 @@ entries:
         title: Shorthand comparisons in PHP
         teaserTitle: Shorthand comparisons
         content: data/blog/shorthand-comparisons-in-php.md
+        discuss:
+            reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
         meta:
             description: Taking a closer look at the ternary and null coalescing operators in PHP.
             og:description: Taking a closer look at the ternary and null coalescing operators in PHP.
@@ -23,6 +25,7 @@ entries:
         title: PHPStorm's performance
         teaserTitle: PHPStorm's performance
         content: data/blog/phpstorm-performance.md
+        discuss: true
     stitcher-beta-2:
         date: 2017-08-27
         type: news
@@ -45,6 +48,8 @@ entries:
         title: A programmer's cognitive load
         teaserTitle: Mental coding effort
         content: data/blog/a-programmers-cognitive-load.md
+        discuss:
+            reddit: https://www.reddit.com/r/webdev/comments/6md1rz/reducing_a_programmers_cognitive_load/
     responsive-images-as-css-background:
         date: 2017-06-24
         type: piece of code
