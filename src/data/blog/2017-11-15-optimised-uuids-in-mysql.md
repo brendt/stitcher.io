@@ -1,24 +1,51 @@
-We're working on a large API project at [Spatie](*https://www.spatie.be) in which UUIDs are used instead of normal ones.
-The benefit of UUIDs is that they're unique over your whole database, and that you're not exposing internal functionality to the outside.
+At [Spatie](*https://www.spatie.be), we're working on a large project which uses UUIDs in many database tables.
+These tables vary in size from a few thousand records to half a million.
 
-Our first approach was to store the UUID as `VARCHAR(36)` variables in the database. 
-There were some performance concerns though.
-Some people pointed out that querying large amounts of data based on UUIDs had a serious performance cost.
-That's because of the random nature of a UUID, making it impossible for MySQL to efficiently index that data.
+As you might know, normal UUIDs are stored as `VARCHAR(36)` fields in the database. 
+This has an enormous performance cost, because MySQL is unable to properly index these records.
+Take a look at the following graph, plotting the execution time of hundred queries against two datasets: one with 50k rows, one with 500k rows.
 
-We found some interesting reads about optimised UUIDs for database searches. 
-By saving the UUIDs as binary data, and shifting some bits around, MySQL could do a much better indexing job.
-You can read an explanation of the hows and whys here: [http://mysqlserverteam.com/storing-uuid-values-in-mysql-tables/](*http://mysqlserverteam.com/storing-uuid-values-in-mysql-tables/).
+![Poor textual UUID performance](/img/blog/binary-uuid/textual_uuid.png)
 
-Before making changes to our codebase though, we needed to be sure it would impact our use case.
-I've made some benchmarks to verify this "optimised UUID" claim, you can check the repository out here:
-[https://github.com/spatie/uuid-mysql-performance](*https://github.com/spatie/uuid-mysql-performance).
+That's an average of more than 1.5 seconds when using textual UUIDs! 
+Looking around for better alternatives, we found a two-part solution.
 
-Sure thing, optimised UUIDs make a difference! You can read more in-depth conclusions in the repository's README, 
-and run the benchmarks yourself.
+## Saving UUIDs as binary data
 
----
+Instead of saving UUIDs as `VARCHAR`, it's possible to store their actual binary data in a `BINARY` field. 
+Storing them in this format, MySQL has a lot less trouble indexing this table. 
+This is the graph plotting a much faster result.
 
-This optimisation was something completely different than the area I was comfortable with, but it was so much fun figuring this out!
-I was also happy to see that there would almost be no impact on our existing codebase, 
-we can gracefully add this feature and not worry about breaking changes or data migrations.
+![Binary UUIDs have a huge performance improvement](/img/blog/binary-uuid/binary_uuid.png)
+
+That's an avarage of 0.0001324915886 seconds per query, in comparison to 1.5 seconds for the textual UUID.
+
+## It becomes even better!
+
+The binary encoding of UUIDs solved most of the issue.
+There's one extra step to take though, which allows MySQL to even better index this field.
+
+By switching some of the bits in the UUID, more specifically time related data, 
+we're able to save them in a more ordered way.
+And it seems that MySQL is especially fond of ordered data when creating indices.
+
+Using this approach, we can see following result.
+
+![Binary UUIDs have a huge performance improvement](/img/blog/binary-uuid/comparison.png)
+
+The optimised approach is actually slower for lookups in a small table, 
+but it outperforms the normal binary approach on larger datasets.
+You can also see that normal IDs are still the winner by far.
+I would recommend only using UUIDs when there's a very good use case for them.
+For example, when you want unique IDs over all tables, and not just one.
+
+The MySQL team wrote a [blogpost](*http://mysqlserverteam.com/storing-uuid-values-in-mysql-tables/)
+explaining this bit-shifting of UUIDs in further detail. 
+If you'd like to know how it works internally, over there is a good start. 
+
+If you're building a Laravel application and would like to use optimised UUIDs in your project, 
+we've made [a package](*https://github.com/spatie/laravel-binary-uuid) especially for you.
+You'll also find more benchmark details in the README over there.
+
+Finally, if you're looking into implementing this behaviour in a non-Laravel project, 
+you should definitely take a look at [Ramsey's UUID package](*https://github.com/ramsey/uuid), we're using it too!
