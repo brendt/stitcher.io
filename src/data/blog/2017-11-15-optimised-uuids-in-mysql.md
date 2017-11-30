@@ -1,7 +1,7 @@
 At [Spatie](*https://www.spatie.be), we're working on a large project which uses UUIDs in many database tables.
 These tables vary in size from a few thousand records to half a million.
 
-As you might know, normal UUIDs are stored as `VARCHAR(36)` fields in the database. 
+As you might know, normal UUIDs are stored as `CHAR(36)` fields in the database. 
 This has an enormous performance cost, because MySQL is unable to properly index these records.
 Take a look at the following graph, plotting the execution time of hundred queries against two datasets: one with 50k rows, one with 500k rows.
 
@@ -12,7 +12,7 @@ Looking around for better alternatives, we found a two-part solution.
 
 ## Saving UUIDs as binary data
 
-Instead of saving UUIDs as `VARCHAR`, it's possible to store their actual binary data in a `BINARY` field. 
+Instead of saving UUIDs as `CHAR`, it's possible to store their actual binary data in a `BINARY` field. 
 Storing them in this format, MySQL has a lot less trouble indexing this table. 
 This is the graph plotting a much faster result.
 
