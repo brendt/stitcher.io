@@ -88,6 +88,11 @@
                     width: 100%;
                 }
             }
+
+            @media all and (max-width: $width-container-mobile-lrg) {
+                margin-left:0;
+                width:100%;
+            }
         }
 
         blockquote {

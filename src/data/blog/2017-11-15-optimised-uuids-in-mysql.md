@@ -35,9 +35,10 @@ Using this approach, we can see following result.
 
 The optimised approach is actually slower for lookups in a small table, 
 but it outperforms the normal binary approach on larger datasets.
-You can also see that normal IDs are still the winner by far.
+You can also see that normal integer IDs are still the winner by far.
 I would recommend only using UUIDs when there's a very good use case for them.
-For example, when you want unique IDs over all tables, and not just one.
+For example: when you want unique IDs over all tables, and not just one;
+or if you want to hide exactly how many rows there are in the table
 
 The MySQL team wrote a [blogpost](*http://mysqlserverteam.com/storing-uuid-values-in-mysql-tables/)
 explaining this bit-shifting of UUIDs in further detail. 
