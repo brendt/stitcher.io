@@ -5,6 +5,8 @@ entries:
         title: Optimised UUIDs in mysql
         teaserTitle: UUID performance
         content: data/blog/2017-11-15-optimised-uuids-in-mysql.md
+        discuss:
+            reddit: https://www.reddit.com/r/PHP/comments/7gk8tp/optimising_uuids_for_better_performance/
         meta:
             description: I spent some time improving the performance of UUIDs on the database level.
             og:description: I spent some time improving the performance of UUIDs on the database level.
