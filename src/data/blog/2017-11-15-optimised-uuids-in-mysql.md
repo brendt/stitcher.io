@@ -7,7 +7,12 @@ Take a look at the following graph, plotting the execution time of hundred queri
 
 ![Poor textual UUID performance](/img/blog/binary-uuid/textual_uuid.png)
 
-That's an average of more than 1.5 seconds when using textual UUIDs! 
+~~That's an average of more than 1.5 seconds when using textual UUIDs!~~ 
+
+*There's an **important edit** here: the benchmark above was performed on un-indexed fields.
+I've since changed the benchmark results to work with indexed textual fields for a more fair comparison.
+There's still a performance gain to not using textual UUIDs, so keep reading!*
+
 Looking around for better alternatives, we found a two-part solution.
 
 ## Saving UUIDs as binary data
@@ -18,16 +23,19 @@ This is the graph plotting a much faster result.
 
 ![Binary UUIDs have a huge performance improvement](/img/blog/binary-uuid/binary_uuid.png)
 
-That's an avarage of 0.0001324915886 seconds per query, in comparison to 1.5 seconds for the textual UUID.
+That's an avarage of 0.00008832061291 seconds per query, 
+in comparison to ~~1.5~~ 0.0001493031979 seconds for the **indexed** textual UUID.
 
 ## It becomes even better!
 
 The binary encoding of UUIDs solved most of the issue.
-There's one extra step to take though, which allows MySQL to even better index this field.
+There's one extra step to take though,
+which allows MySQL to even better index this field for large datasets.
 
 By switching some of the bits in the UUID, more specifically time related data, 
 we're able to save them in a more ordered way.
 And it seems that MySQL is especially fond of ordered data when creating indices.
+There's one important thing to note: this time related bits are only available in UUID version 1.
 
 Using this approach, we can see following result.
 
@@ -35,7 +43,9 @@ Using this approach, we can see following result.
 
 The optimised approach is actually slower for lookups in a small table, 
 but it outperforms the normal binary approach on larger datasets.
-You can also see that normal integer IDs are still the winner by far.
+It even performs better than an `AUTO_INCREMENT` integer ID!
+But as you can see, we need very large tables before the optimised UUID has a benefit.
+
 I would recommend only using UUIDs when there's a very good use case for them.
 For example: when you want unique IDs over all tables, and not just one;
 or if you want to hide exactly how many rows there are in the table.
