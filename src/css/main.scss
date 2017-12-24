@@ -30,9 +30,9 @@ li > ul > li {
 
 #curve {
     position: absolute;
-    bottom:-1px;
-    left:0;
-    right:0;
+    bottom: -1px;
+    left: 0;
+    right: 0;
 }
 
 .banner {
@@ -60,7 +60,7 @@ li > ul > li {
     text-decoration: none;
     z-index: 99;
     display: flex;
-    justify-content:flex-end;
+    justify-content: flex-end;
 
     & > a {
         flex: 0 1 5vw;
@@ -132,7 +132,7 @@ p {
     }
 
     &--link {
-        border:none;
+        border: none;
         box-shadow: none;
 
         &:hover {
@@ -186,7 +186,7 @@ pre {
 
         @media (min-width: $width-container) {
             width: 49.5%;
-            float:left;
+            float: left;
         }
 
         &::after {
@@ -195,7 +195,7 @@ pre {
             background-color: $color-red;
             color: $color-white;
             top: 0;
-            left:0;
+            left: 0;
             right: 0;
             padding: .5em 1em;
         }
@@ -212,7 +212,7 @@ pre {
     }
 
     &.language-smarty {
-        clear:right;
+        clear: right;
         &::after {
             content: 'Smarty';
         }
@@ -234,7 +234,7 @@ pre {
 
 pre + p,
 p + pre:not(.language-twig) {
-    margin-top:1.7em;
+    margin-top: 1.7em;
 }
 
 code {
@@ -282,10 +282,10 @@ footer {
         .cta {
             width: 100%;
             max-width: 450px;
-            margin:0 auto 1.4em auto;
+            margin: 0 auto 1.4em auto;
             text-align: center;
             display: block !important;
-            float:none !important;
+            float: none !important;
 
             &:last-child {
                 margin-right: auto;
@@ -358,19 +358,20 @@ hr {
 
 li {
     display: block;
-    float:left;
+    float: left;
     clear: both;
     list-style: none;
-    line-height:2.2em;
+    line-height: 1.6em;
+    padding-bottom: .6em;
 
     &:before {
-        float:left;
+        float: left;
         display: block;
         color: $color-red;
         content: '\203A';
-        font-size:1.5em;
+        font-size: 1.5em;
         margin-right: .3em;
-        line-height:1.25em;
+        line-height: .9em;
     }
 }
 
@@ -382,20 +383,20 @@ ul {
     }
 
     @media (max-width: $width-container-mobile-lrg) {
-        padding:0 0;
+        padding: 0 0;
 
         li {
-            line-height:1.8em;
+            line-height: 1.7em;
         }
     }
 }
 
 .footer__large {
-    color:$color-white;
+    color: $color-white;
     background: lighten($color-black, 10);
     margin-bottom: 0;
-    margin-top:2em;
-    padding:2em 0 1.5em;
+    margin-top: 2em;
+    padding: 2em 0 1.5em;
 
     &:after {
         @include clearfix;
@@ -413,7 +414,7 @@ ul {
 
             .left {
                 order: 2;
-                margin-top:1em;
+                margin-top: 1em;
             }
         }
     }
@@ -424,7 +425,7 @@ ul {
 }
 
 .right {
-    float:right;
+    float: right;
 }
 
 .small {
