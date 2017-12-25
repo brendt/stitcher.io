@@ -5,6 +5,7 @@ entries:
         title: Asynchronous PHP
         teaserTitle: spatie/async
         content: data/blog/2017-12-24-asynchronous-php.md
+        discuss: true
         meta:
             description: We created a new asynchronous PHP package at Spatie.
             og:description: We created a new asynchronous PHP package at Spatie.
