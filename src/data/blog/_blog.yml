@@ -25,7 +25,7 @@ entries:
         type: blog
         title: Shorthand comparisons in PHP
         teaserTitle: Shorthand comparisons
-        content: data/blog/shorthand-comparisons-in-php.md
+        content: data/blog/2017-11-11-shorthand-comparisons-in-php.md
         discuss:
             reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
         meta:
@@ -36,14 +36,14 @@ entries:
         type: blog
         title: PHPStorm's performance
         teaserTitle: PHPStorm's performance
-        content: data/blog/phpstorm-performance.md
+        content: data/blog/2017-10-22-phpstorm-performance.md
         discuss: true
     stitcher-beta-2:
         date: 2017-08-27
         type: news
         highlight: true
         title: Stitcher beta 2
-        content: data/blog/stitcher-beta-2.md
+        content: data/blog/2017-08-27-stitcher-beta-2.md
         teaser: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
         meta:
             description: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
@@ -53,13 +53,13 @@ entries:
         type: blog
         title: Mastering key bindings
         teaserTitle: Key bindings
-        content: data/blog/mastering-key-bindings.md
+        content: data/blog/2017-08-25-mastering-key-bindings.md
     a-programmers-cognitive-load:
         date: 2017-06-25
         type: blog
         title: A programmer's cognitive load
         teaserTitle: Mental coding effort
-        content: data/blog/a-programmers-cognitive-load.md
+        content: data/blog/2017-06-25-a-programmers-cognitive-load.md
         discuss:
             reddit: https://www.reddit.com/r/webdev/comments/6md1rz/reducing_a_programmers_cognitive_load/
     responsive-images-as-css-background:
@@ -68,7 +68,7 @@ entries:
         title: Repsonsive images as CSS background
         teaserTitle: Responsive CSS
         teaser: Integrating the Responsive Images spec together with CSS backgrounds.
-        content: data/blog/responsive-images-as-css-background.md
+        content: data/blog/2017-06-24-responsive-images-as-css-background.md
         meta:
             title: Repsonsive images as CSS background - Piece of Code
             description: >
@@ -78,7 +78,7 @@ entries:
         type: piece of code
         title: Object oriented generators
         teaser: Another way to approach generators, in an object oriented fashion.
-        content: data/blog/piece-of-code-oo-generators.md
+        content: data/blog/2017-06-17-oo-generators.md
         meta:
             title: Process forks - Piece of Code
             description: >
@@ -88,7 +88,7 @@ entries:
         type: piece of code
         title: Process forks
         teaser: A simple way to manage process forks and execute PHP code in parallel.
-        content: data/blog/piece-of-code-process-forks.md
+        content: data/blog/2017-06-09-process-forks.md
         meta:
             title: Process forks - Piece of Code
             description: >
@@ -99,7 +99,7 @@ entries:
         type: blog
         title: "Performance 101: building the better web"
         teaserTitle: Performance 101
-        content: data/blog/performance-101-building-the-better-web.md
+        content: data/blog/2017-05-30-performance-101-building-the-better-web.md
         meta:
             description: >
                 Looking into web performance and how to improve it.
@@ -111,7 +111,7 @@ entries:
         type: piece of code
         title: Array objects
         teaser: Create loop-able, array-like collections in PHP with type checking.
-        content: data/blog/piece-of-code-array-object.md
+        content: data/blog/2017-05-25-array-object.md
         meta:
             title: Array objects - Piece of Code
             description: >
@@ -122,7 +122,7 @@ entries:
         type: news
         highlight: true
         title: Stitcher beta 1
-        content: data/blog/stitcher-beta-1.md
+        content: data/blog/2017-05-20-stitcher-beta-1.md
         meta:
             description: >
                 The first beta release of Stitcher has arrived!
@@ -132,7 +132,7 @@ entries:
         type: blog
         title: PHP Generics and why we need them
         teaserTitle: PHP Generics
-        content: data/blog/php-generics-and-why-we-need-them.md
+        content: data/blog/2017-05-17-php-generics-and-why-we-need-them.md
         meta:
             description: >
                 PHP has some problems with arrays. Generics an fix those problems.
@@ -143,7 +143,7 @@ entries:
         highlight: true
         type: news
         title: Stitcher alpha 5
-        content: data/blog/stitcher-alpha-5.md
+        content: data/blog/2017-05-01-stitcher-alpha-5.md
         description: Alpha 5 of Stitcher adds the last new 1.0 features to Stitcher.
 
     simplest-plugin-support:
@@ -152,7 +152,7 @@ entries:
         type: blog
         title: The simplest plugin support
         teaserTitle: Stitcher plugins
-        content: data/blog/simplest-plugin-support.md
+        content: data/blog/2017-04-27-simplest-plugin-support.md
         description: Simple plugin support explained when using composer and Symfony's service container.
 
     stitcher-alpha-4:
@@ -160,7 +160,7 @@ entries:
         highlight: true
         type: news
         title: Stitcher alpha 4
-        content: data/blog/stitcher-alpha-4.md
+        content: data/blog/2017-04-21-stitcher-alpha-4.md
         description: Changes, new features and future update plans with the new Stitcher alpha4 release.
 
     static_sites_vs_caching:
@@ -169,7 +169,7 @@ entries:
         type: blog
         title: Static site generators vs. caching
         teaserTitle: Static sites
-        content: blog/static_sites_vs_caching.md
+        content: blog/2017-03-02-static_sites_vs_caching.md
         description: What is caching and what's the difference between a cached website and a staticly generated website?
 
     image_optimizers:
@@ -177,7 +177,7 @@ entries:
         highlight: false
         type: news
         title: Image optimizers
-        content: blog/image_optimizers.md
+        content: blog/2017-02-26-image_optimizers.md
 
     tackling_repsonsive_images-part_2:
         date: 2017-02-18
@@ -185,7 +185,7 @@ entries:
         type: blog
         title: Tackling repsonsive images - part 2
         teaserTitle: Responsive images (2)
-        content: blog/tackling_repsonsive_images-part_2.md
+        content: blog/2017-02-18-tackling_repsonsive_images-part_2.md
 
     tackling_repsonsive_images-part_1:
         date: 2017-02-17
@@ -193,5 +193,4 @@ entries:
         type: blog
         title: Tackling repsonsive images - part 1
         teaserTitle: Responsive images (1)
-        content: blog/tackling_repsonsive_images-part_1.md
-
+        content: blog/2017-02-17-tackling_repsonsive_images-part_1.md
