@@ -110,7 +110,7 @@
                 color: $color-red;
                 font-size: 2em;
 
-                @media (max-width: $width-container-mobile) {
+                @media (max-width: $width-container-mobile-lrg) {
                     display: none;
                 }
             }
@@ -124,8 +124,9 @@
                 }
             }
 
-            @media (max-width: $width-container-mobile) {
+            @media (max-width: $width-container-mobile-lrg) {
                 width: 100%;
+                padding: 0 1em;
                 margin: 1.5em 0;
                 color: $color-red;
             }
@@ -180,7 +181,7 @@ article.blog {
     }
 
     @media (max-width: $width-container) {
-        > *:not(pre) {
+        > *:not(pre):not(blockquote) {
             margin-left: 1.5rem;
             margin-right: 1.5rem;
         }
