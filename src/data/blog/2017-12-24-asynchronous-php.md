@@ -10,7 +10,7 @@ but let's take a look at a few use-cases we see at Spatie:
 - [Code generators](*https://github.com/spatie/schema-org)
 - Static site generators - like Stitcher
 
-We wanted to create an easy-to-use package, yet one that could solve some of our use cases.
+We wanted to create an easy-to-use package, yet one that could solve our use cases.
 Some of the packages listed above will not use the new `spatie/async` package,
 because there's also a queueing system provided with Laravel.
 
@@ -70,7 +70,8 @@ But the first results are pretty cool!
 
 Processes in UNIX systems can send signals to each other. 
 Depending on what kind of signal is received, a process will act different.
-Signals are handled by the kernel, so they are pretty low level.
+Signals are handled by the ke
+rnel, so they are pretty low level.
 Before PHP 7.1 though, you had to `declare(ticks=1)` to use asynchronous signals in a reliable way.
 This means that PHP will check for signals much more often, but it also introduces a lot of overhead:
 
