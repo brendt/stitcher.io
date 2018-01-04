@@ -11,7 +11,7 @@ but let's take a look at a few use-cases we see at Spatie:
 - Static site generators - like Stitcher
 
 We wanted to create an easy-to-use package, yet one that could solve our use cases.
-Some of the packages listed above will not use the new `spatie/async` package,
+Some of the examples listed above will not use the new `spatie/async` package,
 because there's also a queueing system provided with Laravel.
 
 This is how asynchronous code with our package looks like.
