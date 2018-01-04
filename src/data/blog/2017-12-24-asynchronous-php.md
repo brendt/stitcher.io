@@ -36,7 +36,7 @@ await($pool);
 
 ## Outperforming Amp? Not quite yet.
 
-If you're into parallel PHP, you probably heard of [Amp](*https://github.com/amphp) and [ReactPHP](*https://github.com/reactphp).
+If you're into parallel PHP, you've probably heard of [Amp](*https://github.com/amphp) and [ReactPHP](*https://github.com/reactphp).
 Our package aims not to compete with those two, as it only solves one tiny aspect of parallelism in PHP;
 and tries to solve it in a different way.
 
@@ -46,7 +46,7 @@ He pointed out some mistakes in our previous benchmarks, and helped making them 
 
 The new benchmarks compare a few scenarios.
 The first two groups plot the execution time of an empty process, 
-while the third and second groups show the execution time of processes having a different time to finish, 
+while the third and fourth groups show the execution time of processes with a different time to finish, 
 using several `sleep` intervals. 
 Between the two groups, we're also comparing a capped concurrency configuration and a non-capped configuration.
 Capped means that there are more processes than the pool can execute at once.
@@ -67,7 +67,7 @@ as long as the pool doesn't have to manage concurrency, we're finishing faster.
 ## What about ReactPHP?
 
 We've excluded ReactPHP from the benchmarks, because it's not a fair comparison.
-ReactPHP doesn't allow to run closures and Tasks as sub-processes the way Amp and our package do.
+ReactPHP doesn't allow to run closures or `Tasks` as sub-processes the way Amp and our package do.
 With ReactPHP, you're working with plain processes, so there's no way to compare to it.
 
 ## About process signals
