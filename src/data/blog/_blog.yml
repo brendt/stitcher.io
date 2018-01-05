@@ -5,10 +5,12 @@ entries:
         title: Asynchronous PHP
         teaserTitle: spatie/async
         content: data/blog/2017-12-24-asynchronous-php.md
-        discuss: true
+        discuss:
+            reddit: https://www.reddit.com/r/PHP/comments/7oacw3/working_on_a_simple_asynchronous_and_parallel_php/
         meta:
             description: We created a new asynchronous PHP package at Spatie.
             og:description: We created a new asynchronous PHP package at Spatie.
+
     optimised-uuids-in-mysql:
         date: 2017-11-29
         type: blog
@@ -20,6 +22,7 @@ entries:
         meta:
             description: I spent some time improving the performance of UUIDs on the database level.
             og:description: I spent some time improving the performance of UUIDs on the database level.
+
     shorthand-comparisons-in-php:
         date: 2017-11-11
         type: blog
