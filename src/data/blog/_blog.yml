@@ -1,4 +1,14 @@
 entries:
+    mysql-import-json-binary-character-set:
+        date: 2018-01-09
+        type: piece of code
+        title: "MySQL import: JSON with binary character set"
+        teaserTitle: MySQL JSON import
+        content: 2018-01-09-mysql-import-json-binary-character-set.md
+        meta:
+            description: How to fix "cannot create a JSON value from a string with CHARACTER SET 'binary'" MySQL import error
+            og:description: How to fix "cannot create a JSON value from a string with CHARACTER SET 'binary'" MySQL import error
+
     asynchronous-php:
         date: 2017-12-24
         type: blog
