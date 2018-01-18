@@ -1,4 +1,11 @@
 entries:
+    where-a-curly-bracket-belongs:
+        date: 2018-01-16
+        type: blog
+        title: Where a curly bracket belongs
+        teaserTitle: Curly brace placement
+        content: 2018-01-16-where-a-curly-bracket-belongs.md
+
     mysql-import-json-binary-character-set:
         date: 2018-01-09
         type: piece of code
