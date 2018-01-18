@@ -1,7 +1,5 @@
 This blogpost is based on [this amazing talk by Kevlin Henney](*https://www.youtube.com/watch?v=ZsHMHukIlJY).
 
----
-
 Dedicating a whole blogpost to curly brackets might seem like overkill 
 but I believe it's worth thinking about them.
 Not just because of one curly bracket, but because there's a bigger message in all this. 
