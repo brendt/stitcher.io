@@ -223,7 +223,7 @@ foreach ($things as $thing)
 }
 ```
 
-What do you think? [Let me know]((*https://twitter.com/brendt_gd)).
+What do you think? [Let me know](*https://twitter.com/brendt_gd).
 
 ---
 
