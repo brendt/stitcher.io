@@ -5,6 +5,9 @@ entries:
         title: Where a curly bracket belongs
         teaserTitle: Curly brace placement
         content: 2018-01-16-where-a-curly-bracket-belongs.md
+        meta:
+            description: Thoughts about where to place a curly bracket, and what it means for your cognitive load.
+            og:description: Thoughts about where to place a curly bracket, and what it means for your cognitive load.
 
     mysql-import-json-binary-character-set:
         date: 2018-01-09
