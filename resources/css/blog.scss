@@ -1,0 +1,202 @@
+@import 'resources/css/variables';
+
+.banner__blog {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 70vh;
+    background: $color-orange;
+    background: linear-gradient(20deg, $color-red, $color-orange);
+
+    @media (max-width: $width-container) {
+        height: 4em;
+        position: relative;
+
+        & > svg {
+            display: none;
+        }
+    }
+}
+
+.badge--piece-of-code {
+    display: inline-block;
+    background-color: $color-red;
+    color: $color-white;
+    font-size: 0.8em;
+    padding: .2em .6em;
+    margin-left: .5em;
+    border-radius: 2px;
+
+    @media (max-width: $width-container) {
+        display: block;
+        width: 140px;
+        text-align: center;
+        margin-left:0;
+        margin-top:.3em;
+    }
+}
+
+.container {
+    background: $color-white;
+    position: relative;
+    padding: 3em 6em 1em;
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+    max-width: 1000px;
+
+    @media (max-width: $width-container) {
+        padding: 1em;
+        box-shadow: none;
+
+        &.detail {
+            padding: 0;
+        }
+    }
+}
+
+.nav__main > a {
+    color: $color-white;
+}
+
+.content__blog {
+    margin-top: 20vh;
+
+    article {
+        margin: 0 auto;
+        position: relative;
+        z-index: 20;
+
+        img {
+            max-width: 90%;
+            display: block;
+            box-shadow: 0 2px 5px 1px $color-gray;
+            border-radius: 2px;
+            border: 1px solid $color-gray;
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+            margin-left: 3%;
+
+            &.small {
+                max-width: 70%;
+            }
+
+            @media (max-width: $width-container) {
+                max-width: 100%;
+                margin-left: 0;
+
+                &.small {
+                    width: 100%;
+                }
+            }
+
+            @media all and (max-width: $width-container-mobile-lrg) {
+                margin-left:0;
+                width:100%;
+            }
+        }
+
+        blockquote {
+            font-size: 1.4em;
+            color: lighten($color-black, 15);
+            width: 70%;
+            margin: 1.5em 0 2em 3em;
+
+            &:before {
+                display: inline;
+                content: '"';
+                float: left;
+                margin-left: -.6em;
+                margin-top: -.2em;
+                color: $color-red;
+                font-size: 2em;
+
+                @media (max-width: $width-container-mobile) {
+                    display: none;
+                }
+            }
+
+            a {
+                text-decoration: none;
+                color: lighten($color-black, 25);
+
+                &:hover {
+                    color: $color-red;
+                }
+            }
+
+            @media (max-width: $width-container-mobile) {
+                width: 100%;
+                margin: 1.5em 0;
+                color: $color-red;
+            }
+        }
+    }
+
+    @media (max-width: $width-container) {
+        margin-top: 1em;
+    }
+
+    article > a {
+        display: block;
+        text-decoration: none;
+    }
+
+    article + article {
+        margin-top: 4em;
+
+        &:before {
+            display: block;
+        }
+    }
+
+    footer {
+        margin-top: 2em;
+
+        @media (max-width: $width-container) {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+}
+
+article.blog {
+    & > h1 {
+        font-size: 2em;
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+
+        & > em {
+            display: block;
+            font-size: .5em;
+            margin-top: .5em;
+            padding-left: .3em;
+            color: $color-black;
+        }
+    }
+
+    & > p {
+        line-height: 1.6em;
+        font-size: 1.2em;
+    }
+
+    @media (max-width: $width-container) {
+        > *:not(pre) {
+            margin-left: 1.5rem;
+            margin-right: 1.5rem;
+        }
+
+        pre {
+            &:before {
+                display: none;
+            }
+
+            font-size:.9em;
+            box-shadow: none;
+            background-color: darken($color-white, 5);
+
+            > code {
+                padding:1.2em 1.5em;
+            }
+        }
+    }
+}

@@ -9,5 +9,5 @@ return [
     'sourceDirectory' => File::path('src'),
     'templateDirectory' => File::path('resources/view'),
 
-    'configurationFile' => File::path('config/site.yaml'),
+    'configurationFile' => File::path('src/site.yaml'),
 ];

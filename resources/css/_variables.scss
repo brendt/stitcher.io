@@ -1,0 +1,18 @@
+$color-black: #353535;
+$color-white: #ffffff;
+$color-orange: #fd5d1f;
+$color-orange-dark: #742100;
+$color-red: #fc3149;
+$color-gray: #D3D3D3;
+
+$em-base: 16px;
+
+$width-container: 1200px;
+$width-container-mobile: 420px;
+$width-container-mobile-lrg: 640px;
+
+@mixin clearfix() {
+    clear: both;
+    content: ' ';
+    display: block;
+}
