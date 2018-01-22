@@ -1,4 +1,13 @@
 entries:
+    mysql-import-json-binary-character-set:
+        date: 2018-01-20
+        type: piece of code
+        title: MySQL query logging
+        content: 2018-01-20-mysql-query-logging.md
+        meta:
+            description: Enable query loggin on MySQL servers and find the log file.
+            og:description: Enable query loggin on MySQL servers and find the log file.
+
     where-a-curly-bracket-belongs:
         date: 2018-01-16
         type: blog
