@@ -1,5 +1,5 @@
 entries:
-    mysql-query-loggin:
+    mysql-query-logging:
         date: 2018-01-20
         type: piece of code
         title: MySQL query logging
