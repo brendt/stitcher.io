@@ -5,8 +5,8 @@ entries:
         title: MySQL query logging
         content: 2018-01-20-mysql-query-logging.md
         meta:
-            description: Enable query loggin on MySQL servers and find the log file.
-            og:description: Enable query loggin on MySQL servers and find the log file.
+            description: Enable query logging on MySQL servers and find the log file.
+            og:description: Enable query logging on MySQL servers and find the log file.
 
     where-a-curly-bracket-belongs:
         date: 2018-01-16
