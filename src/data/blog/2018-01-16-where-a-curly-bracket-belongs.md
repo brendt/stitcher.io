@@ -211,7 +211,7 @@ if (
 }
 ```
 
-Finally, here is a daring thought - and I don't this myself by the way, 
+Finally, here is a daring thought - and I don't do this myself by the way, 
 because following standards is also a good thing -
 it might make sense to apply the same rule to short control structures.
 After all: consistency, right?
