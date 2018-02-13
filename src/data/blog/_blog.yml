@@ -1,4 +1,14 @@
 entries:
+    mysql-show-foreign-key-errors:
+        date: 2018-02-13
+        type: piece of code
+        title: Showing full MySQL foreign key errors
+        teaserTitle: Foreign key errors
+        content: 2018-02-13-mysql-show-foreign-key-errors.md
+        meta:
+            description: How to debug MySQL foreign key errors.
+            og:description: How to debug MySQL foreign key errors.
+
     mysql-query-logging:
         date: 2018-01-20
         type: piece of code
