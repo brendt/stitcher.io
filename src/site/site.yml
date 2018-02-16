@@ -40,9 +40,6 @@
             variable: page
             field: id
 
-/guide:
-    redirect: /guide/setting-up
-
 /blog:
     template: blog/overview
     variables:
@@ -95,6 +92,18 @@
     variables:
         content: about/about.md
         pageCategory: about
-        meta: 
+        meta:
             title: About Stitcher and myself
             description: "A little information about myself and my favourite project: Stitcher"
+
+/guide:
+    redirect: /guide/setting-up
+
+/cognitive-load:
+    redirect: /blog/a-programmers-cognitive-load
+
+/key-binding:
+    redirect: /blog/mastering-key-bindings
+
+/curly:
+    redirect: /blog/where-a-curly-bracket-belongs
