@@ -52,5 +52,3 @@ A few examples from the Stitcher core.
 ---
 
 The four points I listed today have almost nothing to do with how you write real code (programming logic, which patterns used, etc.). But they have an impact on the cognitive load put on your brain day by day. They take away some of the pain points when writing code. They allow you to enjoy programming more. 
-
-Maybe you do other things that help you reduce your cognitive load? Let me know via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
