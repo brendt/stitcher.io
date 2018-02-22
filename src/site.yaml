@@ -1,7 +1,27 @@
 /:
     template: home.twig
     variables:
+        hero: src/img/hero.jpg
         title: Home
         posts: src/blog/_blog.yaml
         meta:
             title: 'Stitcher 2: high performance static websites with PHP.'
+
+/blog/page-{page}:
+    template: blog/overview.twig
+    variables:
+        posts: src/blog/_blog.yaml
+    config:
+        pagination:
+            variable: posts
+            perPage: 7
+            parameter: page
+
+/blog/{id}:
+    template: blog/detail.twig
+    variables:
+        post: src/blog/_blog.yaml
+    config:
+        collection:
+            variable: post
+            parameter: id

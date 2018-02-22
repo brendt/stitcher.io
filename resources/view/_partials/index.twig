@@ -8,17 +8,30 @@
                 {{ _meta.render()|raw }}
             {% endif %}
 
-            <meta property="og:image" content="http://stitcher.pageon.be/img/stitcher.png" />
-            <meta property="twitter:image" content="http://stitcher.pageon.be/img/stitcher.png" />
-            <meta name="image" content="http://stitcher.pageon.be/img/stitcher.png" />
+            <meta property="og:image" content="http://stitcher.pageon.be/img/stitcher.png"/>
+            <meta property="twitter:image" content="http://stitcher.pageon.be/img/stitcher.png"/>
+            <meta name="image" content="http://stitcher.pageon.be/img/stitcher.png"/>
         {% endblock %}
 
         {{ css.inline('resources/css/main.scss')|raw }}
     {% endblock %}
 </head>
 <body>
-    {% block body %}
-        {% block content %}{% endblock %}
+
+{% block body %}
+    {% block main_menu %}
+        <nav class="nav__main">
+            <a href="/">Install</a>
+            <a href="/guide/setting-up">Guide</a>
+            <a href="/about">About</a>
+            <a href="/blog/page-1">Blog</a>
+        </nav>
     {% endblock %}
+
+    {% block content %}{% endblock %}
+{% endblock %}
+
+{% block scripts %}{% endblock %}
+
 </body>
 </html>

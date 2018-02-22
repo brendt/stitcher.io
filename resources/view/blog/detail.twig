@@ -1,0 +1,65 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+    <header class="banner banner__blog">
+        {% include '_partials/curve.twig' %}
+    </header>
+
+    <div class="content__blog">
+        <div class="container">
+            <article class="blog">
+                <h1>{{ post.title }}</h1>
+
+                {{ post.content|raw }}
+            </article>
+
+            <footer>
+                {% if browse is defined %}
+                    <nav class="spacer">
+                        {% if browse.next is defined %}
+                            <a class="next cta cta--ghost" href="/blog/{{ browse.next.id }}">
+                                Continue reading:
+                                {% if browse.next.teaserTitle is defined %}
+                                    {{ browse.next.teaserTitle }}
+                                {% else %}
+                                    {{ browse.next.title }}
+                                {% endif %}
+                            </a>
+                        {% endif %}
+
+                        {% if browse.prev is defined %}
+                            <a class="prev cta cta--ghost" href="/blog/{{ browse.prev.id }}">
+                                Previous post:
+                                {% if browse.prev.teaserTitle is defined %}
+                                    {{ browse.prev.teaserTitle }}
+                                {% else %}
+                                    {{ browse.prev.title }}
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    </nav>
+                {% endif %}
+
+                <nav class="center spacer">
+                    <a class="cta cta--link" href="/blog/page-1">Back to overview</a>
+                </nav>
+            </footer>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+
+    {{ js.inline('resources/js/codeClick.js')|raw }}
+    {{ js.async.link('resources/js/hljs.min.js')|raw }}
+{% endblock %}
+
