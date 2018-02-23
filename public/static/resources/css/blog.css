@@ -32,7 +32,7 @@
 .container {
   background: #fff;
   position: relative;
-  padding: 3em 6em 1em;
+  padding: 4em 6em 1em;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
   max-width: 1000px; }
   @media (max-width: 1200px) {
@@ -85,7 +85,7 @@
         margin-top: -0.2em;
         color: #fc3149;
         font-size: 2em; }
-        @media (max-width: 420px) {
+        @media (max-width: 640px) {
   .content__blog article blockquote:before {
     display: none; } }
       .content__blog article blockquote a {
@@ -93,9 +93,10 @@
         color: #757575; }
         .content__blog article blockquote a:hover {
           color: #fc3149; }
-      @media (max-width: 420px) {
+      @media (max-width: 640px) {
   .content__blog article blockquote {
     width: 100%;
+    padding: 0 1em;
     margin: 1.5em 0;
     color: #fc3149; } }
   @media (max-width: 1200px) {
@@ -129,7 +130,7 @@ article.blog > h1 {
     line-height: 1.6em;
     font-size: 1.2em; }
   @media (max-width: 1200px) {
-  article.blog > *:not(pre) {
+  article.blog > *:not(pre):not(blockquote) {
     margin-left: 1.5rem;
     margin-right: 1.5rem; }
   article.blog pre {
@@ -141,3 +142,6 @@ article.blog > h1 {
 
     article.blog pre > code {
       padding: 1.2em 1.5em; } }
+
+.adsbygoogle {
+  margin-top: 4em; }

@@ -14,4 +14,6 @@ return [
     'templateDirectory' => File::path('resources/view'),
 
     'configurationFile' => File::path('src/site.yaml'),
+
+    'cacheImages' => env('CACHE_IMAGES', true),
 ];

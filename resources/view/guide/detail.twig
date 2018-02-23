@@ -33,31 +33,33 @@
 
 {% block footer %}
     <footer>
-        {% if _browse is defined %}
-            <nav class="spacer">
-                {% if _browse.next is defined %}
-                    <a class="next cta cta--ghost" href="/blog/{{ _browse.next.id }}">
-                        Continue reading:
-                        {% if _browse.next.teaserTitle is defined %}
-                            {{ _browse.next.teaserTitle }}
-                        {% else %}
-                            {{ _browse.next.title }}
-                        {% endif %}
-                    </a>
-                {% endif %}
+        <div class="container">
+            {% if _browse is defined %}
+                <nav>
+                    {% if _browse.next is defined %}
+                        <a class="next cta cta--ghost" href="/guide/{{ _browse.next.id }}">
+                            Continue reading:
+                            {% if _browse.next.teaserTitle is defined %}
+                                {{ _browse.next.teaserTitle }}
+                            {% else %}
+                                {{ _browse.next.title }}
+                            {% endif %}
+                        </a>
+                    {% endif %}
 
-                {% if _browse.prev is defined %}
-                    <a class="prev cta cta--ghost" href="/blog/{{ _browse.prev.id }}">
-                        Previous post:
-                        {% if _browse.prev.teaserTitle is defined %}
-                            {{ _browse.prev.teaserTitle }}
-                        {% else %}
-                            {{ _browse.prev.title }}
-                        {% endif %}
-                    </a>
-                {% endif %}
-            </nav>
-        {% endif %}
+                    {% if _browse.prev is defined %}
+                        <a class="prev cta cta--ghost" href="/guide/{{ _browse.prev.id }}">
+                            Previous post:
+                            {% if _browse.prev.teaserTitle is defined %}
+                                {{ _browse.prev.teaserTitle }}
+                            {% else %}
+                                {{ _browse.prev.title }}
+                            {% endif %}
+                        </a>
+                    {% endif %}
+                </nav>
+            {% endif %}
+        </div>
     </footer>
 {% endblock %}
 

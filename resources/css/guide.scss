@@ -2,6 +2,10 @@
 
 $article-width: 1200px;
 
+body {
+    background-color: $color-white;
+}
+
 .content__guide {
     display: flex;
     flex-wrap: wrap;

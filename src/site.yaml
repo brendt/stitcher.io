@@ -1,7 +1,6 @@
 /:
     template: home.twig
     variables:
-        hero: resources/img/hero.jpg
         title: Home
         posts: resources/content/blog.yaml
         meta:
@@ -37,3 +36,11 @@
             parameter: id
         guide:
             variable: pages
+
+/about:
+    template: about.twig
+    variables:
+        content: resources/content/about.md
+        meta:
+            title: About Stitcher and myself
+            description: "A little information about myself and my favourite project: Stitcher"

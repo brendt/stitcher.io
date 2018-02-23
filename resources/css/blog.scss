@@ -40,7 +40,7 @@
 .container {
     background: $color-white;
     position: relative;
-    padding: 3em 6em 1em;
+    padding: 4em 6em 1em;
     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
     max-width: 1000px;
 
@@ -110,7 +110,7 @@
                 color: $color-red;
                 font-size: 2em;
 
-                @media (max-width: $width-container-mobile) {
+                @media (max-width: $width-container-mobile-lrg) {
                     display: none;
                 }
             }
@@ -124,8 +124,9 @@
                 }
             }
 
-            @media (max-width: $width-container-mobile) {
+            @media (max-width: $width-container-mobile-lrg) {
                 width: 100%;
+                padding: 0 1em;
                 margin: 1.5em 0;
                 color: $color-red;
             }
@@ -180,7 +181,7 @@ article.blog {
     }
 
     @media (max-width: $width-container) {
-        > *:not(pre) {
+        > *:not(pre):not(blockquote) {
             margin-left: 1.5rem;
             margin-right: 1.5rem;
         }
@@ -199,4 +200,8 @@ article.blog {
             }
         }
     }
+}
+
+.adsbygoogle {
+    margin-top: 4em;
 }

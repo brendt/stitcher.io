@@ -1,0 +1,21 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{  parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/about.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+    <header class="banner banner__blog">
+        {% include '_partials/curve.twig' %}
+    </header>
+    <div class="content__blog">
+        <div class="container about">
+            <article class="blog">
+                {{ content|raw }}
+            </article>
+        </div>
+    </div>
+{% endblock %}
