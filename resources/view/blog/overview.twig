@@ -54,13 +54,13 @@
             <footer>
                 <nav>
                     {% if _pagination.previous.url %}
-                        <a href="{{ _pagination.previous.url }}">
+                        <a href="{{ _pagination.previous.url }}" class="prev cta cta--ghost">
                             Previous
                         </a>
                     {% endif %}
 
                     {% if _pagination.next.url %}
-                        <a href="{{ _pagination.next.url }}">
+                        <a href="{{ _pagination.next.url }}" class="next cta cta--ghost">
                             Next
                         </a>
                     {% endif %}

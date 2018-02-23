@@ -22,9 +22,9 @@
     {% block main_menu %}
         <nav class="nav__main">
             <a href="/">Install</a>
-            <a href="/guide/setting-up">Guide</a>
-            <a href="/about">About</a>
-            <a href="/blog/page-1">Blog</a>
+            <a href="/guide/setting-up" {% if (_page.isActive('/guide')) %}class="active"{% endif %}>Guide</a>
+            <a href="/about" {% if (_page.isActive('/about')) %}class="active"{% endif %}>About</a>
+            <a href="/blog/page-1" {% if (_page.isActive('/blog')) %}class="active"{% endif %}>Blog</a>
         </nav>
     {% endblock %}
 

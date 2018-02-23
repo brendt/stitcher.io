@@ -1,16 +1,16 @@
 /:
     template: home.twig
     variables:
-        hero: src/img/hero.jpg
+        hero: resources/img/hero.jpg
         title: Home
-        posts: src/blog/_blog.yaml
+        posts: resources/content/blog.yaml
         meta:
             title: 'Stitcher 2: high performance static websites with PHP.'
 
 /blog/page-{page}:
     template: blog/overview.twig
     variables:
-        posts: src/blog/_blog.yaml
+        posts: resources/content/blog.yaml
     config:
         pagination:
             variable: posts
@@ -20,8 +20,20 @@
 /blog/{id}:
     template: blog/detail.twig
     variables:
-        post: src/blog/_blog.yaml
+        post: resources/content/blog.yaml
     config:
         collection:
             variable: post
             parameter: id
+
+/guide/{id}:
+    template: guide/detail.twig
+    variables:
+        page: resources/content/guide.yaml
+        pages: resources/content/guide.yaml
+    config:
+        collection:
+            variable: page
+            parameter: id
+        guide:
+            variable: pages
