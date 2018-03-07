@@ -1,7 +1,7 @@
 I want to share some thoughts on responsive images.
-I'll write about a certain mindset which I believe many projects could benefit from.
-In my mind, these are the small- and mid-sized web projects. 
-Projects that don't have the need for a CDN, but would like to benefit from the performance gained by responsive images.
+I'll write about a certain mindset which many projects could benefit from.
+Small- and mid-sized web projects, that don't need a full blown CDN setup, 
+but would like to enjoy the performance gain of responsive images.
 
 The idea behind responsive images is simple: 
 try to serve an image which is as close as possible in size to the real size that image will have on the screen.
@@ -49,10 +49,9 @@ Depending on the size of the image, for example: a thumbnail vs. a hero image;
 we could even reduce the margin to 5% instead of 10%.
 
 This of course will result in a different `srcset` for every image, 
-but that's really none of our concern, the responsive images spec can handle that for us.
+but that's none of our concern, the responsive images spec can handle that for us.
 
-If you're wondering how you would go about determining the variable dimensions of an image,
-here you go (in PHP):
+This is how you would determine such variable dimensions in PHP:
 
 ```php
 // $height = height of the source image
