@@ -35,3 +35,4 @@ cdn:
     - js/hljs.min.js
     - js/analytics.js
     - favicons/
+    - img/static/

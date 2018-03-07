@@ -1,4 +1,13 @@
 entries:
+    responsive-images-done-right:
+        date: 2018-03-07
+        type: blog
+        title: Responsive images done right
+        content: 2018-03-07-responsive-images-done-right.md
+        meta:
+            description: How to render responsive images in an omptimal way.
+            og:description: How to render responsive images in an omptimal way.
+
     mysql-show-foreign-key-errors:
         date: 2018-02-13
         type: piece of code
