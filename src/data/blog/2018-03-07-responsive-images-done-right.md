@@ -4,9 +4,9 @@ In my mind, these are the small- and mid-sized web projects.
 Projects that don't have the need for a CDN, but would like to benefit from the performance gained by responsive images.
 
 The idea behind responsive images is simple: 
-try to serve an image which is as close as possible in size to the size the image will end up having on the screen.
+try to serve an image which is as close as possible in size to the real size that image will have on the screen.
 For example: if you're displaying an image on a mobile device which has a screen of 600px wide, 
-there's no need in downloading that image with a width of 100px. 
+there's no need in downloading that image with a width of 1000px. 
 
 The responsive images spec handles not only media queries, but also pixel density.
 The only thing the server has to do is generate multiple variations of the same image, 
