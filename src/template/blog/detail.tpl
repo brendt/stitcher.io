@@ -57,7 +57,11 @@
                         <a class="next cta cta--ghost" href="/blog/{$browse.prev.id}">Next: {$title}</a>
                     {/if}
 
-                    {if $browse.next}
+                    {if isset($post.previousPost)}
+                        <a class="prev cta cta--ghost" href="/blog/{$post.previousPost.id}">
+                            Previous: {$post.previousPost.title}
+                        </a>
+                    {elseif $browse.next}
                         {$title = $browse.next.title}
 
                         {if isset($browse.next.teaserTitle)}
