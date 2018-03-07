@@ -5,6 +5,8 @@ but would like to enjoy the performance gain of responsive images.
 
 The idea behind responsive images is simple: 
 try to serve an image which dimensions are as close as possible to the image dimensions on screen.
+This results is smaller bandwidth usage and faster load times!
+
 For example: if you're displaying an image on a mobile device with a screen of 600px wide, 
 there's no need for downloading that image with a width of 1000px. 
 
