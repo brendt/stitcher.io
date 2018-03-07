@@ -9,4 +9,4 @@ public/
 cache/
 .DS_Store
 .env
-static
+/static
