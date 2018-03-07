@@ -21,7 +21,7 @@ I'll share some links to interesting resources at the end of this post.
 
 There are different ways to render variations of the same image. 
 The simplest approach could be this: 
-**given an image, create 4 variations: 1980px, 1200px, 800px and 400px**.
+**given an image, create 4 variations: 1920px, 1200px, 800px and 400px**.
 
 While this approach is easy to implement, it's not the most optimal.
 The goal of responsive images is to serve faster loading images, 
