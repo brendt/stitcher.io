@@ -7,6 +7,9 @@ entries:
         meta:
             description: How to render responsive images in an omptimal way.
             og:description: How to render responsive images in an omptimal way.
+        previousPost:
+            title: Tackling responsive images
+            id: tackling_repsonsive_images-part_1
 
     mysql-show-foreign-key-errors:
         date: 2018-02-13

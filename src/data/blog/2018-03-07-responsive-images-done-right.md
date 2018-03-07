@@ -1,6 +1,6 @@
 I want to share some thoughts on responsive images.
 I'll write about a certain mindset which I believe many projects could benefit from.
-In my mind, these are the small- and middle-sized web projects. 
+In my mind, these are the small- and mid-sized web projects. 
 Projects that don't have the need for a CDN, but would like to benefit from the performance gained by responsive images.
 
 The idea behind responsive images is simple: 
