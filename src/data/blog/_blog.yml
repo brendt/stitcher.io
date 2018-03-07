@@ -5,8 +5,8 @@ entries:
         title: Responsive images done right
         content: 2018-03-07-responsive-images-done-right.md
         meta:
-            description: How to render responsive images in an omptimal way.
-            og:description: How to render responsive images in an omptimal way.
+            description: How to render responsive images in an optimal way.
+            og:description: How to render responsive images in an optimal way.
         previousPost:
             title: Tackling responsive images
             id: tackling_repsonsive_images-part_1
