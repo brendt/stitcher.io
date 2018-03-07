@@ -6,7 +6,7 @@ but would like to enjoy the performance gain of responsive images.
 The idea behind responsive images is simple: 
 try to serve an image which is as close as possible in size to the real size that image will have on the screen.
 For example: if you're displaying an image on a mobile device which has a screen of 600px wide, 
-there's no need in downloading that image with a width of 1000px. 
+there's no need for downloading that image with a width of 1000px. 
 
 The responsive images spec handles not only media queries, but also pixel density.
 The only thing the server has to do is generate multiple variations of the same image, 
