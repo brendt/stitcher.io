@@ -16,4 +16,9 @@ return [
     'configurationFile' => File::path('src/site.yaml'),
 
     'cacheImages' => env('CACHE_IMAGES', true),
+    'cacheStaticFiles' => env('CACHE_STATIC', true),
+
+    'staticFiles' => [
+        'img/static/',
+    ],
 ];

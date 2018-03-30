@@ -10,15 +10,15 @@ Fonts have an influence on our mood. The [people at Crew](*https://crew.co/blog/
 
 A comparison between a not-so-good and better font configuration, in my experience.
 
-![A not-so-good font choice](/resources/img/blog/fonts/font-size_bad.png)
+![A not-so-good font choice](/img/blog/fonts/font-size_bad.png)
 
-![A better font configuration](/resources/img/blog/fonts/font-size_good.png)
+![A better font configuration](/img/blog/fonts/font-size_good.png)
 
 ## Folding
 
 Ever worked with a controller providing some CRUD actions? A class with a few methods? Folding your method bodies by default gives you a much clearer overview of the class when opening a file. It makes it easier to decide where you want to go to, instead of scrolling and searching. Take a look at the following example.
 
-![Folded code by default](/resources/img/blog/fonts/folding.png)
+![Folded code by default](/img/blog/fonts/folding.png)
 
 PHPStorm can fold code by default (Settings > Editor > General > Code Folding). I was a bit hesitant to enable it by default, but I can assure you this is an amazing feature once you're used to it. It's also more convenient than the file structure navigator many IDEs and editors provide. This approach allows you to see the visual structure, color and indentation of the class. 
 

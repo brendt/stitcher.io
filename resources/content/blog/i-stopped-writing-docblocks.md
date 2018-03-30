@@ -1,3 +1,0 @@
-- naming conventions
-- return types
-- only use case is to help an IDE with certain auto-complete scenarios

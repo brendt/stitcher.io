@@ -1,0 +1,30 @@
+<html>
+<head>
+    {% block head %}
+        <title>{% if title is defined %}{{ title }} - {% endif %}Stitcher</title>
+
+        {% block meta %}
+            {% if _meta is defined %}
+                {{ _meta.render()|raw }}
+            {% endif %}
+
+            <meta property="og:image" content="http://stitcher.pageon.be/img/stitcher.png"/>
+            <meta property="twitter:image" content="http://stitcher.pageon.be/img/stitcher.png"/>
+            <meta name="image" content="http://stitcher.pageon.be/img/stitcher.png"/>
+        {% endblock %}
+    {% endblock %}
+</head>
+<body>
+
+{% block body %}
+    {% block main_menu %}{% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}{% endblock %}
+{% endblock %}
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

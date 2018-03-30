@@ -1,6 +1,0 @@
-<br />
-<b>Warning</b>:  imagealphablending() expects parameter 1 to be resource, boolean given in <b>/Users/brent/dev/pageon/stitcher/vendor/intervention/image/src/Intervention/Image/Gd/Encoder.php</b> on line <b>32</b><br />
-<br />
-<b>Warning</b>:  imagesavealpha() expects parameter 1 to be resource, boolean given in <b>/Users/brent/dev/pageon/stitcher/vendor/intervention/image/src/Intervention/Image/Gd/Encoder.php</b> on line <b>33</b><br />
-<br />
-<b>Warning</b>:  imagepng() expects parameter 1 to be resource, boolean given in <b>/Users/brent/dev/pageon/stitcher/vendor/intervention/image/src/Intervention/Image/Gd/Encoder.php</b> on line <b>34</b><br />

@@ -1,0 +1,52 @@
+div.center {
+    @include wrapper();
+    text-align: center;
+}
+
+div.center > p {
+    padding-right: 0;
+}
+
+.sneaky-placeholder {
+    display: none;
+    background-color: darken(#fff, 7);
+    padding: 2rem 0;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+}
+
+.sneaky-placeholder > p {
+    margin-bottom: 0;
+}
+
+.sneaky-placeholder.shown {
+    display: block;
+}
+
+.avatar {
+    display: inline-block;
+    height: 2em;
+    border-radius: 50%;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.cta {
+    display: inline-block;
+    background-color: $red;
+    margin: .5rem 0;
+    text-align: center;
+    padding: 1em 2em;
+    color: #fff;
+    text-decoration: none;
+    font-family: $font-title;
+}
+
+.cta-light {
+    background-color: #fff;
+    color: #000;
+}
+
+.cta:hover {
+    text-decoration: underline;
+}

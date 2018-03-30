@@ -1,21 +1,24 @@
-{% extends '_partials/index.twig' %}
+{% extends '_partials/index_clean.twig' %}
 
 {% block head %}
     {{ parent() }}
 
-    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/clean/blog.scss')|raw }}
     {{ css.inline('resources/css/hljs-github.scss')|raw }}
 {% endblock %}
 
 {% block content %}
-    <header class="banner banner__blog">
-        {% include '_partials/curve.twig' %}
-    </header>
-
     <div class="content__blog">
         <div class="container">
             <article class="blog">
-                <h1>{{ post.title }}</h1>
+                <h1>
+                    {{ post.title }}
+
+                    <em>
+                        Written on {{ post.date|date("F m, Y") }}
+                        by <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">BrenDt</a>.
+                    </em>
+                </h1>
 
                 {{ post.content|raw }}
             </article>
@@ -24,8 +27,8 @@
                 {% if _browse is defined %}
                     <nav class="spacer">
                         {% if _browse.next is defined %}
-                            <a class="next cta cta--ghost" href="/blog/{{ _browse.next.id }}">
-                                Continue reading:
+                            <a class="cta" href="/blog/{{ _browse.next.id }}">
+                                Next up:
                                 {% if _browse.next.teaserTitle is defined %}
                                     {{ _browse.next.teaserTitle }}
                                 {% else %}
@@ -33,22 +36,11 @@
                                 {% endif %}
                             </a>
                         {% endif %}
-
-                        {% if _browse.prev is defined %}
-                            <a class="prev cta cta--ghost" href="/blog/{{ _browse.prev.id }}">
-                                Previous post:
-                                {% if _browse.prev.teaserTitle is defined %}
-                                    {{ _browse.prev.teaserTitle }}
-                                {% else %}
-                                    {{ _browse.prev.title }}
-                                {% endif %}
-                            </a>
-                        {% endif %}
                     </nav>
                 {% endif %}
 
                 <nav class="center spacer">
-                    <a class="cta cta--link" href="/blog/page-1">Back to overview</a>
+                    <a class="cta cta-light" href="/blog/page-1">Back to overview</a>
                 </nav>
             </footer>
         </div>

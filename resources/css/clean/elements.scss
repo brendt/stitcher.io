@@ -1,0 +1,150 @@
+h1, h2, h3, h4, h5 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: $font-title;
+    color: #000;
+    line-height: 1.2em;
+    @include wrapper(900px, 0);
+}
+
+h1 {
+    font-size: 2em;
+    line-height: 1em;
+    margin-bottom: .5em;
+}
+
+h2, h3, h4, h5 {
+    line-height: 1.2em;
+    margin-bottom: .4em;
+}
+
+h1 > em {
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: italic;
+    color: #222;
+    display: block;
+    font-family: $font-serif;
+}
+
+h1 > em .avatar {
+    margin-bottom: -.45em;
+    margin-right: .3em;
+}
+
+article {
+    font-family: $font-body;
+    padding-top: 3rem;
+}
+
+footer {
+    font-family: $font-body;
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.55em;
+    margin-top: 0;
+    margin-bottom: 1.3rem;
+    position: relative;
+    @include wrapper();
+}
+
+ul {
+    margin: 0;
+    margin-bottom: 1.3rem;
+    padding: 0;
+    font-size: 1.1em;
+    @include wrapper();
+
+    @media (max-width: $width-base) {
+        padding-left: 2em;
+    }
+}
+
+h2 + ul,
+h3 + ul,
+h4 + ul {
+    margin-top: 1rem;
+}
+
+li {
+    font-family: inherit;
+    line-height: 1.8rem;
+    margin-top: 0;
+    margin-bottom: .5em;
+}
+
+hr {
+    margin: 1rem auto;
+    opacity: 0;
+}
+
+code {
+    font-family: $font-code;
+    font-size: .9em;
+    background-color: darken(#fff, 5);
+    padding: .2em;
+    color: #000;
+}
+
+pre > code {
+    display: block;
+    padding: 1.5em 2rem;
+}
+
+pre {
+    max-width: calc(900px + 4rem);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.3rem;
+    background-color: darken(#fff, 5);
+    overflow-x: auto;
+    display: block;
+}
+
+blockquote {
+    background-color: darken(#fff, 7);
+    padding: 2rem 0;
+    margin: 0 0 1.3rem;
+    font-family: $font-serif;
+}
+
+blockquote > p:last-child {
+    margin-bottom: 0;
+}
+
+a {
+    color: #000;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    line-height: inherit;
+    box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.5);
+    margin-top: .66rem;
+    margin-bottom: .66rem;
+    border-radius: 5px;
+
+    &.editor-badge {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        box-shadow: none;
+    }
+}
+
+footer {
+    margin-bottom: 2rem;
+    padding-top:1rem;
+    padding-bottom:1rem;
+}
+
+footer > nav {
+    @include wrapper;
+    text-align: center;
+}

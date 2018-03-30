@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: darken($color-white, 4);
+    background-color: #fdfdfd;
     font-size: $em-base;
     color: $color-black;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -152,11 +152,25 @@ span + .cta {
 }
 
 pre {
-    border-radius: 5px;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
     position: relative;
-    background: darken($color-white, 5);
+    background: darken($color-white, 1);
+    box-shadow: 0 0 10px 0 rgba(20, 20, 20, 0.3);
     font-family: Monaco, monospace;
     cursor: pointer;
+
+    &::before {
+        content: ' ';
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 7px;
+        background: $color-orange;
+        background: linear-gradient(45deg, $color-red, $color-orange);
+    }
 
     & > code {
         font-size: 1em;
@@ -167,12 +181,60 @@ pre {
         padding: 1.5em 2em;
     }
 
-    @media (max-width: $width-container) {
-        border-radius: 0;
+    &.language-smarty,
+    &.language-twig {
+        padding-top: 2em;
+
+        @media (min-width: $width-container) {
+            width: 49.5%;
+            float: left;
+        }
+
+        &::after {
+            position: absolute;
+            display: block;
+            background-color: $color-red;
+            color: $color-white;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: .5em 1em;
+        }
+    }
+
+    &.language-twig {
+        &::after {
+            content: 'Twig';
+        }
+
+        @media (min-width: $width-container) {
+            margin-right: .5%;
+        }
+    }
+
+    &.language-smarty {
+        clear: right;
+        &::after {
+            content: 'Smarty';
+        }
+
+        @media (min-width: $width-container) {
+            margin-left: .5%;
+
+            &::after {
+                text-align: right;
+            }
+
+            &::before {
+                left: auto;
+                right: 0;
+            }
+        }
     }
 }
 
-pre + p {
+pre + p,
+p + pre:not(.language-twig) {
     margin-top: 1.7em;
 }
 
@@ -378,4 +440,25 @@ ul {
 
 .footer--padding {
     padding: 0.8em 0;
+}
+
+.sneaky-placeholder {
+    display: none;
+
+    background-color: darken($color-white, 5);
+    padding: 1.3em 3em 1.3em 1em;
+    margin-top: 2em;
+
+    h3 {
+        margin: 0;
+    }
+
+    p {
+        margin-top: 1em;
+        margin-bottom: 0;
+    }
+
+    &.shown {
+        display: block;
+    }
 }

@@ -1,1 +1,0 @@
-Stitcher now support asynchronous image generation. The option is enabled by default, but if your system doesn't support PHPs [pcntl](http://php.net/) extension, it will fall back to synchronous rendering. The goal of this new feature is to speed up image rendering, spawing a child process for every image to be scaled down.

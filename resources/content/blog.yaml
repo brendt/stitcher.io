@@ -1,3 +1,32 @@
+phpstorm-tips-for-power-users:
+    date: 2018-03-15
+    type: blog
+    title: PHPStorm tips for power users
+    content: resources/content/blog/2018-03-15-phpstorm-tips-for-power-users.md
+    meta:
+        description: A selection of less-known-yet-powerful features of PHPStorm.
+
+which-editor-to-choose:
+    date: 2015-08-24
+    type: blog
+    title: Which editor to choose?
+    content: resources/content/blog/2018-03-14-which-editor-to-choose.md
+    meta:
+        description: Sublime vs. Atom vs. Brackets vs. Visual Studio Code
+
+responsive-images-done-right:
+    date: 2018-03-07
+    type: blog
+    title: Responsive images done right
+    content: resources/content/blog/2018-03-07-responsive-images-done-right.md
+    meta:
+        description: How to render responsive images in an optimal way.
+    previousPost:
+        title: Tackling responsive images
+        id: tackling_responsive_images-part_1
+    discuss:
+        reddit: https://www.reddit.com/r/webdev/comments/83souk/responsive_images_done_right/
+
 mysql-show-foreign-key-errors:
     date: 2018-02-13
     type: piece of code
@@ -6,7 +35,6 @@ mysql-show-foreign-key-errors:
     content: resources/content/blog/2018-02-13-mysql-show-foreign-key-errors.md
     meta:
         description: How to debug MySQL foreign key errors.
-        og:description: How to debug MySQL foreign key errors.
 
 mysql-query-logging:
     date: 2018-01-20
@@ -15,7 +43,6 @@ mysql-query-logging:
     content: resources/content/blog/2018-01-20-mysql-query-logging.md
     meta:
         description: Enable query logging on MySQL servers and find the log file.
-        og:description: Enable query logging on MySQL servers and find the log file.
 
 where-a-curly-bracket-belongs:
     date: 2018-01-16
@@ -25,7 +52,7 @@ where-a-curly-bracket-belongs:
     content: resources/content/blog/2018-01-16-where-a-curly-bracket-belongs.md
     meta:
         description: Thoughts about where to place a curly bracket, and what it means for your cognitive load.
-        og:description: Thoughts about where to place a curly bracket, and what it means for your cognitive load.
+
 
 mysql-import-json-binary-character-set:
     date: 2018-01-09
@@ -35,7 +62,7 @@ mysql-import-json-binary-character-set:
     content: resources/content/blog/2018-01-09-mysql-import-json-binary-character-set.md
     meta:
         description: How to fix "cannot create a JSON value from a string with CHARACTER SET 'binary'" MySQL import error
-        og:description: How to fix "cannot create a JSON value from a string with CHARACTER SET 'binary'" MySQL import error
+
 
 asynchronous-php:
     date: 2017-12-24
@@ -47,7 +74,7 @@ asynchronous-php:
         reddit: https://www.reddit.com/r/PHP/comments/7oacw3/working_on_a_simple_asynchronous_and_parallel_php/
     meta:
         description: We created a new asynchronous PHP package at Spatie.
-        og:description: We created a new asynchronous PHP package at Spatie.
+
 
 optimised-uuids-in-mysql:
     date: 2017-11-29
@@ -59,7 +86,7 @@ optimised-uuids-in-mysql:
         reddit: https://www.reddit.com/r/PHP/comments/7gk8tp/optimising_uuids_for_better_performance/
     meta:
         description: I spent some time improving the performance of UUIDs on the database level.
-        og:description: I spent some time improving the performance of UUIDs on the database level.
+
 
 shorthand-comparisons-in-php:
     date: 2017-11-11
@@ -71,7 +98,7 @@ shorthand-comparisons-in-php:
         reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
     meta:
         description: Taking a closer look at the ternary and null coalescing operators in PHP.
-        og:description: Taking a closer look at the ternary and null coalescing operators in PHP.
+
 phpstorm-performance:
     date: 2017-10-22
     type: blog
@@ -88,7 +115,7 @@ stitcher-beta-2:
     teaser: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
     meta:
         description: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
-        og:description: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
+
 mastering-key-bindings:
     date: 2017-08-25
     type: blog
@@ -106,12 +133,12 @@ a-programmers-cognitive-load:
 responsive-images-as-css-background:
     date: 2017-06-24
     type: piece of code
-    title: Repsonsive images as CSS background
+    title: Responsive images as CSS background
     teaserTitle: Responsive CSS
     teaser: Integrating the Responsive Images spec together with CSS backgrounds.
     content: resources/content/blog/2017-06-24-responsive-images-as-css-background.md
     meta:
-        title: Repsonsive images as CSS background - Piece of Code
+        title: Responsive images as CSS background - Piece of Code
         description: >
             Integrating the Responsive Images spec together with CSS backgrounds.
 object-oriented-generators:
@@ -220,18 +247,18 @@ image_optimizers:
     title: Image optimizers
     content: resources/content/blog/2017-02-26-image_optimizers.md
 
-tackling_repsonsive_images-part_2:
+tackling_responsive_images-part_2:
     date: 2017-02-18
     highlight: false
     type: blog
-    title: Tackling repsonsive images - part 2
+    title: Tackling responsive images - part 2
     teaserTitle: Responsive images (2)
-    content: resources/content/blog/2017-02-18-tackling_repsonsive_images-part_2.md
+    content: resources/content/blog/2017-02-18-tackling_responsive_images-part_2.md
 
-tackling_repsonsive_images-part_1:
+tackling_responsive_images-part_1:
     date: 2017-02-17
     highlight: true
     type: blog
-    title: Tackling repsonsive images - part 1
+    title: Tackling responsive images - part 1
     teaserTitle: Responsive images (1)
-    content: resources/content/blog/2017-02-17-tackling_repsonsive_images-part_1.md
+    content: resources/content/blog/2017-02-17-tackling_responsive_images-part_1.md
