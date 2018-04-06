@@ -60,3 +60,30 @@ This is the graph plotting a much faster result.
 Instead of saving UUIDs as, it's possible to store their actual binary data in a field. 
 Storing them in this format, MySQL has a lot less trouble indexing this table. 
 This is the graph plotting a much faster result. 
+
+```php
+namespace Pageon\Http;
+
+class Header
+{
+    private $name;
+
+    private $content;
+
+    public function __construct(string $name, ?string $content = null)
+    {
+        $this->name = $name;
+        $this->content = $content;
+    }
+
+    public static function make(string $name, ?string $content = null): Header
+    {
+        return new self($name, $content);
+    }
+
+    public function __toString(): string
+    {
+        return "{$this->name}: {$this->content}";
+    }
+}
+```
