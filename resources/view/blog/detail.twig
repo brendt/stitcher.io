@@ -4,20 +4,19 @@
     {{ parent() }}
 
     {{ css.inline('resources/css/clean/blog.scss')|raw }}
-    {{ css.inline('resources/css/hljs-github.scss')|raw }}
+    {{ css.inline('resources/css/hljs-github.css')|raw }}
 {% endblock %}
 
 {% block content %}
     <div class="content__blog">
         <div class="container">
             <article class="blog">
+                <aside>
+                    Written by <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Brendt</a>  on {{ post.date|date("F m, Y") }}
+                </aside>
+
                 <h1>
                     {{ post.title }}
-
-                    <em>
-                        Written on {{ post.date|date("F m, Y") }}
-                        by <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">BrenDt</a>.
-                    </em>
                 </h1>
 
                 {{ post.content|raw }}

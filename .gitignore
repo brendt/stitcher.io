@@ -3,3 +3,4 @@ vendor/
 .DS_Store
 /public/**/*.html
 /public/static/
+/public/resources

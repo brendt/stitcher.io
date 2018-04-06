@@ -9,7 +9,7 @@ return [
         \Brendt\Stitcher\Plugin\AppServiceProvider::class,
     ],
 
-    'publicDirectory' => File::path('public/static'),
+    'publicDirectory' => File::path('public'),
     'sourceDirectory' => File::path('src'),
     'templateDirectory' => File::path('resources/view'),
 
@@ -19,6 +19,6 @@ return [
     'cacheStaticFiles' => env('CACHE_STATIC', true),
 
     'staticFiles' => [
-        'img/static/',
+        'resources/img/static/',
     ],
 ];

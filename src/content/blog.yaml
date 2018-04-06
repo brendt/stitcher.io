@@ -1,8 +1,14 @@
+test:
+    date: 2018-04-06
+    type: blog
+    title: "A test: a longer title for testing line-height in titles"
+    content: src/content/blog/test.md
+
 phpstorm-tips-for-power-users:
     date: 2018-03-15
     type: blog
     title: PHPStorm tips for power users
-    content: resources/content/blog/2018-03-15-phpstorm-tips-for-power-users.md
+    content: src/content/blog/2018-03-15-phpstorm-tips-for-power-users.md
     meta:
         description: A selection of less-known-yet-powerful features of PHPStorm.
 
@@ -10,7 +16,7 @@ which-editor-to-choose:
     date: 2015-08-24
     type: blog
     title: Which editor to choose?
-    content: resources/content/blog/2018-03-14-which-editor-to-choose.md
+    content: src/content/blog/2018-03-14-which-editor-to-choose.md
     meta:
         description: Sublime vs. Atom vs. Brackets vs. Visual Studio Code
 
@@ -18,7 +24,7 @@ responsive-images-done-right:
     date: 2018-03-07
     type: blog
     title: Responsive images done right
-    content: resources/content/blog/2018-03-07-responsive-images-done-right.md
+    content: src/content/blog/2018-03-07-responsive-images-done-right.md
     meta:
         description: How to render responsive images in an optimal way.
     previousPost:
@@ -32,7 +38,7 @@ mysql-show-foreign-key-errors:
     type: piece of code
     title: Showing full MySQL foreign key errors
     teaserTitle: Foreign key errors
-    content: resources/content/blog/2018-02-13-mysql-show-foreign-key-errors.md
+    content: src/content/blog/2018-02-13-mysql-show-foreign-key-errors.md
     meta:
         description: How to debug MySQL foreign key errors.
 
@@ -40,7 +46,7 @@ mysql-query-logging:
     date: 2018-01-20
     type: piece of code
     title: MySQL query logging
-    content: resources/content/blog/2018-01-20-mysql-query-logging.md
+    content: src/content/blog/2018-01-20-mysql-query-logging.md
     meta:
         description: Enable query logging on MySQL servers and find the log file.
 
@@ -49,7 +55,7 @@ where-a-curly-bracket-belongs:
     type: blog
     title: Where a curly bracket belongs
     teaserTitle: Curly brace placement
-    content: resources/content/blog/2018-01-16-where-a-curly-bracket-belongs.md
+    content: src/content/blog/2018-01-16-where-a-curly-bracket-belongs.md
     meta:
         description: Thoughts about where to place a curly bracket, and what it means for your cognitive load.
 
@@ -59,7 +65,7 @@ mysql-import-json-binary-character-set:
     type: piece of code
     title: "MySQL import: JSON with binary character set"
     teaserTitle: MySQL JSON import
-    content: resources/content/blog/2018-01-09-mysql-import-json-binary-character-set.md
+    content: src/content/blog/2018-01-09-mysql-import-json-binary-character-set.md
     meta:
         description: How to fix "cannot create a JSON value from a string with CHARACTER SET 'binary'" MySQL import error
 
@@ -69,7 +75,7 @@ asynchronous-php:
     type: blog
     title: Asynchronous PHP
     teaserTitle: spatie/async
-    content: resources/content/blog/2017-12-24-asynchronous-php.md
+    content: src/content/blog/2017-12-24-asynchronous-php.md
     discuss:
         reddit: https://www.reddit.com/r/PHP/comments/7oacw3/working_on_a_simple_asynchronous_and_parallel_php/
     meta:
@@ -81,7 +87,7 @@ optimised-uuids-in-mysql:
     type: blog
     title: Optimised UUIDs in mysql
     teaserTitle: UUID performance
-    content: resources/content/blog/2017-11-15-optimised-uuids-in-mysql.md
+    content: src/content/blog/2017-11-15-optimised-uuids-in-mysql.md
     discuss:
         reddit: https://www.reddit.com/r/PHP/comments/7gk8tp/optimising_uuids_for_better_performance/
     meta:
@@ -93,7 +99,7 @@ shorthand-comparisons-in-php:
     type: blog
     title: Shorthand comparisons in PHP
     teaserTitle: Shorthand comparisons
-    content: resources/content/blog/2017-11-11-shorthand-comparisons-in-php.md
+    content: src/content/blog/2017-11-11-shorthand-comparisons-in-php.md
     discuss:
         reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
     meta:
@@ -104,14 +110,14 @@ phpstorm-performance:
     type: blog
     title: PHPStorm's performance
     teaserTitle: PHPStorm's performance
-    content: resources/content/blog/2017-10-22-phpstorm-performance.md
+    content: src/content/blog/2017-10-22-phpstorm-performance.md
     discuss: true
 stitcher-beta-2:
     date: 2017-08-27
     type: news
     highlight: true
     title: Stitcher beta 2
-    content: resources/content/blog/2017-08-27-stitcher-beta-2.md
+    content: src/content/blog/2017-08-27-stitcher-beta-2.md
     teaser: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
     meta:
         description: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
@@ -121,13 +127,13 @@ mastering-key-bindings:
     type: blog
     title: Mastering key bindings
     teaserTitle: Key bindings
-    content: resources/content/blog/2017-08-25-mastering-key-bindings.md
+    content: src/content/blog/2017-08-25-mastering-key-bindings.md
 a-programmers-cognitive-load:
     date: 2017-06-25
     type: blog
     title: A programmer's cognitive load
     teaserTitle: Mental coding effort
-    content: resources/content/blog/2017-06-25-a-programmers-cognitive-load.md
+    content: src/content/blog/2017-06-25-a-programmers-cognitive-load.md
     discuss:
         reddit: https://www.reddit.com/r/webdev/comments/6md1rz/reducing_a_programmers_cognitive_load/
 responsive-images-as-css-background:
@@ -136,7 +142,7 @@ responsive-images-as-css-background:
     title: Responsive images as CSS background
     teaserTitle: Responsive CSS
     teaser: Integrating the Responsive Images spec together with CSS backgrounds.
-    content: resources/content/blog/2017-06-24-responsive-images-as-css-background.md
+    content: src/content/blog/2017-06-24-responsive-images-as-css-background.md
     meta:
         title: Responsive images as CSS background - Piece of Code
         description: >
@@ -146,7 +152,7 @@ object-oriented-generators:
     type: piece of code
     title: Object oriented generators
     teaser: Another way to approach generators, in an object oriented fashion.
-    content: resources/content/blog/2017-06-17-oo-generators.md
+    content: src/content/blog/2017-06-17-oo-generators.md
     meta:
         title: Process forks - Piece of Code
         description: >
@@ -156,7 +162,7 @@ process-forks:
     type: piece of code
     title: Process forks
     teaser: A simple way to manage process forks and execute PHP code in parallel.
-    content: resources/content/blog/2017-06-09-process-forks.md
+    content: src/content/blog/2017-06-09-process-forks.md
     meta:
         title: Process forks - Piece of Code
         description: >
@@ -167,7 +173,7 @@ performance-101-building-the-better-web:
     type: blog
     title: "Performance 101: building the better web"
     teaserTitle: Performance 101
-    content: resources/content/blog/2017-05-30-performance-101-building-the-better-web.md
+    content: src/content/blog/2017-05-30-performance-101-building-the-better-web.md
     meta:
         description: >
             Looking into web performance and how to improve it.
@@ -179,7 +185,7 @@ aray-objects-with-fixed-types:
     type: piece of code
     title: Array objects
     teaser: Create loop-able, array-like collections in PHP with type checking.
-    content: resources/content/blog/2017-05-25-array-object.md
+    content: src/content/blog/2017-05-25-array-object.md
     meta:
         title: Array objects - Piece of Code
         description: >
@@ -190,7 +196,7 @@ stitcher-beta-1:
     type: news
     highlight: true
     title: Stitcher beta 1
-    content: resources/content/blog/2017-05-20-stitcher-beta-1.md
+    content: src/content/blog/2017-05-20-stitcher-beta-1.md
     meta:
         description: >
             The first beta release of Stitcher has arrived!
@@ -200,7 +206,7 @@ php-generics-and-why-we-need-them:
     type: blog
     title: PHP Generics and why we need them
     teaserTitle: PHP Generics
-    content: resources/content/blog/2017-05-17-php-generics-and-why-we-need-them.md
+    content: src/content/blog/2017-05-17-php-generics-and-why-we-need-them.md
     meta:
         description: >
             PHP has some problems with arrays. Generics an fix those problems.
@@ -211,7 +217,7 @@ stitcher-alpha-5:
     highlight: true
     type: news
     title: Stitcher alpha 5
-    content: resources/content/blog/2017-05-01-stitcher-alpha-5.md
+    content: src/content/blog/2017-05-01-stitcher-alpha-5.md
     description: Alpha 5 of Stitcher adds the last new 1.0 features to Stitcher.
 
 simplest-plugin-support:
@@ -220,7 +226,7 @@ simplest-plugin-support:
     type: blog
     title: The simplest plugin support
     teaserTitle: Stitcher plugins
-    content: resources/content/blog/2017-04-27-simplest-plugin-support.md
+    content: src/content/blog/2017-04-27-simplest-plugin-support.md
     description: Simple plugin support explained when using composer and Symfony's service container.
 
 stitcher-alpha-4:
@@ -228,7 +234,7 @@ stitcher-alpha-4:
     highlight: true
     type: news
     title: Stitcher alpha 4
-    content: resources/content/blog/2017-04-21-stitcher-alpha-4.md
+    content: src/content/blog/2017-04-21-stitcher-alpha-4.md
     description: Changes, new features and future update plans with the new Stitcher alpha4 release.
 
 static_sites_vs_caching:
@@ -237,7 +243,7 @@ static_sites_vs_caching:
     type: blog
     title: Static site generators vs. caching
     teaserTitle: Static sites
-    content: resources/content/blog/2017-03-02-static_sites_vs_caching.md
+    content: src/content/blog/2017-03-02-static_sites_vs_caching.md
     description: What is caching and what's the difference between a cached website and a staticly generated website?
 
 image_optimizers:
@@ -245,7 +251,7 @@ image_optimizers:
     highlight: false
     type: news
     title: Image optimizers
-    content: resources/content/blog/2017-02-26-image_optimizers.md
+    content: src/content/blog/2017-02-26-image_optimizers.md
 
 tackling_responsive_images-part_2:
     date: 2017-02-18
@@ -253,7 +259,7 @@ tackling_responsive_images-part_2:
     type: blog
     title: Tackling responsive images - part 2
     teaserTitle: Responsive images (2)
-    content: resources/content/blog/2017-02-18-tackling_responsive_images-part_2.md
+    content: src/content/blog/2017-02-18-tackling_responsive_images-part_2.md
 
 tackling_responsive_images-part_1:
     date: 2017-02-17
@@ -261,4 +267,4 @@ tackling_responsive_images-part_1:
     type: blog
     title: Tackling responsive images - part 1
     teaserTitle: Responsive images (1)
-    content: resources/content/blog/2017-02-17-tackling_responsive_images-part_1.md
+    content: src/content/blog/2017-02-17-tackling_responsive_images-part_1.md

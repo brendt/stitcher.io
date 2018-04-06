@@ -2,24 +2,24 @@
     template: home.twig
     variables:
         title: Home
-        posts: resources/content/blog.yaml
+        posts: src/content/blog.yaml
         meta:
             title: 'Stitcher 2: high performance static websites with PHP.'
 
 /blog/page-{page}:
     template: blog/overview.twig
     variables:
-        posts: resources/content/blog.yaml
+        posts: src/content/blog.yaml
     config:
         pagination:
             variable: posts
-            perPage: 7
+            perPage: 10
             parameter: page
 
 /blog/{id}:
     template: blog/detail.twig
     variables:
-        post: resources/content/blog.yaml
+        post: src/content/blog.yaml
     config:
         collection:
             variable: post
@@ -28,8 +28,8 @@
 /guide/{id}:
     template: guide/detail.twig
     variables:
-        page: resources/content/guide.yaml
-        pages: resources/content/guide.yaml
+        page: src/content/guide.yaml
+        pages: src/content/guide.yaml
     config:
         collection:
             variable: page
@@ -40,7 +40,7 @@
 /about:
     template: about.twig
     variables:
-        content: resources/content/about.md
+        content: src/content/about.md
         meta:
             title: About Stitcher and myself
             description: "A little information about myself and my favourite project: Stitcher"

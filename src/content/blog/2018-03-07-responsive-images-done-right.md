@@ -88,12 +88,12 @@ Let's take a look at a picture of a parrot.
 This image has a fixed `srcset`:
 
 <p>
-    <img src="/static/resources/img/static/parrot-fixed-800.jpg" srcset="/static/resources/img/static/parrot-fixed-1920.jpg 1920w, /static/resources/img/static/parrot-fixed-1200.jpg 1200w, /static/resources/img/static/parrot-fixed-800.jpg 800w, /static/resources/img/static/parrot-fixed-400.jpg 400w"/>
+    <img src="/resources/img/static/responsive/parrot-fixed-800.jpg" srcset="/resources/img/static/responsive/parrot-fixed-1920.jpg 1920w, /resources/img/static/responsive/parrot-fixed-1200.jpg 1200w, /resources/img/static/responsive/parrot-fixed-800.jpg 800w, /resources/img/static/responsive/parrot-fixed-400.jpg 400w"/>
 </p>
 
 This one has a dynamic `srcset`:
 
-![parrot](/img/blog/responsive/parrot.jpg)
+![parrot](/resources/img/blog/responsive/parrot.jpg)
 
 Feel free to open up your inspector and play around with it in responsive mode.
 Be sure to disable browser cache and compare which image is loaded on different screen sizes.

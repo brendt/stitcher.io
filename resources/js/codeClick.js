@@ -33,4 +33,8 @@ function codeClick() {
             isMouseDown = false;
         }, false);
     }
+
+    document.querySelector('body').addEventListener('click', function () {
+        isSelected = false;
+    });
 }

@@ -1,69 +1,69 @@
 setting-up:
     title: Setting up
     category: Basic setup
-    content: resources/content/guide/general/setting-up.md
+    content: src/content/guide/general/setting-up.md
 
 project-structure:
     title: Project structure
     category: Basic setup
-    content: resources/content/guide/general/project-structure.md
+    content: src/content/guide/general/project-structure.md
 
 stitcher-console:
     title: Stitcher console
     category: Basic setup
-    content: resources/content/guide/general/stitcher-console.md
+    content: src/content/guide/general/stitcher-console.md
 
 deployment:
     title: Deployment
     category: Basic setup
-    content: resources/content/guide/general/deployment.md
+    content: src/content/guide/general/deployment.md
 
 configuration:
     title: Configuration
     category: Basic setup
-    content: resources/content/guide/general/configuration.md
+    content: src/content/guide/general/configuration.md
 
 site-configuration:
     title: Site configuration
     category: Stitching
-    content: resources/content/guide/stitching/site-configuration.md
+    content: src/content/guide/stitching/site-configuration.md
 
 data-types:
     title: Data types
     category: Stitching
-    content: resources/content/guide/stitching/data-types.md
+    content: src/content/guide/stitching/data-types.md
 
 templates:
     title: Templates
     category: Stitching
-    content: resources/content/guide/stitching/templates.md
+    content: src/content/guide/stitching/templates.md
 
 adapters:
     title: Adapter intro
     category: Adapters
-    content: resources/content/guide/adapters/adapters.md
+    content: src/content/guide/adapters/adapters.md
 
 data-manipulation:
     title: Data manipulation
     category: Adapters
-    content: resources/content/guide/adapters/data-manipulation.md
+    content: src/content/guide/adapters/data-manipulation.md
 
 pagination-adapter:
     title: Pagination
     category: Adapters
-    content: resources/content/guide/adapters/pagination.md
+    content: src/content/guide/adapters/pagination.md
 
 collection-adapter:
     title: 'Collection: detail pages'
     category: Adapters
-    content: resources/content/guide/adapters/collection.md
+    content: src/content/guide/adapters/collection.md
 
 extending-stitcher:
     title: Extending Stitcher
     category: Plugins
-    content: resources/content/guide/plugins/extending-stitcher.md
+    content: src/content/guide/plugins/extending-stitcher.md
 
 basic-plugin:
     title: Basic plugin
     category: Plugins
-    content: resources/content/guide/plugins/basic-plugin.md
+    content: src/content/guide/plugins/basic-plugin.md

@@ -24,8 +24,7 @@ A keyboard has a few modifier keys, which allow you to modify the behaviour of o
  In this modern time, it's still good to look at what their original meaning was.
  It helped me define a formal definition for each modifier key, allowing me to remember what key combination belongs to which action.
  
- > Define a personal meaning for each modifier key, 
- <br>and stick to it.
+ > Define a personal meaning for each modifier key, and stick to it.
 
 ### Meta/Command (⌘) 
 
@@ -44,8 +43,7 @@ Second, it's also often used to reverse the action.
 I prefer a maximum of two modifier keys, and if complexer combinations are needed, opt for **double key bindings**. 
 One exception though: Shift (⇧) may be used in combination with other modifier keys to reverse the action.
 
-> Prefer at most two modifier keys, 
-<br>or use double key bindings.
+> Prefer at most two modifier keys, or use double key bindings.
 
 ### Control/Ctrl (^) 
 
@@ -76,8 +74,7 @@ I choose not to override operating system (OS) key bindings. Things like `copy`,
  If you come from Sublime Text like me, you've probably learned some defaults which you are accustomed with. 
  When switching to PHPStorm a few years ago, I decided to keep some of those key bindings I knew from Sublime.
  
-> There's no need to change OS-level key bindings 
-<br>like `copy` or `select all`.
+> There's no need to change OS-level key bindings like `copy` or `select all`.
  
 Even now, I'm still changing key bindings from time to time. Especially when I came up with my definition list.
  One thing I find useful when learning new key bindings, is to disable the old ones. IDEs like PHPStorm allow you to add
@@ -99,8 +96,6 @@ You keymap is a very personal file, which slowly grows to match your workflow th
  [Here's mine](*https://github.com/brendt/settings-repository/blob/master/keymaps/Brendt.xml).
  
 > Check your keymap into version control.
-
----
 
 ### A few of my own examples
 

@@ -53,7 +53,7 @@ Capped means that there are more processes than the pool can execute at once.
 
 The benchmark code can be found [here](*https://github.com/spatie/async-benchmark).
 
-![Comparing Amp and spatie/async](/img/blog/async/benchmarks.png)
+![Comparing Amp and spatie/async](/resources/img/blog/async/benchmarks.png)
 
 I tried to draw a few conclusions from these test.
 
