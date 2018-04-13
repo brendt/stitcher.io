@@ -1,9 +1,0 @@
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    DirectorySlash Off
-
-    RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-    RewriteRule ^(.+?)/?$ /$1.html [L]
-</IfModule>
-
-Options -Indexes
