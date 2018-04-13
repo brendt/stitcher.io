@@ -4,3 +4,4 @@ vendor/
 /public/**/*.html
 /public/static/
 /public/resources
+.env
