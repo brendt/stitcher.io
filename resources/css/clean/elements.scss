@@ -98,7 +98,7 @@ blockquote {
         margin: 1.5em 0;
     }
 
-    @include wrapper(calc(800px + 3rem), 0);
+    max-width: $width-base;
 }
 
 blockquote > p:last-child {
@@ -124,8 +124,8 @@ code {
 pre {
     max-width: calc(600px + 2rem);
     margin-left: calc(50vw - 400px - 1rem);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
 
     border-radius: 5px;
 

@@ -10,7 +10,7 @@ return [
         \Brendt\Stitcher\Plugin\AppServiceProvider::class,
     ],
 
-    'publicDirectory' => File::path('public'),
+    'publicDirectory' => env('PUBLIC_DIRECTORY', File::path('public')),
     'sourceDirectory' => File::path('src'),
     'templateDirectory' => File::path('resources/view'),
 

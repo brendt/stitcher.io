@@ -41,3 +41,7 @@ aside {
 p {
     @include wrapper();
 }
+
+article p em {
+    font-style: italic;
+}
