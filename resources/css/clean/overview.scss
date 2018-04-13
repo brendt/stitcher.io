@@ -1,0 +1,99 @@
+@import "css/variables";
+
+nav.overview {
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 1000px;
+    margin: 2em auto 0;
+}
+
+h1 {
+    font-family: $font-title;
+
+    font-kerning: normal;
+    font-size: 2.5em;
+    line-height: 1.2em;
+    letter-spacing: 2px;
+    font-weight: 300;
+
+    max-width: 100%;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: .5em;
+    padding-right: 0;
+}
+
+nav.overview > * {
+    flex: 1 50%;
+    padding: 2em;
+    max-width: 45%;
+    border: 1px solid darken(#fff, 10);
+    margin: 1em;
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+
+    & > * {
+        flex: 1 auto;
+    }
+
+    & > div {
+        display: flex;
+        align-items: flex-end;
+        flex-wrap: wrap;
+
+        & > * {
+            flex: 1 100%;
+        }
+    }
+
+    @media (max-width: $width-base) {
+        width:100%;
+        max-width: 100%;
+    }
+
+    &:hover {
+        border: 1px solid $red;
+    }
+
+    &:hover h1 {
+        color: $red;
+    }
+
+    &.highlight {
+        transition: all 100ms ease-out;
+        background-color: $red;
+        color: #fff;
+
+        &:hover {
+            background-color: #fff;
+            color: #000;
+        }
+    }
+}
+
+nav.overview > header {
+    color: #000;
+    border: none;
+}
+
+nav.overview p {
+    margin-top: 1em;
+    font-size: 1.1em;
+    font-family: $font-title;
+    font-weight: 200;
+}
+
+section p {
+    padding-right: 0;
+}
+
+aside {
+    padding-right: 0;
+    margin: .5em 0 0;
+    font-family: $font-title;
+    font-weight: 200;
+}

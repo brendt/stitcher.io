@@ -1,73 +1,68 @@
-{% extends '_partials/index.twig' %}
+{% extends '_partials/index_clean.twig' %}
 
 {% block head %}
     {{ parent() }}
 
-    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/clean/blog.scss')|raw }}
+    {{ css.inline('resources/css/clean/overview.scss')|raw }}
 {% endblock %}
 
 {% block content %}
-    <header class="banner banner__blog">
-        {% include '_partials/curve.twig' %}
-    </header>
+    <nav class="overview">
+        <header>
+            <h1>
+                <span class="caps">stitcher.io</span>
+            </h1>
 
-    <div class="content__blog">
-        <div class="container">
-            <h1>Blog</h1>
+            <p>
+                Hi! My name is Brent, I'm a 24-year old programmer living in Belgium.
+                I write about the web, PHP and programming in general.
+            </p>
 
-            {% for post in posts %}
-                <article class="overview">
-                    <a href="/blog/{{ post.id }}" class="link-hidden">
-                        {% if post.title is defined %}
-                            <h1>
-                                {{ post.title }}
+            <p>
+                If you'd like to contact me, you can find me on <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a>.
+            </p>
+        </header>
+        {% for post in posts %}
+            <a href="/blog/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
+                {% if post.title is defined %}
+                    <h1>
+                        {{ post.title }}
+                    </h1>
+                {% endif %}
 
-                                {% if post.type is defined and post.type == 'piece of code' %}
-                                    <span class="badge--piece-of-code">
-                                        Piece of Code
-                                    </span>
-                                {% endif %}
-                            </h1>
-                        {% endif %}
-
-                        {% if post.date is defined %}
-                            <em>{{ post.date|date('Y-m-d') }}</em>
-                        {% endif %}
-
-                        <div>
-                            <p>
-                                {% if post.teaser is defined %}
-                                    {{ post.teaser }}
-                                {% else %}
-                                    {{ post.content|striptags|length > 250 ? post.content|striptags|slice(0, 250)|trim ~ '...' : post.content|striptags }}
-                                {% endif %}
-                            </p>
-                        </div>
-
-                        <span class="link">
-                            Read more
-                        </span>
-                    </a>
-                </article>
-            {% endfor %}
-
-            <footer>
-                <nav>
-                    {% if _pagination.previous.url %}
-                        <a href="{{ _pagination.previous.url }}" class="prev cta cta--ghost">
-                            Previous
-                        </a>
+                <div>
+                    {% if post.meta.description is defined and post.meta.description %}
+                        <p>
+                            {{ post.meta.description }}
+                        </p>
                     {% endif %}
 
-                    {% if _pagination.next.url %}
-                        <a href="{{ _pagination.next.url }}" class="next cta cta--ghost">
-                            Next
-                        </a>
+                    {% if post.date is defined %}
+                        <aside>
+                            {{ post.date|date("F d, Y") }}
+                        </aside>
                     {% endif %}
-                </nav>
-            </footer>
-        </div>
-    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </nav>
+
+    <footer>
+        <nav>
+            {% if _pagination.previous.url %}
+                <a href="{{ _pagination.previous.url }}" class="prev cta cta--ghost">
+                    Previous
+                </a>
+            {% endif %}
+
+            {% if _pagination.next.url %}
+                <a href="{{ _pagination.next.url }}" class="next cta cta--ghost">
+                    Next
+                </a>
+            {% endif %}
+        </nav>
+    </footer>
 {% endblock %}
 
 {% block footer %}{% endblock %}

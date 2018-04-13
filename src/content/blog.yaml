@@ -1,14 +1,9 @@
-test:
-    date: 2018-04-06
-    type: blog
-    title: "A test: a longer title for testing line-height in titles"
-    content: src/content/blog/test.md
-
 phpstorm-tips-for-power-users:
     date: 2018-03-15
     type: blog
     title: PHPStorm tips for power users
     content: src/content/blog/2018-03-15-phpstorm-tips-for-power-users.md
+    highlight: false
     meta:
         description: A selection of less-known-yet-powerful features of PHPStorm.
 
@@ -56,6 +51,7 @@ where-a-curly-bracket-belongs:
     title: Where a curly bracket belongs
     teaserTitle: Curly brace placement
     content: src/content/blog/2018-01-16-where-a-curly-bracket-belongs.md
+    highlight: true
     meta:
         description: Thoughts about where to place a curly bracket, and what it means for your cognitive load.
 
@@ -115,7 +111,6 @@ phpstorm-performance:
 stitcher-beta-2:
     date: 2017-08-27
     type: news
-    highlight: true
     title: Stitcher beta 2
     content: src/content/blog/2017-08-27-stitcher-beta-2.md
     teaser: The second beta release of Stitcher ties a lot of loose ends together, getting ready for real production sites.
@@ -133,9 +128,14 @@ a-programmers-cognitive-load:
     type: blog
     title: A programmer's cognitive load
     teaserTitle: Mental coding effort
+    highlight: true
     content: src/content/blog/2017-06-25-a-programmers-cognitive-load.md
     discuss:
         reddit: https://www.reddit.com/r/webdev/comments/6md1rz/reducing_a_programmers_cognitive_load/
+    meta:
+        description: >
+            As programmers we're almost always reading code.
+            There are a lot of things we can do to make this easier.
 responsive-images-as-css-background:
     date: 2017-06-24
     type: piece of code
@@ -194,7 +194,6 @@ aray-objects-with-fixed-types:
 stitcher-beta-1:
     date: 2017-05-20
     type: news
-    highlight: true
     title: Stitcher beta 1
     content: src/content/blog/2017-05-20-stitcher-beta-1.md
     meta:
@@ -214,7 +213,6 @@ php-generics-and-why-we-need-them:
 
 stitcher-alpha-5:
     date: 2017-05-01
-    highlight: true
     type: news
     title: Stitcher alpha 5
     content: src/content/blog/2017-05-01-stitcher-alpha-5.md
@@ -222,7 +220,6 @@ stitcher-alpha-5:
 
 simplest-plugin-support:
     date: 2017-04-27
-    highlight: true
     type: blog
     title: The simplest plugin support
     teaserTitle: Stitcher plugins
@@ -231,7 +228,6 @@ simplest-plugin-support:
 
 stitcher-alpha-4:
     date: 2017-04-21
-    highlight: true
     type: news
     title: Stitcher alpha 4
     content: src/content/blog/2017-04-21-stitcher-alpha-4.md
@@ -239,7 +235,6 @@ stitcher-alpha-4:
 
 static_sites_vs_caching:
     date: 2017-03-02
-    highlight: true
     type: blog
     title: Static site generators vs. caching
     teaserTitle: Static sites
@@ -248,22 +243,20 @@ static_sites_vs_caching:
 
 image_optimizers:
     date: 2017-02-26
-    highlight: false
     type: news
     title: Image optimizers
     content: src/content/blog/2017-02-26-image_optimizers.md
 
 tackling_responsive_images-part_2:
     date: 2017-02-18
-    highlight: false
     type: blog
     title: Tackling responsive images - part 2
     teaserTitle: Responsive images (2)
+    highlight: true
     content: src/content/blog/2017-02-18-tackling_responsive_images-part_2.md
 
 tackling_responsive_images-part_1:
     date: 2017-02-17
-    highlight: true
     type: blog
     title: Tackling responsive images - part 1
     teaserTitle: Responsive images (1)

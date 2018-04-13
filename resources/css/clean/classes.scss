@@ -1,3 +1,5 @@
+@import "css/variables";
+
 div.center {
     @include wrapper();
     text-align: center;
@@ -9,10 +11,13 @@ div.center > p {
 
 .sneaky-placeholder {
     display: none;
-    background-color: darken(#fff, 7);
     padding: 2rem 0;
     margin-bottom: 3rem;
     margin-top: 3rem;
+}
+
+.sneaky-placeholder > h2 {
+    margin-top: 0;
 }
 
 .sneaky-placeholder > p {
@@ -49,4 +54,24 @@ div.center > p {
 
 .cta:hover {
     text-decoration: underline;
+}
+
+.caps {
+    font-variant: all-small-caps;
+}
+
+.title {
+    font-family: $font-title;
+    text-decoration: none;
+    position: relative;
+
+    &:hover {
+        color: $red;
+    }
+
+    font-kerning: normal;
+    font-size: 2.5em;
+    line-height: 1.2em;
+    letter-spacing: 2px;
+    font-weight: 300;
 }

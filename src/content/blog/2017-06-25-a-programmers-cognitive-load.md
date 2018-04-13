@@ -26,6 +26,7 @@ You'll probably want to learn the keybinds associated with folding too. On Mac w
 
 ## DocBlocks
 
+
 DocBlocks is a good tool to clarify what code actually does. Furthermore, IDEs like PHPStorm rely on certain DocBlocks. They are needed to provide correct autocomplete functionality in some cases. A frequent example is "array of objects". Yet modern PHP offers a lot of possibilities to write self-documenting code. DocBlocks often state the obvious things, which are already known by reading the code. 
 
 Take a look again at the example above. There are no DocBlocks there. I've actually removed all redundant DocBlocks from the Stitcher core. I only kept DocBlocks which provide IDE autocomplete functionality and real documentation. I also disabled the automatic DocBlock generation in PHPStorm. 

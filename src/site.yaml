@@ -1,10 +1,12 @@
 /:
-    template: home.twig
+    template: blog/overview.twig
     variables:
-        title: Home
         posts: src/content/blog.yaml
-        meta:
-            title: 'Stitcher 2: high performance static websites with PHP.'
+    config:
+        order:
+            variable: posts
+            field: date
+            order: desc
 
 /blog/page-{page}:
     template: blog/overview.twig
@@ -13,8 +15,12 @@
     config:
         pagination:
             variable: posts
-            perPage: 10
+            perPage: 100
             parameter: page
+        order:
+            variable: posts
+            field: date
+            order: desc
 
 /blog/{id}:
     template: blog/detail.twig

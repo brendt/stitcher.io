@@ -91,6 +91,6 @@ the color of your current scheme, for that entry.
     <img src="/resources/img/static/phpstorm-power-users/colors-and-fonts.gif"/>
 </p>
 
-## Any more suggestions?
+### Any more suggestions?
 
 Let me know via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).

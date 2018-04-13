@@ -4,46 +4,46 @@
     {{ parent() }}
 
     {{ css.inline('resources/css/clean/blog.scss')|raw }}
+    {{ css.inline('resources/css/clean/detail.scss')|raw }}
     {{ css.inline('resources/css/code.scss')|raw }}
+    {{ js.link('resources/js/ads.js')|raw }}
 {% endblock %}
 
 {% block content %}
-    <div class="content__blog">
-        <div class="container">
-            <article class="blog">
-                <aside>
-                    Written by <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Brendt</a>  on {{ post.date|date("F m, Y") }}
-                </aside>
+    <article class="blog">
+        <aside>
+            &laquo; <a href="/">back</a> — written by <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Brendt</a>  on {{ post.date|date("F d, Y") }}
+        </aside>
 
-                <h1>
-                    {{ post.title }}
-                </h1>
+        <h1>
+            {{ post.title }}
+        </h1>
 
-                {{ post.content|raw }}
-            </article>
+        {{ post.content|raw }}
+    </article>
 
-            <footer>
-                {% if _browse is defined %}
-                    <nav class="spacer">
-                        {% if _browse.next is defined %}
-                            <a class="cta" href="/blog/{{ _browse.next.id }}">
-                                Next up:
-                                {% if _browse.next.teaserTitle is defined %}
-                                    {{ _browse.next.teaserTitle }}
-                                {% else %}
-                                    {{ _browse.next.title }}
-                                {% endif %}
-                            </a>
+    {% include '_partials/ad.twig' %}
+
+    <footer>
+        {% if _browse is defined %}
+            <nav class="spacer">
+                {% if _browse.next is defined %}
+                    <a class="cta" href="/blog/{{ _browse.next.id }}">
+                        Next up:
+                        {% if _browse.next.teaserTitle is defined %}
+                            {{ _browse.next.teaserTitle }}
+                        {% else %}
+                            {{ _browse.next.title }}
                         {% endif %}
-                    </nav>
+                    </a>
                 {% endif %}
+            </nav>
+        {% endif %}
 
-                <nav class="center spacer">
-                    <a class="cta cta-light" href="/blog/page-1">Back to overview</a>
-                </nav>
-            </footer>
-        </div>
-    </div>
+        <nav class="center spacer">
+            <a class="cta cta-light" href="/blog/page-1">Back to overview</a>
+        </nav>
+    </footer>
 {% endblock %}
 
 {% block footer %}{% endblock %}
