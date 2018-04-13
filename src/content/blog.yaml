@@ -7,14 +7,6 @@ phpstorm-tips-for-power-users:
     meta:
         description: A selection of less-known-yet-powerful features of PHPStorm.
 
-which-editor-to-choose:
-    date: 2015-08-24
-    type: blog
-    title: Which editor to choose?
-    content: src/content/blog/2018-03-14-which-editor-to-choose.md
-    meta:
-        description: Sublime vs. Atom vs. Brackets vs. Visual Studio Code
-
 responsive-images-done-right:
     date: 2018-03-07
     type: blog
@@ -261,3 +253,11 @@ tackling_responsive_images-part_1:
     title: Tackling responsive images - part 1
     teaserTitle: Responsive images (1)
     content: src/content/blog/2017-02-17-tackling_responsive_images-part_1.md
+
+which-editor-to-choose:
+    date: 2015-08-24
+    type: blog
+    title: Which editor to choose?
+    content: src/content/blog/2018-03-14-which-editor-to-choose.md
+    meta:
+        description: Sublime vs. Atom vs. Brackets vs. Visual Studio Code
