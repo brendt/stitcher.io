@@ -22,5 +22,6 @@ return [
     'staticFiles' => [
         'resources/img/static/',
         'resources/img/favicon/',
+        'resources/img/meta.png',
     ],
 ];

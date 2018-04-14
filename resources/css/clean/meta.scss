@@ -1,0 +1,22 @@
+@import "css/variables";
+
+body {
+    background-color: $red;
+    color: #fff
+}
+
+h1 {
+    font-family: $font-title;
+    font-variant: small-caps;
+    font-weight: 200;
+    letter-spacing: 1px;
+    font-size: 16em;
+    padding-bottom: .1em;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}

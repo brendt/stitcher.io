@@ -50,3 +50,6 @@
         meta:
             title: About Stitcher and myself
             description: "A little information about myself and my favourite project: Stitcher"
+
+/meta:
+    template: meta.twig
