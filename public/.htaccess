@@ -1,3 +1,5 @@
+DirectoryIndex /index.php
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -16,7 +18,7 @@
 </IfModule>
 
 <ifmodule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+    AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x$
 </ifmodule>
 
 Options -Indexes
