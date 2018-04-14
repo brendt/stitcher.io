@@ -6,7 +6,7 @@
     {{ css.inline('resources/css/clean/blog.scss')|raw }}
     {{ css.inline('resources/css/clean/detail.scss')|raw }}
     {{ css.inline('resources/css/code.scss')|raw }}
-    {{ js.link('resources/js/ads.js')|raw }}
+    {{ js.defer().link('resources/js/ads.js')|raw }}
 {% endblock %}
 
 {% block content %}
