@@ -1,12 +1,12 @@
 Have you ever wondered how your life as a PHP developer would be different 
 if that *one* feature you want was added?
-I've made the thought experiment quite a few times already, and come to surprising conclusions.
+I've made the thought experiment quite a few times already, and came to surprising conclusions.
 
 Let's take, for example, the debate about strong types in PHP. 
 A lot of people, including myself, would like a better type system. 
-Strong types in PHP would definitely have an impact on *my* daily work. 
-Actually, not just strong types, I also want generics, better variance and variable types. 
-Improvements to PHP's type system in general would have quite the impact on my programmer's life.
+Strong types in PHP would definitely have an impact on my daily work. 
+Not just strong types, I also want generics, better variance and variable types. 
+Improvements to PHP's type system in general would have quite the impact on my programming life.
 
 So what's stopping us from reaching a solution?
 
@@ -54,20 +54,20 @@ find(1); // This would be fine.
 
 Like I said: PHP's type system is weak. 
 Type hints only ensure a variable's type at that point in time, 
-and give no guarantee about any future values that variable may have.
+without a guarantee about any future value that variable might have.
 
-Am I saying that strong types are better than weak ones? I am not. 
+Am I saying that strong types are better than weak ones? No. 
 But there's an interesting property to strong types, they come with a few guarantees.
 If a variable has a type that's unchangeable, a whole range of unexpected behaviour simply cannot happen anymore.
 
 You see, it's mathematically provable that if a strongly typed program compiles,
 it's impossible for that program to have a range of bugs which can exist in weakly typed languages.
-In other words, strong types give the programmer a lot more insurance that the code actually does what it's supposed to do.
+In other words, strong types give the programmer a stronger insurance that the code actually behaves how it's supposed to.
 
 This doesn't mean that a strongly typed language cannot have bugs! 
 You're perfectly able to write a buggy implementation.
-But when a strongly typed program is compiled successfully, 
-you can be sure a certain set of bugs and errors are not possible anymore in that program.
+But when a strongly typed program compiles successfully, 
+you're sure a certain set of bugs and errors can't occur in that program.
 
 Because of the goal of this blog post and lack of my own theoretical knowledge, 
 I can't go into details on the mathematically proven part.
@@ -120,7 +120,7 @@ Whether it is to ensure an array only contains one type of elements
 or to improve ORM abstractions, lots of people are asking for generics in PHP.
 
 The question than becomes: is creating a more complicated type system feasible with PHP's current type paradigm? 
-And the answer is, in part, yes–for sure. 
+And the answer is, in part, yes—for sure. 
 There are parts that could be improved in the current, dynamic weak type system.
 
 Type hints for one, added in PHP 7.0 and 7.1 are useful to many PHP developers;
@@ -178,4 +178,3 @@ or should we change our frame of reference, and maybe look at other languages th
 
 There's no shame in using another tool for the job, if that tools fit your needs better.
 And after all, isn't a programming language just that? A tool.
-
