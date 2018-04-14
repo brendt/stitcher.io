@@ -20,9 +20,9 @@
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 
-    console.log(window.adsEnabled);
-    
-    if (window.adsEnabled === undefined) {
-        document.querySelector('.sneaky-placeholder').classList.add('shown');
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        if (window.adsEnabled === undefined) {
+            document.querySelector('.sneaky-placeholder').classList.add('shown');
+        }
+    });
 </script>
