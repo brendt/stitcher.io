@@ -31,25 +31,5 @@
             variable: post
             parameter: id
 
-/guide/{id}:
-    template: guide/detail.twig
-    variables:
-        page: src/content/guide.yaml
-        pages: src/content/guide.yaml
-    config:
-        collection:
-            variable: page
-            parameter: id
-        guide:
-            variable: pages
-
-/about:
-    template: about.twig
-    variables:
-        content: src/content/about.md
-        meta:
-            title: About Stitcher and myself
-            description: "A little information about myself and my favourite project: Stitcher"
-
 /meta:
     template: meta.twig

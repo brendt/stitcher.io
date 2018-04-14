@@ -11,7 +11,7 @@ Improvements to PHP's type system in general would have quite the impact on my p
 So what's stopping us from reaching a solution?
 
 ## Type theory
-
+ 
 Not everyone agrees on the vocabulary used when talking about type systems. 
 So let's clarify a few terms in the way that I will use them here.
 
