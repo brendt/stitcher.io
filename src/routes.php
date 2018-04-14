@@ -12,6 +12,7 @@ $router = \Stitcher\App::router();
 
 foreach ($redirects as $url => $targetUrl) {
     $router->redirect($url, $targetUrl);
+    $router->redirect($url . '/', $targetUrl);
 }
 
 $router->get('/rss', RssHandler::class);
