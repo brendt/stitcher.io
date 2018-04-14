@@ -76,10 +76,10 @@ div.center > p {
 }
 
 .adsbygoogle {
-    @include wrapper();
+    max-width: $width-base;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    max-width: 100%;
-    margin-left: 0;
     padding-left: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
