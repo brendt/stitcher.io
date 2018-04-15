@@ -23,5 +23,7 @@ return [
         'resources/img/static/',
         'resources/img/favicon/',
         'resources/img/meta.png',
+        'resources/img/meta.png',
+        'resources/js/analytics.js',
     ],
 ];
