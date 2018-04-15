@@ -24,7 +24,7 @@ PHP is a weakly typed language, and I can illustrate this with a more real-life 
 ```php
 $id = '1'; // An ID retrieved as a URL parameter.
 
-public function find(int $id): Model
+function find(int $id): Model
 {
     // ...
 }
@@ -40,7 +40,7 @@ but you can still change the value of the variable in the function itself.
 ```php
 declare(strict_types=1);
 
-public function find(int $id): Model
+function find(int $id): Model
 {
     $id = '' . $id;
 
