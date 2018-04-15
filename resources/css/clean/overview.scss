@@ -5,6 +5,10 @@ nav.overview {
     flex-flow: row wrap;
     max-width: 1000px;
     margin: 2em auto 0;
+
+    @media (max-width: $width-base) {
+        margin-top: 0;
+    }
 }
 
 h1 {
@@ -78,6 +82,16 @@ nav.overview > * {
 nav.overview > header {
     color: #000;
     border: none;
+
+    @media (max-width: $width-base) {
+        padding-top: 0;
+        padding-bottom: 0;
+
+        h1 {
+            padding-top: .5em;
+            padding-bottom: 0;
+        }
+    }
 }
 
 nav.overview p {
