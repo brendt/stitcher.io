@@ -7,6 +7,11 @@ $redirects = [
     '/guide' => '/guide/setting-up',
     '/cognitive-load' => '/blog/a-programmers-cognitive-load',
     '/key-binding' => '/blog/mastering-key-bindings',
+    '/key-bindings' => '/blog/mastering-key-bindings',
+    '/keybinds' => '/blog/mastering-key-bindings',
+    '/keybind' => '/blog/mastering-key-bindings',
+    '/keybinding' => '/blog/mastering-key-bindings',
+    '/keybindings' => '/blog/mastering-key-bindings',
     '/curly' => '/blog/where-a-curly-bracket-belongs',
 ];
 
