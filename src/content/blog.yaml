@@ -1,8 +1,8 @@
-what-php-could-be:
-    date: 2018-04-30
+what-php-can-be:
+    date: 2018-04-15
     type: blog
-    title: What PHP could be
-    content: src/content/blog/what-php-could-be.md
+    title: What PHP can be
+    content: src/content/blog/what-php-can-be.md
     highlight: false
     meta:
         description: "Thoughts on PHP's type system and what it means for the language as a whole."
