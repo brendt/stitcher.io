@@ -1,6 +1,7 @@
 /:
     template: blog/overview.twig
     variables:
+        title: Blog
         posts: src/content/blog.yaml
     config:
         order:
@@ -11,6 +12,7 @@
 /blog/page-{page}:
     template: blog/overview.twig
     variables:
+        title: Blog
         posts: src/content/blog.yaml
     config:
         pagination:
