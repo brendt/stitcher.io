@@ -9,13 +9,13 @@
             {% endif %}
 
             {% if meta.image.src is defined %}
-                <meta property="og:image" content="{{ meta.image.src }}"/>
-                <meta property="twitter:image" content="{{ meta.image.src }}"/>
-                <meta name="image" content="{{ meta.image.src }}"/>
+                <meta property="og:image" content="https://www.stitcher.io{{ meta.image.src }}"/>
+                <meta property="twitter:image" content="https://www.stitcher.io{{ meta.image.src }}"/>
+                <meta name="image" content="https://www.stitcher.io{{ meta.image.src }}"/>
             {% elseif post.meta.image.src is defined %}
-                <meta property="og:image" content="{{ post.meta.image.src }}"/>
-                <meta property="twitter:image" content="{{ post.meta.image.src }}"/>
-                <meta name="image" content="{{ post.meta.image.src }}"/>
+                <meta property="og:image" content="https://www.stitcher.io{{ post.meta.image.src }}"/>
+                <meta property="twitter:image" content="https://www.stitcher.io{{ post.meta.image.src }}"/>
+                <meta name="image" content="https://www.stitcher.io{{ post.meta.image.src }}"/>
             {% else %}
                 <meta property="og:image" content="https://www.stitcher.io/resources/img/meta.png"/>
                 <meta property="twitter:image" content="https://www.stitcher.io/resources/img/meta.png"/>
