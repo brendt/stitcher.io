@@ -6,6 +6,7 @@ what-php-can-be:
     highlight: false
     meta:
         description: "Thoughts on PHP's type system and what it means for the language as a whole."
+        image: resources/img/meta/what-php-can-be.png
 
 phpstorm-tips-for-power-users:
     date: 2018-03-15
