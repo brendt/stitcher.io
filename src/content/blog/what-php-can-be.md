@@ -69,10 +69,10 @@ You're perfectly able to write a buggy implementation.
 But when a strongly typed program compiles successfully, 
 you're sure a certain set of bugs and errors can't occur in that program.
 
-Because of the goal of this blog post and lack of my own theoretical knowledge, 
-I can't go into details on the mathematically proven part.
-Books are written about this topic, so if you're really into it, 
-you're definitely able to explore this topic further on your own.
+If you want to further explore the topic on strong and weak types,
+I'd recommend starting with [this video](*https://www.destroyallsoftware.com/talks/ideology) by Gary Bernhardt.
+Not only does it go further into detail on types, 
+Gary also discusses an important mindset in the whole types debate. 
 
 ### When types are checked
 
