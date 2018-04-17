@@ -84,6 +84,7 @@ div.center > p {
 
 .ad-container {
     @include wrapper();
+    margin-bottom: 3rem;
 }
 
 .adsbygoogle {
