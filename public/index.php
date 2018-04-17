@@ -6,6 +6,8 @@ use Stitcher\File;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+\ob_start();
+
 File::base(__DIR__ . '/../');
 
 App::init();
@@ -16,4 +18,6 @@ if ('local' === Config::get('environment')) {
     $server = App::productionServer();
 }
 
-die($server->run());
+echo $server->run();
+
+\ob_end_flush();
