@@ -186,6 +186,18 @@ footer > nav {
     text-align: center;
 }
 
+footer > p {
+    font-size: .9em;
+    font-family: $font-serif;
+    text-align: center;
+    color: #666;
+    margin-top: 1em;
+
+    a {
+        color: inherit;
+    }
+}
+
 a {
     color: #000;
 }

@@ -13,7 +13,7 @@ h1, h2, h3, h4, h5 {
 
 h1 {
     font-size: 3em;
-    line-height: 1.2em;
+    line-height: 1em;
     letter-spacing: 2px;
     font-weight: 200;
 
@@ -31,6 +31,21 @@ h1 {
     }
 
     border-bottom: 2px solid $red;
+}
+
+h2 {
+    font-weight: 400;
+    margin-top: 2em;
+
+    @media (max-width: $width-base) {
+        font-size: 2em;
+    }
+}
+
+h3 {
+    margin-top: 1.2em;
+    margin-bottom: .75em;
+    font-size: 1.3em;
 }
 
 aside {

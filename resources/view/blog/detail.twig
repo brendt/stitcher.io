@@ -25,24 +25,29 @@
     {% include '_partials/ad.twig' %}
 
     <footer>
-        {% if _browse is defined %}
-            <nav class="spacer">
-                {% if _browse.next is defined %}
-                    <a class="cta" href="/blog/{{ _browse.next.id }}">
-                        Next up:
-                        {% if _browse.next.teaserTitle is defined %}
-                            {{ _browse.next.teaserTitle }}
-                        {% else %}
-                            {{ _browse.next.title }}
-                        {% endif %}
-                    </a>
-                {% endif %}
-            </nav>
-        {% endif %}
+        <nav class="spacer">
+            <a class="cta cta-light" href="/blog/page-1">Back</a>
 
-        <nav class="center spacer">
-            <a class="cta cta-light" href="/blog/page-1">Back to overview</a>
+            {% if _browse.next is defined %}
+                <a class="cta" href="/blog/{{ _browse.next.id }}">
+                    Next up:
+                    {% if _browse.next.teaserTitle is defined %}
+                        {{ _browse.next.teaserTitle }}
+                    {% else %}
+                        {{ _browse.next.title }}
+                    {% endif %}
+                </a>
+            {% endif %}
         </nav>
+
+        <p>
+            follow me:
+            <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a> - <a href="/rss" target="_blank" rel="noopener noreferrer">RSS</a>
+        </p>
+
+        <p>
+            &copy; {{ date()|date('Y') }} stitcher.io
+        </p>
     </footer>
 {% endblock %}
 

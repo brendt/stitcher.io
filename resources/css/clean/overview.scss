@@ -16,7 +16,7 @@ h1 {
 
     font-kerning: normal;
     font-size: 2.5em;
-    line-height: 1.2em;
+    line-height: 1.1em;
     letter-spacing: 2px;
     font-weight: 300;
 
@@ -32,7 +32,7 @@ nav.overview > * {
     flex: 1 50%;
     padding: 2em;
     max-width: 45%;
-    border: 1px solid darken(#fff, 10);
+    border: 2px solid darken(#fff, 6);
     margin: 1em;
     text-decoration: none;
 
@@ -60,21 +60,18 @@ nav.overview > * {
     }
 
     &:hover {
-        border: 1px solid $red;
+        border-color: $red;
     }
 
     &:hover h1 {
         color: $red;
     }
 
-    &.highlight {
-        transition: all 100ms ease-out;
-        background-color: $red;
-        color: #fff;
+    &.cta {
+        text-align: left;
 
-        &:hover {
-            background-color: #fff;
-            color: #000;
+        &:hover h1 {
+            color: #fff;
         }
     }
 }
