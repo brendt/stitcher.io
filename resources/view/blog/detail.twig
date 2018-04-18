@@ -6,7 +6,6 @@
     {{ css.inline('resources/css/clean/blog.scss')|raw }}
     {{ css.inline('resources/css/clean/detail.scss')|raw }}
     {{ css.inline('resources/css/code.scss')|raw }}
-    {{ js.defer().link('resources/js/ads.js')|raw }}
 {% endblock %}
 
 {% block content %}
@@ -57,7 +56,14 @@
 {% block scripts %}
     {{ parent() }}
 
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
     {{ js.inline('resources/js/codeClick.js')|raw }}
-    {{ js.async.link('resources/js/hljs.min.js')|raw }}
+    {{ js.async().link('resources/js/hljs.min.js')|raw }}
+    {{ js.async().link('resources/js/ads.js')|raw }}
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 {% endblock %}
 
