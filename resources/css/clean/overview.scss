@@ -107,3 +107,8 @@ aside {
     font-family: $font-body;
     font-size: 1.1em;
 }
+
+footer > nav {
+    padding-right: 0;
+    text-align: center;
+}

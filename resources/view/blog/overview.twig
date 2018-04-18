@@ -51,17 +51,27 @@
     <footer>
         <nav>
             {% if _pagination.previous.url %}
-                <a href="{{ _pagination.previous.url }}" class="prev cta cta--ghost">
+                <a href="{{ _pagination.previous.url }}" class="prev cta cta-light">
                     Previous
                 </a>
             {% endif %}
 
             {% if _pagination.next.url %}
-                <a href="{{ _pagination.next.url }}" class="next cta cta--ghost">
+                <a href="{{ _pagination.next.url }}" class="next cta cta-light">
                     Next
                 </a>
             {% endif %}
         </nav>
+
+        <p>
+            follow me:
+            <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a> - <a href="/rss" target="_blank" rel="noopener noreferrer">RSS</a> -
+            <a href="https://github.com/brendt" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </p>
+
+        <p>
+            &copy; {{ date()|date('Y') }} stitcher.io
+        </p>
     </footer>
 {% endblock %}
 
