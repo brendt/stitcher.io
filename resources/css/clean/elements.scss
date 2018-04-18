@@ -123,11 +123,9 @@ code {
 
 pre {
     max-width: calc(600px + 2rem);
-    margin-left: calc(50vw - 400px - 1rem);
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-
-    border-radius: 5px;
+    margin-left: calc(50vw - 400px - 23px);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 
     overflow-x: auto;
     display: block;
@@ -136,9 +134,8 @@ pre {
     background-color: darken(#fff, 3);
 
     @media (max-width: $width-base) {
-        margin-left: 5px;
-        margin-right: 5px;
-        max-width: 100%;
+        max-width: calc(100% + 40px);
+        margin-left: 0;
     }
 }
 
@@ -162,15 +159,19 @@ img {
     max-width: calc(100% + 2rem);
     margin-left: -1rem;
     box-shadow: 1px 2px 15px -2px rgba(0, 0, 0, 0.2);
-    margin-top: .66rem;
-    margin-bottom: .66rem;
-    border-radius: 5px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 
     &.editor-badge {
         margin-left: auto;
         margin-right: auto;
         display: block;
         box-shadow: none;
+    }
+
+    @media (max-width: $width-base) {
+        max-width: 100%;
+        margin-left: 0;
     }
 }
 
