@@ -93,9 +93,8 @@ nav.overview > header {
 
 nav.overview p {
     margin-top: 1em;
-    font-size: 1.1em;
-    font-family: $font-title;
-    font-weight: 200;
+    font-family: $font-body;
+    font-size: 1.35em;
 }
 
 section p {
@@ -105,6 +104,6 @@ section p {
 aside {
     padding-right: 0;
     margin: .5em 0 0;
-    font-family: $font-title;
-    font-weight: 200;
+    font-family: $font-body;
+    font-size: 1.1em;
 }
