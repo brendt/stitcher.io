@@ -1,11 +1,15 @@
 <html>
 <head>
     {% block head %}
-        <title>{% if title is defined %}{{ title }} - {% elseif meta.title is defined %}{{ meta.title }} - {% endif %}Stitcher</title>
+        <title>{% if title is defined %}{{ title }} - {% elseif meta.title is defined %}{{ meta.title }} - {% endif %}stitcher.io</title>
 
         {% block meta %}
             {% if _meta is defined %}
-                {{ _meta.render()|raw }}
+                {{ _meta.render({
+                    'title': {
+                        'suffix': ' - stitcher.io',
+                    },
+                })|raw }}
             {% endif %}
 
             {% if meta.image.src is defined %}
