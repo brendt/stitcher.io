@@ -7,7 +7,7 @@
         order:
             variable: posts
             field: date
-            order: desc
+            direction: desc
 
 /blog/page-{page}:
     template: blog/overview.twig
@@ -22,7 +22,7 @@
         order:
             variable: posts
             field: date
-            order: desc
+            direction: desc
 
 /blog/{id}:
     template: blog/detail.twig
