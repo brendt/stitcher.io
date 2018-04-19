@@ -30,4 +30,6 @@ return [
     'errorPages' => [
         404 => 'errors/404.twig',
     ],
+
+    'minify' => true,
 ];

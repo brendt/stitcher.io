@@ -1,6 +1,7 @@
 {
     "require": {
-        "pageon/stitcher-core": "dev-develop"
+        "pageon/stitcher-core": "dev-develop",
+        "mrclay/minify": "^3.0"
     },
     "require-dev": {
         "larapack/dd": "^1.1"
