@@ -201,6 +201,9 @@ footer > p {
 
 a {
     color: #000;
+    text-decoration: underline;
+    text-decoration-skip: ink;
+    text-decoration-color: $red;
 }
 
 a:hover {
