@@ -26,4 +26,8 @@ return [
         'resources/img/meta.png',
         'resources/js/analytics.js',
     ],
+
+    'errorPages' => [
+        404 => 'errors/404.twig',
+    ],
 ];

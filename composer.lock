@@ -507,12 +507,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "0151b15cf7582d29ca951d74624b7566e3868080"
+                "reference": "3d3b3ee7d771b62737ea12b3b1be9e516e76dbe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/0151b15cf7582d29ca951d74624b7566e3868080",
-                "reference": "0151b15cf7582d29ca951d74624b7566e3868080",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/3d3b3ee7d771b62737ea12b3b1be9e516e76dbe7",
+                "reference": "3d3b3ee7d771b62737ea12b3b1be9e516e76dbe7",
                 "shasum": ""
             },
             "require": {
@@ -545,7 +545,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Static website generator in PHP",
-            "time": "2018-04-18T12:17:01+00:00"
+            "time": "2018-04-19T07:33:42+00:00"
         },
         {
             "name": "psr/container",
