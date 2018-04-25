@@ -15,7 +15,7 @@ I've switched to Monaco instead.
 - Disabling `Subpixel` antialiasing. Go to `Settings > Appearance & Behavior > Appearance` 
 to configure antialiasing in your editor to `Greyscale` instead. 
 Your fonts won't look as good, but you'll notice a huge performance improvement.
-- Wait for JetBrains to find a fix. 2018.2 might fix address some issues, 
+- Wait for JetBrains to find a fix. 2018.2 might fix some things, 
 but the real solution will take a while. There's an active discussion on the topic [here](*https://youtrack.jetbrains.com/issue/JRE-526#u=1466510431624).
 
 If you're looking for even more performance improvements that can be made in PHPStorm, 
