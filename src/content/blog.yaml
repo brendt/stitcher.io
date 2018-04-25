@@ -13,7 +13,7 @@ what-php-can-be:
     type: blog
     title: What PHP can be
     content: src/content/blog/what-php-can-be.md
-    highlight: false
+    highlight: true
     meta:
         description: "Thoughts on PHP's type system and what it means for the language as a whole."
         image: resources/img/meta/what-php-can-be.png
@@ -23,7 +23,7 @@ phpstorm-tips-for-power-users:
     type: blog
     title: PHPStorm tips for power users
     content: src/content/blog/2018-03-15-phpstorm-tips-for-power-users.md
-    highlight: true
+    highlight: false
     meta:
         description: A selection of less-known-yet-powerful features of PHPStorm.
 

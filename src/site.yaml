@@ -33,5 +33,14 @@
             variable: post
             parameter: id
 
+/blog/meta/{id}:
+    template: meta.twig
+    variables:
+        post: src/content/blog.yaml
+    config:
+        collection:
+            variable: post
+            parameter: id
+
 /meta:
     template: meta.twig

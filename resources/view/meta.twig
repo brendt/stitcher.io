@@ -4,8 +4,14 @@
     {{ parent() }}
 
     {{ css.inline('resources/css/clean/meta.scss')|raw }}
+
+    <meta name="robots" content="noindex">
 {% endblock %}
 
 {% block content %}
-    <h1>phpstorm performance<br>issues on OSX</h1>
+    {% if post is defined %}
+        <h1>{{ post.title }}</h1>
+    {% else %}
+        <h1>phpstorm performance<br>issues on OSX</h1>
+    {% endif %}
 {% endblock %}
