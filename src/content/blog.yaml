@@ -1,3 +1,13 @@
+phpstorm-performance-issues-on-osx:
+    date: 2018-04-25
+    type: blog
+    title: PHPStorm performance issues on OSX
+    content: src/content/blog/2018-04-25-phpstorm-performance-issues-on-osx.md
+    highlight: false
+    meta:
+        description: "There's a big performance issue in PHPStorm on OSX with Retina- and high-resolution screens. It's fixable."
+        image: resources/img/meta/phpstorm-performance-issues-on-osx.png
+
 what-php-can-be:
     date: 2018-04-15
     type: blog

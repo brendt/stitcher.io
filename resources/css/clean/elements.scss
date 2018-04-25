@@ -64,6 +64,7 @@ li ul li {
 ul {
     margin-left: 40px;
     padding-left: 0;
+    margin-bottom: 1em;
 
     @media (max-width: $width-base) {
         margin-left: 40px;
