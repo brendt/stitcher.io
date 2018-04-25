@@ -12,7 +12,7 @@ So how to fix it? There are a few options.
 
 - Use another font. I was using Ubuntu Mono, and it turns out it requires quite a lot of CPU.
 I've switched to Monaco instead.
-- Disabling `Subpixel` antialiasing. Go to `Settings > Appearance & Behavior > Appearance` 
+- Disabling `Subpixel` antialiasing. Go to `Preferences > Appearance & Behavior > Appearance` 
 to configure antialiasing in your editor to `Greyscale` instead. 
 Your fonts won't look as good, but you'll notice a huge performance improvement.
 - Wait for JetBrains to find a fix. 2018.2 might fix some things, 
