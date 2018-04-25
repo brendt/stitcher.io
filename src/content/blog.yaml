@@ -1,3 +1,11 @@
+#what-dependency-injection-is-about:
+#    date: 2018-04-30
+#    type: blog
+#    title: What dependency injection is about
+#    content: src/content/blog/what-dependency-injection-is-about.md
+#    meta:
+#        description: A close look at what dependency injection actually is about—and what not.
+
 phpstorm-performance-issues-on-osx:
     date: 2018-04-25
     type: blog
@@ -12,7 +20,7 @@ what-php-can-be:
     date: 2018-04-15
     type: blog
     title: What PHP can be
-    content: src/content/blog/what-php-can-be.md
+    content: src/content/blog/2018-04-15-what-php-can-be.md
     highlight: true
     meta:
         description: "Thoughts on PHP's type system and what it means for the language as a whole."
