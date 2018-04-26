@@ -23,7 +23,7 @@ $red: #fc3149;
 $font-title: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-subtitle: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-body: Garamond, Times, "Times New Roman", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$font-serif: Georgia, Times, "Times New Roman", serif;
+$font-serif: Times, "Times New Roman", serif;
 $font-code: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
 
 @mixin wrapper($width: $width-base, $padding-right: 200px) {
