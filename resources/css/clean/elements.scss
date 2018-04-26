@@ -86,9 +86,9 @@ p > em {
 }
 
 blockquote {
-    font-size: 1rem;
-    font-family: $font-serif;
-    font-weight: 200;
+    font-size: 1.2rem;
+    font-family: $font-body;
+    font-weight: 400;
 
     padding: 1.6em 1.8em 1.7em;
     margin: 2em auto;
@@ -100,6 +100,10 @@ blockquote {
     }
 
     max-width: $width-base;
+}
+
+blockquote > p {
+    line-height: 1.3em;
 }
 
 blockquote > p:last-child {
@@ -212,6 +216,6 @@ a:hover {
 }
 
 hr {
-    margin: 1rem auto;
+    margin: 2rem auto;
     opacity: 0;
 }

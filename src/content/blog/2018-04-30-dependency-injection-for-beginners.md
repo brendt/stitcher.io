@@ -168,7 +168,9 @@ sharing a dependency is not actually the core meaning of dependency injection.
 
 ### The dependency container
 
-Also called "inversion of control" container; the conainer is a set of class definitions. 
+Sometimes it's also called "inversion of control" container, though that's not an accurate name.
+
+Whatever the exact name, the conainer is a set of class definitions. 
 It's a big box that knows how objects in your application can be constructed with other dependencies.
 While such a container definitely has a lot of use cases, it's not necessary to do dependency injection.
 
@@ -188,37 +190,23 @@ Instead of injecting dependencies into a class,
 there are some tools and frameworks that allow a class to ask the container 
 to "give it an instance of another class". 
 
-This might seem beneficial at first glance, 
+This might seem beneficial at first, 
 because the class doesn't need to know how to construct a certain dependency.
-There's a big caveat however: by using service location, 
-you're not able to use the composition principle to its full extent anymore.  
+However: by allowing a class to ask for dependencies on its own account,
+we're back to square one. 
 
-## Principles
+For service location to work, our class needs to know about the systems on the outside.
+It doesn't differ a lot from calling `new` in the class itself. 
+This idea is actually the opposite of when dependency injection tries to achieve. 
 
-If you're a computer science graduate, you already know the SOLID principles.
-For those not aware with the term: SOLID represents a set of principles to follow, 
-in order to write good, maintainable software.
+### Inject everything
 
-If you're writing SOLID code, dependency injection will be a huge help, 
-take a look at the principles dependency injection can address.
+As it goes in real-life project, you'll notice that dependency injection
+in not *always* the solution for your problem.
 
-### Single responsibility
-
-By allowing dependencies to be injected, 
-the class should not be concerned with constructing dependencies itself. 
-Thus reducing the things that class is responsible for.
-
-### Dependency inversion
-
-This pattern is about inverting the coupling between classes, 
-resulting in a more decoupled architecture. 
-Dependency injection helps with this, 
-because it allows classes to not concern themselves 
-with where and how they should find and create a dependency.
-
-With dependency injection the coupling is inverse, 
-so that the outside context gives a class the things it depends on, 
-instead of that class having to figure it out itself.
+It's important to realise that there's limits to the benefits of everything.
+You should always be alert that you're not taking this to the extreme,
+as there are valid cases in which a pragmatic approach *is* the better solution.   
 
 ## In closing
 
@@ -233,3 +221,8 @@ And I hope this blog post has helped with that.
 
 If there are any thoughts coming to your mind that you want to share,
 feel free to reach out to me on via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
+
+Special thanks to [/u/ImSuperObjective2](*https://www.reddit.com/user/ImSuperObjective2) on Reddit
+for proof reading this post.
+
+---
