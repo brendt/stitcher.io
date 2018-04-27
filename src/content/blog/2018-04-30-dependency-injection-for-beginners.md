@@ -191,17 +191,18 @@ there are some tools and frameworks that allow a class to ask the container
 to "give it an instance of another class". 
 
 This might seem beneficial at first, 
-because the class doesn't need to know how to construct a certain dependency.
+because our class doesn't need to know how to construct a certain dependency anymore.
 However: by allowing a class to ask for dependencies on its own account,
 we're back to square one. 
 
 For service location to work, our class needs to know about the systems on the outside.
 It doesn't differ a lot from calling `new` in the class itself. 
-This idea is actually the opposite of when dependency injection tries to achieve. 
+This idea is actually the opposite of what dependency injection tries to achieve.
+It's a misuse of what the container is meant to do.
 
 ### Inject everything
 
-As it goes in real-life project, you'll notice that dependency injection
+As it goes in real-life projects, you'll notice that dependency injection
 in not *always* the solution for your problem.
 
 It's important to realise that there's limits to the benefits of everything.
@@ -211,7 +212,7 @@ as there are valid cases in which a pragmatic approach *is* the better solution.
 ## In closing
 
 The core idea behind dependency injection is very simple, 
-yet it allows for better maintainable, testable and decoupled code to be written. 
+yet allows for better maintainable, testable and decoupled code to be written. 
 
 Because it's such a powerful pattern, 
 it's only natural that lots of tools emerge around it. 
@@ -222,7 +223,7 @@ And I hope this blog post has helped with that.
 If there are any thoughts coming to your mind that you want to share,
 feel free to reach out to me on via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
 
-Special thanks to [/u/ImSuperObjective2](*https://www.reddit.com/user/ImSuperObjective2) on Reddit
-for proof reading this post.
+Also special thanks to [/u/ImSuperObjective2](*https://www.reddit.com/user/ImSuperObjective2) on Reddit
+and my colleague [Sebastian](*https://twitter.com/sebdedeyne) for proof reading this post.
 
 ---
