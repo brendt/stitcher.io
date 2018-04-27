@@ -5,6 +5,7 @@ dependency-injection-for-beginners:
     content: src/content/blog/2018-04-30-dependency-injection-for-beginners.md
     meta:
         description: A close look at what dependency injection is about—and what not.
+        image: resources/img/meta/dependency-injection-for-beginners.png
 
 phpstorm-performance-issues-on-osx:
     date: 2018-04-25
