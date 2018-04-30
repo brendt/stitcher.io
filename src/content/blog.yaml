@@ -1,10 +1,11 @@
-#what-dependency-injection-is-about:
-#    date: 2018-04-30
-#    type: blog
-#    title: What dependency injection is about
-#    content: src/content/blog/what-dependency-injection-is-about.md
-#    meta:
-#        description: A close look at what dependency injection actually is about—and what not.
+dependency-injection-for-beginners:
+    date: 2018-04-30
+    type: blog
+    title: Dependecy injection for beginners
+    content: src/content/blog/2018-04-30-dependency-injection-for-beginners.md
+    meta:
+        description: A close look at what dependency injection is about—and what not.
+        image: resources/img/meta/dependency-injection-for-beginners.png
 
 phpstorm-performance-issues-on-osx:
     date: 2018-04-25
