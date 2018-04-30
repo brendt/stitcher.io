@@ -1,4 +1,4 @@
-I've been fascinated by type systems in programming languages for a few years now. 
+I've been fascinated by type systems in programming languages for a while now. 
 Recently, something clicked for me regarding inheritance and types.
 
 Not only did it clarify type variance, 
@@ -90,8 +90,7 @@ This is what the LSP guards against.
 
 ## Benefits of the LSP
 
-Before exploring the details of type safety with inheritance
-–which is a very interesting topic– 
+Before exploring the details of type safety with inheritance, a very interesting topic; 
 we should stop and ask ourselves what's to gain by following this principle.
 
 I've explained what Barbara Liskov meant when she defined her substitution principle,
@@ -114,15 +113,15 @@ and the language can be designed as a type-safe language or not.
 
 ## Type safety
 
-Now that we've established what the LSP is, and what its goal is; 
-we'll have to go one step further to fully grasp the consequences of a type-safe system.
+We've established what the LSP is, and its goal; 
+now we'll have to go one step further to fully grasp the consequences of a type-safe system.
 
-We've seen the LSP being used from the context of passing arguments to functions.
-Now we'll look at the function definitions themselves, and how the LSP applies there.
+We've seen the LSP being used in the context of passing arguments to functions.
+Next we'll look at the function definitions themselves, and how the LSP applies there.
 
 We'll work with these functions:
 
-```txt
+```php
 foo (Animal) : Animal
 
 foo > bar (Animal) : Animal
@@ -141,7 +140,7 @@ Let's think about whether the following is possible.
 foo > bar (Cat) : Cat
 ```
 
-The LSP only defines rules about objects, so, on first sight, the function definition itself doesn't break the LSP.
+The LSP only defines rules about objects, so on first sight, the function definition itself doesn't break the LSP.
 The real question is: does this function allow for proper use of the LSP when it's called?
 
 ```txt
@@ -149,7 +148,7 @@ cat = bar (Cat)
 ```
 
 We know that `bar` extends from `foo`, and thus provides the same contract –or more– as its parent.
-We also know that `foo` allowed for types of `Animal` to be used.
+We also know that `foo` allows `Animal` and its sub-types to be used.
 So `bar` should also be able to take an `Animal` type.
 
 ```txt
@@ -165,12 +164,12 @@ we're also applying the same principles it to the function itself.
 > Wherever an invocation of `foo` is used, we must be able to replace it 
 > by an invocation of `bar`.
 
-This especially makes sense in an OO language where these functions are no standalone entities in your code,
-but rather parts of a class, which represents a type itself.
+This especially makes sense in an OO language where a function is no standalone entity in your code,
+but rather part of a class, which represents a type itself.
 
-The conclusion for the argument list is that, in order to keep your language type-safe,
-it may not allow for child implementations to make the method signature more specific, 
-as it breaks the promises gave by the parent.
+In order to keep a system type-safe,
+it may not allow children to make the parameter types more specific.
+This breaks the promises given by the parent.
 
 However, take a look at the following definition:
 
@@ -183,64 +182,78 @@ It may seem backwards at first, but it does.
 `bar` still follows the contract specified by `foo`.
 It can take `Animal` as an argument, and work just fine.
 
-In this case, `bar` widened the types it allows as its parameters, 
+In this case, `bar` widens the parameter types allowed, 
 while still respecting the parent's contract.
-
-In this case, we're speaking of contravariance.
+These is called contravariance.
 Types in argument lists should be contravariant for a type system to be safe.
 
-Let's look at return types next.
-
- 
-
-## otherss
+Moving on, we'll apply the same thinking to return types:
 
 ```txt
-ƒ: A (Animal): Animal
-
-ƒ: B < A (Animal): Animal
+foo > bar (Organism) : Organism
 ```
+
+The same question: is this type safe? Again, the answer is no.
+
+From its parent definition, `bar` should return the type `Animal`. 
+We can see the opposite problem arising if we're widen the return type of this child implementation.
 
 ```txt
-ƒ: B < A (Cat): Animal
+animal = foo (Animal)
+
+// vs
+
+animal = bar (Animal)
 ```
 
-```
-animal = new Animal
-a = A (animal)
-```
+We'd expect bar to return `Animal`, based on the signature of `foo`. 
+In the above example though, calling `bar` allows to return `Organism`!
 
-LSP says that the following should be possible
+Because `Organism` doesn't describe fully what `Animal` does, 
+there's again an area of undefined behaviour, which can cause runtime errors.
+The above example is not type-safe.
 
-```
-a = B (animal)
-```
-
-which breaks because B expects `Cat` and we're giving `Animal`. 
-
-What would work is the following
+This, however, does respect the parent's signature:
 
 ```txt
-ƒ: A > B (Organism): Animal
-```
+foo > bar (Animal) : Cat
+``` 
 
-> Argument list types should be contravariant.
+Because `Cat` is a subtype of `Animal`, we can be a 100% sure that whatever `bar` returns, 
+it will be within the category of `Animal`.
 
-Return types are the opposite:
+You see the opposite rule applies for return types compared to function parameters.
+In the case of return types, we're calling it covariance, or covariant types.
 
-```
-a = new A (animal)
-```
+## Real-life impact
 
-We expect A to return an animal here.
+There' no guarantee that a type-safe language will always write a bug-free program.
+We've seen that the language design only carries half the responsibility regarding the LSP.
+The other half is the programmer's task.
 
-if B were to return an organism, our assumptions break, however, B may return `Cat`, 
-as it derives from `Animal`
+Languages differ though, all have their own type system, 
+and each will have a different level of type safety.
 
-```txt
-ƒ: A > B (Animal): Cat
-```
+Eiffel, for example, allows for parameter covariance. 
+By now you know this means there's an area of wrong behaviour possible that's undetectable by the compiler.
+Hence there's the possibility of runtime errors.
 
-Because now we're can still be sure that, even if A is switched out for B, we'll still have some kind of `Animal` as the result.
+PHP allows for constructors of child classes to have another signature, 
+while keeping an invariant type system for all other functions.
+As with many things PHP, this inconsistency increases confusion of many developers.
 
-> Return types are covariant.
+Some languages like Java, C# and Rust have a concept that I didn't cover today: generics. 
+Type variance also plays a big role there.
+The topic is out of the scope for this blog post, but I might cover it in the future.
+
+With all these differences, there's one thing to keep in mind.
+The safety of a type system doesn't mean a language is better or worse.
+I think it's fair to say that some use cases would benefit from a very strong type system, 
+while others need the exact opposite. 
+The key takeaway is that every programmer 
+should learn more than only the concepts and paradigms of the languages they are used to the most.
+A broadened view will be beneficial, now and in the future.
+
+So what's your opinion on type safety? 
+If you're up for it, I'd love to talk about it even more: 
+you can reach me on [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
