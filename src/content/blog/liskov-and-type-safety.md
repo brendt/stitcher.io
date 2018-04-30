@@ -1,14 +1,14 @@
-I've been facinated by type systems in programming language for a few years now. 
+I've been fascinated by type systems in programming languages for a few years now. 
 Recently, something clicked for me regarding inheritance and types.
 
 Not only did it clarify type variance, 
-I also finally understood what the Liskov substitution principle really is about.
-I'm going to share these insights in this blog post today.
+I also understood what the Liskov substitution principle actually is about.
+Today, I'm going to share these insights with you.
  
 ## Prerequisites
 
-I'll be using some pseudo code to make clear what I'm writing about. 
-So let's make sure you know how I'll write these examples.
+I'll be writing pseudo code to make clear what I'm talking about. 
+So let's make sure you know what the syntax of this pseudo code will be.
 
 A function will be defined like so.
 
@@ -35,7 +35,7 @@ a = bar (T)
 ``` 
 
 Once again: it's just pseudo code and I'll use it to demonstrate what types are,
-how they can and cannot be defined in combination with inheritance and 
+how they can and cannot be defined in combination with inheritance, and 
 how this results in type-safe systems.
 
 ## Liskov substitution principle
@@ -51,41 +51,41 @@ Organism > Animal > Cat
 ```
 
 These are the three types we'll be working with.
-Liskov tells us that wherever `Organism` types appear in our code, 
-they must be replaceable by a subtype of `Organism`. 
+Liskov tells us that wherever objects of type `Organism` appear in our code, 
+they must be replaceable by subtypes of `Organism`. 
 
-Given the following function.
+So given the following function:
 
 ```txt
 foo (Organism) : Organism
 ```
 
-It must be possible to call it like so.
+It must be possible to call it like so:
 
 ```txt
 a = foo (Animal)
 b = foo (Cat)
 ```
 
-The function `foo` can be seen as a contract, a promise to the programmer. 
+I like to see a function definition as a contract, a promise; for the programmer to be used. 
 The contract states:
 
-> Given an argument of the type `Organism`, 
-> I'll be able to correctly execute and return an object of type `Organism`.
+> Given an object of the type `Organism`, 
+> I'll be able to execute and return an object of type `Organism`.
 
 Because `Animal` and `Cat` are subtypes of `Organism`, 
-the LSP states that this function should also work when given one of those subtypes. 
+the LSP states that this function should also work when one of these subtypes are used. 
 
 This brings us to one of the key properties of inheritance. 
-If Liskov states that objects of type `Organism` must be replacable by objects of type `Animal`, 
-it means that `Animal` may not change the expectation we have of `Organism`. 
-`Animal` may extend `Organism`, meaning it may *add* functionality, 
+If Liskov states that objects of type `Organism` must be replaceable by objects of type `Animal`, 
+it means that `Animal` may not change the expectations we have of `Organism`.
+`Animal` may extend `Organism`, meaning it may *add* functionality,
 but `Animal` may not change the certainties given by `Organism`.
 
-This is where many OO programmers make mistakes. 
-They see inheritance more like "re-using parts of the parent type, 
-and overriding other parts in the sub-type", 
-rather than extending the behaviour defined by its parent. 
+This is where many OO programmers make mistakes.
+They see inheritance more like
+"re-using parts of the parent type, and overriding other parts in the sub-type",
+rather than extending the behaviour defined by its parent.
 This is what the LSP guards against.
 
 ## Benefits of the LSP
@@ -94,21 +94,21 @@ Before exploring the details of type safety with inheritance
 –which is a very interesting topic– 
 we should stop and ask ourselves what's to gain by following this principle.
 
-I've explained what Barbara Liskov meant when she defined her "substitution principle",
+I've explained what Barbara Liskov meant when she defined her substitution principle,
 but why is it necessary? Is it bad to break it?
 
-I mentioned the idea of a "promise" or "contract" before. 
-If a function or type makes a promise, a guarantee, we should be able to blindly trust it.
-If we can't rely on function `foo` being able to handle all `Organisms`, 
-there's a piece of undocumented behaviour in our code. 
+I mentioned the idea of a "promise" or "contract" before.
+If a function or type makes a promise, a guarantee; we should be able to blindly trust it.
+If we can't rely on function `foo` being able to handle all `Organisms`,
+there's a piece of undocumented behaviour in our code.
  
 Without looking at the implementation of a function, there's a level of security 
 that this function will do the thing we expect. 
 When this contract is breached, for example if `foo` cannot handle subtypes of `Organism`;
-there's a chance of runtime errors we cannot anticipate.
+there's a chance of runtime errors we, and the compiler, cannot anticipate.
 
-There's two areas in which this promise can be broken: by the programmer itself, 
-and by the language's design. 
+There's two areas in which this promise can be broken: by the programmer itself 
+and by the language's design.
 It's the programmer's responsibility to write code that adheres to the LSP, 
 and the language can be designed as a type-safe language or not.
 
@@ -133,34 +133,32 @@ Some programming languages don't allow children to change the type signature of 
 This is what's called type invariance.
 It's the easiest approach to handle type safety with inheritance.
 
-But when you look back at how our example types are related to eachother,
-we know that 
-
+But when you look back at how our example types are related to each other,
+we know that `Cat` extends `Animal`.
 Let's think about whether the following is possible.
 
 ```txt
 foo > bar (Cat) : Cat
 ```
 
-The LSP only defines rules about objects, so this definition in itself doesn't break the LSP.
-The question is rather is this function definition allows for proper use of the LSP when it's called.
+The LSP only defines rules about objects, so, on first sight, the function definition itself doesn't break the LSP.
+The real question is: does this function allow for proper use of the LSP when it's called?
 
 ```txt
 cat = bar (Cat)
 ```
 
 We know that `bar` extends from `foo`, and thus provides the same contract –or more– as its parent.
-We also know that `foo` allowed for types of `Organism` to be used.
-So, by definition, `bar` should also be able to take an `Organism` type.
+We also know that `foo` allowed for types of `Animal` to be used.
+So `bar` should also be able to take an `Animal` type.
 
 ```txt
-cat = bar (Organism)
+cat = bar (Animal)
 
 // Type error
 ```
 
-Unfortunately, this is not the case. 
-Can you see what we're doing here? 
+Unfortunately, this is not the case. Can you see what we're doing here? 
 Instead of applying the LSP only to the parameters of a function, 
 we're also applying the same principles it to the function itself.
 
@@ -168,11 +166,32 @@ we're also applying the same principles it to the function itself.
 > by an invocation of `bar`.
 
 This especially makes sense in an OO language where these functions are no standalone entities in your code,
-but rather part of a class, which represents a type itself.
+but rather parts of a class, which represents a type itself.
 
 The conclusion for the argument list is that, in order to keep your language type-safe,
 it may not allow for child implementations to make the method signature more specific, 
 as it breaks the promises gave by the parent.
+
+However, take a look at the following definition:
+
+```txt
+foo > bar (Organism) : Animal
+```
+
+Does this definition ensures type safety? 
+It may seem backwards at first, but it does.
+`bar` still follows the contract specified by `foo`.
+It can take `Animal` as an argument, and work just fine.
+
+In this case, `bar` widened the types it allows as its parameters, 
+while still respecting the parent's contract.
+
+In this case, we're speaking of contravariance.
+Types in argument lists should be contravariant for a type system to be safe.
+
+Let's look at return types next.
+
+ 
 
 ## otherss
 
