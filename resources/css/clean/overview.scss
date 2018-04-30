@@ -35,6 +35,7 @@ nav.overview > * {
     border: 2px solid darken(#fff, 6);
     margin: 1em;
     text-decoration: none;
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
@@ -54,11 +55,6 @@ nav.overview > * {
         }
     }
 
-    @media (max-width: $width-base) {
-        width:100%;
-        max-width: 100%;
-    }
-
     &:hover {
         border-color: $red;
     }
@@ -72,6 +68,19 @@ nav.overview > * {
 
         &:hover h1 {
             color: #fff;
+        }
+    }
+
+    @media (max-width: $width-base) {
+        width:100%;
+        max-width: 100%;
+    }
+
+    @media (max-width: $width-mobile) {
+        padding: 1.7em 1.5em;
+
+        h1 {
+            font-size: 2em;
         }
     }
 }
