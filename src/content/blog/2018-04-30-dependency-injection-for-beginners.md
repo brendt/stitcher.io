@@ -34,8 +34,8 @@ class Car
 }
 ```
 
-There's the blueprint for every car you'll make!—Next up, 
-your boss comes to you and says there's a new client and he wants an electrical car.
+There's the blueprint for every car you'll make! 
+Next up, your boss comes to you and says there's a new client and he wants an electrical car.
 
 So you end up doing this.
 
