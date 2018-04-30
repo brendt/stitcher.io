@@ -1,3 +1,9 @@
+liskov-and-type-safety:
+    date: 2018-05-20
+    type: blog
+    title: Liskov and type safety
+    content: src/content/blog/liskov-and-type-safety.md
+
 dependency-injection-for-beginners:
     date: 2018-04-30
     type: blog
