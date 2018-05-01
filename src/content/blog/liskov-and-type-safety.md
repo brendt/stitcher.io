@@ -13,7 +13,7 @@ So let's make sure you know what the syntax of this pseudo code will be.
 A function will be defined like so.
 
 ```txt
-foo (T) : T
+foo(T) : T
 ```
 
 First comes the function name, second the argument list with types as parameters,
@@ -22,7 +22,7 @@ A function can extend another function, as can types.
 Inheritance is defined like so. 
 
 ```txt
-foo > bar (T) : T
+foo > bar(T) : T
 
 T > S
 ```
@@ -31,7 +31,7 @@ In this example, `bar` extends `foo`, and `S` is a subtype of `T`.
 The last step is being able to invoke the function, which is done like so.
 
 ```txt
-a = bar (T)
+a = bar(T)
 ``` 
 
 Once again: it's just pseudo code and I'll use it to demonstrate what types are,
@@ -57,14 +57,14 @@ they must be replaceable by subtypes of `Organism`.
 So given the following function:
 
 ```txt
-foo (Organism) : Organism
+foo(Organism) : Organism
 ```
 
 It must be possible to call it like so:
 
 ```txt
-a = foo (Animal)
-b = foo (Cat)
+a = foo(Animal)
+b = foo(Cat)
 ```
 
 I like to see a function definition as a contract, a promise; for the programmer to be used. 
@@ -122,9 +122,9 @@ Next we'll look at the function definitions themselves, and how the LSP applies 
 We'll work with these functions:
 
 ```php
-foo (Animal) : Animal
+foo(Animal) : Animal
 
-foo > bar (Animal) : Animal
+foo > bar(Animal) : Animal
 ```
 
 As you can see, `bar` extends `foo` and follows its parent signature one-to-one.
@@ -137,14 +137,14 @@ we know that `Cat` extends `Animal`.
 Let's think about whether the following is possible.
 
 ```txt
-foo > bar (Cat) : Cat
+foo > bar(Cat) : Cat
 ```
 
 The LSP only defines rules about objects, so on first sight, the function definition itself doesn't break the LSP.
 The real question is: does this function allow for proper use of the LSP when it's called?
 
 ```txt
-cat = bar (Cat)
+cat = bar(Cat)
 ```
 
 We know that `bar` extends from `foo`, and thus provides the same contract –or more– as its parent.
@@ -152,7 +152,7 @@ We also know that `foo` allows `Animal` and its sub-types to be used.
 So `bar` should also be able to take an `Animal` type.
 
 ```txt
-cat = bar (Animal)
+cat = bar(Animal)
 
 // Type error
 ```
@@ -174,7 +174,7 @@ This breaks the promises given by the parent.
 However, take a look at the following definition:
 
 ```txt
-foo > bar (Organism) : Animal
+foo > bar(Organism) : Animal
 ```
 
 Does this definition ensures type safety? 
@@ -190,20 +190,20 @@ Types in argument lists should be contravariant for a type system to be safe.
 Moving on, we'll apply the same thinking to return types:
 
 ```txt
-foo > bar (Organism) : Organism
+foo > bar(Animal) : Organism
 ```
 
-The same question: is this type safe? Again, the answer is no.
+The same question for the return type: is this type-safe? Again, the answer is no.
 
 From its parent definition, `bar` should return the type `Animal`. 
-We can see the opposite problem arising if we're widen the return type of this child implementation.
+We can see the opposite problem arising if we widen the return type of this child implementation.
 
 ```txt
-animal = foo (Animal)
+animal = foo(Animal)
 
 // vs
 
-animal = bar (Animal)
+animal = bar(Animal)
 ```
 
 We'd expect bar to return `Animal`, based on the signature of `foo`. 
@@ -216,7 +216,7 @@ The above example is not type-safe.
 This, however, does respect the parent's signature:
 
 ```txt
-foo > bar (Animal) : Cat
+foo > bar(Animal) : Cat
 ``` 
 
 Because `Cat` is a subtype of `Animal`, we can be a 100% sure that whatever `bar` returns, 
