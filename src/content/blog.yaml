@@ -3,6 +3,11 @@ liskov-and-type-safety:
     type: blog
     title: Liskov and type safety
     content: src/content/blog/liskov-and-type-safety.md
+    meta:
+        description: >
+            What makes a type system safe;
+            how does the Liskov substitution principle help with this;
+            and what does it mean regarding type variance?
 
 dependency-injection-for-beginners:
     date: 2018-04-30
