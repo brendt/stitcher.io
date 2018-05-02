@@ -147,7 +147,7 @@ $smugCar = new Car(new Engine(), [
 
 You've got *a lot* more flexibility now!
 
-Dependency injection is the idea of giving a class its requirements form the outside,
+Dependency injection is the idea of giving a class its requirements from the outside,
 instead of having that class being responsible for them itself.
 
 ## What dependency injection is not
