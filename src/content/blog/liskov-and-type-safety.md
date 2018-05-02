@@ -52,7 +52,7 @@ Organism > Animal > Cat
 
 These are the three types we'll be working with.
 Liskov tells us that wherever objects of type `Organism` appear in our code, 
-they must be replaceable by subtypes of `Organism`. 
+they must be replaceable by subtypes like `Animal` or `Cat`. 
 
 So given the following function:
 
@@ -67,7 +67,7 @@ a = foo(Animal)
 b = foo(Cat)
 ```
 
-I like to see a function definition as a contract, a promise; for the programmer to be used. 
+I tend to see a function definition as a contract, a promise; for the programmer to be used. 
 The contract states:
 
 > Given an object of the type `Organism`, 
@@ -93,21 +93,22 @@ This is what the LSP guards against.
 Before exploring the details of type safety with inheritance, a very interesting topic; 
 we should stop and ask ourselves what's to gain by following this principle.
 
-I've explained what Barbara Liskov meant when she defined her substitution principle,
+I've explained what Barbara Liskov meant when she defined this principle,
 but why is it necessary? Is it bad to break it?
 
-I mentioned the idea of a "promise" or "contract" before.
-If a function or type makes a promise, a guarantee; we should be able to blindly trust it.
+I mentioned the idea of a "promise" or "contract".
+If a function or type makes a promise about what it can do,
+we should be able to blindly trust it.
 If we can't rely on function `foo` being able to handle all `Organisms`,
 there's a piece of undocumented behaviour in our code.
  
 Without looking at the implementation of a function, there's a level of security 
 that this function will do the thing we expect. 
-When this contract is breached, for example if `foo` cannot handle subtypes of `Organism`;
-there's a chance of runtime errors we, and the compiler, cannot anticipate.
+When this contract is breached, there's a chance of runtime errors 
+that both the programmer and the compiler cannot anticipate.
 
-There's two areas in which this promise can be broken: by the programmer itself 
-and by the language's design.
+So there's two factors responsible for not breaking the LSP, and thus avoiding undefined behaviour:
+the programmer itself and the language's design.
 It's the programmer's responsibility to write code that adheres to the LSP, 
 and the language can be designed as a type-safe language or not.
 
@@ -116,7 +117,7 @@ and the language can be designed as a type-safe language or not.
 We've established what the LSP is, and its goal; 
 now we'll have to go one step further to fully grasp the consequences of a type-safe system.
 
-We've seen the LSP being used in the context of passing arguments to functions.
+I've shown the LSP being used in the context of passing arguments to functions.
 Next we'll look at the function definitions themselves, and how the LSP applies there.
 
 We'll work with these functions:
@@ -137,17 +138,17 @@ we know that `Cat` extends `Animal`.
 Let's think about whether the following is possible.
 
 ```txt
-foo > bar(Cat) : Cat
+foo > bar(Cat) : Animal
 ```
 
-The LSP only defines rules about objects, so on first sight, the function definition itself doesn't break the LSP.
+The LSP only defines rules about objects, so on first sight, the function definition itself doesn't break any rules.
 The real question is: does this function allow for proper use of the LSP when it's called?
 
 ```txt
 cat = bar(Cat)
 ```
 
-We know that `bar` extends from `foo`, and thus provides the same contract –or more– as its parent.
+We know that `bar` extends from `foo`, and thus provides at least the same contract as its parent.
 We also know that `foo` allows `Animal` and its sub-types to be used.
 So `bar` should also be able to take an `Animal` type.
 
@@ -157,9 +158,10 @@ cat = bar(Animal)
 // Type error
 ```
 
-Unfortunately, this is not the case. Can you see what we're doing here? 
+Unfortunately, this is not the case. There's a type error occurring.
+Can you see what we're doing here? 
 Instead of applying the LSP only to the parameters of a function, 
-we're also applying the same principles it to the function itself.
+we're also applying the same principles to the function itself.
 
 > Wherever an invocation of `foo` is used, we must be able to replace it 
 > by an invocation of `bar`.
@@ -193,9 +195,9 @@ Moving on, we'll apply the same thinking to return types:
 foo > bar(Animal) : Organism
 ```
 
-The same question for the return type: is this type-safe? Again, the answer is no.
+Again, the question: is this type-safe? Unfortunately, the answer is no.
 
-From its parent definition, `bar` should return the type `Animal`. 
+From its parent's definition, `bar` should return the type `Animal`. 
 We can see the opposite problem arising if we widen the return type of this child implementation.
 
 ```txt
@@ -207,13 +209,13 @@ animal = bar(Animal)
 ```
 
 We'd expect bar to return `Animal`, based on the signature of `foo`. 
-In the above example though, calling `bar` allows to return `Organism`!
+However, in the above example though, calling `bar` allows to return `Organism`!
 
-Because `Organism` doesn't describe fully what `Animal` does, 
+Because `Organism` doesn't fully describe what `Animal` does, 
 there's again an area of undefined behaviour, which can cause runtime errors.
 The above example is not type-safe.
 
-This, however, does respect the parent's signature:
+The folowing, however, does respect the parent's signature:
 
 ```txt
 foo > bar(Animal) : Cat
