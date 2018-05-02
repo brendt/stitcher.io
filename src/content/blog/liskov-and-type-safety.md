@@ -240,11 +240,11 @@ Hence there's the possibility of runtime errors.
 
 PHP allows for constructors of child classes to have another signature, 
 while keeping an invariant type system for all other functions.
-As with many things PHP, this inconsistency increases confusion of many developers.
+As with many things PHP, this inconsistency increases the confusion for developers.
 
 Some languages like Java, C# and Rust have a concept that I didn't cover today: generics. 
 Type variance also plays a big role there.
-The topic is out of the scope for this blog post, but I might cover it in the future.
+That topic is out of scope for this blog post, but I might cover it in the future.
 
 With all these differences, there's one thing to keep in mind.
 The safety of a type system doesn't mean a language is better or worse.
