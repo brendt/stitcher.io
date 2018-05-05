@@ -170,7 +170,7 @@ sharing a dependency is not actually the core meaning of dependency injection.
 
 Sometimes it's also called "inversion of control" container, though that's not an accurate name.
 
-Whatever the exact name, the conainer is a set of class definitions. 
+Whatever the exact name, the container is a set of class definitions. 
 It's a big box that knows how objects in your application can be constructed with other dependencies.
 While such a container definitely has a lot of use cases, it's not necessary to do dependency injection.
 
