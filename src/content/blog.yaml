@@ -1,3 +1,9 @@
+the-web-in-2045:
+    date: 2018-08-20
+    type: blog
+    title: The web in 2045
+    content: src/content/blog/the-web-in-2045.md
+
 service-locator-anti-pattern:
     date: 2018-08-10
     title: "Service locator: an anti-pattern"
