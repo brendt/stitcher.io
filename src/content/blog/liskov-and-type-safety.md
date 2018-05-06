@@ -42,7 +42,8 @@ how this results in type-safe systems.
 
 Let's look at the official definition of the LSP.
 
-> If `S` is a subtype of `T`, then objects of type `T` may be replaced with objects of type `S`.
+> If `S` is a subtype of `T`, then objects of type `T` may be replaced with objects of type `S`
+><br>—[Wikipedia](*https://en.wikipedia.org/wiki/Liskov_substitution_principle)
 
 Instead of using `S` and `T`, I'll be using more concrete types in my examples.
 
