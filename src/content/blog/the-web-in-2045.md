@@ -10,8 +10,6 @@ history of the web
 
 a few key points:
 
-https://thehistoryoftheweb.com/timeline/
-
 - August 6, 1991: the first website
 - October 29 1991: HTML draft on the www-talk mailing list
 - October 13, 1994: Netscape Navigator
@@ -23,9 +21,16 @@ https://thehistoryoftheweb.com/timeline/
 - January 8, 2007: Steve Jobs unveils the iPhone.
 - October 28, 2014: HTML5 is formally made a recommendation
 
-We've had technical advancments
-Arts advancements like `/r/place` and 
+https://thehistoryoftheweb.com/timeline/
 
 ## Today
 
+We've had technical advancements beyond believe
+
+Arts advancements like `/r/place` and https://www.sbnation.com/a/17776-football
+
 ## 2045
+
+WASM, technical fiascos
+
+Privacy, Facebook bubble
