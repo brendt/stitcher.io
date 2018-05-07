@@ -122,7 +122,7 @@ class Car
         
         $this->engine->start();
         
-        $this->engine()->accelerate();
+        $this->engine->accelerate();
     }
 }
 ```
