@@ -1,7 +1,7 @@
 You're in the car business, 
 your job is to make cars on-demand. 
 The object-oriented programmer in you says: 
-"no problem, I'll make a blueprint that I can use to make as much cars as I want!".
+"no problem, I'll make a blueprint that I can use to make as many cars as I want!".
 
 ```php
 class Car
@@ -35,18 +35,18 @@ class Car
 ```
 
 There's the blueprint for every car you'll make! 
-Next up, your boss comes to you and says there's a new client and he wants an electrical car.
+Next up, your boss comes to you and says there's a new client and he wants an electric car.
 
 So you end up doing this.
 
 ```php
-class ElectricalCar extends Car
+class ElectricCar extends Car
 {
     public function __construct()
     {
         parent::__construct();
         
-        $this->engine = new ElectricalEngine();
+        $this->engine = new ElectricEngine();
     }
 }
 ```
