@@ -162,7 +162,7 @@ is that the outside context can control them.
 This means that you can give the same instance of a class 
 to several others that have a dependency on that class.
 
-Shared- or reusable dependencies are the ones most often getting the label "dependecy injection".
+Shared- or reusable dependencies are the ones most often getting the label "dependency injection".
 Though it's certainly a very good practice, 
 sharing a dependency is not actually the core meaning of dependency injection. 
 
