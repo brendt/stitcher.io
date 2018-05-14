@@ -5,6 +5,7 @@ use Brendt\Stitcher\Handler\RssHandler;
 $redirects = [
     '/feed' => '/rss',
     '/blog' => '/blog/page-1',
+    '/presentations' => 'https://github.com/brendt/presentations',
     '/guide' => '/guide/setting-up',
     '/cognitive-load' => '/blog/a-programmers-cognitive-load',
     '/key-binding' => '/blog/mastering-key-bindings',
