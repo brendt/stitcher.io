@@ -5,32 +5,44 @@ I wonder where we'll be 27 years in the future, what the web will look like in 2
 
 ## A brief history
 
-Jay Hoffman
-history of the web
+What better way to look at the future, than to look at the past?
+There's an excellent blog called "[The History Of The Web](*https://thehistoryoftheweb.com/archives/)".
+Thanks to Jay Hoffman, the writer of the blog; 
+I've been fascinated by the roots of the web. For example:
 
-a few key points:
+On **August 6, 1991** Tim Berners-Lee puts online the first website.
+Only a few months later, on **October 29** of the same year, 
+the first HTML draft is posted on the www-talk mailing list.
 
-- August 6, 1991: the first website
-- October 29 1991: HTML draft on the www-talk mailing list
-- October 13, 1994: Netscape Navigator
-- August 15, 1995: Internet Explorer 1
-- November 24, 1995: HTML 2.0
-- December 17, 1996: first proposal for CSS 
-- December 17, 1997: Jorn Barger posts what is widely regarded the first ever blog post.
-- February 9, 2004: Mozilla releases Firefox
-- January 8, 2007: Steve Jobs unveils the iPhone.
-- October 28, 2014: HTML5 is formally made a recommendation
+Three years went by when Netscape Navigator, the most popular browser of that time, 
+was released on **October 13, 1994**. 
+It took Microsoft almost a year longer to release their browser, Internet Explorer 1; 
+on **August 15 of 1995**. 
+And in **December of 1996**, the first iteration for CSS was conceptualised.
 
-https://thehistoryoftheweb.com/timeline/
+Mozilla released Firefox more than ten years after the beginning of the web in **2004**.
+Only a few years later, Apple flipped the web on its mobile side 
+by presenting the very first iPhone on **January 8, 2007**.
+
+Twenty-three years after the first mention of HTML, 
+modern websites found their identity as we know it today, 
+when HTML5 was made to formal recommendation by the W3C on **October 28, 2014**. 
+
+It's amazing to see how the web has evolved in less than three decades. 
+Not only its technical boundaries were pushed;
+people kept finding innovating ways for what the technology was used for.
+Think about sites like GeoCities or NeoPets; the first blog post written in *1997*;
+or some recent examples like [/r/place](*https://i.redd.it/agcbmqgjn14z.png) on Reddit 
+and an experience beyond words crafted by [SB Nation](*https://www.sbnation.com/a/17776-football).
 
 ## Today
 
-We've had technical advancements beyond believe
+Technical: JS explosion, WASM, everything to run in the browser
 
-Arts advancements like `/r/place` and https://www.sbnation.com/a/17776-football
+Content: Social media, fake news, privacy
 
 ## 2045
 
-WASM, technical fiascos
+Technical: the browser as a sandbox for everything?
 
-Privacy, Facebook bubble
+Content: hope for no stagnation, artistic freedom
