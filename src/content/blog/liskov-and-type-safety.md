@@ -31,7 +31,7 @@ bar > baz(S) : T
 T > S
 ```
 
-In this example, `bar` extends `foo`, and `S` is a subtype of `T`.
+In this example, `baz` extends `bar`, and `S` is a subtype of `T`.
 The last step is being able to invoke the function, which is done like so.
 
 ```txt
@@ -167,7 +167,7 @@ Instead of applying the LSP only to the parameters of a function,
 we're also applying the same principles to the function itself.
 
 > Wherever an invocation of `take_care` is used, we must be able to replace it 
-> by an invocation of `feed`.
+> with an invocation of `feed`.
 
 This especially makes sense in an OO language where a function is no standalone entity in your code,
 but rather part of a class, which represents a type itself.
@@ -189,7 +189,7 @@ It can take `Animal` as an argument, and work just fine.
 
 In this case, `feed` widens the parameter types allowed, 
 while still respecting the parent's contract.
-These is called contravariance.
+This is called contravariance.
 Types in argument lists should be contravariant for a type system to be safe.
 
 ## Return type variance
@@ -211,8 +211,8 @@ take_care > feed(Animal) : Poop
 ```
 
 The question now: is the overridden return type safe?
-In contrast to the contravariance for a function's parameters, 
-this example is actually type safe!
+In contrast to the contravariance for the argument list, 
+this example actually is type safe!
 
 The parent definition `take_care` tells us that this function will always return 
 an object of type `Excretion`. 
