@@ -13,16 +13,20 @@ So let's make sure you know what the syntax of this pseudo code will be.
 A function will be defined like so.
 
 ```txt
-foo(T) : T
+foo(T) : void
+
+bar(S) : T
 ```
 
 First comes the function name, second the argument list with types as parameters,
 and finally the return type.
+When a function returns nothing, it's indicated as `void`.
+
 A function can extend another function, as can types. 
 Inheritance is defined like so. 
 
 ```txt
-foo > bar(T) : T
+bar > baz(S) : T
 
 T > S
 ```
@@ -31,7 +35,9 @@ In this example, `bar` extends `foo`, and `S` is a subtype of `T`.
 The last step is being able to invoke the function, which is done like so.
 
 ```txt
-a = bar(T)
+foo(T)
+
+a = bar(S)
 ``` 
 
 Once again: it's just pseudo code and I'll use it to demonstrate what types are,
@@ -55,24 +61,24 @@ These are the three types we'll be working with.
 Liskov tells us that wherever objects of type `Organism` appear in our code, 
 they must be replaceable by subtypes like `Animal` or `Cat`. 
 
-So given the following function:
+Let's say there's a function used to `feed` an organism. 
 
 ```txt
-foo(Organism) : Organism
+feed(Organism) : void
 ```
 
 It must be possible to call it like so:
 
 ```txt
-a = foo(Animal)
-b = foo(Cat)
+feed(Animal)
+feed(Cat)
 ```
 
 I tend to see a function definition as a contract, a promise; for the programmer to be used. 
 The contract states:
 
 > Given an object of the type `Organism`, 
-> I'll be able to execute and return an object of type `Organism`.
+> I'll be able to execute and `feed` that `Organism`.
 
 Because `Animal` and `Cat` are subtypes of `Organism`, 
 the LSP states that this function should also work when one of these subtypes are used. 
@@ -124,12 +130,12 @@ Next we'll look at the function definitions themselves, and how the LSP applies 
 We'll work with these functions:
 
 ```php
-foo(Animal) : Animal
+take_care(Animal) : void
 
-foo > bar(Animal) : Animal
+take_care > feed(Animal) : void
 ```
 
-As you can see, `bar` extends `foo` and follows its parent signature one-to-one.
+As you can see, `feed` extends `take_care` and follows its parent signature one-to-one.
 Some programming languages don't allow children to change the type signature of their parent.
 This is what's called type invariance.
 It's the easiest approach to handle type safety with inheritance.
@@ -139,22 +145,18 @@ we know that `Cat` extends `Animal`.
 Let's think about whether the following is possible.
 
 ```txt
-foo > bar(Cat) : Animal
+take_care > feed(Cat) : void
 ```
 
 The LSP only defines rules about objects, so on first sight, the function definition itself doesn't break any rules.
 The real question is: does this function allow for proper use of the LSP when it's called?
 
-```txt
-cat = bar(Cat)
-```
-
-We know that `bar` extends from `foo`, and thus provides at least the same contract as its parent.
-We also know that `foo` allows `Animal` and its sub-types to be used.
-So `bar` should also be able to take an `Animal` type.
+We know that `feed` extends from `take_care`, and thus provides at least the same contract as its parent.
+We also know that `take_care` allows `Animal` and its sub-types to be used.
+So `feed` should also be able to take an `Animal` type.
 
 ```txt
-cat = bar(Animal)
+feed(Animal)
 
 // Type error
 ```
@@ -164,8 +166,8 @@ Can you see what we're doing here?
 Instead of applying the LSP only to the parameters of a function, 
 we're also applying the same principles to the function itself.
 
-> Wherever an invocation of `foo` is used, we must be able to replace it 
-> by an invocation of `bar`.
+> Wherever an invocation of `take_care` is used, we must be able to replace it 
+> by an invocation of `feed`.
 
 This especially makes sense in an OO language where a function is no standalone entity in your code,
 but rather part of a class, which represents a type itself.
@@ -177,53 +179,52 @@ This breaks the promises given by the parent.
 However, take a look at the following definition:
 
 ```txt
-foo > bar(Organism) : Animal
+take_care > feed(Organism) : void
 ```
 
 Does this definition ensures type safety? 
 It may seem backwards at first, but it does.
-`bar` still follows the contract specified by `foo`.
+`feed` still follows the contract specified by `take_care`.
 It can take `Animal` as an argument, and work just fine.
 
-In this case, `bar` widens the parameter types allowed, 
+In this case, `feed` widens the parameter types allowed, 
 while still respecting the parent's contract.
 These is called contravariance.
 Types in argument lists should be contravariant for a type system to be safe.
 
-Moving on, we'll apply the same thinking to return types:
+## Return type variance
+
+Moving on to return types. 
+There are a few more types we'll have to define, in order for the examples to make sense. 
+I'm sorry in advance for the choice of words!
 
 ```txt
-foo > bar(Animal) : Organism
-```
-
-Again, the question: is this type-safe? Unfortunately, the answer is no.
-
-From its parent's definition, `bar` should return the type `Animal`. 
-We can see the opposite problem arising if we widen the return type of this child implementation.
-
-```txt
-animal = foo(Animal)
-
-// vs
-
-animal = bar(Animal)
-```
-
-We'd expect bar to return `Animal`, based on the signature of `foo`. 
-However, in the above example though, calling `bar` allows to return `Organism`!
-
-Because `Organism` doesn't fully describe what `Animal` does, 
-there's again an area of undefined behaviour, which can cause runtime errors.
-The above example is not type-safe.
-
-The folowing, however, does respect the parent's signature:
-
-```txt
-foo > bar(Animal) : Cat
+Excretion > Poop
 ``` 
 
-Because `Cat` is a subtype of `Animal`, we can be a 100% sure that whatever `bar` returns, 
-it will be within the category of `Animal`.
+And these are the functions we're working with. 
+
+```txt
+take_care(Animal) : Excretion
+
+take_care > feed(Animal) : Poop
+```
+
+The question now: is the overridden return type safe?
+In contrast to the contravariance for a function's parameters, 
+this example is actually type safe!
+
+The parent definition `take_care` tells us that this function will always return 
+an object of type `Excretion`. 
+
+```txt
+excretion = take_care(Animal)
+
+excretion = feed(Animal)
+```
+
+Because `Poop` is a subtype of `Excretion`, we can be a 100% sure that whatever `feed` returns, 
+it will be within the category of `Excretion`.
 
 You see the opposite rule applies for return types compared to function parameters.
 In the case of return types, we're calling it covariance, or covariant types.
