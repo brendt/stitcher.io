@@ -1,5 +1,5 @@
 I've been fascinated by type systems in programming languages for a while now. 
-Recently, something clicked for me regarding inheritance and types.
+Recently, something clicked for me about inheritance and types.
 
 Not only did it clarify type variance, 
 I also understood what the Liskov substitution principle actually is about.
@@ -10,7 +10,7 @@ Today, I'm going to share these insights with you.
 I'll be writing pseudo code to make clear what I'm talking about. 
 So let's make sure you know what the syntax of this pseudo code will be.
 
-A function will be defined like so.
+A function is defined like so.
 
 ```txt
 foo(T) : void
@@ -40,7 +40,7 @@ foo(T)
 a = bar(S)
 ``` 
 
-Once again: it's just pseudo code and I'll use it to demonstrate what types are,
+Once again: it's all pseudo code and I'll use it to show what types are,
 how they can and cannot be defined in combination with inheritance, and 
 how this results in type-safe systems.
 
@@ -112,7 +112,7 @@ there's a piece of undocumented behaviour in our code.
 Without looking at the implementation of a function, there's a level of security 
 that this function will do the thing we expect. 
 When this contract is breached, there's a chance of runtime errors 
-that both the programmer and the compiler cannot anticipate.
+that both the programmer and the compiler cannot expect.
 
 So there's two factors responsible for not breaking the LSP, and thus avoiding undefined behaviour:
 the programmer itself and the language's design.
@@ -172,8 +172,7 @@ we're also applying the same principles to the function itself.
 This especially makes sense in an OO language where a function is no standalone entity in your code,
 but rather part of a class, which represents a type itself.
 
-In order to keep a system type-safe,
-it may not allow children to make the parameter types more specific.
+To keep a system type-safe, it may not allow children to make the parameter types more specific.
 This breaks the promises given by the parent.
 
 However, take a look at the following definition:
@@ -232,7 +231,7 @@ In the case of return types, we're calling it covariance, or covariant types.
 ## Real-life impact
 
 There' no guarantee that a type-safe language will always write a bug-free program.
-We've seen that the language design only carries half the responsibility regarding the LSP.
+We've seen that the language design only carries half the responsibility of respecting the LSP.
 The other half is the programmer's task.
 
 Languages differ though, all have their own type system, 
