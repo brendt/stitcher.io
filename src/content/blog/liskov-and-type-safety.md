@@ -61,7 +61,7 @@ These are the three types we'll be working with.
 Liskov tells us that wherever objects of type `Organism` appear in our code, 
 they must be replaceable by subtypes like `Animal` or `Cat`. 
 
-Let's say there's a function used to `feed` an organism. 
+Let's say there's a function used to `feed` an `Organism`. 
 
 ```txt
 feed(Organism) : void
@@ -97,37 +97,34 @@ This is what the LSP guards against.
 
 ## Benefits of the LSP
 
-Before exploring the details of type safety with inheritance, a very interesting topic; 
+Before exploring the details of type safety with inheritance, 
 we should stop and ask ourselves what's to gain by following this principle.
-
-I've explained what Barbara Liskov meant when she defined this principle,
+I've explained what Barbara Liskov meant when she defined it,
 but why is it necessary? Is it bad to break it?
 
 I mentioned the idea of a "promise" or "contract".
 If a function or type makes a promise about what it can do,
 we should be able to blindly trust it.
-If we can't rely on function `foo` being able to handle all `Organisms`,
+If we can't rely on function `feed` being able to feed all `Organisms`,
 there's a piece of undocumented behaviour in our code.
  
-Without looking at the implementation of a function, there's a level of security 
-that this function will do the thing we expect. 
-When this contract is breached, there's a chance of runtime errors 
-that both the programmer and the compiler cannot expect.
+If we know that the LSP is respected, there's a level of security.
+We may trust that this function will do the thing we expect; 
+even without looking at the implementation of that function. 
+When the contract is breached, however; there's a chance of runtime errors 
+that both the programmer and the compiler could not –or did not– anticipate for.
 
-So there's two factors responsible for not breaking the LSP, and thus avoiding undefined behaviour:
-the programmer itself and the language's design.
-It's the programmer's responsibility to write code that adheres to the LSP, 
-and the language can be designed as a type-safe language or not.
+In the above examples, we looked at respecting the LSP form the developer's point of view.
+There's another party involved though: a language's type system.
+A language can be designed in a type-safe way or not. 
+Types are the building blocks to mathematically proof whether a function will do the thing you want it to do.
+
+So, next up; we're going to look at the other side: type-safety on the language level.
 
 ## Type safety
 
-We've established what the LSP is, and its goal; 
-now we'll have to go one step further to fully grasp the consequences of a type-safe system.
-
-I've shown the LSP being used in the context of passing arguments to functions.
-Next we'll look at the function definitions themselves, and how the LSP applies there.
-
-We'll work with these functions:
+To understand how type safety can –or cannot– be guaranteed by a language,
+let's look at these functions. 
 
 ```php
 take_care(Animal) : void
@@ -137,14 +134,18 @@ take_care > feed(Animal) : void
 
 As you can see, `feed` extends `take_care` and follows its parent signature one-to-one.
 Some programming languages don't allow children to change the type signature of their parent.
-This is what's called type invariance.
-It's the easiest approach to handle type safety with inheritance.
+This is called type invariance.
 
-But when you look back at how our example types are related to each other,
+It's the easiest approach to handle type safety with inheritance,
+as types are not allowed to *vary* when inheriting.
+
+But when you think back at how our example types are related to each other,
 we know that `Cat` extends `Animal`.
-Let's think about whether the following is possible.
+Let's see whether the following is possible.
 
 ```txt
+take_care(Animal) : void
+
 take_care > feed(Cat) : void
 ```
 
@@ -178,6 +179,8 @@ This breaks the promises given by the parent.
 However, take a look at the following definition:
 
 ```txt
+take_care(Animal) : void
+
 take_care > feed(Organism) : void
 ```
 
@@ -251,10 +254,10 @@ That topic is out of scope for this blog post, but I might cover it in the futur
 
 With all these differences, there's one thing to keep in mind.
 The safety of a type system doesn't mean a language is better or worse.
-I think it's fair to say that some use cases would benefit from a very strong type system, 
+I think it's fair to say that some cases would benefit from a very strong type system, 
 while others need the exact opposite. 
 The key takeaway is that every programmer 
-should learn more than only the concepts and paradigms of the languages they are used to the most.
+should learn more than just the concepts and paradigms of the languages they are used to the most.
 A broadened view will be beneficial, now and in the future.
 
 So what's your opinion on type safety? 
