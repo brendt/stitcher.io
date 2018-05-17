@@ -1,6 +1,6 @@
-*This blog post aims to make you think about the way you use key bindings whilst programming. 
+This blog post aims to make you think about the way you use key bindings whilst programming. 
 You'll read about some techniques I use to assign key bindings, how to memorise them, and use them efficiently.
-But before we go on, I'll need to explain why spending time on key bindings is worth the effort.*
+But before we go on, I'll need to explain why spending time on key bindings is worth the effort.
   
 ## The need for keys
 
