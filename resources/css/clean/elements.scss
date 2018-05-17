@@ -95,6 +95,11 @@ blockquote {
 
     border-left: 6px solid $red;
 
+    @media (max-width: $width-base) {
+        padding-left: .5em;
+        padding-right: .5em;
+    }
+
     @media (max-width: $width-mobile) {
         margin: 1.5em 0;
     }
@@ -111,7 +116,7 @@ blockquote > p:last-child {
 }
 
 blockquote code {
-    font-size: .8em;
+    font-size: .7em;
 }
 
 code {
@@ -128,7 +133,7 @@ code {
 
 pre {
     max-width: calc(600px + 2rem);
-    margin-left: calc(50vw - 400px - 23px);
+    margin-left: calc(50vw - 400px - 10px);
     margin-top: 2rem;
     margin-bottom: 2rem;
 
