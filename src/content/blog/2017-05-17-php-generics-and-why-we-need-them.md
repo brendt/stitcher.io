@@ -18,8 +18,9 @@ foreach ($posts as $post) {
 }
 ```
 
-This is a scenario that happens often. And its this scenario we'll explore to discuss why generics are awesome, and why
- the PHP community desperately needs them.
+This is a scenario that happens often. 
+And it's this scenario we'll explore to discuss why generics are awesome, 
+and why the PHP community desperately needs them.
  
 Lets take a look at the problems of the above approach.
 
