@@ -6,3 +6,4 @@ vendor/
 /public/resources
 /public/sitemap.xml
 .env
+/data
