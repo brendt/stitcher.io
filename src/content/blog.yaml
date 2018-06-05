@@ -1,8 +1,15 @@
+acquisition-by-giants:
+    date: 2018-06-05
+    type: blog
+    title: Acquisition by giants
+    content: src/content/blog/2018-06-05-acquisition-by-giants.md
+    meta:
+        description: Microsoft acquired GitHub yesterday. What does this mean for the tech industry?
 liskov-and-type-safety:
     date: 2018-05-19
     type: blog
     title: Liskov and type safety
-    content: src/content/blog/liskov-and-type-safety.md
+    content: src/content/blog/2018-05-19-liskov-and-type-safety.md
     highlight: true
     meta:
         description: >
