@@ -16,17 +16,14 @@
                 <meta property="og:image" content="https://www.stitcher.io{{ meta.image.src }}"/>
                 <meta property="twitter:image" content="https://www.stitcher.io{{ meta.image.src }}"/>
                 <meta name="image" content="https://www.stitcher.io{{ meta.image.src }}"/>
+                <meta name="twitter:card" content="summary_large_image" />
             {% elseif post.meta.image.src is defined %}
                 <meta property="og:image" content="https://www.stitcher.io{{ post.meta.image.src }}"/>
                 <meta property="twitter:image" content="https://www.stitcher.io{{ post.meta.image.src }}"/>
                 <meta name="image" content="https://www.stitcher.io{{ post.meta.image.src }}"/>
-            {% else %}
-                <meta property="og:image" content="https://www.stitcher.io/resources/img/meta.png"/>
-                <meta property="twitter:image" content="https://www.stitcher.io/resources/img/meta.png"/>
-                <meta name="image" content="https://www.stitcher.io/resources/img/meta.png"/>
+                <meta name="twitter:card" content="summary_large_image" />
             {% endif %}
 
-            <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:creator" content="@brendt_gd" />
 
             <link rel="apple-touch-icon" sizes="180x180" href="/resources/img/favicon/apple-touch-icon.png">
