@@ -1,6 +1,6 @@
 Yesterday, Microsoft acquired GitHub. 
-While I don't think GitHub is in any immediate danger of becoming obsolete or feature bloated;
-we should think about what this acquisition, one of many; means.
+I don't think GitHub is in any immediate danger of becoming obsolete or feature bloated. 
+But we should think about what this acquisition, one of many; means.
 
 I say many, because GitHub isn't by far Microsoft's first big acquisition.
 Think of Skype and Nokia a few years back, or Linkedin and Minecraft more recently.
