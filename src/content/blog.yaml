@@ -1,3 +1,10 @@
+phpstorm-scopes:
+    date: 2018-06-07
+    title: Scopes in PHPStorm
+    content: src/content/blog/2018-06-07-phpstorm-scopes.md
+    meta:
+        description: Scopes can help you find files you're looking for much more easy.
+
 acquisition-by-giants:
     date: 2018-06-05
     type: blog
@@ -5,6 +12,7 @@ acquisition-by-giants:
     content: src/content/blog/2018-06-05-acquisition-by-giants.md
     meta:
         description: Microsoft acquired GitHub yesterday. What does this mean for the tech industry?
+
 liskov-and-type-safety:
     date: 2018-05-19
     type: blog
