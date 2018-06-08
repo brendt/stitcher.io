@@ -51,3 +51,9 @@ and saves a lot of time in the long run.
 PHPStorm also offers a default settings option though, 
 which will be used every every time you create a new project.
 Go to `File > Default Settings` and configure your default scopes and colours over there.
+
+<footer>
+    <nav class="spacer">
+        <a href="/blog/phpstorm-tips-for-power-users" class="cta">Read even more PHPStorm tips</a>
+    </nav>
+</footer>
