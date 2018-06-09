@@ -1,3 +1,13 @@
+visual-perception-of-code:
+    date: 2018-06-09
+    title: The Visual Perception of Code
+    highlight: true
+    content: src/content/blog/2018-06-09-visual-perception-of-code.md
+    meta:
+        description: >
+            Every programmer reads a lot of code on a daily basis.
+            Are there things you can do to make it easier?
+
 phpstorm-scopes:
     date: 2018-06-07
     title: Scopes in PHPStorm
