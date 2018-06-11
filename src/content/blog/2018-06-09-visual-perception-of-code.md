@@ -10,6 +10,9 @@ These are the links mentioned in the video:
 - [Mastering key bindings](/blog/mastering-key-bindings)
 - [Where a curly bracket belongs](/blog/where-a-curly-bracket-belongs)
 
+The colour scheme used is a port of Mozilla's Photon Light theme. 
+Here's the [PHPStorm version](*https://github.com/brendt/photon-light).
+
 <p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rDMI1dpNfdw?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 </p>
