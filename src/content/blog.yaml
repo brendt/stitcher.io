@@ -1,3 +1,9 @@
+service-locator-anti-pattern:
+    date: 2018-08-10
+    title: "Service locator: an anti-pattern"
+    highlight: true
+    content: src/content/blog/2018-08-10-service-locator-anti-pattern.md
+
 visual-perception-of-code:
     date: 2018-06-09
     title: The Visual Perception of Code
