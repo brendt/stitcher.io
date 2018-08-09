@@ -1,6 +1,5 @@
 As a Laravel developer, I'm confronted daily with the service locator pattern. 
-Every facade call is built upon it. 
-Many helper functions, in their turn, are wrappers around facades.
+Every facade call and several helper functions are built upon it.
 
 Let's take a look at a common facade call: `Auth::user()`.
 The `Auth` facade will reach into Laravel's service container, grab the registered component, 
@@ -47,7 +46,7 @@ I'll assume that you don't like a situation where a client tells you a productio
 and the issue can only be reproduced by taking several steps.
 
 As the name says, runtime error can only be discovered by running the program.
-Truth be told: PHP, being an interpreted language; highly leans towards these kind of erros.
+Truth be told: PHP, being an interpreted language; highly leans towards these kind of errors.
 You cannot know if a PHP program will work before running it.
 
 There's nothing wrong with that, but my argument here is that every place we can
