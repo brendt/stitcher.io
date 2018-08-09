@@ -3,6 +3,8 @@ service-locator-anti-pattern:
     title: "Service locator: an anti-pattern"
     highlight: true
     content: src/content/blog/2018-08-10-service-locator-anti-pattern.md
+    meta:
+        description: "Three arguments on why service locators are a bad idea."
 
 visual-perception-of-code:
     date: 2018-06-09
