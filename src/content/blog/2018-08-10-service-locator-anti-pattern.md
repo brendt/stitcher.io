@@ -45,7 +45,7 @@ so that you can fix them as early as possible.
 I'll assume that you don't like a situation where a client tells you a production project is broken,
 and the issue can only be reproduced by taking several steps.
 
-As the name says, runtime error can only be discovered by running the program.
+As the name says, runtime errors can only be discovered by running the program.
 Truth be told: PHP, being an interpreted language; highly leans towards these kind of errors.
 You cannot know if a PHP program will work before running it.
 
@@ -202,7 +202,7 @@ Here's a non-exhaustive list of questions popping into my head when writing this
 - Should I add an extra check, to be sure?
 - What context will this method be called from?
 - Are there any future features in the project's scope I need to take into account?
-- Sould I add a test to be sure this never breaks in the future?
+- Should I add a test to be sure this never breaks in the future?
 
 These are all such trivial questions, 
 and I need to think about them **every time I use a facade**. 
@@ -230,7 +230,7 @@ Seasoned Laravel developers will tell me this is the way the frameworks works an
 They are right, of course. 
 But making the assumption that "it will work" isn't good enough to me.
 At least, it's no argument against increased cognitive load, 
-as you're still left with a lot of question about the surrounding context.
+as you're still left with a lot of questions about the surrounding context.
 
 ## Dependency injection solves it
 
