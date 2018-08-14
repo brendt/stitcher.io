@@ -171,10 +171,13 @@ shorthand-comparisons-in-php:
 phpstorm-performance:
     date: 2017-10-22
     type: blog
-    title: PHPStorm's performance
+    title: Improving PHPStorm's performance
     teaserTitle: PHPStorm's performance
     content: src/content/blog/2017-10-22-phpstorm-performance.md
     discuss: true
+    meta:
+        description: Significantly improve PHPStorm's performance.
+
 stitcher-beta-2:
     date: 2017-08-27
     type: news

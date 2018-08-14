@@ -79,6 +79,15 @@ I personally don't write a lot of JavaScript, so I just remove the inclusion of 
 
 Managing directories requires a bit of time for each project, but it's worth the performance gain in the long run.
 
+## Font rendering on OSX
+
+There's a confirmed issue in the JRE with certain fonts. 
+While this might seem like a minor detail, certain fonts actually require a lot of processor power to render text,
+slowing down PHPStorm in its whole. 
+
+I've written a separate blog post on this issue, and how you can fix it. 
+You can read it [here](/blog/phpstorm-performance-issues-on-osx).
+
 ## On a personal note
 
 I didn't start this post by writing my own thoughts, because I figured people were looking for some quick tips to speed of their IDE.
