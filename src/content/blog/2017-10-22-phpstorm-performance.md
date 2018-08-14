@@ -94,3 +94,13 @@ I'll talk more about the benefits of an IDE over a text editor in another post.
 For now, I hope that you found these tips helpful. 
 
 Happy coding!
+
+---
+
+Ready for more? I've got a new blog post full of tips for PHPStorm users!
+
+<footer>
+    <nav class="spacer">
+        <a href="/blog/phpstorm-tips-for-power-users" class="cta">PHPStorm tips for power users</a>
+    </nav>
+</footer>
