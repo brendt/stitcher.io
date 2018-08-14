@@ -1,7 +1,7 @@
 On August 6 1991, Sir Tim Berners-Lee put online the first website ever.
-27 years have past since that first website was reachable via the world wide web.
-With the massive progression we've seen in the web world these past years, 
-I wonder where we'll be 27 years in the future, what the web will look like in 2045.
+It's been 27 years since that first website was reachable via the world wide web.
+With the massive progression we've seen throughout the web's lifetime, 
+I can't help but wonder what will happen in the next 27 years, what the web will look like in 2045.
 
 ## A brief history
 
@@ -26,11 +26,11 @@ by presenting the very first iPhone on January 8, 2007.
 
 Twenty-three years after the first mention of HTML, 
 modern websites found their identity as we know it today, 
-when HTML5 was made to formal recommendation by the W3C on October 28, 2014. 
+when HTML5 was made the formal recommendation by the W3C on October 28, 2014. 
 
 It's amazing to see how the web has evolved in less than three decades. 
 Not only its technical boundaries were pushed;
-people kept finding innovating ways for what the technology was used for.
+people also kept finding innovating ways for what the technology was used for.
 Think about sites like GeoCities or NeoPets; the first blog post written in *1997*;
 or some recent examples like [/r/place](*https://i.redd.it/agcbmqgjn14z.png) on Reddit 
 and an experience beyond words crafted by [SB Nation](*https://www.sbnation.com/a/17776-football).
@@ -38,7 +38,7 @@ and an experience beyond words crafted by [SB Nation](*https://www.sbnation.com/
 ## Today
 
 While the web's primary focus was to distribute content, 
-its users have shaped it in a completely different creation.
+its users have shaped it into a completely different, broader platform.
 
 It's only in more recent years that we've been able to observe – and be part of –
 the unique phenomenon of the JavaScript world. 
@@ -46,42 +46,42 @@ While the language has been around since the nineties,
 it were frameworks like Ember, Backbone and Angular that opened a whole new area the web could grow in.
 
 It's impossible to pinpoint an exact date on when people started looking at JavaScript as something more
-than a simple scripting language, but there are a few milestones worth mentioning.
+than a simple scripting language. But there are a few milestones worth mentioning.
 
 - jQuery's initial release in August, 2006.
 - AngularJS was released in October, 2010.
-- React saw the light in March, 2013
+- React saw the light in March, 2013.
 
 Especially with the modern frameworks, better syntax was required; 
 and projects like Babel came into view.
-This is where it starts to get real interesting: JavaScript becoming a compilation target, 
+This is where it starts to get real interesting: JavaScript in the browser becoming a compilation target, 
 for *other* languages.
 
 Gary Bernhardt, a well known public speaker; 
 said that, in order for JavaScript to become as successful as it is today, 
 it had to really suck. 
 It's only than that people start investing in alternatives. 
-And when JavaScript is the *only* thing that runs on the web, 
+And when JavaScript is the *only* thing that runs in the browsers, 
 people are really forced to think out of the box.
 
 With the arrival of frontend frameworks in JavaScript, 
 people had to invest in performance.
 On the one hand, browser vendors are doing amazing things with their JavaScript engines.
-On the other hand, one of the most creative, out of the box solutions; 
-must have been ASM.js. 
+On the other hand, one of the most creative, out of the box thinking, solutions; 
+must have been asm.js. 
 
-Here you have an optimised subset of JavaScript, being able to run; for example, a 3D game engine—in the browser.
-With ASM.js, and Web Assembly following; the browser can be used for yet another, completely different goal. 
+Here you have an optimised subset of JavaScript; being able to run, for example, a 3D game engine—in the browser.
+With asms.js, and Web Assembly following; the browser can be used for yet another, completely different goal. 
 
 It begs the question: what is "the web"?
 
-It's clear that, while the web originated as a platform to share documents, content; 
-that's not it's only goal anymore today. 
-Not only the browser is used to browser the web anymore, 
+It's clear that, while the web originated as a platform to share documents and content; 
+today it's not its only goal anymore. 
+The browser isn't just used to browse the web, 
 its technologies are also used in desktop applications.
 
 HTTP, HTML, CSS and JavaScript became technologies to make desktop applications and games;
-applications we're using to build the web, are built on these same technologies as the web.
+applications we're using to build the web, are built on the same technologies as the web.
 
 Does "the web today" refer to all these technologies and creations, 
 or just a collection of connected documents, built on top of the same technologies?
