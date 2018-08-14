@@ -71,36 +71,50 @@ On the other hand, one of the most creative, out of the box thinking, solutions;
 must have been asm.js. 
 
 Here you have an optimised subset of JavaScript; being able to run, for example, a 3D game engine—in the browser.
-With asms.js, and Web Assembly following; the browser can be used for yet another, completely different goal. 
+With asm.js, and Web Assembly following; the browser can be used for yet another, completely different goal. 
 
-It begs the question: what is "the web"?
+It begs the question: "what is the web?"
 
-It's clear that, while the web originated as a platform to share documents and content; 
-today it's not its only goal anymore. 
-The browser isn't just used to browse the web, 
-its technologies are also used in desktop applications.
-
-HTTP, HTML, CSS and JavaScript became technologies to make desktop applications and games;
-applications we're using to build the web, are built on the same technologies as the web.
+The technologies the web was built upon: HTTP, HTML, CSS and JavaScript,
+became technologies to make applications and games;
+some of the programs we use to build the web, 
+are themselves built on these same technologies.
 
 Does "the web today" refer to all these technologies and creations, 
 or just a collection of connected documents, built on top of the same technologies?
-Is the browser's goal still just that: browsing documents, 
-or has it become a platform for all kind of things, whather we can imagine? 
+Is the browser's goal still just that: browsing documents;
+or has it become a platform for all kinds of things, whatever we can imagine? 
 
 ## 2045
 
-By looking at 27 years of history, I can only try to grasp what will come in the next 27 years.
-I'm fairly confident of one thing though.
-we've made the browser into an immensly powerful beast, 
+With the web making such fast advances, 
+one can only wonder what it'll be a few decades from now.
 
-There will still be a place to browse content, to browse the web.
-It will be more separated than what we have today, as  
+One of the key changes will have to do with the sandbox we're all using today: the browser.
+Will applications stay confined to that browser window, 
+or will they break free and live as first-class programs on your operating system?
 
-What's your view for the web in 2045?
+The mobile world is already moving in this direction with progressive web apps.
+Chrome OS was completely built on top of the web, independent of the browser.
+But, some might argue, it was too much ahead of its time.
+
+Imagine a world where web apps can be "installed" via an app store; 
+where you don't need bookmarks or URLs anymore, but simply open an app, like we open te browser today.
+Obviously, being built on top of the web; these apps don't need to be installed, they just work, everywhere.
+
+Imagine a JavaScript and DOM engine built into your operating system. 
+No more Electron or Java for easy cross-platform programming.
+All programs can be shared, everything will be interconnected.
+
+And once all that is achieved, someone will come along, claiming a new invention:
+a simple web app for browsing and sharing content…
+
+---
+
+Hi, thanks for reading! What's your view for the web in 2045?
 Feel free to contact me on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io), 
 I'd love to chat!
 
-And if you're reading this in 2045: hi 👋;
+And if you're reading this in 2045:
 what's you're opinion on this post, looking back?
-Where will the web be in say, another 27 years?
+Where will the web be in, say, another 27 years?

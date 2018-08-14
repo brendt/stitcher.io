@@ -221,8 +221,23 @@ a:hover {
 }
 
 hr {
-    margin: 2rem auto;
-    opacity: 0;
+    margin-left: calc(50vw - 250px);
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    width: 20%;
+    border: 0;
+    background-color: #999;
+    height: 1px;
+
+    @media (max-width: $width-container) {
+        margin: 4rem auto;
+        width: 35%;
+    }
+
+    @media (max-width: $width-container-mobile) {
+        margin: 2rem auto;
+        width: 50%;
+    }
 }
 
 iframe {
