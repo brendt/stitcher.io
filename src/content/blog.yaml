@@ -3,6 +3,8 @@ the-web-in-2045:
     type: blog
     title: The web in 2045
     content: src/content/blog/the-web-in-2045.md
+    meta:
+        description: "A short history of the web, looking forward to 2045."
 
 service-locator-anti-pattern:
     date: 2018-08-10
