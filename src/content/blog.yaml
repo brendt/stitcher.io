@@ -1,7 +1,13 @@
+the-web-in-2045:
+    date: 2018-08-15
+    type: blog
+    title: The web in 2045
+    content: src/content/blog/the-web-in-2045.md
+
 service-locator-anti-pattern:
     date: 2018-08-10
     title: "Service locator: an anti-pattern"
-    highlight: true
+    highlight: false
     content: src/content/blog/2018-08-10-service-locator-anti-pattern.md
     meta:
         description: "Three arguments on why service locators are a bad idea."
