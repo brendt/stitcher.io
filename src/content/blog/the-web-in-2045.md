@@ -85,6 +85,8 @@ or just a collection of connected documents, built on top of the same technologi
 Is the browser's goal still just that: browsing documents;
 or has it become a platform for all kinds of things, whatever we can imagine? 
 
+{{ ad }}
+
 ## 2045
 
 With the web making such fast advances, 
