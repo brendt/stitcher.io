@@ -175,7 +175,7 @@ function (array $parameters = []) {
 }
 ```
 
----
+{{ ad }}
 
 Hi there, thanks for reading! I hope this blog post helped you!
 If you'd like to contact me, you can do so on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
