@@ -174,7 +174,7 @@ shorthand-comparisons-in-php:
     discuss:
         reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
     meta:
-        description: Taking a closer look at the ternary and null coalescing operators in PHP.
+        description: Taking a closer look at the ternary, null coalescing and spaceship operators in PHP.
 
 phpstorm-performance:
     date: 2017-10-22
