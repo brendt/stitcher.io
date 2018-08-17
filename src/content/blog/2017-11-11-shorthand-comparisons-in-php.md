@@ -221,7 +221,7 @@ Because lowercase letters come after uppercase ones in the ASCII table, they hav
 
 ### Comparing objects
 
-The spaceship can almost compare anything, even objects. 
+The spaceship operator can almost compare anything, even objects. 
 The way objects are compared is based on the kind of object. 
 Built-in PHP classes can define their own comparison, 
 while userland objects are compared based on their attributes and values.
