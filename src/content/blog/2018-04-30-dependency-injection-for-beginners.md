@@ -209,6 +209,8 @@ It's important to realise that there's limits to the benefits of everything.
 You should always be alert that you're not taking this to the extreme,
 as there are valid cases in which a pragmatic approach *is* the better solution.   
 
+{{ ad }}
+
 ## In closing
 
 The core idea behind dependency injection is very simple, 
@@ -225,5 +227,3 @@ feel free to reach out to me on via [Twitter](*https://twitter.com/brendt_gd) or
 
 Also special thanks to [/u/ImSuperObjective2](*https://www.reddit.com/user/ImSuperObjective2) on Reddit
 and my colleague [Sebastian](*https://twitter.com/sebdedeyne) for proof reading this post.
-
----

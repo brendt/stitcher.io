@@ -223,8 +223,6 @@ foreach ($things as $thing)
 }
 ```
 
-What do you think? [Let me know](*https://twitter.com/brendt_gd).
-
 ---
 
 If you're not convinced by now, I'd love to hear why!

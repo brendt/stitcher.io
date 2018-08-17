@@ -108,10 +108,4 @@ Happy coding!
 
 ---
 
-Ready for more? I've got a new blog post full of tips for PHPStorm users!
-
-<footer>
-    <nav class="spacer">
-        <a href="/blog/phpstorm-tips-for-power-users" class="cta">PHPStorm tips for power users</a>
-    </nav>
-</footer>
+Ready for more? I've got a new blog post full of [tips for PHPStorm users](/blog/phpstorm-tips-for-power-users)!

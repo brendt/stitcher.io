@@ -81,6 +81,8 @@ The width of this centered code view is configured in `Settings > Editor > Code 
     <img src="/resources/img/static/phpstorm-power-users/distraction-free.gif"/>
 </p>
 
+{{ ad }}
+
 ## Color inspection
 
 Do you want to know why a word is highlighted or change it?
@@ -91,6 +93,7 @@ the color of your current scheme, for that entry.
     <img src="/resources/img/static/phpstorm-power-users/colors-and-fonts.gif"/>
 </p>
 
-### Any more suggestions?
+## Any more suggestions?
 
-Let me know via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
+I'd love to hear your own tips on how to use PHPStorm. 
+Feel free to let me know via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).

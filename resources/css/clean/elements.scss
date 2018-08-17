@@ -188,6 +188,7 @@ img {
 footer {
     font-family: $font-body;
     margin-bottom: 2rem;
+    margin-top: 3rem;
     padding-top:1rem;
     padding-bottom:1rem;
 }
@@ -221,22 +222,27 @@ a:hover {
 }
 
 hr {
-    margin-left: calc(50vw - 250px);
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    width: 20%;
-    border: 0;
-    background-color: #999;
-    height: 1px;
+    @include wrapper();
 
-    @media (max-width: $width-container) {
-        margin: 4rem auto;
-        width: 35%;
+    position: relative;
+    height: 1px;
+    border: 0;
+    text-align: center;
+    margin: 4rem auto;
+
+    &::before {
+        display: inline-block;
+        border-bottom: solid #999 1px;
+        content: ' ';
+        width: 30%;
     }
 
     @media (max-width: $width-container-mobile) {
         margin: 2rem auto;
-        width: 50%;
+
+        &::before {
+            width: 90%;
+        }
     }
 }
 

@@ -46,7 +46,7 @@ Also think about inlining the important resources in your HTML pages, at least w
 
 A good place to go from here would be Tim Kadlec's blog: [https://timkadlec.com](*https://timkadlec.com/).
 
----
+{{ ad }}
 
 ### In summary
 
@@ -61,10 +61,3 @@ A good place to go from here would be Tim Kadlec's blog: [https://timkadlec.com]
 - Don't load all minified CSS or JS when you only need 10% of it on that page.
 
 Lot's of things to think about. This is my personal checklist I try to keep in mind when developing websites, both professionally and in my spare time. Like I said at the beginning of this post, you shouldn't always do everything just because. But you should understand these concepts, and know when it's appropriate to use them. By doing so, you're contributing to the better web.
-
-<div class="center spacer">
-    <p>Looking for more?</p>
-    <a href="/guide/setting-up" class="cta cta--highlight">Performance with Stitcher</a>
-</div>
-
----

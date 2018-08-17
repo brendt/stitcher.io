@@ -172,6 +172,8 @@ Furthermore, each package has its own configuration page with a lot of documenta
 
 ---
 
+{{ ad }}
+
 That was a lot of information! Some of the most important things summarized:
 
 **Visual Studio Code** is focused on Node and ASP.NET development. 

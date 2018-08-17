@@ -43,6 +43,8 @@ But also in the finder.
 
 ![File colours](/resources/img/blog/phpstorm-coloured-scopes/finder.png)
 
+{{ ad }}
+
 ## Defaults
 
 Setting up scopes shouldn't take longer than 10 minutes every project, 
