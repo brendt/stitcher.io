@@ -184,7 +184,7 @@ function (array $parameters = []) {
 
 ## Spaceship operator
 
-The spaceship operator, while having quiet a peculiar name, can be very useful.
+The spaceship operator, while having quite a peculiar name, can be very useful.
 It's an operator used for comparison. 
 It will always return one of three values: `0`, `-1` or `1`.
 
@@ -242,7 +242,7 @@ Of course, comparing dates is just one example, but a very useful one neverthele
 ### Sort functions
 
 One great use for this operator, is to sort arrays.
-There are quiet [a few ways](*http://php.net/manual/en/array.sorting.php) to sort an array in PHP,
+There are quite [a few ways](*http://php.net/manual/en/array.sorting.php) to sort an array in PHP,
 and some of these methods allow a user defined sort function.
 This function has to compare two elements, and return `1`, `0`, or `-1` based on their position.
 
