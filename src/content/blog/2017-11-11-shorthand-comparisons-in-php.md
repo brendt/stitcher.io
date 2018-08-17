@@ -1,4 +1,5 @@
-You've probably used the ternary `?:` and the null coalescing `??` operators in PHP. 
+You probably already know some comparison operators in PHP. 
+Things like the ternary `?:`, the null coalescing `??` and the spaceship `<=>` operators. 
 But do you really know how they work? 
 Understanding these operators makes you use them more, resulting in a cleaner codebase.
 
@@ -73,7 +74,8 @@ The reason because is that the ternary operator in PHP is left-associative, and 
 The above example would always evaluate the `$elseCondition` part first, so even when `$firstCondition` would be `true`, you'd never see its output.
 
 I believe the right thing to do is to avoid nested ternary operators alltogether.
-You can read more about this strange behaviour in this [Stack Overflow answer](*https://stackoverflow.com/questions/20559150/ternary-operator-left-associativity/38231137#38231137).
+You can read more about this strange behaviour 
+in this [Stack Overflow answer](*https://stackoverflow.com/questions/20559150/ternary-operator-left-associativity/38231137#38231137).
 
 ## Null coalescing operator
 
@@ -83,19 +85,19 @@ It similar to the ternary operator, but will behave like `isset` **on the leftha
 This makes this operator especially useful for arrays and assigning defaults when a variable is not set. 
 
 ```php
-var_dump($undefined ?? 'fallback'); // 'fallback'
+$undefined ?? 'fallback'; // 'fallback'
 
 $unassigned;
-var_dump($unassigned ?? 'fallback'); // 'fallback'
+$unassigned ?? 'fallback'; // 'fallback'
 
 $assigned = 'foo';
-var_dump($assigned ?? 'fallback'); // 'foo'
+$assigned ?? 'fallback'; // 'foo'
 
-var_dump('' ?? 'fallback'); // ''
-var_dump('foo' ?? 'fallback'); // 'foo'
-var_dump('0' ?? 'fallback'); // '0'
-var_dump(0 ?? 'fallback'); // 0
-var_dump(false ?? 'fallback'); // false
+'' ?? 'fallback'; // ''
+'foo' ?? 'fallback'; // 'foo'
+'0' ?? 'fallback'; // '0'
+0 ?? 'fallback'; // 0
+false ?? 'fallback'; // false
 ```
 
 The null coalescing operator takes two operands, making it a **binary operator**. 
@@ -115,12 +117,12 @@ $input = [
     ]
 ];
 
-var_dump($input['key'] ?? 'fallback'); // 'key'
-var_dump($input['nested']['key'] ?? 'fallback'); // true
-var_dump($input['undefined'] ?? 'fallback'); // 'fallback'
-var_dump($input['nested']['undefined'] ?? 'fallback'); // 'fallback'
+$input['key'] ?? 'fallback'; // 'key'
+$input['nested']['key'] ?? 'fallback'; // true
+$input['undefined'] ?? 'fallback'; // 'fallback'
+$input['nested']['undefined'] ?? 'fallback'; // 'fallback'
 
-var_dump(null ?? 'fallback'); // 'fallback'
+null ?? 'fallback'; // 'fallback'
 ```
 
 The first example could also be written using a ternary operator:
@@ -136,22 +138,25 @@ It will either trigger an error or return a boolean, instead of the real lefthan
 // Returns `true` instead of the value of `$input['key']`
 $output = isset($input['key']) ?: 'fallback' 
 
-// Will trigger an 'undefined index' notice when $output is no array or has no 'key'.
-// It will trigger an 'undefined variable' notice when $output doesn't exist.
+// The following will trigger an 'undefined index' notice 
+// when $output is no array or has no 'key'.
+//
+// It will trigger an 'undefined variable' notice 
+// when $output doesn't exist.
 $output = $input['key'] ?: 'fallback';
 ```
 
 ### Null coalesce chaining
 
 Like the ternary operator, the null coalescing operator can also be chained. 
-Its syntax is much more simpler than the ternary one.
+Its syntax is much more simple than the ternary's.
 
 ```php
 $input = [
     'key' => 'key',
 ];
 
-var_dump($input['undefined'] ?? $input['key'] ?? 'fallback'); // 'key'
+$input['undefined'] ?? $input['key'] ?? 'fallback'; // 'key'
 ```
 
 ### Null coalescing assignment operator
@@ -176,6 +181,94 @@ function (array $parameters = []) {
 ```
 
 {{ ad }}
+
+## Spaceship operator
+
+The spaceship operator, while having quiet a peculiar name, can be very useful.
+It's an operator used for comparison. 
+It will always return one of three values: `0`, `-1` or `1`.
+
+`0` will be returned when both operands are equals, 
+`1` when the left operand is larger, and `-1` when the right operand is larger.
+Let's take a look at a simple example:
+
+```php
+1 <=> 2; // Will return -1, as 2 is larger than 1.
+```
+
+This simple example isn't all that exiting, right? 
+However, the spaceship operator can compare a lot more than simple values!
+
+```php
+// It can compare strings,
+'a' <=> 'z'; // -1
+
+// and arrays,
+[2, 1] <=> [2, 1]; // 0
+
+// nested arrays,
+[[1, 2], [2, 2]] <=> [[1, 2], [1, 2]]; // 1
+
+// and even casing.
+'Z' <=> 'z'; // -1
+```
+
+Strangely enough, when comparing letter casing, the lowercase letter is considered the highest.
+There's a simple explanation though.
+String comparison is done by comparing character per character. 
+As soon as a character differs, their ASCII value is compared. 
+Because lowercase letters come after uppercase ones in the ASCII table, they have a higher value. 
+
+### Comparing objects
+
+The spaceship can almost compare anything, even objects. 
+The way objects are compared is based on the kind of object. 
+Built-in PHP classes can define their own comparison, 
+while userland objects are compared based on their attributes and values.
+
+When would you want to compare objects you ask? 
+Well, there's actually a very obvious example: dates.
+
+```php
+$dateA = DateTime::createFromFormat('Y-m-d', '2000-02-01');
+
+$dateB = DateTime::createFromFormat('Y-m-d', '2000-01-01');
+
+$dateA <=> $dateB; // Returns 1
+``` 
+
+Of course, comparing dates is just one example, but a very useful one nevertheless.
+
+### Sort functions
+
+One great use for this operator, is to sort arrays.
+There are quiet [a few ways](*http://php.net/manual/en/array.sorting.php) to sort an array in PHP,
+and some of these methods allow a user defined sort function.
+This function has to compare two elements, and return `1`, `0`, or `-1` based on their position.
+
+An excellent use case for the spaceship operator!
+
+```php
+$array = [5, 1, 6, 3];
+
+usort($array, function ($a, $b) {
+    return $a <=> $b;
+});
+
+// $array = [1, 3, 5, 6];
+```
+
+To sort descending, you can simply invert the comparison result:
+
+```php
+usort($array, function ($a, $b) {
+    return -($a <=> $b);
+});
+
+// $array = [6, 5, 3, 1];
+```
+
+---
 
 Hi there, thanks for reading! I hope this blog post helped you!
 If you'd like to contact me, you can do so on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
