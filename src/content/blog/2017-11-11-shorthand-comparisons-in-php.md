@@ -81,7 +81,7 @@ in this [Stack Overflow answer](*https://stackoverflow.com/questions/20559150/te
 
 Did you take a look at [the types comparison table](*http://php.net/manual/en/types.comparisons.php) earlier? 
 The null coalescing operator is available since PHP 7.0.
-It similar to the ternary operator, but will behave like `isset` **on the lefthand operand** instead of just using ts boolean value. 
+It similar to the ternary operator, but will behave like `isset` **on the lefthand operand** instead of just using its boolean value. 
 This makes this operator especially useful for arrays and assigning defaults when a variable is not set. 
 
 ```php
