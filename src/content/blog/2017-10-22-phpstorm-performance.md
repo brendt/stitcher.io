@@ -88,6 +88,8 @@ slowing down PHPStorm in its whole.
 I've written a separate blog post on this issue, and how you can fix it. 
 You can read it [here](/blog/phpstorm-performance-issues-on-osx).
 
+{{ ad }}
+
 ## On a personal note
 
 I didn't start this post by writing my own thoughts, because I figured people were looking for some quick tips to speed of their IDE.
