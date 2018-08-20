@@ -1,5 +1,5 @@
-On August 6 1991, Sir Tim Berners-Lee put online the first website ever.
-It's been 27 years since that first website was reachable via the world wide web.
+On August 6 1991, Sir Tim Berners-Lee put the world's first website online.
+It's been 27 years since that first website has been reachable via the world wide web.
 With the massive progression we've seen throughout the web's lifetime, 
 I can't help but wonder what will happen in the next 27 years, what the web will look like in 2045.
 
@@ -7,24 +7,23 @@ I can't help but wonder what will happen in the next 27 years, what the web will
 
 What better way to know the future, than to look at the past?
 There's an excellent blog called "[The History Of The Web](*https://thehistoryoftheweb.com/archives/)".
-Thanks to Jay Hoffman, the writer of the blog; 
-I've been fascinated by the roots of the web. For example:
+Thanks to Jay Hoffman, the writer of the blog, 
+I've been fascinated by the roots of the web.
 
-On August 6, 1991 Tim Berners-Lee puts online the first website.
-Only a few months later, on October 29 of the same year, 
-the first HTML draft is posted on the www-talk mailing list.
+On August 6, 1991 Tim Berners-Lee puts the first website online.
+A few months later, on October 29 of the same year, 
+the first HTML draft is posted on the *www-talk* mailing list.
 
-Three years went by when Netscape Navigator, the most popular browser of that time, 
+Three years went by until Netscape Navigator, the most popular browser at the time, 
 was released on October 13, 1994. 
-It took Microsoft almost a year longer to release their browser, Internet Explorer 1; 
-on August 15 of 1995. 
-And in December of 1996, the first iteration for CSS was conceptualised.
+It took Microsoft almost a year longer to release their own Internet Explorer 1 on August 15 of 1995. 
+In December of 1996, the first iteration for CSS was conceptualised.
 
 Mozilla released Firefox more than ten years after the beginning of the web in 2004.
 Only a few years later, Apple flipped the web to its mobile side 
 by presenting the very first iPhone on January 8, 2007.
 
-Twenty-three years after the first mention of HTML, 
+Twenty-three years after the first mention of HTML 
 modern websites found their identity as we know it today, 
 when HTML5 was made the formal recommendation by the W3C on October 28, 2014. 
 
@@ -60,14 +59,14 @@ for *other* languages and supersets.
 Gary Bernhardt, a well known public speaker; 
 said that, in order for JavaScript to become as successful as it is today, 
 it had to really suck. 
-It's only than that people start investing in alternatives. 
+It's only then that people start investing in alternatives. 
 And when JavaScript is the *only* thing that runs in the browsers, 
 people are really forced to think out of the box.
 
 With the arrival of frontend frameworks in JavaScript, 
-people had to invest in performance.
+people needed to start investing in performance.
 On the one hand, browser vendors are doing amazing things with their JavaScript engines.
-On the other hand, one of the most creative, out of the box thinking, solutions; 
+On the other hand, one of the most creative, out of the box thinking solutions; 
 must have been asm.js. 
 
 Here you have an optimised subset of JavaScript; being able to run, for example, a 3D game engine—in the browser.
@@ -78,7 +77,7 @@ It begs the question: "what is the web?"
 The technologies the web was built upon: HTTP, HTML, CSS and JavaScript,
 became technologies to make applications and games;
 some of the programs we use to build the web, 
-are themselves built on these technologies.
+are built on these same technologies themselves.
 
 Does "the web today" refer to all these technologies and creations, 
 or just a collection of connected documents, built on top of the same technologies?
@@ -89,22 +88,22 @@ or has it become a platform for all kinds of things, whatever we can imagine?
 
 ## 2045
 
-With the web making such fast advances, 
-one can only wonder what it'll be a few decades from now.
+With the web advancing so fast, 
+one can only wonder what it will look like a few decades from now.
 
-One of the key changes will have to do with the sandbox we're all using today: the browser.
+One of the key changes could be the sandbox we're all using today: the browser.
 Will applications stay confined to that browser window, 
 or will they break free and live as first-class programs on your operating system?
 
 The mobile world is already moving in this direction with progressive web apps.
 Chrome OS was completely built on top of the web, independent of the browser.
-But, some might argue, it was too much ahead of its time.
+But, some might argue, it was too ahead of its time.
 
 Imagine a world where web apps can be "installed" via an app store; 
 where you don't need bookmarks or URLs anymore, but simply open an app, like we open the browser today.
 Obviously, being built on top of the web; these apps don't need to be installed, they just work, everywhere.
 
-Imagine a JavaScript and DOM engine built into your operating system. 
+Imagine JavaScript and DOM engines baked into operating systems. 
 No more Electron or Java for easy cross-platform programming.
 All programs can be shared, everything will be interconnected.
 
