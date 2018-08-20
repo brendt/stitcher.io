@@ -55,7 +55,7 @@ than a simple scripting language. But there are a few milestones worth mentionin
 Especially with the modern frameworks, better syntax was required; 
 and projects like Babel came into view.
 This is where it starts to get real interesting: JavaScript in the browser becoming a compilation target, 
-for *other* languages.
+for *other* languages and supersets.
 
 Gary Bernhardt, a well known public speaker; 
 said that, in order for JavaScript to become as successful as it is today, 
