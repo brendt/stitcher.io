@@ -1,10 +1,10 @@
-{% extends '_partials/index_clean.twig' %}
+{% extends '_partials/index.twig' %}
 
 {% block head %}
     {{ parent() }}
 
-    {{ css.inline('resources/css/clean/blog.scss')|raw }}
-    {{ css.inline('resources/css/clean/overview.scss')|raw }}
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/overview.scss')|raw }}
 {% endblock %}
 
 {% block content %}
