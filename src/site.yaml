@@ -32,6 +32,3 @@
         collection:
             variable: post
             parameter: id
-
-/meta:
-    template: meta.twig
