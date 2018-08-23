@@ -25,6 +25,25 @@ h2 {
     font-size: 1.8em;
     font-weight: 400;
     margin-top: 1.3em;
+    position: relative;
+
+    & > small {
+        display: inline-block;
+        font-size: .5em;
+        border-radius: 5px;
+        background-color: $color-php;
+        color: #fff;
+        font-variant: small-caps;
+        position:relative;
+        top:-4px;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            padding: 1px 5px 4px 5px;
+            display: inline-block;
+        }
+    }
 }
 
 h3 {
