@@ -24,7 +24,6 @@ return [
         'resources/img/favicon/',
         'resources/img/meta.png',
         'resources/img/meta_small.png',
-        'resources/js/analytics.js',
     ],
 
     'errorPages' => [
