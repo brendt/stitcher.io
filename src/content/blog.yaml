@@ -1,6 +1,12 @@
+new-in-php-73:
+    date: 2018-11-01
+    title: New in PHP 7.3
+    content: src/content/blog/new-in-php-73.md
+    meta:
+        description: "PHP 7.3 has trailing function call commas, flexible Heredoc, the is_countable function and more."
+
 the-web-in-2045:
     date: 2018-08-15
-    type: blog
     title: The web in 2045
     content: src/content/blog/2018-08-15-the-web-in-2045.md
     meta:
