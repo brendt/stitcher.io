@@ -1,7 +1,7 @@
 ## `is_countable` <small>[rfc](*https://wiki.php.net/rfc/is-countable)</small>
 
 PHP 7.2 added a warning when counting uncountable objects. 
-The `is_countable` function can help preventing this warning.
+The `is_countable` function can help prevent this warning.
 
 ```php
 $count = is_countable($variable) ? count($variable) : null;
