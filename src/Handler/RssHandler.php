@@ -37,6 +37,6 @@ class RssHandler
             ['posts' => $posts]
         );
 
-        return new Response(200, [Header::make('Content-Type', 'application/xml;charset=UTF-8')], $rss);
+        return new Response(200, ['Content-Type' => 'application/xml;charset=UTF-8'], $rss);
     }
 }
