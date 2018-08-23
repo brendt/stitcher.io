@@ -24,7 +24,7 @@ array_key_last($array); // 'c'
 
 The original RFC
 
-## Flexibile Heredoc syntax <small>[rfc](*https://wiki.php.net/rfc/flexible_heredoc_nowdoc_syntaxes)</small>
+## Flexible Heredoc syntax <small>[rfc](*https://wiki.php.net/rfc/flexible_heredoc_nowdoc_syntaxes)</small>
 
 Heredoc can be a useful tool for larger strings, though they had a indentation quirck in the past.
 
@@ -50,6 +50,18 @@ This is especially useful when you're using Heredoc in an already nested context
 
 The whitespaces in front of the closing marker will be ignored on all lines.
 
+An important note: because of this change, some existing Heredocs might break, 
+when they are using the same closing marker in their body.
+
+```php
+$str = <<<FOO
+abcdefg
+    FOO
+FOO;
+
+// Parse error: Invalid body indentation level in PHP 7.3
+``` 
+
 ## Tailing commas in function calls <small>[rfc](*https://wiki.php.net/rfc/trailing-comma-function-calls)</small>
 
 What was already possible with arrays, can now also be done with function calls. 
@@ -62,16 +74,38 @@ $compacted = compact(
 );
 ```
 
+## Better type error reporting
+
+`TypeErrors` for integers and booleans used to print out that full name, 
+it has been changed to `int` and `bool`, to match the type hints in the code.
+
+```txt
+Argument 1 passed to foo() must be of the type int/bool
+```
+
+In comparison to PHP 7.2:
+
+```txt
+Argument 1 passed to foo() must be of the type 
+integer/boolean
+```
+
 ## JSON errors can be thrown <small>[rfc](*https://wiki.php.net/rfc/json_throw_on_error)</small>
 
 Previously, JSON parse errors were a hassle to debug. 
 The JSON functions now accept an extra option to make them throw an exception on parsing errors.
+This change obviously adds a new exception: `JsonException`.
 
 ```php
 json_encode($data, JSON_THROW_ON_ERROR);
 
 json_decode("invalid json", null, 512, JSON_THROW_ON_ERROR);
+
+// Throws JsonException
 ```
+
+While this feature is only available with the newly added option, 
+there's a chance it'll be the default behaviour in a future version.
 
 ## `list` reference assignment <small>[rfc](*https://wiki.php.net/rfc/list_reference_assignment)</small>
 
