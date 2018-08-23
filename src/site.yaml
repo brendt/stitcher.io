@@ -16,6 +16,8 @@
     variables:
         title: Blog
         posts: src/content/blog.yaml
+        meta:
+            description: "My personal thoughts on the web and programming."
     config:
         pagination:
             variable: posts
@@ -30,6 +32,8 @@
     template: blog/detail.twig
     variables:
         post: src/content/blog.yaml
+        meta:
+            description: "My personal thoughts on the web and programming."
     config:
         collection:
             variable: post
