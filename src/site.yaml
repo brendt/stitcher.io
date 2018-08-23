@@ -3,6 +3,8 @@
     variables:
         title: Blog
         posts: src/content/blog.yaml
+        meta:
+            description: "My personal thoughts on the web and programming."
     config:
         order:
             variable: posts
