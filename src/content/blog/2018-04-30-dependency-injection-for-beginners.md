@@ -96,7 +96,7 @@ we'd rather have `Car` do one thing, and do it good: drive.
 
 This means it shouldn't be the car's concern how its engine is built, 
 what wheels it has attached. 
-It should only know the follwing thing:
+It should only know the following thing:
 
 > Given a working engine and four wheels, I'm able to drive!
 
