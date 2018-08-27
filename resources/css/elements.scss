@@ -149,7 +149,9 @@ code {
     font-family: $font-code;
     background-color: darken(#fff, 5);
     color: #000;
+}
 
+p code, ul code {
     @media (max-width: $width-container-mobile-lrg) {
         overflow-wrap: break-word;
     }
