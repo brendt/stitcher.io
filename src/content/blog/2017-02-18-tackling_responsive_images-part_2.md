@@ -1,4 +1,4 @@
-In my [previous post](/blog/tackling_repsonsive_images-part_1), I wrote about the idea behind integrating responsive images and Stitcher. A pretty robust library came to be. You could throw it any image, and it would generate a set of variations of that images, scaled down for multiple devices. It returned an object, which Stitcher parsed into a template variable. In templates, the following is now possible.
+In my [previous post](/blog/tackling_responsive_images-part_1), I wrote about the idea behind integrating responsive images and Stitcher. A pretty robust library came to be. You could throw it any image, and it would generate a set of variations of that images, scaled down for multiple devices. It returned an object, which Stitcher parsed into a template variable. In templates, the following is now possible.
 
 ```html
 <img src="{$image.src}" srcset="{$image.srcset}" sizes="{$image.sizes}" />
