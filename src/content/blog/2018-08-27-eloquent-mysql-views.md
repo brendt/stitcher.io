@@ -101,7 +101,7 @@ especially since there are a lot of other "normal" models in this project.
 
 ### Finding the middle ground
 
-Looking at all the possible solutions, we can make a simply list of requirments:
+Looking at all the possible solutions, we can make a simple list of requirements:
 
 - As less overhead as possible in the code base.
 - Good performance.
