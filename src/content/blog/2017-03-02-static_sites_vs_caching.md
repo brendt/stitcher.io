@@ -20,7 +20,7 @@ Another "downside" of static websites? It requires a bit more thought of the dev
 
 So static websites do have their downsides. But take a look at the things you're able to "plug in" that HTML rendering core:
 
-- [Image optimisation](/blog/tackling_repsonsive_images-part_1): enabling the developer to use the responsive images specification to its full extent, without any work.
+- [Image optimisation](/blog/tackling_responsive_images-part_1): enabling the developer to use the responsive images specification to its full extent, without any work.
 - SASS precompiling: I'm not a frontend developer, but these guys tell me that's a must.
 - Pagination, overviews and detail pages.
 - Parse MarkDown, YAML and JSON into templates and use those templates like in any dynamic system.

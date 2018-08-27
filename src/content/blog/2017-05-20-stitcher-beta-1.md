@@ -1,4 +1,4 @@
-The first beta release of Stitcher has arrived. Together with a lot of bugfixes, the website has been given some more love. You'll also find a lot more documentation in the [guide](/guide/setting-up).
+The first beta release of Stitcher has arrived. Together with a lot of bugfixes, the website has been given some more love.
 
 ### Installation
 
