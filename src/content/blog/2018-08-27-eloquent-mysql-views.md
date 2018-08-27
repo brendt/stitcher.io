@@ -37,7 +37,7 @@ Schema::create('meter_readings', function (Blueprint $table) {
 ```
 
 Now the client asks us to generate reports based on this raw data.
-He want to see an overview of the units, where every row represents 
+He wants to see an overview of the units, where every row represents 
 the readings for that unit, on that day, and whether all readings were done or not.
 
 In short, he wants to see this:
