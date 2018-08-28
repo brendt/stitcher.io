@@ -126,7 +126,6 @@ In this case, it generates the table listed above. This is it:
 ```sql
 SELECT 
     unit_id
-    , units.residence_id
     , user_id
     , DATE_FORMAT(`date`, '%Y-%m-%d') AS day
     , COUNT(CASE WHEN type = 'electricity' THEN type END) AS `electricity`
@@ -135,11 +134,9 @@ SELECT
     
 FROM 
     meter_readings
-    INNER JOIN units ON unit_id = units.id
     
 GROUP BY
     unit_id
-    , residence_id
     , user_id
     , day
 ;
