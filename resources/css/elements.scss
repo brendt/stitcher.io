@@ -154,6 +154,7 @@ code {
 p code, ul code {
     @media (max-width: $width-container-mobile-lrg) {
         overflow-wrap: break-word;
+        word-break: break-word;
     }
 }
 
