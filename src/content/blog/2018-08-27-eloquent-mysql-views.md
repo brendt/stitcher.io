@@ -128,9 +128,12 @@ SELECT
     unit_id
     , user_id
     , DATE_FORMAT(`date`, '%Y-%m-%d') AS day
-    , COUNT(CASE WHEN type = 'electricity' THEN type END) AS `electricity`
-    , COUNT(CASE WHEN type = 'water' THEN type END) AS `water`
-    , COUNT(CASE WHEN type = 'gas' THEN type END) AS `gas`
+    , COUNT(CASE WHEN type = 'electricity' THEN type END) 
+        AS `electricity`
+    , COUNT(CASE WHEN type = 'water' THEN type END) 
+        AS `water`
+    , COUNT(CASE WHEN type = 'gas' THEN type END) 
+        AS `gas`
     
 FROM 
     meter_readings
