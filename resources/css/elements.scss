@@ -42,6 +42,10 @@ h2 {
             text-decoration: none;
             padding: 1px 5px 4px 5px;
             display: inline-block;
+
+            @media (max-width: $width-container-mobile-lrg) {
+                text-decoration: underline;
+            }
         }
     }
 }
