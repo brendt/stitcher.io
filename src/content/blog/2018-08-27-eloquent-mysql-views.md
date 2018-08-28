@@ -12,7 +12,8 @@ You're able to query this view just like you would query a normal table.
 The power of views is twofold:
 
 - Complex queries with joins and unions can be represented as a queryable table on their own.
-- MySQL is very smart in how it composes these views, resulting in performance gains.
+- MySQL is generally smarter than us when it comes to querying data. 
+Compared to using collections or array functions in PHP, there's a big performance gain.
 
 Let's look at a real-life example, to demonstrate these principles.
 
@@ -189,6 +190,10 @@ SQL;
 ```
 
 You notice I prefer Heredoc in these cases, a separate SQL file is of course equally good.
+
+Michael Dyrynda pointed out to me that there's a `--drop-views` flag you can pass to the migrate command.
+So, technically, this manual dropping isn't required. 
+I prefer this way though, because now we don't have to remember to add the extra flag. 
 
 Next up, the `createView` method returns the query, with some added syntax. 
 I've shortened the sample a bit, but you get the point.
