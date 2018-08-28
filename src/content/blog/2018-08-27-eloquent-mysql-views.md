@@ -125,41 +125,23 @@ In this case, it generates the table listed above. This is it:
 
 ```sql
 SELECT 
-    `parent`.`unit_id`,
-    `parent`.`user_id`,
-    DATE_FORMAT(`parent`.`date`, '%Y-%m-%d') AS `day`,
-    (
-        SELECT count(*)
-        FROM `meter_readings` AS `electricity`
-        WHERE
-            `electricity`.`unit_id` = `parent`.`unit_id`
-            AND DATE_FORMAT(`electricity`.`date`, '%Y-%m-%d') = `day`
-            AND `electricity`.`type` = "electricity"
-    ) AS `electricity`,
-    (
-        SELECT count(*)
-        FROM `meter_readings` AS `water`
-        WHERE
-            `water`.`unit_id` = `parent`.`unit_id`
-            AND DATE_FORMAT(`water`.`date`, '%Y-%m-%d') = `day`
-            AND `water`.`type` = "water"
-    ) AS `water`,
-    (
-        SELECT count(*)
-        FROM `meter_readings` AS `gas`
-        WHERE
-            `gas`.`unit_id` = `parent`.`unit_id`
-            AND DATE_FORMAT(`gas`.`date`, '%Y-%m-%d') = `day`
-            AND `gas`.`type` = "gas"
-    ) AS `gas`
-
-FROM
-    `meter_readings` AS `parent`
-
-GROUP BY 
-    `parent`.`unit_id`, 
-    `parent`.`user_id`, 
-    `day`    
+    unit_id
+    , units.residence_id
+    , user_id
+    , DATE_FORMAT(`date`, '%Y-%m-%d') AS day
+    , COUNT(CASE WHEN type = 'electricity' THEN type END) AS `electricity`
+    , COUNT(CASE WHEN type = 'water' THEN type END) AS `water`
+    , COUNT(CASE WHEN type = 'gas' THEN type END) AS `gas`
+    
+FROM 
+    meter_readings
+    INNER JOIN units ON unit_id = units.id
+    
+GROUP BY
+    unit_id
+    , residence_id
+    , user_id
+    , day
 ;
 ```
 
@@ -204,8 +186,7 @@ I've shortened the sample a bit, but you get the point.
         return <<<SQL
 CREATE VIEW `meter_reading_reports` AS
 
-SELECT `parent`.`unit_id`,
-       // ... The rest of the query
+SELECT /* … The query */
 SQL;
     }
 ```
