@@ -223,5 +223,5 @@ It is actually possible to do it in MySQL, but completely irrelevant to our use 
 
 Maybe you can already see some use cases where MySQL views might be useful?
 Maybe you have a followup question or remark? 
-I'd love to hear from you! 
+I'd love to hear from you!
 You can reach me on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
