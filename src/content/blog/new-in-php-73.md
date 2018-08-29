@@ -22,7 +22,12 @@ array_key_first($array); // 'a'
 array_key_last($array); // 'c'
 ```
 
-The original RFC
+The original RFC also proposed `array_value_first` and `array_value_last`, 
+but these were voted against by the majority of people. 
+
+Another idea for `array_first` and `array_last` was proposed which would return a tuple `[$key => $value]`,
+but opinions were mixed. 
+For now we only have two functions to get the first and last key of an array. 
 
 ## Flexible Heredoc syntax <small>[rfc](*https://wiki.php.net/rfc/flexible_heredoc_nowdoc_syntaxes)</small>
 
