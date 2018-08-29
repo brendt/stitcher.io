@@ -109,9 +109,10 @@ nav.overview > header {
     color: #000;
     border: none;
     min-height: 400px;
+    display: block;
+    padding: .5em;
 
     @media (max-width: $width-base) {
-        padding: 0 .5em;
         min-height: auto;
 
         h1 {
@@ -141,4 +142,11 @@ aside {
 footer > nav {
     padding-right: 0;
     text-align: center;
+}
+
+.search-suggestion {
+    text-decoration: underline;
+    cursor:pointer;
+    text-decoration-skip: ink;
+    text-decoration-color: $red;
 }

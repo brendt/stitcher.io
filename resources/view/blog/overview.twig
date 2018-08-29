@@ -22,19 +22,45 @@
 
             <div>
                 <input
-                    type="text"
-                    id="search"
-                    placeholder="/search…"
-                    onfocus="this.placeholder = ''"
-                    onblur="this.placeholder = '/search…'"
+                        type="text"
+                        id="search"
+                        placeholder="/search…"
+                        onfocus="this.placeholder = ''"
+                        onblur="this.placeholder = '/search…'"
                 />
             </div>
+
+            <p>
+                A few examples:
+                <span class="search-suggestion" data-search-suggestion="PhpStorm">PhpStorm</span>,
+                <span class="search-suggestion" data-search-suggestion="PHP">PHP</span>,
+                <span class="search-suggestion" data-search-suggestion="Type">Type</span>
+            </p>
         </header>
+
+        <div id="empty-result" class="hidden">
+            <h1>
+                Oh oh…
+            </h1>
+
+            <p>
+                Unfortunately, I haven't written about your query yet.
+                It might as well be a bogus thing you asked, I don't know…
+            </p>
+
+            <p>
+                You can try a few other things though:
+                <span class="search-suggestion" data-search-suggestion="Cognitive load">Cognitive load</span>,
+                <span class="search-suggestion" data-search-suggestion="Performance">Performance</span>,
+                <span class="search-suggestion" data-search-suggestion="MySQL">MySQL</span>
+            </p>
+        </div>
+
         {% for post in posts %}
             <a
-                href="/blog/{{ post.id }}"
-                {% if post.highlight is defined and post.highlight %}class="cta"{% endif %}
-                data-search="{{ post.title }} {{ post.meta.description }}"
+                    href="/blog/{{ post.id }}"
+                    {% if post.highlight is defined and post.highlight %}class="cta"{% endif %}
+                    data-search="{{ post.title }} {{ post.meta.description }}"
             >
                 {% if post.title is defined %}
                     <h1>
@@ -76,7 +102,8 @@
 
         <p>
             follow me:
-            <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a> - <a href="/rss" target="_blank" rel="noopener noreferrer">RSS</a> -
+            <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a> -
+            <a href="/rss" target="_blank" rel="noopener noreferrer">RSS</a> -
             <a href="https://github.com/brendt" target="_blank" rel="noopener noreferrer">GitHub</a>
         </p>
 
@@ -92,6 +119,8 @@
 
         const links = document.querySelectorAll('[data-search]');
 
+        const empty = document.querySelector('#empty-result');
+
         searchBar.addEventListener('keyup', (event) => {
             if (event.keyCode === 27) {
                 cancelSearch();
@@ -99,7 +128,7 @@
                 return;
             }
 
-            filter(searchBar.value.toLowerCase());
+            filter(searchBar.value);
         });
 
         function cancelSearch() {
@@ -111,8 +140,15 @@
         }
 
         function filter(query) {
+            query = query
+                ? query.toLowerCase()
+                : null;
+
+            let matchCount = 0;
+
             for (let link of links) {
-                if (! query) {
+                if (!query) {
+                    matchCount += 1;
                     link.classList.remove('hidden');
 
                     continue;
@@ -121,12 +157,20 @@
                 const searchValue = link.getAttribute('data-search');
 
                 if (searchValue.toLowerCase().includes(query)) {
+                    matchCount += 1;
+
                     link.classList.remove('hidden');
 
                     continue;
                 }
 
                 link.classList.add('hidden');
+            }
+
+            if (matchCount === 0) {
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
             }
         }
 
@@ -139,5 +183,19 @@
 
             event.preventDefault();
         });
+
+        const suggestions = document.querySelectorAll('.search-suggestion');
+
+        for (let suggestion of suggestions) {
+            suggestion.addEventListener('click', function () {
+                const suggestionValue = suggestion.getAttribute('data-search-suggestion');
+
+                searchBar.focus();
+
+                searchBar.value = suggestionValue;
+
+                filter(suggestionValue);
+            });
+        }
     </script>
 {% endblock %}
