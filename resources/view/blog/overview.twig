@@ -17,14 +17,19 @@
             <p>
                 Hi! My name is Brent, I'm a 24-year old programmer living in Belgium.
                 I write about the web, PHP and programming in general.
+                I'm also <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a>.
             </p>
 
-            <p>
-                If you'd like to contact me, you can find me on <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a>.
-            </p>
+            <div>
+                <input type="text" id="search" placeholder="search…"/>
+            </div>
         </header>
         {% for post in posts %}
-            <a href="/blog/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="cta"{% endif %}>
+            <a
+                href="/blog/{{ post.id }}"
+                {% if post.highlight is defined and post.highlight %}class="cta"{% endif %}
+                data-search="{{ post.title }} {{ post.meta.description }}"
+            >
                 {% if post.title is defined %}
                     <h1>
                         {{ post.title }}
@@ -75,4 +80,58 @@
     </footer>
 {% endblock %}
 
-{% block footer %}{% endblock %}
+{% block footer %}
+    <script>
+        const searchBar = document.querySelector('#search');
+
+        const links = document.querySelectorAll('[data-search]');
+
+        searchBar.addEventListener('keyup', (event) => {
+            if (event.keyCode === 27) {
+                cancelSearch();
+
+                return;
+            }
+
+            filter(searchBar.value.toLowerCase());
+        });
+
+        function cancelSearch() {
+            searchBar.value = '';
+
+            searchBar.blur();
+
+            filter(null);
+        }
+
+        function filter(query) {
+            for (let link of links) {
+                if (! query) {
+                    link.classList.remove('hidden');
+
+                    continue;
+                }
+
+                const searchValue = link.getAttribute('data-search');
+
+                if (searchValue.toLowerCase().includes(query)) {
+                    link.classList.remove('hidden');
+
+                    continue;
+                }
+
+                link.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key !== '/') {
+                return;
+            }
+
+            searchBar.focus();
+
+            event.preventDefault();
+        });
+    </script>
+{% endblock %}
