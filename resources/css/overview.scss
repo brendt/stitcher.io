@@ -150,3 +150,9 @@ footer > nav {
     text-decoration-skip: ink;
     text-decoration-color: $red;
 }
+
+nav.overview *.search-container {
+    @media (max-width: $width-base) {
+        display: none;
+    }
+}
