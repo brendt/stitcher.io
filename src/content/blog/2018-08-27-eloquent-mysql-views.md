@@ -15,7 +15,18 @@ The power of views is twofold:
 - MySQL is generally smarter than us when it comes to querying data. 
 Compared to using collections or array functions in PHP, there's a big performance gain.
 
-Let's look at a real-life example, to demonstrate these principles.
+There's also a caveat to using views though. 
+Depending on the kind of query, MySQL will need to construct an "in memory" table representing the view, at runtime.
+This operation is called table materialization and happens when using certain keywords like `GROUP BY`, or aggregated functions.
+
+The takeaway is that views might actually hurt query performance, 
+depending on the kind of query you're executing.
+As with all things, views are a good solution for some problems, but a terrible idea for others.
+Use them wisely, and read up on their restrictions [here](*https://dev.mysql.com/doc/refman/8.0/en/view-restrictions.html).
+
+## Views and their alternatives
+
+Let's look at a real-life example, to demonstrate how we could solve a given problem.
 
 We've got a model `MeterReading` which logs a meter reading done in an apartment building.
 Every unit in the building has its own electricity, water and gas meters.
