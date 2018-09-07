@@ -1,3 +1,10 @@
+laravel-view-models:
+    date: 2018-09-10
+    title: Laravel view models
+    content: src/content/blog/2018-09-10-laravel-viewmodels.md
+    meta:
+        description: "View models are simple classes which prepare data for a view, instead of directly relying on the models themselves."
+
 eloquent-mysql-views:
     date: 2018-08-27
     title: Eloquent MySQL views
@@ -8,7 +15,7 @@ eloquent-mysql-views:
 new-in-php-73:
     date: 2018-08-20
     title: New in PHP 7.3
-    content: src/content/blog/new-in-php-73.md
+    content: src/content/blog/2018-08-20-new-in-php-73.md
     meta:
         description: "PHP 7.3 has trailing function call commas, flexible Heredoc, the is_countable function and more."
 
