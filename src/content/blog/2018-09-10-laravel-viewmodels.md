@@ -285,4 +285,4 @@ You don't need anything to get started by the way.
 All Laravel gimmicks listed above are optional and can be added depending on your use case.
 
 And just in case you'd like to use Laravel gimmicks, we've got a package for it: 
-[spatie/laravel-viewmodels](*https://github.com/spatie/laravel-viewmodels) 🤗.
+[spatie/laravel-viewmodels](*https://github.com/spatie/laravel-view-models) 🤗.
