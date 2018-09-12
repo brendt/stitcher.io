@@ -7,7 +7,7 @@ In essence, view models are simple classes that take some data,
 and transform it into something usable for the view.
 In this post I'll show you the basic principles of the pattern, 
 we'll take a look at how they integrate in Laravel projects,
-and finally I'll show you how we use the pattern in one of [Spatie](*https://spatie.be), our company projects.
+and finally I'll show you how we use the pattern in one of [Spatie](*https://spatie.be)'s, our company, projects.
 
 Let's get started. 
 Say you have a form to create a blog post with a category.
