@@ -7,7 +7,7 @@ In essence, view models are simple classes that take some data,
 and transform it into something usable for the view.
 In this post I'll show you the basic principles of the pattern, 
 we'll take a look at how they integrate in Laravel projects,
-and finally I'll show you how we use the pattern in one of our Spatie projects.
+and finally I'll show you how we use the pattern in one of the [Spatie](*https://spatie.be), our company projects.
 
 Let's get started. 
 Say you have a form to create a blog post with a category.
@@ -285,4 +285,4 @@ You don't need anything to get started by the way.
 All Laravel gimmicks listed above are optional and can be added depending on your use case.
 
 And just in case you'd like to use Laravel gimmicks, we've got a package for it: 
-[spatie/laravel-viewmodels](*https://github.com/spatie/laravel-view-models) 🤗.
+[spatie/laravel-view-models](*https://github.com/spatie/laravel-view-models) 🤗.
