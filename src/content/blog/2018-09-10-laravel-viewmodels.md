@@ -1,17 +1,17 @@
-A view model is an abstraction used to simplify controller and model code.
-View models are responsible for providing data for a view, 
+View models are an abstraction to simplify controller and model code.
+View models are responsible for providing data to a view, 
 which would otherwise come directly from the controller or the model.
 They allow a better separation of concerns, and provide more flexibility for the developer.
 
-In essence, view models are simple classes that can take a given set of data, 
-and transform that data into something usable for the view.
-In this post I'll show you some of the basic principles of the pattern, 
+In essence, view models are simple classes that take some data, 
+and transform it into something usable for the view.
+In this post I'll show you the basic principles of the pattern, 
 we'll take a look at how they integrate in Laravel projects,
-and finally I'll show you how we use it in one of our Spatie projects.
+and finally I'll show you how we use the pattern in one of our Spatie projects.
 
-So let's get started. 
-Say you have a form to create a blog post for a given category.
-You will need a way to fill the select box in your view with category options. 
+Let's get started. 
+Say you have a form to create a blog post with a category.
+You'll need a way to fill the select box in the view with category options. 
 The controller has to provide those.
 
 ```php
@@ -36,9 +36,9 @@ public function edit(Post $post)
 }
 ```
 
-Suddenly there's a new business requirement: 
+Next there's a new business requirement: 
 users should be restricted in which categories they are allowed to post in.
-This means the category selection should be restricted based on the user.
+In other words: the category selection should be restricted based on the user.
 
 ```php
 return view('blog.form', [
@@ -51,10 +51,43 @@ return view('blog.form', [
 This approach doesn't scale. 
 You'll have to change code both in the `create` and `edit` method.
 Can you imagine what happens when you need to add tags to a post?
-Or if there's a special admin form which also needs these categories and tags?
+Or if there's another special admin form for creating and editing posts?
+
+The next solution is to have the post model itself provide the categories, like so:
+
+```php
+class Post extends Model
+{
+    public static function allowedCategories(): Collection 
+    {
+        return Category::query()
+            ->allowedForUser(current_user())
+            ->get();
+    }
+}
+```
+
+There are numerous reasons why this is a bad idea, though it happens often in Laravel projects.
+Let's focus on the most relevant problem for our case: it still allows for duplication.
+
+Say there's a new model `News` which also needs the same category selection.
+This causes again duplication, but on the model level instead of in the controllers.
+
+Another option is to put the method on the `User` model.
+This makes the most sense, but also makes maintenance harder.
+Imagine we're using tags as mentioned before. 
+They don't rely on the user. 
+Now we need to get the categories from the user model, and tags from somewhere else.
+
+I hope it's clear that using models as data providers for views also isn't the golden bullet.
+
+In summary, wherever you try to get the categories from, 
+there always seems to be some code duplication.
+This makes it harder to maintain and reason about the code.
 
 This is where view models come into play. 
-They encapsulate this logic so that it can be reused in different places.
+They encapsulate all this logic so that it can be reused in different places.
+They have one responsibility and one responsibility only: providing the view with the correct data.
 
 ```php
 class PostFormViewModel
@@ -83,9 +116,10 @@ Let's name a few key features of such a class:
 
 - All dependencies are injected, this gives the most flexibility to the outside.
 - The view model exposes some methods that can be used by the view.
-- There will always be a post provided to support both creating and editing in the form.
+- There will either be a new or existing post provided by the `post` method, 
+depending on whether your creating or editing a post.
 
-This is how our controller now looks:
+This is what the controller looks like:
 
 ```php
 class PostsController
@@ -111,6 +145,21 @@ class PostsController
 }
 ```
 
+And finally the view can use it like so:
+
+```html
+<input value="{{ $viewModel->post()->title }}" />
+<input value="{{ $viewModel->post()->body }}" />
+
+<select>
+    @foreach ($viewModel->categories() as $category)
+        <option value="{{ $category->id }}">
+            {{ $category->name }}
+        </option>
+    @endforeach
+</select>
+``` 
+
 These are the two benefits of using view models: 
 
 - They encapsulate the logic
@@ -118,10 +167,11 @@ These are the two benefits of using view models:
 
 ## View models in Laravel
 
-The previous example showed a simple class with some methods. 
-Within a Laravel project, there are a few more possibilities though.
+The previous example showed a simple class with some methods.
+This is enough to use the pattern,
+but within Laravel projects, there are a few more niceties we can add.
 
-You can pass a view model directly to the `view` function if the view model implements `Arrayable`. 
+For example, you can pass a view model directly to the `view` function if the view model implements `Arrayable`. 
 
 ```php
 public function create()
@@ -135,8 +185,22 @@ public function create()
 ```
 
 The view can now directly use the view model's properties like `$post` and `$categories`.
+The previous example now looks like this:
 
-You can also return the view model itself, by implementing `Responsable`. 
+```html
+<input value="{{ $post->title }}" />
+<input value="{{ $post->body }}" />
+
+<select>
+    @foreach ($categories as $category)
+        <option value="{{ $category->id }}">
+            {{ $category->name }}
+        </option>
+    @endforeach
+</select>
+``` 
+
+You can also return the view model itself as JSON data, by implementing `Responsable`. 
 This can be useful when you're saving the form via an AJAX call, 
 and want to repopulate it with up-to-date data after the call is done. 
 
@@ -153,7 +217,7 @@ public function update(Request $request, Post $post)
 ```
 
 You might see a similarity between view models and Laravel resources.
-Remember that resources map one-to-one on a model, when view models may provide any data to the view they want.
+Remember that resources map one-to-one on a model, when view models may provide whatever data they want.
 
 In one of our projects, we're actually using resources in view models!
 
@@ -197,7 +261,7 @@ abstract class ViewModel
 }
 ```
 
-Now, instead of calling the view model methods, we can call their property and get a JSON back.
+Instead of calling the view model methods, we can call their property and get a JSON back.
 
 ```html
 <select-field
@@ -212,13 +276,13 @@ Now, instead of calling the view model methods, we can call their property and g
 In summary, view models can be a viable alternative to working with the data directely in a controller.
 They allow for better reusability and encapsulate logic that doesn't belong in the controller. 
 
-You're also not confined to using them with forms. 
-For example: at Spatie we also use them to populate facet filter options, 
+You're also not confined to forms when using them. 
+At Spatie we also use them to populate facet filter options, 
 based on a complex context the user is currently working in.
 
-I'd recommend you trying this pattern out. 
+I'd recommend trying this pattern out. 
 You don't need anything to get started by the way. 
 All Laravel gimmicks listed above are optional and can be added depending on your use case.
 
-But just in case you'd like to use Laravel gimmicks, we've got a package for it 🤗: 
-[spatie/laravel-viewmodel](*https://github.com/spatie/laravel-viewmodel).
+And just in case you'd like to use Laravel gimmicks, we've got a package for it: 
+[spatie/laravel-viewmodels](*https://github.com/spatie/laravel-viewmodels) 🤗.

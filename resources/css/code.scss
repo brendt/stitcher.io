@@ -10,6 +10,8 @@
     font-style: italic;
 }
 
+.language-html .hljs-name,
+.language-html .hljs-tag,
 .hljs-meta,
 .hljs-keyword,
 .hljs-selector-tag,
@@ -31,6 +33,10 @@
 .hljs-string,
 .hljs-doctag {
     color: #003DB1;
+}
+
+.language-html .hljs-string {
+    color: #00C000;
 }
 
 .hljs-title,
@@ -61,6 +67,10 @@
 .hljs-regexp,
 .hljs-link {
     color: #009926;
+}
+
+.language-html .hljs-attr {
+    color: #A200FF;
 }
 
 .hljs-symbol,
