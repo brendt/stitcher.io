@@ -1,6 +1,6 @@
-laravel-domains:
+organise-by-domain:
     date: 2018-10-16
-    title: Laravel domains
+    title: Organise by domain
     content: src/content/blog/2018-10-16-laravel-domains.md
     meta:
         description: >

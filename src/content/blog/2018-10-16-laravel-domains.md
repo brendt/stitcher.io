@@ -168,8 +168,8 @@ Have you noticed the `ContractLinesCollection` passed to the `ResolveContractLin
 That's a value object.
 
 Working with user input isn't always straight forward. 
-In Laravel applications you'll get an array of form data or an array of CLI arguments, 
-and the rest is up to you.
+For example, in Laravel applications you'll get an array of form data or an array of CLI arguments, 
+the rest is up to you.
 
 Value objects are a representation of that user data, in a structured way.
 Because we want don't want to concern our actions with input validation,
@@ -292,3 +292,11 @@ Things like "contracts" and "invoicing".
 I've been structuring complex code bases like this for two years,
 and can say from experience that it's significantly more easy to reason about them now.
 In end, I believe developer experience is equally important as theoretical knowledge and paradigms to succeed.
+
+---
+
+👋 Hi, thanks for reading! 
+I hope this post can help you in one way or another.
+
+If you want to talk more about this topic –I do– you can always send me a Tweet or e-mail.
+Here's my [Twitter](*https://twitter.com/brendt_gd), and here my [e-mail](mailto:brendt@stitcher.io).
