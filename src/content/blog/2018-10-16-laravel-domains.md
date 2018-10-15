@@ -1,18 +1,18 @@
 In this post we'll look at a different approach of structuring large code bases into separate domains.
-The name "domain" is derived from the popular paradigm DDD, or also: domain driven design.
+The name "domain" is derived from the popular DDD paradigm, or also: domain driven design.
 
 While many concepts in this post are inspired by DDD principles, 
-they will not follow every rule set by the paradigm.
-In our context, "domain" can also be named "module". 
+they don't strictly follow domain driven design.
+In our context, "domain" could also be named "module". 
 A "domain" simply refers to a category of related stuff, 
 that's it. 
 
-Also important to note is that this approach isn't a solution for all problems.
+It's also important to note is that this approach isn't a silver bullet.
 At [Spatie](*https://spatie.be) we choose a different project structure
-based on the size of that project. 
-It is possible that your project isn't a good fit for what we'll be discussing today.
+based on the needs of that specific project. 
+It is possible that your project isn't a good fit for what we'll be reviewing today.
 
-In our experience, today's principles are truly beneficial in larger projects:
+In our experience, today's principles are mostly beneficial in larger projects:
 
 - Long running projects with an initial development timespan of half a year to one year or more, 
 with several years of maintenance and extensions after that.
@@ -42,12 +42,12 @@ is often spread across multiple directories:
 ```
 app/
 ├── Enums/
-│   ├── ContractDurationType.php
-│   └── ContractType.php
+│   ├── ContractDurationType.php
+│   └── ContractType.php
 ├── Exceptions/
-│   └── InvalidContractDate.php
+│   └── InvalidContractDate.php
 ├── Models/
-│   └── Contract.php
+│   └── Contract.php
 └── Rules/
     ├── ContractAvailabilityRule.php
     └── ContractDurationRule.php
@@ -291,14 +291,4 @@ Things like "contracts" and "invoicing".
 
 I've been structuring complex code bases like this for two years,
 and can say from experience that it's significantly more easy to reason about them now.
-In end, I feel like the developer experience is equally important for the chances of success 
-as theoretical knowledge and paradigms. 
-And I feel that this approach helps doing that.
-
----
-
-👋 Hi, thanks for reading! 
-I hope this post can help you in one way or another.
-
-If you want to talk more about this topic –I do– you can always send me a Tweet or e-mail.
-Here's my [Twitter](*https://twitter.com/brendt_gd), and here my [e-mail](mailto:brendt@stitcher.io).
+In end, I believe developer experience is equally important as theoretical knowledge and paradigms to succeed.
