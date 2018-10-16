@@ -1,3 +1,10 @@
+laravel-view-models-vs-view-composers:
+    date: 2018-10-16
+    title: Laravel view models vs. view composers
+    content: src/content/blog/2018-10-16-laravel-view-models-vs-view-composers.md
+    meta:
+        description: "There appears to be some confusion about view models and view composers in Laravel. Let's clarify it."
+
 organise-by-domain:
     date: 2018-10-16
     title: Organise by domain

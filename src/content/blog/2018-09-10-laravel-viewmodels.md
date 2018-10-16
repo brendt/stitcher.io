@@ -271,6 +271,11 @@ Instead of calling the view model methods, we can call their property and get a 
 ></select-field>
 ```
 
+### Wait, what about view composers?
+
+I hear you! There's a whole separate blog post on that topic.
+You can read it [here](/blog/laravel-view-models-vs-view-composers).
+
 ---
 
 In summary, view models can be a viable alternative to working with the data directely in a controller.
