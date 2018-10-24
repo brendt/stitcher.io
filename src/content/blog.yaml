@@ -1,3 +1,10 @@
+array-merge-vs+:
+    date: 2018-10-20
+    title: Array merge vs. +
+    content: src/content/blog/2018-10-20-array-merge-vs+.md
+    meta:
+        description: The difference between array_merge and the + operator explained.
+
 laravel-view-models-vs-view-composers:
     date: 2018-10-16
     title: Laravel view models vs. view composers
