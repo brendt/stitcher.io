@@ -1,8 +1,8 @@
-PHP has two ways of combining two arrays into one. 
-There's a subtly difference between these two methods though. 
-It's a difference worth knowing.
+PHP has several ways of combining two arrays into one. 
+There's a subtle difference between two methods though,
+a difference worth knowing.
 
-Let's take a look at how the two ways of merging arrays compare:
+Let's take a look at how these two methods compare:
 
 ```php
 array_merge($first, $second);
@@ -125,10 +125,10 @@ While using `array_merge`, would give this result:
 "Hang on", I hear you say, "isn't that what `array_merge_recursive` is supposed to do?".
 
 Here we have a case of unfortunate naming. 
-Please don't be surprised! It's PHP after all.
+Please don't be surprised—it's PHP, after all.
 
-See, `array_merge` will merge nested arrays by overriding matching elements.
-`array_merge_recursive` on the other hand will keep both elements, and merge them in a new array.
+See, `array_merge` will merge matching elements by overriding them.
+`array_merge_recursive` on the other hand will keep both elements, and merge them in a new array, keeping both values.
 
 This is what our previous example would look like, using `array_merge_recursive`:
 
@@ -147,12 +147,45 @@ This is what our previous example would look like, using `array_merge_recursive`
 ]
 ```
 
-## Chaining
+What about merging multiple arrays? 
+You can probably guess the outcome by now:
 
 ```php
-array_merge($first, $second, $third, /* ... */);
+$first = ['a'];
+$second = ['b'];
+$third = ['c'];
+```
+
+Here's what `array_merge` results in:
+
+```php
+array_merge($first, $second, $third)
 ```
 
 ```php
-$first + $second + $third; 
+[
+    'a',
+    'b',
+    'c',
+]
 ```
+
+Chaining the `+` operator also works, with the following result:
+
+```php
+$first + $second + $third
+```
+
+```php
+[
+    'a',
+]
+```
+
+---
+
+With this little refresher, 
+I hope that you won't find yourself confused anymore when you're deep into your code and need to merge arrays.
+
+I found it to be a cognitive burden when I had to stop and think about "hang on, what is the correct way to do this?".
+Luckily now, we know!

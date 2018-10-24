@@ -1,7 +1,7 @@
 array-merge-vs+:
-    date: 2018-10-20
+    date: 2018-10-24
     title: Array merge vs. +
-    content: src/content/blog/2018-10-20-array-merge-vs+.md
+    content: src/content/blog/2018-10-24-array-merge-vs+.md
     meta:
         description: The difference between array_merge and the + operator explained.
 
