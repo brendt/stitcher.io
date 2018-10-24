@@ -15,6 +15,7 @@ $redirects = [
     '/keybinding' => '/blog/mastering-key-bindings',
     '/keybindings' => '/blog/mastering-key-bindings',
     '/curly' => '/blog/where-a-curly-bracket-belongs',
+    '/blog/laravel-domains' => '/blog/organise-by-domain',
 ];
 
 $router = \Stitcher\App::router();
