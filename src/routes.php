@@ -4,6 +4,7 @@ use Brendt\Stitcher\Handler\RssHandler;
 
 $redirects = [
     '/feed' => '/rss',
+    '/blog/laravel-domains' => '/blog/organise-by-domain',
     '/blog' => '/blog/page-1',
     '/presentations' => 'https://github.com/brendt/presentations',
     '/guide' => '/guide/setting-up',
@@ -15,7 +16,6 @@ $redirects = [
     '/keybinding' => '/blog/mastering-key-bindings',
     '/keybindings' => '/blog/mastering-key-bindings',
     '/curly' => '/blog/where-a-curly-bracket-belongs',
-    '/blog/laravel-domains' => '/blog/organise-by-domain',
 ];
 
 $router = \Stitcher\App::router();
