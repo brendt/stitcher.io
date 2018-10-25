@@ -10,6 +10,7 @@ array-merge-vs+:
     date: 2018-10-24
     title: Array merge vs. +
     content: src/content/blog/2018-10-24-array-merge-vs+.md
+    highlight: true
     meta:
         description: The difference between array_merge and the + operator explained.
 
@@ -46,6 +47,7 @@ new-in-php-73:
     date: 2018-08-20
     title: New in PHP 7.3
     content: src/content/blog/2018-08-20-new-in-php-73.md
+    highlight: true
     meta:
         description: "PHP 7.3 has trailing function call commas, flexible Heredoc, the is_countable function and more."
 
