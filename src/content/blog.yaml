@@ -1,3 +1,11 @@
+share-a-blog-assertchris-io:
+    date: 2018-10-25
+    title: "Share a blog: assertchris.io"
+    content: src/content/blog/2018-10-25-share-a-blog-assertchris-io.md
+    meta:
+        description: assertchris.io is Christopher Pitt's new blog, and worth checking out.
+    disableAds: true
+
 array-merge-vs+:
     date: 2018-10-24
     title: Array merge vs. +

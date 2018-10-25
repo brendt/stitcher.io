@@ -96,3 +96,8 @@ div.center > p {
     margin-left: auto;
     margin-right: auto;
 }
+
+.no-ad .ad-container,
+.no-ad .sneaky-placeholder {
+    display: none;
+}

@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <article class="blog">
+    <article class="blog {% if post.disableAds is defined and post.disableAds == true %}no-ad{% endif %}">
         <aside>
             &laquo; <a href="/">back</a> — written by <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Brendt</a>  on {{ post.date|date("F d, Y") }}
         </aside>
@@ -54,13 +54,15 @@
 {% block scripts %}
     {{ parent() }}
 
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    {% if post.disableAds is not defined or post.disableAds == false %}
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
 
-    {{ js.async().link('resources/js/hljs.min.js')|raw }}
-    {{ js.async().link('resources/js/ads.js')|raw }}
+        {{ js.async().link('resources/js/hljs.min.js')|raw }}
+        {{ js.async().link('resources/js/ads.js')|raw }}
 
-    <script async src="/ads.js"></script>
+        <script async src="/ads.js"></script>
+    {% endif %}
 {% endblock %}
 
