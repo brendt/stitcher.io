@@ -125,7 +125,7 @@ While using `array_merge`, would give this result:
 "Hang on", I hear you say, "isn't that what `array_merge_recursive` is supposed to do?".
 
 Here we have a case of unfortunate naming. 
-Please don't be surprised&thinsp;—&thinsp;it's PHP after all.
+Please don't be surprised&thinsp;—&thinsp;it's PHP, after all.
 
 See, `array_merge` will merge matching elements by overriding them.
 `array_merge_recursive` on the other hand will keep both elements, and merge them in a new array, keeping both values.
