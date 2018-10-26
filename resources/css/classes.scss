@@ -101,3 +101,7 @@ div.center > p {
 .no-ad .sneaky-placeholder {
     display: none;
 }
+
+.image-noborder + p > img {
+    box-shadow: none;
+}
