@@ -77,6 +77,19 @@ You can configure the JDK PhpStorm is using by opening the command palette and s
 
 ![Boot JDK](/resources/img/blog/phpstorm-performance-october/jdk.png)
 
+It's important to note that IntelliJ products won't run on all JDKs! 
+At the time of writing, Java 10 won't work yet.
+
+If you've configured a JDK that broke PhpStorm, you can still fix it though.
+There's a file in your preferences folder which contains the JDK you're using:
+
+``` 
+~/Library/Preferences/IntelliJIdea<VERSION>/idea.jdk
+```
+
+You can change the JDK path there. 
+More information on switching JDKs can be found [here](*https://intellij-support.jetbrains.com/hc/en-us/articles/206544879-Selecting-the-JDK-version-the-IDE-will-run-under).
+
 ## In closing:
 
 Software development is hard.
