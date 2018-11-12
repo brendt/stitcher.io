@@ -287,7 +287,7 @@ at the same time we _don't_ want them.
 They would negate one of the goals we're trying to achieve: easy discoverability. 
 
 So for now, unfortunately, 
-our package will allow you to write its properties after a data transfer object is constructed.
+our package will allow you to write an object's properties after it is constructed.
 We are just careful not to do it.
 
 ---
