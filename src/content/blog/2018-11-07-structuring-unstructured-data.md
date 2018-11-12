@@ -283,18 +283,18 @@ Unless we're giving up the ease of reading, the auto completion part;
 there will be no way to achieve this goal in PHP.
 
 See, we _need_ magic getters to support this behaviour; 
-at the same time, _don't_ want them.
+at the same time we _don't_ want them.
 They would negate one of the goals we're trying to achieve: easy discoverability. 
 
 So for now, unfortunately, 
-our package will allow you to write to the properties after a data transfer object is constructed.
-We just are careful not to do it.
+our package will allow you to write its properties after a data transfer object is constructed.
+We are just careful not to do it.
 
 ---
 
 I hope this post inspired you to think about your own code bases, 
 and that you might be prompted to try this pattern out in your projects;
-with [our package](*https://github.com/spatie/data-transfer-object) our your own implementation.
+with [our package](*https://github.com/spatie/data-transfer-object) or your own implementation.
 
 If there are any thoughts coming to your mind, 
 if you want to discuss this further; I'd love to here from you!
