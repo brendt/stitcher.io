@@ -1,7 +1,16 @@
+share-a-blog-codingwriter-com:
+    date: 2018-11-14
+    title: "Share a blog: codingwriter.com"
+    content: src/content/blog/2018-11-14-share-a-blog-codingwriter-com.md
+    meta:
+        description: codingwriter.com helps you writing your technical blog.
+    disableAds: true
+
 structuring-unstructured-data:
     date: 2018-11-11
     title: "Structuring unstructured data"
     content: src/content/blog/2018-11-07-structuring-unstructured-data.md
+    highlight: true
     meta:
         description: Optimised data structures in PHP for better type validation and autocompletion.
 
