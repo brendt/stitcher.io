@@ -3,7 +3,7 @@ share-a-blog-codingwriter-com:
     title: "Share a blog: codingwriter.com"
     content: src/content/blog/2018-11-14-share-a-blog-codingwriter-com.md
     meta:
-        description: codingwriter.com helps you writing your technical blog.
+        description: codingwriter.com helps you write your technical blog.
     disableAds: true
 
 structuring-unstructured-data:
