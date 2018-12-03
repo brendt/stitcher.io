@@ -164,6 +164,10 @@ You're probably wondering how this domain stuff ties together with controllers o
 That's of course the place where you'll use them.
 There's one more abstraction we need to understand though: value objects.
 
+*Update*: since writing this blog post there has been an interesting discussion 
+on the name of "value object". We've changed the name to "data transfer object".
+You can read more about this naming [here](*https://github.com/spatie/data-transfer-object/issues/17).
+
 Have you noticed the `ContractLinesCollection` passed to the `ResolveContractLines` action in the previous example?
 That's a value object.
 
