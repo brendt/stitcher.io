@@ -1,4 +1,4 @@
-My colleague [Willem](*https://mobile.twitter.com/willemvbockstal) always amazes me, the backend developer, 
+My colleague [Willem](*https://mobile.twitter.com/willemvbockstal) always amazes me: the backend developer; 
 with his insights into design. 
 It's he who recommended following a blog —&thinsp;it's more like a newsletter&thinsp;— about web typography.
 
