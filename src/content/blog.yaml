@@ -1,3 +1,11 @@
+share-a-blog-betterwebtype-com:
+    date: 2018-12-15
+    title: "Share a blog: betterwebtype.com"
+    content: src/content/blog/2018-12-15-share-a-blog-betterwebtype-com.md
+    meta:
+        description: betterwebtype.com is an amazing resource about web typography.
+    disableAds: true
+
 new-in-php-73:
     date: 2018-12-05
     title: New in PHP 7.3
@@ -18,7 +26,6 @@ structuring-unstructured-data:
     date: 2018-11-11
     title: "Structuring unstructured data"
     content: src/content/blog/2018-11-07-structuring-unstructured-data.md
-    highlight: true
     meta:
         description: Optimised data structures in PHP for better type validation and autocompletion.
 
