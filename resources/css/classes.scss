@@ -39,6 +39,7 @@ div.center > p {
 
 .cta {
     display: inline-block;
+    cursor: pointer;
     background-color: $red;
     margin: .5rem 0;
     text-align: center;
@@ -52,8 +53,12 @@ div.center > p {
 
 .cta-light {
     background-color: #fff;
-    color: #000;
+    color: lighten(#000, 40);
     padding: 1em 2em;
+
+    &:hover {
+        color: #000;
+    }
 }
 
 .cta:hover {

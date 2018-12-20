@@ -1,3 +1,10 @@
+have-you-thought-about-casing:
+    date: 2018-12-20
+    title: "Have you thought about casing?"
+    content: src/content/blog/2018-12-20-reasons_not_to_use_camel_case.md
+    meta:
+        description: Readable code shouldn't be underestimated.
+
 share-a-blog-betterwebtype-com:
     date: 2018-12-15
     title: "Share a blog: betterwebtype.com"
