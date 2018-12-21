@@ -110,3 +110,7 @@ div.center > p {
 .image-noborder + p > img {
     box-shadow: none;
 }
+
+.no-break {
+    white-space: nowrap;
+}

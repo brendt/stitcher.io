@@ -1,3 +1,10 @@
+comparing-dates:
+    date: 2018-12-21
+    title: Comparing dates
+    content: src/content/blog/2018-12-21-comparing_dates.md
+    meta:
+        description: How to reliably compare dates and periods.
+
 have-you-thought-about-casing:
     date: 2018-12-20
     title: "Have you thought about casing?"
