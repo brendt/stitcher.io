@@ -3,7 +3,7 @@ new-in-php-74:
     title: New in PHP 7.4
     content: src/content/blog/2019-01-01-new-in-php-74.md
     meta:
-        description: "PHP 7.4 is still a long way away, though some features are already known."
+        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 comparing-dates:
     date: 2018-12-21
