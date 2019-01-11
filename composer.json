@@ -1,7 +1,7 @@
 {
     "require": {
         "pageon/stitcher-core": "dev-develop",
-        "mrclay/minify": "^3.0"
+        "spatie/commonmark-highlighter": "^1.0"
     },
     "require-dev": {
         "larapack/dd": "^1.1"

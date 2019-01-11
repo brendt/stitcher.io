@@ -2,7 +2,15 @@
 
 namespace Brendt\Stitcher\Plugin;
 
+use Brendt\Stitcher\Plugin\Markdown\AdRenderer;
 use Brendt\Stitcher\Plugin\Portfolio\GuideAdapter;
+use League\CommonMark\Block\Element\FencedCode;
+use League\CommonMark\Block\Element\IndentedCode;
+use League\CommonMark\Environment;
+use League\CommonMark\Inline\Element\Text;
+use Pageon\Lib\Markdown\MarkdownParser;
+use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
+use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
 use Stitcher\App;
 use Stitcher\Page\Adapter\AdapterFactory;
 use Stitcher\Plugin;
@@ -22,6 +30,13 @@ class AppServiceProvider implements Plugin
 
     public static function boot(): void
     {
+        MarkdownParser::extension(function (Environment $environment) {
+            return $environment
+                ->addInlineRenderer(Text::class, new AdRenderer())
+                ->addBlockRenderer(FencedCode::class, new FencedCodeRenderer())
+                ->addBlockRenderer(IndentedCode::class, new IndentedCodeRenderer());
+        });
+
         /** @var AdapterFactory $adapterFactory */
         $adapterFactory = App::get(AdapterFactory::class);
 

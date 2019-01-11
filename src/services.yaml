@@ -1,8 +1,3 @@
 services:
     guideAdapter:
         class: Brendt\Stitcher\Plugin\Portfolio\GuideAdapter
-    markdownParser:
-        class: Brendt\Stitcher\Plugin\Parsedown
-        arguments:
-            - '@imageFactory'
-            - '@renderer'

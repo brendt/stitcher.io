@@ -19,11 +19,15 @@
         </h1>
 
         {{ post.content|raw }}
+
+        {% if 'sneaky-placeholder' not in post.content and (post.disableAds is not defined or post.disableAds == false) %}
+            {% include '_partials/ad.twig' %}
+        {% endif %}
     </article>
 
     <footer>
         <nav class="spacer">
-            <a class="cta cta-light" href="/blog/page-1">Back</a>
+            <a class="cta cta-light" href="/">Back</a>
 
             {% if _browse.next is defined %}
                 <a class="cta" href="/blog/{{ _browse.next.id }}">
@@ -59,7 +63,6 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
 
-        {{ js.async().link('resources/js/hljs.min.js')|raw }}
         {{ js.async().link('resources/js/ads.js')|raw }}
 
         <script async src="/ads.js"></script>
