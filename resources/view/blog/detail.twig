@@ -29,7 +29,11 @@
         <nav class="spacer">
             <a class="cta cta-light" href="/">Back</a>
 
-            {% if _browse.next is defined %}
+            {% if post.next.id is defined %}
+                <a class="cta" href="/blog/{{ post.next.id }}">
+                    Next up: {{ post.next.title }}
+                </a>
+            {% elseif _browse.next is defined %}
                 <a class="cta" href="/blog/{{ _browse.next.id }}">
                     Next up:
                     {% if _browse.next.teaserTitle is defined %}

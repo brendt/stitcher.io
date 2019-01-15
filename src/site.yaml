@@ -38,3 +38,4 @@
         collection:
             variable: post
             parameter: id
+        next: true

@@ -1,3 +1,3 @@
 services:
-    guideAdapter:
-        class: Brendt\Stitcher\Plugin\Portfolio\GuideAdapter
+    nextAdapter:
+        class: Brendt\Stitcher\Plugin\Adapter\NextAdapter

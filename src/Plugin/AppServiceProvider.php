@@ -2,8 +2,9 @@
 
 namespace Brendt\Stitcher\Plugin;
 
+use Brendt\Stitcher\Plugin\Adapter\NextAdapter;
 use Brendt\Stitcher\Plugin\Markdown\AdRenderer;
-use Brendt\Stitcher\Plugin\Portfolio\GuideAdapter;
+use Brendt\Stitcher\Plugin\Adapter\GuideAdapter;
 use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Element\IndentedCode;
 use League\CommonMark\Environment;
@@ -41,13 +42,13 @@ class AppServiceProvider implements Plugin
         $adapterFactory = App::get(AdapterFactory::class);
 
         $adapterFactory->setRule(
-            GuideAdapter::class,
+            NextAdapter::class,
             function (string $adapterType, array $adapterConfiguration) {
-                if ($adapterType !== 'guide') {
+                if ($adapterType !== 'next') {
                     return null;
                 }
 
-                return new GuideAdapter($adapterConfiguration, App::get(VariableParser::class));
+                return new NextAdapter();
             }
         );
     }

@@ -11,6 +11,7 @@ new-in-php-74:
     title: New in PHP 7.4
     highlight: true
     content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
     meta:
         description: "A regularly updated list of new features to be expected in PHP 7.4"
 
@@ -18,6 +19,7 @@ comparing-dates:
     date: 2018-12-21
     title: Comparing dates
     content: src/content/blog/2018-12-21-comparing_dates.md
+    next: structuring-unstructured-data
     meta:
         description: How to reliably compare dates and periods.
 
@@ -25,6 +27,7 @@ have-you-thought-about-casing:
     date: 2018-12-20
     title: "Have you thought about casing?"
     content: src/content/blog/2018-12-20-reasons_not_to_use_camel_case.md
+    next: comparing-dates
     meta:
         description: Readable code shouldn't be underestimated.
 
@@ -41,6 +44,7 @@ new-in-php-73:
     title: New in PHP 7.3
     content: src/content/blog/2018-08-20-new-in-php-73.md
     highlight: true
+    next: phpstorm-tips-for-power-users
     meta:
         description: "PHP 7.3 has trailing function call commas, flexible Heredoc, the is_countable function and more."
 
@@ -56,6 +60,7 @@ structuring-unstructured-data:
     date: 2018-11-11
     title: "Structuring unstructured data"
     content: src/content/blog/2018-11-07-structuring-unstructured-data.md
+    next: array-merge-vs+
     meta:
         description: Optimised data structures in PHP for better type validation and autocompletion.
 
@@ -78,6 +83,7 @@ array-merge-vs+:
     date: 2018-10-24
     title: Array merge vs. +
     content: src/content/blog/2018-10-24-array-merge-vs+.md
+    next: shorthand-comparisons-in-php
     highlight: true
     meta:
         description: The difference between array_merge and the + operator explained.
@@ -140,6 +146,7 @@ phpstorm-scopes:
     date: 2018-06-07
     title: Scopes in PHPStorm
     content: src/content/blog/2018-06-07-phpstorm-scopes.md
+    next: what-php-can-be
     meta:
         description: Scopes can help you find files you're looking for much more easy.
 
@@ -157,6 +164,7 @@ liskov-and-type-safety:
     title: Liskov and type safety
     content: src/content/blog/2018-05-19-liskov-and-type-safety.md
     highlight: true
+    next: dependency-injection-for-beginners
     meta:
         description: >
             What makes a type system safe;
@@ -169,6 +177,7 @@ dependency-injection-for-beginners:
     type: blog
     title: Dependency injection for beginners
     content: src/content/blog/2018-04-30-dependency-injection-for-beginners.md
+    next: a-programmers-cognitive-load
     meta:
         description: A close look at what dependency injection is about—and what not.
         image: resources/img/meta/dependency-injection-for-beginners.png
@@ -188,6 +197,7 @@ what-php-can-be:
     type: blog
     title: What PHP can be
     content: src/content/blog/2018-04-15-what-php-can-be.md
+    next: liskov-and-type-safety
     highlight: true
     meta:
         description: "Thoughts on PHP's type system and what it means for the language as a whole."
@@ -199,6 +209,7 @@ phpstorm-tips-for-power-users:
     title: PHPStorm tips for power users
     content: src/content/blog/2018-03-15-phpstorm-tips-for-power-users.md
     highlight: false
+    next: phpstorm-scopes
     meta:
         description: A selection of less-known-yet-powerful features of PHPStorm.
 
@@ -238,6 +249,7 @@ where-a-curly-bracket-belongs:
     title: Where a curly bracket belongs
     teaserTitle: Curly brace placement
     content: src/content/blog/2018-01-16-where-a-curly-bracket-belongs.md
+    next: have-you-thought-about-casing
     highlight: true
     meta:
         description: Thoughts about where to place a curly bracket, and what it means for your cognitive load.
@@ -283,6 +295,7 @@ shorthand-comparisons-in-php:
     title: Shorthand comparisons in PHP
     teaserTitle: Shorthand comparisons
     content: src/content/blog/2017-11-11-shorthand-comparisons-in-php.md
+    next: organise-by-domain
     discuss:
         reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
     meta:
@@ -313,6 +326,7 @@ mastering-key-bindings:
     title: Mastering key bindings
     teaserTitle: Key bindings
     content: src/content/blog/2017-08-25-mastering-key-bindings.md
+
 a-programmers-cognitive-load:
     date: 2017-06-25
     type: blog
@@ -320,6 +334,7 @@ a-programmers-cognitive-load:
     teaserTitle: Mental coding effort
     highlight: true
     content: src/content/blog/2017-06-25-a-programmers-cognitive-load.md
+    next: where-a-curly-bracket-belongs
     discuss:
         reddit: https://www.reddit.com/r/webdev/comments/6md1rz/reducing_a_programmers_cognitive_load/
     meta:
