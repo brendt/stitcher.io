@@ -1,6 +1,15 @@
+share-a-blog-sebastiandedeyne-com:
+    date: 2019-09-15
+    title: "Share a blog: sebastiandedeyne"
+    content: src/content/blog/2019-09-15-share-a-blog-sebastiandedeyne-com.md
+    meta:
+        description: a great blog about web development and programming.
+    disableAds: true
+
 new-in-php-74:
     date: 2019-01-14
     title: New in PHP 7.4
+    highlight: true
     content: src/content/blog/2019-01-01-new-in-php-74.md
     meta:
         description: "A regularly updated list of new features to be expected in PHP 7.4"
