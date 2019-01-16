@@ -90,9 +90,13 @@ div.center > p {
     font-weight: 300;
 }
 
+.sneaky-placeholder.shown + .ad-container {
+    margin-bottom: 0;
+}
+
 .ad-container {
     @include wrapper();
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
 }
 
 .adsbygoogle {
