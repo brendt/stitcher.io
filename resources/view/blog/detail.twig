@@ -64,7 +64,9 @@
 
     {% if post.disableAds is not defined or post.disableAds == false %}
         <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+            [].forEach.call(document.querySelectorAll('.adsbygoogle'), function(){
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            });
         </script>
 
         {{ js.async().link('resources/js/ads.js')|raw }}

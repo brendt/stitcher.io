@@ -1,3 +1,7 @@
 window.adsEnabled = true;
 
-document.querySelector('.sneaky-placeholder').classList.remove('shown');
+const placeholders = document.querySelectorAll('.sneaky-placeholder');
+
+for (let placeholder of placeholders) {
+    placeholder.classList.remove('shown');
+}
