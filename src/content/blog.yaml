@@ -121,6 +121,7 @@ the-web-in-2045:
     date: 2018-08-15
     title: The web in 2045
     content: src/content/blog/2018-08-15-the-web-in-2045.md
+    next: visual-perception-of-code
     meta:
         description: "A brief history of the web, looking forward to 2045."
 
@@ -444,6 +445,7 @@ static_sites_vs_caching:
     title: Static site generators vs. caching
     teaserTitle: Static sites
     content: src/content/blog/2017-03-02-static_sites_vs_caching.md
+    next: the-web-in-2045
     description: What is caching and what's the difference between a cached website and a staticly generated website?
 
 image_optimizers:
