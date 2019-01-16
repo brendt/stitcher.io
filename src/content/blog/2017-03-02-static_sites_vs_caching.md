@@ -37,7 +37,7 @@ To be clear: I don't think static site generators are the best solution for all 
 
 So if you want to give it a go, be sure to check out a static site generator, there are many!
 
-- [Jekyll](https://jekyllrb.com/)
-- [Hugo](http://gohugo.io/)
-- [Stitcher](/guide)
-- [Sculpin](https://sculpin.io/)
+- [Jekyll](*https://jekyllrb.com/)
+- [Hugo](*http://gohugo.io/)
+- [Stitcher](*https://github.com/pageon/stitcher-core)
+- [Sculpin](*https://sculpin.io/)
