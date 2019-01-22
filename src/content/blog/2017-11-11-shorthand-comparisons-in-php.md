@@ -161,10 +161,10 @@ $input['undefined'] ?? $input['key'] ?? 'fallback'; // 'key'
 
 ### Null coalescing assignment operator
 
-In the future, we can expect an even shorter syntax called the ["null coalescing assignment operator"](https://wiki.php.net/rfc/null_coalesce_equal_operator).
+In PHP 7,4, we can expect an even shorter syntax called the ["null coalescing assignment operator"](https://wiki.php.net/rfc/null_coalesce_equal_operator).
 
 ```php
-// This operator is not in PHP yet!
+// This operator will be available in PHP 7.4
 
 function (array $parameters = []) {
     $parameters['property'] ??= 'default';
