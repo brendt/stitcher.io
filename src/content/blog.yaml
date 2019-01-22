@@ -1,3 +1,10 @@
+analytics-for-developers:
+    date: 2019-01-22
+    title: Analytics for developers
+    content: src/content/blog/2019-01-24-analytics-in-2019.md
+    meta:
+        description: Analytics without the marketing blah blah; by a developer, for developers.
+
 share-a-blog-sebastiandedeyne-com:
     date: 2019-01-15
     title: "Share a blog: sebastiandedeyne"
