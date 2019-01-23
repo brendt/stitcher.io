@@ -22,7 +22,7 @@ $result = $condition ? 'foo' : 'bar';
 ```
 
 If this `$condition` evaluates to `true`, the lefthand operand will be assigned to `$result`. 
-If the condition evaluates to `false`, the righand will be used.
+If the condition evaluates to `false`, the righthand will be used.
 
 Interesting fact: the name **ternary operator** actually means "an operator which acts on three operands". 
 An **operand** is the term used to denote the parts needed by an expression. 
