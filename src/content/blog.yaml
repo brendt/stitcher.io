@@ -2,6 +2,7 @@ analytics-for-developers:
     date: 2019-01-22
     title: Analytics for developers
     content: src/content/blog/2019-01-24-analytics-in-2019.md
+    next: the-web-in-2045
     meta:
         description: Analytics without the marketing blah blah; by a developer, for developers.
 
