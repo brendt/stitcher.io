@@ -1,3 +1,11 @@
+announcing-aggregate:
+    date: 2019-01-29
+    title: "I'm building something"
+    content: src/content/blog/2018-01-27-building-something.md
+    next: share-a-blog-sebastiandedeyne-com
+    meta:
+        description: "I'm working on a community driven content aggregator"
+
 analytics-for-developers:
     date: 2019-01-22
     title: Analytics for developers

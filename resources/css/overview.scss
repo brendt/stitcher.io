@@ -60,6 +60,7 @@ nav.overview > * {
     display: flex;
     flex-direction: column;
     align-content: space-between;
+    min-height: 400px;
 
     & > * {
         flex: 1 auto;
@@ -94,6 +95,7 @@ nav.overview > * {
     @media (max-width: $width-base) {
         width:100%;
         max-width: 100%;
+        min-height: 0;
     }
 
     @media (max-width: $width-mobile) {
