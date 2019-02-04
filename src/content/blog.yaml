@@ -1,3 +1,12 @@
+new-in-php-74:
+    date: 2019-02-04
+    title: New in PHP 7.4
+    highlight: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
+    meta:
+        description: "A regularly updated list of new features to be expected in PHP 7.4"
+
 announcing-aggregate:
     date: 2019-01-29
     title: "I'm building something"
@@ -21,15 +30,6 @@ share-a-blog-sebastiandedeyne-com:
     meta:
         description: a great blog about web development and programming.
     disableAds: true
-
-new-in-php-74:
-    date: 2019-01-14
-    title: New in PHP 7.4
-    highlight: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: new-in-php-73
-    meta:
-        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 comparing-dates:
     date: 2018-12-21
