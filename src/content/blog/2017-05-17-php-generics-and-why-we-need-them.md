@@ -97,6 +97,8 @@ You can imagine it's better to know beforehand whether an array contains only el
 We can't do benchmarks on generics, because they don't exist yet, so its only guessing as to how they would impact performance.
  It's not insane to assume though, that PHP's optimised behaviour, written in C; is a better way to solve the problem than
  to write lots of userland code.
+
+{{ ad }}
  
 ## Code completion
 
@@ -269,8 +271,6 @@ It works! Even without generics! There's only one issue, you might be able to gu
 You could probably make the subclasses even more convenient to create, by "abusing" 
  [late static binding](http://php.net/manual/en/language.oop5.late-static-bindings.php) and PHP's reflection API. But 
  you'd still need to create a class, for every type available.
-
-{{ ad }}
 
 ## Glorious generics
 
