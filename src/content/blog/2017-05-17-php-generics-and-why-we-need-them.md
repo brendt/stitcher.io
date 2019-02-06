@@ -327,3 +327,5 @@ And that's it! We're using `<T>` as a dynamic type, which can be checked before 
   
 If you're as excited as me for generics (and this is only the tip of the iceberg by the way), you should spread the word 
  in the PHP community, and share the RFC: [https://wiki.php.net/rfc/generics](*https://wiki.php.net/rfc/generics)
+
+{{ ad }}
