@@ -1,6 +1,4 @@
 In today's blog post we'll explore some common problems with arrays in PHP. All the problems and issues listed could be solved with a pending RFC which adds generics to PHP. We won't explore in too much detail what generics are. But at the end of this read you should have a good idea as to why they are useful, and why we really want them in PHP. So without further ado, lets dive into the subject.
- 
----
 
 Imagine you have a collection of blog posts, loaded from a data source.
 
@@ -24,7 +22,7 @@ and why the PHP community desperately needs them.
  
 Lets take a look at the problems of the above approach.
 
-### Data integrity
+## Data integrity
 
 In PHP, an array is a collection of.. things.
 
@@ -91,7 +89,7 @@ But the downside of this approach: you would have to call the function with an u
 handlePosts(...$posts);
 ```
 
-### Performance
+## Performance
 
 You can imagine it's better to know beforehand whether an array contains only elements of a certain type, rather then
  manually checking the types within a loop, every, single, time.
@@ -100,7 +98,7 @@ We can't do benchmarks on generics, because they don't exist yet, so its only gu
  It's not insane to assume though, that PHP's optimised behaviour, written in C; is a better way to solve the problem than
  to write lots of userland code.
  
-### Code completion
+## Code completion
 
 I don't know about you, but I use an IDE when writing PHP code. Code completion increases productivity immensely, so I'd also 
  like to use it here. When looping over posts, we want our IDE to know each `$post` is an instance of `Post`. Lets take
@@ -136,8 +134,6 @@ $posts = $blogModel->find();
 
 Both the uncertainty of what's exactly in an array, the performance and maintenance impact because of scattered code,
  and the inconvenience when writing those extra checks, makes me long for a better solution. 
-
----
 
 That solution, in my opinion is [generics](*https://wiki.php.net/rfc/generics). I won't explain in detail what generics 
  do, you can read the RFC to know that. But I will give you an example of how generics could solve these issues, guaranteeing 
@@ -274,7 +270,7 @@ You could probably make the subclasses even more convenient to create, by "abusi
  [late static binding](http://php.net/manual/en/language.oop5.late-static-bindings.php) and PHP's reflection API. But 
  you'd still need to create a class, for every type available.
   
-### Glorious generics
+## Glorious generics
 
 With all that in mind, lets just take a look at the code we would be able to write if generics were implemented in PHP. 
  This would be **one class** which could be used for every type. For your convenience, I'll only be writing the changes 
