@@ -124,6 +124,8 @@ Let's look at how they are implemented.
 
 <a name="impatient"></a>
 
+{{ ad }}
+
 ## SQL views in Laravel
 
 To work with a view, we'll have to first create a query that can build this view.
@@ -236,3 +238,5 @@ Maybe you can already see some use cases where MySQL views might be useful?
 Maybe you have a followup question or remark? 
 I'd love to hear from you!
 You can reach me on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
+
+{{ ad }}
