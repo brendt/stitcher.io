@@ -269,7 +269,9 @@ It works! Even without generics! There's only one issue, you might be able to gu
 You could probably make the subclasses even more convenient to create, by "abusing" 
  [late static binding](http://php.net/manual/en/language.oop5.late-static-bindings.php) and PHP's reflection API. But 
  you'd still need to create a class, for every type available.
-  
+
+{{ ad }}
+
 ## Glorious generics
 
 With all that in mind, lets just take a look at the code we would be able to write if generics were implemented in PHP. 
