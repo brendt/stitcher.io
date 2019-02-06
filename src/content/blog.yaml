@@ -1,3 +1,11 @@
+php-jit:
+    date: 2019-02-06
+    title: PHP JIT
+    content: src/content/blog/2019-02-06-php-jit.md
+    next: new-in-php-74
+    meta:
+        description: "The pros and cons of the pending RFC to add a JIT compiler to PHP."
+
 new-in-php-74:
     date: 2019-02-04
     title: New in PHP 7.4
