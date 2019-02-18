@@ -2,7 +2,7 @@ php-enums:
     date: 2019-02-18
     title: PHP Enums
     content: src/content/blog/2019-02-18-php-enums.md
-    next: new-in-php-73
+    next: php-generics-and-why-we-need-them
     meta:
         description: "How to handle enums in PHP."
 
