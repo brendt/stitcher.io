@@ -17,12 +17,14 @@ as they are natively supported.
 All other resolutions can cause massive performance issues.
 
 <div class="image-noborder"></div>
-![Default resolution example](/resources/img/blog/phpstorm-performance-october/resolution-default.png)
+
+![](/resources/img/blog/phpstorm-performance-october/resolution-default.png)
 
 Default resolutions work fine.
 
 <div class="image-noborder"></div>
-![Scaled resolution example](/resources/img/blog/phpstorm-performance-october/resolution-scaled.png)
+
+![](/resources/img/blog/phpstorm-performance-october/resolution-scaled.png)
 
 Scaled resolutions not so much…
 
@@ -34,7 +36,7 @@ you'll find the editor font antialiasing options.
 By default, antialiasing is set to `subpixel`, to render very smooth fonts.
 Again, because of Java graphical issues, there can be a big performance hit. 
 
-![Font antialiasing settings](/resources/img/blog/phpstorm-performance-october/font-settings.png)
+![](/resources/img/blog/phpstorm-performance-october/font-settings.png)
 
 It's better to set the antialiasing setting to `greyscale`, or disable it altogether.
 
