@@ -118,3 +118,14 @@ div.center > p {
 .no-break {
     white-space: nowrap;
 }
+
+.patreon {
+    font-size: 1rem;
+    padding: .6em 0;
+    background-color: $red-light;
+
+    p {
+        font-size: 1em;
+        margin-bottom: 0;
+    }
+}
