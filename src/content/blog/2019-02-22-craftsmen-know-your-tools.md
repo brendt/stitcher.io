@@ -31,7 +31,7 @@ He also made me some nice sound absorbing panels for my podcast studio at home:
 
 The same way my brother is crafting things with wood,
 we are building websites and programs with code.
-I wonder if we have we mastered our toolset like he has.
+I wonder if we have mastered our toolset like he has.
 
 See, he isn't building all this stuff with his bare hands.
 He's using the right tools for the job.
