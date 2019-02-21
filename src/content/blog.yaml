@@ -1,3 +1,11 @@
+craftsmen-know-their-tools:
+    date: 2019-02-22
+    title: Craftsmen know their tools
+    content: src/content/blog/2019-02-22-craftsmen-know-your-tools.md
+    next: a-programmers-cognitive-load
+    meta:
+        description: "Programmers shouldn't underestimate the value of properly learning their toolset"
+
 php-enums:
     date: 2019-02-18
     title: PHP Enums
@@ -65,7 +73,7 @@ have-you-thought-about-casing:
 
 share-a-blog-betterwebtype-com:
     date: 2018-12-15
-    title: "Share a blog: betterwebtype.com"
+    title: "Share a blog: betterwebtype"
     content: src/content/blog/2018-12-15-share-a-blog-betterwebtype-com.md
     meta:
         description: betterwebtype.com is an amazing resource about web typography.

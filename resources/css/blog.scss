@@ -1,2 +1,32 @@
 @import 'css/classes.scss';
 @import 'css/elements.scss';
+
+.banner {
+    background-color: $color-red;
+    color: $color-white;
+    font-size: 2em;
+    font-weight: 300;
+    padding: 3em 0;
+    margin: 2em 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    p {
+        margin-bottom: 0;
+        flex: 1 1 auto;
+        padding-right: 0;
+    }
+
+    &.full-screen {
+        height: 75vh;
+
+        @media (max-width: $width-base) {
+            height: auto;
+        }
+    }
+
+    @media (max-width: $width-container-mobile-lrg) {
+        font-size: 1.5em;
+    }
+}
