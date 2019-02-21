@@ -84,7 +84,7 @@ in order to do that, you need to master the right tools.
 
 There are no shortcuts to this, you need to spend time learning.
 
-I want to to challenge you to think about how you use your tools.
+I want to challenge you to think about how you use your tools.
 There might be opportunities, areas you can improve on.
 Be willing to spend time improving your skillset.
 
