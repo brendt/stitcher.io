@@ -5,6 +5,7 @@ craftsmen-know-their-tools:
     next: a-programmers-cognitive-load
     meta:
         description: "Programmers shouldn't underestimate the value of properly learning their toolset"
+        image: resources/img/blog/craftsmen/3-1239x696.jpeg
 
 php-enums:
     date: 2019-02-18
