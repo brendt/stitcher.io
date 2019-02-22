@@ -3,11 +3,8 @@
 namespace Brendt\Stitcher\Plugin\Markdown;
 
 use InvalidArgumentException;
-use League\CommonMark\Block\Element\AbstractBlock;
 use League\CommonMark\Block\Element\Paragraph;
-use League\CommonMark\Block\Renderer\BlockRendererInterface;
 use League\CommonMark\ElementRendererInterface;
-use League\CommonMark\HtmlElement;
 use League\CommonMark\Inline\Element\AbstractInline;
 use League\CommonMark\Inline\Element\Text;
 use League\CommonMark\Inline\Renderer\InlineRendererInterface;
