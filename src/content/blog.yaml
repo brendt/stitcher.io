@@ -1,3 +1,12 @@
+new-in-php-74:
+    date: 2019-02-22
+    title: New in PHP 7.4
+    highlight: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: phpstorm-tips-for-power-users
+    meta:
+        description: "A regularly updated list of new features to be expected in PHP 7.4"
+
 craftsmen-know-their-tools:
     date: 2019-02-21
     title: Craftsmen know their tools
@@ -14,15 +23,6 @@ php-enums:
     next: php-generics-and-why-we-need-them
     meta:
         description: "How to handle enums in PHP."
-
-new-in-php-74:
-    date: 2019-02-14
-    title: New in PHP 7.4
-    highlight: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: phpstorm-tips-for-power-users
-    meta:
-        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 php-jit:
     date: 2019-02-06
