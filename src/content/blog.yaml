@@ -5,7 +5,7 @@ laravel-queueable-actions:
     content: src/content/blog/2019-03-11-queueable-actions.md
     next: laravel-view-models
     meta:
-        description: "Adding async support to action class in Laravel"
+        description: "Adding async support to action classes in Laravel"
 
 new-in-php-74:
     date: 2019-02-22
