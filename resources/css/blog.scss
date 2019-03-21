@@ -2,15 +2,22 @@
 @import 'css/elements.scss';
 
 .banner {
-    background-color: $color-red;
+    background-color: desaturate($color-red, .1);
     color: $color-white;
     font-size: 2em;
     font-weight: 300;
-    padding: 3em 0;
+    padding: 3.2em 0 3em;
     margin: 2em 0;
     display: flex;
     align-items: center;
-    text-align: center;
+    text-align: right;
+    justify-content: center;
+
+    h2 {
+        margin: 0;
+        padding: 0 1em 0 0;
+        font-family: $font-serif;
+    }
 
     p {
         margin-bottom: 0;
@@ -26,7 +33,59 @@
         }
     }
 
-    @media (max-width: $width-container-mobile-lrg) {
+    * {
+        width: 50%;
+    }
+
+    @media (max-width: $width-container) {
         font-size: 1.5em;
+
+        & > * {
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: .5em;
+            padding-left: .3em;
+        }
+
+        flex-wrap: wrap;
+        text-align: left;
+        padding: 2em 1em;
+    }
+
+    @media (max-width: $width-container-mobile-lrg) {
+        padding: 1.3em 0;
+    }
+}
+
+.banner-content {
+    font-size: 1.1rem;
+    text-align: left;
+    color: $color-white;
+
+    ul {
+        padding: 0;
+        margin: 0 0 0 2em;
+        width: 80%;
+
+        @media (max-width: $width-container-mobile) {
+            width: 90%;
+        }
+    }
+
+    li {
+        padding: 0;
+        margin: 0;
+        width: 95%;
+    }
+}
+
+.banner a {
+    text-decoration: underline;
+    color: inherit;
+
+    &:hover {
+        text-decoration: none;
     }
 }
