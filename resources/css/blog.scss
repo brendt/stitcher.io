@@ -2,8 +2,8 @@
 @import 'css/elements.scss';
 
 .banner {
-    background-color: desaturate($color-red, .1);
-    color: $color-white;
+    background-color: #fcf4f5;
+    color: $color-black;
     font-size: 2em;
     font-weight: 300;
     padding: 3.2em 0 3em;
@@ -62,7 +62,7 @@
 .banner-content {
     font-size: 1.1rem;
     text-align: left;
-    color: $color-white;
+    color: inherit;
 
     ul {
         padding: 0;
