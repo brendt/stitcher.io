@@ -1,3 +1,12 @@
+php-73-upgrade-mac:
+    date: 2019-03-21
+    title: Upgrade to PHP 7.3 with Homebrew on Mac
+    content: src/content/blog/2019-03-21-php-73-upgrade-mac.md
+    next: new-in-php-73
+    meta:
+        description: "How to upgrade your PHP installation on a Mac with Homebrew"
+
+
 laravel-queueable-actions:
     date: 2019-03-11
     title: Queueable actions in Laravel
