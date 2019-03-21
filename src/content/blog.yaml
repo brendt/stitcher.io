@@ -6,6 +6,15 @@ php-73-upgrade-mac:
     meta:
         description: "How to upgrade your PHP installation on a Mac with Homebrew"
 
+new-in-php-74:
+    date: 2019-03-21
+    title: New in PHP 7.4
+    highlight: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: phpstorm-tips-for-power-users
+    meta:
+        description: "A regularly updated list of new features to be expected in PHP 7.4"
+
 laravel-queueable-actions:
     date: 2019-03-11
     title: Queueable actions in Laravel
@@ -14,15 +23,6 @@ laravel-queueable-actions:
     next: laravel-view-models
     meta:
         description: "Adding async support to action classes in Laravel"
-
-new-in-php-74:
-    date: 2019-02-22
-    title: New in PHP 7.4
-    highlight: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: phpstorm-tips-for-power-users
-    meta:
-        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 craftsmen-know-their-tools:
     date: 2019-02-21
