@@ -118,6 +118,16 @@ pecl search pdf
 # pdflib  4.1.2 (stable)        Creating PDF on the fly with the PDFlib library
 ```
 
+Make sure to restart your web server after installing new packages:
+
+```bash
+sudo nginx -s reload
+```
+
+```bash
+sudo apachectl restart
+```
+
 ## Valet
 
 If you're using Laravel Valet, you should do the following steps to upgrade it:
