@@ -46,7 +46,7 @@
 
         h2 {
             margin-bottom: .5em;
-            padding-left: .3em;
+            padding-left: .5em;
         }
 
         flex-wrap: wrap;
@@ -66,18 +66,24 @@
 
     ul {
         padding: 0;
-        margin: 0 0 0 2em;
+        margin: 0;
         width: 80%;
 
         @media (max-width: $width-container-mobile) {
-            width: 90%;
+            width: 95%;
         }
     }
 
     li {
         padding: 0;
-        margin: 0;
         width: 95%;
+        margin: 0 0 .3em 1em;
+
+        @media (max-width: $width-container-mobile-lrg) {
+            list-style: none;
+            margin-bottom: .5em;
+            width:98%;
+        }
     }
 }
 
