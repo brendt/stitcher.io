@@ -5,21 +5,22 @@ namespace Brendt\Stitcher\Plugin;
 use Brendt\Stitcher\Plugin\Adapter\NextAdapter;
 use Brendt\Stitcher\Plugin\Markdown\AdRenderer;
 use Brendt\Stitcher\Plugin\Adapter\GuideAdapter;
+use Brendt\Stitcher\Plugin\Markdown\CodeRenderer;
 use Brendt\Stitcher\Plugin\Markdown\HeadingAnchor;
+use Brendt\Stitcher\Plugin\Markdown\HighlightCodeBlockRenderer;
 use Brendt\Stitcher\Plugin\Markdown\ImageRenderer;
 use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Element\Heading;
 use League\CommonMark\Block\Element\IndentedCode;
 use League\CommonMark\Environment;
+use League\CommonMark\Inline\Element\Code;
 use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Text;
 use Pageon\Lib\Markdown\MarkdownParser;
-use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
 use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
 use Stitcher\App;
 use Stitcher\Page\Adapter\AdapterFactory;
 use Stitcher\Plugin;
-use Stitcher\Variable\VariableParser;
 
 class AppServiceProvider implements Plugin
 {
@@ -38,8 +39,9 @@ class AppServiceProvider implements Plugin
         MarkdownParser::extension(function (Environment $environment) {
             return $environment
                 ->addInlineRenderer(Text::class, new AdRenderer())
+
                 ->addBlockRenderer(Heading::class, new HeadingAnchor())
-                ->addBlockRenderer(FencedCode::class, new FencedCodeRenderer())
+                ->addBlockRenderer(FencedCode::class, new HighlightCodeBlockRenderer())
                 ->addBlockRenderer(IndentedCode::class, new IndentedCodeRenderer());
         });
 

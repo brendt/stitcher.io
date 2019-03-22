@@ -1,3 +1,9 @@
+php-reimagined:
+    date: 2019-03-21
+    title: PHP reimagined
+    content: src/content/blog/a-new-php.md
+    next: new-in-php-73
+
 php-73-upgrade-mac:
     date: 2019-03-21
     title: Upgrade to PHP 7.3 with Homebrew on Mac

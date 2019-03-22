@@ -162,3 +162,28 @@ div.center > p {
         margin-bottom: 0;
     }
 }
+
+.hljs-highlight {
+    display: inline;
+    background-color: #dfd;
+
+    &.error {
+        background-color: #fdd;
+    }
+
+    &.full,
+    &.line {
+        display: block;
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+        width: calc(100% + (2 * 1.5rem));
+        padding-left: 1.5rem;
+
+        @media(max-width: $width-base) {
+            margin-left: -1rem;
+            margin-right: -1rem;
+            width: calc(100% + (2 * 1rem));
+            padding-left: 1rem;
+        }
+    }
+}
