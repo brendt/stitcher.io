@@ -186,4 +186,9 @@ div.center > p {
             padding-left: 1rem;
         }
     }
+
+    &.striped {
+        background: none;
+        border-bottom: dotted 2px red;
+    }
 }

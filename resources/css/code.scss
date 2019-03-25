@@ -10,6 +10,7 @@
     font-style: italic;
 }
 
+.hljs-highlight.keyword,
 .language-html .hljs-name,
 .language-html .hljs-tag,
 .hljs-meta,
@@ -17,6 +18,7 @@
 .hljs-selector-tag,
 .hljs-subst {
     color: #0084FF;
+    background: none;
 }
 
 .hljs-number {
@@ -39,20 +41,27 @@
     color: #00C000;
 }
 
+
+.hljs-highlight.property,
+.hljs-highlight.prop,
 .hljs-title,
 .hljs-section,
 .hljs-selector-id {
     color: #008c00;
+    background: none;
 }
 
 .hljs-subst {
     font-weight: normal;
 }
 
+.hljs-highlight.type,
+.hljs-highlight.type .hljs-title,
 .hljs-type,
 .hljs-params + .hljs-title,
 .hljs-class .hljs-title {
     color: #FF00E0;
+    background: none;
 }
 
 

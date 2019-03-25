@@ -20,7 +20,14 @@ class HighlightCodeBlockRenderer extends FencedCodeRenderer
 
         $content = $element->getContents();
 
-        $content = str_replace('&lt;/<span class="hljs-title">hljs</span>&gt;', '</span>', $content);
+        $content = preg_replace_callback('/\&lt;[\w\s\<\"\=\-\>\/]+hljs[\w\s\<\"\=\-\>\/]+/', function ($match) {
+            $match = str_replace('<span class="hljs-title">', '', $match[0] ?? '');
+
+            $match = str_replace('</span>', '', $match);
+
+            return $match;
+        }, $content);
+
         $content = str_replace('&lt;/hljs&gt;', '</span>', $content);
 
         $lines = explode(PHP_EOL, $content);
@@ -28,15 +35,17 @@ class HighlightCodeBlockRenderer extends FencedCodeRenderer
         $regex = '/\&lt\;hljs([\w\s]+)&gt;/';
 
         foreach ($lines as $index => $line) {
-            preg_match($regex, $line, $matches);
+            $line = preg_replace_callback($regex, function ($matches) {
+                $class = $matches[1] ?? '';
 
-            $class = $matches[1] ?? '';
-
-            $line = preg_replace($regex, "<span class=\"hljs-highlight {$class}\">", $line);
+                return "<span class=\"hljs-highlight {$class}\">";
+            }, $line);
 
             $lines[$index] = $line;
         }
 
+
+//        die(implode(PHP_EOL, $lines));
         $element->setContents(implode(PHP_EOL, $lines));
 
         return $element;

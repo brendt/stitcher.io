@@ -3,6 +3,8 @@ php-reimagined:
     title: PHP reimagined
     content: src/content/blog/a-new-php.md
     next: new-in-php-73
+    meta:
+        description: "My personal take on how to improve PHP"
 
 php-73-upgrade-mac:
     date: 2019-03-21

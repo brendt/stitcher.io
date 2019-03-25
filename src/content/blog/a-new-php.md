@@ -1,7 +1,286 @@
+This post is simply me thinking about how we could change PHP to make it better.
+It's a very subjective list, and in no way a critique on the amazing work the core team is doing.
+
 ## Final by default
 
-```php highlight
-<hljs error>final class Foo</hljs>
+A common misconception about OO programming is that it's all about inheritance. 
+Inheritance and polymorphism have their place, but OO is way more than that.
+
+Because these principles are more often than not abused by programmers who claim they write "OO" code,
+I think the language should help prevent us making these mistakes.
+
+That's why I would make all classes final by default:
+
+```php
+<hljs error>final</hljs> class Foo
 {
-<hljs full>}</hljs>
+}
 ```
+
+
+```php
+class Bar <hljs striped>extends Foo</hljs>
+{
+}
+```
+
+Furthermore: classes are only allowed to extend from abstract classes or implement interfaces.
+This way we can prevent deep inheritance chains of concrete classes. 
+
+## Void by default
+
+Void is such a strange beast in all programming languages: it a "type", indicating the lack of a type.
+
+Why not go with the obvious way: no return type, means nothing is returned.
+
+```php
+class Foo
+{
+    public function bar()<hljs error>: void</hljs>
+    {
+        // …
+    }
+}
+```
+
+```php
+class Foo
+{
+    public function bar()
+    {
+        <hljs striped>return false;</hljs>
+    }
+}
+```
+
+Now you might be thinking: what if a function wants to return two types, that's the next point.
+
+## No `mixed` type
+
+The `mixed` type basically means: 
+"you've got no idea what this function needs or will return, figure it out on your own".
+
+Such a loose type system can be the source of many bugs. 
+If you feel the need to use two different types in the same function, 
+you should either make two implementations — this is where polymorphism has its place;
+or you should program to an interface.
+
+Either way, there's _always_ a better solution then relying on `mixed`. 
+In my version of PHP, the language would ensure we always choose the better solution. 
+
+## No method overloading
+
+It's a common feature request for PHP: having several definitions for the same method.
+My argument against it ties directly to the previous one: there's a better solution to fix this problem.
+
+If you feel the need for a method having two implementations, 
+you should look at polymorphism or program to an interface.   
+
+```php
+class Foo
+{
+    public function handle(<hljs type>Bar</hljs> $bar) { /* … */ }
+    
+    public function <hljs striped>handle</hljs>(<hljs type>Foo</hljs> $bar) { /* … */ }
+}
+```
+
+## All parameters must by typed
+
+We already established that my version of PHP would make return types required.
+It's no surprise that the same goes for function parameters.
+
+```php
+public function handle(<hljs striped>$bar</hljs>)
+{
+}
+``` 
+
+```php
+public function handle(<hljs type>Bar</hljs> $bar)
+{
+}
+``` 
+
+## Class properties must be typed
+
+The same rules apply to class properties. 
+Luckily for us, PHP 7.4 will introduce [typed properties](*/blog/new-in-php-74#typed-properties-rfc).
+I'd make them required though.
+
+```php
+class Foo
+{
+    <hljs striped>public $bar;</hljs>
+}
+```
+
+```php
+class Foo
+{
+    public <hljs type>Bar</hljs> $bar;
+}
+```
+
+## Visibility modifiers are required
+
+Explicitness eliminates room for confusion. 
+That's why all methods and class variables must have a visibility modifier.
+
+```php
+class Foo
+{
+    <hljs striped>function bar()
+    {
+        // …
+    }</hljs>
+} 
+```
+
+```php
+class Foo
+{
+    public function bar()
+    {
+        // …
+    }
+} 
+```
+
+## Final on variables
+
+I started this list by saying I'd drop the `final` keyword, that is on classes and methods. 
+`final` would be a valid keyword to mark class variables as "read only".
+
+A final variable may be set on construct, and not be changed afterwards.
+
+```php
+class Foo
+{
+    public final <hljs type>Bar</hljs> $bar;
+    
+    public <hljs prop>__construct</hljs>(<hljs type>Bar</hljs> $bar)
+    {
+        $this->bar = $bar;
+    }
+}
+```
+
+```php
+$foo = new <hljs type>Foo</hljs>($bar);
+
+<hljs striped>$foo->bar = new Bar();</hljs>
+```
+
+## Scalar types are also objects
+
+One of the few things I think that we're all in agreement about: 
+the current PHP function names and definitions are inconsistent and kind of sucky.
+
+Let's treat all scalar types as objects, 
+allowing them to contain what otherwise would be standalone functions.
+
+```php
+public function handle(): String
+{
+    return "a, b, c";
+}
+
+$this->handle()<hljs >->explode(',')</hljs>;
+```
+
+## Improved variance
+
+You may have noticed a trend in the above changes. 
+Most of them relate to PHP's type system.
+If all them were added, we'd also need to make the current type system more flexible.
+
+Luckily again, PHP 7.4 already introduces [improvements regarding type variance](*/blog/new-in-php-74#improved-type-variance-rfc).
+
+```php
+class Bar extends Foo { /* … */ }
+```
+
+```php
+interface A
+{
+    public function handle(<hljs type>Bar</hljs> $bar): Foo;
+}
+
+class B implements A
+{
+    public function handle(<hljs type>Foo</hljs> $bar): <hljs type>Bar</hljs>
+    {
+        // …
+    }
+}
+```
+
+## Always strict type checking
+
+Strict type checking is done by default, you should never `declare(strict_types=1);` anymore.
+
+## Generics
+
+After several improvements to the type system, I'd add some more improved ways to actually use is.
+
+First a feature that probably most of the PHP world is waiting for: generics.  
+
+```php
+class List<<hljs type>T</hljs>>
+{
+    public function current(): T
+    {
+        // …
+    }
+}
+```
+
+## Enums
+
+Next up: built-in enums. 
+Based on the [several](*https://github.com/myclabs/php-enum) [userland](*https://github.com/marc-mabe/php-enum)
+[implementations](*https://github.com/spatie/enum) 
+it's clear that the community would benefit from a built-in enum type.
+
+```php
+<hljs keyword>enum</hljs> <hljs type>Status</hljs> 
+{
+    <hljs prop>DRAFT</hljs>, <hljs prop>STATUS</hljs>, <hljs prop>PUBLISHED</hljs>;
+}
+```
+
+```php
+class Bar
+{
+    public <hljs type>Status</hljs> $status;
+}
+```
+
+```php
+$bar->status = <hljs type>Status</hljs>::<hljs prop>DRAFT</hljs>;
+```
+
+## Structs
+
+The end this list: structs. 
+One of my own packages I use all the time is the [data transer object](*https://github.com/spatie/data-transfer-object) package.
+It allows to define strongly typed objects.
+In essence, they are a userland implementation of what structs are meant to solve.
+
+```php
+<hljs keyword>struct</hljs> <hljs type>Point</hljs> {
+    <hljs type>Int</hljs> $x;
+    <hljs type>Int</hljs> $y;
+}
+```
+
+```php
+$point = <hljs type>Point</hljs> {1, 2}
+```
+
+## This is Java!
+
+That's something I hear PHP programmers say quite often when improvements to the type system are proposed.
+Remember that a programming language is more than its syntax though: 
+there's a whole ecosystem of frameworks and packages that gives a language like PHP its real value.
