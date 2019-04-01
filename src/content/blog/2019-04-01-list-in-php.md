@@ -2,6 +2,9 @@
 
 In PHP, `list` or `[]` is a so called "language construct", just like `array()`. 
 This language construct is used to "pull" variables out of an array. 
+In other words: it will "destructure" the array into separate variables. 
+
+Note that the word is "destructure", not "destruction" — that's something different 😉
 
 Here's what that looks like:
 
@@ -128,6 +131,3 @@ Be careful though that undefined keys will still trigger a notice.
 In summary, there are some pretty good cases in which `list` can be of help! 
 
 {{ ad }}
-
-By the way, I know it's called "array destructuring". 
-But let's be honest: "destruction" sounds way cooler!
