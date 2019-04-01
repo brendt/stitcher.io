@@ -1,7 +1,15 @@
+array-destruction-with-list-in-php:
+    date: 2019-04-01
+    title: Array destruction in PHP
+    content: src/content/blog/2019-04-01-list-in-php.md
+    next: new-in-php-73
+    meta:
+        description: "How to destruct arrays in PHP using list or its shorthand []"
+
 php-reimagined:
     date: 2019-03-21
     title: PHP reimagined
-    content: src/content/blog/a-new-php.md
+    content: src/content/blog/2019-03-21-a-new-php.md
     next: new-in-php-73
     meta:
         description: "My personal take on how to improve PHP"
