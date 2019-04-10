@@ -1,7 +1,7 @@
 laravel-sql-injection-json-paths:
     hidden: true
     date: 2019-04-10
-    title: SQL test
+    title: Laravel SQL injection vulnerability
     content: src/content/blog/laravel-sql-injection.md
     next: new-in-php-73
 
