@@ -171,6 +171,27 @@ div.center > p {
         background-color: #fdd;
     }
 
+    &.yellow {
+        background-color: #ffa;
+    }
+
+    &.blue {
+        background-color: #aff;
+    }
+
+    &.red {
+        background-color: #fdd;
+    }
+
+    &.green {
+        background-color: #dfd;
+    }
+
+    &.textgrey {
+        color: #aaa;
+        background: none;
+    }
+
     &.full,
     &.line {
         display: block;

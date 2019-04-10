@@ -1,3 +1,10 @@
+laravel-sql-injection-json-paths:
+    hidden: true
+    date: 2019-04-10
+    title: SQL test
+    content: src/content/blog/laravel-sql-injection.md
+    next: new-in-php-73
+
 array-destructuring-with-list-in-php:
     date: 2019-04-01
     title: Array destructuring in PHP

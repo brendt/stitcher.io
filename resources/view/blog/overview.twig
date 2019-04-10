@@ -17,7 +17,8 @@
             <p>
                 Hi! My name is Brent, I'm a programmer living in Belgium.
                 I write about the web, PHP and programming in general.
-                I'm also on <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a>.
+                I'm also on
+                <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a>.
             </p>
 
             <div class="search-container">
@@ -57,31 +58,33 @@
         </div>
 
         {% for post in posts %}
-            <a
-                    href="/blog/{{ post.id }}"
-                    {% if post.highlight is defined and post.highlight %}class="cta"{% endif %}
-                    data-search="{{ post.title }} {{ post.meta.description }}"
-            >
-                {% if post.title is defined %}
-                    <h1>
-                        {{ post.title }}
-                    </h1>
-                {% endif %}
-
-                <div>
-                    {% if post.meta.description is defined and post.meta.description %}
-                        <p>
-                            {{ post.meta.description }}
-                        </p>
+            {% if post.hidden is not defined or post.hidden == false %}
+                <a
+                        href="/blog/{{ post.id }}"
+                        {% if post.highlight is defined and post.highlight %}class="cta"{% endif %}
+                        data-search="{{ post.title }} {{ post.meta.description }}"
+                >
+                    {% if post.title is defined %}
+                        <h1>
+                            {{ post.title }}
+                        </h1>
                     {% endif %}
 
-                    {% if post.date is defined %}
-                        <aside>
-                            {{ post.date|date("F d, Y") }}
-                        </aside>
-                    {% endif %}
-                </div>
-            </a>
+                    <div>
+                        {% if post.meta.description is defined and post.meta.description %}
+                            <p>
+                                {{ post.meta.description }}
+                            </p>
+                        {% endif %}
+
+                        {% if post.date is defined %}
+                            <aside>
+                                {{ post.date|date("F d, Y") }}
+                            </aside>
+                        {% endif %}
+                    </div>
+                </a>
+            {% endif %}
         {% endfor %}
     </nav>
 

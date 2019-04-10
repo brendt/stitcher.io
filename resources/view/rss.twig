@@ -4,20 +4,22 @@
     <title><![CDATA[ stitcher.io ]]></title>
     <updated>{{ date()|date('c') }}</updated>
     {% for post in posts %}
-    <entry>
-        <title><![CDATA[ {{ post.title }} ]]></title>
+        {% if post.hidden is not defined or post.hidden == false %}
+            <entry>
+                <title><![CDATA[ {{ post.title }} ]]></title>
 
-        <link rel="alternate" href="https://stitcher.io/blog/{{ post.id }}"/>
+                <link rel="alternate" href="https://stitcher.io/blog/{{ post.id }}"/>
 
-        <id>https://www.stitcher.io/blog/{{ post.id }}</id>
+                <id>https://www.stitcher.io/blog/{{ post.id }}</id>
 
-        <author>
-            <name><![CDATA[ Brent Roose ]]></name>
-        </author>
+                <author>
+                    <name><![CDATA[ Brent Roose ]]></name>
+                </author>
 
-        <summary type="html"><![CDATA[ {{  post.content|raw }} ]]></summary>
+                <summary type="html"><![CDATA[ {{  post.content|raw }} ]]></summary>
 
-        <updated>{{ post.date|date('c') }}</updated>
-    </entry>
+                <updated>{{ post.date|date('c') }}</updated>
+            </entry>
+        {% endif %}
     {% endfor %}
 </feed>

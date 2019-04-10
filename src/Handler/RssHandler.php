@@ -3,7 +3,6 @@
 namespace Brendt\Stitcher\Handler;
 
 use GuzzleHttp\Psr7\Response;
-use Pageon\Http\Header;
 use Stitcher\App;
 use Stitcher\File;
 use Stitcher\Renderer\RendererFactory;
