@@ -11,9 +11,9 @@ It also offers a nice shorthand to work with JSON data:
 ```
 
 Instead of manually writing `JSON_EXTRACT`, we can use the simplified `->` syntax, 
-which Laravel will convert to a the correct SQL statement.
+which Laravel will convert to the correct SQL statement.
 
-Laravel won't do any escaping during this conversion. 
+Be careful though: Laravel won't do any escaping during this conversion. 
 Consider the following example:
 
 ```
@@ -61,7 +61,7 @@ Say we have the following endpoint in our application, to query blog posts from 
 ```
 
 Users of this API might only be interested in a few fields, 
-that's why we added a `field` filter.
+that's why we added a `fields` filter.
 
 The endpoint can now be used like this:
 
@@ -89,7 +89,7 @@ Two things need to be in place for this attack to be possible:
 - An accessible API endpoint, which allows an attacker to write to the `addSelect` or `select`.
 Chances are you're not doing this manually in your project.
 Though there are popular packages which allow this functionality to provide easy API endpoints.
-A popular example is the JSON API spec, which specifically allows for [sparse fieldsets](*https://jsonapi.org/format/#fetching-sparse-fieldsets).
+A popular spec that inspires lots of API related packages is the JSON API spec. It specifically allows for [sparse fieldsets](*https://jsonapi.org/format/#fetching-sparse-fieldsets).
 - The entry point table must have a column with JSON data. 
 Otherwise the `JSON_EXTRACT` function will fail, stopping our query. 
 From the entry point though, you can access all data.
