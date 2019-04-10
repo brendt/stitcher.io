@@ -1,3 +1,5 @@
+**Important**: this vulnerability has been fixed and merged in [the 5.8 branch](*https://github.com/laravel/framework/pull/28160).
+
 Laravel has the ability to manually specify which columns to select on a query.
 It also offers a nice shorthand to work with JSON data:
 
@@ -94,9 +96,17 @@ A popular spec that inspires lots of API related packages is the JSON API spec. 
 Otherwise the `JSON_EXTRACT` function will fail, stopping our query. 
 From the entry point though, you can access all data.
 
-As far as I can tell, it's not possible to write to the database with this approach, 
-as Laravel only allows one query to be executed. 
-If you're inserting `;` to end the current query and start a new one, you'll get an error.
+## Prevention?
 
-I've submitted a PR to fix this issue, at the moment of writing, it's still pending:
-[https://github.com/laravel/framework/pull/28160](*https://github.com/laravel/framework/pull/28160).
+Be sure you update to the latest Laravel 5.8 version, as soon as the fix has been tagged.
+It's already [merged](*https://github.com/laravel/framework/pull/28160), but not yet tagged.
+
+Even more importantly, you should never allow user input directly to specify columns, without a whitelist.
+In our previous example, you could specify which fields are allowed to be requested, instead of accepting all input.
+
+Lastly, one of our widely-used packages, `spatie/laravel-querybuilder`, 
+opened up `addSelect` by design. 
+This meant that websites using our package, were vulnerable to the underlying issue.
+We immediately fixed it and Freek [wrote about it](*https://murze.be/an-important-security-release-for-laravel-query-builder) in depth.
+If you're using our package and unable to update to the latest Laravel version, 
+you should immediately update the package.

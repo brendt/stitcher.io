@@ -4,6 +4,8 @@ laravel-sql-injection-json-paths:
     title: Laravel SQL injection vulnerability
     content: src/content/blog/laravel-sql-injection.md
     next: new-in-php-73
+    meta:
+        description: "An SQL injection vulnerability in Laravel has been disclosed and fixed"
 
 array-destructuring-with-list-in-php:
     date: 2019-04-01
