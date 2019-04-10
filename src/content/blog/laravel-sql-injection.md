@@ -97,3 +97,6 @@ From the entry point though, you can access all data.
 As far as I can tell, it's not possible to write to the database with this approach, 
 as Laravel only allows one query to be executed. 
 If you're inserting `;` to end the current query and start a new one, you'll get an error.
+
+I've submitted a PR to fix this issue, at the moment of writing, it's still pending:
+[https://github.com/laravel/framework/pull/28160](*https://github.com/laravel/framework/pull/28160).
