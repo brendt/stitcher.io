@@ -36,7 +36,7 @@ new-in-php-74:
     title: New in PHP 7.4
     highlight: true
     content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: phpstorm-tips-for-power-users
+    next: new-in-php-73
     meta:
         description: "A regularly updated list of new features to be expected in PHP 7.4"
 

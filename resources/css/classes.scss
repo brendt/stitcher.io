@@ -84,6 +84,11 @@ div.center > p {
     border: 2px solid darken(#fff, 6);
 }
 
+.cta:hover {
+    background-color: saturate($red, 10);
+    border-color: $red;
+}
+
 .cta-light {
     background-color: #fff;
     color: lighten(#000, 40);
@@ -94,9 +99,16 @@ div.center > p {
     }
 }
 
-.cta:hover {
-    background-color: saturate($red, 10);
-    border-color: $red;
+.cta-ghost {
+    background-color: #fff;
+    border: none;
+    color: lighten(#000, 40);
+    padding: 1em 2em;
+
+    &:hover {
+        color: $color-red;
+        background-color: #fff;
+    }
 }
 
 .cta-light:hover {
