@@ -96,6 +96,8 @@ A popular spec that inspires lots of API related packages is the JSON API spec. 
 Otherwise the `JSON_EXTRACT` function will fail, stopping our query. 
 From the entry point though, you can access all data.
 
+{{ ad }}
+
 ## Prevention?
 
 Be sure you update to the latest Laravel 5.8 version, as soon as the fix has been tagged.
@@ -104,9 +106,12 @@ It's already [merged](*https://github.com/laravel/framework/pull/28160), but not
 Even more importantly, you should never allow user input directly to specify columns, without a whitelist.
 In our previous example, you could specify which fields are allowed to be requested, instead of accepting all input.
 
-Lastly, one of our widely-used packages, `spatie/laravel-querybuilder`, 
+Next, one of our widely-used packages, `spatie/laravel-querybuilder`, 
 opened up `addSelect` by design. 
 This meant that websites using our package, were vulnerable to the underlying issue.
 We immediately fixed it and Freek [wrote about it](*https://murze.be/an-important-security-release-for-laravel-query-builder) in depth.
 If you're using our package and unable to update to the latest Laravel version, 
 you should immediately update the package.
+
+Finally, the [Laravel docs](*https://laravel.com/docs/5.8/queries) have also been updated 
+to warn developers not to pass user input directly to columns when using the query builder. 
