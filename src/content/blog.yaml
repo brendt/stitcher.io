@@ -3,6 +3,7 @@ unsafe-sql-functions-in-laravel:
     title: Unsafe SQL functions in Laravel
     content: src/content/blog/laravel-sql-injection.md
     next: new-in-php-73
+    highlight: true
     meta:
         description: "An SQL injection vulnerability in Laravel has been disclosed and fixed"
 
