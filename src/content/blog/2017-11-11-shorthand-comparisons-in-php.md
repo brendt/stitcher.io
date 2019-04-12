@@ -273,8 +273,3 @@ usort($array, function ($a, $b) {
 Hi there, thanks for reading! I hope this blog post helped you!
 If you'd like to contact me, you can do so on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
 I always love to chat! 
-
-Also, maybe you're interested in reading some more? 
-I'd like to recommend another one of my blog posts, while you're here.
-It's called [PHPStorm tips for power users](/blog/phpstorm-tips-for-power-users), 
-who knows, it might be interesting to you?
