@@ -19,7 +19,7 @@ php-reimagined:
     date: 2019-03-21
     title: PHP reimagined
     content: src/content/blog/2019-03-21-a-new-php.md
-    next: new-in-php-73
+    next: new-in-php-74
     meta:
         description: "My personal take on how to improve PHP"
 
