@@ -381,7 +381,7 @@ shorthand-comparisons-in-php:
     title: Shorthand comparisons in PHP
     teaserTitle: Shorthand comparisons
     content: src/content/blog/2017-11-11-shorthand-comparisons-in-php.md
-    next: organise-by-domain
+    next: new-in-php-74
     discuss:
         reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
     meta:
