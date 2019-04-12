@@ -498,7 +498,7 @@ php-generics-and-why-we-need-them:
     title: PHP Generics and why we need them
     teaserTitle: PHP Generics
     content: src/content/blog/2017-05-17-php-generics-and-why-we-need-them.md
-    next: php-jit
+    next: new-in-php-74
     meta:
         description: >
             PHP has some problems with arrays. Generics can fix those problems.
