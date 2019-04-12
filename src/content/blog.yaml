@@ -2,7 +2,7 @@ unsafe-sql-functions-in-laravel:
     date: 2019-04-10
     title: Unsafe SQL functions in Laravel
     content: src/content/blog/laravel-sql-injection.md
-    next: new-in-php-73
+    next: new-in-php-74
     highlight: true
     meta:
         description: "An SQL injection vulnerability in Laravel has been disclosed and fixed"
@@ -11,7 +11,7 @@ array-destructuring-with-list-in-php:
     date: 2019-04-01
     title: Array destructuring in PHP
     content: src/content/blog/2019-04-01-list-in-php.md
-    next: new-in-php-73
+    next: new-in-php-74
     meta:
         description: "How to destructure arrays in PHP using list or its shorthand notation"
 
@@ -198,6 +198,7 @@ eloquent-mysql-views:
     date: 2018-08-27
     title: Eloquent MySQL views
     content: src/content/blog/2018-08-27-eloquent-mysql-views.md
+    next: unsafe-sql-functions-in-laravel
     meta:
         description: "MySQL views are a powerful tool and can be seamlessly integrated with Laravel Eloquent models."
 
