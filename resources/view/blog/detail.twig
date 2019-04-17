@@ -15,11 +15,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="patreon">
-        <p>
-            If you enjoy reading my blog, you could consider supporting me <a href="https://www.patreon.com/brendt" target="_blank" rel="noopener noreferrer">on Patreon</a>.
-        </p>
-    </div>
+    {% if post.disablePatreon is not defined %}
+        <div class="patreon">
+            <p>
+                If you enjoy reading my blog, you could consider supporting me <a href="https://www.patreon.com/brendt" target="_blank" rel="noopener noreferrer">on Patreon</a>.
+            </p>
+        </div>
+    {% endif %}
 
     <article class="blog {% if post.disableAds is defined and post.disableAds == true %}no-ad{% endif %}">
         <aside>

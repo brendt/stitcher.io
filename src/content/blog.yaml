@@ -2,6 +2,7 @@ new-in-php-74:
     date: 2019-04-17
     title: New in PHP 7.4
     highlight: true
+    disablePatreon: true
     content: src/content/blog/2019-01-01-new-in-php-74.md
     next: new-in-php-73
     meta:
@@ -125,6 +126,7 @@ share-a-blog-betterwebtype-com:
 new-in-php-73:
     date: 2018-12-05
     title: New in PHP 7.3
+    disablePatreon: true
     content: src/content/blog/2018-08-20-new-in-php-73.md
     highlight: true
     next: new-in-php-74
