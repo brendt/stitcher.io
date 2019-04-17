@@ -4,86 +4,22 @@
 .banner {
     background-color: $color-red-pastel;
     color: $color-black;
-    font-size: 2em;
-    font-weight: 300;
-    padding: 3.2em 0 3em;
+    padding: 3em 0 2.8em;
     margin: 2em 0;
-    display: flex;
-    align-items: center;
-    text-align: right;
-    justify-content: center;
 
-    h2 {
-        margin: 0;
-        padding: 0 1em 0 0;
-        font-family: $font-serif;
+    h1 {
+        margin-top: 0;
+        text-align: left;
+        display: inline-block;
+        width: auto;
+        border: none;
+        margin-bottom: 0;
+        font-weight: normal;
     }
 
     p {
         margin-bottom: 0;
-        flex: 1 1 auto;
         padding-right: 0;
-    }
-
-    &.full-screen {
-        height: 75vh;
-
-        @media (max-width: $width-base) {
-            height: auto;
-        }
-    }
-
-    * {
-        width: 50%;
-    }
-
-    @media (max-width: $width-container) {
-        font-size: 1.5em;
-
-        & > * {
-            width: 100%;
-        }
-
-        h2 {
-            margin-bottom: .5em;
-            padding-left: .5em;
-        }
-
-        flex-wrap: wrap;
-        text-align: left;
-        padding: 2em 1em;
-    }
-
-    @media (max-width: $width-container-mobile-lrg) {
-        padding: 1.3em 0;
-    }
-}
-
-.banner-content {
-    font-size: 1.1rem;
-    text-align: left;
-    color: inherit;
-
-    ul {
-        padding: 0;
-        margin: 0;
-        width: 80%;
-
-        @media (max-width: $width-container-mobile) {
-            width: 95%;
-        }
-    }
-
-    li {
-        padding: 0;
-        width: 95%;
-        margin: 0 0 .3em 1em;
-
-        @media (max-width: $width-container-mobile-lrg) {
-            list-style: none;
-            margin-bottom: .5em;
-            width:98%;
-        }
     }
 }
 
