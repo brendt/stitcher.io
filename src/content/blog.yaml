@@ -1,3 +1,12 @@
+new-in-php-74:
+    date: 2019-04-17
+    title: New in PHP 7.4
+    highlight: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
+    meta:
+        description: "A regularly updated list of new features to be expected in PHP 7.4"
+
 unsafe-sql-functions-in-laravel:
     date: 2019-04-10
     title: Unsafe SQL functions in Laravel
@@ -30,15 +39,6 @@ php-73-upgrade-mac:
     next: new-in-php-73
     meta:
         description: "How to upgrade your PHP installation on a Mac with Homebrew"
-
-new-in-php-74:
-    date: 2019-03-21
-    title: New in PHP 7.4
-    highlight: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: new-in-php-73
-    meta:
-        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 laravel-queueable-actions:
     date: 2019-03-11
