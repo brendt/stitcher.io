@@ -1,5 +1,5 @@
 new-in-php-74:
-    date: 2019-04-17
+    date: 2019-04-23
     title: New in PHP 7.4
     highlight: true
     disablePatreon: true
@@ -14,7 +14,6 @@ unsafe-sql-functions-in-laravel:
     title: Unsafe SQL functions in Laravel
     content: src/content/blog/laravel-sql-injection.md
     next: new-in-php-74
-    highlight: true
     meta:
         description: "An SQL injection vulnerability in Laravel has been disclosed and fixed"
 
