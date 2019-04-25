@@ -35,10 +35,6 @@
         {% endif %}
 
         {{ post.content|raw }}
-
-        {% if 'sneaky-placeholder' not in post.content and (post.disableAds is not defined or post.disableAds == false) %}
-            {% include '_partials/ad.twig' %}
-        {% endif %}
     </article>
 
     <footer>
@@ -74,20 +70,4 @@
 {% endblock %}
 
 {% block footer %}{% endblock %}
-
-{% block scripts %}
-    {{ parent() }}
-
-    {% if post.disableAds is not defined or post.disableAds == false %}
-        <script>
-            [].forEach.call(document.querySelectorAll('.adsbygoogle'), function(){
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            });
-        </script>
-
-        {{ js.async().link('resources/js/ads.js')|raw }}
-
-        <script async src="/ads.js"></script>
-    {% endif %}
-{% endblock %}
 

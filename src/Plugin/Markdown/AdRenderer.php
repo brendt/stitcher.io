@@ -15,7 +15,8 @@ class AdRenderer implements InlineRendererInterface
 
     public function __construct()
     {
-        $this->ad = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad.twig');
+//        $this->ad = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad.twig');
+        $this->ad = '';
     }
 
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer, $inTightList = false)
