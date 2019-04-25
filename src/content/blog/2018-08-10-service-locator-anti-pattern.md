@@ -232,7 +232,7 @@ But making the assumption that "it will work" isn't good enough to me.
 At least, it's no argument against increased cognitive load, 
 as you're still left with a lot of questions about the surrounding context.
 
-{{ ad }}
+{{ ad:google }}
 
 ## Dependency injection solves it
 

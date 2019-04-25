@@ -11,12 +11,15 @@ use League\CommonMark\Inline\Renderer\InlineRendererInterface;
 
 class AdRenderer implements InlineRendererInterface
 {
-    private $ad;
+    private $google;
+
+    private $carbon;
 
     public function __construct()
     {
-//        $this->ad = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad.twig');
-        $this->ad = '';
+//        $this->google = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_google.twig');
+        $this->google = '';
+        $this->carbon = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_carbon.twig');
     }
 
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer, $inTightList = false)
@@ -27,8 +30,12 @@ class AdRenderer implements InlineRendererInterface
 
         $content = $inline->getContent();
 
-        if (strpos($content, '{{ ad }}') !== false) {
-            $content = str_replace('{{ ad }}', $this->ad, $content);
+        if (strpos($content, '{{ ad:google }}') !== false) {
+            $content = str_replace('{{ ad:google }}', $this->google, $content);
+        }
+
+        if (strpos($content, '{{ ad:carbon }}') !== false) {
+            $content = str_replace('{{ ad:carbon }}', $this->carbon, $content);
         }
 
         return $content;

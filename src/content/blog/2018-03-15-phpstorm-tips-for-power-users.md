@@ -81,7 +81,7 @@ The width of this centered code view is configured in `Settings > Editor > Code 
     <img src="/resources/img/static/phpstorm-power-users/distraction-free.gif"/>
 </p>
 
-{{ ad }}
+{{ ad:google }}
 
 ## Color inspection
 

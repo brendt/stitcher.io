@@ -124,7 +124,7 @@ Let's look at how they are implemented.
 
 <a name="impatient"></a>
 
-{{ ad }}
+{{ ad:google }}
 
 ## SQL views in Laravel
 
@@ -239,4 +239,4 @@ Maybe you have a followup question or remark?
 I'd love to hear from you!
 You can reach me on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
 
-{{ ad }}
+{{ ad:google }}

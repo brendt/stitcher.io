@@ -130,4 +130,4 @@ Be careful though that undefined keys will still trigger a notice.
 
 In summary, there are some pretty good cases in which `list` can be of help! 
 
-{{ ad }}
+{{ ad:google }}

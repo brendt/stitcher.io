@@ -88,7 +88,7 @@ slowing down PHPStorm in its whole.
 I've written a separate blog post on this issue, and how you can fix it. 
 You can read it [here](/blog/phpstorm-performance-issues-on-osx).
 
-{{ ad }}
+{{ ad:google }}
 
 ## On a personal note
 

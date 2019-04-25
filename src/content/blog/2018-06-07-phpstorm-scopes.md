@@ -43,7 +43,7 @@ But also in the finder.
 
 ![File colours](/resources/img/blog/phpstorm-coloured-scopes/finder.png)
 
-{{ ad }}
+{{ ad:google }}
 
 ## Defaults
 

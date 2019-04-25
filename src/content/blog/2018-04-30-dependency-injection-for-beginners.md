@@ -209,7 +209,7 @@ It's important to realise that there's limits to the benefits of everything.
 You should always be alert that you're not taking this to the extreme,
 as there are valid cases in which a pragmatic approach *is* the better solution.   
 
-{{ ad }}
+{{ ad:google }}
 
 ## In closing
 

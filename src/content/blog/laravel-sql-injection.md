@@ -111,7 +111,7 @@ Though there are popular packages which provide this functionality for easy API 
 Otherwise the `json_extract` function will fail, stopping our query. 
 From the entry point though, you can access all data.
 
-{{ ad }}
+{{ ad:google }}
 
 ## Prevention?
 

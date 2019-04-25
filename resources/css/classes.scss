@@ -225,3 +225,9 @@ div.center > p {
         border-bottom: dotted 2px red;
     }
 }
+
+.carbon {
+    @include wrapper();
+    margin-top: 1em;
+    background-color: #eee;
+}
