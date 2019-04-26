@@ -18,6 +18,7 @@ $redirects = [
     '/keybindings' => '/blog/mastering-key-bindings',
     '/curly' => '/blog/where-a-curly-bracket-belongs',
     '/blog/array-merge-vs' => '/blog/array-merge-vs+',
+    '/newsletter-signup' => 'http://eepurl.com/go5zFj',
 ];
 
 $router = \Stitcher\App::router();
