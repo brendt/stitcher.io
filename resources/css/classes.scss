@@ -173,6 +173,10 @@ div.center > p {
         font-size: 1em;
         margin-bottom: 0;
     }
+
+    &.patreon-light {
+        background: none;
+    }
 }
 
 .hljs-highlight {
@@ -229,5 +233,4 @@ div.center > p {
 .carbon {
     @include wrapper();
     margin-top: 1em;
-    background-color: #eee;
 }

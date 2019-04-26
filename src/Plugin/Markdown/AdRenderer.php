@@ -17,8 +17,7 @@ class AdRenderer implements InlineRendererInterface
 
     public function __construct()
     {
-//        $this->google = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_google.twig');
-        $this->google = '';
+        $this->google = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_google.twig');
         $this->carbon = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_carbon.twig');
     }
 
@@ -30,13 +29,29 @@ class AdRenderer implements InlineRendererInterface
 
         $content = $inline->getContent();
 
-        if (strpos($content, '{{ ad:google }}') !== false) {
-            $content = str_replace('{{ ad:google }}', $this->google, $content);
+        if (strpos($content, '{{ ad:carbon }}') !== false) {
+            return $this->renderCarbon($content);
         }
 
-        if (strpos($content, '{{ ad:carbon }}') !== false) {
-            $content = str_replace('{{ ad:carbon }}', $this->carbon, $content);
+        if (strpos($content, '{{ ad:google }}') !== false) {
+            return $this->renderGoogle($content);
         }
+
+        return $content;
+    }
+
+    private function renderGoogle(string $content): string
+    {
+        $content = str_replace('{{ ad:google }}', $this->google, $content);
+
+        return $content;
+    }
+
+    private function renderCarbon(string $content): string
+    {
+        $content = str_replace('{{ ad:carbon }}', $this->carbon, $content);
+
+        $content = str_replace('{{ ad:google }}', '', $content);
 
         return $content;
     }

@@ -15,22 +15,16 @@
 {% endblock %}
 
 {% block content %}
-    {% if post.disablePatreon is not defined %}
-        <div class="patreon">
-            <p>
-                If you enjoy reading my blog, you could consider supporting me <a href="https://www.patreon.com/brendt" target="_blank" rel="noopener noreferrer">on Patreon</a>.
-            </p>
-        </div>
-    {% endif %}
+    <div class="patreon {% if '"banner"' in post.content%}patreon-light{% endif %}">
+        <p>
+            If you enjoy reading my blog, you could consider supporting me <a href="https://www.patreon.com/brendt" target="_blank" rel="noopener noreferrer">on Patreon</a>.
+        </p>
+    </div>
 
     <article class="blog {% if post.disableAds is defined and post.disableAds == true %}no-ad{% endif %}">
         <aside>
             &laquo; <a href="/">back</a> — written by <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Brent</a> on {{ post.date|date("F d, Y") }}
         </aside>
-
-        <div class="carbon">
-            dassd
-        </div>
 
         {% if post.disableTitle is not defined %}
             <h1>
@@ -75,3 +69,18 @@
 
 {% block footer %}{% endblock %}
 
+{% block scripts %}
+    {{ parent() }}
+
+    {% if post.disableAds is not defined or post.disableAds == false %}
+        <script>
+            [].forEach.call(document.querySelectorAll('.adsbygoogle'), function(){
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            });
+        </script>
+
+        {{ js.async().link('resources/js/ads.js')|raw }}
+
+        <script async src="/ads.js"></script>
+    {% endif %}
+{% endblock %}
