@@ -1,10 +1,17 @@
+short-closures-in-php:
+    date: 2019-05-02
+    title: Short closures in PHP
+    content: src/content/blog/2019-05-02-short-closures-in-php.md
+    next: new-in-php-74
+    meta:
+        description: "Short closures are available since PHP 7.4"
+
 starting-a-newsletter:
     date: 2019-04-26
     title: "I'm starting a newsletter"
     content: src/content/blog/2019-04-26-newsletter.md
     meta:
         description: "I'm starting a monthly-ish newsletter"
-
 
 new-in-php-74:
     date: 2019-04-23
@@ -19,7 +26,7 @@ new-in-php-74:
 unsafe-sql-functions-in-laravel:
     date: 2019-04-10
     title: Unsafe SQL functions in Laravel
-    content: src/content/blog/laravel-sql-injection.md
+    content: src/content/blog/2019-04-10-laravel-sql-injection.md
     next: new-in-php-74
     meta:
         description: "An SQL injection vulnerability in Laravel has been disclosed and fixed"
