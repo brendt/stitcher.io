@@ -12,6 +12,16 @@ body {
     }
 }
 
+.ruler {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 900px;
+    width: 5px;
+    background-color: $color-red;
+}
+
 * {
     box-sizing: border-box;
     font-size: 1em;
