@@ -4,6 +4,8 @@ In this post we'll look at why you want to use them and how they can be integrat
 If you're already convinced of the power of MySQL views, or just want to know how to implement them in Laravel,
 you're free to [skip ahead](#impatient).
 
+{{ ad:carbon }}
+
 ## Benefits of MySQL views
 
 A view in MySQL stores the result of a query in a table-like structure. 

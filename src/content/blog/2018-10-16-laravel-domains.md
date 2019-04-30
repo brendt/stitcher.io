@@ -7,6 +7,8 @@ In our context, "domain" could also be named "module".
 A "domain" simply refers to a category of related stuff, 
 that's it. 
 
+{{ ad:carbon }}
+
 It's also important to note is that this approach isn't a silver bullet.
 At [Spatie](*https://spatie.be) we choose a different project structure
 based on the needs of that specific project. 

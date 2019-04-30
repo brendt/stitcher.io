@@ -8,6 +8,8 @@ Who can blame them?
 It's only natural that a company continues to look for ways to improve their market footprint,
 especially in the tech world.
 
+{{ ad:carbon }}
+
 But now what? GitHub becomes one of the many products swallowed by tech giants.
 It will become even more difficult for smaller products to stand a competing chance.
 Should we, the tech industry, be worried about big monopolies growing larger and larger?

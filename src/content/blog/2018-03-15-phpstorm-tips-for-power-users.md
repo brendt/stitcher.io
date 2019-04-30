@@ -1,5 +1,7 @@
 A selection of less-known-yet-powerful features of PHPStorm.
 
+{{ ad:carbon }}
+
 ## Pane modes
 
 Every pane in PHPStorm has several modes and can be configured either by hand or via key bindings.

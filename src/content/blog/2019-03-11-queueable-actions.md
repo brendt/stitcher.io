@@ -4,6 +4,8 @@ We call them "actions", and simply put they are classes to encapsulate business 
 You can read up on how we structure projects by domains and actions [here](*/blog/organise-by-domain), 
 and find examples of actions in the [code of my aggregate project](*https://github.com/brendt/aggregate.stitcher.io/blob/master/app/Domain/Post/Actions/AddViewAction.php).
 
+{{ ad:carbon }}
+
 Let's give one example using actions: creating a contract.
 A contract creation not only saves a model in the database, but also generates a PDF of that contract.
 

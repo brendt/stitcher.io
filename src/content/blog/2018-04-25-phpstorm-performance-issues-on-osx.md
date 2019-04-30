@@ -6,6 +6,8 @@ It turns out, the solution might be rather unexpected.
 Instead of disabling plugins, inspections and what not; 
 it seems like there's an issue with font rendering in the JRE for Mac.
 
+{{ ad:carbon }}
+
 This means that on certain resolutions, for certain fonts and for certain kinds of antialiasing,
 PHPStorm will need *a lot* of CPU power just to render fonts.
 So how to fix it? There are a few options.

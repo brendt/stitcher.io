@@ -1,5 +1,7 @@
 In today's blog post we'll explore some common problems with arrays in PHP. All the problems and issues listed could be solved with a pending RFC which adds generics to PHP. We won't explore in too much detail what generics are. But at the end of this read you should have a good idea as to why they are useful, and why we really want them in PHP. So without further ado, lets dive into the subject.
 
+{{ ad:carbon }}
+
 Imagine you have a collection of blog posts, loaded from a data source.
 
 ```php

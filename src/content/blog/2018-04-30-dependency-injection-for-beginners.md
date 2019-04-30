@@ -13,6 +13,8 @@ class Car
 }
 ```
 
+{{ ad:carbon }}
+
 For this car to work, it needs an engine and wheels.
 Now, there are several approaches to achieve that goal.
 You could, for example, do the following:

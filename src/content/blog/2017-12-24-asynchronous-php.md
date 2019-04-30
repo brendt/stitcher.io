@@ -10,6 +10,8 @@ but let's take a look at a few use-cases we see at Spatie:
 - [Code generators](*https://github.com/spatie/schema-org)
 - Static site generators - like Stitcher
 
+{{ ad:carbon }}
+
 We wanted to create an easy-to-use package, yet one that could solve our use cases.
 Some of the examples listed above will not use the new `spatie/async` package,
 because there's also a queueing system provided with Laravel.

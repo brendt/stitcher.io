@@ -12,6 +12,8 @@ Now they don't overlap.
 How can we reliably compare dates, if there's always a smaller unit of time we might not know about?
 There's two solutions.
 
+{{ ad:carbon }}
+
 ## Excluding boundaries 
 
 Here a little mathematics refresher, ranges can be written like so:

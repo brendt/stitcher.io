@@ -8,6 +8,8 @@ it also increases our own and others ease of mind when working with it.
 It can improve the fluency of your work and free your mind to think about real important stuff.
 You know, things like "application logic" for example.
 
+{{ ad:carbon }}
+
 I wrote about visual code improvements a while back in a previous blogpost about [cognitive load](*/blog/a-programmers-cognitive-load).
 Today I want to focus on that one little, yet very important character in our codebase: the curly bracket. 
 More specifically, we're only going to look at the opening curly bracket, 

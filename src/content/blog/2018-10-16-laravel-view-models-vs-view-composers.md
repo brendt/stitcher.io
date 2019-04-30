@@ -4,6 +4,8 @@ how do view models differ from view composers in Laravel?
 
 Time to clarify this question once and for all.
 
+{{ ad:carbon }}
+
 ## View composers
 
 Let's look at how view composers are used in Laravel. 

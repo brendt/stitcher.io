@@ -6,6 +6,8 @@ And did you feel the pain of not knowing exactly what was in that array?
 Not being sure whether the data in it is actually what you expect it to be, 
 or what fields are available?
 
+{{ ad:carbon }}
+
 Let's visualise what I'm talking about:
 
 ```php

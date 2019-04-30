@@ -2,6 +2,8 @@ When programmers call themselves craftsmen or artisans,
 I can agree that we are. 
 At the same time though, some of these programmers underestimate what craftsmanship actually means.
 
+{{ ad:carbon }}
+
 Let's make a comparison.
 
 My younger brother is an apprentice wood worker,

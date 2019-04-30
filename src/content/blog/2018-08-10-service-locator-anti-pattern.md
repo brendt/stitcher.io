@@ -6,6 +6,8 @@ The `Auth` facade will reach into Laravel's service container, grab the register
 and forward the static call to that component.
 In this case, it'll return the logged in user.
 
+{{ ad:carbon }}
+
 During a discussion with my colleagues, I found it difficult to put into words 
 what exactly is wrong with grabbing things out of the container –a service locator– so I decided to write my thoughts down, 
 with an example: a class `CreatePostAction` which is tasked to create a blog post, 

@@ -230,7 +230,36 @@ div.center > p {
     }
 }
 
-.carbon {
+.carbon-ad {
     @include wrapper();
-    margin-top: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+
+    display:flex;
+    align-items: center;
+    font-size: 1.1em;
+    cursor: pointer;
+
+    .carbon-img {
+        width: 130px;
+        height: 100px;
+        box-shadow: none;
+        margin: 0;
+    }
+
+    .carbon-desc {
+        padding-left: 1em;
+    }
+
+    @media (max-width:$width-container-mobile) {
+        padding: 1em;
+        background-color: darken(#fff, 2);
+        flex-direction: column;
+        align-items: flex-start;
+
+        .carbon-desc {
+            margin-top: 1em;
+            padding-left: 0;
+        }
+    }
 }

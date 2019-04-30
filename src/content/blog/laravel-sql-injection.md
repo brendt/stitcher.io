@@ -2,6 +2,8 @@ I recently learned that not all query builder functionality in Laravel is "safe"
 This means that user input shouldn't be passed directly to it, 
 as it might expose your application to SQL injection vulnerabilities.
 
+{{ ad:carbon }}
+
 The past few days it became clear that there is little community knowledge about these unsafe functions. 
 Many developers assume, as did I, that the Laravel query builder completely prevents SQL injection attacks.
 

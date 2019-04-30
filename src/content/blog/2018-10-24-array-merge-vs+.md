@@ -2,6 +2,8 @@ PHP has several ways of combining two arrays into one.
 There's a subtle difference between two methods though,
 a difference worth knowing.
 
+{{ ad:carbon }}
+
 Let's take a look at how these two methods compare:
 
 ```php

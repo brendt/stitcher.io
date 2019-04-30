@@ -5,6 +5,8 @@ Not only did it clarify type variance,
 I also understood what the Liskov substitution principle actually is about.
 Today, I'm going to share these insights with you.
  
+{{ ad:carbon }}
+
 ## Prerequisites
 
 I'll be writing pseudo code to make clear what I'm talking about. 

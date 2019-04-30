@@ -1,6 +1,8 @@
 Scopes in PHPStorm can significantly improve your development experience. 
 They enable better search and allow for custom file colours. 
 
+{{ ad:carbon }}
+
 For example, this is what I'm talking about:
 
 ![A tree view configured with coloured scopes](/resources/img/blog/phpstorm-coloured-scopes/tree-view.png)

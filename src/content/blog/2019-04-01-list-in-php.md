@@ -6,6 +6,8 @@ In other words: it will "destructure" the array into separate variables.
 
 Note that the word is "destructure", not "destruction" — that's something different 😉
 
+{{ ad:carbon }}
+
 Here's what that looks like:
 
 ```php

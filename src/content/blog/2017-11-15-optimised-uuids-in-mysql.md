@@ -5,13 +5,15 @@ As you might know, normal UUIDs are stored as `CHAR(36)` fields in the database.
 This has an enormous performance cost, because MySQL is unable to properly index these records.
 Take a look at the following graph, plotting the execution time of hundred queries against two datasets: one with 50k rows, one with 500k rows.
 
-![Poor textual UUID performance](/resources/img/blog/binary-uuid/textual_uuid.png)
+{{ ad:carbon }}
 
-~~That's an average of more than 1.5 seconds when using textual UUIDs!~~ 
+![](/resources/img/blog/binary-uuid/textual_uuid.png)
 
-*There's an **important edit** here: the benchmark above was performed on un-indexed fields.
+_That's an average of more than 1.5 seconds when using textual UUIDs!_
+
+There's an **important edit** here: the benchmark above was performed on un-indexed fields.
 I've since changed the benchmark results to work with indexed textual fields for a more fair comparison.
-There's still a performance gain to not using textual UUIDs, so keep reading!*
+There's still a performance gain to not using textual UUIDs, so keep reading!
 
 Looking around for better alternatives, we found a two-part solution.
 
@@ -21,7 +23,7 @@ Instead of saving UUIDs as `CHAR`, it's possible to store their actual binary da
 Storing them in this format, MySQL has a lot less trouble indexing this table. 
 This is the graph plotting a much faster result.
 
-![Binary UUIDs have a huge performance improvement](/resources/img/blog/binary-uuid/binary_uuid.png)
+![](/resources/img/blog/binary-uuid/binary_uuid.png)
 
 That's an avarage of 0.00008832061291 seconds per query, 
 in comparison to ~~1.5~~ 0.0001493031979 seconds for the **indexed** textual UUID.
@@ -39,7 +41,7 @@ There's one important thing to note: this time related bits are only available i
 
 Using this approach, we can see following result.
 
-![Binary UUIDs have a huge performance improvement](/resources/img/blog/binary-uuid/comparison.png)
+![](/resources/img/blog/binary-uuid/comparison.png)
 
 The optimised approach is actually slower for lookups in a small table, 
 but it outperforms the normal binary approach on larger datasets.

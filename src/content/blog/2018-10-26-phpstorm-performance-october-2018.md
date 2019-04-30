@@ -5,6 +5,8 @@ I've written about these issues before, but it's good to keep a regularly update
 So without further ado: if you're on OSX (Sierra, High Sierra or Mojave); 
 if you're experiencing PhpStorm performance issues, this post might help you.
 
+{{ ad:carbon }}
+
 ## External monitor resolution
 
 Do you have an external monitor plugged into your MacBook? 
