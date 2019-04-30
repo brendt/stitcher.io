@@ -22,7 +22,7 @@ $ids = <hljs prop>array_map</hljs>(function ($post) {
 
 Let's summarize how short closures can be used.
 
-- Available as of PHP 7.4
+- They are available as of PHP 7.4
 - They start with the `fn` keyword
 - They can only have _one_ expression, which is the return statement
 - The `return` keyword can be omitted
@@ -36,8 +36,8 @@ $ids = <hljs prop>array_map</hljs>(<hljs keyword>fn</hljs>(<hljs type>Post</hljs
 
 Two more things to mention:
 
-- References are allowed, both for the arguments as the return values
 - The spread operator is also allowed
+- References are allowed, both for the arguments as the return values
 
 If you want to return a value by reference, the following syntax should be used:
 
@@ -48,29 +48,29 @@ If you want to return a value by reference, the following syntax should be used:
 In short, short closures allow the same functionality you'd expect from normal closures, 
 with the exception of only allowing one expression.
 
-## No multiline
+## No multi-line
 
 You read it right: short closures can only have _one_ expression. 
 This means you cannot have multiple lines in them.
 
 The reasoning is as follows: the goal of short closures is to reduce verbosity. 
 `fn` is of course shorter than `function` in all cases.
-However, Nikita Popov, the creator of the RFC, argued that if you're dealing with multiline closures, 
+Nikita Popov, the creator of the RFC, however argued that if you're dealing with multi-line functions, 
 there less to be gained by using short closures.
 
-After all, multi line closures are by definition already more verbose,
-being able to skip two keywords (`function` and `return`) wouldn't make much of a difference.
+After all, multi-line closures are by definition already more verbose;
+so being able to skip two keywords (`function` and `return`) wouldn't make much of a difference.
 
 Whether you agree with this sentiment is up to you. 
 While I can think of many one-line closures in my projects, 
-there are also plenty of multi line ones, and I'll personally miss the short syntax in those cases.
+there are also plenty of multi-line ones, and I'll personally miss the short syntax in those cases.
 
-It is possible that multi line short closures will be added though, 
+There's hope though: it is possible to add multi-line short closures in the future, 
 but that's an RFC on its own.
 
 ## Values from outer scope
 
-A major difference between short and normal closures is that short closures don't 
+Another significant difference between short and normal closures is that the short ones don't 
 require the `use` keyword to be able to access data from the outer scope.
 
 ```php
@@ -92,7 +92,7 @@ One exception is of course the `$this` keyword, which acts exactly the same as n
 
 ## Future possibilities
 
-I already mentioned multi line short closures, which is still a future possibility.
+I already mentioned multi-line short closures, which is still a future possibility.
 Another idea floating around is allowing the short closure syntax in classes, for example for getters and setters:
 
 ```php
@@ -104,7 +104,7 @@ class Post {
 ```
 
 All in all, short closures are a welcome feature, though there is still area for improvement. 
-The biggest one probably being multi line short closures.
+The biggest one probably being multi-line short closures.
 
 Do you have any thoughts you'd like to share? 
 Feel free to send a [tweet](*https://twitter.com/brendt_gd) or an [email](mailto:brendt@stitcher.io) my way! 
