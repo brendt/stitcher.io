@@ -230,36 +230,62 @@ div.center > p {
     }
 }
 
-.carbon-ad {
-    @include wrapper();
+#carbonads {
     margin-top: 1.5em;
     margin-bottom: 1.5em;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1.4em;
+    position: relative;
 
-    display:flex;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+#carbonads > span {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > a {
+        display: block;
+        width: 100%;
+        text-align: right;
+        margin-top: -1.7em;
+        padding-right: .1em;
+
+        @media (max-width: $width-container-mobile) {
+            padding-right: 1em;
+        }
+    }
+}
+
+.carbon-wrap {
+    display: flex;
     align-items: center;
     font-size: 1.1em;
-    cursor: pointer;
 
-    .carbon-img {
+    img {
         width: 130px;
         height: 100px;
-        box-shadow: none;
         margin: 0;
     }
 
-    .carbon-desc {
+    a:last-child {
         padding-left: 1em;
     }
 
-    @media (max-width:$width-container-mobile) {
+    @media (max-width: $width-container-mobile) {
         padding: 1em;
         background-color: darken(#fff, 2);
         flex-direction: column;
         align-items: flex-start;
 
-        .carbon-desc {
+        a:last-child {
             margin-top: 1em;
             padding-left: 0;
+            margin-bottom: 1em;
         }
     }
 }
