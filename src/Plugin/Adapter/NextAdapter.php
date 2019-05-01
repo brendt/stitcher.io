@@ -23,8 +23,8 @@ class NextAdapter implements Adapter
 
         $blogData = Yaml::parse(File::read('src/content/blog.yaml'));
 
-        if (! isset($blogData[$nextId])) {
-            return [];
+        if (is_array($nextId) || ! isset($blogData[$nextId])) {
+            return $pageConfiguration['variables']['post']['next'];
         }
 
         return [

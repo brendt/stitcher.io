@@ -20,6 +20,9 @@ starting-a-newsletter:
     date: 2019-04-26
     title: "I'm starting a newsletter"
     content: src/content/blog/2019-04-26-newsletter.md
+    next:
+        url: /signup
+        title: Signup
     meta:
         description: "I'm starting a monthly-ish newsletter"
 

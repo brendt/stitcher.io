@@ -37,7 +37,11 @@
 
     <footer>
         <nav class="spacer">
-            {% if post.next.id is defined %}
+            {% if post.next.url is defined %}
+                <a class="cta" href="{{ post.next.url }}">
+                    {{ post.next.title }}
+                </a>
+            {% elseif post.next.id is defined %}
                 <a class="cta" href="/blog/{{ post.next.id }}">
                     Next up: {{ post.next.title }}
                 </a>
@@ -52,12 +56,16 @@
                 </a>
             {% endif %}
 
-            <a class="cta cta-ghost" href="/">Read more</a>
+            {% if post.next.url is not defined %}
+                <a class="cta cta-ghost" href="/blog/starting-a-newsletter">I'm starting a newsletter!</a>
+            {% endif %}
         </nav>
 
         <p>
-            follow me:
-            <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a> - <a href="/rss" target="_blank" rel="noopener noreferrer">RSS</a> -
+            Follow me:
+            <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a> —
+            <a href="/rss" target="_blank" rel="noopener noreferrer">RSS</a> —
+            <a href="/signup" target="_blank" rel="noopener noreferrer">Newsletter</a> —
             <a href="https://github.com/brendt" target="_blank" rel="noopener noreferrer">GitHub</a>
         </p>
 
