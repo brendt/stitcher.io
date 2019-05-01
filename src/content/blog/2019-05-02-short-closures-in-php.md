@@ -1,4 +1,4 @@
-Short closures are a way of writing shorter functions in PHP. 
+Short closures, also called arrow functions, are a way of writing shorter functions in PHP. 
 This notation is useful when passing closures to functions like `array_map` or `array_filter`.
 
 {{ ad:carbon }}

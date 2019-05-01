@@ -14,7 +14,7 @@ short-closures-in-php:
     content: src/content/blog/2019-05-02-short-closures-in-php.md
     next: new-in-php-74
     meta:
-        description: "Short closures are available since PHP 7.4"
+        description: "Short closures, also called arrow functions, are available in PHP 7.4"
 
 starting-a-newsletter:
     date: 2019-04-26
