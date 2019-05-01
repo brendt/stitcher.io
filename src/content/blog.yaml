@@ -1,3 +1,13 @@
+new-in-php-74:
+    date: 2019-04-30
+    title: New in PHP 7.4
+    highlight: true
+    disableTitle: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
+    meta:
+        description: "A regularly updated list of new features to be expected in PHP 7.4"
+
 short-closures-in-php:
     date: 2019-05-01
     title: Short closures in PHP
@@ -12,16 +22,6 @@ starting-a-newsletter:
     content: src/content/blog/2019-04-26-newsletter.md
     meta:
         description: "I'm starting a monthly-ish newsletter"
-
-new-in-php-74:
-    date: 2019-04-23
-    title: New in PHP 7.4
-    highlight: true
-    disableTitle: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: new-in-php-73
-    meta:
-        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 unsafe-sql-functions-in-laravel:
     date: 2019-04-10
