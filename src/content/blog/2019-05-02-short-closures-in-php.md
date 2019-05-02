@@ -56,7 +56,7 @@ This means you cannot have multiple lines in them.
 The reasoning is as follows: the goal of short closures is to reduce verbosity. 
 `fn` is of course shorter than `function` in all cases.
 Nikita Popov, the creator of the RFC, however argued that if you're dealing with multi-line functions, 
-there less to be gained by using short closures.
+there is less to be gained by using short closures.
 
 After all, multi-line closures are by definition already more verbose;
 so being able to skip two keywords (`function` and `return`) wouldn't make much of a difference.
