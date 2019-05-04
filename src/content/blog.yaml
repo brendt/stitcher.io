@@ -394,14 +394,13 @@ optimised-uuids-in-mysql:
     meta:
         description: I spent some time improving the performance of UUIDs on the database level.
 
-
 shorthand-comparisons-in-php:
     date: 2017-11-11
     type: blog
     title: Shorthand comparisons in PHP
     teaserTitle: Shorthand comparisons
     content: src/content/blog/2017-11-11-shorthand-comparisons-in-php.md
-    next: new-in-php-74
+    next: short-closures-in-php
     discuss:
         reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
     meta:
