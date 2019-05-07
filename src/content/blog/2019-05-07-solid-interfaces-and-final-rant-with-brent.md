@@ -1,5 +1,5 @@
 I'm giving podcasting a try. Let me know what you think of it via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
-You can download the episode [here](*https://drive.google.com/open?id=1gSsaR7WyNVtI2TB6E3-15NS-ML-xEROw).
+You can download the episode [here](*https://drive.google.com/open?id=1W01DKtZWL3WHn1CgUhSLZDO-GKYEwXLj).
 
 In this episode I talk about why I think final helps you write better maintainable code. 
 
