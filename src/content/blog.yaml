@@ -1,3 +1,11 @@
+solid-interfaces-and-final-rant-with-brent:
+    date: 2019-05-07
+    title: SOLID, interfaces and final - Rant With Brent 01
+    content: src/content/blog/2019-05-07-solid-interfaces-and-final-rant-with-brent.md
+    next: new-in-php-73
+    meta:
+        description: "A podcast, sort of."
+
 new-in-php-74:
     date: 2019-04-30
     title: New in PHP 7.4
