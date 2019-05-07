@@ -29,4 +29,16 @@ foreach ($redirects as $url => $targetUrl) {
     $router->redirect($url . '/', $targetUrl);
 }
 
+$newsLetters = [
+    'https://mailchi.mp/7ee0ee7c848b/1-new-in-php'
+];
+
+foreach ($newsLetters as $newsLetter) {
+    $parts = explode('/', $newsLetter);
+
+    $path = end($parts);
+
+    $router->redirect("/newsletter/{$path}", $newsLetter);
+}
+
 $router->get('/rss', RssHandler::class);
