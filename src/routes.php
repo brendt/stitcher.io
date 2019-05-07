@@ -33,12 +33,15 @@ $newsLetters = [
     'https://mailchi.mp/7ee0ee7c848b/1-new-in-php'
 ];
 
-foreach ($newsLetters as $newsLetter) {
+foreach ($newsLetters as $i => $newsLetter) {
     $parts = explode('/', $newsLetter);
 
     $path = end($parts);
 
+    $index = $i + 1;
+
     $router->redirect("/newsletter/{$path}", $newsLetter);
+    $router->redirect("/newsletter/{$index}", $newsLetter);
 }
 
 $router->get('/rss', RssHandler::class);
