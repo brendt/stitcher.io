@@ -62,7 +62,7 @@ Ironically, by leaving out the second operand of the ternary operator, it actual
 
 ### Chaining ternary operators
 
-As /u/prema_van_smuuf correctly pointed out on Reddit, the following, even though it seems logical; doesn't work in PHP:
+The following, even though it seems logical; doesn't work in PHP:
 
 ```php
 $result = $firstCondition
@@ -78,6 +78,8 @@ The above example would always evaluate the `$elseCondition` part first, so even
 I believe the right thing to do is to avoid nested ternary operators alltogether.
 You can read more about this strange behaviour 
 in this [Stack Overflow answer](*https://stackoverflow.com/questions/20559150/ternary-operator-left-associativity/38231137#38231137).
+
+Furthermore, as PHP 7.4, the use chained ternaries without brackets is [deprecated](*/blog/new-in-php-74#left-associative-ternary-operator-deprecation-rfc).
 
 ## Null coalescing operator
 
