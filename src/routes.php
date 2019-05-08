@@ -47,4 +47,4 @@ foreach ($newsLetters as $i => $newsLetter) {
 }
 
 $router->get('/rss', RssHandler::class);
-$router->get('/rss/rant-with-brent', RssPodcastHandler::class);
+$router->get('/rss-rant-with-brent', RssPodcastHandler::class);
