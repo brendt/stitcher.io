@@ -1,6 +1,8 @@
 <?php
 
+use Brendt\Stitcher\Handler\RssPodcastHandler;
 use Brendt\Stitcher\Handler\RssHandler;
+use Stitcher\App;
 
 $redirects = [
     '/feed' => '/rss',
@@ -22,7 +24,7 @@ $redirects = [
     '/signup' => 'http://eepurl.com/go5zFj',
 ];
 
-$router = \Stitcher\App::router();
+$router = App::router();
 
 foreach ($redirects as $url => $targetUrl) {
     $router->redirect($url, $targetUrl);
@@ -45,3 +47,4 @@ foreach ($newsLetters as $i => $newsLetter) {
 }
 
 $router->get('/rss', RssHandler::class);
+$router->get('/rss/rant-with-brent', RssPodcastHandler::class);
