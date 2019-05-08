@@ -24,6 +24,7 @@ return [
         'resources/img/favicon/',
         'resources/img/meta.png',
         'resources/img/meta_small.png',
+        'resources/img/rant-with-brent/logo.png',
     ],
 
     'errorPages' => [
