@@ -37,7 +37,7 @@ audio {
     width:100%;
 
     @media (min-width: $width-container) {
-        width: calc(100% + 50px);
-        margin-left: -25px;
+        width: calc(100% + 40px);
+        margin-left: -20px;
     }
 }
