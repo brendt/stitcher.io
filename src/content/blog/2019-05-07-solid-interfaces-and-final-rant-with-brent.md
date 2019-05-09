@@ -1,11 +1,11 @@
 I'm giving podcasting a try. Let me know what you think of it via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
-You can download the episode [here](*https://www.dropbox.com/s/lx49k6tap6u7ecu/01%20-%20SOLID%2C%20interfaces%20and%20final%20-%20Rant%20With%20Brent.mp3?dl=1).
+You can download the episode [here](*http://feeds.soundcloud.com/stream/617976093-brent-roose-826312539-01-solid-interfaces-and-final-rant-with-brent.mp3).
 
 In this episode I talk about why I think final helps you write better maintainable code. 
 
 <audio
     controls
-    src="https://www.dropbox.com/s/lx49k6tap6u7ecu/01%20-%20SOLID%2C%20interfaces%20and%20final%20-%20Rant%20With%20Brent.mp3?raw=1">
+    src="http://feeds.soundcloud.com/stream/617976093-brent-roose-826312539-01-solid-interfaces-and-final-rant-with-brent.mp3">
 </audio>
 
 {{ ad:carbon }}
