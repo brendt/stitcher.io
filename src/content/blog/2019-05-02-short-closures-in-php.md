@@ -25,7 +25,7 @@ Let's summarize how short closures can be used.
 - They are available as of PHP 7.4
 - They start with the `fn` keyword
 - They can only have _one_ expression, which is the return statement
-- The `return` keyword can be omitted
+- No `return` keyword allowed
 - Arguments and return types can be type hinted
 
 A more strictly typed way of writing the example above could be this:
