@@ -14,7 +14,7 @@ Anyway, I just wanted to let you know that I'm starting this thing.
 Just like the newsletter it'll be sporadic. 
 I prefer quality over quantity, so don't expect anything weekly.
 
-I called the thing "Rant With Brent", and if you'd ask me to summarize, 
+I called it "Rant With Brent", and if you'd ask me to summarize, 
 I'd say it's a no-nonsense, straight to the point podcast about programming.
 I don't want to waste 30 minutes of your time, when the same could be said in 10.
 
