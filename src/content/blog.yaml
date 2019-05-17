@@ -1,3 +1,13 @@
+new-in-php-74:
+    date: 2019-05-17
+    title: New in PHP 7.4
+    highlight: true
+    disableTitle: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
+    meta:
+        description: "A regularly updated list of new features to be expected in PHP 7.4"
+
 starting-a-podcast:
     date: 2019-05-14
     title: "I'm starting a podcast"
@@ -13,16 +23,6 @@ php-in-2019:
     next: new-in-php-74
     meta:
         description: "PHP isn't the same old crappy language it was ten years ago"
-
-new-in-php-74:
-    date: 2019-05-09
-    title: New in PHP 7.4
-    highlight: true
-    disableTitle: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: new-in-php-73
-    meta:
-        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 solid-interfaces-and-final-rant-with-brent:
     date: 2019-05-07
