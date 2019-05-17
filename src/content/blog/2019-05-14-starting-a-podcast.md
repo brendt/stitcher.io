@@ -2,7 +2,7 @@ It's only been two weeks since I announced I'm [starting a newsletter](*/blog/st
 and here I am again with something new: a podcast.
 
 People who know me IRL know I listen to _lots_ of podcasts every day.
-I did some internet radio a few years ago, and since than always wanted to pick it up again.
+I did some internet radio a few years ago, and since then always wanted to pick it up again.
 
 Ever since my wife and I bought our house, I've slowly been working on my amateur "studio", 
 and I've come to the point where I feel comfortable recording in it.
