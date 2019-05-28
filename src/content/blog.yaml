@@ -1,3 +1,11 @@
+a-project-at-spatie:
+    date: 2019-05-30
+    title: A project at Spatie
+    content: src/content/blog/2019-05-30-a-project-at-spatie.html
+    next: new-in-php-74
+    meta:
+        description: "An in-depth look into one of our client projects"
+
 a-programmers-cognitive-load:
     date: 2019-05-29
     type: blog

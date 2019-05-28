@@ -1,0 +1,142 @@
+<p>
+    May marks the first year anniversary of a client project I've been working on at Spatie.
+    I thought it would be useful to share some statistics with the community,
+    to give a feeling what a "real life web project" might look like.
+</p>
+
+<p>
+    Let's start with a general overview.
+    The project is a long-running web application.
+    Right now it features a comprehensive admin interface to manage inventories, contacts and contracts;
+    event booking and automatic invoicing; and ±10 third party integrations.
+</p>
+
+<p>
+    In the future we'll be exposing several features to the outside via an API,
+    its main goal to power a mobile app for the users.
+</p>
+
+<p>
+    The project is built in Laravel, a PHP framework.
+    We use Blade as a templating engine together with lots of VueJS components.
+    Tailwind is the CSS framework used.
+</p>
+
+<p>
+    So, how many code have we written the past year? Here's a summary:
+</p>
+
+<p>
+<ul>
+    <li>2,062 files</li>
+    <li>126,736 lines of code</li>
+    <li>97,423 logical lines of code</li>
+</ul>
+</p>
+
+<p>
+    Split per file type, it looks like this:
+</p>
+
+<p>
+    <canvas id="chart-lloc" width="400" height="250"></canvas>
+</p>
+
+<p>
+    Let's further dive into how the backend code is structured:
+</p>
+
+<p>
+<ul>
+    <li>123 controllers; 309 routes</li>
+    <li>78 models; 149 migrations</li>
+    <li>840 tests; 1,728 assertions</li>
+    <li>32 interfaces; 28 traits</li>
+</ul>
+</p>
+
+
+<p>
+    And next, some information about classes and methods; excluding tests etc.
+</p>
+
+<p>
+<ul>
+    <li>1,086 classes</li>
+    <li>Average LLOC of classes: 8</li>
+    <li>Maximum LLOC of classes: 139</li>
+</ul>
+<ul>
+    <li>3,245 public methods</li>
+    <li>Average LLOC of methods: 2</li>
+    <li>Maximum LLOC of methods: 28</li>
+</ul>
+</p>
+
+<p>
+    Finally, here's an overview of the GIT history over time:
+</p>
+
+<p>
+<ul>
+    <li>4,064 commits</li>
+    <li>7 contributors</li>
+</ul>
+</p>
+
+<p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/KkgAnOklQ7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+<script>
+    new Chart(document.getElementById('chart-lloc'), {
+        type: 'bar',
+        data: {
+            labels: ["php", "blade", "JavaScript", "CSS"],
+            datasets: [
+                {
+                    label: "Code",
+                    backgroundColor: "pink",
+                    borderColor: "red",
+                    borderWidth: 1,
+                    data: [73424, 9432, 7947, 6619]
+                },
+                {
+                    label: "Comments",
+                    backgroundColor: "lightgrey",
+                    borderColor: "grey",
+                    borderWidth: 1,
+                    data: [5296, 86, 9, 0]
+                },
+                {
+                    label: "Blank",
+                    backgroundColor: "lightblue",
+                    borderColor: "blue",
+                    borderWidth: 1,
+                    data: [19515, 1153, 1288, 1948]
+                },
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: "top"
+            },
+            title: {
+                display: true,
+                text: "Lines of Code"
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+
+    });
+</script>
+
+
