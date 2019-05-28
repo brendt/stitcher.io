@@ -1,6 +1,6 @@
 <p>
-    May marks the first year anniversary of a client project I've been working on at Spatie.
-    I thought it would be useful to share some statistics with the community,
+    The month May marks the first year anniversary of a client project I've been working on at Spatie.
+    I thought it useful to share some statistics with the community,
     to give a feeling what a "real life web project" might look like.
 </p>
 
@@ -8,19 +8,23 @@
     Let's start with a general overview.
     The project is a long-running web application.
     Right now it features a comprehensive admin interface to manage inventories, contacts and contracts;
-    event booking and automatic invoicing; and ±10 third party integrations.
+    bookings, automatic invoicing and ±10 third party integrations.
 </p>
 
 <p>
     In the future we'll be exposing several features to the outside via an API,
-    its main goal to power a mobile app for the users.
+    its main goal to power a mobile app for clients of the platform.
 </p>
 
 <p>
-    The project is built in Laravel, a PHP framework.
-    We use Blade as a templating engine together with lots of VueJS components.
-    Tailwind is the CSS framework used.
+    The project is built in Laravel, a <abbr>PHP</abbr> framework.
+    We use Blade as a templating engine in combination with many VueJS components.
+    Tailwind is the <abbr>CSS</abbr> framework used.
 </p>
+
+<h2>
+    Some numbers
+</h2>
 
 <p>
     So, how many code have we written the past year? Here's a summary:
@@ -31,6 +35,22 @@
     <li>2,062 files</li>
     <li>126,736 lines of code</li>
     <li>97,423 logical lines of code</li>
+</ul>
+</p>
+
+<p>
+    And here's some more information about the <abbr>PHP</abbr> code:
+</p>
+
+<p>
+<ul>
+    <li>32 interfaces; 28 traits</li>
+    <li>1,086 classes</li>
+    <li>Average <abbr>LLOC</abbr> of classes: 8</li>
+    <li>Maximum <abbr>LLOC</abbr> of classes: 139</li>
+    <li>3,245 public methods</li>
+    <li>Average <abbr>LLOC</abbr> of methods: 2</li>
+    <li>Maximum <abbr>LLOC</abbr> of methods: 28</li>
 </ul>
 </p>
 
@@ -49,39 +69,84 @@
 <p>
 <ul>
     <li>123 controllers; 309 routes</li>
-    <li>78 models; 149 migrations</li>
+    <li>78 database tables ("models" in Laravel); 149 migrations</li>
     <li>840 tests; 1,728 assertions</li>
-    <li>32 interfaces; 28 traits</li>
 </ul>
 </p>
 
+<h2>Interpreting these numbers</h2>
 
 <p>
-    And next, some information about classes and methods; excluding tests etc.
+    Over the course of time, we moved in many cases from controllers with multiple actions to single action controllers.
+    While I still think the basic <abbr>CRUD</abbr> controller (literally two lines of code per action) doesn't need to be split across multiple classes;
+    I did notice it's easier to reason about complex parts of the application flow with single action controllers.
 </p>
 
 <p>
-<ul>
-    <li>1,086 classes</li>
-    <li>Average LLOC of classes: 8</li>
-    <li>Maximum LLOC of classes: 139</li>
-</ul>
-<ul>
-    <li>3,245 public methods</li>
-    <li>Average LLOC of methods: 2</li>
-    <li>Maximum LLOC of methods: 28</li>
-</ul>
+    Also notice there are twice as much migrations compared to the amount of database tables.
+    A few months ago we moved the project into its testing phase on a staging server,
+    which meant the client themselves were testing with "real" data.
+    We weren't able to simply reset the database every time we made updates to it.
 </p>
 
 <p>
-    Finally, here's an overview of the GIT history over time:
+    Since this testing phase, client feedback and migrations started to grow.
+    It would be nice if Laravel had an automated way of merging migrations after they have been deployed,
+    as they slow down the startup time of our test suite.
+    Luckily we're using transaction rollbacks in tests, so the impact is minimal.
 </p>
 
 <p>
-<ul>
-    <li>4,064 commits</li>
-    <li>7 contributors</li>
-</ul>
+    One could argue that this problem wouldn't be happening if we were to use a more agile approach.
+    While I agree in theory, practice showed that trying to work agile isn't something you just pull off.
+</p>
+
+<p>
+    We've had weekly meetings with the client to show off the progress,
+    and discuss what we'll be working on next week.
+    It's unavoidable to have scope changes over time though, because of the many parties involved.
+</p>
+
+<p>
+    Looking back at the past year, I think we've been able to always quickly respond and efficiently respond to scope changes;
+    even though we aren't following agile "by the book".
+</p>
+
+<p>
+    Anyway, moving on to our test suite.
+    The bulk of the business logic of this application is contained in what we call "domains" — I've
+    blogged about them <a href="/blog/organise-by-domain" target="_blank" rel="noopener noreferrer">before</a>.
+</p>
+
+<p>
+    I'm happy to say we've managed to keep our domain code thoroughly tested.
+    This is one of the most important reasons why we've been able to deal so well with scope changes:
+    we're able to refactor lots of code, without the worry of breaking anything business related.
+</p>
+
+<p>
+    On the other hand, controllers, request validation and middlewares are almost not unit tested.
+    We have a few integration tests in place, some using plain <abbr><</abbr>/abbr>PHPUnit, some using Laravel Dusk and Selenium.
+</p>
+
+<p>
+    These integration tests ensure that critical parts of the app still work after refactorings,
+    and they give enough certainty for us to feel comfortable.
+    We could of course test everything, but the truth is that this would take way too much time and prevent us to meet deadlines.
+</p>
+
+<p>
+    By extracting all business logic from controllers into domains and testing these,
+    we feel like we've struck an almost-perfect balance.
+</p>
+
+<h2>
+    In closing
+</h2>
+
+<p>
+    Finally, I want to show the GIT history of the project visualised,
+    we've been working on it with, in total, 7 contributors, and now have more than 4,000 commits listed.
 </p>
 
 <p>
@@ -93,7 +158,7 @@
     new Chart(document.getElementById('chart-lloc'), {
         type: 'bar',
         data: {
-            labels: ["php", "blade", "JavaScript", "CSS"],
+            labels: ["php", "blade", "javascript", "css"],
             datasets: [
                 {
                     label: "Code",

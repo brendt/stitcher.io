@@ -3,6 +3,7 @@
 namespace Brendt\Stitcher\Plugin;
 
 use Brendt\Stitcher\Plugin\Adapter\NextAdapter;
+use Brendt\Stitcher\Plugin\Markdown\AbbrParser;
 use Brendt\Stitcher\Plugin\Markdown\AdRenderer;
 use Brendt\Stitcher\Plugin\Adapter\GuideAdapter;
 use Brendt\Stitcher\Plugin\Markdown\CodeRenderer;
@@ -13,8 +14,6 @@ use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Element\Heading;
 use League\CommonMark\Block\Element\IndentedCode;
 use League\CommonMark\Environment;
-use League\CommonMark\Inline\Element\Code;
-use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Text;
 use Pageon\Lib\Markdown\MarkdownParser;
 use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
@@ -39,7 +38,7 @@ class AppServiceProvider implements Plugin
         MarkdownParser::extension(function (Environment $environment) {
             return $environment
                 ->addInlineRenderer(Text::class, new AdRenderer())
-
+                ->addInlineParser(new AbbrParser())
                 ->addBlockRenderer(Heading::class, new HeadingAnchor())
                 ->addBlockRenderer(FencedCode::class, new HighlightCodeBlockRenderer())
                 ->addBlockRenderer(IndentedCode::class, new IndentedCodeRenderer());
