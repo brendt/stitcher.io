@@ -1,3 +1,15 @@
+a-programmers-cognitive-load:
+    date: 2019-05-29
+    type: blog
+    title: A programmer's cognitive load
+    highlight: true
+    content: src/content/blog/2017-06-25-a-programmers-cognitive-load.md
+    next: where-a-curly-bracket-belongs
+    meta:
+        description: >
+            As programmers we're almost always reading code.
+            There are a lot of things we can do to make this easier.
+
 new-in-php-74:
     date: 2019-05-27
     title: New in PHP 7.4
@@ -457,20 +469,6 @@ mastering-key-bindings:
     teaserTitle: Key bindings
     content: src/content/blog/2017-08-25-mastering-key-bindings.md
 
-a-programmers-cognitive-load:
-    date: 2017-06-25
-    type: blog
-    title: A programmer's cognitive load
-    teaserTitle: Mental coding effort
-    highlight: true
-    content: src/content/blog/2017-06-25-a-programmers-cognitive-load.md
-    next: where-a-curly-bracket-belongs
-    discuss:
-        reddit: https://www.reddit.com/r/webdev/comments/6md1rz/reducing_a_programmers_cognitive_load/
-    meta:
-        description: >
-            As programmers we're almost always reading code.
-            There are a lot of things we can do to make this easier.
 responsive-images-as-css-background:
     date: 2017-06-24
     type: piece of code
