@@ -89,22 +89,21 @@ Here are a few examples from an project of mine:
 
 ## Colours
 
-This might be a sensitive topic for many people. 
-I ask you to give me the benefit of the doubt though. 
-
+This might be a sensitive topic for many people;
+though I want to ask you to give me the benefit of the doubt for a minute. 
 We all like our dark, cool looking colour schemes, but there's a problem with them.
 
 Research shows that the human eye is better equipped to read dark text on light backgrounds, 
-than the other way around. 
-
-Back in the 80's when personal computing was growing in popularity, 
+than the other way around. Back in the 80's, when personal computing was growing in popularity, 
 a guy called Etienne Grandjean did an [extensive study](*https://dl.acm.org/citation.cfm?id=578434) 
-on how text is best read on screens.
+on how text is best read on screens. 
 
-Now you might think that light colour schemes actually hurt your eyes, 
+It turned out that light colour schemes are, for almost all people, the better choice.
+
+Now your first thought might be that light colour schemes actually hurt your eyes, 
 but this has more to do with the brightness of your screen, than the colour scheme itself.
 
-It's true that a light colour scheme requires less brightness, if you want to avoid headaches and painful eyes.
+It's true that a light colour scheme can cause headaches and painful eyes if you don't turn down the brightness of your screen.
 On the other hand, a less bright screen in combination with a light colour scheme will put less load on your eyes, 
 which makes reading code for long periods of time less exhaustive.
 
@@ -115,6 +114,9 @@ I've challenged many programmers before, and most of them were actually convince
 It's up to you! Here's how my code looks like these days:
 
 ![](/resources/img/blog/cognitive-load/aestetics-4.png)
+
+Be sure to let me know how the challenge went! 
+You can reach me on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
 
 ---
 
