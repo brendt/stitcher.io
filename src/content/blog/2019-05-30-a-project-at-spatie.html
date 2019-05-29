@@ -32,9 +32,9 @@
 
 <p>
 <ul>
-    <li>2,062 files</li>
-    <li>126,736 lines of code</li>
-    <li>97,423 logical lines of code</li>
+    <li><span class="number">2,062</span> files</li>
+    <li><span class="number">126,736</span> lines of code</li>
+    <li><span class="number">97,423</span> logical lines of code</li>
 </ul>
 </p>
 
@@ -44,13 +44,13 @@
 
 <p>
 <ul>
-    <li>32 interfaces; 28 traits</li>
-    <li>1,086 classes</li>
-    <li>Average <abbr>LLOC</abbr> of classes: 8</li>
-    <li>Maximum <abbr>LLOC</abbr> of classes: 139</li>
-    <li>3,245 public methods</li>
-    <li>Average <abbr>LLOC</abbr> of methods: 2</li>
-    <li>Maximum <abbr>LLOC</abbr> of methods: 28</li>
+    <li><span class="number">32</span> interfaces; <span class="number">28</span> traits</li>
+    <li><span class="number">1,086</span> classes</li>
+    <li>Average <abbr>LLOC</abbr> of classes: <span class="number">8</span></li>
+    <li>Maximum <abbr>LLOC</abbr> of classes: <span class="number">139</span></li>
+    <li><span class="number">3,245</span> public methods</li>
+    <li>Average <abbr>LLOC</abbr> of methods: <span class="number">2</span></li>
+    <li>Maximum <abbr>LLOC</abbr> of methods: <span class="number">28</span></li>
 </ul>
 </p>
 
@@ -68,9 +68,9 @@
 
 <p>
 <ul>
-    <li>123 controllers; 309 routes</li>
-    <li>78 database tables ("models" in Laravel); 149 migrations</li>
-    <li>840 tests; 1,728 assertions</li>
+    <li><span class="number">123</span> controllers; <span class="number">309</span> routes</li>
+    <li><span class="number">78</span> database tables; <span class="number">149</span> migrations</li>
+    <li><span class="number">840</span> tests; <span class="number">1,728</span> assertions</li>
 </ul>
 </p>
 
@@ -97,47 +97,31 @@
 </p>
 
 <p>
-    One could argue that this problem wouldn't be happening if we were to use a more agile approach.
-    While I agree in theory, practice showed that trying to work agile isn't something you just pull off.
-</p>
-
-<p>
-    We've had weekly meetings with the client to show off the progress,
-    and discuss what we'll be working on next week.
-    It's unavoidable to have scope changes over time though, because of the many parties involved.
-</p>
-
-<p>
-    Looking back at the past year, I think we've been able to always quickly respond and efficiently respond to scope changes;
-    even though we aren't following agile "by the book".
-</p>
-
-<p>
-    Anyway, moving on to our test suite.
-    The bulk of the business logic of this application is contained in what we call "domains" — I've
+    Speaking of tests:
+    the bulk of the business logic of this application is contained in what we call "domains" — I've
     blogged about them <a href="/blog/organise-by-domain" target="_blank" rel="noopener noreferrer">before</a>.
 </p>
 
 <p>
     I'm happy to say we've managed to keep our domain code thoroughly tested.
-    This is one of the most important reasons why we've been able to deal so well with scope changes:
+    This is the single most important reason why we've been able to deal so well with scope changes during the testing phase:
     we're able to refactor lots of code, without the worry of breaking anything business related.
 </p>
 
 <p>
     On the other hand, controllers, request validation and middlewares are almost not unit tested.
-    We have a few integration tests in place, some using plain <abbr><</abbr>/abbr>PHPUnit, some using Laravel Dusk and Selenium.
+    We have a few integration tests in place, some using plain phpunit, some using Laravel Dusk and Selenium.
 </p>
 
 <p>
     These integration tests ensure that critical parts of the app still work after refactorings,
     and they give enough certainty for us to feel comfortable.
-    We could of course test everything, but the truth is that this would take way too much time and prevent us to meet deadlines.
+    We could try and test everything, but the truth is that this would take way too much time and prevent us to meet deadlines.
 </p>
 
 <p>
     By extracting all business logic from controllers into domains and testing these,
-    we feel like we've struck an almost-perfect balance.
+    I feel like we've created a realistic balance.
 </p>
 
 <h2>
@@ -145,8 +129,8 @@
 </h2>
 
 <p>
-    Finally, I want to show the GIT history of the project visualised,
-    we've been working on it with, in total, 7 contributors, and now have more than 4,000 commits listed.
+    Finally, I want to show the <abbr>GIT</abbr> history of the project visualised,
+    we've been working on it with, in total, <span class="number">7</span> contributors, and now have more than <span class="number">4,000</span> commits listed.
 </p>
 
 <p>

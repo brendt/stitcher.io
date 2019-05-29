@@ -6,7 +6,7 @@ use League\CommonMark\Inline\Element\Text;
 use League\CommonMark\Inline\Parser\AbstractInlineParser;
 use League\CommonMark\InlineParserContext;
 
-class AbbrParser extends AbstractInlineParser
+class NumberParser extends AbstractInlineParser
 {
     public function getCharacters()
     {
@@ -17,19 +17,13 @@ class AbbrParser extends AbstractInlineParser
     {
         $cursor = $inlineContext->getCursor();
 
-        $nextChar = $cursor->peek(1);
-
-        if ($nextChar !== '(') {
-            return false;
-        }
-
-        $match = $cursor->match('/\(\([A-Za-z0-9_\s\.]+\)\)/');
+        $match = $cursor->match('/\(\(\#[0-9\,\.]+\#\)\)/');
 
         if (! $match) {
             return false;
         }
 
-        $abbreviation = str_replace(['((', '))'], ['<abbr>', '</abbr>'], $match);
+        $abbreviation = str_replace(['((#', '#))'], ['<span class="number">', '</span>'], $match);
 
         $inlineContext->getContainer()->appendChild(new Text($abbreviation));
 

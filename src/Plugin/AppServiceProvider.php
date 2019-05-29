@@ -10,6 +10,7 @@ use Brendt\Stitcher\Plugin\Markdown\CodeRenderer;
 use Brendt\Stitcher\Plugin\Markdown\HeadingAnchor;
 use Brendt\Stitcher\Plugin\Markdown\HighlightCodeBlockRenderer;
 use Brendt\Stitcher\Plugin\Markdown\ImageRenderer;
+use Brendt\Stitcher\Plugin\Markdown\NumberParser;
 use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Element\Heading;
 use League\CommonMark\Block\Element\IndentedCode;
@@ -39,6 +40,7 @@ class AppServiceProvider implements Plugin
             return $environment
                 ->addInlineRenderer(Text::class, new AdRenderer())
                 ->addInlineParser(new AbbrParser())
+                ->addInlineParser(new NumberParser())
                 ->addBlockRenderer(Heading::class, new HeadingAnchor())
                 ->addBlockRenderer(FencedCode::class, new HighlightCodeBlockRenderer())
                 ->addBlockRenderer(IndentedCode::class, new IndentedCodeRenderer());
