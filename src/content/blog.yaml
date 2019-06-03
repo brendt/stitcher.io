@@ -10,7 +10,6 @@ a-programmers-cognitive-load:
     date: 2019-05-29
     type: blog
     title: A programmer's cognitive load
-    highlight: true
     content: src/content/blog/2017-06-25-a-programmers-cognitive-load.md
     next: where-a-curly-bracket-belongs
     meta:
