@@ -95,7 +95,7 @@ There are some classes that are longer and more complex.
 These classes are the result of making choices: 
 sometimes some technical debt is allowed to meet deadlines — as long as we're aware of it.
 
-I've made a little tool in the past which I use to generate "heat maps" of the codebase.
+I've made a [little tool](*https://github.com/spatie/code-outliner) in the past which I use to generate "heat maps" of the codebase.
 It will take all code in a folder, and generate an image by overlaying the code structure on top of it.
 
 I can use this tool to locate large files, and refactor them when there's time. 
@@ -122,8 +122,8 @@ it's a must to keep your code clean and clear, to secure its future.
 
 ## In closing
 
-Finally, I'd like to show the ((GIT)) history of the project visualised,
-we've been working on it with, in total, ((#7#)) contributors, and now have more than ((#4,000#)) commits listed.
+Finally, I'd like to show the ((GIT)) history of the project visualised with [Gource](*https://gource.io/).
+We've been working on this project with, in total, ((#7#)) contributors, and now have more than ((#4,000#)) commits listed.
 
 <p>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/KkgAnOklQ7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
