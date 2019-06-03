@@ -41,7 +41,7 @@ To start with, I should explain something about our big Laravel projects.
 Instead of using the default Laravel project structure, our code is split into two namespaces: 
 "application code" and "domain code". 
 
-Domain code holds all business logic, and isn't tightly coupled to the framework. 
+Domain code holds all business logic and is used by the application layer. 
 If you want to dive further into this topic, you can read about it [here](*/blog/organise-by-domain).
 
 The following graph shows how application- and domain code relate to each other:
