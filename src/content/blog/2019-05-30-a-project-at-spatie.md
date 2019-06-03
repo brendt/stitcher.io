@@ -103,7 +103,7 @@ We have done this in the past, and it works very well.
 
 Here's part of this image of a subdomain in our project:
 
-![](/resources/img/blog/project-stats/outline-code.png) 
+![](/resources/img/blog/project-stats/outline.png) 
 
 The darker the image, the more code across all files in that position.
 You can see that while some files are longer, most of the code lives in the upper 50 lines, 
