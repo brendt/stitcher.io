@@ -127,4 +127,7 @@ we've been working on it with, in total, ((#7#)) contributors, and now have more
     <iframe width="560" height="315" src="https://www.youtube.com/embed/KkgAnOklQ7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 
+---
 
+So what about your projects? Are you able to share your own stats? 
+Feel free to send me a [tweet](*https://twitter.com/brendt_gd) or an [email](mailto:brendt@stitcher.io)!
