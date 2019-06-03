@@ -1,13 +1,12 @@
 The month May marks the first year anniversary of a client project I've been working on at Spatie.
 I thought it useful to share some statistics with the community,
-and give you a feeling what a "real life web project" might look like.
+and give you a feeling of what a "real life web project" might look like.
 
 Let's start with a general overview.
-The project is a long-running web application.
-Right now it features a comprehensive admin interface to manage inventories, contacts and contracts;
+The project, a web application, features an admin interface to manage inventories, contacts and contracts;
 bookings, automatic invoicing and about ten third party integrations.
 
-In the future we'll be exposing several features to the outside via an API,
+In the future we'll be exposing several of these features to the outside via an API,
 its main goal to power a mobile app for clients of the platform.
 The admin panel is already in use in production.
 
@@ -45,10 +44,10 @@ Instead of using the default Laravel project structure, our code is split into t
 Domain code holds all business logic, and isn't tightly coupled to the framework. 
 If you want to dive further into this topic, you can read about it [here](*/blog/organise-by-domain).
 
-The following graph shows how domain- and application code relate to each other:
+The following graph shows how application- and domain code relate to each other:
 
- ![](/resources/img/blog/project-stats/domain-v-application.png)
-
+![](/resources/img/blog/project-stats/domain-v-application.png)
+ 
 By splitting business and application code, 
 we're able to provide a flexible, maintainable and highly testable core.
 Application code makes use of this core and looks very much like your average Laravel project. 
@@ -61,9 +60,9 @@ Application code makes use of this core and looks very much like your average La
  
  While the application layer mostly consists of:
 
-- Controllers — ((#130#)) classes, and ((#309#)) routes
+- Controllers — ((#130#)) classes and ((#309#)) routes
 - ViewModels — ((#82#)) classes
-- Blade views — ((#313#)) files
+- Blade views — ((#313#)) files; these are not included in the chart above
 
 Because of the lifecycle of the project, there's room for improvement. 
 For example, we're not using [((DTO))s](*https://stitcher.io/blog/structuring-unstructured-data) everywhere, 
@@ -79,7 +78,7 @@ In our experience, it's a workable balance between highly tested code and being 
 
 At the moment we have ((#840#)) tests doing ((#1,728#)) assertions. 
 Our test suite could always be improved, 
-but I am very confident deploying new changes and refactors, without the fear of breaking stuff.
+but I am very confident deploying new features and refactors, without the fear of breaking stuff — thanks to our test suite.
 
 ## Code structure
 
@@ -99,6 +98,9 @@ sometimes some technical debt is allowed to meet deadlines — as long as we're 
 I've made a little tool in the past which I use to generate "heat maps" of the codebase.
 It will take all code in a folder, and generate an image by overlaying the code structure on top of it.
 
+I can use this tool to locate large files, and refactor them when there's time. 
+We have done this in the past, and it works very well.
+
 Here's part of this image of a subdomain in our project:
 
 ![](/resources/img/blog/project-stats/outline-code.png) 
@@ -109,10 +111,10 @@ something we strive for.
 
 We ensure these short classes and consistent code by using a few tools and methods:
 
-- Internal PRs and code reviews; despite what you might think, this saves time
+- Internal ((PR))s and code reviews; despite what you might think, this saves time
 - We use static analysis, more specifically [PhpStan](*https://github.com/phpstan/phpstan); 
 to prevent subtle bugs 
-- We use [PHP CS Fixer](*https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure consistent code style
+- We use [((PHP CS)) fixer](*https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure consistent code style
 
 Like I said before: I'm a firm proponent of clean code. 
 When you're working with several people in the same codebase, 
@@ -120,12 +122,15 @@ it's a must to keep your code clean and clear, to secure its future.
 
 ## In closing
 
-Finally, I want to show the ((GIT)) history of the project visualised,
+Finally, I'd like to show the ((GIT)) history of the project visualised,
 we've been working on it with, in total, ((#7#)) contributors, and now have more than ((#4,000#)) commits listed.
 
 <p>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/KkgAnOklQ7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
+
+You can clearly see the different "branches" I talking about earlier: application- and domain code; 
+but this overview also includes Blade, JavaScript and ((CSS)) files.
 
 ---
 
