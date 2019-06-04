@@ -78,7 +78,7 @@ In our experience, it's a workable balance between highly tested code and being 
 
 At the moment we have ((#840#)) tests doing ((#1,728#)) assertions. 
 Our test suite could always be improved, 
-but I am very confident deploying new features and refactors, without the fear of breaking stuff — thanks to our test suite.
+but I am very confident deploying new features and refactors without the fear of breaking stuff — thanks to our test suite.
 
 ## Code structure
 
