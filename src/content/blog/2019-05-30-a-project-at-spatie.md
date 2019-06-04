@@ -16,14 +16,14 @@ Tailwind is the ((CSS)) framework used.
 
 ## Some numbers
 
-So, how many code have we written the past year? Here's a summary, 
-gathered with the [phploc](*https://github.com/sebastianbergmann/phploc) package.
+So, how much code have we written the past year? Here's a summary, 
+gathered with the [phploc](*https://github.com/sebastianbergmann/phploc) package:
 
 - ((#2,062#)) files
 - ((#126,736#)) lines of code
 - ((#97,423#)) logical lines of code
 
-Let's zoom into statistics about the backend code, my area. 
+Let's zoom into statistics about the backend code, my area:
 
 - ((#1,086#)) classes; ((#32#)) interfaces; ((#28#)) traits
 - Average ((LLOC)) per class: ((#8#))
@@ -44,7 +44,7 @@ Instead of using the default Laravel project structure, our code is split into t
 Domain code holds all business logic and is used by the application layer. 
 If you want to dive further into this topic, you can read about it [here](*/blog/organise-by-domain).
 
-The following graph shows how application- and domain code relate to each other:
+The following graph shows how application and domain code relate to each other:
 
 ![](/resources/img/blog/project-stats/domain-v-application.png)
  
@@ -72,7 +72,7 @@ As with all things: we learn as we go.
 After a year, it's normal that some parts of the code can be considered "old".
 We have a rule that states that when we work in these old parts of the codebase, we refactor them.
 
-A big advantage of moving code in domains is their testability. 
+A big advantage of moving code into domains is testability. 
 While our domain code is heavily unit tested, our application code is mostly only integration tested. 
 In our experience, it's a workable balance between highly tested code and being able to meet deadlines. 
 
@@ -83,7 +83,7 @@ but I am very confident deploying new features and refactors without the fear of
 ## Code structure
 
 I'm a big proponent of clean code. 
-We try to keep our code clean and maintainable, by setting a few rules of thumb.
+We try to keep our code clean and maintainable, by setting a few rules of thumb:
 
 - Classes should be small, 50 lines of code should be the maximum
 - Methods should also be small and easy to reason about
@@ -129,7 +129,7 @@ We've been working on this project with, in total, ((#7#)) contributors, and now
     <iframe width="560" height="315" src="https://www.youtube.com/embed/KkgAnOklQ7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 
-You can clearly see the different "branches" I talking about earlier: application- and domain code; 
+You can clearly see the different "branches" I talked about earlier: application- and domain code; 
 but this overview also includes Blade, JavaScript and ((CSS)) files.
 
 ---
