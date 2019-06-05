@@ -1,3 +1,11 @@
+what-are-objects-anyway-rant-with-brent:
+    date: 2019-06-05
+    title: What are objects anyway? - Rant With Brent 02
+    content: src/content/blog/2019-06-05-what-are-objects-anyway.md
+    next: solid-interfaces-and-final-rant-with-brent
+    meta:
+        description: "Do you know about the original definition of \"Object Oriented Programming\"?"
+
 a-project-at-spatie:
     date: 2019-05-30
     title: A project at Spatie
@@ -47,7 +55,7 @@ solid-interfaces-and-final-rant-with-brent:
     date: 2019-05-07
     title: SOLID, interfaces and final - Rant With Brent 01
     content: src/content/blog/2019-05-07-solid-interfaces-and-final-rant-with-brent.md
-    next: new-in-php-73
+    next: new-in-php-74
     meta:
         description: "A podcast, sort of."
 
