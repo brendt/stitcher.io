@@ -1,3 +1,13 @@
+new-in-php-74:
+    date: 2019-06-05
+    title: New in PHP 7.4
+    highlight: true
+    disableTitle: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
+    meta:
+        description: "A regularly updated list of new features to be expected in PHP 7.4"
+
 what-are-objects-anyway-rant-with-brent:
     date: 2019-06-05
     title: What are objects anyway? - Rant With Brent 02
@@ -24,16 +34,6 @@ a-programmers-cognitive-load:
         description: >
             As programmers we're almost always reading code.
             There are a lot of things we can do to make this easier.
-
-new-in-php-74:
-    date: 2019-05-27
-    title: New in PHP 7.4
-    highlight: true
-    disableTitle: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: new-in-php-73
-    meta:
-        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 starting-a-podcast:
     date: 2019-05-14
