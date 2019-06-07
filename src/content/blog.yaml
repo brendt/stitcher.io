@@ -1,3 +1,11 @@
+tests-and-types:
+    date: 2019-06-07
+    title: Tests and types
+    content: src/content/blog/2019-06-07-tests-and-types.md
+    next: liskov-and-type-safety
+    meta:
+        description: Thoughts on strong and weakly typed programming languages
+
 new-in-php-74:
     date: 2019-06-05
     title: New in PHP 7.4
