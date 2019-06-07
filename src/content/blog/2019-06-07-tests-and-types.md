@@ -68,7 +68,7 @@ That's at least eight tests we need to write — and I'm sure you can come up wi
 These are the kind of problems a type system aims to _partially_ solve. 
 And note that word _partially_, we'll come back to it.
 
-If we filter input by a type — you think of it as a subcategory of all available input — many of the tests become obsolete.
+If we filter input by a type — you can think of it as a subcategory of all available input — many of the tests become obsolete.
 
 Say we'd only allow integers:
 
