@@ -70,7 +70,7 @@ solid-interfaces-and-final-rant-with-brent:
 
 short-closures-in-php:
     date: 2019-05-01
-    title: Short closures in PHP
+    title: Arrow functions in PHP
     content: src/content/blog/2019-05-02-short-closures-in-php.md
     next: new-in-php-74
     meta:
