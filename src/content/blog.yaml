@@ -8,7 +8,7 @@ tests-and-types:
 
 new-in-php-74:
     date: 2019-06-05
-    title: "PHP 7.4 - new features"
+    title: "PHP 7.4"
     highlight: true
     disableTitle: true
     content: src/content/blog/2019-01-01-new-in-php-74.md
