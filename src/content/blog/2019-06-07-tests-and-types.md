@@ -61,6 +61,8 @@ Or the wrong amount of arguments?
 
 Or a combination of the above? 
 
+<a name="read-on"></a>
+
 I can easily think of five edge-cases we need to test, 
 before there's relative certainty our program does what it needs to do.
 That's at least eight tests we need to write — and I'm sure you can come up with a few others given the time.
