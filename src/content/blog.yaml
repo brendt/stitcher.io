@@ -13,6 +13,7 @@ new-in-php-74:
     disableTitle: true
     content: src/content/blog/2019-01-01-new-in-php-74.md
     next: new-in-php-73
+    disableMetaDescription: true
     meta:
         description: "A regularly updated list of new features to be expected in PHP 7.4"
 

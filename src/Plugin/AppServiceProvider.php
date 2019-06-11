@@ -2,6 +2,7 @@
 
 namespace Brendt\Stitcher\Plugin;
 
+use Brendt\Stitcher\Plugin\Adapter\MetaAdapter;
 use Brendt\Stitcher\Plugin\Adapter\NextAdapter;
 use Brendt\Stitcher\Plugin\Markdown\AbbrParser;
 use Brendt\Stitcher\Plugin\Markdown\AdRenderer;
@@ -49,15 +50,26 @@ class AppServiceProvider implements Plugin
         /** @var AdapterFactory $adapterFactory */
         $adapterFactory = App::get(AdapterFactory::class);
 
-        $adapterFactory->setRule(
-            NextAdapter::class,
-            function (string $adapterType, array $adapterConfiguration) {
-                if ($adapterType !== 'next') {
-                    return null;
-                }
+        $adapterFactory
+            ->setRule(
+                NextAdapter::class,
+                function (string $adapterType, array $adapterConfiguration) {
+                    if ($adapterType !== 'next') {
+                        return null;
+                    }
 
-                return new NextAdapter();
-            }
-        );
+                    return new NextAdapter();
+                }
+            )
+            ->setRule(
+                MetaAdapter::class,
+                function (string $adapterType, array $adapterConfiguration) {
+                    if ($adapterType !== 'meta') {
+                        return null;
+                    }
+
+                    return new MetaAdapter();
+                }
+            );
     }
 }

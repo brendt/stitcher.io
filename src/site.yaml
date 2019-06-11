@@ -39,3 +39,4 @@
             variable: post
             parameter: id
         next: true
+        meta: true
