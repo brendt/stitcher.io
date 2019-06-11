@@ -131,14 +131,14 @@ If we were to type `rgbToHex` with it, we're still not sure what the exact bound
 }
 ```
 
-We need a more specific type: `RgbColor`. 
+We need a more specific type: `RgbValue`. 
 Adding it depends, again, on the programming language and personal preference. 
 I would extend `MinMaxInt`, but feel free to do whatever fits you best.
 
 ```
-<hljs keyword>class</hljs> <hljs type>RgbColor</hljs> <hljs keyword>extends</hljs> <hljs type>MinMaxInt</hljs>
+<hljs keyword>class</hljs> <hljs type>RgbValue</hljs> <hljs keyword>extends</hljs> <hljs type>MinMaxInt</hljs>
 {
-    <hljs keyword>public</hljs> <hljs prop>RgbColor</hljs>(<hljs type>Int</hljs> value)
+    <hljs keyword>public</hljs> <hljs prop>RgbValue</hljs>(<hljs type>Int</hljs> value)
     {
         <hljs type>parent</hljs>(<hljs keyword>0</hljs>, <hljs keyword>255</hljs>, value)
     }
@@ -146,10 +146,10 @@ I would extend `MinMaxInt`, but feel free to do whatever fits you best.
 ```
 
 Now we've arrived at a working solution. 
-By using the `RgbColor` type, most of our tests become redundant.
+By using the `RgbValue` type, most of our tests become redundant.
 
 ```
-<hljs prop>rgbToHex</hljs>(<hljs type>RgbColor</hljs> red, <hljs type>RgbColor</hljs> green, <hljs type>RgbColor</hljs> blue) 
+<hljs prop>rgbToHex</hljs>(<hljs type>RgbValue</hljs> red, <hljs type>RgbValue</hljs> green, <hljs type>RgbValue</hljs> blue) 
 {
     // …
 }
@@ -195,9 +195,9 @@ Next, many would consider my solution too verbose when actually using it:
 
 ```
 <hljs prop>rgbToHex</hljs>(
-    <hljs keyword>new</hljs> <hljs type>RgbColor</hljs>(<hljs keyword>60</hljs>),
-    <hljs keyword>new</hljs> <hljs type>RgbColor</hljs>(<hljs keyword>102</hljs>),
-    <hljs keyword>new</hljs> <hljs type>RgbColor</hljs>(<hljs keyword>79</hljs>)
+    <hljs keyword>new</hljs> <hljs type>RgbValue</hljs>(<hljs keyword>60</hljs>),
+    <hljs keyword>new</hljs> <hljs type>RgbValue</hljs>(<hljs keyword>102</hljs>),
+    <hljs keyword>new</hljs> <hljs type>RgbValue</hljs>(<hljs keyword>79</hljs>)
 );
 ```
 
@@ -210,8 +210,8 @@ Fortunately I can think of ways the problem could be solved.
 One solution is type juggling.
 Dynamic languages are actually pretty good at it. 
 Say you'd pass a simple integer as the input, 
-the compiler can try and cast that integer to an object of `RgbColor`.
-It could even be aware of possible types which could be cast to `RgbColor`,
+the compiler can try and cast that integer to an object of `RgbValue`.
+It could even be aware of possible types which could be cast to `RgbValue`,
 so you'd still have compile-time error detection.
 
 ### Example in isolation
