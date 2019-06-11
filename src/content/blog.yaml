@@ -1,13 +1,5 @@
-tests-and-types:
-    date: 2019-06-07
-    title: Tests and types
-    content: src/content/blog/2019-06-07-tests-and-types.md
-    next: liskov-and-type-safety
-    meta:
-        description: Thoughts on strong and weakly typed programming languages
-
 new-in-php-74:
-    date: 2019-06-05
+    date: 2019-06-11
     title: "PHP 7.4"
     highlight: true
     disableTitle: true
@@ -16,6 +8,14 @@ new-in-php-74:
     disableMetaDescription: true
     meta:
         description: "A regularly updated list of new features to be expected in PHP 7.4"
+
+tests-and-types:
+    date: 2019-06-07
+    title: Tests and types
+    content: src/content/blog/2019-06-07-tests-and-types.md
+    next: liskov-and-type-safety
+    meta:
+        description: Thoughts on strong and weakly typed programming languages
 
 what-are-objects-anyway-rant-with-brent:
     date: 2019-06-05
