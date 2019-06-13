@@ -44,9 +44,9 @@ class HighlightCodeBlockRenderer extends FencedCodeRenderer
             $lines[$index] = $line;
         }
 
+        unset($lines[array_key_last($lines)]);
 
-//        die(implode(PHP_EOL, $lines));
-        $element->setContents(implode(PHP_EOL, $lines));
+        $element->setContents(implode(PHP_EOL, $lines) . '</code>');
 
         return $element;
     }

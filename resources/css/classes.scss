@@ -187,6 +187,11 @@ div.center > p {
         background-color: #fdd;
     }
 
+    &.text span,
+    &.text {
+        color: $color-black;
+    }
+
     &.yellow {
         background-color: #ffa;
     }
