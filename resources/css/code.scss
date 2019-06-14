@@ -1,3 +1,5 @@
+@import "css/variables";
+
 .hljs {
     display: block;
     overflow-x: auto;
@@ -21,8 +23,10 @@
     background: none;
 }
 
+.hljs-highlight.numeric,
 .hljs-number {
     color: #005FE7;
+    background: none;
 }
 
 .hljs-literal,
@@ -107,4 +111,60 @@
 
 .hljs-strong {
     font-weight: bold;
+}
+
+.hljs-highlight {
+    display: inline;
+    background-color: #dfd;
+
+    &.error {
+        background-color: #fdd;
+    }
+
+    &.text span,
+    &.text {
+        color: $color-black;
+    }
+
+    &.yellow {
+        background-color: #ffa;
+    }
+
+    &.blue {
+        background-color: #aff;
+    }
+
+    &.red {
+        background-color: #fdd;
+    }
+
+    &.green {
+        background-color: #dfd;
+    }
+
+    &.textgrey {
+        color: #aaa;
+        background: none;
+    }
+
+    &.full,
+    &.line {
+        display: block;
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+        width: calc(100% + (2 * 1.5rem));
+        padding-left: 1.5rem;
+
+        @media(max-width: $width-base) {
+            margin-left: -1rem;
+            margin-right: -1rem;
+            width: calc(100% + (2 * 1rem));
+            padding-left: 1rem;
+        }
+    }
+
+    &.striped {
+        background: none;
+        border-bottom: dotted 2px red;
+    }
 }

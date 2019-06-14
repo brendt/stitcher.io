@@ -1,13 +1,5 @@
-typed-properties-in-php-74:
-    date: 2019-06-13
-    title: Typed properties in PHP
-    content: src/content/blog/2019-06-30-typed-properties.md
-    next: new-in-php-74
-    meta:
-        description: "What are typed properties in PHP 7.4 and how to use them"
-
 new-in-php-74:
-    date: 2019-06-11
+    date: 2019-06-14
     title: "What's new in PHP 7.4"
     highlight: true
     disableTitle: true
@@ -16,6 +8,14 @@ new-in-php-74:
     disableMetaDescription: true
     meta:
         description: "A regularly updated list of new features to be expected in PHP 7.4"
+
+typed-properties-in-php-74:
+    date: 2019-06-13
+    title: Typed properties in PHP
+    content: src/content/blog/2019-06-30-typed-properties.md
+    next: new-in-php-74
+    meta:
+        description: "What are typed properties in PHP 7.4 and how to use them"
 
 tests-and-types:
     date: 2019-06-07
