@@ -3,7 +3,7 @@ These changes are fully opt-in and backwards compatible.
 
 In this post we'll look at the feature in-depth, but first let's start by summarising the most important points:
 
-- Typed properties are available as of ((PHP 7.4))
+- They are available as of ((PHP 7.4)), which is scheduled to be released in November of 2019
 - They are only available in classes and require an access modifier: `public`, `protected` or `private`; or `var`
 - All types are allowed, except `void` and `callable`
 
