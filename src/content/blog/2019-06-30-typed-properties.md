@@ -1,4 +1,4 @@
-Typed class properties were added in ((PHP 7.4)) and provide a major improvement to ((PHP))'s type system.
+Typed class properties have been added in ((PHP 7.4)) and provide a major improvement to ((PHP))'s type system.
 These changes are fully opt-in and backwards compatible.
 
 In this post we'll look at the feature in-depth, but first let's start by summarising the most important points:
