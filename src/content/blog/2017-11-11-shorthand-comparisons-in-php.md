@@ -159,8 +159,7 @@ $output = $input['key'] ?: 'fallback';
 
 ### Null coalesce chaining
 
-Like the ternary operator, the null coalescing operator can also be chained. 
-Its syntax is much more simple than the ternary's.
+The null coalescing operator can easily be chained:
 
 ```php
 $input = [
