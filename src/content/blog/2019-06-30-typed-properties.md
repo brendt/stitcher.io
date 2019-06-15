@@ -16,7 +16,7 @@ class Foo
 {
     public <hljs type>int</hljs> $a;
 
-    public <hljs type>?string</hljs> $b = 1;
+    public <hljs type>?string</hljs> $b = 'foo';
 
     private <hljs type>Foo</hljs> $prop;
 
@@ -188,7 +188,7 @@ With that out of the way, here's a list of all available types:
 - object
 - ? (nullable)
 - self
-- Classes
+- Classes & interfaces
 
 ## Coercion and strict types
 
