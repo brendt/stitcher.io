@@ -187,7 +187,7 @@ With that out of the way, here's a list of all available types:
 - iterable
 - object
 - ? (nullable)
-- self
+- self & parent
 - Classes & interfaces
 
 ## Coercion and strict types
