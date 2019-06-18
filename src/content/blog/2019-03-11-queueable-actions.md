@@ -41,7 +41,7 @@ We use this pattern a lot, because of the three benefits it offers:
 
 One detail: there are some cases where we want actions to be executed asynchronously. 
 
-In the case of our example: we wan to create the contract immediately, 
+In the case of our example: we want to create the contract immediately, 
 but we don't want our users to wait until the PDF is generated. 
 This should be done asynchronously.
 
