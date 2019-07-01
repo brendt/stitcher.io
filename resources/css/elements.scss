@@ -36,10 +36,16 @@ h2 {
     font-weight: 400;
     margin-top: 1.3em;
     position: relative;
+}
 
+h3 {
+    font-size: 1.5em;
+    margin-top: 1.1em;
+}
+
+h2, h3 {
     & > small {
         display: inline-block;
-        font-size: .5em;
         border-radius: 5px;
         background-color: $color-php;
         color: #fff;
@@ -60,9 +66,12 @@ h2 {
     }
 }
 
-h3 {
-    font-size: 1.5em;
-    margin-top: 1.1em;
+h2 > small {
+    font-size: .5em;
+}
+
+h3 > small {
+    font-size: .7em;
 }
 
 article {
