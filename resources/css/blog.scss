@@ -17,9 +17,8 @@
         font-weight: normal;
     }
 
-    p {
-        margin-bottom: 0;
-        padding-right: 0;
+    p + ul {
+        margin-top: 1.5em;
     }
 }
 
