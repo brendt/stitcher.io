@@ -1,4 +1,4 @@
-PHP 7.4 adds preloading support, a feature that could improve the performance of your code significantly. 
+((PHP 7.4)) adds preloading support, a feature that could improve the performance of your code significantly. 
 
 This is preloading in a nutshell:
 
@@ -27,12 +27,12 @@ So, what "parts of the codebase" are we talking about?
 
 ## Preloading in practice
 
-For preloading to work you, the developer, has to tell the server which files to load. This is done with a simple ((PHP)) script, so there's nothing to be afraid of.
+For preloading to work, you, the developer, has to tell the server which files to load. This is done with a simple ((PHP)) script, so there's nothing to be afraid of.
 
 The rules are simple: 
 
 - You provide a preload script and link to it in your php.ini file using `opcache.preload`
-- Every ((PHP)) file can be compiled and preloaded by calling `opcache_compile_file` on the file.
+- Every ((PHP)) file you want to be preloaded should be passed to `opcache_compile_file()`, from within the preload script
 
 Say you want to preload a framework, Laravel for example. Your script will have to loop over all ((PHP)) files in the `vendor/laravel` directory, and include them one by one.
 
@@ -46,7 +46,7 @@ And here's a dummy implementation:
 
 ```php
 foreach ($files as $file) {
-    preload($file);
+    <hljs prop>preload</hljs>($file);
 }
 
 function preload(<hljs type>string</hljs> $filePath): void 
@@ -70,7 +70,7 @@ Unknown parent
 <hljs type>Illuminate\Database\Query\Builder</hljs>
 ```
 
-See, `opcache_compile_file` will parse a file, but not execute it. This means that if a class has dependencies that aren't preloaded, it can also not be preloaded.
+See, `opcache_compile_file()` will parse a file, but not execute it. This means that if a class has dependencies that aren't preloaded, itself can also not be preloaded.
 
 This isn't a fatal problem, your server will work just fine; but you won't have all the preloaded files you actually wanted.
 
@@ -81,7 +81,7 @@ Doing this manually might seem like a chore, so naturally people are already wor
 
 The most promising automated solution is coming from composer, which is used by most modern day ((PHP)) projects already.
 
-People are working to add a preload configuration option in `composer.json`, which in turn will generate the preload file for you! Just like preloading itself, this feature is still a work in progress, but can follow the progress [here](*https://github.com/composer/composer/issues/7777). 
+People are working to add a preload configuration option in `composer.json`, which in turn will generate the preload file for you! Just like preloading itself, this feature is still a work in progress, but can follow it [here](*https://github.com/composer/composer/issues/7777). 
 
 Luckily, you won't need to manually configure preload files if you don't want to, composer will be able to do it for you.
 
@@ -101,7 +101,7 @@ Now to the most important question: does preloading actually improve performance
 
 The answer is yes, of course, but it does consume more memory. Ben Morel shared some benchmarks, which can be found in the same [composer issue](*https://github.com/composer/composer/issues/7777#issuecomment-440268416) linked to earlier.
 
-Interestingly enough, you could decide to only preload "hot classes", classes that are used often in your codebase. Ben's benchmarks shows that only loading around 100 hot classes, actually yields better performance gains than preloading all. It's a difference of a 13% and 17% performance increase.
+Interestingly enough, you could decide to only preload "hot classes": classes that are used often in your codebase. Ben's benchmarks shows that only loading around 100 hot classes, actually yields better performance gains than preloading all. It's a difference of a 13% and 17% performance increase.
 
 What classes should be preloaded relies of course on your specific project. It would be wise to simply preload as much as possible at the start. If you really need the few percentage increases, you would have to monitor your code while running. 
 
