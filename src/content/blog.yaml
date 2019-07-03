@@ -1,7 +1,7 @@
 preloading-in-php-74:
-    date: 2019-06-30
+    date: 2019-07-05
     title: Preloading in PHP 7.4
-    content: src/content/blog/2019-06-30-preloading-in-php-74.md
+    content: src/content/blog/2019-07-05-preloading-in-php-74.md
     next: new-in-php-74
     meta:
         description: Preloading allows for parsed PHP files to be available for all requests
