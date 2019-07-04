@@ -51,6 +51,8 @@ foreach ($files as $file) {
 
 function preload(<hljs type>string</hljs> $filePath): void 
 {
+    // Filter out files you don't want to preload, …
+    
     <hljs prop>opcache_compile_file</hljs>($filePath);
 }
 ```
