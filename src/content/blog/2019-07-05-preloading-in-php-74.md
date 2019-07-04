@@ -45,19 +45,14 @@ Here's how you'd link to this script in php.ini:
 And here's a dummy implementation:
 
 ```php
-foreach ($files as $file) {
-    <hljs prop>preload</hljs>($file);
-}
+$files = /* An array of files you want to preload */;
 
-function preload(<hljs type>string</hljs> $filePath): void 
-{
-    // Filter out files you don't want to preload, …
-    
-    <hljs prop>opcache_compile_file</hljs>($filePath);
+foreach ($files as $file) {
+    <hljs prop>opcache_compile_file</hljs>($file);
 }
 ```
 
-Now you should simply provide a list of files to preload, and you're done!
+Note that instead of using `opcache_compile_file`, you can also `include` the file. There seems to be [a bug](*https://bugs.php.net/bug.php?id=78240) though, because as of writing this doesn't seem to work.
 
 ### Warning: Can't preload unlinked class
 
