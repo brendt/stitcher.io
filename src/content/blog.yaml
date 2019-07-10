@@ -260,12 +260,12 @@ share-a-blog-assertchris-io:
 
 array-merge-vs+:
     date: 2018-10-24
-    title: Array merge vs. +
+    title: array_merge in PHP
     content: src/content/blog/2018-10-24-array-merge-vs+.md
     next: shorthand-comparisons-in-php
     highlight: true
     meta:
-        description: The difference between array_merge and the + operator explained.
+        description: How to merge arrays in PHP
 
 laravel-view-models-vs-view-composers:
     date: 2018-10-16
