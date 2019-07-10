@@ -1,6 +1,5 @@
-PHP has several ways of combining two arrays into one. 
-There's a subtle difference between two methods though,
-a difference worth knowing.
+PHP has several ways of combining two arrays into one. You can use `array_merge` or the `+` operator.
+There's a subtle difference between these two methods though, a difference worth knowing.
 
 {{ ad:carbon }}
 
