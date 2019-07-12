@@ -8,68 +8,50 @@
 {% endblock %}
 
 {% block content %}
-    <div class="patreon">
-        <p class="wrapper">
-            <strong>Update:</strong> I'm starting a <a href="/blog/starting-a-newsletter">newsletter</a>!
+    <header>
+        <h1>
+            stitcher.io
+        </h1>
+
+        <p>
+            Hi! My name is Brent, I'm a programmer living in Belgium.
+            I write about the web, PHP and programming in general.
         </p>
-    </div>
+
+        <p class="links">
+            <small>
+                <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a> —
+                <a href="/rss" target="_blank" rel="noopener noreferrer">RSS</a> —
+                <a href="/signup" target="_blank" rel="noopener noreferrer">Newsletter</a> —
+                <a href="https://www.patreon.com/brendt" target="_blank" rel="noopener noreferrer">Patreon</a> —
+                <a href="https://github.com/brendt" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </small>
+        </p>
+    </header>
 
     <nav class="overview">
-        <header>
-            <h1>
-                stitcher.io
-            </h1>
 
-            <p>
-                Hi! My name is Brent, I'm a programmer living in Belgium.
-                I write about the web, PHP and programming in general.
-                I'm also on
-                <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a>.
-            </p>
+        <a href="/blog/starting-a-newsletter" class="highlight small">
+            <h1>Update: I'm starting a newsletter!</h1>
 
-            <div class="search-container">
-                <input
-                        type="text"
-                        id="search"
-                        placeholder="/search…"
-                        onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = '/search…'"
-                />
+            <div>
+                {% if post.meta.description is defined and post.meta.description %}
+                    <p>
+                        {{ post.meta.description }}
+                    </p>
+                {% endif %}
+
+                {% if post.date is defined %}
+                    <aside>
+                        {{ post.date|date("F d, Y") }}
+                    </aside>
+                {% endif %}
             </div>
-
-            <p class="search-container">
-                A few examples:
-                <span class="search-suggestion" data-search-suggestion="PhpStorm">PhpStorm</span>,
-                <span class="search-suggestion" data-search-suggestion="PHP">PHP</span>,
-                <span class="search-suggestion" data-search-suggestion="Type">Type</span>
-            </p>
-        </header>
-
-        <div id="empty-result" class="hidden search-container">
-            <h1>
-                Oh oh…
-            </h1>
-
-            <p>
-                Unfortunately, I haven't written about your query yet.
-                It might as well be a bogus thing you asked, who knows?
-            </p>
-
-            <p>
-                You can try a few other things though:
-                <span class="search-suggestion" data-search-suggestion="Cognitive load">Cognitive load</span>,
-                <span class="search-suggestion" data-search-suggestion="Performance">Performance</span>,
-                <span class="search-suggestion" data-search-suggestion="MySQL">MySQL</span>
-            </p>
-        </div>
+        </a>
 
         {% for post in posts %}
             {% if post.hidden is not defined or post.hidden == false %}
-                <a
-                        href="/blog/{{ post.id }}"
-                        {% if post.highlight is defined and post.highlight %}class="cta"{% endif %}
-                        data-search="{{ post.title }} {{ post.meta.description }}"
-                >
+                <a href="/blog/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
                     {% if post.title is defined %}
                         <h1>
                             {{ post.title }}
@@ -109,102 +91,6 @@
             {% endif %}
         </nav>
 
-        <p>
-            follow me:
-            <a href="https://twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">Twitter</a> -
-            <a href="/rss" target="_blank" rel="noopener noreferrer">RSS</a> -
-            <a href="https://github.com/brendt" target="_blank" rel="noopener noreferrer">GitHub</a>
-        </p>
-
-        <p>
-            &copy; {{ date()|date('Y') }} stitcher.io
-        </p>
+        {% include '_partials/links.twig' %}
     </footer>
-{% endblock %}
-
-{% block footer %}
-    <script>
-        const searchBar = document.querySelector('#search');
-
-        const links = document.querySelectorAll('[data-search]');
-
-        const empty = document.querySelector('#empty-result');
-
-        searchBar.addEventListener('keyup', (event) => {
-            if (event.keyCode === 27) {
-                cancelSearch();
-
-                return;
-            }
-
-            filter(searchBar.value);
-        });
-
-        function cancelSearch() {
-            searchBar.value = '';
-
-            searchBar.blur();
-
-            filter(null);
-        }
-
-        function filter(query) {
-            query = query
-                ? query.toLowerCase()
-                : null;
-
-            let matchCount = 0;
-
-            for (let link of links) {
-                if (!query) {
-                    matchCount += 1;
-                    link.classList.remove('hidden');
-
-                    continue;
-                }
-
-                const searchValue = link.getAttribute('data-search');
-
-                if (searchValue.toLowerCase().includes(query)) {
-                    matchCount += 1;
-
-                    link.classList.remove('hidden');
-
-                    continue;
-                }
-
-                link.classList.add('hidden');
-            }
-
-            if (matchCount === 0) {
-                empty.classList.remove('hidden');
-            } else {
-                empty.classList.add('hidden');
-            }
-        }
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key !== '/') {
-                return;
-            }
-
-            searchBar.focus();
-
-            event.preventDefault();
-        });
-
-        const suggestions = document.querySelectorAll('.search-suggestion');
-
-        for (let suggestion of suggestions) {
-            suggestion.addEventListener('click', function () {
-                const suggestionValue = suggestion.getAttribute('data-search-suggestion');
-
-                searchBar.focus();
-
-                searchBar.value = suggestionValue;
-
-                filter(suggestionValue);
-            });
-        }
-    </script>
 {% endblock %}

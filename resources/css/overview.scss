@@ -6,28 +6,30 @@ nav.overview {
     display: flex;
     flex-flow: row wrap;
     max-width: 1000px;
-    margin: 2em auto 0;
-
-    @media (max-width: $width-base) {
-        margin-top: 0;
-    }
-
-    *.hidden {
-        display: none;
-    }
+    margin: 1em auto 0;
 }
 
-.overview input {
-    border: 2px solid $gray-border-color;
-    font-size: 0.95em;
-    padding: .5em;
-    font-family: $font-code;
-    color: #757575;
-    margin-top: .5em;
+header {
+    color: #000;
+    border: none;
+    display: block;
+    max-width: 1000px;
+    margin: 2em auto 0;
 
-    &:focus {
-        border-color: $color-red;
-        outline: none;
+    p {
+        padding: 1rem;
+        font-size: 1.5rem;
+
+        &.links {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    h1 {
+        padding: 1rem;
     }
 }
 
@@ -48,78 +50,42 @@ h1 {
     padding-right: 0;
 }
 
-nav.overview > * {
-    flex: 1 50%;
-    padding: 2em;
-    max-width: 45%;
-    border: 2px solid $gray-border-color;
-    margin: 1em;
+nav.overview > a {
+    width: 100%;
+    margin: 0 0 1em 0;
     text-decoration: none;
     overflow: hidden;
+    background-color: lighten($color-gray, 15);
+    border: 3px solid lighten($color-gray, 15);
+    padding: 1em;
 
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-    min-height: 400px;
-
-    & > * {
-        flex: 1 auto;
-    }
-
-    & > div {
-        display: flex;
-        align-items: flex-end;
-        flex-wrap: wrap;
-
-        & > * {
-            flex: 1 100%;
-        }
+    h1 {
+        padding-bottom: 0;
+        font-size: 2em;
     }
 
     &:hover {
-        border-color: $red;
+        border-color: $color-black;
     }
 
-    &:hover h1 {
-        color: $red;
-    }
+    &.highlight {
+        background-color: $color-red-pastel;
+        border: 3px solid $color-red-pastel;
 
-    &.cta {
-        text-align: left;
-
-        &:hover h1 {
-            color: #fff;
+        &:hover {
+            border-color: $color-red;
         }
     }
 
-    @media (max-width: $width-base) {
-        width:100%;
-        max-width: 100%;
-        min-height: 0;
+    @media (max-width: $width-container) {
+        margin-left: 1em;
+        margin-right: 1em;
     }
 
-    @media (max-width: $width-mobile) {
-        padding: 1.7em 1.5em;
-
+    &.small {
         h1 {
-            font-size: 2em;
-        }
-    }
-}
-
-nav.overview > header {
-    color: #000;
-    border: none;
-    min-height: 400px;
-    display: block;
-    padding: .5em;
-
-    @media (max-width: $width-base) {
-        min-height: auto;
-
-        h1 {
-            padding-top: .5em;
-            padding-bottom: 0;
+            font-size: 1em;
+            letter-spacing: normal;
         }
     }
 }
@@ -148,7 +114,7 @@ footer > nav {
 
 .search-suggestion {
     text-decoration: underline;
-    cursor:pointer;
+    cursor: pointer;
     text-decoration-skip: ink;
     text-decoration-color: $red;
 }

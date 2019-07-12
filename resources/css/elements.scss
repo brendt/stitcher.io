@@ -83,6 +83,10 @@ p {
     line-height: 1.45em;
 
     margin-bottom: 1rem;
+
+    & > small {
+        font-size: 1rem;
+    }
 }
 
 li {
