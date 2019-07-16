@@ -7,3 +7,4 @@ vendor/
 /public/sitemap.xml
 .env
 /data
+Envoy.blade.php
