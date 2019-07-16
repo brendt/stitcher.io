@@ -8,3 +8,4 @@ vendor/
 .env
 /data
 Envoy.blade.php
+Envoy*
