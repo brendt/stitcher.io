@@ -54,29 +54,26 @@ h1 {
 
 nav.overview > a {
     width: 100%;
-    margin: 0 0 1em 0;
+    margin: 0 5rem 1em;
     text-decoration: none;
     overflow: hidden;
     background-color: lighten($color-gray, 15);
     border: 3px solid lighten($color-gray, 15);
-    padding: 1em;
+    padding: 3em;
 
     h1 {
         padding-bottom: 0;
         font-size: 2em;
     }
 
-    &:hover {
-        border-color: $color-black;
-    }
-
     &.highlight {
         background-color: $color-red-pastel;
         border: 3px solid $color-red-pastel;
+    }
 
-        &:hover {
-            border-color: $color-red;
-        }
+    &.highlight:hover,
+    &:hover {
+        box-shadow: inset 0 0 0 10px $color-red;
     }
 
     @media (max-width: $width-container) {
@@ -86,7 +83,7 @@ nav.overview > a {
 
     &.small {
         h1 {
-            font-size: 1em;
+            font-size: 1.5em;
             letter-spacing: normal;
         }
     }
