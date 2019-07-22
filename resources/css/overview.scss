@@ -54,11 +54,10 @@ h1 {
 
 nav.overview > a {
     width: 100%;
-    margin: 0 5rem 1em;
+    margin: 0 10rem 1em 0;
     text-decoration: none;
     overflow: hidden;
     background-color: lighten($color-gray, 15);
-    border: 3px solid lighten($color-gray, 15);
     padding: 3em;
 
     h1 {
@@ -68,7 +67,6 @@ nav.overview > a {
 
     &.highlight {
         background-color: $color-red-pastel;
-        border: 3px solid $color-red-pastel;
     }
 
     &.highlight:hover,
