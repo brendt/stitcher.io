@@ -19,11 +19,12 @@ preloading-in-php-74:
 
 typed-properties-in-php-74:
     date: 2019-06-13
-    title: Typed properties in PHP
+    title: Typed properties in PHP 7.4
     content: src/content/blog/2019-06-30-typed-properties.md
     next: new-in-php-74
     meta:
-        description: "What are typed properties in PHP 7.4 and how to use them"
+        description: "PHP 7.4 adds typed properties to classes"
+    disableMetaDescription: true
 
 tests-and-types:
     date: 2019-06-07
