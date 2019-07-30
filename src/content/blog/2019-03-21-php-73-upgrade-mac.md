@@ -138,14 +138,14 @@ If you're using Laravel Valet, you should do the following steps to upgrade it:
 composer global update
 ```
 
-Note that if you're upgrading Valet from 2.0 to 2.1, your Valet config folder will automatically be moved from
-`~/.valet` to `~/.config/valet`. 
-
-Now run `valet install`
+Now run `valet install`:
 
 ```bash
 valet install
 ```
+
+Note that if you're upgrading Valet from 2.0 to 2.1, your Valet config folder will automatically be moved from
+`~/.valet` to `~/.config/valet`. 
 
 If you have any paths pointing to this folder, you check them.
 I, for example, have a custom Nginx config file for one of my local sites.
