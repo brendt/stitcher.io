@@ -1,3 +1,9 @@
+a-letter-to-the-php-team:
+    date: 2019-07-31
+    title: A letter to the PHP team
+    content: src/content/blog/2019-07-30-a-letter-to-the-php-team.md
+    next: new-in-php-74
+
 things-dependency-injection-is-not-about:
     date: 2019-07-30
     title: Things dependency injection is not about
