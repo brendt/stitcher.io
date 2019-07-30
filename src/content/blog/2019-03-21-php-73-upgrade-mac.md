@@ -147,7 +147,7 @@ valet install
 Note that if you're upgrading Valet from 2.0 to 2.1, your Valet config folder will automatically be moved from
 `~/.valet` to `~/.config/valet`. 
 
-If you have any paths pointing to this folder, you check them.
+If you have any paths pointing to this folder, you'll have to update them.
 I, for example, have a custom Nginx config file for one of my local sites.
 This config file contained absolute paths to the Valet socket.
 These had to be manually changed.
