@@ -17,14 +17,14 @@ based on a set of parameters.
 class CreatePostAction
 {
     public function __invoke(
-        string $title, 
-        string $body
+        <hljs type>string</hljs> $title, 
+        <hljs type>string</hljs> $body
     ): Post
     {
-        return Post::create([
+        return <hljs type>Post</hljs>::<hljs prop>create</hljs>([
             'title' => $title,
             'body' => $body,
-            'author_id' => Auth::user()->id,
+            'author_id' => <hljs type>Auth</hljs>::<hljs prop>user</hljs>()->id,
         ]);
     }
 }
@@ -36,11 +36,11 @@ I want to highlight three problems with this approach, directly caused by the us
 - The code is obfuscated to the outside.
 - It increases cognitive load.
 
-Let's look at these examples, one by one.
+Let's look at these problems, one by one.
 
 ## Runtime- instead of compile time errors
 
-Before even looking at this first argument, there's one assumption I'll make.
+Before even looking into this first problem, there's one assumption I'll make.
 That is that, as a developer, you prefer to know bugs in your code as early as possible,
 so that you can fix them as early as possible.
 
@@ -48,14 +48,14 @@ I'll assume that you don't like a situation where a client tells you a productio
 and the issue can only be reproduced by taking several steps.
 
 As the name says, runtime errors can only be discovered by running the program.
-Truth be told: PHP, being an interpreted language; highly leans towards these kind of errors.
-You cannot know if a PHP program will work before running it.
+Truth be told: ((PHP)), being an interpreted language; highly leans towards these kind of errors.
+You cannot know if a ((PHP)) program will work before running it.
 
 There's nothing wrong with that, but my argument here is that every place we can
 avoid these errors, we should. 
 
 Compile time errors are errors that can be detected without running the code. 
-For example: in your IDE or using a static analysis tool.
+For example: in your ((IDE)) or using a static analysis tool.
 The benefit is that you know a piece of code will absolutely work, 
 even without testing it.
 
@@ -69,10 +69,10 @@ we assume that the surrounding system has a logged in user, with an `id`.
 
 Of course, your first thought is that we *know* there's a user, 
 because this action is called within a controller that requires a logged in user.
-I'll come back to that argument later.
+I'll come back to that argument later on.
 
 For now, speaking from a mathematical point of view, 
-it's impossible to prove if `Auth::user()->id` will work, without running it.
+it's impossible to prove whether `Auth::user()->id` will work, without running it.
 There are two ways to fix it, from the action's perspective.
 
 By doing a runtime check:
@@ -81,12 +81,12 @@ By doing a runtime check:
 class CreatePostAction
 {
     public function __invoke(
-        string $title, 
-        string $body
+        <hljs type>string</hljs> $title, 
+        <hljs type>string</hljs> $body
     ): Post
     {
-        if (! Auth::user()) {
-            throw new Exception('...');
+        if (! <hljs type>Auth</hljs>::<hljs prop>user</hljs>()) {
+            throw new <hljs type>Exception</hljs>('…');
         }
         
         // ...
@@ -100,10 +100,10 @@ Or by requiring a valid user, before executing:
 class CreatePostAction
 {
     public function __invoke(
-        string $title, 
-        string $body,
-        User $author
-    ): Post
+        <hljs type>string</hljs> $title, 
+        <hljs type>string</hljs> $body,
+        <hljs type>User</hljs> $author
+    ): <hljs type>Post</hljs>
     {
         // ...
     }
@@ -115,16 +115,16 @@ I'll address those arguments soon.
 
 ## Obfuscated classes
 
-Before looking at the biggest argument, how service locators affect cognitive load; 
-there's the argument about obfuscated classes. 
+Before looking at the biggest problem, how service locators affect cognitive load; 
+there's the issue with obfuscated classes. 
 Let's look at our action's definition.
 
 ```php
 class CreatePostAction
 {
     public function __invoke(
-        string $title, 
-        string $body
+        <hljs type>string</hljs> $title, 
+        <hljs type>string</hljs> $body
     ): Post
     { /* ... */ }
 }
@@ -138,7 +138,7 @@ you *know* a blog post requires a logged in user.
 However, for the developer working in your legacy code, that intent is not clear. 
 Not unless he's reading every single line of code.
 
-Imagine being that person: having to work in a legacy project where you need to read every single line of code,
+Imagine being that person: having to work in a legacy project where you need to read every line of code,
 in order to get the general idea of what's happening.
 
 You might as well not be interested in the specifics of how a post is created, 
@@ -161,8 +161,8 @@ class CreatePostAction
      * @return Post
      */
     public function __invoke(
-        string $title, 
-        string $body
+        <hljs type>string</hljs> $title, 
+        <hljs type>string</hljs> $body
     ): Post
     { /* ... */ }
 }
@@ -174,9 +174,9 @@ Or by injecting the user:
 class CreatePostAction
 {
     public function __invoke(
-        string $title, 
-        string $body,
-        User $author
+        <hljs type>string</hljs> $title, 
+        <hljs type>string</hljs> $body,
+        <hljs type>User</hljs> $author
     ): Post
     { /* ... */ }
 }
@@ -188,10 +188,10 @@ and it's not just one class, there are dozens and dozens.
 
 ## Increased cognitive load
 
-This all leads up to the final, and major, argument: cognitive load.
+This all leads up to the final, and major, problem: cognitive load.
 I already wrote a lot on this topic, and I'll share some links at the end of this post.
 
-The important question, which probably counters most of the arguments for service locators; 
+The important question, which counters most of the pro-arguments for service locators; 
 is how much brain effort you, the developer, has to spend on trivial questions like:
 
 > How sure am I this code will actually work?
@@ -207,30 +207,30 @@ Here's a non-exhaustive list of questions popping into my head when writing this
 - Should I add a test to be sure this never breaks in the future?
 
 These are all such trivial questions, 
-and I need to think about them **every time I use a facade**. 
+and I need to think about them _every_ time I use a facade. 
 How much more easy is it to simply say:
 
-> I **need** the logged in user to do this action, and the context calling this action can figure it out from there.
+> I _need_ the logged in user to do this action, and the context which is calling this action can figure it out from there.
 
 ```php
 class CreatePostAction
 {
     public function __invoke(
-        string $title, 
-        string $body,
-        User $author
+        <hljs type>string</hljs> $title, 
+        <hljs type>string</hljs> $body,
+        <hljs type>User</hljs> $author
     ): Post
     { /* ... */ }
 }
 ```
 
-Sure, compile time errors and less code are always nice, 
+Sure, compile time errors and less code are niceties, 
 but my main problem is this cognitive load. 
 I don't want to ask all these questions every time I use a facade.
 
-Seasoned Laravel developers will tell me this is the way the frameworks works and we should embrace it.
+Seasoned Laravel developers will tell me this is the way the framework works and we should embrace it.
 They are right, of course. 
-But making the assumption that "it will work" isn't good enough to me.
+But making the assumption that "it will work" isn't good enough for me.
 At least, it's no argument against increased cognitive load, 
 as you're still left with a lot of questions about the surrounding context.
 
