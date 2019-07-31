@@ -52,4 +52,4 @@ A lot of magic happens here, but auto wiring can be a useful tool for rapid appl
 
 ---
 
-If by now, you want a refresher on the basics of what dependency injection is about. You can go read up on it [here](*/blog/dependency-injection-for-beginners).
+If by now, you want a refresher on the basics of what dependency injection _is_ about. You can go read up on it [here](*/blog/dependency-injection-for-beginners).
