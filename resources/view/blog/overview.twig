@@ -29,22 +29,8 @@
 
     <nav class="overview">
 
-        <a href="/blog/starting-a-newsletter" class="highlight small">
-            <h1>Update: I'm starting a newsletter!</h1>
-
-            <div>
-                {% if post.meta.description is defined and post.meta.description %}
-                    <p>
-                        {{ post.meta.description }}
-                    </p>
-                {% endif %}
-
-                {% if post.date is defined %}
-                    <aside>
-                        {{ post.date|date("F d, Y") }}
-                    </aside>
-                {% endif %}
-            </div>
+        <a href="https://criticast.io/" target="_blank" rel="noopener noreferrer" class="highlight small">
+            <h1>🎧 Update: I've started a new podcast related blog!</h1>
         </a>
 
         {% for post in posts %}
