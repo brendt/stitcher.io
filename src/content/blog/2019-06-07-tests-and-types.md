@@ -102,6 +102,8 @@ One approach could be to use "configurable" or generic types, for example `Int<m
 The concept of generics is known in many programming languages, 
 though I'm unaware of any language that let's you configure scalar types such as integers.
 
+Edit: one of my readers let me know this _is_ possible in Ada. Thanks, Adam!
+
 Nevertheless in theory, a type could be preconfigured in such a way that it's smart enough to know about your business logic. 
 
 Languages who lack this kind of generic types, often need to build custom types.
