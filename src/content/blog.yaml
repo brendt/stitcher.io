@@ -1,3 +1,11 @@
+a-letter-to-the-php-team-reply-to-joe:
+    date: 2019-08-29
+    title: "re: re: A letter to the PHP team"
+    content: src/content/blog/2019-08-29-letter-to-php-reply-joe.md
+    next: a-letter-to-the-php-team
+    meta:
+        description: "Joe Watkins replied to my letter, this is my reply to him."
+
 a-letter-to-the-php-team:
     date: 2019-08-28
     title: A letter to the PHP team

@@ -70,3 +70,9 @@ There's more things to do to fix the current broken process of ((PHP))'s develop
 Kind regards
 <br>
 Brent
+
+---
+
+Update August 29: Joe Watkins was kind enough to write a reply. You can read it [here](*https://blog.krakjoe.ninja/2019/08/bearings.html).
+
+You can read my reply to Joe's [here](/blog/a-letter-to-the-php-team-reply-to-joe).
