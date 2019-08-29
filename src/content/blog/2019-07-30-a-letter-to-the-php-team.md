@@ -6,6 +6,8 @@ I also want to mention that I, as everyone, am subject to confirmation bias. Whe
 
 Since the goal of this letter is to start a conversation, I'm open to hear your thoughts. Also if they don't align with mine, please feel free to disagree.
 
+{{ ad:carbon }}
+
 ---
 
 I could continue by listing lots of good things — there are many. Though because I want to keep this letter on topic, I won't be doing that. Don't take this as me being a disgruntled developer, I simply want to be efficient in conveying what I want to say.
