@@ -65,7 +65,7 @@ I already mentioned that the ((RFC)) process has been an on-and-off hot debate f
 
 ---
 
-There's more things to do to fix the current broken process of ((PHP))'s development, but I can't possibly list everything here today. So I think it'd be good to keep the conversation going. My suggestion would be to go over to [Reddit](*https://www.reddit.com/r/PHP/comments/cwueyd/a_letter_to_the_php_team/) where we can discuss it further. 
+There's more things to do to fix the current broken process of ((PHP))'s development, but I can't possibly list everything here today. So I think it'd be good to keep the conversation going. My suggestion would be to go over to [Reddit](*https://www.reddit.com/r/PHP/comments/cwueyd/a_letter_to_the_php_team/) where we can discuss it further, or send me an [email](mailto:brendt@stitcher.io).
 
 Kind regards
 <br>
