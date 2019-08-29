@@ -44,8 +44,27 @@ Let's call the current way of ((PHP))'s development for what it really is: the s
 
 Am I fair to call this system, at least partially, broken?
 
-I believe our system should be thoroughly evaluated, and I think we _should_ look at how other open source communities, outside of ((PHP)), manage to keep moving their project forward in a healthy way.
+I believe our system should be thoroughly evaluated, and I think we _should_ look at how open source communities outside of ((PHP)) manage to keep moving their project forward in a healthy way.
 
-Thanks
+One example is ((TC39)), the committee that manages ((ECMAS))cript, aka JavaScript. Dr. Axel Rauschmayer wrote [a great post](*https://2ality.com/2015/11/tc39-process.html) about how the ((TC39)) process works. Now, you might love or hate JavaScript, but it's clear that they are doing something right over there, given the lasting success of the language over the years. 
+
+One of the things they get right is an open communication channel with their community. Communication that is transparent and accessible between contributors and users via [GitHub](*https://github.com/tc39/ecma262). Another language that does this is Rust, which provides [an open forum](*https://internals.rust-lang.org) the discuss how the language is shaped.
+
+An open place like GitHub or a forum diminishes the barrier most userland developers experience with the internals mailing list. Many of us read it, though very little userland developers actually feel they can voice their opinion on it. I think there's two reasons for this: 
+
+- The mailing list is difficult to navigate compared to forums and threads
+- It's often a hostile place, lacking basic decency and proper moderation
+
+Better communication will close the current disconnect between the two groups, it will allow ((PHP)) to become what the actual majority of ((PHP)) users want it to be.
+
+Besides communication, there's the matter of what features should be added to the language. ((TC39)) provides a clear framework on how the language can evolve; it's a system that's superior to and less confusing than ((PHP))'s current ((RFC)) process.
+
+I already mentioned that the ((RFC)) process has been an on-and-off hot debate for the past months; it's at the point where many ((RFC)) proposals on the mailing list spark the same discussion over and over again, with no results. Let's again look at committees like ((TC39)), and fix it once and for all. 
+
+---
+
+There's more things to do to fix the current broken process of ((PHP))'s development, but I can't possibly list everything here today. So I think it'd be good to keep the conversation going. My suggestion would be to go over to [Reddit](*https://www.reddit.com/r/PHP/comments/cwueyd/a_letter_to_the_php_team/) where we can discuss it further. 
+
+Kind regards
 <br>
 Brent
