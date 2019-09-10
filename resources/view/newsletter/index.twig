@@ -1,0 +1,48 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/overview.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>
+            stitcher.io
+        </h1>
+
+        {% include '_partials/header_links.twig' %}
+    </header>
+
+    <nav class="overview">
+
+        <p style="margin-bottom: 2em;">
+            I write a monthly-ish newsletter about anything programming related that crosses my path.
+            If you're interested in following it, you can sign up for it <a href="/signup" target="_blank" rel="noopener noreferrer">here</a>.
+        </p>
+
+        {% for post in posts %}
+            {% if post.hidden is not defined or post.hidden == false %}
+                <a href="{{ post.url }}">
+                    <h1>
+                        {{ post.title }}
+                    </h1>
+
+                    <div>
+                        {% if post.date is defined %}
+                            <aside>
+                                {{ post.date|date("F d, Y") }}
+                            </aside>
+                        {% endif %}
+                    </div>
+                </a>
+            {% endif %}
+        {% endfor %}
+    </nav>
+
+    <footer>
+        {% include '_partials/links.twig' %}
+    </footer>
+{% endblock %}

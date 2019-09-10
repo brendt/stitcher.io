@@ -40,3 +40,13 @@
             parameter: id
         next: true
         meta: true
+
+/newsletter:
+    template: newsletter/index.twig
+    variables:
+        posts: src/content/newsletter.yaml
+    config:
+        order:
+            variable: posts
+            field: date
+            direction: desc
