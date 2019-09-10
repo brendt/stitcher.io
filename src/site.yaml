@@ -45,6 +45,7 @@
     template: newsletter/index.twig
     variables:
         posts: src/content/newsletter.yaml
+        title: Newsletter
     config:
         order:
             variable: posts
