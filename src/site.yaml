@@ -46,6 +46,8 @@
     variables:
         posts: src/content/newsletter.yaml
         title: Newsletter
+        meta:
+            description: An archive of all my newsletters
     config:
         order:
             variable: posts
