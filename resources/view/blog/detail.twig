@@ -46,6 +46,14 @@
         {% endif %}
 
         {{ post.content|raw }}
+
+        {% if post.author is defined %}
+            <div class="wrapper">
+                <div class="author">
+                    Once again thanks to <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a> for writing this guest post, be sure to check him out!
+                </div>
+            </div>
+        {% endif %}
     </article>
 
     <footer>
