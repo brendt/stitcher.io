@@ -40,6 +40,9 @@
 
                         {% if post.date is defined %}
                             <aside>
+                                {% if post.author is defined %}
+                                    Written by {{ post.author.name }} on
+                                {% endif %}
                                 {{ post.date|date("F d, Y") }}
                             </aside>
                         {% endif %}

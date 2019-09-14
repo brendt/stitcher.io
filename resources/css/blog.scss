@@ -1,6 +1,13 @@
 @import 'css/classes.scss';
 @import 'css/elements.scss';
 
+.author {
+    background-color: $color-red-pastel;
+    font-size: 1.3em;
+    margin-bottom: 2em;
+    padding: 1em;
+}
+
 .banner {
     background-color: $color-red-pastel;
     color: $color-black;
