@@ -30,7 +30,10 @@ I will help you in reviewing your content and provide feedback to improve it. I'
 
 Reviewing your content will either happen via mail or directly on GitHub, whichever you prefer. I will make sure to always discuss any changes I want to be made to the post, and will never alter your content without you knowing it.
 
-Finally, I will also help promote your content once it's launched, and provide feedback regarding traffic afterwards.
+Finally, I will also help promote your content once it's launched, and provide feedback regarding traffic afterwards. I cannot guarantee any hard numbers on what kind of traffic your post will get, but I can give you some numbers on the monthly traffic on my blog:
+
+- Between 25k and 40k users per month, with 30k-50k sessions per month
+- My average blog posts have between 1k and 6k sessions per month
 
 ## Now what?
 
