@@ -1,3 +1,11 @@
+guest-posts:
+    date: 2019-09-16
+    title: Guest posts
+    content: src/content/blog/2019-09-16-guest-posts.md
+    next: new-in-php-74
+    meta:
+        description: "Some thoughts on guest posts on this blog"
+
 a-letter-to-the-php-team-reply-to-joe:
     date: 2019-08-29
     title: "re: re: A letter to the PHP team"
