@@ -182,7 +182,7 @@ This is where we apply the [state pattern](*https://en.wikipedia.org/wiki/State_
 
 Since we've been applying these two patterns in several projects, it made sense for us to extract some functionality into [a reusable package](*https://github.com/spatie/laravel-model-states). As of writing though, this package is still a work in progress, but you'll be able to read up on how we use states in depth over there.
 
-I do want to give a quick demonstration though, of how states can be leveraged:
+I do want to give a quick demonstration still, of how states can be leveraged:
 
 ```php
 $invoice->status-><hljs prop>transitionTo</hljs>(<hljs type>Paid</hljs>::class);
@@ -192,10 +192,12 @@ $invoice->status-><hljs prop>transitionTo</hljs>(<hljs type>Canceled</hljs>::cla
 
 Behind the scenes we ensure that the current state can be transitioned to the next one, and also handle side effects like writing a reason for cancelling an invoice to the database.
 
-Also note the power of the state pattern itself, where state-specific functionality can be added on models, without having to rely on several if/else statements:
+Also note the power of the state pattern itself, where state-specific functionality can be added on models, without having to rely on complex conditional logic:
 
 ```php
-$invoice->status-><hljs prop>mustBePaid</hljs>();
+if($invoice->status-><hljs prop>mustBePaid</hljs>()) {
+    // …
+}
 ```
 
 Be sure to check out our state package to learn more about how you'd use these patterns in practice.
@@ -204,9 +206,9 @@ Be sure to check out our state package to learn more about how you'd use these p
 
 While states and transitions can be very powerful, we must make sure we don't abuse or overuse them. State transitions are allowed to handle small side effects like updating a database field or writing a log entry, but they should not handle anything heavily business related.
 
-For modeling the real business logic, we use a concept called "actions". An action represents a complex business process, for example `CreateInvoiceAction`. An action can be composed out of several small actions if you want to, to ensure that an action itself stays small and properly testable.
+For modeling the actual business logic, we use a concept called "actions". An action represents a complex business process, for example `CreateInvoiceAction`. An action can be composed out of several small actions if you want to, to ensure that an action itself stays small and properly testable.
 
-Actions encapsulate the core of the business. They often work with models and data, they can be executed right now or asynchronously. Most importantly: they are heavily tested. Actions are where all the important stuff happens.
+Actions encapsulate the core of the business. They often work with models and data, they can be executed right now or asynchronously. Most importantly: they are thoroughly tested. Actions are where all the important stuff happens.
 
 An action itself is nothing more than a simple class. It can be an invokable class, or have an `execute` or `handle` method. In our projects we prefer the `execute` methods, for reasons that are beyond the scope of this article. You're free to use what's best for your projects. 
 
@@ -241,15 +243,17 @@ class CreateInvoiceAction
 }
 ```
 
-Keep in mind that this is an oversimplified example. In real life you're have several `Invoiceable` items which would be added to the invoice.
+Keep in mind that this is an oversimplified example. For example: in real life you're have several `Invoiceable` items which would be added to the invoice.
 
 But for the sake of the example, let's keep it at this. If you want to dive deeper into the subject of actions, you can read up on them [here](*http://stitcher.io.test/blog/laravel-queueable-actions). 
 
+People coming from the DDD scene might recognise this pattern as "commands" and "handlers" combined. Once again, we choose to simplify two powerful concepts, because it is flexible enough for our projects.  
+
 ### DataTransferObjects
 
-Let's backtrace for a minute to what we started with: data. While eloquent models represent data from a database, we often have to deal with more than models alone. Think about validated request data and data read from external sources like JSON files or excel files.
+Let's backtrace a minute to what we started with: data. While eloquent models represent data from a database, we often have to deal with more than models alone. Think about validated request data and data read from external sources like JSON files or excel files.
 
-One of the major key points in domain oriented projects is that we try our absolute best to always know exactly what data we're dealing with. This is where data transfer objects — DTO in short — come into play.
+One of the keys in domain oriented projects is that we try our absolute best to always know exactly what data we're dealing with. This is where data transfer objects — DTOs in short — come into play.
 
  DTOs are simple objects representing data in a strongly typed manner. Here's an example:
  
@@ -274,34 +278,45 @@ class InvoiceLineData extends DataTransferObject
 
 We try our best to transform whatever unstructured data we're dealing with, as fast as possible to DTOs. There's a lot to tell about DTOs, which why you can read up on them in a [dedicated post](*http://stitcher.io.test/blog/structuring-unstructured-data).
 
+In short: working with predictable and strongly typed data offers a lot of benefits. PHP doesn't offer a native `struct` type, so we made [a package](*https://github.com/spatie/data-transfer-object) that will take care of type safety for us.
+
+In general when dealing with data, wherever it comes from, we'll be working with a DTO instead of arrays or objects.
+While this pattern requires you to write more code up front, it makes using the data in, for example, actions a lot more easy.
+
 ### Rules
 
-While DTOs represent data in a structured way, their goal is not to validate the correctness of the data within a certain context. This is what plain old Laravel rules can be used for.
+While DTOs represent data in a structured way, their goal is not to validate the correctness of the data within your business's context. This is what plain old Laravel rules can be used for.
 
 Most of the time we think about validation rules within the context of a request, though Laravel perfectly allows you to validate any array of data, outside the request.
 
-That's why domain specific validation rules are also kept into their domain folders. The goal of these rules is to take data from an "unknown" source, and make sure we're able to use that data correctly within our domain.
+That's why business specific validation rules are also kept into their domain groups. The goal of these rules is to take data from an "unknown" source, and make sure we're able to use that data correctly within our domain.
 
 ### Events and Listeners
 
-If you have experience with DDD or an event-driven system, you might feel uncomfortable with the idea of crossing boundaries between domain groups. After all, you're tightly coupling domain groups together, making maintenance harder.
+If you have experience with DDD or an event-driven system, you might feel uncomfortable with the idea of crossing boundaries between domain groups. After all, you're tightly coupling groups together, making maintenance harder.
 
-Event-driven systems certainly add a layer of indirectness, and thus flexibility. However, they also greatly increase the complexity of your code. 
+Event-driven systems solve this by adding a layer of indirectness, and thus flexibility. However, they also greatly increase the complexity of your code. 
 
 For the scope of our projects, we realised that full blown event-driven systems would be overkill. The benefits they offered wouldn't outweigh the extra time spent on maintaining the system.
 
 Still I find it important to mention that many of the rules and patterns we've covered can easily be applied to an event-driven system.
 
-For now this is all I can say on the topic, but I might revise it at a later point. If you have any thoughts on this specifically, feel free to [send me a mail](mailto:brent@stitcher.io).
+For now this is all I can say on the topic, but I might revise it at a later point. If you have any thoughts on this specifically, feel free to [send me an email](mailto:brent@stitcher.io).
 
 ### Exceptions
 
-Lastly I should mention domain-specific exceptions. They provide way more feedback about what exactly went wrong, something that's very beneficial when debugging large applications.
+Lastly I should mention domain-specific exceptions. They provide detailed feedback about what exactly went wrong, something that's very beneficial when testing and debugging large applications.
 
 Don't underestimate the value of proper exceptions and exception messages. It's best to spend some time on providing valuable feedback when something goes wrong, your future self will be thankful.
 
-Technically there's little to tell about making exceptions, I do suppose you're familiar with how to extend of implement existing throwables in ((PHP)), the hard part is making exceptions that are actually helpful to you during development and in production. This again depends on the project, just make sure you spend enough time on this topic when coding.
+Technically there's little to tell about making exceptions, I do assume that you're familiar with how to extend or implement existing throwables in ((PHP)); the hard part is making exceptions which are actually helpful to you during development and in production. This again depends on the project, just make sure you spend enough time on this topic when coding.
 
 ### Tests
+
+Finally we've come to one of the main benefits the domain code offers: since it's all very loosely coupled and doesn't depend on any application code, all elements of the domain are easy to test on their own, with isolated unit tests.
+
+When you're sure all of the business logic works correct, you only need a few integration tests to ensure their valid use in applications.
+
+In the end this means you're able to write more and better tests in a shorter amount of time, resulting in a more robust codebase that's less likely to break or have bugs. 
 
 ## Entering the application layer
