@@ -117,6 +117,12 @@
     display: inline;
     background-color: #dfd;
 
+    &.comment {
+        background: none;
+        color: #888888;
+        font-style: italic;
+    }
+
     &.error {
         background-color: #fdd;
     }

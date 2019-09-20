@@ -1,3 +1,11 @@
+domain-oriented-laravel:
+    date: 2019-09-18
+    title: Domain Oriented Laravel
+    content: src/content/blog/2019-09-18-domain-oriented-laravel-projects.md
+    next: new-in-php-74
+    meta:
+        description: An in depth look on how to structure a domain oriented Laravel project.
+
 guest-posts:
     date: 2019-09-16
     title: Guest posts
@@ -311,6 +319,7 @@ organise-by-domain:
     date: 2018-10-16
     title: Organise by domain
     content: src/content/blog/2018-10-16-laravel-domains.md
+    next: domain-oriented-laravel
     meta:
         description: >
             Well structured code is essential in maintaining large projects. We'll look into splitting a project in domains to keep a grip on your code.
