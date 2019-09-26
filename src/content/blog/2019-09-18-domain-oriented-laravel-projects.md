@@ -1,5 +1,7 @@
 This post is a followup on a [previous post](*/blog/organise-by-domain) I wrote on how to organise your Laravel projects by domains. You're not required to read that post beforehand, though it might offer some more context to what I'll write today.
 
+{{ ad:carbon }}
+
 Let's start by describing the goals of domain oriented projects, what they are, and what not.
 
 This paradigm describes a set of rules and patterns to structure Laravel projects in such a way that they stay maintainable in the long run, even when several developers work on them. You'll notice that many practices I'll share today differ quite a lot from the default Laravel way.
@@ -65,13 +67,13 @@ Here are few examples of domain groups: `Contracts`, `Invoices`, `Users`, `Reser
 
 Another characteristic of our approach is that communication between domains is allowed, although you're encouraged to keep it to a minimum. If you don't want to cross domain boundaries, you're free to use an event-based system, but it's not required.
 
-These two characteristics mentioned above: multiple entry points and cross domain communication; are examples of why our approach is less strict than DDD. Because of the scope of our projects — they are big but not ginormous — we feel that allowing this kind of flexibility is ok.
+These two characteristics mentioned above: multiple entry points and cross domain communication; are examples of why our approach is less strict than ((DDD)). Because of the scope of our projects — they are big but not ginormous — we feel that allowing this kind of flexibility is ok.
 
 We've talked about domains, so what about applications?
 
-Think of an application as a standalone app, living in the project, being able to consume everything the domain exposes. An "application" could be an admin app, an API, a console application, a third party integration. They generally don't talk to each other, but will use the domain extensively. 
+Think of an application as a standalone app, living in the project, being able to consume everything the domain exposes. An "application" could be an admin app, an ((API)), a console application, a third party integration. They generally don't talk to each other, but will use the domain extensively. 
 
-Later in this post I will zoom into the structure of an HTTP application, and share thoughts on how to structure it internally. First, we'll look at each common domain folder in depth. Note that this is not an exhaustive list, it's entirely possible you'll add your own concepts to it, which again is fine.
+Later in this post I will zoom into the structure of an ((HTTP)) application, and share thoughts on how to structure it internally. First, we'll look at each common domain folder in depth. Note that this is not an exhaustive list, it's entirely possible you'll add your own concepts to it, which again is fine.
 
 ### Models, QueryBuilders and Collections
 
@@ -247,15 +249,15 @@ Keep in mind that this is an oversimplified example. For example: in real life y
 
 But for the sake of the example, let's keep it at this. If you want to dive deeper into the subject of actions, you can read up on them [here](*http://stitcher.io.test/blog/laravel-queueable-actions). 
 
-People coming from the DDD scene might recognise this pattern as "commands" and "handlers" combined. Once again, we choose to simplify two powerful concepts, because it is flexible enough for our projects.  
+People coming from the ((DDD)) scene might recognise this pattern as "commands" and "handlers" combined. Once again, we choose to simplify two powerful concepts, because it is flexible enough for our projects.  
 
 ### DataTransferObjects
 
-Let's backtrace a minute to what we started with: data. While eloquent models represent data from a database, we often have to deal with more than models alone. Think about validated request data and data read from external sources like JSON files or excel files.
+Let's backtrace a minute to what we started with: data. While eloquent models represent data from a database, we often have to deal with more than models alone. Think about validated request data and data read from external sources like ((JSON)) files or excel files.
 
-One of the keys in domain oriented projects is that we try our absolute best to always know exactly what data we're dealing with. This is where data transfer objects — DTOs in short — come into play.
+One of the keys in domain oriented projects is that we try our absolute best to always know exactly what data we're dealing with. This is where data transfer objects — (((DTO))s in short — come into play.
 
- DTOs are simple objects representing data in a strongly typed manner. Here's an example:
+ (((DTO))s are simple objects representing data in a strongly typed manner. Here's an example:
  
  ```php
 use <hljs type>Spatie\DataTransferObject\DataTransferObject</hljs>;
@@ -276,16 +278,16 @@ class InvoiceLineData extends DataTransferObject
 }
 ```
 
-We try our best to transform whatever unstructured data we're dealing with, as fast as possible to DTOs. There's a lot to tell about DTOs, which why you can read up on them in a [dedicated post](*http://stitcher.io.test/blog/structuring-unstructured-data).
+We try our best to transform whatever unstructured data we're dealing with, as fast as possible to ((DTO))s. There's a lot to tell about ((DTO))s, which why you can read up on them in a [dedicated post](*http://stitcher.io.test/blog/structuring-unstructured-data).
 
 In short: working with predictable and strongly typed data offers a lot of benefits. PHP doesn't offer a native `struct` type, so we made [a package](*https://github.com/spatie/data-transfer-object) that will take care of type safety for us.
 
-In general when dealing with data, wherever it comes from, we'll be working with a DTO instead of arrays or objects.
+In general when dealing with data, wherever it comes from, we'll be working with a ((DTO)) instead of arrays or objects.
 While this pattern requires you to write more code up front, it makes using the data in, for example, actions a lot more easy.
 
 ### Rules
 
-While DTOs represent data in a structured way, their goal is not to validate the correctness of the data within your business's context. This is what plain old Laravel rules can be used for.
+While ((DTO))s represent data in a structured way, their goal is not to validate the correctness of the data within your business's context. This is what plain old Laravel rules can be used for.
 
 Most of the time we think about validation rules within the context of a request, though Laravel perfectly allows you to validate any array of data, outside the request.
 
@@ -293,7 +295,7 @@ That's why business specific validation rules are also kept into their domain gr
 
 ### Events and Listeners
 
-If you have experience with DDD or an event-driven system, you might feel uncomfortable with the idea of crossing boundaries between domain groups. After all, you're tightly coupling groups together, making maintenance harder.
+If you have experience with ((DDD)) or an event-driven system, you might feel uncomfortable with the idea of crossing boundaries between domain groups. After all, you're tightly coupling groups together, making maintenance harder.
 
 Event-driven systems solve this by adding a layer of indirectness, and thus flexibility. However, they also greatly increase the complexity of your code. 
 
@@ -320,3 +322,94 @@ When you're sure all of the business logic works correct, you only need a few in
 In the end this means you're able to write more and better tests in a shorter amount of time, resulting in a more robust codebase that's less likely to break or have bugs. 
 
 ## Entering the application layer
+
+Finally we've arrived at the application layer. Note that it's entirely possible for one developer on the team to only work in the domain layer, while others use that code in their applications. Since the domain layer is fully unit tested, there's no need for domain developers to venture outside that domain.
+
+Application developers, on the other hand, do have to use the domain code. In case of ((HTTP)) or ((API)) applications, everything starts with the controller.
+
+You should try to keep your controllers as slim as possible, their responsibility is to receive a request, pass the data from it to the domain layer, and parse the result back into a response.
+
+This is what a typical controller might look like:
+
+```php
+class CreateInvoiceController
+{
+    public function __invoke(
+        <hljs type>CreateInvoiceRequest</hljs> $request,
+        <hljs type>CreateInvoiceAction</hljs> $createInvoiceAction
+    ) {
+        $invoiceData = <hljs type>InvoiceData</hljs>::<hljs prop>fromRequest</hljs>($request);
+        
+        $invoice = $createInvoiceAction
+            -><hljs prop>execute</hljs>($invoiceData);
+        
+        return new <hljs type>InvoiceViewModel</hljs>($invoice);
+    }
+}
+```
+
+You might have noticed a few new concepts popping up. Let's discuss them one by one.
+
+### Transforming request data to ((DTO))s
+
+The first step is to take a validated request — I assume you know how these work in Laravel — and transform the data to one or more ((DTO))s.
+
+Did you notice the `::fromRequest()` method on our `InvoiceData` ((DTO))? Its implementation would look something like this:
+
+```php
+class InvoiceData extends DataTransferObject
+{
+    /** @var InvoiceeData */
+    public $invoicee;
+    
+    /** @var \Carbon\Carbon */
+    public $invoice_date;
+    
+    /** @var InvoiceLineData[] */
+    public $invoice_lines;
+    
+    public static function fromRequest(<hljs type>InvoiceRequest</hljs> $request): self
+    {
+        return new self([
+            'invoicee' => <hljs type>InvoiceeData</hljs>::<hljs prop>make</hljs>($request-><hljs prop>get</hljs>('invoicee')),
+            'invoice_date' => <hljs type>Carbon</hljs>::<hljs prop>make</hljs>($request-><hljs prop>get</hljs>('invoice_date')),
+            'invoice_lines' => <hljs prop>array_map</hljs>(function (<hljs type>array</hljs> $data) {
+                return <hljs type>InvoiceLineData</hljs>::<hljs prop>make</hljs>($data);
+            }, $request-><hljs prop>get</hljs>('invoice_lines')),
+        ]);
+    }
+}
+```
+
+This static constructor takes the validated request and will transform its data to a ((DTO)). 
+
+But hang on a second: by adding this static constructor, we're tightly coupling our ((DTO)), which lives in the domain, to the request, which is specific to our application.
+
+I personally like the static constructor on the ((DTO)), because it allows you to map the data in the same place as where the available properties are defined. Unfortunately we're limited by ((PHP)) itself in this area, because we need to pass the properties for this ((DTO)) via an array. This means there's no autocompletion possible, and hence it's useful to keep all construction logic in the same class.
+
+If ((PHP)) were to ever add named parameter support, or proper structs, it would be a whole other story. Though for now I prefer this pragmatic solution. If you want to keep things neatly ordered though, there are two alternatives:
+
+- Allow the request to transform itself to a ((DTO)), eg. `$invoiceRequest->toDto()`
+- Provide a factory in the application layer which can transform this request to an `InvoiceData` ((DTO))
+
+The second option is "the most correct", though also requires you to write more code.
+
+### Executing actions
+
+Once we've got our data in place, it's time to pass it to the domain layer so that it can do its thing. Did you notice that the `CreateInvoiceAction` was injected into the controller? By doing this, we're able to make full use of Laravel's dependency container, and also have constructor injection within our action.
+
+However, from the point of view of the application developer, actions should be black boxes. You shouldn't need to worry about how exactly they do what they do, and only need to know which input they require, and which output they provide.
+
+### Returning results
+
+Once we get the output of our action, we can return it in the form of a response to the client. In our example above I made use of so called "view models", to simplify this even more.
+
+In short: view models are classes which are responsible for representing the data from a controller in such a way that the client can use it. 
+
+In a classic ((HTTP)) application, this response would be a rendered ((HTML)) view, hence the name "view model"; though it's perfectly fine to also have a ((JSON)) representation for ((AJAX)) requests.
+
+Once again, view models are a topic worth their own post; so be sure to go read about them [here](*/blog/laravel-view-models).
+
+---
+
+Having extracted all business related logic from the application layer, we're able to focus on what's most important in it: interfaces, UX, performance.

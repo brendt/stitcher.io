@@ -328,6 +328,7 @@ laravel-view-models:
     date: 2018-09-10
     title: Laravel view models
     content: src/content/blog/2018-09-10-laravel-viewmodels.md
+    next: laravel-view-models-vs-view-composers
     meta:
         description: "View models are simple classes which prepare data for a view, instead of directly relying on the models themselves."
 

@@ -135,15 +135,6 @@ div.center > p {
     font-weight: 300;
 }
 
-.sneaky-placeholder.shown + .ad-container {
-    margin-bottom: 0;
-}
-
-.ad-container {
-    @include wrapper();
-    margin-bottom: 6rem;
-}
-
 .adsbygoogle {
     max-width: $width-base;
     padding: 2rem 0;
@@ -177,6 +168,13 @@ div.center > p {
     &.patreon-light {
         background: none;
     }
+}
+
+.ad-container {
+    @include wrapper();
+    height: 140px;
+    overflow: hidden;
+    margin-bottom: 1em;
 }
 
 #carbonads {
