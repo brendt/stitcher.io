@@ -1,10 +1,10 @@
-domain-oriented-laravel:
-    date: 2019-09-18
-    title: Domain Oriented Laravel
-    content: src/content/blog/2019-09-18-domain-oriented-laravel-projects.md
-    next: new-in-php-74
-    meta:
-        description: An in depth look on how to structure a domain oriented Laravel project.
+#domain-oriented-laravel:
+#    date: 2019-09-18
+#    title: Domain Oriented Laravel
+#    content: src/content/blog/2019-09-18-domain-oriented-laravel-projects.md
+#    next: new-in-php-74
+#    meta:
+#        description: An in depth look on how to structure a domain oriented Laravel project.
 
 guest-posts:
     date: 2019-09-16
