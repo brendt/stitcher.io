@@ -6,6 +6,16 @@
 #    meta:
 #        description: An in depth look on how to structure a domain oriented Laravel project.
 
+new-in-php-74:
+    date: 2019-10-17
+    title: "What's new in PHP 7.4"
+    highlight: true
+    disableTitle: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
+    meta:
+        description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
+
 guest-posts:
     date: 2019-09-16
     title: Guest posts
@@ -36,17 +46,6 @@ things-dependency-injection-is-not-about:
     content: src/content/blog/2019-07-30-things-dependency-injection-is-not-about.md
     meta:
         description: ""
-
-new-in-php-74:
-    date: 2019-08-07
-    title: "What's new in PHP 7.4"
-    highlight: true
-    disableTitle: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: new-in-php-73
-    disableMetaDescription: true
-    meta:
-        description: "A regularly updated list of new features to be expected in PHP 7.4"
 
 preloading-in-php-74:
     date: 2019-07-04
