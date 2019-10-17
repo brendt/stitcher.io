@@ -318,7 +318,7 @@ organise-by-domain:
     date: 2018-10-16
     title: Organise by domain
     content: src/content/blog/2018-10-16-laravel-domains.md
-    next: domain-oriented-laravel
+    next: new-in-php-74
     meta:
         description: >
             Well structured code is essential in maintaining large projects. We'll look into splitting a project in domains to keep a grip on your code.
