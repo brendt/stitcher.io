@@ -1,10 +1,37 @@
-#domain-oriented-laravel:
-#    date: 2019-09-18
-#    title: Domain Oriented Laravel
-#    content: src/content/blog/2019-09-18-domain-oriented-laravel-projects.md
-#    next: new-in-php-74
+#laravel-beyond-crud-03-actions:
+#    date: 2019-10-20
+#    title: "03. Actions"
+#    content: src/content/book/03-actions.md
+#    book: true
 #    meta:
-#        description: An in depth look on how to structure a domain oriented Laravel project.
+#        description: "Laravel beyond CRUD is a blog series about managing larger Laravel projects"
+
+laravel-beyond-crud-02-working-with-data:
+    date: 2019-10-19
+    title: "02. Working with data"
+    content: src/content/book/02-data.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "Laravel beyond CRUD is a blog series about managing larger Laravel projects"
+
+laravel-beyond-crud-01-domain-oriented-laravel:
+    date: 2019-10-18
+    title: "01. Domain oriented Laravel"
+    content: src/content/book/01-domains.md
+    book: true
+    next: laravel-beyond-crud-02-working-with-data
+    meta:
+        description: "Laravel beyond CRUD is a blog series about managing larger Laravel projects"
+
+laravel-beyond-crud:
+    date: 2019-10-17
+    title: "Laravel beyond CRUD"
+    content: src/content/book/00-intro.md
+    book: true
+    next: laravel-beyond-crud-01-domain-oriented-laravel
+    meta:
+        description: "A blog series about managing larger Laravel projects"
 
 new-in-php-74:
     date: 2019-10-17

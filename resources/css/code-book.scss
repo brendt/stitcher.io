@@ -1,0 +1,180 @@
+$color-red: #fe2977;
+$color-blue: #2b22e7;
+$color-green: #1B7D41;
+$color-yellow: #f7f842;
+$color-purple: #9d3af6;
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    color: #000;
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: #888888;
+    font-style: italic;
+}
+
+.hljs-highlight.keyword,
+.language-html .hljs-name,
+.language-html .hljs-tag,
+.hljs-meta,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+    color: $color-blue;
+    background: none;
+}
+
+.hljs-highlight.numeric,
+.hljs-number {
+    color: #222;
+    background: none;
+}
+
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+    color: $color-red;
+}
+
+.hljs-string,
+.hljs-doctag {
+    color: #222;
+}
+
+.language-html .hljs-string {
+    color: $color-green;
+}
+
+
+.hljs-highlight.property,
+.hljs-highlight.prop,
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+    color: $color-green;
+    background: none;
+}
+
+.hljs-subst {
+    font-weight: normal;
+}
+
+.hljs-highlight.type,
+.hljs-highlight.type span,
+.hljs-highlight.type .hljs-title,
+.hljs-type,
+.hljs-params + .hljs-title,
+.hljs-class .hljs-title {
+    color: $color-red;
+    background: none;
+}
+
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+    color: #222;
+    font-weight: normal;
+}
+
+.language-css .hljs-attribute,
+.hljs-regexp,
+.hljs-link {
+    color: $color-green;
+}
+
+.language-html .hljs-attr {
+    color: $color-green;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+    color: $color-purple;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+    color: $color-red;
+}
+
+.hljs-deletion {
+    background: #fdd;
+}
+
+.hljs-addition {
+    background: #dfd;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+.hljs-highlight {
+    display: inline;
+    background-color: #dfd;
+
+    &.comment {
+        background: none;
+        color: #888888;
+        font-style: italic;
+    }
+
+    &.error {
+        background-color: #fdd;
+    }
+
+    &.text span,
+    &.text {
+        color: $color-black;
+    }
+
+    &.yellow {
+        background-color: #ffa;
+    }
+
+    &.blue {
+        background-color: #aff;
+    }
+
+    &.red {
+        background-color: #fdd;
+    }
+
+    &.green {
+        background-color: #dfd;
+    }
+
+    &.textgrey {
+        color: #aaa;
+        background: none;
+    }
+
+    &.full,
+    &.line {
+        display: block;
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+        width: calc(100% + (2 * 1.5rem));
+        padding-left: 1.5rem;
+
+        @media(max-width: $width-base) {
+            margin-left: -1rem;
+            margin-right: -1rem;
+            width: calc(100% + (2 * 1rem));
+            padding-left: 1rem;
+        }
+    }
+
+    &.striped {
+        background: none;
+        border-bottom: dotted 2px red;
+    }
+}
