@@ -1,3 +1,4 @@
+- [00. Preface](#preface)
 - [01. Domains](/blog/laravel-beyond-crud-01-domain-oriented-laravel)
 - [02. Working with data](/blog/laravel-beyond-crud-02-working-with-data)
 - <span>03. Actions: coming next week</span>

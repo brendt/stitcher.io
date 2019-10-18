@@ -4,28 +4,28 @@
 #    content: src/content/book/03-actions.md
 #    book: true
 #    meta:
-#        description: "Laravel beyond CRUD is a blog series about managing larger Laravel projects"
+#        description: "A blog series about managing larger Laravel projects"
 
 laravel-beyond-crud-02-working-with-data:
-    date: 2019-10-19
+    date: 2019-10-18
     title: "02. Working with data"
     content: src/content/book/02-data.md
     book: true
     next: laravel-beyond-crud
     meta:
-        description: "Laravel beyond CRUD is a blog series about managing larger Laravel projects"
+        description: "A blog series about managing larger Laravel projects"
 
 laravel-beyond-crud-01-domain-oriented-laravel:
-    date: 2019-10-18
+    date: 2019-10-17
     title: "01. Domain oriented Laravel"
     content: src/content/book/01-domains.md
     book: true
     next: laravel-beyond-crud-02-working-with-data
     meta:
-        description: "Laravel beyond CRUD is a blog series about managing larger Laravel projects"
+        description: "A blog series about managing larger Laravel projects"
 
 laravel-beyond-crud:
-    date: 2019-10-17
+    date: 2019-10-16
     title: "Laravel beyond CRUD"
     content: src/content/book/00-intro.md
     book: true
@@ -34,7 +34,7 @@ laravel-beyond-crud:
         description: "A blog series about managing larger Laravel projects"
 
 new-in-php-74:
-    date: 2019-10-17
+    date: 2019-10-15
     title: "What's new in PHP 7.4"
     highlight: true
     disableTitle: true
