@@ -30,7 +30,7 @@ It's a learning opportunity, much more than a solution you can throw at whatever
 
 If we're grouping ideas together, evidently the question arises: how far do we go? You could for example group everything invoice-related together: models, controllers, resources, validation rules, jobs, …
 
-This raises a problem in classic HTTP applications: there often isn't a one-to-one mapping between controllers and models. Granted, in REST APIs and for the majority of your classic CRUD controllers there might be a strict one-to-one mapping, but unfortunately it are the exceptions to the rules that will give us a hard time. Invoices for example are simply not handled in isolation, they need a customer to be sent to, they need bookings to invoice, etc.
+This raises a problem in classic HTTP applications: there often isn't a one-to-one mapping between controllers and models. Granted, in REST APIs and for the majority of your classic CRUD controllers there might be a strict one-to-one mapping, but unfortunately these are the exceptions to the rules that will give us a hard time. Invoices for example are simply not handled in isolation, they need a customer to be sent to, they need bookings to invoice, etc.
 
 That's why we need to make a further distinction between what is domain code, and what is not.
 

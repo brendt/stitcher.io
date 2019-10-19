@@ -15,7 +15,7 @@ I've been writing and maintaining several larger-than-average web applications f
 
 In this time I've looked at several architectures which would help me and our team improve the maintainability of these projects, as well as help make the development more easy, both for us and our clients: DDD, Hexagonal Architecture, Event Sourcing.
 
-Because most of these projects were large, yet not ginormous, these paradigms as a whole were almost always overkill. On top of that were we still dealing with fixed deadlines, meaning we couldn't spend ages on fine tuning the architecture.
+Because most of these projects were large, yet not ginormous, these paradigms as a whole were almost always overkill. On top of that we were still dealing with fixed deadlines, meaning we couldn't spend ages on fine tuning the architecture.
 
 In general, these were projects with a development lifespan of six months to one year, with a team of three to six developers working on them simultaneously. After going live, most of these projects are still heavily worked on for years to come.
 
