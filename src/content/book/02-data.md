@@ -14,7 +14,7 @@ In order to understand the use of data transfer objects — spoiler: those are w
 
 Not everyone agrees on the vocabulary used when talking about type systems. So let's clarify a few terms in the way that I will use them here.
 
-The strength of a type system — strong or weak types — define whether a variable can change its type after it's defined. 
+The strength of a type system — strong or weak types — defines whether a variable can change its type after it's defined. 
 
 A simple example: given a string variable `$a = 'test';`; a weak type system allows you to re-assign that variable to another type, for example `$a = 1;`, an integer.
 
@@ -293,7 +293,7 @@ class CustomerData extends DataTransferObject
 
 By default though, docblocks don't give any guarantees that the data is of the type they say it is. Luckily PHP has its reflection API, and with it, a lot more is possible.
 
-The solution provided by this package, can be thought of as an extension of PHPs type system. Given there's only so much one can do in userland and at runtime, still it adds value. If you're unable to use PHP 7.4 and want a little more certainty that you docblock types are actually respected, this package got you covered.
+The solution provided by this package, can be thought of as an extension of PHPs type system. Given there's only so much one can do in userland and at runtime, still it adds value. If you're unable to use PHP 7.4 and want a little more certainty that your docblock types are actually respected, this package got you covered.
 
 ---
 
