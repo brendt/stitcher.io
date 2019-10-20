@@ -179,11 +179,9 @@ The static analyser built into your IDE would always be able to tell us what dat
 
 This pattern of wrapping unstructured data in types, so that we can use our data in a reliable way, is called "data transfer objects". It's the first concrete pattern I highly recommend you to use in your larger-than-average Laravel projects. 
 
-Unfortunately it's something that many great voices in the Laravel community will call unnecessary overhead, they say you should embrace the dynamic and weakly typed nature of PHP.
+When discussing this book with your colleagues, friends or within the Laravel community, you might stumble upon people who don't share the same vision about strong type systems. There are in fact lots of people who prefer to embrace the dynamic and weak side of PHP. And there's definitely something to say for that. 
 
-There's definitely something to say for embracing PHP's type system as-is. In my experience though this doesn't apply when working with a team of several developers on a project for serious amounts of time. 
-
-You have to take every opportunity you can to reduce cognitive load. You don't want developers having to start debugging their code every time they want to know what exactly is in a variable. The information has to be right there at hand, so that developers can focus on what's important: building the application.
+In my experience though there are more advantages to the strongly typed approach when working with a team of several developers on a project for serious amounts of time. You have to take every opportunity you can to reduce cognitive load. You don't want developers having to start debugging their code every time they want to know what exactly is in a variable. The information has to be right there at hand, so that developers can focus on what's important: building the application.
 
 Of course, using DTOs comes with a price: there is not only the overhead of defining these classes; you also need to map, for example, request data unto a DTO. 
 
