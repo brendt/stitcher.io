@@ -271,7 +271,7 @@ Until PHP supports this, I would choose the pragmatic solution over the theoreti
 
 ## An alternative to typed properties
 
-As I mentioned before, there is an alternative to using typed properties to support DTOs: docblocks. Our DTO [package]((*https://github.com/spatie/data-transfer-object)) I linked to earlier also supports them.
+As I mentioned before, there is an alternative to using typed properties to support DTOs: docblocks. Our DTO [package](*https://github.com/spatie/data-transfer-object) I linked to earlier also supports them.
 
 ```php
 use <hljs type>Spatie\DataTransferObject\DataTransferObject</hljs>;
