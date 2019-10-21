@@ -1,20 +1,16 @@
 > Humans think in categories, our code should be a reflection of that.
 
-First things first, I didn't come up with the term "domain" — I got it from the popular programming paradigm DDD, or "domain driven design". According to Oxford Dictionary, a "domain" can be described like so:
- 
-> A specified sphere of activity or knowledge. 
+First things first, I didn't come up with the term "domain" — I got it from the popular programming paradigm DDD, or "domain driven design". According to Oxford Dictionary, a "domain" can be described as *"A specified sphere of activity or knowledge"*.
 
-While my use of the word "domain" won't exactly mean the same as when used within DDD, there are several similarities. If you're familiar with DDD, you'll discover these similarities throughout this book. I'll always try my best to mention any overlap and differences when relevant though.
+While my use of the word "domain" won't exactly mean the same as when used within DDD, there are several similarities. If you're familiar with DDD, you'll discover these similarities throughout this book. I tried my best to mention any overlap and differences when relevant.
 
 {{ ad:carbon }}
 
-So, domains. You could also call them "groups", "modules"; some people call them "services". Whichever name you prefer, domains describe a subset of the business problem you're trying to solve.
+So, domains. You could also call them "groups", "modules"; some people call them "services". Whichever name you prefer, domains describe a set of the business problems you're trying to solve.
 
-Hang on… I realise I just used my first "enterprisey" term in this book: "the business problem". Making your way through this book, you'll note that I'll do my best to steer away from the theoretical, upper-management, business side of things. I'm a developer myself and prefer to keep things practical. So another, simpler, name would be "the project". 
+Hang on… I realise I just used my first "enterprisey" term in this book: "the business problem". Making your way through this book, you'll note that I did my best to steer away from the theoretical, upper-management, business side of things. I'm a developer myself and prefer to keep things practical. So another, simpler, name would be "the project". 
 
 Let's give an example: an application to manage hotel bookings. It has to manage customers, bookings, invoices, hotel inventories, etc. 
-
-Many modern web frameworks will tell you you'll need a bunch of models, controllers, validation rules, views, middlewares, asynchronous jobs and what not. Furthermore, they will tell you to group those together by their technical properties: controller with controllers, models with models etc.
 
 Modern web frameworks teach you to take one group of related concepts, and split it across multiple places throughout your codebase: controller with controllers, models with models; you get the deal.
 
@@ -91,9 +87,9 @@ app/App/Console/
 
 You might have noticed that the above example doesn't follow the Laravel convention of `\App` as the single root namespace. Since applications are only part of our project, and because there can be several, it doesn't make sense to use `\App` as the root for everything.
 
-Note that if you do prefer to stay closer to Laravel's default structure, you're allowed to do that. This means you'll end up with namespaces like `\App\Domain` and `\App\Api`, which I personally dislike. But you're free to do what you're comfortable with.
+Note that if you do prefer to stay closer to Laravel's default structure, you're allowed to do that. This means you'll end up with namespaces like `\App\Domain` and `\App\Api`. But you're free to do what you're comfortable with.
 
-If you want to separate the root namespaces though, you will need to make some changes to how Laravel is boostrapped. 
+If you want to separate the root namespaces though, you will need to make some changes to how Laravel is bootstrapped. 
 
 First of all, you'll need to register all root namespaces in `composer.json`:
 
