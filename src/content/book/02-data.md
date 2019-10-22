@@ -298,4 +298,4 @@ The solution provided by this package can be thought of as an extension of PHPs 
 Because data lives at the core of almost every project, it's one of the most important building blocks. Data transfer objects offer you a way to work with data in a structured, type safe and predictable way.
 
 You'll note throughout this book that DTOs are used more often than not. That's why it was so important to take an in-depth look at them at the start. 
-Likewise, there's another crucial building block that needs our thorough attention: actions. That's the topic for the next chapter.
+Likewise, there's another crucial building block that needs our thorough attention: actions. That's the topic for the next chapter, it will be released next week.
