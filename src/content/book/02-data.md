@@ -183,7 +183,7 @@ When discussing this book with your colleagues, friends or within the Laravel co
 
 In my experience though there are more advantages to the strongly typed approach when working with a team of several developers on a project for serious amounts of time. You have to take every opportunity you can to reduce cognitive load. You don't want developers having to start debugging their code every time they want to know what exactly is in a variable. The information has to be right there at hand, so that developers can focus on what's important: building the application.
 
-Of course, using DTOs comes with a price: there is not only the overhead of defining these classes; you also need to map, for example, request data unto a DTO. 
+Of course, using DTOs comes with a price: there is not only the overhead of defining these classes; you also need to map, for example, request data onto a DTO. 
 
 The benefits of using DTOs definitely outweigh this cost you have to pay. Whatever time you loose by writing this code, you make up for in the long run. 
 
@@ -249,7 +249,7 @@ See, you don't want your DTOs to end up having a constructor with an individual 
 
 Because named parameters aren't supported, there's also no static analysis available, meaning you're in the dark about what data is needed whenever you're constructing a DTO. I prefer to keep this "being in the dark" within the DTO class, so that it can be used without an extra thought from the outside.
 
-If PHP were to support something named parameters though, I would say the factory pattern is the way to go:
+If PHP were to support something like named parameters though, I would say the factory pattern is the way to go:
 
 ```php
 public function fromRequest(
@@ -291,7 +291,7 @@ class CustomerData extends DataTransferObject
 
 By default though, docblocks don't give any guarantees that the data is of the type they say it is. Luckily PHP has its reflection API, and with it, a lot more is possible.
 
-The solution provided by this package, can be thought of as an extension of PHPs type system. Given there's only so much one can do in userland and at runtime, still it adds value. If you're unable to use PHP 7.4 and want a little more certainty that your docblock types are actually respected, this package got you covered.
+The solution provided by this package can be thought of as an extension of PHPs type system. While there's only so much one can do in userland and at runtime, still it adds value. If you're unable to use PHP 7.4 and want a little more certainty that your docblock types are actually respected, this package has you covered.
 
 ---
 
