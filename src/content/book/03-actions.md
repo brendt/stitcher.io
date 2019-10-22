@@ -21,11 +21,11 @@ Instead of mixing functionality in models or controllers, we will treat these us
 
 Before looking at their use, we need to discuss how actions are structured. For starters, they live in the domain. 
 
-Secondly, they are simple classes without any abstractions or interfaces. An action is a class that takes input, does something, and gives output. That's why an action should only have one public method, and sometimes a constructor.
+Second, they are simple classes without any abstractions or interfaces. An action is a class that takes input, does something, and gives output. That's why an action should only have one public method, and sometimes a constructor.
 
-As a convention our projects, we decided to suffix all of our classes. For sure `CreateInvoice` sounds nice, but as soon as you're dealing with several hundreds, if not thousands of classes, you'll want to make sure that no naming collisions can occur. That's why we prefer `CreateInvoiceAction` as a name.
+As a convention in our projects, we decided to suffix all of our classes. For sure `CreateInvoice` sounds nice, but as soon as you're dealing with several hundred or thousands of classes you'll want to make sure that no naming collisions can occur. That's why we prefer `CreateInvoiceAction` as a name.
 
-Evidently this means that class names become longer. The reality is that if you're working on larger projects, can't get around choosing longer names to make sure no confusion is possible. Here's an extreme example from one of our projects, I'm not kidding: `CreateOrUpdateHabitantContractUnitPackageAction`.
+Evidently this means that class names become longer. The reality is that if you're working on larger projects, you can't avoid choosing longer names to make sure no confusion is possible. Here's an extreme example from one of our projects, I'm not kidding: `CreateOrUpdateHabitantContractUnitPackageAction`.
 
 We hated this name at first. We desperately tried to come up with a shorter one. In the end though, we had to admit that clarity of what a class is about is the most important. Our IDE's autocompletion will take care of the inconvenience of the long names anyways.
 
@@ -68,12 +68,12 @@ In PHP, you cannot directly invoke an invokable when it's a class property, sinc
 While this is only a minor inconvenience, there's an additional problem with PhpStorm not being able to provide parameter autocompletion when calling the action.
 Personally, I believe that proper IDE use is an integral part of the development of a project, and shouldn't be ignored. That's why at this time, our team decided not to make actions invokable.
 
-Another options is to use `handle`, which is often used by Laravel as the default name in these kinds of cases. Once again there's a problem with it, specifically because Laravel uses it. 
+Another option is to use `handle`, which is often used by Laravel as the default name in these kinds of cases. Once again there's a problem with it, specifically because Laravel uses it. 
 
-Whenever Laravel allows you to use `handle`, in eg. jobs or commands, it will also provide method injection from the dependency container. In our actions, we only want the constructor to have DI capabilities. Again we'll look closely into the reasons behind this later in this chapter.
+Whenever Laravel allows you to use `handle`, in eg. jobs or commands, it will also provide method injection from the dependency container. In our actions we only want the constructor to have DI capabilities. Again we'll look closely into the reasons behind this later in this chapter.
 
 So `handle` is also out. When we started using actions, we actually gave this naming conundrum quite a lot of thought. In the end we settled on `execute`. 
-Keep in mind though that you're free to come up with your own naming conventions, it's more about the pattern of using actions, than it is about their names.   
+Keep in mind though that you're free to come up with your own naming conventions: the point here is more about the pattern of using actions than it is about their names.   
 
 ## Into practice
 
@@ -101,19 +101,19 @@ So we got re-usability and a reduction of cognitive load, but there's more!
 
 Because actions are small pieces of software that live almost on their own, it's very easy to unit test them. In your tests you don't have to worry about sending fake HTTP requests, setting up facade fakes, etc. You can simply make a new action, maybe provide some mock dependencies, and pass it the required input data and make assertions on its output.
 
-For example, the `CreateInvoiceLineAction`: it will take data about which article it will invoice, as well as an amount an a period; and it will calculate the total price and prices with and without VAT. These are things you can write robust, yet simple, unit tests for.
+For example, the `CreateInvoiceLineAction`: it will take data about which article it will invoice, as well as an amount and a period; and it will calculate the total price and prices with and without VAT. These are things you can write robust, yet simple, unit tests for.
 
 If all your actions are properly unit tested, you can be very confident that the bulk of the functionality that needs to be provided by the application actually works as intended. Now it's only a matter of using these actions in ways that make sense for the end user, and write some integration tests for those pieces.
 
 ## Composing actions
 
-One important characteristic of actions that I already mention before briefly, is how they use dependency injection. Since we're using the constructor to pass in data from the container, and the `execute` method to pass in context-related data; we're free to composer actions out of actions out of actions out of…
+One important characteristic of actions that I already mentioned before briefly, is how they use dependency injection. Since we're using the constructor to pass in data from the container, and the `execute` method to pass in context-related data; we're free to compose actions out of actions out of actions out of…
 
 You get the idea. Let's be clear though that a deep dependency chain is something you want to avoid — it makes the code complex and highly dependant on each other — there are several cases where having DI is very beneficial.
 
 Take again the example of the `CreateInvoiceLineAction` which has to calculate VAT prices. Now depending on the context, an invoice line might have a price including or excluding its VAT price. Calculating VAT prices is something trivial, yet we don't want our `CreateInvoiceLineAction` to be concerned with the detail of it. 
 
-So image we have a simple `VatCalculator` class — which is something that might live in the `\\Support` namespace — it could be used like so:
+So imagine we have a simple `VatCalculator` class — which is something that might live in the `\\Support` namespace — it could be used like so:
 
 ```php
 class CreateInvoiceLineAction
@@ -133,7 +133,7 @@ class CreateInvoiceLineAction
 }
 ```
 
-The vat calculator could be used like so:
+The VAT calculator could be used like so:
 
 ```php
 public function execute(
@@ -165,19 +165,19 @@ public function execute(
 }
 ```
 
-The `CreateInvoiceLineAction` in its turn would be injected into `CreateInvoiceAction`. And this one again has other dependencies, the `CreatePdfAction` and `SendMailAction`, for example.
+The `CreateInvoiceLineAction` in turn would be injected into `CreateInvoiceAction`. And this one again has other dependencies, the `CreatePdfAction` and `SendMailAction`, for example.
 
 You can see how composition can help you keep individual actions small, yet allow for complex business functionality to be coded in a clear and maintainable way.
 
 ## Alternatives to actions
 
-There's two paradigms I need to mention at this point, two ways you wouldn't need a concept like actions.
+There are two paradigms I need to mention at this point, two ways you wouldn't need a concept like actions.
 
 The first one will be known to people who are familiar with DDD: commands and handlers. Actions are a simplified version of them. Where commands and handlers make a distinction between what needs to happen and how it needs to happen, actions combine these two responsibilities into one. It's true that the command bus offers more flexibility than actions. On the other hand it also requires you to write more code. 
 
 For the scope of our projects, splitting actions into commands and handlers was taking it a step too far. We would almost never need the added flexibility it offered, and it would take a lot longer to write the code.
 
-The second alternative worth mentioning is event driven systems. If you ever worked in an event driven system, you might think that actions are too much directly coupled to the places they are actually used. Again the same argument applies: event driven systems offer more flexibility, yet for our projects it would have been overkill to use them. Furthermore event driven systems add a layer of indirectness that makes the code more complex to reason about. While this indirectness does offer benefits, they wouldn't outweigh the cost of maintenance for us. 
+The second alternative worth mentioning is event driven systems. If you ever worked in an event driven system, you might think that actions are too directly coupled to the places where they are actually used. Again the same argument applies: event driven systems offer more flexibility, yet for our projects it would have been overkill to use them. Furthermore event driven systems add a layer of indirectness that makes the code more complex to reason about. While this indirectness does offer benefits, they wouldn't outweigh the cost of maintenance for us. 
 
 ---
 
