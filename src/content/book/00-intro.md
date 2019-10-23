@@ -3,6 +3,9 @@
 - [02. Working with data](/blog/laravel-beyond-crud-02-working-with-data)
 - <span>03. Actions: coming next week</span>
 - <span>04. Models: coming soon</span>
+- <span>05. Managing Domains: coming soon</span>
+- <span>06. Models with the state pattern: coming soon</span>
+- <span>07. Enums: coming soon</span>
 - More chapters are in the making
 
 {{ ad:carbon }}
