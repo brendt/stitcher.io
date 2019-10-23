@@ -11,7 +11,7 @@ Let's look at it in depth.
 
 ## Opcache, but more
 
-While preloading is built on top op opcache, it's not exactly the same.
+While preloading is built on top of opcache, it's not exactly the same.
 Opcache will take your ((PHP)) source files, compile it to "opcodes", and store those compiled files on disk.
 
 You can think of "opcodes" as a low-level representation of your code, that can be easily interpreted at runtime.
