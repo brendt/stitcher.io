@@ -1,9 +1,18 @@
+laravel-beyond-crud-04-models:
+    date: 2019-11-01
+    title: "04. Models"
+    content: src/content/book/04-models.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+
 laravel-beyond-crud-03-actions:
     date: 2019-10-27
     title: "03. Actions"
     content: src/content/book/03-actions.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-04-models
     meta:
         description: "A blog series about managing larger Laravel projects"
 
