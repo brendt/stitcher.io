@@ -4,16 +4,16 @@ Just like we don't want to work with random arrays full of data, we also don't w
 
 Here's an example: one of the user stories in your project might be for "an admin to create an invoice". This means saving an invoice in the database, but also a lot more:
 
-- First calculate the price of each individual invoice line and the invoice as a whole
+- First: calculate the price of each individual invoice line and the total price
 - Save the invoice to the database
 - Create a payment via the payment provider 
 - Create a PDF with all relevant information
 - Send this PDF to the customer
 
 A common practice in Laravel is to create "fat models" which will handle all this functionality.
-In this chapter we will look at another approach to coding this behaviour into our application.
+In this chapter we will look at another approach to adding this behaviour into our codebase.
 
-Instead of mixing functionality in models or controllers, we will treat these user stories as first class citizens of our codebase. I tend to call these "actions". 
+Instead of mixing functionality in models or controllers, we will treat these user stories as first class citizens of the project. I tend to call these "actions". 
 
 {{ ad:carbon }}
 
@@ -21,9 +21,9 @@ Instead of mixing functionality in models or controllers, we will treat these us
 
 Before looking at their use, we need to discuss how actions are structured. For starters, they live in the domain. 
 
-Second, they are simple classes without any abstractions or interfaces. An action is a class that takes input, does something, and gives output. That's why an action should only have one public method, and sometimes a constructor.
+Second, they are simple classes without any abstractions or interfaces. An action is a class that takes input, does something, and gives output. That's why an action usually only has one public method, and sometimes a constructor.
 
-As a convention in our projects, we decided to suffix all of our classes. For sure `CreateInvoice` sounds nice, but as soon as you're dealing with several hundred or thousands of classes you'll want to make sure that no naming collisions can occur. That's why we prefer `CreateInvoiceAction` as a name.
+As a convention in our projects, we decided to suffix all of our classes. For sure `CreateInvoice` sounds nice, but as soon as you're dealing with several hundreds or thousands of classes, you'll want to make sure that no naming collisions can occur. You see, `CreateInvoice`, could very well also be the name of an invokable controller, of a command, of a job or of a request. We prefer to eliminate as much confusion as possible, hence, `CreateInvoiceAction` will be the name.
 
 Evidently this means that class names become longer. The reality is that if you're working on larger projects, you can't avoid choosing longer names to make sure no confusion is possible. Here's an extreme example from one of our projects, I'm not kidding: `CreateOrUpdateHabitantContractUnitPackageAction`.
 
@@ -63,9 +63,9 @@ class CreateInvoiceAction
 }
 ```
 
-In PHP, you cannot directly invoke an invokable when it's a class property, since PHP is looking for a class method instead. That's why you'll have to wrap the action in braces before calling it. 
+Can you spot the issue? PHP does not allow to directly invoke an invokable when it's a class property, since PHP is looking for a class method instead. That's why you'll have to wrap the action in braces before calling it. 
 
-While this is only a minor inconvenience, there's an additional problem with PhpStorm not being able to provide parameter autocompletion when calling the action.
+While this is only a minor inconvenience, there's an additional problem with PhpStorm: it is not able to provide parameter autocompletion when calling the action this way.
 Personally, I believe that proper IDE use is an integral part of the development of a project, and shouldn't be ignored. That's why at this time, our team decided not to make actions invokable.
 
 Another option is to use `handle`, which is often used by Laravel as the default name in these kinds of cases. Once again there's a problem with it, specifically because Laravel uses it. 
@@ -83,23 +83,23 @@ First let's talk about re-usability. The trick when using actions is to split th
 
 These two user stories: "creating an invoice" and "previewing an invoice" obviously require two entry points, two controllers. On the other hand though, generating the PDF based on the invoice is something that's done in both cases.
 
-When you start spending time thinking about what the application actually will do, you'll notice that there are lots of actions that can be reused. Of course, we also need to be careful not to over-abstract our code. It's often better to copy paste a little code than to make premature abstractions.
+When you start spending time thinking about what the application actually will do, you'll notice that there are lots of actions that can be reused. Of course, we also need to be careful not to over-abstract our code. It's often better to copy-paste a little code than to make premature abstractions.
 
-A good rule of thumb is to think about the functionality when making abstractions, instead of the technical properties of code. When two actions might do similar things, though they do it in a completely different context, you should be careful not to start abstracting them too early.
+A good rule of thumb is to think about the functionality when making abstractions, instead of the technical properties of code. When two actions might do similar things, though they do it in completely different contexts, you should be careful not to start abstracting them too early.
 
-On the other hand, there are cases where abstractions can be helpful. Take again our invoice PDF example: chances are you'll need to generate more PDFs than just for invoices — at least this is the case in our projects. It might make sense to have a general `GeneratePdfAction`, which can work with an interface, one that `Invoice` then implements.
+On the other hand, there are cases where abstractions can be helpful. Take again our invoice PDF example: chances are you need to generate more PDFs than just for invoices — at least this is the case in our projects. It might make sense to have a general `GeneratePdfAction`, which can work with an interface, one that `Invoice` then implements.
 
-But, let's be honest, chances are the majority of our actions will be rather specific to their user story, and not be re-usable. You might think that actions, in these cases, are unnecessary overhead. Hang on though, because re-usability is not the only reason to use them. Actually, the most important reason to use them has nothing to do with technical benefits at all: actions allow the programmer to think in ways that are closer to the real world, instead of the code.
+But, let's be honest, chances are the majority of our actions will be rather specific to their user stories, and not be re-usable. You might think that actions, in these cases, are unnecessary overhead. Hang on though, because re-usability is not the only reason to use them. Actually, the most important reason has nothing to do with technical benefits at all: actions allow the programmer to think in ways that are closer to the real world, instead of the code.
 
-Say you need to make changes to the way invoices are created. A typical Laravel application will probably have this invoice creation logic spread across a controller and a model, maybe a job which generates the PDF, and finally an event listener to send the invoice mail. That's a lot of places you need to know of, for starters. Again our code is spread across the codebase based on its technical properties, rather than what it actually does.
+Say you need to make changes to the way invoices are created. A typical Laravel application will probably have this invoice creation logic spread across a controller and a model, maybe a job which generates the PDF, and finally an event listener to send the invoice mail. That's a lot of places you need to know of. Once again our code is spread across the codebase, grouped by its technical properties, rather than its meaning.
 
-Actions on the other hand reduce the cognitive load that's introduced by such a system. If you need to work on how invoices are created, you can simply go to the action class, and start from there. 
+Actions reduce the cognitive load that's introduced by such a system. If you need to work on how invoices are created, you can simply go to the action class, and start from there. 
 
-Actions, of course, may very well work together with, eg. asynchronous jobs and event listeners; though these jobs and listeners merely provide the infrastructure for actions to work, and not the business logic anymore. This is a good example of why we need to split the domain and application layers: each has their own purpose.
+Don't be mistaken: actions may very well work together with eg. asynchronous jobs and event listeners; though these jobs and listeners merely provide the infrastructure for actions to work, and not the business logic itself. This is a good example of why we need to split the domain and application layers: each has their own purpose.
 
-So we got re-usability and a reduction of cognitive load, but there's more! 
+So we got re-usability and a reduction of cognitive load, but there's even more! 
 
-Because actions are small pieces of software that live almost on their own, it's very easy to unit test them. In your tests you don't have to worry about sending fake HTTP requests, setting up facade fakes, etc. You can simply make a new action, maybe provide some mock dependencies, and pass it the required input data and make assertions on its output.
+Because actions are small pieces of software that live almost on their own, it's very easy to unit test them. In your tests you don't have to worry about sending fake HTTP requests, setting up facade fakes, etc. You can simply make a new action, maybe provide some mock dependencies, pass it the required input data and make assertions on its output.
 
 For example, the `CreateInvoiceLineAction`: it will take data about which article it will invoice, as well as an amount and a period; and it will calculate the total price and prices with and without VAT. These are things you can write robust, yet simple, unit tests for.
 
@@ -109,11 +109,11 @@ If all your actions are properly unit tested, you can be very confident that the
 
 One important characteristic of actions that I already mentioned before briefly, is how they use dependency injection. Since we're using the constructor to pass in data from the container, and the `execute` method to pass in context-related data; we're free to compose actions out of actions out of actions out of…
 
-You get the idea. Let's be clear though that a deep dependency chain is something you want to avoid — it makes the code complex and highly dependant on each other — there are several cases where having DI is very beneficial.
+You get the idea. Let's be clear though that a deep dependency chain is something you want to avoid — it makes the code complex and highly dependant on each other — yet there are several cases where having DI is very beneficial.
 
-Take again the example of the `CreateInvoiceLineAction` which has to calculate VAT prices. Now depending on the context, an invoice line might have a price including or excluding its VAT price. Calculating VAT prices is something trivial, yet we don't want our `CreateInvoiceLineAction` to be concerned with the detail of it. 
+Take again the example of the `CreateInvoiceLineAction` which has to calculate VAT prices. Now depending on the context, an invoice line might have a price including or excluding VAT. Calculating VAT prices is something trivial, yet we don't want our `CreateInvoiceLineAction` to be concerned with the details of it. 
 
-So imagine we have a simple `VatCalculator` class — which is something that might live in the `\\Support` namespace — it could be used like so:
+So imagine we have a simple `VatCalculator` class — which is something that might live in the `\Support` namespace — it could be inject like so:
 
 ```php
 class CreateInvoiceLineAction
@@ -133,7 +133,7 @@ class CreateInvoiceLineAction
 }
 ```
 
-The VAT calculator could be used like so:
+And you'd use it like so:
 
 ```php
 public function execute(
@@ -175,14 +175,14 @@ There are two paradigms I need to mention at this point, two ways you wouldn't n
 
 The first one will be known to people who are familiar with DDD: commands and handlers. Actions are a simplified version of them. Where commands and handlers make a distinction between what needs to happen and how it needs to happen, actions combine these two responsibilities into one. It's true that the command bus offers more flexibility than actions. On the other hand it also requires you to write more code. 
 
-For the scope of our projects, splitting actions into commands and handlers was taking it a step too far. We would almost never need the added flexibility it offered, and it would take a lot longer to write the code.
+For the scope of our projects, splitting actions into commands and handlers was taking it a step too far. We would almost never need the added flexibility, yet it would take a lot longer to write the code.
 
 The second alternative worth mentioning is event driven systems. If you ever worked in an event driven system, you might think that actions are too directly coupled to the places where they are actually used. Again the same argument applies: event driven systems offer more flexibility, yet for our projects it would have been overkill to use them. Furthermore event driven systems add a layer of indirectness that makes the code more complex to reason about. While this indirectness does offer benefits, they wouldn't outweigh the cost of maintenance for us. 
 
 ---
 
-I hope it's clear that I'm not suggesting we've got it all figured out and have the perfect solution for all Laravel projects. We don't. When you continue to read through this book, it's important that you keep an eye on the specific needs of your project. While you might be able to use some concepts proposed in this book, you might also need some other solutions to solve certain aspects.
+I hope it's clear that I'm not suggesting we've got it all figured out and have the perfect solution for all Laravel projects. We don't. When you continue to read through this series, it's important that you keep an eye on the specific needs of your project. While you might be able to use some concepts proposed here, you might also need some other solutions to solve certain aspects.
 
-For us, actions are the right choice because they offer the right amount of flexibility, re-usability and significantly reduce cognitive load. They encapsulate the essence of the application. They can in fact be thought of, together with DTOs and models, as the true core of the project.
+For us, actions are the right choice because they offer the right amount of flexibility, re-usability and significantly reduce cognitive load. They encapsulate the essence of the application. They can, in fact, be thought of, together with DTOs and models, as the true core of the project.
 
 That brings us to the next chapter, the last piece of the core: models. 

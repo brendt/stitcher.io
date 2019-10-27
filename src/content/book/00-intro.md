@@ -1,7 +1,7 @@
 - [00. Preface](#preface)
 - [01. Domains](/blog/laravel-beyond-crud-01-domain-oriented-laravel)
 - [02. Working with data](/blog/laravel-beyond-crud-02-working-with-data)
-- <span>03. Actions: coming next week</span>
+- [03. Actions](/blog/laravel-beyond-crud-03-actions)
 - <span>04. Models: coming soon</span>
 - <span>05. Managing Domains: coming soon</span>
 - <span>06. Models with the state pattern: coming soon</span>
