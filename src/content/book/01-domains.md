@@ -30,7 +30,7 @@ This raises a problem in classic HTTP applications: there often isn't a one-to-o
 
 That's why we need to make a further distinction between what is domain code, and what is not.
 
-On the one hand there's the domain, representing all the business logic; and on the other hand, we have code that uses — consumes — that domain to integrate it with the framework and exposes it the end-user. Applications provide the infrastructure for end-users to use and manipulate the domain in a user-friendly way.
+On the one hand there's the domain, representing all the business logic; and on the other hand, we have code that uses — consumes — that domain to integrate it with the framework and exposes it to the end-user. Applications provide the infrastructure for end-users to use and manipulate the domain in a user-friendly way.
 
 ## In practice
 
@@ -107,7 +107,7 @@ First of all, you'll need to register all root namespaces in `composer.json`:
 }
 ```
 
-Note that I also have a `\Support` root namespace, which for now you can think of a the dumping ground for all little helpers that don't belong anywhere.
+Note that I also have a `\Support` root namespace, which for now you can think of as the dumping ground for all little helpers that don't belong anywhere.
 
 Next, we need to re-register the `\App` namespace, since Laravel will use it for several things internally.
 
@@ -143,6 +143,6 @@ Unfortunately there's no cleaner way to do this, as the framework never intended
 
 Whatever folder structure you use, most important is that you start thinking in groups of related business concepts, rather than in groups of code with the same technical properties.
 
-Within each group, each domain, there's room to structure the code in ways that make it easy to use within those individual groups though. The first part of this book will look closely at how domains can be structured internally and which patterns can be used to help you keep you codebase maintainable as it grows over time. After that, we'll look at the application layer, how the domain can be consumed exactly, and how we improve upon existing Laravel concepts by using for example view models.
+Within each group, each domain, there's room to structure the code in ways that make it easy to use within those individual groups though. The first part of this book will look closely at how domains can be structured internally and which patterns can be used to help you keep your codebase maintainable as it grows over time. After that, we'll look at the application layer, how the domain can be consumed exactly, and how we improve upon existing Laravel concepts by using for example view models.
 
 There's a lot of ground to cover, and I hope you'll be able to learn many things from this that you'll be able to put into practice right away.
