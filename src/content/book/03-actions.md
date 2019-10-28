@@ -63,7 +63,7 @@ class CreateInvoiceAction
 }
 ```
 
-Can you spot the issue? PHP does not allow to directly invoke an invokable when it's a class property, since PHP is looking for a class method instead. That's why you'll have to wrap the action in braces before calling it. 
+Can you spot the issue? PHP does not allow to directly invoke an invokable when it's a class property, since PHP is looking for a class method instead. That's why you'll have to wrap the action in parentheses before calling it. 
 
 While this is only a minor inconvenience, there's an additional problem with PhpStorm: it is not able to provide parameter autocompletion when calling the action this way.
 Personally, I believe that proper IDE use is an integral part of the development of a project, and shouldn't be ignored. That's why at this time, our team decided not to make actions invokable.
