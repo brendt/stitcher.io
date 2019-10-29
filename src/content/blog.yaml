@@ -1,9 +1,18 @@
+laravel-beyond-crud-05-managing-domains:
+    date: 2019-11-10
+    title: "05. Managing domains"
+    content: src/content/book/05-managing-domains.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+
 laravel-beyond-crud-04-models:
     date: 2019-11-03
     title: "04. Models"
     content: src/content/book/04-models.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-05-managing-domains
     footnotes:
         - link: https://timacdonald.me/dedicated-eloquent-model-query-builders/
           title: Custom query builders in Laravel
