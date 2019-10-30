@@ -147,7 +147,7 @@ class PostsController
 }
 ```
 
-And finally the view can use it like so:
+And finally, it can be used in the view like so:
 
 ```html
 <input value="{{ $viewModel->post()->title }}" />
