@@ -185,7 +185,7 @@ In my experience though there are more advantages to the strongly typed approach
 
 Of course, using DTOs comes with a price: there is not only the overhead of defining these classes; you also need to map, for example, request data onto a DTO. 
 
-The benefits of using DTOs definitely outweigh this cost you have to pay. Whatever time you loose by writing this code, you make up for in the long run. 
+The benefits of using DTOs definitely outweigh this cost you have to pay. Whatever time you lose by writing this code, you make up for in the long run. 
 
 The question about constructing DTOs from "external" data is one that still needs answering though.
 
