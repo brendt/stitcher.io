@@ -61,7 +61,7 @@ Even with strict types and type hints, PHP's type system is weak.
 Type hints only ensure a variable's type at that point in time, 
 without a guarantee about any future value that variable might have.
 
-Like I said before: it makes sense for PHP have a weak type system, since all input it has to deal with starts out as a string.
+Like I said before: it makes sense for PHP to have a weak type system, since all input it has to deal with starts out as a string.
 There is an interesting property to strong types though: they come with a few guarantees.
 If a variable has a type that's unchangeable, a whole range of unexpected behaviour simply cannot happen anymore.
 
