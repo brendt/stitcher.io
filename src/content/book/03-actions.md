@@ -113,7 +113,7 @@ You get the idea. Let's be clear though that a deep dependency chain is somethin
 
 Take again the example of the `CreateInvoiceLineAction` which has to calculate VAT prices. Now depending on the context, an invoice line might have a price including or excluding VAT. Calculating VAT prices is something trivial, yet we don't want our `CreateInvoiceLineAction` to be concerned with the details of it. 
 
-So imagine we have a simple `VatCalculator` class — which is something that might live in the `\Support` namespace — it could be inject like so:
+So imagine we have a simple `VatCalculator` class — which is something that might live in the `\Support` namespace — it could be injected like so:
 
 ```php
 class CreateInvoiceLineAction
