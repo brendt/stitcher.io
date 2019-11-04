@@ -173,7 +173,7 @@ Because Taylor took the time to ask me about it on Twitter, I figured I might as
 
 The answer — my answer — is twofold. First of all: I don't think of models as empty bags with plain old data. Using accessors, mutators and casts, they provide a rich layer between the plain data in the database, and the data the developer wants to use. In this chapter I argued to move several other responsibilities to separate classes, that's true, yet I believe that models in their "trimmed" down version still offer a lot more value than simple bags of data, thanks to all the functionality Laravel provides.
 
-Secondly, I think it's worth to mention Alan Kay's vision on this topic (he's the one who came up with the term OOP). He himself said in [this talk](*https://www.youtube.com/watch?time_continue=2265&v=oKg1hTOQXoY) that I regretted calling the paradigm "object oriented", and not "process oriented". Alan argues that he's actually a proponent of splitting process and data. 
+Secondly, I think it's worth to mention Alan Kay's vision on this topic (he's the one who came up with the term OOP). He himself said in [this talk](*https://www.youtube.com/watch?time_continue=2265&v=oKg1hTOQXoY) that he regretted calling the paradigm "object oriented", and not "process oriented". Alan argues that he's actually a proponent of splitting process and data. 
 
 Whether you agree with that point of view or not is up to you. I do admit to have been influenced by some of Alan's insights, and you might notice that throughout this blog series. Like I said before: don't think of this series as the holy grail of software design. My goal is to challenge the current way you're writing code, making you think whether there are more optimal ways to solve some of your problems.
 
