@@ -108,7 +108,7 @@ class Invoice extends Model
 }
 ```
 
-This is what I meant by embracing the framework: you don't need to introduce new patterns like repositories per se, you can build upon what Laravel provides. Giving it a little though, we strike the perfect balance between using the commodities provided by the framework, and preventing our code from growing too large in specific places.  
+This is what I meant by embracing the framework: you don't need to introduce new patterns like repositories per se, you can build upon what Laravel provides. Giving it some thought, we strike the perfect balance between using the commodities provided by the framework, and preventing our code from growing too large in specific places.  
 
 Using this mindset, we can also provide custom collection classes for relations. Laravel has great collection support, though you often end up with long chains of collection functions either in the model or in the application layer. This again isn't ideal, and luckily Laravel provides us with the needed hooks to bundle collection logic into a dedicated class.
 
