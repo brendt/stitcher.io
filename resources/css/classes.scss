@@ -172,10 +172,12 @@ div.center > p {
 }
 
 .ad-container {
-    @include wrapper();
-    height: 140px;
-    overflow: hidden;
     margin-bottom: 1em;
+
+    @media (min-width: $width-container) {
+        height: 140px;
+        overflow: hidden;
+    }
 }
 
 #carbonads {
