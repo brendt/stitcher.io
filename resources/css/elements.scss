@@ -81,6 +81,7 @@ article {
 }
 
 p {
+    color: $color-body;
     font-size: 1.3em;
     line-height: 1.55em;
 
@@ -92,11 +93,11 @@ p {
 }
 
 li {
-    font-size: 1.2em;
-    line-height: 1.4em;
-    padding-right: 200px;
+    font-size: 1.3em;
+    line-height: 1.55em;
     margin: 0 auto .3rem;
     max-width: $width-base;
+    padding-right: 50px;
 
     @media (max-width: $width-base) {
         max-width: 100%;
@@ -110,9 +111,10 @@ li ul li {
 }
 
 ul {
+    color: $color-body;
     margin-left: 40px;
     padding-left: 1.5em;
-    margin-bottom: 1em;
+    margin-bottom: 2rem;
 
     @media (max-width: $width-base) {
         margin-left: 40px;
