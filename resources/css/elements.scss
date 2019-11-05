@@ -97,6 +97,7 @@ li {
     line-height: 1.4em;
     margin: 0 auto .3rem;
     max-width: $width-base;
+    padding-right: 50px;
 
     @media (max-width: $width-base) {
         max-width: 100%;
