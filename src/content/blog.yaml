@@ -4,6 +4,15 @@ laravel-beyond-crud-04-models:
     content: src/content/book/04-models.md
     book: true
     next: laravel-beyond-crud
+    footnotes:
+        - link: https://timacdonald.me/dedicated-eloquent-model-query-builders/
+          title: Custom query builders in Laravel
+        - link: https://timacdonald.me/giving-collections-a-voice/
+          title: Custom Eloquent collections
+        - link: https://martinfowler.com/bliki/AnemicDomainModel.html
+          title: Martin Fowler on anemic domain models
+        - link: https://www.youtube.com/watch?time_continue=2265&v=oKg1hTOQXoY
+          title: Alan Kay about his vision of OOP
     meta:
         description: "A blog series about managing larger Laravel projects"
 

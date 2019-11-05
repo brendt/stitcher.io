@@ -1,6 +1,6 @@
 {
     "require": {
-        "pageon/stitcher-core": "^1.0.1",
+        "pageon/stitcher-core": "dev-master",
         "spatie/commonmark-highlighter": "^1.0",
         "illuminate/support": "~5.7.0"
     },

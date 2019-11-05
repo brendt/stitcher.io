@@ -57,6 +57,24 @@
             </div>
         {% endif %}
 
+        {% if post.footnotes is defined %}
+            <div class="wrapper">
+                <div class="footnotes">
+                    <h2>Footnotes</h2>
+
+                    <ul>
+                        {% for footnote in post.footnotes %}
+                            <li>
+                                <a href="{{ footnote.link }}" target="_blank" rel="noopener noreferrer">
+                                    {{ footnote.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+
         {% if post.author is defined %}
             <div class="wrapper">
                 <div class="author">
