@@ -2,16 +2,18 @@
 @import 'css/elements.scss';
 
 .author {
-    background-color: $color-red-pastel;
-    font-size: 1.3em;
+    background-color: $color-primary-pastel;
+    font-size: 1.2em;
     margin-top: 2rem;
     margin-bottom: 2em;
-    padding: 1em;
-    line-height: 1.5em;
+    padding: 1em 1.3em;
+    line-height: 1.7em;
+
+    @include outOfBox;
 }
 
 .banner {
-    background-color: $color-red-pastel;
+    //background-color: $color-primary-pastel;
     color: $color-black;
     padding: 3em 0 2.8em;
     margin: 2em 0;

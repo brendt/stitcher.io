@@ -6,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
     color: #111;
+    font-weight: 200;
 
     @media (max-width: $width-container-mobile-lrg) {
         font-size: 16px;
@@ -19,7 +20,7 @@ body {
     top: 0;
     height: 900px;
     width: 5px;
-    background-color: $color-red;
+    background-color: $color-primary;
 }
 
 * {
@@ -75,11 +76,12 @@ h3 > small {
 }
 
 article {
+    @include wrapper();
     font-family: $font-body;
 }
 
 p {
-    font-size: 1.35em;
+    font-size: 1.2em;
     line-height: 1.45em;
 
     margin-bottom: 1rem;
@@ -90,7 +92,7 @@ p {
 }
 
 li {
-    font-size: 1.35em;
+    font-size: 1.2em;
     line-height: 1.4em;
     padding-right: 200px;
     margin: 0 auto .3rem;
@@ -133,25 +135,22 @@ p > em {
 }
 
 blockquote {
-    font-size: 1.2rem;
-    font-family: $font-body;
-    font-weight: 400;
+    font-family: $font-subtitle;
+    font-weight: 500;
+    font-size: 1.3em;
+    color: $color-secondary;
 
-    padding: 1.6em 1.8em 1.7em;
-    margin: 2em auto;
+    margin: 0 0 1rem 0;
+    padding: 0 1rem;
+}
 
-    border-left: 6px solid $red;
+h1 + blockquote {
+    margin-bottom: 2rem;
+}
 
-    @media (max-width: $width-base) {
-        padding-left: .5em;
-        padding-right: .5em;
-    }
-
-    @media (max-width: $width-mobile) {
-        margin: 1.5em 0;
-    }
-
-    max-width: $width-base;
+p+blockquote {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 blockquote > p {
@@ -186,8 +185,6 @@ p code, ul code {
 }
 
 pre {
-    max-width: calc(600px + 2rem);
-    margin-left: calc(50vw - 400px - 10px);
     margin-top: 2rem;
     margin-bottom: 2rem;
 
@@ -197,10 +194,7 @@ pre {
     border: 1px solid darken(#fff, 7);
     background-color: darken(#fff, 3);
 
-    @media (max-width: $width-base) {
-        max-width: calc(100% + 40px);
-        margin-left: 0;
-    }
+    @include outOfBox();
 }
 
 pre > code {
@@ -220,11 +214,11 @@ pre > code {
 }
 
 img {
-    max-width: calc(100% + 2rem);
-    margin-left: -1rem;
     box-shadow: 1px 2px 15px -2px rgba(0, 0, 0, 0.2);
-    margin-top: 1rem;
     margin-bottom: 1rem;
+    max-width:100%;
+
+    @include outOfBox();
 
     &.editor-badge {
         margin-left: auto;
@@ -237,6 +231,11 @@ img {
         max-width: 100%;
         margin-left: 0;
     }
+}
+
+p > img {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 footer {
@@ -253,8 +252,7 @@ footer > nav {
 }
 
 footer > p {
-    font-size: 1rem;
-    font-family: $font-serif;
+    font-size: 1.2rem;
     text-align: center;
     color: #111;
     margin-top: 1em;
@@ -267,8 +265,8 @@ footer > p {
 a {
     color: #000;
     text-decoration: underline;
-    text-decoration-skip: ink;
-    text-decoration-color: $red;
+    text-decoration-skip: edges;
+    text-decoration-color: $color-primary;
 }
 
 a:hover {
@@ -276,13 +274,11 @@ a:hover {
 }
 
 hr {
-    @include wrapper();
-
     position: relative;
-    height: 1rem;
-    border: 0;
+    height: 2rem;
+    border: none;
     text-align: center;
-    margin: 3rem auto 4rem;
+    margin: 3rem auto;
 
     &::before {
         display: inline-block;

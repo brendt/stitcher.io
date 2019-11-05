@@ -1,5 +1,11 @@
 @import "css/variables";
 
+$color-red: #fe2977;
+$color-blue: #2b22e7;
+$color-green: #1B7D41;
+$color-yellow: #f7f842;
+$color-purple: #9d3af6;
+
 .hljs {
     display: block;
     overflow-x: auto;
@@ -19,7 +25,7 @@
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-subst {
-    color: #4285F4;
+    color: $color-blue;
     background: none;
 }
 
@@ -33,7 +39,7 @@
 .hljs-variable,
 .hljs-template-variable,
 .hljs-tag .hljs-attr {
-    color: #EA4334;
+    color: $color-red;
 }
 
 .hljs-string,
@@ -42,7 +48,7 @@
 }
 
 .language-html .hljs-string {
-    color: #34A853;
+    color: $color-green;
 }
 
 
@@ -51,7 +57,7 @@
 .hljs-title,
 .hljs-section,
 .hljs-selector-id {
-    color: #34A853;
+    color: $color-green;
     background: none;
 }
 
@@ -65,7 +71,7 @@
 .hljs-type,
 .hljs-params + .hljs-title,
 .hljs-class .hljs-title {
-    color: #EA4334;
+    color: $color-red;
     background: none;
 }
 
@@ -80,21 +86,21 @@
 .language-css .hljs-attribute,
 .hljs-regexp,
 .hljs-link {
-    color: #34A853;
+    color: $color-green;
 }
 
 .language-html .hljs-attr {
-    color: #34A853;
+    color: $color-green;
 }
 
 .hljs-symbol,
 .hljs-bullet {
-    color: #990073;
+    color: $color-purple;
 }
 
 .hljs-built_in,
 .hljs-builtin-name {
-    color: #EA4334;
+    color: $color-red;
 }
 
 .hljs-deletion {

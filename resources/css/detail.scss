@@ -12,25 +12,19 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
+    color: $color-primary;
     font-size: 3em;
-    line-height: 1em;
+    line-height: 1.2em;
     letter-spacing: 2px;
     font-weight: 200;
 
     margin-top: 1.5em;
-    padding-bottom: .7em;
-    margin-bottom: .7em;
-
-    padding-right: 0;
-    max-width: 600px;
-    margin-left: calc(50vw - 400px);
+    margin-bottom: 2rem;
 
     @media (max-width: $width-base) {
         margin: .5em 20px;
         padding-left: 0;
     }
-
-    border-bottom: 2px solid $red;
 }
 
 h2 {
@@ -50,10 +44,6 @@ h3 {
 
 aside {
     padding-top:1em;
-    @include wrapper();
-}
-
-p {
     @include wrapper();
 }
 

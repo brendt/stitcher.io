@@ -2,10 +2,13 @@ $color-black: #353535;
 $color-white: #ffffff;
 $color-orange: #fd5d1f;
 $color-orange-dark: #742100;
-$color-red: #fc3149;
-$color-red-pastel: #fcf4f5;
+$color-primary-pastel: #fcf4f5;
 $color-gray: #D3D3D3;
 $color-php: #8892bf;
+$color-primary: #fe2977;
+$color-secondary: #000;
+$color-body: #444;
+$color-primary-light: #FCF4F5;
 
 $em-base: 16px;
 
@@ -21,15 +24,15 @@ $width-mobile: 460px;
     display: block;
 }
 
-$red: #fc3149;
-$red-light: #FCF4F5;
-$font-title: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$font-subtitle: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$font-body: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", Times, "Times New Roman", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$font-title: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
+$font-subtitle: "Courier New", monospace;
+$font-body: Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
 $font-serif: Times, "Times New Roman", serif;
 $font-code: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
 
-@mixin wrapper($width: $width-base, $padding-right: 200px) {
+@mixin wrapper($width: $width-base, $padding-right: 0px) {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -39,5 +42,12 @@ $font-code: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
     @media (max-width: $width-base) {
         padding-right: 20px;
         padding-left: 20px
+    }
+}
+
+@mixin outOfBox() {
+    @media(min-width: 880px) {
+        width: calc(100% + 40px);
+        margin-left: -20px;
     }
 }

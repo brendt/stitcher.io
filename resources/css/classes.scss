@@ -73,7 +73,7 @@ div.center > p {
 .cta {
     display: inline-block;
     cursor: pointer;
-    background-color: $red;
+    background-color: $color-primary;
     margin: .5rem 0;
     text-align: center;
     padding: 1em 2em;
@@ -85,8 +85,8 @@ div.center > p {
 }
 
 .cta:hover {
-    background-color: saturate($red, 10);
-    border-color: $red;
+    background-color: saturate($color-primary, 10);
+    border-color: $color-primary;
 }
 
 .cta-light {
@@ -106,7 +106,7 @@ div.center > p {
     padding: 1em 2em;
 
     &:hover {
-        color: $color-red;
+        color: $color-primary;
         background-color: #fff;
     }
 }
@@ -125,7 +125,7 @@ div.center > p {
     position: relative;
 
     &:hover {
-        color: $red;
+        color: $color-primary;
     }
 
     font-kerning: normal;
@@ -156,9 +156,10 @@ div.center > p {
 }
 
 .patreon {
-    font-size: 1rem;
+    font-family: $font-title;
+    font-size: .9rem;
     padding: .6em 0;
-    background-color: $red-light;
+    background-color: $color-primary-light;
 
     p {
         font-size: 1em;
