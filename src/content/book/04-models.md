@@ -167,7 +167,7 @@ Try to keep your models clean and data-oriented, instead of having them provide 
 
 ## Empty bags of nothingness
 
-I appreciate Taylor Otwell also keeping an eye on this blog series. Last week [he asked](*https://mobile.twitter.com/taylorotwell/status/1188449730055036928) how to avoid our objects becoming nothing more than empty bags of data, an anti-pattern Matrin Fowler [wrote about](*https://martinfowler.com/bliki/AnemicDomainModel.html).
+I appreciate Taylor Otwell also keeping an eye on this blog series. Last week [he asked](*https://mobile.twitter.com/taylorotwell/status/1188449730055036928) how to avoid our objects becoming nothing more than empty bags of data, an anti-pattern Martin Fowler [wrote about](*https://martinfowler.com/bliki/AnemicDomainModel.html).
 
 Because Taylor took the time to ask me about it on Twitter, I figured I might as well include my response in this chapter, where all people can read about it.
 
