@@ -16,7 +16,9 @@ header {
     margin: 2em auto 3em;
 
     p {
-        padding: 1rem;
+        @media(min-width:$width-container-mobile) {
+            padding: 1rem;
+        }
         font-size: 1.5rem;
         margin-bottom: 0;
 
@@ -31,7 +33,9 @@ header {
     }
 
     h1 {
-        padding: 1rem;
+        @media(min-width:$width-container-mobile) {
+            padding: 1rem;
+        }
     }
 }
 
