@@ -47,7 +47,7 @@ $font-code: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
 
 @mixin outOfBox() {
     @media(min-width: 880px) {
-        width: calc(100% + 40px);
-        margin-left: -20px;
+        width: calc(100% + 48px);
+        margin-left: -24px;
     }
 }
