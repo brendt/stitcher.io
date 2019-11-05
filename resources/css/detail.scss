@@ -45,8 +45,8 @@ h3 {
 }
 
 aside {
+    margin-top: 1rem;
     padding-top:1em;
-    @include wrapper();
 }
 
 article p em {
