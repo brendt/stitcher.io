@@ -4,19 +4,19 @@ In the previous chapters we looked at the three core building blocks of our doma
 
 ## Teamwork
 
-At the start of this series I claimed that all paradigms and principles I wrote about would serve a purpose: keeping your larger Laravel applications maintainable over the years, in large teams.
+At the start of this series I claimed that all paradigms and principles I wrote about would serve a purpose: to help teams of developers in keeping their larger-than-average Laravel applications maintainable over the years.
 
-Some people voiced their concern: "wouldn't a whole new directory structure and the use of complex principles make it difficult for new developers to join right away?"
+Some people voiced their concern: wouldn't a new directory structure and the use of complex principles make it difficult for new developers to join right away?
 
 If you're a Laravel developer experienced with the default Laravel way and how it's taught to beginners, it's true that you'll need to spend some time learning about how these projects are handled. However, this is not as big a deal as some people might think. 
 
-Imagine a project with around 100 models, 300 actions, almost 500 routes. This is the scale of projects we're talking about. The main difficulty in these projects is not the how the code is technically structured, rather it's about the massive amount of business knowledge there is to grasp. You can't expect new developers to just understand all of the problems this project is solving, just in an instant. It takes time to get to know the code. The less magic and indirections there are, the less room there is for confusion.
+Imagine a project with around 100 models, 300 actions, almost 500 routes. This is the scale of projects I'm thinking about. The main difficulty in these projects is not how the code is technically structured, rather it's about the massive amount of business knowledge there is to grasp. You can't expect new developers to understand all of the problems this project is solving, just in an instant. It takes time to get to know the code, but more importantly: the business. The less magic and indirections there are, the less room there is for confusion.
 
-It's important to understand the goal of the architecture I'm unfolding in this series: it's not about writing the shortest amount of characters, it's not about the elegance of code; it's about making huge amounts of code as simple as possible, to allow as little room for confusion as possible and keep the project healthy for long periods of time.
+It's important to understand the goal of the architecture I'm unfolding in this series: it's not about writing the shortest amount of characters, it's not about the elegance of code; it's about making large codebases more easy to navigate, to allow as little room for confusion as possible and to keep the project healthy for long periods of time.
 
 We actually have real life experience with this approach. After working with a team of three developers on one of our projects, a new backend developer joined: colleague Ruben.
 
-The architecture was new to him, even if he had experience with Laravel before. We took the time to guide him through it. After only a few hours of briefing and pair programming, he was already able to work in this project independently. It definitely took several weeks to fully grasp the scope of the project, but fortunately the architecture didn't stand in his way — on the contrary: its simplicity helped Ruben to focus on the business logic instead.
+The architecture was new to him, even if he had experience with Laravel before. We took the time to guide him through it. After only a few hours of briefing and pair programming, he was already able to work in this project independently. It definitely took several weeks to get a thorough understanding of the scope of the project, but fortunately the architecture didn't stand in his way — on the contrary: its simplicity helped Ruben to focus on the business logic instead.
 
 ## Identifying domains
 
