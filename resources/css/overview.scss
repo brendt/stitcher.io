@@ -26,6 +26,7 @@ header {
         margin-bottom: 0;
 
         &.links {
+            font-family: $font-body;
             margin-top: 0;
             margin-bottom: 0;
             padding-top: 0;
@@ -81,6 +82,11 @@ nav.overview > a {
     @media (max-width: $width-container) {
         margin-left: 1em;
         margin-right: 1em;
+    }
+
+    @media (max-width: $width-mobile) {
+        margin-left: 0;
+        margin-right: 0;
     }
 
     &.small {
