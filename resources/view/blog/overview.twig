@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <header>
+    <header class="wrapper">
         <h1>
             stitcher.io
         </h1>
@@ -16,41 +16,43 @@
         {% include '_partials/header_links.twig' %}
     </header>
 
-    <nav class="overview">
+    <div class="wrapper">
+        <nav class="overview">
 
-        <a href="https://criticast.io/" target="_blank" rel="noopener noreferrer" class="highlight small">
-            <h1>🎧 Update: I've started a podcast blog!</h1>
-        </a>
+            <a href="https://criticast.io/" target="_blank" rel="noopener noreferrer" class="highlight small">
+                <h1>🎧 Update: I've started a podcast blog!</h1>
+            </a>
 
-        {% for post in posts %}
-            {% if post.hidden is not defined or post.hidden == false %}
-                <a href="/blog/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
-                    {% if post.title is defined %}
-                        <h1>
-                            {{ post.title }}
-                        </h1>
-                    {% endif %}
-
-                    <div>
-                        {% if post.meta.description is defined and post.meta.description %}
-                            <p>
-                                {{ post.meta.description }}
-                            </p>
+            {% for post in posts %}
+                {% if post.hidden is not defined or post.hidden == false %}
+                    <a href="/blog/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
+                        {% if post.title is defined %}
+                            <h1>
+                                {{ post.title }}
+                            </h1>
                         {% endif %}
 
-                        {% if post.date is defined %}
-                            <aside>
-                                {% if post.author is defined %}
-                                    Written by {{ post.author.name }} on
-                                {% endif %}
-                                {{ post.date|date("F d, Y") }}
-                            </aside>
-                        {% endif %}
-                    </div>
-                </a>
-            {% endif %}
-        {% endfor %}
-    </nav>
+                        <div>
+                            {% if post.meta.description is defined and post.meta.description %}
+                                <p>
+                                    {{ post.meta.description }}
+                                </p>
+                            {% endif %}
+
+                            {% if post.date is defined %}
+                                <aside>
+                                    {% if post.author is defined %}
+                                        Written by {{ post.author.name }} on
+                                    {% endif %}
+                                    {{ post.date|date("F d, Y") }}
+                                </aside>
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </nav>
+    </div>
 
     <footer>
         <nav>
