@@ -1,4 +1,4 @@
-In the previous chapters we looked at the three core building blocks of our domain: DTOs, actions and models. Today we take a breather from the low level technical stuff, and focus on the philosophical side: how do you start using domains, how to identify them, and how to manage them in the long run?
+In the previous chapters we looked at the three core building blocks of our domains: DTOs, actions and models. Today we take a breather from the low level technical stuff, and focus on the philosophical side: how do you start using domains, how to identify them, and how to manage them in the long run?
 
 {{ ad:carbon }}
 
