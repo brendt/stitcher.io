@@ -65,6 +65,10 @@ nav.overview > a {
     background-color: lighten($color-gray, 15);
     padding: 3em;
 
+    @media (max-width: $width-mobile) {
+        padding: 2em 1.5em;
+    }
+
     h1 {
         padding-bottom: 0;
         font-size: 2em;
