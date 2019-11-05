@@ -7,8 +7,6 @@ h1, h2, h3, h4, h5 {
 
     font-weight: normal;
     font-kerning: normal;
-
-    @include wrapper();
 }
 
 h1 {
@@ -24,6 +22,10 @@ h1 {
     @media (max-width: $width-base) {
         margin: .5em 20px;
         padding-left: 0;
+    }
+
+    @media (max-width: $width-mobile) {
+        margin: .5em 0;
     }
 }
 
