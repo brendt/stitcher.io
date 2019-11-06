@@ -20,24 +20,23 @@ The architecture was new to him, even if he had experience with Laravel before. 
 
 ## Identifying domains
 
-With the knowledge we now have about the basic domain building blocks, the question arises how exactly we start writing actual code. There are lots of methodologies you can use to better understand what you're about to build, though I feel that there are two most important points:
+With the knowledge we now have about the basic domain building blocks, the question arises how exactly we start writing actual code. There are lots of methodologies you can use to better understand what you're about to build, though I feel that there are two key points:
 
 - Even though you're a developer, your primary goal is to understand the business problem and translate that into code. The code itself is merely a means to an end, always keep your focus on the problem you're solving.
-- Make sure you've got face-to-face time with your client. It'll take time to extract the knowledge that you require to write a working program.
+- Make sure you've got face-to-face time with your client. It will take time to extract the knowledge that you require to write a working program.
 
 I came to think of my job description more and more as "a translator between real world problems, and technical solutions", instead of "a programmer who writes code".
-
 I firmly believe that this mindset is key if you're going to work on a long-running project. You don't just have to write the code, you need to understand the real-world problems you're trying to solve.
 
-Depending on the size of your team, you might not need face-to-face interaction between the client and all developers, still all developers will need to understand the problems they are solving. 
+Depending on the size of your team, you might not need face-to-face interaction between _all_ developers and the client, still all developers will need to understand the problems they are solving with code. 
 
 These team dynamics are such a complex topic that they deserve their own book. In fact there's a lot of literature out there specifically on this topic. For now I'll keep it at this, because from here on out we can talk about how we translate these problems into domains.
 
-In chapter 1 I wrote that one of the goals of this architecture is to group code that belongs together, based on their meaning in the real world, instead of their technical properties. If you've got an open communication with your client, you'll note that it takes time — lots of time — to get a good idea of what their business is about. Often your client might not know it exactly themselves, and it's only by sitting down with you that they start thoroughly thinking about it.
+In chapter 1 I wrote that one of the goals of this architecture is to group code that belongs together, based on their meaning in the real world, instead of their technical properties. If you've got an open communication with your client, you'll note that it takes time — lots of time — to get a good idea of what their business is about. Often your client might not know it exactly themselves, and it's only by sitting down that they start thoroughly thinking about it.
 
 That's why you shouldn't fear domain groups that change over time. You might start with an `Invoice` domain, but notice half a year later that it has grown too large for you and your team to fully grasp. Maybe invoice generation and payments are two complex systems on their own, and so they can be split into two domain groups down the line.
 
-I'd say it's healthy to keep iterating over your domain structure. It's not even hard to make change, split and refactor domains, given the right tools. Your IDE is your friend! My colleague Freek took the time to show you a practical example, you can take a look at a live refactoring session over here:
+My stance is that it's healthy to keep iterating over your domain structure, keep refactoring it. It's not even hard to make changes, split and refactor domains, given the right tools. Your IDE is your friend! My colleague Freek took the time to show you a practical example, in which he refactors a default Laravel application, to the structures described in this series. You can take a look at his live refactoring session over here.
 
 <p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yPiMzw-lLF8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
