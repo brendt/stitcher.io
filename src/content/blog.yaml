@@ -1,9 +1,23 @@
+laravel-beyond-crud-06-states:
+    date: 2019-11-10
+    title: "06. States"
+    content: src/content/book/06-states.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+    footnotes:
+        - link: https://www.youtube.com/watch?v=N12L5D78MAA
+          title: Christopher Okhravi explains state machines in depth
+        - link: https://docs.spatie.be/laravel-model-states/v1/01-introduction/
+          title: A package to handle model states in Laravel
+
 laravel-beyond-crud-05-managing-domains:
     date: 2019-11-17
     title: "05. Managing domains"
     content: src/content/book/05-managing-domains.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-06-states
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
