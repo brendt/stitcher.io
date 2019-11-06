@@ -53,3 +53,6 @@
             variable: posts
             field: date
             direction: desc
+
+/favicon:
+    template: favicon.twig

@@ -1,0 +1,25 @@
+{% extends '_partials/index.twig' %}
+
+{% block meta %}
+    {{ parent() }}
+
+    <link rel="canonical" href="https://stitcher.io/blog/{{ post.id }}">
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/detail.scss')|raw }}
+    {{ css.inline('resources/css/favicon.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+    <div class="favicon">
+        <h1>
+            <span>
+            S
+            </span>
+        </h1>
+    </div>
+{% endblock %}
