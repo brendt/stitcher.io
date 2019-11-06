@@ -8,6 +8,10 @@ h1, h2, h3, h4, h5 {
 
     font-weight: 600;
     font-kerning: normal;
+    
+    @media(max-width: $width-container-mobile) {
+        text-align: center;
+    }
 }
 
 h1 {

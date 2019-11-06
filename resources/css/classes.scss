@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5 {
     @media(max-width: $width-container) {
         .heading-anchor {
             position: relative;
-            display: inline-block;
+            display: none;
             left: 0;
             padding-top: 0;
             margin-left: 0;
