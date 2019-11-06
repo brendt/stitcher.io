@@ -36,8 +36,10 @@ In chapter 1 I wrote that one of the goals of this architecture is to group code
 
 That's why you shouldn't fear domain groups that change over time. You might start with an `Invoice` domain, but notice half a year later that it has grown too large for you and your team to fully grasp. Maybe invoice generation and payments are two complex systems on their own, and so they can be split into two domain groups down the line.
 
-My stance is that it's healthy to keep iterating over your domain structure, keep refactoring it. It's not even hard to make changes, split and refactor domains, given the right tools. Your IDE is your friend! My colleague Freek took the time to show you a practical example, in which he refactors a default Laravel application, to the structures described in this series. You can take a look at his live refactoring session over here.
+My stance is that it's healthy to keep iterating over your domain structure, to keep refactoring it. It's not even hard to make changes, split and refactor domains; given the right tools. Your IDE is your friend! My colleague Freek took the time to show you a practical example, in which he refactors a default Laravel application, to the structures described in this series. You can take a look at his live refactoring session over here.
 
 <p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yPiMzw-lLF8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
+
+I summary: don't be afraid to start using domains, you can always refactor them later.
