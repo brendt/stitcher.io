@@ -40,7 +40,7 @@ class InvoiceLine extends Model
     
         $price = $this->item_amount * $this->item_price;
 
-        if ($this->price_exluding_vat) {
+        if ($this->price_excluding_vat) {
             $price = $vatCalculator-><hljs prop>totalPrice</hljs>(
                 $price, 
                 $this->vat_percentage
