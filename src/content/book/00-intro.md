@@ -3,7 +3,7 @@
 - [02. Working with data](/blog/laravel-beyond-crud-02-working-with-data)
 - [03. Actions](/blog/laravel-beyond-crud-03-actions)
 - [04. Models](/blog/laravel-beyond-crud-04-models)
-- <span>05. Managing Domains</span>
+- [05. Managing Domains](/blog/laravel-beyond-crud-05-managing-domains)
 - <span>06. Models with the state pattern</span>
 - <span>07. Entering the application layer</span>
 - <span>08. View models</span>
