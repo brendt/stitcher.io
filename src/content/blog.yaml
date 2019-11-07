@@ -25,7 +25,7 @@ laravel-beyond-crud-04-models:
     title: "04. Models"
     content: src/content/book/04-models.md
     book: true
-    next: laravel-beyond-crud-05-managing-domains
+    next: laravel-beyond-crud
     footnotes:
         - link: https://timacdonald.me/dedicated-eloquent-model-query-builders/
           title: Custom query builders in Laravel
