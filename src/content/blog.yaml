@@ -1,9 +1,23 @@
+laravel-beyond-crud-05-managing-domains:
+    date: 2019-11-10
+    title: "05. Managing domains"
+    content: src/content/book/05-managing-domains.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+    footnotes:
+        - link: https://freek.dev/1486-getting-started-with-domain-oriented-laravel
+          title: Freek gets started with domain oriented Laravel
+        - link: https://schlein.net/blog/stick-to-the-default
+          title: Sebastian Schlein voices his concerns about the architecture I discuss in this blog series
+
 laravel-beyond-crud-04-models:
     date: 2019-11-03
     title: "04. Models"
     content: src/content/book/04-models.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-05-managing-domains
     footnotes:
         - link: https://timacdonald.me/dedicated-eloquent-model-query-builders/
           title: Custom query builders in Laravel
@@ -24,6 +38,13 @@ laravel-beyond-crud-03-actions:
     next: laravel-beyond-crud-04-models
     meta:
         description: "A blog series about managing larger Laravel projects"
+    footnotes:
+        - link: https://martinfowler.com/eaaCatalog/transactionScript.html
+          title: Martin Fowler on transaction scripts
+        - link: https://stitcher.io/blog/laravel-queueable-actions
+          title: Queueable actions in Laravel
+        - link: https://freek.dev/1371-refactoring-to-actions
+          title: Refactoring to actions
 
 laravel-beyond-crud-02-working-with-data:
     date: 2019-10-18
@@ -33,6 +54,13 @@ laravel-beyond-crud-02-working-with-data:
     next: laravel-beyond-crud-03-actions
     meta:
         description: "A blog series about managing larger Laravel projects"
+    footnotes:
+        - link: https://www.destroyallsoftware.com/talks/ideology
+          title: Gary Bernhardt's thoughts on type systems
+        - link: https://github.com/spatie/data-transfer-object
+          title: Spatie's DataTransferObject package
+        - link: https://github.com/spatie/data-transfer-object/issues/17
+          title: Matthias Noback on the difference between value objects and DTOs
 
 laravel-beyond-crud-01-domain-oriented-laravel:
     date: 2019-10-17

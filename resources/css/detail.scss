@@ -6,8 +6,12 @@ h1, h2, h3, h4, h5 {
 
     margin-bottom: 1.2rem;
 
-    font-weight: normal;
+    font-weight: 600;
     font-kerning: normal;
+
+    @media(max-width: $width-container-mobile) {
+        text-align: center;
+    }
 }
 
 h1 {
@@ -15,7 +19,6 @@ h1 {
     font-size: 3em;
     line-height: 1.2em;
     letter-spacing: 2px;
-    font-weight: 200;
 
     margin-top: 1.5em;
     margin-bottom: 2rem;
@@ -31,7 +34,6 @@ h1 {
 }
 
 h2 {
-    font-weight: 400;
     margin-top: 2em;
 
     @media (max-width: $width-base) {

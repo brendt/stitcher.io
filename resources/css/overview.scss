@@ -36,6 +36,9 @@ header {
         @media(min-width:$width-container-mobile) {
             padding: 1rem;
         }
+
+        font-weight: 600;
+        color: $color-primary;
     }
 }
 
@@ -63,6 +66,7 @@ nav.overview > a {
     overflow: hidden;
     background-color: lighten($color-gray, 15);
     padding: 3em;
+    @include outOfBox;
 
     @media (max-width: $width-mobile) {
         padding: 2em 1.5em;
