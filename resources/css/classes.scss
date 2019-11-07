@@ -81,12 +81,18 @@ div.center > p {
     text-decoration: none;
     font-family: $font-title;
     transition: all 100ms ease-out;
-    border: 2px solid darken(#fff, 6);
+    border: 3px solid $color-primary;
+
+
+    @media (max-width: $width-container-mobile) {
+        font-size: 1.2em;
+        line-height: 1.4em;
+    }
 }
 
 .cta:hover {
-    background-color: saturate($color-primary, 10);
-    border-color: $color-primary;
+    background-color: $color-primary-pastel;
+    color: $color-primary;
 }
 
 .cta-light {

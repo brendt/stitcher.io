@@ -49,37 +49,31 @@
 
         {{ post.content|raw }}
 
-        <div class="wrapper">
-            <div class="author">
-                Would you like to stay up to date about new content? Feel free to subscribe to <a href="/signup" target="_blank" rel="noopener noreferrer">my newsletter</a> and follow me
-                <a href="https://mobile.twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">on Twitter</a>.
-                Noticed a tpyo? You can submit a <a href="https://github.com/brendt/stitcher.io" target="_blank" rel="noopener noreferrer">PR</a> to fix it.
-            </div>
+        <div class="author">
+            Would you like to stay up to date about new content? Feel free to subscribe to <a href="/signup" target="_blank" rel="noopener noreferrer">my newsletter</a> and follow me
+            <a href="https://mobile.twitter.com/brendt_gd" target="_blank" rel="noopener noreferrer">on Twitter</a>.
+            Noticed a tpyo? You can submit a <a href="https://github.com/brendt/stitcher.io" target="_blank" rel="noopener noreferrer">PR</a> to fix it.
         </div>
 
         {% if post.footnotes is defined %}
-            <div class="wrapper">
-                <div class="footnotes">
-                    <h2>Footnotes</h2>
+            <div class="footnotes">
+                <h2>Footnotes</h2>
 
-                    <ul>
-                        {% for footnote in post.footnotes %}
-                            <li>
-                                <a href="{{ footnote.link }}" target="_blank" rel="noopener noreferrer">
-                                    {{ footnote.title }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                <ul>
+                    {% for footnote in post.footnotes %}
+                        <li>
+                            <a href="{{ footnote.link }}" target="_blank" rel="noopener noreferrer">
+                                {{ footnote.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         {% endif %}
 
         {% if post.author is defined %}
-            <div class="wrapper">
-                <div class="author">
-                    Once again thanks to <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a> for writing this guest post, be sure to check him out!
-                </div>
+            <div class="author">
+                Once again thanks to <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a> for writing this guest post, be sure to check him out!
             </div>
         {% endif %}
     </article>
