@@ -11,6 +11,10 @@ body {
     @media (max-width: $width-container-mobile-lrg) {
         font-size: 16px;
     }
+
+    @media (max-width: $width-container-mobile) {
+        font-size: 14px;
+    }
 }
 
 .ruler {
@@ -254,7 +258,7 @@ footer > nav {
 }
 
 footer > p {
-    font-size: 1.2rem;
+    font-size: 1.2em;
     text-align: center;
     color: #111;
     margin-top: 1em;
