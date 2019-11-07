@@ -23,6 +23,8 @@ You're required to add a link to the original post at the start of your translat
 
 I'd like to know about when you put a translation online. I plan on listing all translations on my blog somewhere at some point in the future, so it'd be handy if I could add yours.
 
+You can notify me via [Twitter](*https://twitter.com/brendt_gd), [e-mail](mailto:brendt@stitcher.io) or by making a [GitHub issue](*https://github.com/brendt/stitcher.io)
+
 ## Translate, don't interpret
 
 I except translations to be as close as possible to the original. You can add your own thoughts, but only if properly addressed. For example you can add a final section with additions to the original post, as long as you make it clear that it's not part of the original.
