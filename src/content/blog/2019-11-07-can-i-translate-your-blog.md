@@ -27,7 +27,7 @@ You can notify me via [Twitter](*https://twitter.com/brendt_gd), [e-mail](mailto
 
 ## Translate, don't interpret
 
-I except translations to be as close as possible to the original. You can add your own thoughts, but only if properly addressed. For example you can add a final section with additions to the original post, as long as you make it clear that it's not part of the original.
+I expect translations to be as close as possible to the original. You can add your own thoughts, but only if properly addressed. For example you can add a final section with additions to the original post, as long as you make it clear that it's not part of the original.
 
 ---
 
