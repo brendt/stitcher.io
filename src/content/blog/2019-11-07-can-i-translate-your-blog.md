@@ -31,4 +31,4 @@ I except translations to be as close as possible to the original. You can add yo
 
 ---
 
-One final remark: I do appreciate it very much when people want to translate my content, so thank you very much!
+One final remark: I appreciate it very much when people want to translate my content, so thank you very much!
