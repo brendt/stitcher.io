@@ -1,3 +1,11 @@
+can-i-translate-your-blog:
+    date: 2019-11-07
+    title: Can I translate your blog?
+    content: src/content/blog/2019-11-07-can-i-translate-your-blog.md
+    next: laravel-beyond-crud
+    meta:
+        description: House keeping rules about translating my blog posts
+
 #laravel-beyond-crud-05-managing-domains:
 #    date: 2019-11-10
 #    title: "05. Managing domains"

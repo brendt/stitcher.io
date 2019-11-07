@@ -136,6 +136,7 @@ $color-purple: #9d3af6;
     &.text span,
     &.text {
         color: $color-black;
+        background: none;
     }
 
     &.yellow {
