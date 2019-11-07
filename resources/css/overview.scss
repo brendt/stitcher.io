@@ -75,6 +75,10 @@ nav.overview > a {
     h1 {
         padding-bottom: 0;
         font-size: 2em;
+
+        @media (max-width: $width-container-mobile) {
+            font-size: 1.7em;
+        }
     }
 
     &.highlight {
