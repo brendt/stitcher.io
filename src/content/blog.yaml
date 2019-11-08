@@ -1,3 +1,11 @@
+laravel-has-many-through:
+    date: 2019-11-08
+    title: Laravel's HasManyTrough cheatsheet
+    content: src/content/blog/2019-11-08-laravel-has-many-through.md
+    next: laravel-beyond-crud
+    meta:
+        description: How to use Laravel's HasManyTrough
+
 can-i-translate-your-blog:
     date: 2019-11-07
     title: Can I translate your blog?
