@@ -1,6 +1,6 @@
 laravel-has-many-through:
     date: 2019-11-08
-    title: Laravel's HasManyTrough cheatsheet
+    title: Laravel's HasManyThrough cheatsheet
     content: src/content/blog/2019-11-08-laravel-has-many-through.md
     next: laravel-beyond-crud
     meta:
