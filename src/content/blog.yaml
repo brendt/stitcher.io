@@ -1,3 +1,18 @@
+laravel-custom-relation-classes:
+    date: 2019-11-09
+    title: Relationship issues
+    content: src/content/blog/2019-11-08-laravel-custom-relation-classes.md
+    next: laravel-beyond-crud
+    meta:
+        description: Making custom relation classes in Laravel
+    footnotes:
+        - link: https://laravel.com/docs/6.x/eloquent-relationships
+          title: The official Laravel documentation on relationships
+        - link: https://github.com/laravel/framework/blob/6.x/src/Illuminate/Database/Eloquent/Relations/HasMany.php
+          title: The source code of the HasMany relationship, the source of inspiration for this post
+        - link: https://stitcher.io/blog/laravel-has-many-through
+          title: A cheatsheet for the HasManyThrough relation
+
 laravel-has-many-through:
     date: 2019-11-08
     title: Laravel's HasManyTrough cheatsheet
