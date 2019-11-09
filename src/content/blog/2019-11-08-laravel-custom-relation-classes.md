@@ -276,7 +276,7 @@ class ActiveContractsRelation extends Relation
             $person-><hljs prop>setRelation</hljs>(
                 $relation, 
                 $results-><hljs prop>filter</hljs>(function (<hljs type>Contract</hljs> $contract) use ($person) {
-                    return <hljs prop>in_array</hljs>($person->id, $contract->habitants-><hljs prop>pluck</hljs>('person_id')-><hljs prop>toArray</hljs>());
+                    return $contract->habitants-><hljs prop>pluck</hljs>('person_id')-><hljs prop>contains</hljs>($person->id);
                 })
             );    
         }
