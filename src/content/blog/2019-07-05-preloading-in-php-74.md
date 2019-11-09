@@ -27,7 +27,7 @@ So, what "parts of the codebase" are we talking about?
 
 ## Preloading in practice
 
-For preloading to work, you, the developer, has to tell the server which files to load. This is done with a simple ((PHP)) script, so there's nothing to be afraid of.
+For preloading to work, you, the developer, have to tell the server which files to load. This is done with a simple ((PHP)) script, so there's nothing to be afraid of.
 
 The rules are simple: 
 
