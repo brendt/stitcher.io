@@ -84,7 +84,7 @@ Luckily, you won't need to manually configure preload files if you don't want to
 
 ## Server requirements
 
-There's two more important things to mention, about the devops side when using preloading.
+There's two more important things to mention about the devops side when using preloading.
 
 You already know that you need to specify an entry in php.ini in order for preloading to work. This means that if you're using shared hosting, you won't be able to freely configure ((PHP)) however you want. 
 
