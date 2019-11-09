@@ -58,7 +58,7 @@ Note that instead of using `opcache_compile_file`, you can also `include` the fi
 
 Hang on though, there's a caveat! In order for files to be preloaded, their dependencies — interfaces, traits and parent classes — must also be preloaded.
 
-If there are any problems with the class dependencies, you'll be noticed of it on server start up:
+If there are any problems with the class dependencies, you'll be notified of it on server start up:
 
 ```txt
 Can't preload unlinked class 
