@@ -286,7 +286,7 @@ class ActiveContractsRelation extends Relation
 }
 ```
 
-Let's walk through what's happening here: on the one hand we've got an array of parent models, the people; on the other hand we've got an array of contracts. The goal of the `match` function is to link them together.
+Let's walk through what's happening here: on the one hand we've got an array of parent models, the people; on the other hand we've got a collection of contracts, the result of the query executed by our relation class. The goal of the `match` function is to link them together.
 
 How to do this? It's not that difficult: loop over all people, and search all contracts that belong to each one of them, based on the habitants linked to that contract. 
 
@@ -310,7 +310,7 @@ class ActiveContractsRelation extends Relation
 }
 ```
 
-We're adding the `with` call to eagerly load all habitants, but also note the specific `select` statement. We need to tell Laravel's query builder to only select the data from the `contracts` table, because otherwise the related habitant data will be merged on the `Contract` model, cause it to have the wrong ids.
+We're adding the `with` call to eagerly load all habitants, but also note the specific `select` statement. We need to tell Laravel's query builder to only select the data from the `contracts` table, because otherwise the related habitant data will be merged on the `Contract` model, cause it to have the wrong ids and what not.
 
 Finally we need to implement the `getResults` method, which simply executes the query:
 
