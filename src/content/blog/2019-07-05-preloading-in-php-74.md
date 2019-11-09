@@ -78,7 +78,7 @@ Doing this manually might seem like a chore, so naturally people are already wor
 
 The most promising automated solution is coming from composer, which is used by most modern day ((PHP)) projects already.
 
-People are working to add a preload configuration option in `composer.json`, which in turn will generate the preload file for you! Just like preloading itself, this feature is still a work in progress, but can follow it [here](*https://github.com/composer/composer/issues/7777). 
+People are working to add a preload configuration option in `composer.json`, which in turn will generate the preload file for you! Just like preloading itself, this feature is still a work in progress, but you can follow it [here](*https://github.com/composer/composer/issues/7777). 
 
 Luckily, you won't need to manually configure preload files if you don't want to, composer will be able to do it for you.
 
