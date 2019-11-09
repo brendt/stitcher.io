@@ -269,7 +269,7 @@ class ActiveContractsRelation extends Relation
     public function match(<hljs type>array</hljs> $people, <hljs type>Collection</hljs> $contracts, $relation)
     {
         if ($contracts-><hljs prop>isEmpty</hljs>()) {
-            return [];
+            return $people;
         }
 
         foreach ($people as $person) {
@@ -281,7 +281,7 @@ class ActiveContractsRelation extends Relation
             );    
         }
 
-        return $models;
+        return $people;
     }
 }
 ```
