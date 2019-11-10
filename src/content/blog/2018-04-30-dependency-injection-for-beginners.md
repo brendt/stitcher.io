@@ -89,7 +89,7 @@ and implies that `Car` should be able to do `drive` in many different ways,
 depending on the context it's used in.
 
 With *code reuse*, we're trying to make code reusable; 
-so that we don't end up with tens of classes doing almost exectly the same.
+so that we don't end up with tens of classes doing almost exactly the same thing.
 
 ## What does this have to do with dependency injection?
 
@@ -207,7 +207,7 @@ It's a misuse of what the container is meant to do.
 As it goes in real-life projects, you'll notice that dependency injection
 in not *always* the solution for your problem.
 
-It's important to realise that there's limits to the benefits of everything.
+It's important to realise that there are limits to the benefits of everything.
 You should always be alert that you're not taking this to the extreme,
 as there are valid cases in which a pragmatic approach *is* the better solution.   
 
