@@ -106,7 +106,7 @@ Edit: one of my readers let me know this _is_ possible in Ada. Thanks, Adam!
 
 Nevertheless in theory, a type could be preconfigured in such a way that it's smart enough to know about your business logic. 
 
-Languages who lack this kind of generic types, often need to build custom types.
+Languages that lack these kinds of generic types, often need to build custom types.
 Being an OO programmer myself, I would use classes to do this.
 
 ```
@@ -262,7 +262,7 @@ So while strong types can help us to ensure program correctness,
 some tests will always be a necessity to ensure business correctness.
 It's a matter of "both and", not "either or".
 
-## Closings
+## Closing Remarks
 
 I mentioned several concepts in this posts, 
 but I also mentioned I didn't know of programming languages using some of the concepts I described.
