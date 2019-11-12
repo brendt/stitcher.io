@@ -199,7 +199,7 @@ Now I do assume that you know how basic joins work. Though I will summarize what
 
 One other constraint is that we only want active contracts to show up, for this we can simply use an existing query scope provided by the `Contract` model.
 
-With our base query in place, it's time to add the real magic: supporting eager loads. This is where the performance wins are: instead of doing one query per person to load its contracts, we're doing one query to load all contracts, and link these contracts to the correct persons afterwards.
+With our base query in place, it's time to add the real magic: supporting eager loads. This is where the performance wins are: instead of doing one query per person to load its contracts, we're doing one query to load all contracts, and link these contracts to the correct people afterwards.
 
 This is what `addEagerConstraints`, `initRelation` and `match` are used for. Let's look at them one by one.
 
@@ -275,7 +275,7 @@ class ActiveContractsRelation extends Relation
         foreach ($people as $person) {
             $person-><hljs prop>setRelation</hljs>(
                 $relation, 
-                $results-><hljs prop>filter</hljs>(function (<hljs type>Contract</hljs> $contract) use ($person) {
+                $contracts-><hljs prop>filter</hljs>(function (<hljs type>Contract</hljs> $contract) use ($person) {
                     return $contract->habitants-><hljs prop>pluck</hljs>('person_id')-><hljs prop>contains</hljs>($person->id);
                 })
             );    
