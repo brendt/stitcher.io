@@ -45,3 +45,13 @@ My point of view is that it's healthy to keep iterating over your domain structu
 </p>
 
 I summary: don't be afraid to start using domains, you can always refactor them later.
+
+So that's the approach I would take if you want to start using this domain oriented architecture: try to identify subsystems within your project, realising they can — and will — change over time. You can sit down with your client, you can ask them to write some things down, you can do event storming sessions with them. Together you form an image of what the project should be, and that image might very well be refined and even changed down the road.
+
+And because our domain code has very little dependencies, it's very flexible, it doesn't cost much to move stuff around or refactor your code.
+
+---
+
+Are you enjoying this series this far? Got any questions or feedback? Feel free to let me know via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io). 
+
+Next week we'll dive back into code, I'll explain the state pattern and how it can be used to keep our models clean, yet allow them to provide rich functionality. 
