@@ -50,7 +50,7 @@ I believe our system should be thoroughly evaluated, and I think we _should_ loo
 
 One example is ((TC39)), the committee that manages ((ECMAS))cript, aka JavaScript. Dr. Axel Rauschmayer wrote [a great post](*https://2ality.com/2015/11/tc39-process.html) about how the ((TC39)) process works. Now, you might love or hate JavaScript, but it's clear that they are doing something right over there, given the lasting success of the language over the years. 
 
-One of the things they get right is an open communication channel with their community. Communication that is transparent and accessible between contributors and users via [GitHub](*https://github.com/tc39/ecma262). Another language that does this is Rust, which provides [an open forum](*https://internals.rust-lang.org) the discuss how the language is shaped.
+One of the things they get right is an open communication channel with their community. Communication that is transparent and accessible between contributors and users via [GitHub](*https://github.com/tc39/ecma262). Another language that does this is Rust, which provides [an open forum](*https://internals.rust-lang.org) to discuss how the language is shaped.
 
 An open place like GitHub or a forum diminishes the barrier most userland developers experience with the internals mailing list. Many of us read it, though very little userland developers actually feel they can voice their opinion on it. I think there's two reasons for this: 
 

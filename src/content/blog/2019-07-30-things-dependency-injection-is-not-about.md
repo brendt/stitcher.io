@@ -4,7 +4,7 @@ If you're using any modern framework, chances are you're heavily relying on depe
 
 While every modern framework ships with a dependency container — a big box that knows how to construct objects for you — it doesn't guarantee you'll actually be using the dependency injection pattern the way it's supposed to be.
 
-The container _can_ make it much more easy to have dependencies injected into a class, but it can also be abused quite a lot.
+The container _can_ make it much easier to have dependencies injected into a class, but it can also be abused quite a lot.
 
 {{ ad:carbon }}
 

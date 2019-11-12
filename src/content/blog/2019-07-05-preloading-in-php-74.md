@@ -27,7 +27,7 @@ So, what "parts of the codebase" are we talking about?
 
 ## Preloading in practice
 
-For preloading to work, you, the developer, has to tell the server which files to load. This is done with a simple ((PHP)) script, so there's nothing to be afraid of.
+For preloading to work, you, the developer, have to tell the server which files to load. This is done with a simple ((PHP)) script, so there's nothing to be afraid of.
 
 The rules are simple: 
 
@@ -58,7 +58,7 @@ Note that instead of using `opcache_compile_file`, you can also `include` the fi
 
 Hang on though, there's a caveat! In order for files to be preloaded, their dependencies — interfaces, traits and parent classes — must also be preloaded.
 
-If there are any problems with the class dependencies, you'll be noticed of it on server start up:
+If there are any problems with the class dependencies, you'll be notified of it on server start up:
 
 ```txt
 Can't preload unlinked class 
@@ -78,13 +78,13 @@ Doing this manually might seem like a chore, so naturally people are already wor
 
 The most promising automated solution is coming from composer, which is used by most modern day ((PHP)) projects already.
 
-People are working to add a preload configuration option in `composer.json`, which in turn will generate the preload file for you! Just like preloading itself, this feature is still a work in progress, but can follow it [here](*https://github.com/composer/composer/issues/7777). 
+People are working to add a preload configuration option in `composer.json`, which in turn will generate the preload file for you! Just like preloading itself, this feature is still a work in progress, but you can follow it [here](*https://github.com/composer/composer/issues/7777). 
 
 Luckily, you won't need to manually configure preload files if you don't want to, composer will be able to do it for you.
 
 ## Server requirements
 
-There's two more important things to mention, about the devops side when using preloading.
+There's two more important things to mention about the devops side when using preloading.
 
 You already know that you need to specify an entry in php.ini in order for preloading to work. This means that if you're using shared hosting, you won't be able to freely configure ((PHP)) however you want. 
 
