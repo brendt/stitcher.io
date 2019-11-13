@@ -1,6 +1,10 @@
 In this post we'll look at a different approach of structuring large code bases into separate domains.
 The name "domain" is derived from the popular DDD paradigm, or also: domain driven design.
 
+<div class="author">
+Since I wrote this post, I actually started a whole blog series on how to organise larger Laravel projects. I'd recommend to <a href="/blog/laravel-beyond-crud">check it out</a> instead. 
+</div>
+
 While many concepts in this post are inspired by DDD principles, 
 they don't strictly follow domain driven design.
 In our context, "domain" could also be named "module". 
