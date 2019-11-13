@@ -168,7 +168,7 @@ This is where the `addConstraints` method come in. It will be used to configure 
 - We only want to load active contracts that belong to a specified person (the `$parent` of our relation)
 - We might want to eagerly load some other relations, but more on that later.
 
-Here's what `addContraints` looks like, for now:
+Here's what `addConstraints` looks like, for now:
 
 ```php
 class ActiveContractsRelation extends Relation
