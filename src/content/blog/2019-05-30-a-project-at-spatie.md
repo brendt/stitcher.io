@@ -1,4 +1,4 @@
-The month May marks the first year anniversary of a client project I've been working on at Spatie.
+The month of May marks the first year anniversary of a client project I've been working on at Spatie.
 I thought it useful to share some statistics with the community,
 and give you a feeling of what a "real life web project" might look like.
 
