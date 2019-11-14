@@ -4,8 +4,9 @@
 - [03. Actions](/blog/laravel-beyond-crud-03-actions)
 - [04. Models](/blog/laravel-beyond-crud-04-models)
 - <span>05. Managing Domains</span>
-- <span>06. Models with the state pattern: coming soon</span>
-- <span>07. Enums: coming soon</span>
+- <span>06. Models with the state pattern</span>
+- <span>07. Entering the application layer</span>
+- <span>08. Viewmodels</span>
 - More chapters are in the making
 
 {{ ad:carbon }}
