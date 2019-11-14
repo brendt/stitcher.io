@@ -1,3 +1,8 @@
+structure:
+    date: 2019-11-13
+    title: Structure
+    content: src/content/blog/structure.md
+
 laravel-beyond-crud-06-managing-domains:
     date: 2019-11-17
     title: "06. Managing domains"
