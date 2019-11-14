@@ -12,7 +12,7 @@ laravel-beyond-crud-06-managing-domains:
     title: "06. Managing domains"
     content: src/content/book/06-managing-domains.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-07-entering-the-application-layer
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
