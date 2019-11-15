@@ -1,3 +1,20 @@
+Back in chapter 1, I stated that one of the characteristics of domain oriented Laravel projects is the following:
+
+> […] most important is that you start thinking in groups of related business concepts, rather than in groups of code with the same technical properties.
+
+Group your code based on the concepts it resembles in the real world, instead of their technical properties.
+
+We also identified that domain groups and applications are two separate things, applications can use the domain, several groups at once if they want to; to expose the domain functionality to the end user.
+
+What exactly belongs in this application layer? How do we group code over there? These questions will be answered in this chapter. 
+
+We're entering the application layer.
+
+## Several applications
+
+The first important thing to understand is that one project can have several applications. In fact, every Laravel project already has two by default: the HTTP- and console apps. Still there are several more pieces of your project that can be thought of as a standalone app: every third party in
+
+
 ```
 Admin
 ├── <hljs purple>Controllers</hljs>
