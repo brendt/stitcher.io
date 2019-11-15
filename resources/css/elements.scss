@@ -143,12 +143,18 @@ p > em {
 
 blockquote {
     font-family: $font-subtitle;
-    font-weight: 500;
-    font-size: 1.3em;
-    color: $color-secondary;
+    font-weight: 200;
+    font-size: 1.25em;
+    color: $color-primary;
+    line-height: 2em;
 
     margin: 0 0 1rem 0;
     padding: 0 1rem;
+
+    p {
+        color: inherit;
+        line-height:inherit;
+    }
 }
 
 h1 + blockquote {
@@ -158,10 +164,6 @@ h1 + blockquote {
 p+blockquote {
     margin-top: 2rem;
     margin-bottom: 2rem;
-}
-
-blockquote > p {
-    line-height: 1.3em;
 }
 
 blockquote > p:last-child {
