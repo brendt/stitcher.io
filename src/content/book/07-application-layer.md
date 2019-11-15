@@ -10,6 +10,8 @@ What exactly belongs in this application layer? How do we group code over there?
 
 We're entering the application layer.
 
+{{ ad:carbon }}
+
 ## Several applications
 
 The first important thing to understand is that one project can have several applications. In fact, every Laravel project already has two by default: the HTTP- and console apps. Still there are several more parts of your project that can be thought of as a standalone app: every third party integration, a REST API, a front-facing client portal, an admin back office, and what not.
