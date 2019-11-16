@@ -14,7 +14,7 @@ States and transitions between them, are a frequent use case in large projects; 
 
 At its core, the state pattern is a simple pattern, yet it allows for very powerful functionality. Let's take the example of invoices again: an invoice can be pending or paid. To start with, I will give a very simple example, because I want you to understand how the state pattern allows us lots of flexibility.
 
-Say the invoice overview should show a badge representing the state of that invoice, it's coloured orange when pending end green when paid.
+Say the invoice overview should show a badge representing the state of that invoice, it's coloured orange when pending and green when paid.
 
 A naive fat model approach would do something like this:
 
@@ -92,13 +92,13 @@ class InvoiceState extends Enum
 }
 ```
 
-Whatever approach you prefer, in essence you're listing all available options and check if one of them matches the current one, and do something based on that check. It's a big if/else statement, whatever syntactic sugar you prefer.
+Whatever approach you prefer, in essence you're listing all available options, check if one of them matches the current one, and do something based on the outcome. It's a big if/else statement, whatever syntactic sugar you prefer.
 
-Using this approach, we add a responsibility to either the model or the enum class: _it_ has to know what a specific state should do, _it_ has to know how a state works. The state pattern turns this the other way around: it treats "a state" as a first-class citizen of our codebase. Every state is represented by a separate class, and each of these classes _acts_ upon a subject.
+Using this approach, we add a responsibility, either to the model or the enum class: _it_ has to know what a specific state should do, _it_ has to know how a state works. The state pattern turns this the other way around: it treats "a state" as a first-class citizen of our codebase. Every state is represented by a separate class, and each of these classes _acts_ upon a subject.
 
 Is that difficult to grasp? Let's take it step by step.
 
-We start with an abstract class `InvoiceState`, this interface describes all functionality that invoice states can provide. In our case we want a state to provide a colour.
+We start with an abstract class `InvoiceState`, this class describes all functionality that concrete invoice states can provide. In our case we want a state to provide a colour.
 
 ```php
 abstract class InvoiceState
@@ -107,7 +107,7 @@ abstract class InvoiceState
 }
 ``` 
 
-Next, we make two classes, each represent a concrete state:
+Next, we make two classes, each represents a concrete state.
 
 ```php
 class PendingInvoiceState extends InvoiceState
@@ -144,9 +144,9 @@ class InvoiceStateTest extends TestCase
 }
 ```
 
-Second, you should note that colours is a naive example to explain the pattern. You might as well have complexer business logic encapsulated by a state. Take this example: must an invoice be paid? This of course depends on that state, whether is was already paid or not, but might as well depend on the type of invoice we're dealing with. Say our system supports credit notes which don't have to be paid, or it allows for invoices with a price of 0. This business logic can be encapsulated by the state classes. 
+Second, you should note that colours is a naive example used to explain the pattern. You might as well have complexer business logic encapsulated by a state. Take this example: must an invoice be paid? This of course depends on the state, whether is was already paid or not, but might as well depend on the type of invoice we're dealing with. Say our system supports credit notes which don't have to be paid, or it allows for invoices with a price of 0. This business logic can be encapsulated by the state classes. 
 
-There's one ting missing to make this functionality work though: we need to be able to look at the model from within our state class, if we're going to decide whether or not that invoice must be paid. This is why we have our abstract `InvoiceState` class, let's add the required methods:
+There's one ting missing to make this functionality work though: we need to be able to look at the model from within our state class, if we're going to decide whether or not that invoice must be paid. This is why we have our abstract `InvoiceState` parent class; let's add the required methods over there.
 
 
 ```php
@@ -161,7 +161,9 @@ abstract class InvoiceState
     
     // …
 }
-``` 
+```
+
+And implement them for each concrete state.
 
 ```php
 class PendingInvoiceState extends InvoiceState
@@ -188,7 +190,7 @@ class PaidInvoiceState extends InvoiceState
 }
 ```
 
-Again we can write simple unit tests for each state, and our invoice model can simply do this:
+Again we can write simple unit tests for each state, and our invoice model can simply do this.
 
 ```php
 class Invoice extends Model
@@ -205,7 +207,7 @@ class Invoice extends Model
 }
 ```
 
-In the database we can save the concrete model state class in the `state_class` field and we're done. Obviously doing this mapping manually, saving and loading from and to the database gets tedious very fast. That's why I wrote [a package](*https://github.com/spatie/laravel-model-states) which takes care of all the grunt work for you.
+Finally, in the database we can save the concrete model state class in the `state_class` field and we're done. Obviously doing this mapping manually, saving and loading from and to the database gets tedious very quickly. That's why I wrote [a package](*https://github.com/spatie/laravel-model-states) which takes care of all the grunt work for you.
 
 State-specific behaviour, in other words "the state pattern", is only half of the solution though, we still need to handle transitioning the invoice state from one to another, and ensuring only specific states may transition to others. So let's look at state transitions.
 
@@ -222,7 +224,7 @@ class PendingToPaidTransition
 {
     public function __invoke(<hljs type>Invoice</hljs> $invoice): Invoice
     {
-        if (! $invoice->state-><hljs prop>mustBePaid</hljs>()) {
+        if (! $invoice-><hljs prop>mustBePaid</hljs>()) {
             throw new <hljs type>InvalidTransitionException</hljs>(self::class, $invoice);
         }
 
@@ -240,7 +242,7 @@ Again there are many things you can do with this basic pattern:
 - Transition a state directly to another one, by using a transition class under the hood
 - Automatically determine what state to transition to based on a set of parameters
 
-Again the package I mentioned before adds support for transitions, as well as basic transition management. If you're looking to real complex state machines though, you might want to look at other packages. I listed an example in the footnotes below. 
+Again the package I mentioned before adds support for transitions, as well as basic transition management. If want complex state machines though, you might want to look at other packages. I listed an example in the footnotes below. 
 
 ## States without transitions
 
@@ -310,7 +312,7 @@ Reducing if/else statements in our code allows that code to be more linear, whic
 
 --- 
 
-The state pattern is, in my opinion, awesome. You're never stuck again writing huge if/else statements — in real life there a more than two invoice states — and it allows for clean and testable code.
+The state pattern is, in my opinion, awesome. You're never stuck again writing huge if/else statements — in real life there are often more than two invoice states — and it allows for clean and testable code.
 
 It's a pattern that you can incrementally introduce in your existing code bases, and I'm sure it will be a huge help keeping the project maintainable in the long run.
 
