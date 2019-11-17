@@ -54,4 +54,4 @@ And because our domain code has very little dependencies, it's very flexible, it
 
 Are you enjoying this series this far? Got any questions or feedback? Feel free to let me know via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io). 
 
-Next week we'll dive back into code, I'll explain the state pattern and how it can be used to keep our models clean, yet allow them to provide rich functionality. 
+Next week we'll dive back into code, and finally arrive at the application layer, looking forward to it!

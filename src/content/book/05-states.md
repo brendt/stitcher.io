@@ -1,6 +1,6 @@
 > The state pattern is one of the best ways to add state-specific behaviour to models, while still keeping them clean.
 
-After the philosophical chapter 5, it's time to dive back into the code. This chapter will talk about the state pattern, and specifically how to apply it to models. You can think of this chapter as an extension to [chapter 4](/blog/laravel-beyond-crud-04-models), where I wrote about how we aim to keep our model classes manageable by preventing them from handling business logic.
+This chapter will talk about the state pattern, and specifically how to apply it to models. You can think of this chapter as an extension to [chapter 4](/blog/laravel-beyond-crud-04-models), where I wrote about how we aim to keep our model classes manageable by preventing them from handling business logic.
 
 Moving business logic away from models poses a problem though with a very common use case: what to do with model states? 
 
@@ -315,5 +315,3 @@ Reducing if/else statements in our code allows that code to be more linear, whic
 The state pattern is, in my opinion, awesome. You're never stuck again writing huge if/else statements — in real life there are often more than two invoice states — and it allows for clean and testable code.
 
 It's a pattern that you can incrementally introduce in your existing code bases, and I'm sure it will be a huge help keeping the project maintainable in the long run.
-
-Next week we'll finally take a look at the application layer. Until then!
