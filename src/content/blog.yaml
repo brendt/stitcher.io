@@ -1,9 +1,27 @@
+laravel-beyond-crud-06-states:
+    date: 2019-11-24
+    title: "06. States"
+    content: src/content/book/06-states.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+    footnotes:
+        - link: https://www.youtube.com/watch?v=N12L5D78MAA
+          title: Christopher Okhravi explains state machines in depth
+        - link: https://docs.spatie.be/laravel-model-states/v1/01-introduction/
+          title: My package to handle model states in Laravel
+        - link: https://symfony.com/doc/current/workflow/workflow-and-state-machine.html
+          title: Symfony's workflow package to build complex state machines
+        - link: https://www.youtube.com/watch?v=29MAL8pJImQ
+          title: Sandi Metz on getting rid of if statements
+
 laravel-beyond-crud-05-managing-domains:
     date: 2019-11-17
     title: "05. Managing domains"
     content: src/content/book/05-managing-domains.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-06-states
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
