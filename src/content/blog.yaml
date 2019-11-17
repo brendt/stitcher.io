@@ -13,7 +13,7 @@ laravel-beyond-crud-06-managing-domains:
           title: Sebastian Schlein voices his concerns about the architecture I discuss in this blog series
 
 laravel-beyond-crud-05-states:
-    date: 2019-11-17
+    date: 2019-11-16
     title: "05. States"
     content: src/content/book/05-states.md
     book: true
