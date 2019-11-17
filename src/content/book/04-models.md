@@ -178,7 +178,3 @@ Secondly, I think it's worth to mention Alan Kay's vision on this topic (he's th
 Whether you agree with that point of view or not is up to you. I do admit to have been influenced by some of Alan's insights, and you might notice that throughout this blog series. Like I said before: don't think of this series as the holy grail of software design. My goal is to challenge the current way you're writing code, making you think whether there are more optimal ways to solve some of your problems.
 
 So let's make sure to continue the discussion, we can [mail](mailto:brent@stitcher.io) about it, or we can discuss it [on Twitter](*https://mobile.twitter.com/brendt_gd).
-
----
-
-Before diving any further into code, it's time to zoom out and take a look at the big picture: how do we identify and manage domains over time? What's the impact on our teams? That's the topic for the next chapter, next week.
