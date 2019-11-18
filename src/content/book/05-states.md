@@ -144,9 +144,9 @@ class InvoiceStateTest extends TestCase
 }
 ```
 
-Second, you should note that colours is a naive example used to explain the pattern. You might as well have complexer business logic encapsulated by a state. Take this example: must an invoice be paid? This of course depends on the state, whether is was already paid or not, but might as well depend on the type of invoice we're dealing with. Say our system supports credit notes which don't have to be paid, or it allows for invoices with a price of 0. This business logic can be encapsulated by the state classes. 
+Second, you should note that colours is a naive example used to explain the pattern. You might as well have complexer business logic encapsulated by a state. Take this example: must an invoice be paid? This of course depends on the state, whether it was already paid or not, but might as well depend on the type of invoice we're dealing with. Say our system supports credit notes which don't have to be paid, or it allows for invoices with a price of 0. This business logic can be encapsulated by the state classes. 
 
-There's one ting missing to make this functionality work though: we need to be able to look at the model from within our state class, if we're going to decide whether or not that invoice must be paid. This is why we have our abstract `InvoiceState` parent class; let's add the required methods over there.
+There's one thing missing to make this functionality work though: we need to be able to look at the model from within our state class, if we're going to decide whether or not that invoice must be paid. This is why we have our abstract `InvoiceState` parent class; let's add the required methods over there.
 
 
 ```php
