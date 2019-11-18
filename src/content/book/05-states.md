@@ -286,7 +286,7 @@ class CreditInvoiceType extends InvoiceType
 ```
 
 ```php
-class DebitInvoiceType extends InvoiceState
+class DebitInvoiceType extends InvoiceType
 {
     public function mustBePaid(): bool
     {
