@@ -34,7 +34,7 @@ Depending on the size of your team, you might not need face-to-face interaction 
 
 These team dynamics are such a complex topic that they deserve their own book. In fact there's a lot of literature out there specifically on this topic. For now I'll keep it at this, because from here on out we can talk about how we translate these problems into domains.
 
-In chapter 1 I wrote that one of the goals of this architecture is to group code that belongs together, based on their meaning in the real world, instead of their technical properties. If you've got an open communication with your client, you'll note that it takes time — lots of time — to get a good idea of what their business is about. Often your client might not know it exactly themselves, and it's only by sitting down that they start thoroughly thinking about it.
+In chapter 1, I wrote that one of the goals of this architecture is to group code that belongs together, based on their meaning in the real world, instead of their technical properties. If you've got an open communication with your client, you'll note that it takes time — lots of time — to get a good idea of what their business is about. Often your client might not know it exactly themselves, and it's only by sitting down that they start thoroughly thinking about it.
 
 That's why you shouldn't fear domain groups that change over time. You might start with an `Invoice` domain, but notice half a year later that it has grown too large for you and your team to fully grasp. Maybe invoice generation and payments are two complex systems on their own, and so they can be split into two domain groups down the line.
 
