@@ -1,3 +1,12 @@
+laravel-beyond-crud-08-view-models:
+    date: 2019-12-15
+    title: "08. View models"
+    content: src/content/book/08-view-models.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+
 php-74-upgrade-mac:
     date: 2019-11-28
     title: Upgrade to PHP 7.4 with Homebrew on Mac
