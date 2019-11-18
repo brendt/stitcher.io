@@ -103,7 +103,7 @@ class Post {
 }
 ```
 
-All in all, short closures are a welcome feature, though there is still area for improvement. 
+All in all, short closures are a welcome feature, though there is still room for improvement. 
 The biggest one probably being multi-line short closures.
 
 Do you have any thoughts you'd like to share? 

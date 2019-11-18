@@ -2,7 +2,7 @@
 
 Recently I had to deal with a complex performance issue in one of our larger Laravel projects. Let me quickly set the scene.
 
-We want an admin user to see an overview of all people in the system in a table, and we want a column in that table to list which contracts are active at the moment for each person.
+We want an admin user to see an overview of all people in the system in a table, and we want a column in that table to list which contracts are active at that moment for each person.
 
 The relation between `Contract` and `Person` is as follows:
 
@@ -53,9 +53,9 @@ class PersonResource extends JsonResource
 
 Notice especially the `Person::activeContracts` relation. How could we make this work?
 
-A first though might be by using a `HasManyThrough` relation, but remember that we're 4 levels deep in our relation hierarchy. Besides that, I find `HasManyThrough` to be [very confusing](*/blog/laravel-has-many-through).
+A first thought might be by using a `HasManyThrough` relation, but remember that we're 4 levels deep in our relation hierarchy. Besides that, I find `HasManyThrough` to be [very confusing](*/blog/laravel-has-many-through).
 
-We could query the contracts on the fly, one by one per person. The issue with that is that we're introducing an n+1 issue since we'll be an extra query _per_ person. Imagine the performance impact if you're dealing with more than just a few models.
+We could query the contracts on the fly, one-by-one per person. The issue with that is that we're introducing an n+1 issue since there'll be an extra query _per_ person. Imagine the performance impact if you're dealing with more than just a few models.
 
 One last solution that came to mind was to load all people, all contracts, and map them together manually. In the end that's exactly what I ended up doing, though I did it in the cleanest possible way: using custom relations.
 
@@ -134,7 +134,7 @@ class ActiveContractsRelation extends Relation
 
 The doc blocks get us on the way, though it's not always entirely clear what needs to happen. Again we're in luck, Laravel still has some existing relation classes where we can look to.
 
-Let's go through building our custom relation class step by step. We'll start by overriding the constructor and adding some type hints to the existing properties. Just to make sure the type system will prevent us from making stupid mistakes.
+Let's go through building our custom relation class step by step. We'll start by overriding the constructor and adding some type hints to the existing properties. Just to make sure, the type system will prevent us from making stupid mistakes.
 
 The abstract `Relation` constructor requires both specifically for  an eloquent `Builder` class, as well as the parent model the relationship belongs to. The `Builder` is meant to be the base query object for our related model, `Contract`, in our case.
 
@@ -197,7 +197,7 @@ class ActiveContractsRelation extends Relation
 
 Now I do assume that you know how basic joins work. Though I will summarize what's happening here: we're building a query that will load all `contracts` and their `habitants`, via the `contract_habitants` pivot table, hence the two joins.
 
-One other constraint is that we only want active contracts to show up, for this we can simply use an existing query scope provided by the `Contract` model.
+One other constraint is that we only want active contracts to show up; for this we can simply use an existing query scope provided by the `Contract` model.
 
 With our base query in place, it's time to add the real magic: supporting eager loads. This is where the performance wins are: instead of doing one query per person to load its contracts, we're doing one query to load all contracts, and link these contracts to the correct people afterwards.
 
@@ -243,7 +243,7 @@ class ActiveContractsRelation extends Relation
 }
 ```
 
-Note that the `$this->related` property is set by the parent `Relation` class, it's a clean model instance of our base query, in other words an empty `Contract` model:
+Note that the `$this->related` property is set by the parent `Relation` class and it's a clean model instance of our base query so in other words, an empty `Contract` model:
 
 ```php
 abstract class Relation
@@ -310,7 +310,7 @@ class ActiveContractsRelation extends Relation
 }
 ```
 
-We're adding the `with` call to eagerly load all habitants, but also note the specific `select` statement. We need to tell Laravel's query builder to only select the data from the `contracts` table, because otherwise the related habitant data will be merged on the `Contract` model, cause it to have the wrong ids and what not.
+We're adding the `with` call to eagerly load all habitants, but also note the specific `select` statement. We need to tell Laravel's query builder to only select the data from the `contracts` table, because otherwise the related habitant data will be merged on the `Contract` model, causing it to have the wrong ids and what not.
 
 Finally we need to implement the `getResults` method, which simply executes the query:
 

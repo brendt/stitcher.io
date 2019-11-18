@@ -1,7 +1,7 @@
 I'm going to give it a try: newsletters. 
 I'm always on the lookout for connecting more with my audience, 
 and feel like newsletters are a more personalised way of communication: 
-people can hit rely to engage in a one-on-one conversation.
+people can hit reply to engage in a one-on-one conversation.
 For me, email is the perfect platform to do that.
 
 ## The concept
@@ -20,4 +20,4 @@ Finally I'll share one or two, maybe three; links to interesting reads on the we
 That's what I envision the newsletter to look like, at least for now.
 
 So, if you're interested, here's the signup link: [https://stitcher.io/signup](https://stitcher.io/signup). 
-The first edition will be sent somewhere in the next two weeks.
+The first edition will be sent sometime in the next two weeks.
