@@ -4,9 +4,10 @@ Back in chapter 1, I stated that one of the characteristics of domain oriented L
 
 Group your code based on what it resembles in the real world, instead of its technical properties.
 
-We also identified that domain groups and applications are two separate things, applications can use the domain, several groups at once if they want to; to expose the domain functionality to the end user.
+We also identified that domain groups and applications are two separate things. Moreover, applications can even use 
+several groups of the domain at once if they need to in exposing the domain functionality to the end user.
 
-What exactly belongs in this application layer? How do we group code over there? These questions will be answered in this chapter. 
+But what exactly belongs in this application layer? How do we group code over there? These questions will be answered in this chapter. 
 
 We're entering the application layer.
 
@@ -14,9 +15,9 @@ We're entering the application layer.
 
 ## Several applications
 
-The first important thing to understand is that one project can have several applications. In fact, every Laravel project already has two by default: the HTTP- and console apps. Still there are several more parts of your project that can be thought of as a standalone app: every third party integration, a REST API, a front-facing client portal, an admin back office, and what not.
+The first important thing to understand is that one project can have several applications. In fact, every Laravel project already has two by default: the HTTP- and console apps. Still, there are several more parts of your project that can be thought of as a standalone app: every third party integration, a REST API, a front-facing client portal, an admin back office, and what-not.
 
-All of these can be thought of as separate applications, exposing and presenting the domain for their own unique use cases. I tend to think of as the artisan console as just another one in this list: it's an application used by developers to work with and manipulate the project.
+All of these can be thought of as separate applications, exposing and presenting the domain for their own unique use cases. In fact, I tend to think of the artisan console as just another one in this list: it's an application used by developers to work with and manipulate the project.
 
 Since we're in web development, your main focus will be within HTTP-related apps though. So what's included in them? Let's have a look:
 
@@ -28,11 +29,11 @@ Since we're in web development, your main focus will be within HTTP-related apps
 - ViewModels
 - QueryBuilders — the ones that [parse URL queries](*https://github.com/spatie/laravel-query-builder)
 
-I would even argue that blade views, JavaScript- and CSS files belong within this same application. I realise this is a step too far for many people, but I did want it to be mentioned once.
+I would even argue that blade views, JavaScript and CSS files belong within this same application. I realise this is a step too far for many people, but I at least wanted to mention it.
 
 Remember, an application's goal is to get the user's input, pass it to the domain and represent the output in a usable way back to the user. After several chapters deep in the domain code, it shouldn't be a surprise that most of the application code is merely structural, often boring code, passing data from one point to another.
 
-There's of course lots to tell about several of the things mentioned above: ViewModels, third party integrations, what about jobs; we will tackle these subjects in future chapters, for now we want to focus on the main ideas behind the application layer, and a general overview of them.
+There's of course lots to tell about several of the things mentioned above: ViewModels, third party integrations, what about jobs?; we will tackle these subjects in future chapters, but for now we want to focus on the main ideas behind the application layer, and a general overview of them.
 
 ## Structuring HTTP applications
 
@@ -54,7 +55,7 @@ App/Admin
 
 This structure is fine in small projects, but honestly it doesn't scale well. To make this very clear, I decided to share the document structure of the admin application in one of our client projects. Obviously I can't reveal too much information about this project, so I blacked out most of the class names.
 
-Since we've been using invoicing as the example throughout this series though, I highlighted some invoice related classes, within the admin application. Have a look.
+Since we've been using invoicing as the example throughout this series though, I highlighted some invoice related classes within the admin application. Have a look.
  
 Oh and, happy scrolling! 
 
@@ -548,11 +549,11 @@ App/Admin
     └── <hljs textgrey>█████████████████</hljs>.php
 ```
 
-I'm not kidding, this is what one of our projects actually looked like after a year and a half of development. And keep in mind that this is _only_ the admin application code, it doesn't include anything domain related.
+I'm not kidding - this is what one of our projects actually looked like after a year and a half of development. And keep in mind that this is _only_ the admin application code, it doesn't include anything domain related.
 
-So what's the problem here? The same as what we started with: we're grouping our code based on technical properties, instead of their real-world meaning: controllers, filters, middleware, queries, requests, resources, view models.
+So what's the problem here? The same as what we started with: we're grouping our code based on technical properties, instead of their real-world meaning: controllers, filters, middleware, queries, requests, resources and view models.
 
-Once again a concept like invoices is spread across multiple directories, and mixed with dozens of other classes. Even with the best IDE support, it's very difficult to wrap your head around the application as a whole, there's no way to get a general overview of what's happening.
+Once again a concept like invoices is spread across multiple directories, and mixed with dozens of other classes. Even with the best IDE support, it's very difficult to wrap your head around the application as a whole anf there's no way to get a general overview of what's happening.
 
 The solution? No surprises here, I hope; it's the same as we did with domains: group together code that belongs together. In this example, invoices:
 
@@ -605,7 +606,7 @@ How about that? When you're working on invoices, you've got one place to go to k
 
 Does this mean modules should be one-to-one mapped on the domain? Definitely not! Mind you, there could be some overlap, but it's not required. For example: we've got a settings module within the admin application, which touches several domain groups at once. It wouldn't make sense to have separate settings controllers, view models etc spread across multiple modules: when we're working on settings, it's one feature on its own; not one spread across several modules just to be in sync with the domain.
 
-Another question that might arise looking at this structure, is what to do with general purpose classes. Stuff like a base request class, middleware that's used everywhere,… Remember the `Support` namespace back in chapter one? That's what it is for! `Support` holds all code that should be globally accessible, it could just as well have been part of the framework.
+Another question that might arise looking at this structure, is what to do with general purpose classes. Stuff like a base request class, middleware that's used everywhere,… Remember the `Support` namespace back in chapter one? That's what it is for! `Support` holds all code that should be globally accessible but it could just as well have been part of the framework.
 
 ---
 
