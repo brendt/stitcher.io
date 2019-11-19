@@ -8,7 +8,7 @@ At the start of this series I claimed that all paradigms and principles I wrote 
 
 Some people voiced their concern: wouldn't a new directory structure and the use of complex principles make it difficult for new developers to join right away?
 
-If you're a developer acquainted with default Laravel projects, with how they are taught to beginners, then it's true that you'll need to spend some time learning about how these projects are handled. However, this is not as big a deal as some people might think. 
+If you're a developer acquainted with default Laravel projects and with how they are taught to beginners, then it's true that you'll need to spend some time learning about how these projects are handled. However, this is not as big a deal as some people might think. 
 
 Imagine a project with around 100 models, 300 actions, almost 500 routes. This is the scale of projects I'm thinking about. The main difficulty in these projects is not how the code is technically structured, rather it's about the massive amount of business knowledge there is to grasp. You can't expect new developers to understand all of the problems this project is solving, just in an instant. It takes time to get to know the code, but more importantly: the business. The less magic and indirections there are, the less room there is for confusion.
 
