@@ -14,7 +14,6 @@ and finally I'll show you how we use the pattern in one of our projects.
 
 Let's get started. 
 
-
 Say you have a form to create a blog post with a category.
 You'll need a way to fill the select box in the view with category options. 
 The controller has to provide those.
@@ -76,7 +75,7 @@ There are numerous reasons why this is a bad idea, though it happens often in La
 Let's focus on the most relevant problem for our case: it still allows for duplication.
 
 Say there's a new model `News` which also needs the same category selection.
-This causes again duplication, but on the model level instead of in the controllers.
+This again causes duplication, but on the model level instead of in the controllers.
 
 Another option is to put the method on the `User` model.
 This makes the most sense, but also makes maintenance harder.
@@ -215,7 +214,7 @@ public function update(<hljs type>Request</hljs> $request, <hljs type>Post</hljs
 ```
 
 You might see a similarity between view models and Laravel resources.
-Remember that resources map one-to-one on a model, when view models may provide whatever data they want.
+Remember that resources map one-to-one on a model, whereas view models may provide whatever data they want.
 
 In our projects, we're actually using resources and view models combined:
 
@@ -259,7 +258,7 @@ abstract class ViewModel
 }
 ```
 
-Instead of calling the view model methods, we can call their property and get a JSON back.
+Instead of calling the view model methods, we can call their properties and get JSON back.
 
 ```txt
 <<hljs keyword>select-field</hljs>
@@ -271,14 +270,14 @@ Instead of calling the view model methods, we can call their property and get a 
 
 ## Wait, what about view composers?
 
-You might be thinking there's some overlap with Laravel's view composers, don't be mistaken though. The Laravel documentation explains view composers like so:
+You might be thinking there's some overlap with Laravel's view composers, but don't be mistaken. The Laravel documentation explains view composers like so:
 
 > View composers are callbacks or class methods that are called when a view is rendered.  If you have data that you want to be bound to a view each time that view is rendered, a view composer can help you organize that logic into a single location.
  
-View composers are registered like this, the example is taken from the Laravel docs.
+View composers are registered like this (the example is taken from the [Laravel docs](https://laravel.com/docs/6.x/views#view-composers)):
 
 ```php
-class ViewomposerServiceProvider extends ServiceProvider
+class ViewComposerServiceProvider extends ServiceProvider
 {
     public function boot()
     {
@@ -295,7 +294,7 @@ class ViewomposerServiceProvider extends ServiceProvider
 }
 ```
 
-As you can see you can both use a class and a closure which you can use to add variables to a view.
+As you can see, you can both use a class and a closure which you can use to add variables to a view.
 
 Here's how view composers are used in controllers.
 
@@ -317,7 +316,7 @@ When you're the single developer and only have 20 controllers and maybe 20 view 
 it'll all fit in your head.
 
 But what about the kind of projects we're writing about in this series? When you're working with several developers, in a codebase that counts thousands upon thousands lines of code. It won't fit in your head anymore, not on that scale. 
-That's why the view model pattern is the preferred approach. It makes clear from the controller itself what variables are available to the view. On top of that you can re-use the same view model for multiple contexts. 
+That's why the view model pattern is the preferred approach. It makes clear from the controller itself what variables are available to the view. On top of that, you can re-use the same view model for multiple contexts. 
 
 One last benefit — one you might not have thought about —  
 is that we can pass data into the view model explicitly. 
