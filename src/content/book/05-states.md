@@ -213,7 +213,7 @@ State-specific behaviour, in other words "the state pattern", is only half of th
 
 ## Transitions
 
-Remember how I talked about moving business logic away from models, and only allowing them to provide data in a workable way from the database? The same thinking can be applied to states and transitions. We should avoid side effects when using states, things like making changes in the database, sending mails, etc. States should be used to _read_ or provide data. Transitions on the other hand don't provide anything, rather they make sure our model state is correctly transitioned from one to another, hence: side effects.
+Remember how I talked about moving business logic away from models, and only allowing them to provide data in a workable way from the database? The same thinking can be applied to states and transitions. We should avoid side effects when using states, things like making changes in the database, sending mails, etc. States should be used to _read_ or provide data. Transitions on the other hand don't provide anything. Rather, they make sure our model state is correctly transitioned from one to another leading to acceptable side effects.
 
 Splitting these two concerns in separate classes gives us the same advantages I wrote about again and again: better testability and reduced cognitive load. Allowing a class to only have one responsibility makes it easier to split a complex problem into several easy-to-grasp bits. 
 
