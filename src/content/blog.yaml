@@ -11,6 +11,8 @@ laravel-beyond-crud-06-managing-domains:
           title: Freek gets started with domain oriented Laravel
         - link: https://schlein.net/blog/stick-to-the-default
           title: Sebastian Schlein voices his concerns about the architecture I discuss in this blog series
+        - link: https://basecamp.com/shapeup/0.3-chapter-01
+          title: An online book about Basecamp's approach to product management
 
 laravel-beyond-crud-05-states:
     date: 2019-11-16
