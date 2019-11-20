@@ -37,7 +37,7 @@ There's of course lots to tell about several of the things mentioned above: View
 
 ## Structuring HTTP applications
 
-There's one very important point we need to discuss before moving on: how will a HTTP generally be structured? Should we follow Laravel's conventions, or do we need to give it some more thought? 
+There's one very important point we need to discuss before moving on: how will an HTTP application generally be structured? Should we follow Laravel's conventions, or do we need to give it some more thought? 
 
 Since I'm dedicating a section of this chapter to this question, you can probably guess the answer. Let's look at what Laravel would recommend you doing by default though.
 
@@ -553,7 +553,7 @@ I'm not kidding - this is what one of our projects actually looked like after a 
 
 So what's the problem here? The same as what we started with: we're grouping our code based on technical properties, instead of their real-world meaning: controllers, filters, middleware, queries, requests, resources and view models.
 
-Once again a concept like invoices is spread across multiple directories, and mixed with dozens of other classes. Even with the best IDE support, it's very difficult to wrap your head around the application as a whole anf there's no way to get a general overview of what's happening.
+Once again a concept like invoices is spread across multiple directories, and mixed with dozens of other classes. Even with the best IDE support, it's very difficult to wrap your head around the application as a whole and there's no way to get a general overview of what's happening.
 
 The solution? No surprises here, I hope; it's the same as we did with domains: group together code that belongs together. In this example, invoices:
 
