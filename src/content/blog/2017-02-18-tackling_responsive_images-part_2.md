@@ -6,7 +6,7 @@ In my [previous post](/blog/tackling_responsive_images-part_1), I wrote about th
 
 If you would like to read the source code instead of this post, [here you go](https://github.com/brendt/responsive-images).
 
-Like I wrote earlier, the first version of the scaling down algorithm was based on the width of images. It worked, but it wasn't solving the actual problem: optimizing bandwidth usage. The real solution was in downscaling images based on their filesizes. The problem there: how could you know the dimensions of an image, when you know the desired filesize. This is where high school maths came into play. I was actually surprised how much fun I had figuring out this "forumla". I haven't been in school for a few years, and I was rather happy I could use some basic maths skills again!
+Like I wrote earlier, the first version of the scaling down algorithm was based on the width of images. It worked, but it wasn't solving the actual problem: optimizing bandwidth usage. The real solution was in downscaling images based on their filesizes. The problem there: how could you know the dimensions of an image, when you know the desired filesize. This is where high school maths came into play. I was actually surprised how much fun I had figuring out this "formula". I haven't been in school for a few years, and I was rather happy I could use some basic maths skills again!
 
 This is what I did:
 
@@ -27,7 +27,7 @@ pixelprice = filesize / area
  <=> width = sqrt((filesize / pixelprice) / ratio)
 ```
 
-So given a constant `pixelprice`, I can calculate the required width an image needs to have a specified filesize. Here's the thing though. `pixelprice` is an approximation of what one pixel in this image costs. That's because not all pixels are worth the same amount of bytes. It heavily depends on which image codecs are used. It is however the best I could do for now, I might add some more logic in the future, but I'd like to try this algorithm out for a while. 
+So given a constant `pixelprice`, I can calculate the required width an image needs to have a specified filesize. Here's the thing though: `pixelprice` is an approximation of what one pixel in this image costs. That's because not all pixels are worth the same amount of bytes. It heavily depends on which image codecs are used. It is however the best I could do for now, and whilst I might add some more logic in the future, I'd like to try this algorithm out for a while. 
 
 So now the Responsive Factory scales down images by filesize instead of width. A much better metric when you're trying to reduce bandwidth usage. This is how the library is used in Stitcher:
 
