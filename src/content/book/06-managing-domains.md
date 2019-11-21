@@ -44,7 +44,7 @@ My point of view is that it's healthy to keep iterating over your domain structu
 <iframe width="560" height="315" src="https://www.youtube.com/embed/yPiMzw-lLF8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 
-I summary: don't be afraid to start using domains because you can always refactor them later.
+In summary: don't be afraid to start using domains because you can always refactor them later.
 
 So that's the approach I would take if you want to start using this domain oriented architecture: try to identify subsystems within your project, realising they can — and will — change over time. You can sit down with your client, you can ask them to write some things down, or you could even do event storming sessions with them. Together you form an image of what the project should be, and that image might very well be refined and even changed down the road.
 
