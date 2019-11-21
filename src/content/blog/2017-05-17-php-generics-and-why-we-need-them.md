@@ -1,4 +1,4 @@
-In today's blog post we'll explore some common problems with arrays in PHP. All the problems and issues listed could be solved with a pending RFC which adds generics to PHP. We won't explore in too much detail what generics are. But at the end of this read you should have a good idea as to why they are useful, and why we really want them in PHP. So without further ado, lets dive into the subject.
+In today's blog post we'll explore some common problems with arrays in PHP. All the problems and issues listed could be solved with a pending RFC which adds generics to PHP. We won't explore in too much detail what generics are, but at the end of this read, you should have a good idea as to why they are useful, and why we really want them in PHP. So without further ado, lets dive into the subject.
 
 {{ ad:carbon }}
 
@@ -26,7 +26,7 @@ Lets take a look at the problems of the above approach.
 
 ## Data integrity
 
-In PHP, an array is a collection of.. things.
+In PHP, an array is a collection of...things.
 
 ```php
 $posts = [
@@ -143,7 +143,7 @@ That solution, in my opinion is [generics](*https://wiki.php.net/rfc/generics). 
  do, you can read the RFC to know that. But I will give you an example of how generics could solve these issues, guaranteeing 
  the developer would always have the correct data in a collection.
  
-Big **note**: generics do not exist in PHP, yet. The RFC targeted PHP 7.1, and has no further information about the 
+**Big note**: generics do not exist in PHP, yet. The RFC targeted PHP 7.1, and has no further information about the 
  future. The following code is based on the [the Iterator interface](*http://php.net/manual/en/class.iterator.php)
  and [the ArrayAccess interface](*http://php.net/manual/en/class.arrayaccess.php), which both exist as of PHP 5.0.
  At the end, we'll dive into a generics example, which is dummy code.
