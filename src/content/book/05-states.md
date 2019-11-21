@@ -30,7 +30,7 @@ class Invoice extends Model
         }
     
         if ($this->state-><hljs prop>equals</hljs>(<hljs type>InvoiceState</hljs>::<hljs prop>PAID</hljs>())) {
-            return 'green'
+            return 'green';
         }
 
         return 'gray';
