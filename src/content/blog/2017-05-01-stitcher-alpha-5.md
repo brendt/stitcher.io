@@ -1,8 +1,8 @@
-This is the last alpha version of Stitcher. The next release will be beta for the first time, and only bugfixes and improvements will be added from now on. Alpha 5 adds the last important pieces for Stitcher to be feature-complete before a stable 1.0 release. The most important things to note are the plugin support, improved command feedbacked and the internal use of the service container.
+This is the last alpha version of Stitcher. The next release will be beta for the first time, and only bugfixes and improvements will be added from now on. Alpha 5 adds the last important pieces for Stitcher to be feature-complete before a stable 1.0 release. The most important things to note are the plugin support, improved command feedback and the internal use of the service container.
 
-You can read about the upcoming plugin support in [this blogpost](/blog/simplest-plugin-support). Furthermore, I'm already working on the first plugin to support a REST api. Next step is a web interface to manage your content. For developers, Stitcher 1.0 will of course be completely useable without any plugins.
+You can read about the upcoming plugin support in [this blogpost](/blog/simplest-plugin-support). Furthermore, I'm already working on the first plugin to support a REST API. Next step is a web interface to manage your content. For developers, Stitcher 1.0 will of course be completely useable without any plugins.
 
-Its important to note that this update has **a breaking change** which existing Stitcher projects should take into account.
+It's important to note that this update has **a breaking change** which existing Stitcher projects should take into account.
 
 ### Installation
 
