@@ -1,3 +1,7 @@
+<div class="author">
+    Update: I've written a new version of this post, as part of my <a href="/blog/laravel-beyond-crud">Laravel beyond CRUD</a> series. You can read it <a href="/blog/laravel-beyond-crud-08-view-models">here</a>. 
+</div>
+
 View models are an abstraction to simplify controller and model code.
 View models are responsible for providing data to a view, 
 which would otherwise come directly from the controller or the model.
@@ -81,7 +85,7 @@ Imagine we're using tags as mentioned before.
 They don't rely on the user. 
 Now we need to get the categories from the user model, and tags from somewhere else.
 
-I hope it's clear that using models as data providers for views also isn't the golden bullet.
+I hope it's clear that using models as data providers for views also isn't the silver bullet.
 
 In summary, wherever you try to get the categories from, 
 there always seems to be some code duplication.

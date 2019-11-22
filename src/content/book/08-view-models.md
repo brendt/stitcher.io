@@ -83,7 +83,7 @@ Imagine we're using tags as mentioned before.
 They don't rely on the user. 
 Now we need to get the categories from the user model, and tags from somewhere else.
 
-I hope it's clear that using models as data providers for views also isn't the golden bullet.
+I hope it's clear that using models as data providers for views also isn't the silver bullet.
 
 In summary, wherever you try to get the categories from, 
 there always seems to be some code duplication.
@@ -165,8 +165,8 @@ And finally, it can be used in the view like so:
 ## View models in Laravel
 
 The previous example showed a simple class with some methods as our view model.
-This is enough to use the pattern,
-but within Laravel projects, there are a few more niceties we can add.
+This is sufficient to use the pattern,
+but within Laravel projects there are a few more niceties we can add.
 
 For example, you can pass a view model directly to the `view` function if the view model implements `Arrayable`. 
 
@@ -233,7 +233,7 @@ class PostViewModel
 ```
 
 Finally, in this project we're working with Vue form components, which require JSON data.
-We've made an abstraction which provides this JSON data instead of objects or arrays, 
+We've made an abstraction that provides this JSON data instead of objects or arrays, 
 when calling the magic getter:
 
 ```php
@@ -312,10 +312,10 @@ Can you see them? Nope, of course not: view composers are registered somewhere i
 and you don't know which variables are available to the view, without that implicit knowledge.
 
 Now I *know* that this isn't a problem in small projects. 
-When you're the single developer and only have 20 controllers and maybe 20 view composers, 
+When you're the only developer and have 20 controllers and maybe 20 view composers, 
 it'll all fit in your head.
 
-But what about the kind of projects we're writing about in this series? When you're working with several developers, in a codebase that counts thousands upon thousands lines of code. It won't fit in your head anymore, not on that scale. 
+But what about the kind of projects we're writing about in this series? When you're working with several developers, in a codebase that counts thousands upon thousands lines of code. It won't fit in your head anymore, not on that scale; let alone your colleagues also having the same knowledge.
 That's why the view model pattern is the preferred approach. It makes clear from the controller itself what variables are available to the view. On top of that, you can re-use the same view model for multiple contexts. 
 
 One last benefit — one you might not have thought about —  

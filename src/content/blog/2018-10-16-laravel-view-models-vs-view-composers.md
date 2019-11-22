@@ -1,3 +1,7 @@
+<div class="author">
+    Update: I've written a new version of this post, as part of my <a href="/blog/laravel-beyond-crud">Laravel beyond CRUD</a> series. You can read it <a href="/blog/laravel-beyond-crud-08-view-models">here</a>. 
+</div>
+
 Last month I wrote about view models in Laravel. 
 I received a lot of good reactions on the post, but also the same question over and over again:
 how do view models differ from view composers in Laravel?
