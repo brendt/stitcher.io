@@ -1,6 +1,6 @@
 A new alpha release has arrived for Stitcher!
 
-This release brings a lot of optimizations and bugfixes to many parts of Stitcher. The biggest changes are found in `brendt/responsive-images`, in which a lot of bugfixes and extra options are added. Furthermore, there's one change reverted, namely the asynchronous support for image rendering. This functionality relied on several `amphp` development packages, and broke with almost every update. Async support might be readded in the future, but for now its disabled.
+This release brings a lot of optimizations and bugfixes to many parts of Stitcher. The biggest changes are found in `brendt/responsive-images`, in which a lot of bugfixes and extra options are added. Furthermore, there's one change reverted, namely the asynchronous support for image rendering. This functionality relied on several `amphp` development packages, and broke with almost every update. Async support might be re-added in the future, but for now it's disabled.
 
 One of the biggest new features is the support for custom htaccess headers and with that, HTTP2 server push! This feature has been added and is tested, but not yet used in any real projects. So there's more testing to do before declaring it "stable". You can use it in almost any template function by added the `push=true` parameter.
 

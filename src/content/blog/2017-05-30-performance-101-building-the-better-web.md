@@ -6,19 +6,19 @@ Without further ado, let's dive into the mystical subject of web performance. We
 
 ### Performance mindset
 
-If there's one thing you should take away from this post, it's the mindset every web developer should have. The industry builds tools, frameworks and systems to make the life of developers easier. All the while forgetting what web development actually is about. We're not making artisanal pieces of art anymore. (Maybe we never did?) We're generally aiming for fast development and quick results. We're forgetting about what matters in the end: the website and its visitors.
+If there's one thing you should take away from this post, it's the mindset every web developer should have. The industry builds tools, frameworks and systems to make the life of developers easier. All the while forgetting what web development actually is about. We're not making artisanal pieces of art anymore (maybe we never were?). We're generally aiming for fast development and quick results. We're forgetting about what matters in the end: the website and its visitors.
 
 This post is meant for people with that mindset; people who want to become the best developer they can be. Always pushing yourself to the next level for a better end result. If you're a web developer who relates to this, understanding performance is one of the most important pillars to build upon.
 
-That's it for the philosophical part of this post. Of course I'm completely ignoring the business side of the IT world. I'm not talking about money, time or scope here. I'm talking about improving your own development skills. So that you could use that knowledge and experience in spare time projects or for real clients and work. 
+That's it for the philosophical part of this post. Of course I'm completely ignoring the business side of the IT world. I'm not talking about money, time or scope here. I'm talking about improving your own development skills so that you could use that knowledge and experience in spare time projects or for real clients and work. 
 
 ### Web basics: HTML
 
-One of the key components to understand and improve web performance, is to know how the browser renders HTML. There's a lot more to it than you might think, and understanding these steps makes you reason completely different about your own code. Google has the best crash course on the topic: [https://developers.google.com/web/fundamentals/performance/](*https://developers.google.com/web/fundamentals/performance/), especially the "critical rendering path" opened my eyes.
+One of the key components to understand and improve web performance is to know how the browser renders HTML. There's a lot more to it than you might think, and understanding these steps makes you reason completely differently about your own code. Google has the best crash course on the topic: [https://developers.google.com/web/fundamentals/performance/](*https://developers.google.com/web/fundamentals/performance/), especially the "critical rendering path" section opened my eyes.
 
 Another important concept to understand is static HTML pages. In the end, they are what's served to the user. There's no need to generate pages on the fly, while the user is waiting to see the result. Dynamic websites abuse the user's time for the sake of easy development. Now I'm not saying dynamic websites are bad. What I do say is that every dynamic system should have the technology in place to exclude the dynamic phase from the request/response cycle. More on that topic later. If you're into real static websites, [https://staticgen.com](*https://www.staticgen.com/) is a good place to find the right tool for your needs.
 
-Moving on to responsive images. Possibly the number one optimisation when it comes to bandwidth usage. The responsive images spec is designed to address the issue of large images, or render blocking JavaScript workarounds. It's completely backwards compatible (I'm talking to you Edge), and has a good chance of improving your website's loading time: [https://responsiveimages.org](*https://responsiveimages.org/).
+Moving on to responsive images: possibly the number one optimisation when it comes to bandwidth usage. The responsive images spec is designed to address the issue of large images, or render blocking JavaScript workarounds. It's completely backwards compatible (I'm talking to you Edge), and has a good chance of improving your website's loading time: [https://responsiveimages.org](*https://responsiveimages.org/).
 
 ### Backend development
 
@@ -30,7 +30,7 @@ As a PHP developer, I'm used to the strict request/response lifecycle every PHP 
 
 Returning to the topic of caching, there's a lot that can be done server side. First of all there are caching headers which you should definitely implement: [https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control](*https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control).
 
-Second, you should serve content that's ready to be served. Use a CDN and Varnish in front of your real server. This way you're able to serve images, content pages, etc. immediately, while they were generated before. One of the dangers of using a so called "proxy" like Varnish is that many developers might see it as that "layer on top of your own application". In reality, you'll need to communicate a lot with Varnish from within your own application. You can read more about Varnish here: [https://varnish-cache.org](*https://varnish-cache.org/).
+Second, you should serve content that's ready to be served. Use a CDN and Varnish in front of your real server. This way you're able to serve images, content pages, etc. immediately, having been already generated before. One of the dangers of using a so called "proxy" like Varnish is that many developers might see it as that "layer on top of your own application". In reality, you'll need to communicate a lot with Varnish from within your own application. You can read more about Varnish here: [https://varnish-cache.org](*https://varnish-cache.org/).
 
 The benefit of your own server? It's **your server**. You have control over the resources used and available. Don't put extra load on the client, when you could let your server take care of it. This is of course a very simplified way of thinking about resources. But it's always possible to upgrade your server's hardware, when you have no control over the hardware clients are using.
 
