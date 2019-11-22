@@ -60,7 +60,7 @@ laravel-beyond-crud-07-entering-the-application-layer:
     title: "07. Entering the application layer"
     content: src/content/book/07-application-layer.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-08-view-models
     meta:
         description: "A blog series about managing larger Laravel projects"
 
