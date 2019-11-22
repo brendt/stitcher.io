@@ -2,9 +2,9 @@ Back in chapter 1, I stated that one of the characteristics of domain oriented L
 
 > […] most important is that you start thinking in groups of related business concepts, rather than in groups of code with the same technical properties.
 
-Group your code based on what it resembles in the real world, instead of its technical properties.
+In other words: group your code based on what it resembles in the real world, instead of its purpose in the code base.
 
-We also identified that domain groups and applications are two separate things. Moreover, applications can even use 
+I also wrote that domain- and application code are two separate things. Moreover, applications are allowed to use 
 several groups of the domain at once if they need to in exposing the domain functionality to the end user.
 
 But what exactly belongs in this application layer? How do we group code over there? These questions will be answered in this chapter. 
@@ -19,27 +19,27 @@ The first important thing to understand is that one project can have several app
 
 All of these can be thought of as separate applications, exposing and presenting the domain for their own unique use cases. In fact, I tend to think of the artisan console as just another one in this list: it's an application used by developers to work with and manipulate the project.
 
-Since we're in web development, your main focus will be within HTTP-related apps though. So what's included in them? Let's have a look:
+Since we're in web development, our main focus will probably be within HTTP-related apps though. So what's included in them? Let's have a look:
 
 - Controllers
 - Requests
-- Application-specific request validation
+- Application-specific validation rules
 - Middleware
 - Resources
 - ViewModels
 - QueryBuilders — the ones that [parse URL queries](*https://github.com/spatie/laravel-query-builder)
 
-I would even argue that blade views, JavaScript and CSS files belong within this same application. I realise this is a step too far for many people, but I at least wanted to mention it.
+I would even argue that blade views, JavaScript- and CSS files belong within an application, and shouldn't be put aside in a `resources` folder. I realise this is a step too far for many people, but I wanted to mention it, at least.
 
-Remember, an application's goal is to get the user's input, pass it to the domain and represent the output in a usable way back to the user. After several chapters deep in the domain code, it shouldn't be a surprise that most of the application code is merely structural, often boring code, passing data from one point to another.
+Remember, an application's goal is to get the user's input, pass it to the domain and represent the output in a usable way for the user. After several chapters deep in the domain code, it shouldn't be a surprise that most of the application code is merely structural, often boring code; passing data from one point to another.
 
-There's of course lots to tell about several of the things mentioned above: ViewModels, third party integrations, what about jobs?; we will tackle these subjects in future chapters, but for now we want to focus on the main ideas behind the application layer, and a general overview of them.
+Nevertheless there's lots to tell about several of the concepts mentioned above: ViewModels, third party integrations, what about jobs?; we will tackle these subjects in future chapters, but for now we want to focus on the main ideas behind the application layer, and a general overview of them.
 
 ## Structuring HTTP applications
 
 There's one very important point we need to discuss before moving on: how will an HTTP application generally be structured? Should we follow Laravel's conventions, or do we need to give it some more thought? 
 
-Since I'm dedicating a section of this chapter to this question, you can probably guess the answer. Let's look at what Laravel would recommend you doing by default though.
+Since I'm dedicating a section of a chapter to this question, you can probably guess the answer. So let's look at what Laravel would recommend you doing by default.
 
 ```php
 App/Admin
@@ -53,8 +53,7 @@ App/Admin
 └── ViewModels
 ```  
 
-This structure is fine in small projects, but honestly it doesn't scale well. To make this very clear, I decided to share the document structure of the admin application in one of our client projects. Obviously I can't reveal too much information about this project, so I blacked out most of the class names.
-
+This structure is fine in small projects, but honestly it doesn't scale well. To clarify what I mean by this, I'll show you the document structure of an admin application in one of our client projects. Obviously I can't reveal too much information about this project, so I blacked out most of the class names.
 Since we've been using invoicing as the example throughout this series though, I highlighted some invoice related classes within the admin application. Have a look.
  
 Oh and, happy scrolling! 
@@ -549,9 +548,11 @@ App/Admin
     └── <hljs textgrey>█████████████████</hljs>.php
 ```
 
-I'm not kidding - this is what one of our projects actually looked like after a year and a half of development. And keep in mind that this is _only_ the admin application code, it doesn't include anything domain related.
+Hi again!
 
-So what's the problem here? The same as what we started with: we're grouping our code based on technical properties, instead of their real-world meaning: controllers, filters, middleware, queries, requests, resources and view models.
+That was quite a lot to scroll through. I'm not kidding though - this is what one of our projects actually looked like after a year and a half of development. And keep in mind that this is _only_ the admin application code, it doesn't include anything domain related.
+
+So what is the core problem here? It's actually the same as with our domain code back in chapter 1: we're grouping our code based on technical properties, instead of their real-world meaning; controllers with controllers, requests with requests, view models with view models, and so on.
 
 Once again a concept like invoices is spread across multiple directories, and mixed with dozens of other classes. Even with the best IDE support, it's very difficult to wrap your head around the application as a whole and there's no way to get a general overview of what's happening.
 
