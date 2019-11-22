@@ -18,7 +18,7 @@ We actually have experience with this process in practice: having worked with a 
 
 The architecture was new to him, even if he had experience with Laravel before. So we took the time to guide him through. After only a few hours of briefing and pair programming, he was already able to work in this project independently. It definitely took several weeks to get a thorough understanding of the scope of the project, but fortunately the architecture didn't stand in his way — on the contrary: it helped Ruben to focus on the business logic instead.
 
-If you made it until this point in the blog series, I hope that you understand that this architecture is not meant to be the golden bullet for every project. There are many cases where a simpler approach could work better, and some cases where a more complex approach is required.
+If you made it until this point in the blog series, I hope that you understand that this architecture is not meant to be the silver bullet for every project. There are many cases where a simpler approach could work better, and some cases where a more complex approach is required.
 
 ## Identifying domains
 
