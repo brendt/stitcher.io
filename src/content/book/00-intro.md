@@ -6,7 +6,7 @@
 - [05. Models with the state pattern](/blog/laravel-beyond-crud-05-states)
 - [06. Managing Domains](/blog/laravel-beyond-crud-06-managing-domains)
 - [07. Entering the application layer](/blog/laravel-beyond-crud-07-entering-the-application-layer)
-- <span>08. View models</span>
+- [08. View models](/blog/laravel-beyond-crud-08-view-models)
 - More chapters are in the making
 
 {{ ad:carbon }}
