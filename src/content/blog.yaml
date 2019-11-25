@@ -1,9 +1,18 @@
+laravel-beyond-crud-07-entering-the-application-layer:
+    date: 2019-11-22
+    title: "07. Entering the application layer"
+    content: src/content/book/07-application-layer.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+
 laravel-beyond-crud-06-managing-domains:
     date: 2019-11-17
     title: "06. Managing domains"
     content: src/content/book/06-managing-domains.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-07-entering-the-application-layer
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:

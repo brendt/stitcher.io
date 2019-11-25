@@ -150,8 +150,24 @@ $color-purple: #9d3af6;
         background-color: #fdd;
     }
 
+    &.purple {
+        background-color: #fdf;
+    }
+
+    &.cyan {
+        background-color: #aef4db;
+    }
+
+    &.darkblue {
+        background-color: #ddf;
+    }
+
     &.green {
         background-color: #dfd;
+    }
+
+    &.grey {
+        background-color: #ddd;
     }
 
     &.textgrey {
