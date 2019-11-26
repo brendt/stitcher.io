@@ -16,10 +16,16 @@
         {% include '_partials/header_links.twig' %}
     </header>
 
+    {% if intro is defined %}
+        <article>
+            {{ intro|raw }}
+        </article>
+    {% endif %}
+
     <div class="wrapper">
         <nav class="overview">
             {% for post in posts %}
-                <a href="/blog/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
+                <a href="/blog/{{ post.id }}">
                     {% if post.title is defined %}
                         <h1>
                             {{ post.title }}
