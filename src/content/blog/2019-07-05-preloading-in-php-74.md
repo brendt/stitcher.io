@@ -208,7 +208,7 @@ class Preloader
 }
 ```
 
-By adding this class in the same preload script, we're now able to load the whole Laravel framework like some:
+By adding this class in the same preload script, we're now able to load the whole Laravel framework like so:
 
 ```php
 // …
