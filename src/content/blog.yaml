@@ -1,3 +1,13 @@
+new-in-php-74:
+    date: 2019-11-26
+    title: "What's new in PHP 7.4"
+    highlight: true
+    disableTitle: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
+    meta:
+        description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
+
 preloading-in-php-74:
     date: 2019-11-25
     title: Preloading in PHP 7.4
@@ -5,6 +15,23 @@ preloading-in-php-74:
     next: new-in-php-74
     meta:
         description: Preloading allows for parsed PHP files to be available for all requests
+
+short-closures-in-php:
+    date: 2019-11-24
+    title: Arrow functions in PHP 7.4
+    content: src/content/blog/2019-05-02-short-closures-in-php.md
+    next: new-in-php-74
+    meta:
+        description: "Short closures, also called arrow functions, are available in PHP 7.4"
+
+typed-properties-in-php-74:
+    date: 2019-11-23
+    title: Typed properties in PHP 7.4
+    content: src/content/blog/2019-06-30-typed-properties.md
+    next: new-in-php-74
+    meta:
+        description: "PHP 7.4 adds typed properties to classes"
+    disableMetaDescription: true
 
 laravel-beyond-crud-07-entering-the-application-layer:
     date: 2019-11-22
@@ -148,16 +175,6 @@ laravel-beyond-crud:
     meta:
         description: "A blog series about managing larger Laravel projects"
 
-new-in-php-74:
-    date: 2019-10-15
-    title: "What's new in PHP 7.4"
-    highlight: true
-    disableTitle: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: new-in-php-73
-    meta:
-        description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
-
 guest-posts:
     date: 2019-09-16
     title: Guest posts
@@ -188,15 +205,6 @@ things-dependency-injection-is-not-about:
     content: src/content/blog/2019-07-30-things-dependency-injection-is-not-about.md
     meta:
         description: ""
-
-typed-properties-in-php-74:
-    date: 2019-06-13
-    title: Typed properties in PHP 7.4
-    content: src/content/blog/2019-06-30-typed-properties.md
-    next: new-in-php-74
-    meta:
-        description: "PHP 7.4 adds typed properties to classes"
-    disableMetaDescription: true
 
 tests-and-types:
     date: 2019-06-07
@@ -257,14 +265,6 @@ solid-interfaces-and-final-rant-with-brent:
     next: new-in-php-74
     meta:
         description: "A podcast, sort of."
-
-short-closures-in-php:
-    date: 2019-05-01
-    title: Arrow functions in PHP
-    content: src/content/blog/2019-05-02-short-closures-in-php.md
-    next: new-in-php-74
-    meta:
-        description: "Short closures, also called arrow functions, are available in PHP 7.4"
 
 starting-a-newsletter:
     date: 2019-04-26
