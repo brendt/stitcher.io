@@ -10,7 +10,7 @@ new-in-php-74:
         description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
 
 preloading-in-php-74:
-    date: 2019-11-25
+    date: 2019-07-05
     title: Preloading in PHP 7.4
     content: src/content/blog/2019-07-05-preloading-in-php-74.md
     next: new-in-php-74
@@ -19,7 +19,7 @@ preloading-in-php-74:
         description: Preloading allows for parsed PHP files to be available for all requests
 
 short-closures-in-php:
-    date: 2019-11-24
+    date: 2019-05-02
     title: Arrow functions in PHP 7.4
     content: src/content/blog/2019-05-02-short-closures-in-php.md
     next: new-in-php-74
@@ -28,7 +28,7 @@ short-closures-in-php:
         description: "Short closures, also called arrow functions, are available in PHP 7.4"
 
 typed-properties-in-php-74:
-    date: 2019-11-23
+    date: 2019-06-30
     title: Typed properties in PHP 7.4
     content: src/content/blog/2019-06-30-typed-properties.md
     next: new-in-php-74
