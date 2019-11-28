@@ -81,7 +81,7 @@ foreach ($files as $file) {
 
 There are some caveats still. If you're trying to preload Laravel for example, there are some classes within the framework that have dependencies on other classes that don't exist yet. For example, the filesystem cache class `\Illuminate\Filesystem\Cache` has a dependency on `\League\Flysystem\Cached\Storage\AbstractCache`, which might not be installed in your project if you're never using filesystem caches. 
 
-This can that you might run into "class not found" errors trying to preload everything. Luckily, in a default Laravel installation, there's only a handful of these classes, which can easily be ignored.
+You might run into "class not found" errors trying to preload everything. Luckily, in a default Laravel installation, there's only a handful of these classes, which can easily be ignored.
 For convenience, I wrote a little [preloader class](*https://github.com/brendt/laravel-preload/blob/master/preload.php) to make ignoring files more easy, here's what it looks like:
 
 ```php
