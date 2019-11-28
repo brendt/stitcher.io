@@ -1,3 +1,12 @@
+php-74-upgrade-mac:
+    date: 2019-11-28
+    title: Upgrade to PHP 7.4 with Homebrew on Mac
+    content: src/content/blog/2019-11-28-php-74-upgrade-mac.md
+    next: new-in-php-74
+    tag: php-74
+    meta:
+        description: "How to upgrade to PHP 7.4 on a Mac with Homebrew"
+
 new-in-php-74:
     date: 2019-11-26
     title: "What's new in PHP 7.4"
@@ -310,7 +319,7 @@ php-73-upgrade-mac:
     content: src/content/blog/2019-03-21-php-73-upgrade-mac.md
     next: new-in-php-73
     meta:
-        description: "How to upgrade your PHP installation on a Mac with Homebrew"
+        description: "How to upgrade to PHP 7.3 on a Mac with Homebrew"
 
 laravel-queueable-actions:
     date: 2019-03-11
