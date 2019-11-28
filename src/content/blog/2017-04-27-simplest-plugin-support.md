@@ -2,7 +2,7 @@
 
 In this post, you'll read about Stitcher's plugin system. It might get a bit technical, but is definitely worth the read.
 
-Stitcher plugins are built on top of two powerful components, which already exist in many modern projects.
+Stitcher plugins are built on top of two powerful components which already exist in many modern projects.
 
 - Composer's auto loading
 - Symfony's service container
@@ -25,7 +25,7 @@ MyPlugin/
 	└── README.md
 ```
 
-The only requirement for a package to be "a plugin" is a class implementing the `Brendt\Stitcher\Plugin\Plugin` interface. In this example, that would be `My\MyPlugin`. When this class can be auto loaded with composer, your plugin is ready!
+The only requirement for a package to be "a plugin" is a class implementing the `Brendt\Stitcher\Plugin\Plugin` interface. In this example, that would be `My\MyPlugin`. When this class can be autoloaded with composer, your plugin is ready!
 
 ### Plugin interface
 

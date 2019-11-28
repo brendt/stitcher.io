@@ -10,7 +10,7 @@ Now imagine you've got many visitors on your website, each of them visiting the 
 
 Evidently, caching is way more than what I just described. My try at a general definition for caching on the web would be something like this.
 
-> Once a resource instensive operation is done, remember the outcome. The next time the same operation is requested, you can just give the result instead of doing that operation again.
+> Once a resource intensive operation is done, remember the outcome. The next time the same operation is requested, you can just give the result instead of doing that operation again.
 
 Caching is a very powerful tool which **wraps around** your system, enabling it to be much more performant.
 
@@ -33,7 +33,7 @@ Some important things are still missing in Stitcher though.
 - Frontend filtering of data sets: technically this is possible, but it might have huge performance costs depending on the amount of filters. I will be working on it in the future though.
 - Content management: this is also possible, but not from within Stitcher's core. It would be a separate module acting as a client to modify a Stitcher project.
 
-To be clear: I don't think static site generators are the best solution for all websites. But there are lots of cases which could benifit from using a static site generator over of a dynamic system and caching. I view many caching systems as like putting a bandaid on top of a wound, but not *stitching* the wound (pun intended). Don't forget that clearing caches is one of the most difficult parts of software development. But we should also be realistic: the static website approach mainly targets small to medium websites, not complex web applications.
+To be clear: I don't think static site generators are the best solution for all websites. But there are lots of cases which could benesfit from using a static site generator over of a dynamic system and caching. I view many caching systems as like putting a bandaid on top of a wound, but not *stitching* the wound (pun intended). Don't forget that clearing caches is one of the most difficult parts of software development. But we should also be realistic: the static website approach mainly targets small to medium websites, not complex web applications.
 
 So if you want to give it a go, be sure to check out a static site generator, there are many!
 

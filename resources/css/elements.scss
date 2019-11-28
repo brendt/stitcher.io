@@ -59,6 +59,7 @@ h2, h3 {
         position:relative;
         top:-4px;
 
+        a:visited,
         a {
             color: inherit;
             text-decoration: none;
@@ -271,6 +272,7 @@ footer > p {
     }
 }
 
+a:visited,
 a {
     color: #000;
     text-decoration: underline;

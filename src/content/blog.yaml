@@ -1,9 +1,66 @@
+php-74-upgrade-mac:
+    date: 2019-11-28
+    title: Upgrade to PHP 7.4 with Homebrew on Mac
+    content: src/content/blog/2019-11-28-php-74-upgrade-mac.md
+    next: new-in-php-74
+    tag: php-74
+    meta:
+        description: "How to upgrade to PHP 7.4 on a Mac with Homebrew"
+
+new-in-php-74:
+    date: 2019-11-26
+    title: "What's new in PHP 7.4"
+    highlight: true
+    disableTitle: true
+    content: src/content/blog/2019-01-01-new-in-php-74.md
+    next: new-in-php-73
+    tag: php-74
+    meta:
+        description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
+
+preloading-in-php-74:
+    date: 2019-07-05
+    title: Preloading in PHP 7.4
+    content: src/content/blog/2019-07-05-preloading-in-php-74.md
+    next: new-in-php-74
+    tag: php-74
+    meta:
+        description: Preloading allows for parsed PHP files to be available for all requests
+
+short-closures-in-php:
+    date: 2019-05-02
+    title: Arrow functions in PHP 7.4
+    content: src/content/blog/2019-05-02-short-closures-in-php.md
+    next: new-in-php-74
+    tag: php-74
+    meta:
+        description: "Short closures, also called arrow functions, are available in PHP 7.4"
+
+typed-properties-in-php-74:
+    date: 2019-06-30
+    title: Typed properties in PHP 7.4
+    content: src/content/blog/2019-06-30-typed-properties.md
+    next: new-in-php-74
+    tag: php-74
+    meta:
+        description: "PHP 7.4 adds typed properties to classes"
+    disableMetaDescription: true
+
+laravel-beyond-crud-07-entering-the-application-layer:
+    date: 2019-11-22
+    title: "07. Entering the application layer"
+    content: src/content/book/07-application-layer.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+
 laravel-beyond-crud-06-managing-domains:
     date: 2019-11-17
     title: "06. Managing domains"
     content: src/content/book/06-managing-domains.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-07-entering-the-application-layer
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
@@ -11,6 +68,8 @@ laravel-beyond-crud-06-managing-domains:
           title: Freek gets started with domain oriented Laravel
         - link: https://schlein.net/blog/stick-to-the-default
           title: Sebastian Schlein voices his concerns about the architecture I discuss in this blog series
+        - link: https://basecamp.com/shapeup/0.3-chapter-01
+          title: An online book about Basecamp's approach to product management
 
 laravel-beyond-crud-05-states:
     date: 2019-11-16
@@ -129,16 +188,6 @@ laravel-beyond-crud:
     meta:
         description: "A blog series about managing larger Laravel projects"
 
-new-in-php-74:
-    date: 2019-10-15
-    title: "What's new in PHP 7.4"
-    highlight: true
-    disableTitle: true
-    content: src/content/blog/2019-01-01-new-in-php-74.md
-    next: new-in-php-73
-    meta:
-        description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
-
 guest-posts:
     date: 2019-09-16
     title: Guest posts
@@ -169,23 +218,6 @@ things-dependency-injection-is-not-about:
     content: src/content/blog/2019-07-30-things-dependency-injection-is-not-about.md
     meta:
         description: ""
-
-preloading-in-php-74:
-    date: 2019-07-04
-    title: Preloading in PHP 7.4
-    content: src/content/blog/2019-07-05-preloading-in-php-74.md
-    next: new-in-php-74
-    meta:
-        description: Preloading allows for parsed PHP files to be available for all requests
-
-typed-properties-in-php-74:
-    date: 2019-06-13
-    title: Typed properties in PHP 7.4
-    content: src/content/blog/2019-06-30-typed-properties.md
-    next: new-in-php-74
-    meta:
-        description: "PHP 7.4 adds typed properties to classes"
-    disableMetaDescription: true
 
 tests-and-types:
     date: 2019-06-07
@@ -247,14 +279,6 @@ solid-interfaces-and-final-rant-with-brent:
     meta:
         description: "A podcast, sort of."
 
-short-closures-in-php:
-    date: 2019-05-01
-    title: Arrow functions in PHP
-    content: src/content/blog/2019-05-02-short-closures-in-php.md
-    next: new-in-php-74
-    meta:
-        description: "Short closures, also called arrow functions, are available in PHP 7.4"
-
 starting-a-newsletter:
     date: 2019-04-26
     title: "I'm starting a newsletter"
@@ -295,7 +319,7 @@ php-73-upgrade-mac:
     content: src/content/blog/2019-03-21-php-73-upgrade-mac.md
     next: new-in-php-73
     meta:
-        description: "How to upgrade your PHP installation on a Mac with Homebrew"
+        description: "How to upgrade to PHP 7.3 on a Mac with Homebrew"
 
 laravel-queueable-actions:
     date: 2019-03-11

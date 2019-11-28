@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9968701b1bdb23804678ea7075c7715a",
+    "content-hash": "06be269ef09982616b9b39f055bcbf61",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -35,6 +35,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
+            "abandoned": "psr/container",
             "time": "2017-02-14T19:40:03+00:00"
         },
         {
@@ -914,16 +915,16 @@
         },
         {
             "name": "pageon/stitcher-core",
-            "version": "dev-master",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "ce753558dc269e11d3b3fbdbba0f7e4b6bf3d665"
+                "reference": "c149f5c5ff420c459a875795558f9394ea29d298"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/ce753558dc269e11d3b3fbdbba0f7e4b6bf3d665",
-                "reference": "ce753558dc269e11d3b3fbdbba0f7e4b6bf3d665",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/c149f5c5ff420c459a875795558f9394ea29d298",
+                "reference": "c149f5c5ff420c459a875795558f9394ea29d298",
                 "shasum": ""
             },
             "require": {
@@ -959,7 +960,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "description": "Static website generator in PHP",
-            "time": "2019-11-05T07:31:25+00:00"
+            "time": "2019-11-25T14:19:16+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -2425,9 +2426,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "pageon/stitcher-core": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

@@ -30,7 +30,7 @@ class Invoice extends Model
         }
     
         if ($this->state-><hljs prop>equals</hljs>(<hljs type>InvoiceState</hljs>::<hljs prop>PAID</hljs>())) {
-            return 'green'
+            return 'green';
         }
 
         return 'gray';
@@ -92,7 +92,7 @@ class InvoiceState extends Enum
 }
 ```
 
-Whatever approach you prefer, in essence you're listing all available options, check if one of them matches the current one, and do something based on the outcome. It's a big if/else statement, whatever syntactic sugar you prefer.
+Whatever approach you prefer, in essence you're listing all available options, checking if one of them matches the current one, and doing something based on the outcome. It's a big if/else statement, whichever syntactic sugar you prefer.
 
 Using this approach, we add a responsibility, either to the model or the enum class: _it_ has to know what a specific state should do, _it_ has to know how a state works. The state pattern turns this the other way around: it treats "a state" as a first-class citizen of our codebase. Every state is represented by a separate class, and each of these classes _acts_ upon a subject.
 
@@ -144,7 +144,7 @@ class InvoiceStateTest extends TestCase
 }
 ```
 
-Second, you should note that colours is a naive example used to explain the pattern. You might as well have complexer business logic encapsulated by a state. Take this example: must an invoice be paid? This of course depends on the state, whether it was already paid or not, but might as well depend on the type of invoice we're dealing with. Say our system supports credit notes which don't have to be paid, or it allows for invoices with a price of 0. This business logic can be encapsulated by the state classes. 
+Second, you should note that colours is a naive example used to explain the pattern. You might as well have more complex business logic encapsulated by a state. Take this example: must an invoice be paid? This of course depends on the state, whether it was already paid or not, but might as well depend on the type of invoice we're dealing with. Say our system supports credit notes which don't have to be paid, or it allows for invoices with a price of 0. This business logic can be encapsulated by the state classes. 
 
 There's one thing missing to make this functionality work though: we need to be able to look at the model from within our state class, if we're going to decide whether or not that invoice must be paid. This is why we have our abstract `InvoiceState` parent class; let's add the required methods over there.
 
@@ -207,13 +207,13 @@ class Invoice extends Model
 }
 ```
 
-Finally, in the database we can save the concrete model state class in the `state_class` field and we're done. Obviously doing this mapping manually, saving and loading from and to the database gets tedious very quickly. That's why I wrote [a package](*https://github.com/spatie/laravel-model-states) which takes care of all the grunt work for you.
+Finally, in the database we can save the concrete model state class in the `state_class` field and we're done. Obviously doing this mapping manually (saving and loading from and to the database) gets tedious very quickly. That's why I wrote [a package](*https://github.com/spatie/laravel-model-states) which takes care of all the grunt work for you.
 
-State-specific behaviour, in other words "the state pattern", is only half of the solution though, we still need to handle transitioning the invoice state from one to another, and ensuring only specific states may transition to others. So let's look at state transitions.
+State-specific behaviour, in other words "the state pattern", is only half of the solution though; we still need to handle transitioning the invoice state from one to another, and ensuring only specific states may transition to others. So let's look at state transitions.
 
 ## Transitions
 
-Remember how I talked about moving business logic away from models, and only allowing them to provide data in a workable way from the database? The same thinking can be applied to states and transitions. We should avoid side effects when using states, things like making changes in the database, sending mails, etc. States should be used to _read_ or provide data. Transitions on the other hand don't provide anything, rather they make sure our model state is correctly transitioned form one to another, hence: side effects.
+Remember how I talked about moving business logic away from models, and only allowing them to provide data in a workable way from the database? The same thinking can be applied to states and transitions. We should avoid side effects when using states, things like making changes in the database, sending mails, etc. States should be used to _read_ or provide data. Transitions on the other hand don't provide anything. Rather, they make sure our model state is correctly transitioned from one to another leading to acceptable side effects.
 
 Splitting these two concerns in separate classes gives us the same advantages I wrote about again and again: better testability and reduced cognitive load. Allowing a class to only have one responsibility makes it easier to split a complex problem into several easy-to-grasp bits. 
 
@@ -242,11 +242,11 @@ Again there are many things you can do with this basic pattern:
 - Transition a state directly to another one, by using a transition class under the hood
 - Automatically determine what state to transition to based on a set of parameters
 
-Again the package I mentioned before adds support for transitions, as well as basic transition management. If want complex state machines though, you might want to look at other packages. I listed an example in the footnotes below. 
+Again the package I mentioned before adds support for transitions, as well as basic transition management. If you want complex state machines though, you might want to look at other packages. I listed an example in the footnotes below. 
 
 ## States without transitions
 
-When we think of "state", we often think they can not exist without transitions. However, that's not true: an object can have a state that never changes, transitions aren't required to apply the state pattern. Why is this important? Well, take a look again at our `PendingInvoiceState::mustBePaid` implementation:
+When we think of "state", we often think they cannot exist without transitions. However, that's not true: an object can have a state that never changes and transitions aren't required to apply the state pattern. Why is this important? Well, take a look again at our `PendingInvoiceState::mustBePaid` implementation:
 
 ```php
 class PendingInvoiceState extends InvoiceState
