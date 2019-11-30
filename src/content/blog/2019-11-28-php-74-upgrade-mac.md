@@ -2,10 +2,6 @@
 
 ## Upgrading with Homebrew
 
-<div class="author">
-Right now, Homebrew hasn't released its PHP 7.4 version yet, but it'll be here <a href="https://github.com/Homebrew/homebrew-core/pull/47289" target="_blank" rel="noopener noreferrer">soon</a>. 
-</div>
-
 Start by making sure brew is up-to-date:
 
 ```bash
