@@ -46,7 +46,7 @@ you need some extra steps in order for the web server to properly work.
 ## Valet
 
 <div class="author">
-Right now, Valet still doesn't officially support PHP 7.4 yet. You can add [a simply fix](*https://github.com/laravel/valet/issues/848) though
+Right now, Valet still doesn't officially support PHP 7.4 yet. There's <a href="https://github.com/laravel/valet/issues/848" target="_blank" rel="noopener noreferrer">a simply fix</a> though.
 </div>
 
 If you're using Laravel Valet, you should do the following steps to upgrade it:
