@@ -119,7 +119,7 @@ php -i | grep redis
 ```
 
 ```php
-<hljs type>var_dump</hljs>(<hljs type>extension_loaded</hljs>('redis'));
+<hljs prop>var_dump</hljs>(<hljs prop>extension_loaded</hljs>('redis'));
 ```
 
 If extensions aren't properly loaded, there are two easy fixes.
