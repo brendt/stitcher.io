@@ -119,7 +119,7 @@ Let's name a few key features of such a class:
 - All dependencies are injected, this gives the most flexibility to the outside context.
 - The view model exposes some methods that can be used by the view.
 - There will either be a new or existing post provided by the `post` method, 
-depending on whether your creating or editing a post.
+depending on whether you are creating or editing a post.
 
 This is what the controller looks like:
 
