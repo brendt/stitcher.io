@@ -225,6 +225,10 @@ By adding this class in the same preload script, we're now able to load the whol
     -><hljs prop>load</hljs>();
 ```
 
+<div class="author">
+At the moment, there's <a href="https://bugs.php.net/bug.php?id=78918" target="_blank">a bug</a> in the core which prevents <code>require_once</code> from working correctly. Let's hope it'll get fixed soon.
+</div>
+
 ## Does it work?
 
 That's of course the most important question: were all files correctly loaded? You can simply test it by restarting the server, and dump the output of `opcache_get_status()` in a PHP script. You'll see it has a key called `preload_statistics`, which will list all preloaded functions, classes and scripts; as well as the memory consumed by the preloaded files.
