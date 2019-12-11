@@ -30,7 +30,7 @@
 
     <article class="blog">
         <aside>
-            &laquo; <a href="/">back</a> — written by <a href="{{ post.author.url ?? 'https://twitter.com/brendt_gd' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name ?? 'Brent' }}</a> on {{ post.date|date("F d, Y") }}
+            &laquo; <a href="/">back</a> — written by <a href="{{ post.author.url ?? 'https://twitter.com/brendt_gd' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name ?? 'Brent' }}</a> on&nbsp;{{ post.date|date("F d, Y") }}
         </aside>
 
         {% if post.disableTitle is not defined %}
