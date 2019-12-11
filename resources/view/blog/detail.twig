@@ -89,11 +89,11 @@
                 </a>
             {% elseif post.next.id is defined %}
                 <a class="cta" href="/blog/{{ post.next.id }}">
-                    Next up: {{ post.next.title }}
+                    Next up:&nbsp; {{ post.next.title }}
                 </a>
             {% elseif _browse.next is defined %}
                 <a class="cta" href="/blog/{{ _browse.next.id }}">
-                    Next up:
+                    Next up:&nbsp;
                     {% if _browse.next.teaserTitle is defined %}
                         {{ _browse.next.teaserTitle }}
                     {% else %}
