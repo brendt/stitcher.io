@@ -2,7 +2,8 @@
     "require": {
         "pageon/stitcher-core": "^1.0.3",
         "spatie/commonmark-highlighter": "^1.0",
-        "illuminate/support": "~5.7.0"
+        "illuminate/support": "~5.7.0",
+        "twig/twig":"^2.8.0"
     },
     "require-dev": {
         "larapack/dd": "^1.1"

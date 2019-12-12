@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     {% block head %}
-        <title>{% if title is defined %}{{ title }} - {% elseif meta.title is defined %}{{ meta.title }} - {% endif %}stitcher.io</title>
+        <title>{%~ if title is defined %}{{ title }} - {% elseif meta.title is defined %}{{ meta.title }} - {% endif ~%}stitcher.io</title>
 
         {% block meta %}
             {% if _meta is defined %}
