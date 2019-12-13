@@ -50,8 +50,7 @@ with the exception of only allowing one expression.
 
 ## No multi-line
 
-You read it right: short closures can only have _one_ expression. 
-This means you cannot have multiple lines in them.
+You read it right: short closures can only have _one_ expression; that one expression may be spread over multiple lines for formatting, but it must always be one expression. 
 
 The reasoning is as follows: the goal of short closures is to reduce verbosity. 
 `fn` is of course shorter than `function` in all cases.
