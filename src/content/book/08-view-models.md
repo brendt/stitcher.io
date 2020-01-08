@@ -303,7 +303,7 @@ class ProfileController
 {
     public function index()
     {
-        return new <hljs prop>view</hljs>('profile');
+        return <hljs prop>view</hljs>('profile');
     }
 }
 ```
