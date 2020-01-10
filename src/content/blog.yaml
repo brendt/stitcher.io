@@ -1,3 +1,12 @@
+php-preload-benchmarks:
+    date: 2020-01-10
+    title: "Preloading benchmarks in PHP 7.4"
+    content: src/content/blog/2020-01-10-preload-benchmark.md
+    book: true
+    next: new-in-php-74
+    meta:
+        description: "Some benchmarks with the new preloading feature in PHP 7.4"
+
 laravel-beyond-crud-08-view-models:
     date: 2019-12-07
     title: "08. View models"
