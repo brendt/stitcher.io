@@ -86,9 +86,13 @@ Another approach could be to monitor which classes are loaded how many times ove
 
 Who doesn't like a graph or two when it comes to benchmarks? Let's compare the amount of requests per second, more is better:
 
+### Requests per second
+
 ![](/resources/img/blog/preload/requests_per_second.svg)
 
 And also let's compare the response time per request, in which case less is better.
+
+### Time per request
 
 ![](/resources/img/blog/preload/time_per_request.svg)
 
