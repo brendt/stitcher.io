@@ -84,11 +84,13 @@ Another approach could be to monitor which classes are loaded how many times ove
 
 ## In summary
 
-Who doesn't like a graph when it comes to benchmarks? Let's compare the amount of requests per second and time per request for all three scenarios.
+Who doesn't like a graph or two when it comes to benchmarks? Let's compare the amount of requests per second, more is better:
 
-![](/resources/img/blog/preload/preload-1.svg)
+![](/resources/img/blog/preload/requests_per_second.svg)
 
-Keep in mind that in case of requests per second, more is better. In case of time per request, less is better.
+And also let's compare the response time per request, in which case less is better.
+
+![](/resources/img/blog/preload/time_per_request.svg)
 
 I think it's safe to say that preloading, even with a naive approach; will have a positive performance impact, also on real-life projects built upon a full-blown framework.
 
