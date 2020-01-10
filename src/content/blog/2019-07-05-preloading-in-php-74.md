@@ -252,6 +252,7 @@ Also remember you'll need to restart the server (`php-fpm` is sufficient if you'
 Now to the most important question: does preloading actually improve performance?
 
 The answer is yes, of course: Ben Morel shared some benchmarks, which can be found in the same [composer issue](*https://github.com/composer/composer/issues/7777#issuecomment-440268416) linked to earlier.
+I also did my own benchmarks within a real-life Laravel project. You can read about them [here](*/blog/php-preload-benchmarks).
 
 Interestingly enough, you could decide to only preload "hot classes" — classes that are used often in your codebase. Ben's benchmarks shows that only loading around 100 hot classes, actually yields better performance gains than preloading everything. It's a difference of a 13% and 17% performance increase.
 
