@@ -15,7 +15,7 @@ Let's set the stage.
 
 Since I don't want to measure how much exactly will be gained by using preloading or not, I decided to run these benchmarks on my local machine, using Apache Bench. I'll be sending 5000 requests, with 50 concurrent requests at a time.
 
- The webserver is nginx, using php-fpm. Because there are [some bugs](*https://bugs.php.net/bug.php?id=78918) in early versions of preloading, we're only possible to run our benchmarks as early as PHP 7.4.2, which is not released yet. I've used a dev build for all my testing. 
+ The webserver is nginx, using php-fpm. Because there are [some bugs](*https://bugs.php.net/bug.php?id=78918) in early versions of preloading, we're only able to successfully run our benchmarks as early as PHP 7.4.2, which is not released yet. I've used a dev build for all my testing. 
 
 The project itself is built in Laravel, and it's code (including the preload script) can be found [on GitHub](*https://github.com/brendt/aggregate.stitcher.io).
 
