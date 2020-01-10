@@ -5,11 +5,11 @@ Because I want to know whether preloading will have a practical impact on my pro
 
 This project is a Laravel project, and will obviously do some database calls, view rendering etc. I want to make clear that these benchmarks don't tell anything about the performance of Laravel projects, they *only* measure the relative performance gains preloading could offer.
 
-Let me repeat that again, just to make sure no one draws wrong conclusions from these results: my benchmarks will *only* measure whether preloading has a relative performance impact compared to not using it. These benchmarks say nothing about how much performance impact can be measured, as this will depend on several variables: server load, the code being executed, what page you're on, etc.
-
-{{ ad:carbon }}
+Let me repeat that again, just to make sure no one draws wrong conclusions from these results: my benchmarks will *only* measure whether preloading has a relative performance impact compared to not using it. These benchmarks say nothing about how much performance gain there is. This will depend on several variables: server load, the code being executed, what page you're on, etc.
 
 Let's set the stage.
+
+{{ ad:carbon }}
 
 ## Setup
 
