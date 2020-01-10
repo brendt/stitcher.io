@@ -17,7 +17,7 @@ Since I don't want to measure how much exactly will be gained by using preloadin
 
  The webserver is nginx, using php-fpm. Because there are [some bugs](*https://bugs.php.net/bug.php?id=78918) in early versions of preloading, we're only able to successfully run our benchmarks as early as PHP 7.4.2, which is not released yet. I've used a dev build for all my testing. 
 
-The project itself is built in Laravel, and it's code (including the preload script) can be found [on GitHub](*https://github.com/brendt/aggregate.stitcher.io).
+The project itself is built in Laravel, and its code (including the preload script) can be found [on GitHub](*https://github.com/brendt/aggregate.stitcher.io).
 
 Finally, I'll be benchmarking three scenarios: one with preloading disabled, one with all Laravel and application code preloaded, and one with an optimised list of preloaded classes. I'll explain these scenarios one by one.
 
