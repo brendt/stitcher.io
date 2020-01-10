@@ -67,7 +67,7 @@ Finally we want to compare the performance gain when we're using an optimised pr
 <hljs prop>get_declared_classes</hljs>();
 ```
 
-Next, I only preloaded these classes, 427 in total. Together with all their dependencies this makes for 643 classes and 1034 being preloaded, occupying about 11.76 MB of memory.
+Next, I only preloaded these classes, 427 in total. Together with all their dependencies this makes for 643 classes and 1034 functions being preloaded, occupying about 11.76 MB of memory.
 
 These are the benchmark results for this setup:
 
