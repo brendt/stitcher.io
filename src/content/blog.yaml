@@ -1,3 +1,13 @@
+new-in-php-8:
+    date: 2020-01-16
+    title: "New in PHP 8"
+    content: src/content/blog/2020-01-16-new-in-php-8.md
+    next: new-in-php-74
+    highlight: true
+    meta:
+        description: "New features, deprecations and improvements in PHP 8"
+    tag: php-8
+
 php-preload-benchmarks:
     date: 2020-01-10
     title: "Preloading benchmarks in PHP 7.4"
