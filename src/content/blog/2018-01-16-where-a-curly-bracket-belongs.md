@@ -18,7 +18,7 @@ because there's little to no discussion about the closing one.
 Let's take a look at a code sample.
 
 ```php
-public function __construct(string $publicDirectory, string $configurationFile, PageParser $pageParser, PageRenderer $pageRenderer) {
+public function __construct(<hljs type>string</hljs> $publicDirectory, <hljs type>string</hljs> $configurationFile, <hljs type>PageParser</hljs> $pageParser, <hljs type>PageRenderer</hljs> $pageRenderer) {
     // ...
 }
 ```
@@ -45,10 +45,10 @@ yet in the above example a lot of useful information is pushed to that right, da
 So how do we pull the useful information more to the left?
 
 ```php
-public function __construct(string $publicDirectory, 
-                            string $configurationFile, 
-                            PageParser $pageParser, 
-                            PageRenderer $pageRenderer) {
+public function __construct(<hljs type>string</hljs> $publicDirectory, 
+                            <hljs type>string</hljs> $configurationFile, 
+                            <hljs type>PageParser</hljs> $pageParser, 
+                            <hljs type>PageRenderer</hljs> $pageRenderer) {
     // ...
 }
 ```
@@ -58,10 +58,10 @@ As soon as you're refactoring a method name, the alignment breaks.
 Say we want to make this a static constructor instead of a normal one.
 
 ```php
-public static function create(string $publicDirectory, 
-                            string $configurationFile, 
-                            PageParser $pageParser, 
-                            PageRenderer $pageRenderer) {
+public static function create(<hljs type>string</hljs> $publicDirectory, 
+                            <hljs type>string</hljs> $configurationFile, 
+                            <hljs type>PageParser</hljs> $pageParser, 
+                            <hljs type>PageRenderer</hljs> $pageRenderer) {
 ```
 
 See the alignment breaking? 
@@ -70,8 +70,8 @@ let's take a look at another approach.
 
 ```php
 public function __construct(
-    string $publicDirectory, string $configurationFile, 
-    PageParser $pageParser, PageRenderer $pageRenderer) {
+    <hljs type>string</hljs> $publicDirectory, <hljs type>string</hljs> $configurationFile, 
+    <hljs type>PageParser</hljs> $pageParser, <hljs type>PageRenderer</hljs> $pageRenderer) {
     // ...
 }
 ```
@@ -89,11 +89,11 @@ So let's continue searching for that consistency.
 
 ```php
 public function __construct(
-    string $publicDirectory, 
-    string $configurationFile, 
-    PageParser $pageParser, 
-    PageRenderer $pageRenderer) {
-    $this->publicDirectory = rtrim($publicDirectory, '/');
+    <hljs type>string</hljs> $publicDirectory, 
+    <hljs type>string</hljs> $configurationFile, 
+    <hljs type>PageParser</hljs> $pageParser, 
+    <hljs type>PageRenderer</hljs> $pageRenderer) {
+    $this->publicDirectory = <hljs prop>rtrim</hljs>($publicDirectory, '/');
     $this->configurationFile = $configurationFile;
     $this->pageParser = $pageParser;
     $this->pageRenderer = $pageRenderer;
@@ -124,7 +124,7 @@ Can you see how difficult it has become to spot where the argument list ends
 and the method body starts?
 
 You might say "there's still the curly bracket on the right indicating the end".
-That's the thing we want to avoid! We want to keep the visual important information to the **left**.
+That's the thing we want to avoid! We want to keep the visual important information to the _left_.
 How do we solve it? Kevlin Henney phrased it very well:
 
 > Turns out, there is one true place where to put your curly brackets - Kevlin Henney
@@ -148,12 +148,12 @@ Here's the final result:
 
 ```php
 public function __construct(
-    string $publicDirectory, 
-    string $configurationFile, 
-    PageParser $pageParser, 
-    PageRenderer $pageRenderer
+    <hljs type>string</hljs> $publicDirectory, 
+    <hljs type>string</hljs> $configurationFile, 
+    <hljs type>PageParser</hljs> $pageParser, 
+    <hljs type>PageRenderer</hljs> $pageRenderer
 ) {
-    $this->publicDirectory = rtrim($publicDirectory, '/');
+    $this->publicDirectory = <hljs prop>rtrim</hljs>($publicDirectory, '/');
     $this->configurationFile = $configurationFile;
     $this->pageParser = $pageParser;
     $this->pageRenderer = $pageRenderer;
