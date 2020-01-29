@@ -38,9 +38,9 @@ And finally, given a large enough domain, you might need more than just a few st
 
 In this chapter we'll look at an alternative way of implementing this factory pattern, to allow much more flexibility and improve their user experience significantly. The actual goal of these factory classes is to help you write integration tests, without having to spend too much time on setting up the system for it. 
 
-Note that I say "integration tests" and not "unit tests": when we're testing our domain code, we're testing the core business logic. More often than not, testing this business logic means you won't be testing an isolated piece of a class, but rather a complex and intricate business rule which requires some (or much) data to be present in the database.
+Note that I say "integration tests" and not "unit tests": when we're testing our domain code, we're testing the core business logic. More often than not, testing this business logic means you won't be testing an isolated piece of a class, but rather a complex and intricate business rule which requires some (or a lot of) data to be present in the database.
 
-As I've mentioned before: we're talking about large and complex systems in this book, it's important to keep that in mind. That's why I decided to call these tests integration tests in this chapter, to avoid going into discussions about what unit tests are and what not.
+As I've mentioned before: we're talking about large and complex systems in this book, it's important to keep that in mind. That's why I decided to call these tests integration tests in this chapter, to avoid going into discussions about what unit tests are and what they aren't.
 
 ## A basic factory
 
