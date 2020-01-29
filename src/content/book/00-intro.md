@@ -7,6 +7,7 @@
 - [06. Managing Domains](/blog/laravel-beyond-crud-06-managing-domains)
 - [07. Entering the application layer](/blog/laravel-beyond-crud-07-entering-the-application-layer)
 - [08. View models](/blog/laravel-beyond-crud-08-view-models)
+- [09. Test factories](/blog/laravel-beyond-crud-09-test-factories)
 - More chapters are in the making
 
 {{ ad:carbon }}

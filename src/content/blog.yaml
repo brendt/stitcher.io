@@ -1,3 +1,12 @@
+laravel-beyond-crud-09-test-factories:
+    date: 2020-01-29
+    title: "09. Test factories"
+    content: src/content/book/09-test-factories.md
+    book: true
+    next: laravel-beyond-crud
+    meta:
+        description: "A blog series about managing larger Laravel projects"
+
 new-in-php-8:
     date: 2020-01-29
     title: "New in PHP 8"
@@ -32,7 +41,7 @@ laravel-beyond-crud-08-view-models:
     title: "08. View models"
     content: src/content/book/08-view-models.md
     book: true
-    next: laravel-beyond-crud
+    next: laravel-beyond-crud-09-test-factories
     meta:
         description: "A blog series about managing larger Laravel projects"
 
