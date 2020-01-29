@@ -6,6 +6,11 @@ laravel-beyond-crud-09-test-factories:
     next: laravel-beyond-crud
     meta:
         description: "A blog series about managing larger Laravel projects"
+    footnotes:
+        - link: https://laravel.com/docs/6.x/database-testing
+          title: Laravel's documentation about database testing
+        - link: https://tighten.co/blog/tidy-up-your-tests-with-class-based-model-factories
+          title: Tighten also uses a similar approach to model factories
 
 new-in-php-8:
     date: 2020-01-29
