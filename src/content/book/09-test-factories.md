@@ -207,7 +207,7 @@ public function test_case()
 }
 ```
 
-Another example: we want to test what happens how an invoice is handled when it has been paid, but only after the invoice expiration date:
+Another example: we want to test how an invoice is handled when it has been paid, but only after the invoice expiration date:
 
 ```php
 public function test_case()
