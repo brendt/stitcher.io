@@ -186,7 +186,7 @@ public function paid(<hljs type>PaymentFactory</hljs> $paymentFactory = null): s
 }
 ```
 
-And her's how it's used in the `create` method:
+And here's how it's used in the `create` method:
 
 ```php
 if ($this->paymentFactory) {
@@ -207,7 +207,7 @@ public function test_case()
 }
 ```
 
-Another example: we want to test what happens how an invoice is handled when it has been paid, but only after the invoice expiration date:
+Another example: we want to test how an invoice is handled when it has been paid, but only after the invoice expiration date:
 
 ```php
 public function test_case()
