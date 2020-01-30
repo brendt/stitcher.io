@@ -186,7 +186,7 @@ public function paid(<hljs type>PaymentFactory</hljs> $paymentFactory = null): s
 }
 ```
 
-And her's how it's used in the `create` method:
+And here's how it's used in the `create` method:
 
 ```php
 if ($this->paymentFactory) {
