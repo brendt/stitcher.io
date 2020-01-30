@@ -38,7 +38,7 @@ And finally, given a large enough domain, you might need more than just a few st
 
 In this chapter we'll look at an alternative way of implementing this factory pattern, to allow much more flexibility and improve their user experience significantly. The actual goal of these factory classes is to help you write integration tests, without having to spend too much time on setting up the system for it. 
 
-Note that I say "integration tests" and not "unit tests": when we're testing our domain code, we're testing the core business logic. More often than not, testing this business logic means you won't be testing an isolated piece of a class, but rather a complex and intricate business rule which requires some (or a lot of) data to be present in the database.
+Note that I say "integration tests" and not "unit tests": when we're testing our domain code, we're testing the core business logic. More often than not, testing this business logic means we won't be testing an isolated piece of a class, but rather a complex and intricate business rule which requires some (or lots of) data to be present in the database.
 
 As I've mentioned before: we're talking about large and complex systems in this book, it's important to keep that in mind. That's why I decided to call these tests integration tests in this chapter, to avoid going into discussions about what unit tests are and what they aren't.
 
@@ -74,7 +74,7 @@ Let's discuss a few design decisions.
 
 First of all, the static constructor `new`. You might be confused as to why we need it, as we could simply make the `create` method static. I'll answer that question in depth later in this chapter; but for now you should now that we want this factory to be highly configurable before actually creating an invoice. So rest assured, it will become more clear soon.
 
-Second, why the name `new` for the static constructor? The answer is a practical one: within the context of factories, `make` and `create` are often associated with that factory actually producing a result. `new` helps us avoid unnecessary confusion.
+Second, why the name `new` for the static constructor? The answer is a practical one: within the context of factories, `make` and `create` are often associated with a factory actually producing a result. `new` helps us avoid unnecessary confusion.
 
 Finally, the `create` method: it takes an optional array of extra data, to ensure we can always make some last-minute changes in our tests.
 
@@ -87,7 +87,7 @@ public function test_case()
 }
 ```
 
-Before looking at configurability, let's address a little improvement we can make right away: invoice numbers should be unique, so if we need two invoices in one test case, it will break. We don't want to worry about keeping track of invoice numbers in most cases though, so let's have the factory take care of those:
+Before looking at configurability, let's address a little improvement we can make right away: invoice numbers should be unique, so if we create two invoices in one test case, it will break. We don't want to worry about keeping track of invoice numbers in most cases though, so let's have the factory take care of those:
 
 ```php
 class InvoiceFactory
@@ -109,7 +109,7 @@ class InvoiceFactory
 }
 ```
 
-Now let's look into states. In the original example, I mentioned that we might want our invoice to be paid. I was a little naive previously when I assumed this simply meant changing the status field on the invoice model. We also need an actual payment to be saved in the database! Laravel's default factories can handle this with callbacks, triggers after a model was created; though imagine what happens if you're managing several, maybe even tens of states, each with their own side effects. A simple `$factory->afterCreating` hook just isn't robust enough to manage all this in a sane way.
+Now let's look into states. In the original example, I mentioned that we might want to create a paid invoice. I was a little naive previously when I assumed this simply meant changing the status field on the invoice model. We also need an actual payment to be saved in the database! Laravel's default factories can handle this with callbacks, which trigger after a model was created; though imagine what happens if you're managing several, maybe even tens of states, each with their own side effects. A simple `$factory->afterCreating` hook just isn't robust enough to manage all this in a sane way.
 
 So, let's turn things around. Let's properly configure our invoice factory, _before_ creating the actual invoice.
 
@@ -145,7 +145,7 @@ class InvoiceFactory
 }
 ```
 
-Now we've made the factory configurable on the fly — if you're wondering about that `clone` by the way, we'll look at it later.
+If you're wondering about that `clone` by the way, we'll look at it later.
 
 The thing we've made configurable is the invoice status, just like factory states in Laravel would do, but in our case there's the advantage that our IDE actually knows what we're dealing with:
 
@@ -184,7 +184,15 @@ public function paid(<hljs type>PaymentFactory</hljs> $paymentFactory = null): s
 }
 ```
 
-By doing so, a lot of possibilities arise. In this case we'll be making an invoice that's paid, specifically with a bancontact payment.
+And her's how it's used in the `create` method:
+
+```php
+if ($this->paymentFactory) {
+    $this->paymentFactory-><hljs prop>forInvoice</hljs>($invoice)-><hljs prop>create</hljs>();
+}
+```
+
+By doing so, a lot of possibilities arise. In this example we're making an invoice that's paid, specifically with a Bancontact payment.
 
 ```php
 public function test_case()
