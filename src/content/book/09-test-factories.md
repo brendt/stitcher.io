@@ -109,7 +109,9 @@ class InvoiceFactory
 }
 ```
 
-Now let's look into states. In the original example, I mentioned that we might want to create a paid invoice. I was a little naive previously when I assumed this simply meant changing the status field on the invoice model. We also need an actual payment to be saved in the database! Laravel's default factories can handle this with callbacks, which trigger after a model was created; though imagine what happens if you're managing several, maybe even tens of states, each with their own side effects. A simple `$factory->afterCreating` hook just isn't robust enough to manage all this in a sane way.
+## Factories in factories
+
+In the original example, I mentioned that we might want to create a paid invoice. I was a little naive previously when I assumed this simply meant changing the status field on the invoice model. We also need an actual payment to be saved in the database! Laravel's default factories can handle this with callbacks, which trigger after a model was created; though imagine what happens if you're managing several, maybe even tens of states, each with their own side effects. A simple `$factory->afterCreating` hook just isn't robust enough to manage all this in a sane way.
 
 So, let's turn things around. Let's properly configure our invoice factory, _before_ creating the actual invoice.
 
@@ -211,15 +213,17 @@ Another example: we want to test what happens how an invoice is handled when it 
 public function test_case()
 {
     $invoice = <hljs type>InvoiceFactory</hljs>::<hljs prop>new</hljs>()
-        -><hljs prop>expiresAt</hljs>(<hljs type>Carbon</hljs>::<hljs prop>make</hljs>('2020-01-01'))
+        -><hljs prop>expiresAt</hljs>('2020-01-01')
         -><hljs prop>paid</hljs>(
-            <hljs type>PaymentFactory</hljs>::<hljs prop>new</hljs>()-><hljs prop>at</hljs>(<hljs type>Carbon</hljs>::<hljs prop>make</hljs>('2020-01-20'))
+            <hljs type>PaymentFactory</hljs>::<hljs prop>new</hljs>()-><hljs prop>at</hljs>('2020-01-20')
         )
         -><hljs prop>create</hljs>();
 }
 ```
 
 With just a few lines of code, we get a lot more flexibility.
+
+## Immutable factories
 
 Now what about that cloning earlier? Why is it important to make factories immutable? See, sometimes you need to make several models with the same factory, but with small differences. Instead of creating a new factory object for each model, you could reuse the original factory object, and only change the things you need.
 
@@ -237,7 +241,7 @@ If our `paid` method wasn't immutable, it would mean that `$invoiceB` would also
 
 ---
 
-Built upon these two principles: configuring factories with other factories and always make them immutable; a lot of possibilities arise. Sure, it takes some time to actually write these factories, but they also _save_ lots of time over the course of development. In my experience, they are well worth the overhead, as there's much more to gain from them compared to their cost.
+Built upon these two principles: configuring factories within factories and making them immutable; a lot of possibilities arise. Sure, it takes some time to actually write these factories, but they also _save_ lots of time over the course of development. In my experience, they are well worth the overhead, as there's much more to gain from them compared to their cost.
 
 Ever since using this pattern, I never looked back at Laravel's built-in factories. There's just too much to gain from this approach.
 
@@ -260,4 +264,4 @@ abstract class Factory
 
 Also keep in mind that you can use these factories for other stuff too, not just models. I've been also using them extensively to set up [DTOs](/blog/laravel-beyond-crud-02-working-with-data), and sometimes even request classes.
 
-I'd suggest to play around with them a little the next time you're in need of test factories. I can assure you they will not disappoint!
+I'd suggest to play around with them the next time you're in need of test factories. I can assure you they will not disappoint!
