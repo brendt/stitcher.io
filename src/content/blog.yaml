@@ -1,3 +1,11 @@
+enums-without-enums:
+    date: 2020-02-01
+    title: Enums without enums in PHP
+    content: src/content/blog/2020-02-01-enums-without-enums.md
+    next: new-in-php-8
+    meta:
+        description: "Exploring patterns to add enum-like behaviour in PHP"
+
 laravel-beyond-crud-09-test-factories:
     date: 2020-01-29
     title: "09. Test factories"
