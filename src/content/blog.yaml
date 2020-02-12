@@ -43,7 +43,6 @@ php-preload-benchmarks:
     date: 2020-01-10
     title: "Preloading benchmarks in PHP 7.4"
     content: src/content/blog/2020-01-10-preload-benchmark.md
-    book: true
     next: new-in-php-74
     meta:
         description: "Some benchmarks with the new preloading feature in PHP 7.4"
