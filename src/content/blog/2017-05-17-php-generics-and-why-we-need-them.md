@@ -1,4 +1,4 @@
-In today's blog post we'll explore some common problems with arrays in PHP. All the problems and issues listed could be solved with a pending RFC which adds generics to PHP. We won't explore in too much detail what generics are, but at the end of this read, you should have a good idea as to why they are useful, and why we really want them in PHP. So without further ado, lets dive into the subject.
+In today's blog post we'll explore some common problems with arrays in PHP. All the problems and issues listed could be solved with a pending RFC which adds generics to PHP. We won't explore in too much detail what generics are, but at the end of this read, you should have a good idea as to why they are useful, and why we really want them in PHP. So without further ado, let's dive into the subject.
 
 {{ ad:carbon }}
 
@@ -8,7 +8,7 @@ Imagine you have a collection of blog posts, loaded from a data source.
 $posts = $blogModel->find();
 ```
 
-Now you want to loop over every post, and do *something* with its data; lets say, the `id`.
+Now you want to loop over every post, and do *something* with its data; let's say, the `id`.
 
 ```php
 foreach ($posts as $post) {
@@ -22,7 +22,7 @@ This is a scenario that happens often.
 And it's this scenario we'll explore to discuss why generics are awesome, 
 and why the PHP community desperately needs them.
  
-Lets take a look at the problems of the above approach.
+Let's take a look at the problems of the above approach.
 
 ## Data integrity
 
@@ -37,7 +37,7 @@ $posts = [
 ];
 ```
 
-Looping over this set of posts would result in a fatal error.
+Looping over this array of posts would result in a fatal error.
 
 ```
 PHP Fatal error:  Uncaught Error: Call to a member function getId() on string
@@ -62,7 +62,7 @@ This would work, but if you've written some production PHP code, you know these 
  the codebase. In our example, we could verify the type of each entry in the `->find()` method on `$blogModel`.
  However, that's just moving the problem from one place to another. It's a bit better though.
  
-There's another problem with data integrity. Say you have a method which requires an array of `Posts`.
+There's another problem with data integrity. Say you have a method which requires an array of `Post`s.
 
 ```php
 function handlePosts(array $posts) {
@@ -72,7 +72,7 @@ function handlePosts(array $posts) {
 }
 ```
 
-Again, we could add extra checks in this loop, but we could not guarantee that `$posts` only holds a collection of `Posts`.
+Again, we could add extra checks in this loop, but we could not guarantee that `$posts` only holds a collection of `Post`s.
 
 [As of PHP 7.0](*http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list), you could use the `...` operator 
  to work around this issue.
@@ -105,7 +105,7 @@ We can't do benchmarks on generics, because they don't exist yet, so its only gu
 ## Code completion
 
 I don't know about you, but I use an IDE when writing PHP code. Code completion increases productivity immensely, so I'd also 
- like to use it here. When looping over posts, we want our IDE to know each `$post` is an instance of `Post`. Lets take
+ like to use it here. When looping over posts, we want our IDE to know each `$post` is an instance of `Post`. Let's take
  a look at the plain PHP implementation.
  
 ```php
@@ -117,7 +117,7 @@ public function find() : array {
 ```
 
 As of PHP 7.0, return types were added, and in PHP 7.1 they were refined with nullables and void. But there's no way 
- our IDE can know what's in the array. So we're falling back to PHPDoc.
+ our IDE can know what's inside the array. So we're falling back to PHPDoc.
  
 ```php
 /**
@@ -128,7 +128,7 @@ public function find() : array {
 }
 ```
 
-When using a "generic" implementation of eg. a model class, type hinting the `->find()` method might not be possible. 
+When using a "generic" implementation of e.g. a model class, type hinting the `->find()` method might not be possible. 
  So we're stuck with type hinting the `$posts` variable, in our code.
  
 ```php
@@ -216,7 +216,7 @@ foreach ($collection as $item) {
 }
 ```
 
-Note that again, there's no guarantee that `$collection` only holds `Posts`. Adding eg. a string would work fine, but 
+Note that again, there's no guarantee that `$collection` only holds `Post`s. For example, adding a string would work fine, but 
  would break our loop.
  
 ```php
@@ -229,7 +229,7 @@ foreach ($collection as $item) {
 ```
 
 With PHP as it is now, we could fix this problem by creating a `PostCollection` class. Note that I'm using nullable 
- return types, only available as of PHP 7.1.
+return types, only available as of PHP 7.1.
 
 ```php
 class PostCollection extends Collection
@@ -252,7 +252,7 @@ class PostCollection extends Collection
 }
 ```
 
-Now only `Posts` can be added to our collection.
+Now only `Post`s can be added to our collection.
 
 ```php
 $collection = new PostCollection();
@@ -276,7 +276,7 @@ You could probably make the subclasses even more convenient to create, by "abusi
 
 ## Glorious generics
 
-With all that in mind, lets just take a look at the code we would be able to write if generics were implemented in PHP. 
+With all that in mind, let's just take a look at the code we would be able to write if generics were implemented in PHP. 
  This would be **one class** which could be used for every type. For your convenience, I'll only be writing the changes 
  compared to the previous `Collection` class, so keep that in mind.
   
