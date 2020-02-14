@@ -86,7 +86,7 @@ This is the end result:
 <hljs textgrey>0b</hljs>0000<hljs green>1</hljs>0<hljs green>1</hljs>;
 ```
 
-Back to our boundaries example. How can we know whether the start is included our not? Since the start boundary is represented by the leftmost bit, we can apply a bitmask on our inclusion variable. If we want to know whether the start bit is set, we simply need to do an `and` operation between the inclusion mask, and the binary value `0b10`.
+Back to our boundaries example. How can we know whether the start is included or not? Since the start boundary is represented by the leftmost bit, we can apply a bitmask on our inclusion variable. If we want to know whether the start bit is set, we simply need to do an `and` operation between the inclusion mask, and the binary value `0b10`.
 
 How so? Since we're only interested in knowing the value of the start boundary, we'll make a mask for that bit only. If we apply an `and` operation between these two values, the result will always be `0b00`, unless the start bit was actually set.
 
