@@ -1,5 +1,5 @@
 bitwise-booleans-in-php:
-    date: 2020-02-04
+    date: 2020-02-14
     title: Bitwise booleans in PHP
     content: src/content/blog/2020-02-04-boolean-flags.md
     next: enums-without-enums

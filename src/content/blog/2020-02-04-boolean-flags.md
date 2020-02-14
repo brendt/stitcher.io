@@ -13,7 +13,7 @@ In this post, I want to show another way to store these two boolean flags, using
 
 {{ ad:carbon }}
 
-Here's a quick recap of what (part of) our enum class looked like.
+Here's a quick recap of what (part of) our enum class looked like:
 
 ```php
 abstract class Boundaries
@@ -39,20 +39,20 @@ In this case, we're using _two_ variables to store _two_ boolean values.
 
 Them being booleans though, means they can only have one of two values: `true` or `false`; `1` or `0`. Instead of using a whole byte, we only need one bit to store this value.
 
-Hang on though, a whole byte? — It's actually a lot more, 16 to be exact. PHP stores all variables in a structure called `zval`, which reserves memory not only for the payload, but also type information, bit flags and what not. You can take a look at it [here](*https://github.com/php/php-src/blob/master/Zend/zend_types.h#L302-L328).
+Hang on though, a whole byte? — It's actually a lot more: 16 bytes to be exact. PHP stores all variables in a structure called a `zval`, which reserves memory not only for the payload, but also type information, bit flags and what not. You can take a look at it [here](*https://github.com/php/php-src/blob/master/Zend/zend_types.h#L302-L328).
 
 Of those 16 bytes, there's 8 reserved per `zval` to store a payload in, that's 64 bits! 
 
-Now, as a precursor, let's make clear that you probably will never need these kinds of micro-optimisations. Boolean bitmasks are often used in game development, compilers and the likes, because they are very memory-efficient, though I'm almost a 100% sure you'll never need it in your web applications.
+Now, as a precursor, let's make clear that you probably will never need these kinds of micro-optimisations. Boolean bitmasks are often used in game development, compilers and the likes, because they are very memory-efficient, though you can be assured you will probably never need it in your web applications.
 
 Nevertheless, it's a cool, geeky thing to know, and possible in PHP.
 
 So let's store these two flags, in one variable.
 
-```php
-abstract class Boundaries
+```
+<hljs keyword>abstract</hljs> <hljs keyword>class</hljs> <hljs type>Boundaries</hljs>
 {
-    protected <hljs type>int</hljs> $inclusionMask = 0b00;
+    <hljs keyword>protected</hljs> <hljs type>int</hljs> $inclusionMask = <hljs textgrey>0b</hljs>00;
 }
 ```
 
@@ -62,28 +62,28 @@ Now that we've got two bits to work with, it's easy to store two boolean values 
 
 So `0b01` means that the start boundary is not included, while the end boundary is; `0b11` means both are included — you get the gist.
 
-Now that we have a way of storing data, we still need a way of reading those bits in our `startIncluded()` and `endIncluded()` methods: we don't want to program everything in binary.
+Now that we know how to store data in bits, we still need a way of reading the information in our `startIncluded()` and `endIncluded()` methods: we don't want to program everything in binary.
 
-Here's where [bitwise operators](*https://www.php.net/manual/en/language.operators.bitwise.php) come into play; and more specifically the `and` operator.
+Here's where [bitwise operators](*https://www.php.net/manual/en/language.operators.bitwise.php) come into play, more specifically the `and` operator.
 
 Take the following two binary values:
 
-```php
-0b0100101;
-0b1010101;
+```
+<hljs textgrey>0b</hljs>0100101;
+<hljs textgrey>0b</hljs>1010101;
 ```
 
-What happens when we apply an `and` operation on both of these values? The result will have all bits set to `1` wherever both bits were `1` in the two original values.
+What happens when we apply an `and` operation on both of these values? The result will have all bits set to `1` wherever both bits were `1` in the two original values:
 
-```php
-0b0<hljs type>1</hljs>00<hljs green>1</hljs>0<hljs green>1</hljs>;
-0b<hljs type>1</hljs>0<hljs type>1</hljs>0<hljs green>1</hljs>0<hljs green>1</hljs>;
+```
+<hljs textgrey>0b</hljs>0<hljs type>1</hljs>00<hljs green>1</hljs>0<hljs green>1</hljs>;
+<hljs textgrey>0b</hljs><hljs type>1</hljs>0<hljs type>1</hljs>0<hljs green>1</hljs>0<hljs green>1</hljs>;
 ```
 
 This is the end result:
 
-```php
-0b0000<hljs green>1</hljs>0<hljs green>1</hljs>;
+```
+<hljs textgrey>0b</hljs>0000<hljs green>1</hljs>0<hljs green>1</hljs>;
 ```
 
 Back to our boundaries example. How can we know whether the start is included our not? Since the start boundary is represented by the leftmost bit, we can apply a bitmask on our inclusion variable. If we want to know whether the start bit is set, we simply need to do an `and` operation between the inclusion mask, and the binary value `0b10`.
@@ -92,46 +92,56 @@ How so? Since we're only interested in knowing the value of the start boundary, 
 
 Here's an example where the start bit is `0`:
 
-```php
-0b<hljs type>1</hljs>0; // The mask we're applying
-0b00; // The inclusion mask
+```
+<hljs textgrey>0b</hljs><hljs type>1</hljs>0; <hljs textgrey>// The mask we're applying</hljs>
+<hljs textgrey>0b</hljs>0<hljs type>1</hljs>; <hljs textgrey>// The inclusion mask</hljs>
+
+<hljs textgrey>0b</hljs>00; <hljs textgrey>// The result</hljs>
 ```
 
 And here's one where the start bit is `1`:
 
-```php
-0b<hljs green>1</hljs>0;
-0b<hljs green>1</hljs>0;
+```
+<hljs textgrey>0b</hljs><hljs green>1</hljs>0; <hljs textgrey>// The mask we're applying</hljs>
+<hljs textgrey>0b</hljs><hljs green>1</hljs>0; <hljs textgrey>// The inclusion mask</hljs>
+
+<hljs textgrey>0b</hljs><hljs green>1</hljs>0; <hljs textgrey>// The result</hljs>
 ```
 
 The end bit will always be `0` in this case, because the mask we're applying has it set to `0`. Hence, whatever value is stored for the end boundary in the inclusion mask, will always result in `0`.
 
 So how to do this in PHP? By using the binary `and` operator, which is a single `&`:
 
-```php
-public function startIncluded(): bool 
+```
+<hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>startIncluded</hljs>(): <hljs type>bool</hljs> 
 {
-    return $this->inclusionMask & 0b10;
+    <hljs keyword>return</hljs> <hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>10;
 }
 
-public function endIncluded(): bool 
+<hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>endIncluded</hljs>(): <hljs type>bool</hljs> 
 {
-    return $this->inclusionMask & 0b01;
+    <hljs keyword>return</hljs> <hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>01;
 }
 ```
 
 PHP's dynamic type system will automatically cast the result, `0` or a numeric value, to a boolean. If you want to be more explicit though, you can write it like so:
 
-```php
-public function startIncluded(): bool 
+```
+<hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>startIncluded</hljs>(): <hljs type>bool</hljs> 
 {
-    return ($this->inclusionMask & 0b10) !== 0;
+    <hljs keyword>return</hljs> (<hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>10) !== 0;
 }
 
-public function endIncluded(): bool 
+<hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>endIncluded</hljs>(): <hljs type>bool</hljs> 
 {
-    return ($this->inclusionMask & 0b01) !== 0;
+    <hljs keyword>return</hljs> (<hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>01) !== 0;
 }
 ```
 
-Again, 
+---
+
+Let's make clear that you shouldn't be doing this for performance motivations in PHP. There might even be edge cases where this approach would be less optimal, because our inclusion mask can't be garbage collected unless there are no reference anymore to _any_ of the boolean flags.
+
+_However_, if you're working with several boolean flags at once, it might be useful to store them in one variable instead of several, to reduce cognitive load. You could think of "storing the boolean values" as a behind-the-scenes implementation detail, while the public API of a class still provides a clear way of working with them.
+
+So, who knows, there might be cases where this technique is useful. If you have some real-life use cases, be sure to let me know on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
