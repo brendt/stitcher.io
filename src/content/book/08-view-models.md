@@ -1,7 +1,7 @@
 In this chapter of my [Laravel beyond CRUD](/blog/laravel-beyond-crud) series, we take a deep dive in the application layer. A major trend throughout the series is to keep code clean, concise and manageable. This chapter won't be any different, as we'll look at how to keep controllers clean and to-the-point. 
 
 The pattern we'll use to help us is called the view model pattern.
-As its name suggests, these classes are models to your view files, they are responsible for providing data to a view, which would otherwise come directly from the controller or the domain model.
+As its name suggests, these classes are models to your view files; they are responsible for providing data to a view, which would otherwise come directly from the controller or the domain model.
 They allow a better separation of concerns, and provide more flexibility for the developer.
 
 In essence, view models are simple classes that take some data, 
