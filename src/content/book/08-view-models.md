@@ -315,7 +315,8 @@ Now I *know* that this isn't a problem in small projects.
 When you're the only developer and have 20 controllers and maybe 20 view composers, 
 it'll all fit in your head.
 
-But what about the kind of projects we're writing about in this series? When you're working with several developers, in a codebase that counts thousands upon thousands lines of code. It won't fit in your head anymore, not on that scale; let alone your colleagues also having the same knowledge.
+But what about the kind of projects we're writing about in this series? When you're working with several developers, in a codebase that counts thousands upon thousands lines of code, it won't all fit in your head anymore - certainly not on that scale. What's more, we haven't even considered your colleagues and the difficulties they will face, individually and as a team!
+
 That's why the view model pattern is the preferred approach. It makes clear from the controller itself what variables are available to the view. On top of that, you can re-use the same view model for multiple contexts. 
 
 One last benefit — one you might not have thought about —  
