@@ -2,7 +2,7 @@ In this chapter of my [Laravel beyond CRUD](/blog/laravel-beyond-crud) series, w
 
 The pattern we'll use to help us is called the view model pattern.
 As its name suggests, these classes are models to your view files; they are responsible for providing data to a view, which would otherwise come directly from the controller or the domain model.
-They allow a better separation of concerns, and provide more flexibility for the developer.
+In addition, they allow a better separation of concerns, and provide more flexibility for the developer.
 
 In essence, view models are simple classes that take some data, 
 and transform it into something usable for the view.
