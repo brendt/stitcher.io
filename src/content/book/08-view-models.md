@@ -1,8 +1,8 @@
 In this chapter of my [Laravel beyond CRUD](/blog/laravel-beyond-crud) series, we take a deep dive in the application layer. A major trend throughout the series is to keep code clean, concise and manageable. This chapter won't be any different, as we'll look at how to keep controllers clean and to-the-point. 
 
 The pattern we'll use to help us is called the view model pattern.
-As its name suggests, these classes are models to your view files, they are responsible for providing data to a view, which would otherwise come directly from the controller or the domain model.
-They allow a better separation of concerns, and provide more flexibility for the developer.
+As its name suggests, these classes are models to your view files; they are responsible for providing data to a view, which would otherwise come directly from the controller or the domain model.
+In addition, they allow a better separation of concerns, and provide more flexibility for the developer.
 
 In essence, view models are simple classes that take some data, 
 and transform it into something usable for the view.
@@ -315,7 +315,8 @@ Now I *know* that this isn't a problem in small projects.
 When you're the only developer and have 20 controllers and maybe 20 view composers, 
 it'll all fit in your head.
 
-But what about the kind of projects we're writing about in this series? When you're working with several developers, in a codebase that counts thousands upon thousands lines of code. It won't fit in your head anymore, not on that scale; let alone your colleagues also having the same knowledge.
+But what about the kind of projects we're writing about in this series? When you're working with several developers, in a codebase that counts thousands upon thousands lines of code, it won't all fit in your head anymore - certainly not on that scale. What's more, we haven't even considered your colleagues and the difficulties they will face, individually and as a team!
+
 That's why the view model pattern is the preferred approach. It makes clear from the controller itself what variables are available to the view. On top of that, you can re-use the same view model for multiple contexts. 
 
 One last benefit — one you might not have thought about —  
