@@ -170,7 +170,7 @@ if ($invoice->status-><hljs prop>isPaid</hljs>()) {
 
 This can be made more flexible still. We're using a `PaymentFactory` underneath, but what if we want more fine-grained control about how that payment was made? You can imagine there are some business rules about paid invoices that behave differently depending on the type of payment, for example. 
 
-Also, we want to avoid passing too much configuration directly into the `InvoiceFactory`, because it will become a mess very quickly. So how to solve this? 
+Also, we want to avoid passing too much configuration directly into the `InvoiceFactory`, because it will become a mess very quickly. So how do we solve this? 
 
 Here's the answer: we allow the developer to optionally pass a `PaymentFactory` to `InvoiceFactory`, this factory can be configured however the developer wants. Here's how that looks:
 
