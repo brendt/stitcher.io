@@ -34,7 +34,7 @@ public function test_case()
 
 Third, there's no type hinting on the result of a factory, your IDE doesn't know that `$invoice` actually is an `Invoice` model; again: a black box.
 
-And finally, given a large enough domain, you might need more than just a few states in your test suite, these become difficult to manage over time.
+And finally, given a large enough domain, you might need more than just a few states in your test suite, which become difficult to manage over time.
 
 In this chapter we'll look at an alternative way of implementing this factory pattern, to allow much more flexibility and improve their user experience significantly. The actual goal of these factory classes is to help you write integration tests, without having to spend too much time on setting up the system for it. 
 
