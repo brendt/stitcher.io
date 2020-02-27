@@ -29,7 +29,7 @@ This means that each enum value should support its own implementation of `startI
 
 That's the second requirement: **we want our enums to support value-specific behaviour**.
 
-On first sight, the easiest solution is to have `Boundaries` class, and implement `startIncluded` and `endIncluded` like so:
+On first sight, the easiest solution is to have a `Boundaries` class, and implement `startIncluded` and `endIncluded` like so:
 
 ```php
 final class Boundaries
@@ -79,7 +79,7 @@ In summary, we want our enums to match these three requirements:
 - Enums should support value-specific behaviour
 - Value-specific conditions should be avoided at all costs
 
-Polymorphism can offer a solution here: each enum value can be represented by its own class, extending the `Boundaries` enum. Therefor, each value can implement its own version of `startIncluded` and `endIncluded`, returning a simple boolean.
+Polymorphism can offer a solution here: each enum value can be represented by its own class, extending the `Boundaries` enum. Therefore, each value can implement its own version of `startIncluded` and `endIncluded`, returning a simple boolean.
 
 Maybe we'd make something like this:
 
@@ -99,7 +99,7 @@ abstract class Boundaries
 }
 ```
 
-And have a concrete implementation of `Boundaries` like this — you can image what the other three would look like:
+And have a concrete implementation of `Boundaries` like this — you can imagine what the other three would look like:
 
 ```php
 final class IncludeNone extends Boundaries
@@ -185,7 +185,7 @@ abstract class Boundaries
 }
 ```
 
-Ok, I was mistaken: there were two more improvements to be made. This is a lot of repeated code! But again there's a solution for that! Let's simply define two properties on each value-specific class: `$startIncluded` and `$endIncluded`; and let's implement their getters on the abstract `Boundaries` class instead!
+Ok, I was mistaken: there were two more improvements to be made. This is a lot of repeated code! But again there's a solution for that! Let's simply define two properties on each value-specific class (`$startIncluded` and `$endIncluded`) and let's implement their getters on the abstract `Boundaries` class instead!
 
 ```php
 abstract class Boundaries
@@ -241,4 +241,4 @@ abstract class Boundaries
 }
 ```
 
-The above is my favourite approach to implement enums in PHP. If there's one downside I can think of, it's that they require a little setup work, though I find that this is a small, one-off cost, that highly pays of in the long run.
+The above is my favourite approach to implement enums in PHP. If there's one downside I can think of, it's that they require a little setup work, though I find that this is a small, one-off cost, that pays off highly in the long run.
