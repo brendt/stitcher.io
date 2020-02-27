@@ -227,7 +227,7 @@ With just a few lines of code, we get a lot more flexibility.
 
 Now what about that cloning earlier? Why is it important to make factories immutable? See, sometimes you need to make several models with the same factory, but with small differences. Instead of creating a new factory object for each model, you could reuse the original factory object, and only change the things you need.
 
-If you're not using immutable factories though, there's a chance that you'll end up with data you didn't actually want. Take the example of the invoice payments, say we need two invoices on the same date, one paid and one pending.
+If you're not using immutable factories though, there's a chance that you'll end up with data you didn't actually want. Take the example of the invoice payments: say we need two invoices on the same date, one paid and one pending.
 
 ```php
 $invoiceFactory = <hljs type>InvoiceFactory</hljs>::<hljs prop>new</hljs>()
