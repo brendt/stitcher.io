@@ -74,7 +74,7 @@ Let's discuss a few design decisions.
 
 First of all, the static constructor `new`. You might be confused as to why we need it, as we could simply make the `create` method static. I'll answer that question in depth later in this chapter, but for now you should know that we want this factory to be highly configurable before actually creating an invoice. So rest assured, it will become clearer soon.
 
-Second, why the name `new` for the static constructor? The answer is a practical one: within the context of factories, `make` and `create` are often associated with a factory actually producing a result. `new` helps us avoid unnecessary confusion.
+Secondly, why the name `new` for the static constructor? The answer is a practical one: within the context of factories, `make` and `create` are often associated with a factory actually producing a result. `new` helps us avoid unnecessary confusion.
 
 Finally, the `create` method: it takes an optional array of extra data, to ensure we can always make some last-minute changes in our tests.
 
