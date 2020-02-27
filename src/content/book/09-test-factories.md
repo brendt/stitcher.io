@@ -241,7 +241,7 @@ If our `paid` method wasn't immutable, it would mean that `$invoiceB` would also
 
 ---
 
-Built upon these two principles: configuring factories within factories and making them immutable; a lot of possibilities arise. Sure, it takes some time to actually write these factories, but they also _save_ lots of time over the course of development. In my experience, they are well worth the overhead, as there's much more to gain from them compared to their cost.
+Built upon these two principles (configuring factories within factories and making them immutable), a lot of possibilities arise. Sure, it takes some time to actually write these factories, but they also _save_ lots of time over the course of development. In my experience, they are well worth the overhead, as there's much more to gain from them compared to their cost.
 
 Ever since using this pattern, I never looked back at Laravel's built-in factories. There's just too much to gain from this approach.
 
