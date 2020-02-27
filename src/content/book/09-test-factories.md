@@ -172,7 +172,7 @@ This can be made more flexible still. We're using a `PaymentFactory` underneath,
 
 Also, we want to avoid passing too much configuration directly into the `InvoiceFactory`, because it will become a mess very quickly. So how do we solve this? 
 
-Here's the answer: we allow the developer to optionally pass a `PaymentFactory` to `InvoiceFactory`, this factory can be configured however the developer wants. Here's how that looks:
+Here's the answer: we allow the developer to optionally pass a `PaymentFactory` to `InvoiceFactory` so that this factory can be configured however the developer wants. Here's how that looks:
 
 ```php
 public function paid(<hljs type>PaymentFactory</hljs> $paymentFactory = null): self
