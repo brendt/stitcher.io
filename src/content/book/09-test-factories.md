@@ -245,7 +245,7 @@ Built upon these two principles (configuring factories within factories and maki
 
 Ever since using this pattern, I never looked back at Laravel's built-in factories. There's just too much to gain from this approach.
 
-One downside I can come up with, is that you'll need a little more extra code to create several models at once. Though if you want to, you can easily add a small piece of code in a base factory class, something like this:
+One downside I can come up with is that you'll need a little more extra code to create several models at once. If you want to, however, you can easily add a small piece of code in a base factory class such as this:
 
 ```php
 abstract class Factory
