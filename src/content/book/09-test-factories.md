@@ -34,13 +34,13 @@ public function test_case()
 
 Third, there's no type hinting on the result of a factory, your IDE doesn't know that `$invoice` actually is an `Invoice` model; again: a black box.
 
-And finally, given a large enough domain, you might need more than just a few states in your test suite, these become difficult to manage over time.
+And finally, given a large enough domain, you might need more than just a few states in your test suite, which become difficult to manage over time.
 
 In this chapter we'll look at an alternative way of implementing this factory pattern, to allow much more flexibility and improve their user experience significantly. The actual goal of these factory classes is to help you write integration tests, without having to spend too much time on setting up the system for it. 
 
 Note that I say "integration tests" and not "unit tests": when we're testing our domain code, we're testing the core business logic. More often than not, testing this business logic means we won't be testing an isolated piece of a class, but rather a complex and intricate business rule which requires some (or lots of) data to be present in the database.
 
-As I've mentioned before: we're talking about large and complex systems in this book, it's important to keep that in mind. That's why I decided to call these tests integration tests in this chapter, to avoid going into discussions about what unit tests are and what they aren't.
+As I've mentioned before: we're talking about large and complex systems in this book; it's important to keep that in mind. In particular, that's why I decided to call these tests _integration_ tests in this chapter; it was in order to avoid going into discussions about what unit tests are and what they aren't.
 
 ## A basic factory
 
@@ -72,11 +72,11 @@ class InvoiceFactory
 
 Let's discuss a few design decisions. 
 
-First of all, the static constructor `new`. You might be confused as to why we need it, as we could simply make the `create` method static. I'll answer that question in depth later in this chapter; but for now you should know that we want this factory to be highly configurable before actually creating an invoice. So rest assured, it will become more clear soon.
+First of all, the static constructor `new`. You might be confused as to why we need it, as we could simply make the `create` method static. I'll answer that question in depth later in this chapter, but for now you should know that we want this factory to be highly configurable before actually creating an invoice. So rest assured, it will become clearer soon.
 
-Second, why the name `new` for the static constructor? The answer is a practical one: within the context of factories, `make` and `create` are often associated with a factory actually producing a result. `new` helps us avoid unnecessary confusion.
+Secondly, why the name `new` for the static constructor? The answer is a practical one: within the context of factories, `make` and `create` are often associated with a factory actually producing a result. `new` helps us avoid unnecessary confusion.
 
-Finally, the `create` method: it takes an optional array of extra data, to ensure we can always make some last-minute changes in our tests.
+Finally, the `create` method: it takes an optional array of extra data to ensure we can always make some last-minute changes in our tests.
 
 With our simple example, we can now create invoices like so:
 
@@ -111,7 +111,7 @@ class InvoiceFactory
 
 ## Factories in factories
 
-In the original example, I mentioned that we might want to create a paid invoice. I was a little naive previously when I assumed this simply meant changing the status field on the invoice model. We also need an actual payment to be saved in the database! Laravel's default factories can handle this with callbacks, which trigger after a model was created; though imagine what happens if you're managing several, maybe even tens of states, each with their own side effects. A simple `$factory->afterCreating` hook just isn't robust enough to manage all this in a sane way.
+In the original example, I showed that we might want to create a paid invoice. I was a little naive previously when I assumed this simply meant changing the status field on the invoice model. We also need an actual payment to be saved in the database! Laravel's default factories can handle this with callbacks, which trigger after a model was created; though imagine what happens if you're managing several, maybe even tens of states, each with their own side effects. A simple `$factory->afterCreating` hook just isn't robust enough to manage all this in a sane way.
 
 So, let's turn things around. Let's properly configure our invoice factory, _before_ creating the actual invoice.
 
@@ -170,9 +170,9 @@ if ($invoice->status-><hljs prop>isPaid</hljs>()) {
 
 This can be made more flexible still. We're using a `PaymentFactory` underneath, but what if we want more fine-grained control about how that payment was made? You can imagine there are some business rules about paid invoices that behave differently depending on the type of payment, for example. 
 
-Also, we want to avoid passing too much configuration directly into the `InvoiceFactory`, because it will become a mess very quickly. So how to solve this? 
+Also, we want to avoid passing too much configuration directly into the `InvoiceFactory`, because it will become a mess very quickly. So how do we solve this? 
 
-Here's the answer: we allow the developer to optionally pass a `PaymentFactory` to `InvoiceFactory`, this factory can be configured however the developer wants. Here's how that looks:
+Here's the answer: we allow the developer to optionally pass a `PaymentFactory` to `InvoiceFactory` so that this factory can be configured however the developer wants. Here's how that looks:
 
 ```php
 public function paid(<hljs type>PaymentFactory</hljs> $paymentFactory = null): self
@@ -227,7 +227,7 @@ With just a few lines of code, we get a lot more flexibility.
 
 Now what about that cloning earlier? Why is it important to make factories immutable? See, sometimes you need to make several models with the same factory, but with small differences. Instead of creating a new factory object for each model, you could reuse the original factory object, and only change the things you need.
 
-If you're not using immutable factories though, there's a chance that you'll end up with data you didn't actually want. Take the example of the invoice payments, say we need two invoices on the same date, one paid and one pending.
+If you're not using immutable factories though, there's a chance that you'll end up with data you didn't actually want. Take the example of the invoice payments: say we need two invoices on the same date, one paid and one pending.
 
 ```php
 $invoiceFactory = <hljs type>InvoiceFactory</hljs>::<hljs prop>new</hljs>()
@@ -241,11 +241,11 @@ If our `paid` method wasn't immutable, it would mean that `$invoiceB` would also
 
 ---
 
-Built upon these two principles: configuring factories within factories and making them immutable; a lot of possibilities arise. Sure, it takes some time to actually write these factories, but they also _save_ lots of time over the course of development. In my experience, they are well worth the overhead, as there's much more to gain from them compared to their cost.
+Built upon these two principles (configuring factories within factories and making them immutable), a lot of possibilities arise. Sure, it takes some time to actually write these factories, but they also _save_ lots of time over the course of development. In my experience, they are well worth the overhead, as there's much more to gain from them compared to their cost.
 
 Ever since using this pattern, I never looked back at Laravel's built-in factories. There's just too much to gain from this approach.
 
-One downside I can come up with, is that you'll need a little more extra code to create several models at once. Though if you want to, you can easily add a small piece of code in a base factory class, something like this:
+One downside I can come up with is that you'll need a little more extra code to create several models at once. If you want to, however, you can easily add a small piece of code in a base factory class such as this:
 
 ```php
 abstract class Factory
