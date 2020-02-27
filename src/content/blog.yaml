@@ -1,3 +1,13 @@
+new-in-php-8:
+    date: 2020-02-27
+    title: "New in PHP 8"
+    content: src/content/blog/2020-01-16-new-in-php-8.md
+    next: new-in-php-74
+    highlight: true
+    meta:
+        description: "New features, deprecations and improvements in PHP 8"
+    tag: php-8
+
 bitwise-booleans-in-php:
     date: 2020-02-14
     title: Bitwise booleans in PHP
@@ -27,16 +37,6 @@ laravel-beyond-crud-09-test-factories:
           title: Laravel's documentation about database testing
         - link: https://tighten.co/blog/tidy-up-your-tests-with-class-based-model-factories
           title: Tighten also uses a similar approach to model factories
-
-new-in-php-8:
-    date: 2020-01-29
-    title: "New in PHP 8"
-    content: src/content/blog/2020-01-16-new-in-php-8.md
-    next: new-in-php-74
-    highlight: true
-    meta:
-        description: "New features, deprecations and improvements in PHP 8"
-    tag: php-8
 
 php-in-2020:
     date: 2020-01-17
