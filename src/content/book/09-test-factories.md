@@ -111,7 +111,7 @@ class InvoiceFactory
 
 ## Factories in factories
 
-In the original example, I mentioned that we might want to create a paid invoice. I was a little naive previously when I assumed this simply meant changing the status field on the invoice model. We also need an actual payment to be saved in the database! Laravel's default factories can handle this with callbacks, which trigger after a model was created; though imagine what happens if you're managing several, maybe even tens of states, each with their own side effects. A simple `$factory->afterCreating` hook just isn't robust enough to manage all this in a sane way.
+In the original example, I showed that we might want to create a paid invoice. I was a little naive previously when I assumed this simply meant changing the status field on the invoice model. We also need an actual payment to be saved in the database! Laravel's default factories can handle this with callbacks, which trigger after a model was created; though imagine what happens if you're managing several, maybe even tens of states, each with their own side effects. A simple `$factory->afterCreating` hook just isn't robust enough to manage all this in a sane way.
 
 So, let's turn things around. Let's properly configure our invoice factory, _before_ creating the actual invoice.
 
