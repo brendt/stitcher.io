@@ -43,7 +43,7 @@ Hang on though, a whole byte? — It's actually a lot more: 16 bytes to be exact
 
 Of those 16 bytes, there's 8 reserved per `zval` to store a payload in; that's 64 bits! 
 
-Now, as a precursor, let's make clear that you probably will never need these kinds of micro-optimisations. Boolean bitmasks are often used in game development, compilers and the like, because they are very memory-efficient. In web applicationbs, though, you can be assured you will probably never need them.
+Now, as a precursor, let's make clear that you probably will never need these kinds of micro-optimisations. Boolean bitmasks are often used in game development, compilers and the like, because they are very memory-efficient. In web applications, though, you can be assured you will probably never need them.
 
 Nevertheless, it's a cool, geeky thing to know, and possible in PHP.
 
