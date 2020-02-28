@@ -18,7 +18,7 @@ I believe a set of rules and agreements is in place. If you're thinking about pi
 
 Guest posts will always stay your property, not mine. This means that if you ever want to move your content to your own blog, you're free to do so.
 
-This is of course also means that you're responsible for writing quality content. I'll be happy to review and help improve your content, but you'll be to one who has to do it.
+This is of course also means that you're responsible for writing quality content. I'll be happy to review and help improve your content, but you'll be the one who has to do it.
 
 This also means that guest posts will always be properly attributed. You'll be able to provide links to your social media or personal website. 
 
