@@ -41,13 +41,13 @@ Them being booleans though, means they can only have one of two values: `true` o
 
 Hang on though, a whole byte? — It's actually a lot more: 16 bytes to be exact. PHP stores all variables in a structure called a `zval`, which reserves memory not only for the payload, but also type information, bit flags and what not. You can take a look at it [here](*https://github.com/php/php-src/blob/master/Zend/zend_types.h#L302-L328).
 
-Of those 16 bytes, there's 8 reserved per `zval` to store a payload in, that's 64 bits! 
+Of those 16 bytes, there's 8 reserved per `zval` to store a payload in; that's 64 bits! 
 
-Now, as a precursor, let's make clear that you probably will never need these kinds of micro-optimisations. Boolean bitmasks are often used in game development, compilers and the likes, because they are very memory-efficient, though you can be assured you will probably never need it in your web applications.
+Now, as a precursor, let's make clear that you probably will never need these kinds of micro-optimisations. Boolean bitmasks are often used in game development, compilers and the like, because they are very memory-efficient. In web applicationbs, though, you can be assured you will probably never need them.
 
 Nevertheless, it's a cool, geeky thing to know, and possible in PHP.
 
-So let's store these two flags, in one variable.
+So let's store these two flags in one variable.
 
 ```
 <hljs keyword>abstract</hljs> <hljs keyword>class</hljs> <hljs type>Boundaries</hljs>
