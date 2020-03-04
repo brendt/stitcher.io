@@ -32,9 +32,13 @@ Reviewing your content will either happen via mail or directly on GitHub, whiche
 
 Finally, I will also help promote your content once it's launched, and provide feedback regarding traffic afterwards. I cannot guarantee any hard numbers on what kind of traffic your post will get, but I can give you some numbers on the monthly traffic on my blog:
 
-- Between 25k and 40k users per month, with 30k-50k sessions per month
+- Between 40k and 60k users per month, with 60k-80k sessions per month
 - My blog posts have on average between 1k and 6k sessions per month
 
 ## Now what?
 
-Since this is new for me too, I've got no idea where it'll go from here on out. If you're interested in the idea and would like to talk about something concrete, feel free to [send me an email](mailto:brent@stitcher.io) and we'll see whether we're a good match.
+Since this is new for me too, I've got no idea where it'll go from here on out. If you're interested in the idea and would like to talk about something concrete, feel free to [send me an email](mailto:brent@stitcher.io) and we'll see whether we're a good match. Make sure to provide the following information:
+
+- If you're a blogger, links to your existing content
+- Your motivation about why you want to write a guest post
+- An abstract about what you want to write about
