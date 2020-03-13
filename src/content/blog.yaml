@@ -1,3 +1,12 @@
+event-driven-php:
+    date: 2020-03-04
+    title: Event driven server in PHP
+    content: src/content/blog/2020-03-04-event-driven-php.md
+    next: new-in-php-8
+    meta:
+        description: "A close look at a event-sourced, long running server architecture in PHP"
+    tag: php-8
+
 new-in-php-8:
     date: 2020-02-27
     title: "New in PHP 8"
