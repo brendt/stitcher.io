@@ -1,5 +1,5 @@
 event-driven-php:
-    date: 2020-03-04
+    date: 2020-03-13
     title: Event driven server in PHP
     content: src/content/blog/2020-03-04-event-driven-php.md
     next: new-in-php-8
