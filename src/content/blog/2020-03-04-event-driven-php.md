@@ -91,7 +91,7 @@ final class BalanceController
 }
 ```
 
-Behind the scenes, `AccountAggregateRoot::<hljs prop>increaseBalance</hljs>()` will send an event to the server, which will store it and notify all relevant subscribers.
+Behind the scenes, `AccountAggregateRoot::increaseBalance()` will send an event to the server, which will store it and notify all relevant subscribers.
 
 If you're wondering what such an implementation of `AccountAggregateRoot` might look like, here's a simplified version:
 
