@@ -128,4 +128,4 @@ All of this sounds interesting in theory, but what about in practice? What about
 
 Lots of questions are still unanswered. The goal of this post was not to provide all answers, but rather share some thoughts and questions with you, the community. Who knows what you can come up with? 
 
-I mentioned that the code for this is open source, you can take a look at it [over here](*https://github.com/spatie/event-server). I'm looking forward to hearing your feedback, either on Reddit, [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
+I mentioned that the code for this is open source, you can take a look at it [over here](*https://github.com/spatie/event-server). I'm looking forward to hearing your feedback, either via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
