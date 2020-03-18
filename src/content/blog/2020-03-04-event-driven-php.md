@@ -16,7 +16,7 @@ This fast request/response cycle is of course one of the things that made PHP gr
 
 I'm not proposing we ditch this battle-tested technique altogether; the fast request/response cycle is actually a critical part of the architecture I'll be describing. On the other hand, always booting the whole application from scratch has its downsides. 
 
-In the architecture I'm describing, an application is split into two parts: one part is a regular PHP app, accepting HTTP requests and generating responses; while the other part is a behind-the-scenes backend server that's always running. A server that always has the whole application state loaded in memory, which allows the clients — our regular PHP apps — to connect with it, read data and store events.
+In the architecture I'm describing, an application is split into two parts: one part is a regular PHP app, accepting HTTP requests and generating responses, while the other part is a behind-the-scenes backend server that's always running. A server that always has the whole application state loaded in memory, which allows the clients — our regular PHP apps — to connect with it, read data and store events.
 
 Because the whole application state is always loaded in memory, you never need to perform database queries, spending resources on mapping data from the database to objects, or performance issues like circular references between ORM entities.
 
