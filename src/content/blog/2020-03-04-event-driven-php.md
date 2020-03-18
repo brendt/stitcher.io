@@ -107,7 +107,7 @@ final class AccountAggregateRootRoot extends AggregateRoot
 }
 ```
 
-And finally this is what the `Account` entity looks like, notice the lack of ORM-style configuration, these are simple in-memory PHP objects!
+And finally this is what the `Account` entity looks like. Notice the lack of ORM-style configuration; these are simple in-memory PHP objects!
 
 ```php
 final class Account extends <hljs type>Entity</hljs>
