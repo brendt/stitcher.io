@@ -10,17 +10,17 @@ Let's break it down!
 
 ## A long-running PHP server
 
-The first pillar of this architecture is a long running server. The modern PHP landscape offers several battle-tested solutions for managing these kinds of processes: frameworks like ReactPHP, Amphp and Swoole allowed the PHP community to venture into another, unexplored world; while day-to-day PHP was most often related to its characterizing fast request/response cycle.
+The first pillar of this architecture is a long running server. The modern PHP landscape offers several battle-tested solutions for managing these kinds of processes: frameworks like ReactPHP, Amphp and Swoole allowed the PHP community to venture into another, unexplored world, while day-to-day PHP was most often related to its characterizing fast request/response cycle.
 
 This fast request/response cycle is of course one of the things that made PHP great: you never had to worry about leaking state or keeping everything in sync: when a request comes in, a clean PHP process is started, and your application boots from 0. After the response is sent, the application gets completely destroyed.
 
-I'm not proposing we ditch this battle-tested technique altogether; the fast request/response cycle is actually a critical part of the architecture I'll be describing. On the other hand: always booting the whole application from scratch has its downsides. 
+I'm not proposing we ditch this battle-tested technique altogether; the fast request/response cycle is actually a critical part of the architecture I'll be describing. On the other hand, always booting the whole application from scratch has its downsides. 
 
-In the architecture I'm describing, an application is split into two parts: one part is a regular PHP app, accepting HTTP requests and generating responses; while the other part is a behind-the-scenes backend server that's always running. A server that always has the whole application state loaded in memory, which allows the clients — our regular PHP apps — to connect with it, read data and store events.
+In the architecture I'm describing, an application is split into two parts: one part is a regular PHP app, accepting HTTP requests and generating responses, while the other part is a behind-the-scenes backend server that's always running. A server that always has the whole application state loaded in memory, which allows the clients — our regular PHP apps — to connect with it, read data and store events.
 
 Because the whole application state is always loaded in memory, you never need to perform database queries, spending resources on mapping data from the database to objects, or performance issues like circular references between ORM entities.
 
-This sounds nice in theory, but we probably still need to be able to perform complex queries, something that databases are highly optimised for. It's clear that this architecture will require us to rethink certain aspects we're used to in regular PHP applications. I'll come back to this later.
+This sounds nice in theory, but we probably still need to be able to perform complex queries - something that databases are highly optimised for. It's clear that this architecture will require us to rethink certain aspects we're used to in regular PHP applications. I'll come back to this later.
 
 First, let's look at the second pillar: event sourcing.
 
@@ -32,11 +32,11 @@ Let's go down that road for a moment: say a client performs an update and sends 
  
 The most naive approach would be to perform the updates in the database and reload the whole application state, which in practice isn't possible due to performance issues. Another approach could be to keep track of everything that needs to happen when an update is received, and the most flexible way to do that is by using events.
 
-If we're naturally leaning towards an event-driven system to keep the in-memory state synchronised, why then adding the overhead of storing everything in a database and needing an ORM to map the data back to objects? That's why event sourcing is the better approach: it solves all state syncing problems automatically, and offers a performance gain since you don't have to communicate with a database and work with an ORM.
+If we're naturally leaning towards an event-driven system to keep the in-memory state synchronised, why then add the overhead of storing everything in a database and require an ORM to map the data back to objects? That's why event sourcing is the better approach: it solves all state syncing problems automatically, and offers a performance gain since you don't have to communicate with a database and work with an ORM.
 
 What about complex queries though? How would you search, for example, a product store containing millions of items, when everything is loaded in memory. PHP doesn't particularly excel at these kinds of tasks. But again, event sourcing offers a solution: projections. You're perfectly able to make an optimised projection for a given task, and even store it in a database! This could be a lightweight in-memory SQLite database, or a full-blown MySQL or PostgreSQL server. 
 
-Most important is that these databases aren't part of the application core anymore, they aren't the source of truth, they are useful tools living on the edge of the application's core. Very much comparable to building optimised search indices like ElasticSearch or Algolia. You can destroy these data sources at any point in time, and rebuild them from the stored events. 
+Most importantly, these databases aren't part of the application core anymore. No longer are they the source of truth, but rather useful tools living on the edge of the application's core and very much comparable to building optimised search indices like ElasticSearch or Algolia. You can destroy these data sources at any point in time, and rebuild them from the stored events. 
 
 That brings us to the final reason why event sourcing is such a great match for this architecture. When the server requires a reboot — because of a server crash or after a deploy — event sourcing offers you a way to rebuild the application's state much faster: snapshots.
 
@@ -107,7 +107,7 @@ final class AccountAggregateRootRoot extends AggregateRoot
 }
 ```
 
-And finally this is what the `Account` entity looks like, notice the lack of ORM-style configuration, these are simple in-memory PHP objects!
+And finally this is what the `Account` entity looks like. Notice the lack of ORM-style configuration; these are simple in-memory PHP objects!
 
 ```php
 final class Account extends <hljs type>Entity</hljs>
