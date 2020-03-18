@@ -10,7 +10,7 @@ Let's break it down!
 
 ## A long-running PHP server
 
-The first pillar of this architecture is a long running server. The modern PHP landscape offers several battle-tested solutions for managing these kinds of processes: frameworks like ReactPHP, Amphp and Swoole allowed the PHP community to venture into another, unexplored world; while day-to-day PHP was most often related to its characterizing fast request/response cycle.
+The first pillar of this architecture is a long running server. The modern PHP landscape offers several battle-tested solutions for managing these kinds of processes: frameworks like ReactPHP, Amphp and Swoole allowed the PHP community to venture into another, unexplored world, while day-to-day PHP was most often related to its characterizing fast request/response cycle.
 
 This fast request/response cycle is of course one of the things that made PHP great: you never had to worry about leaking state or keeping everything in sync: when a request comes in, a clean PHP process is started, and your application boots from 0. After the response is sent, the application gets completely destroyed.
 
