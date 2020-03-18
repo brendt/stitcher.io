@@ -20,7 +20,7 @@ In the architecture I'm describing, an application is split into two parts: one 
 
 Because the whole application state is always loaded in memory, you never need to perform database queries, spending resources on mapping data from the database to objects, or performance issues like circular references between ORM entities.
 
-This sounds nice in theory, but we probably still need to be able to perform complex queries, something that databases are highly optimised for. It's clear that this architecture will require us to rethink certain aspects we're used to in regular PHP applications. I'll come back to this later.
+This sounds nice in theory, but we probably still need to be able to perform complex queries - something that databases are highly optimised for. It's clear that this architecture will require us to rethink certain aspects we're used to in regular PHP applications. I'll come back to this later.
 
 First, let's look at the second pillar: event sourcing.
 
