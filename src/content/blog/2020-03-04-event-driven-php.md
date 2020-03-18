@@ -14,7 +14,7 @@ The first pillar of this architecture is a long running server. The modern PHP l
 
 This fast request/response cycle is of course one of the things that made PHP great: you never had to worry about leaking state or keeping everything in sync: when a request comes in, a clean PHP process is started, and your application boots from 0. After the response is sent, the application gets completely destroyed.
 
-I'm not proposing we ditch this battle-tested technique altogether; the fast request/response cycle is actually a critical part of the architecture I'll be describing. On the other hand: always booting the whole application from scratch has its downsides. 
+I'm not proposing we ditch this battle-tested technique altogether; the fast request/response cycle is actually a critical part of the architecture I'll be describing. On the other hand, always booting the whole application from scratch has its downsides. 
 
 In the architecture I'm describing, an application is split into two parts: one part is a regular PHP app, accepting HTTP requests and generating responses; while the other part is a behind-the-scenes backend server that's always running. A server that always has the whole application state loaded in memory, which allows the clients — our regular PHP apps — to connect with it, read data and store events.
 
