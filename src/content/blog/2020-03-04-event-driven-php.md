@@ -32,7 +32,7 @@ Let's go down that road for a moment: say a client performs an update and sends 
  
 The most naive approach would be to perform the updates in the database and reload the whole application state, which in practice isn't possible due to performance issues. Another approach could be to keep track of everything that needs to happen when an update is received, and the most flexible way to do that is by using events.
 
-If we're naturally leaning towards an event-driven system to keep the in-memory state synchronised, why then adding the overhead of storing everything in a database and needing an ORM to map the data back to objects? That's why event sourcing is the better approach: it solves all state syncing problems automatically, and offers a performance gain since you don't have to communicate with a database and work with an ORM.
+If we're naturally leaning towards an event-driven system to keep the in-memory state synchronised, why then add the overhead of storing everything in a database and require an ORM to map the data back to objects? That's why event sourcing is the better approach: it solves all state syncing problems automatically, and offers a performance gain since you don't have to communicate with a database and work with an ORM.
 
 What about complex queries though? How would you search, for example, a product store containing millions of items, when everything is loaded in memory. PHP doesn't particularly excel at these kinds of tasks. But again, event sourcing offers a solution: projections. You're perfectly able to make an optimised projection for a given task, and even store it in a database! This could be a lightweight in-memory SQLite database, or a full-blown MySQL or PostgreSQL server. 
 
