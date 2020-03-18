@@ -36,7 +36,7 @@ If we're naturally leaning towards an event-driven system to keep the in-memory 
 
 What about complex queries though? How would you search, for example, a product store containing millions of items, when everything is loaded in memory. PHP doesn't particularly excel at these kinds of tasks. But again, event sourcing offers a solution: projections. You're perfectly able to make an optimised projection for a given task, and even store it in a database! This could be a lightweight in-memory SQLite database, or a full-blown MySQL or PostgreSQL server. 
 
-Most important is that these databases aren't part of the application core anymore, they aren't the source of truth, they are useful tools living on the edge of the application's core. Very much comparable to building optimised search indices like ElasticSearch or Algolia. You can destroy these data sources at any point in time, and rebuild them from the stored events. 
+Most importantly, these databases aren't part of the application core anymore. No longer are they the source of truth, but rather useful tools living on the edge of the application's core and very much comparable to building optimised search indices like ElasticSearch or Algolia. You can destroy these data sources at any point in time, and rebuild them from the stored events. 
 
 That brings us to the final reason why event sourcing is such a great match for this architecture. When the server requires a reboot — because of a server crash or after a deploy — event sourcing offers you a way to rebuild the application's state much faster: snapshots.
 
