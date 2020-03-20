@@ -1,3 +1,11 @@
+php-reimagined:
+    date: 2020-03-20
+    title: PHP reimagined
+    content: src/content/blog/2019-03-21-a-new-php.md
+    next: new-in-php-74
+    meta:
+        description: "My personal take on how to improve PHP"
+
 event-driven-php:
     date: 2020-03-13
     title: Event driven server in PHP
@@ -380,14 +388,6 @@ array-destructuring-with-list-in-php:
     next: new-in-php-74
     meta:
         description: "How to destructure arrays in PHP using list or its shorthand notation"
-
-php-reimagined:
-    date: 2019-03-21
-    title: PHP reimagined
-    content: src/content/blog/2019-03-21-a-new-php.md
-    next: new-in-php-74
-    meta:
-        description: "My personal take on how to improve PHP"
 
 php-73-upgrade-mac:
     date: 2019-03-21
