@@ -1,3 +1,9 @@
+minor-versions-breaking-changes:
+    date: 2020-03-26
+    title: Minor versions, breaking changes
+    content: src/content/blog/2020-03-26-minor-versions-breaking-changes.md
+    next: new-in-php-74
+
 php-reimagined:
     date: 2020-03-20
     title: PHP reimagined
