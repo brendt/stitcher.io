@@ -26,7 +26,7 @@ Next there's `league/commonmark:^0.17.5`; a very specific dependency, added in M
 
 Two years went by, and `league/commonmark` has since tagged a first stable release. This is something they should have done way more early — but that's a topic for another day.
 
-Finally there's `spatie/laravel-view-components:^1.2`. A package that has been archived recently, in favour of Laravel's blade components in version 7. Again: back in the day it made lots of sense to use this package. We might remove it at one point in the future, but this of course requires time, and costs money for our client. It isn't something we can "just do".
+Finally there's `spatie/laravel-view-components:^1.2`. A package that has been archived recently, in favour of Laravel's blade components in version 7. Again, back in the day it made lots of sense to use this package. We might remove it at one point in the future, but this of course requires time, and costs money for our client. It isn't something we can "just do".
 
 With the stage being set, it's time to look into the issue. Yesterday we ran a `composer update`, and things broke.
 
