@@ -40,7 +40,7 @@ That in itself shouldn't be a problem, we require `laravel/framework:^6.5` in ou
 
 Unfortunately that didn't happen. You see, `laravel/framework` added a dependency on `league/commonmark:^1.1` in version `6.10`. In practice, this addition has the same effect as updating the major version of a dependency: from nothing to `^1.1`.
 
-Again, that change in itself isn't a breaking change, yet it _did_ prevent `laravel/framework` in our project to update higher than `6.9`, because of our requirement on `league/commonmark:^0.17.5`. That in turn prevented `spatie/laravel-view-components` to update from `1.3.0` to `1.3.1`, which contained a much needed bugfix.
+Again, that change in itself isn't a breaking change, yet it _did_ prevent `laravel/framework` in our project from updating higher than `6.9`, because of our requirement on `league/commonmark:^0.17.5`. That in turn prevented `spatie/laravel-view-components` updating from `1.3.0` to `1.3.1`, which contained a much needed bugfix.
 
 ---
 
