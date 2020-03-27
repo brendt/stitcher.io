@@ -50,7 +50,7 @@ You could say that `laravel/framework` shouldn't have updated one of its (implic
 
 The solution, by the way, consisted of updating `laravel/framework` to `^7.0` — we had to do this anyway sooner or later — and removing the `league/commonmark` dependency. So I don't think this change should be avoided by any open source vendors. Open source code should push us towards regular updates, I encourage that myself regularly.
 
-The real problem though, is that composer never notified us that `laravel/framework` wasn't able to update further than `6.9` because of underlying conflicts. If you're not carefully managing each dependency, you're in danger of getting stuck on an outdated dependency, which might prevent much needed bug fixes to be installed.
+The real problem though, is that composer never notified us that `laravel/framework` wasn't able to update further than `6.9` because of underlying conflicts. If you're not carefully managing each dependency, you're in danger of getting stuck on an outdated dependency, which might prevent much needed bug fixes being installed.
 
 As far as I know, there's no option the can be passed to `composer update` which can notify you about such situations and I think that would be a good future addition.
 
