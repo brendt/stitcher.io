@@ -52,6 +52,6 @@ The solution, by the way, consisted of updating `laravel/framework` to `^7.0` â€
 
 The real problem though, is that composer never notified us that `laravel/framework` wasn't able to update further than `6.9` because of underlying conflicts. If you're not carefully managing each dependency, you're in danger of getting stuck on an outdated dependency, which might prevent much needed bug fixes being installed.
 
-As far as I know, there's no option the can be passed to `composer update` which can notify you about such situations and I think that would be a good future addition.
+As far as I know, there's no option that can be passed to `composer update` which can notify you about such situations and I think that would be a good future addition.
 
 My colleague Freek pointed out that there is an external library that does exactly this: [https://github.com/Soullivaneuh/composer-versions-check](*https://github.com/Soullivaneuh/composer-versions-check). It'd be nice to have this functionality built-into composer.
