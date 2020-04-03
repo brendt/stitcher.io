@@ -36,7 +36,7 @@ For example: generate getters and setters without docblocks, generate test funct
 
 When pressing `alt + enter` (`Show Intention Actions`) on a string, you'll get multiple useful actions.
 Things like `replace quotes` to toggle between single- and double quotes, 
-`split string` to.. split the string, and more.
+`split string` to split the string, and more.
 
 <p>
     <img src="/resources/img/static/phpstorm-power-users/string-actions.gif"/>
@@ -75,8 +75,7 @@ to optimise performance. I've written about those options [here](/blog/phpstorm-
 Distraction free mode will hide all panes by default, 
 but you can easily bring them back via the command palette or key bindings.
 
-Besides this "no clutter by default", your code will also align more centered.
-This can be a much more pleasant reading experience. 
+Besides this "no clutter by default", your code will also align more centered, which can be a much more pleasant reading experience. 
 The width of this centered code view is configured in `Settings > Editor > Code Style > Hard wrap at`.
 
 <p>
@@ -87,7 +86,7 @@ The width of this centered code view is configured in `Settings > Editor > Code 
 
 ## Color inspection
 
-Do you want to know why a word is highlighted or change it?
+Do you want to know why a word is highlighted or change the colouring?
 There's a command called `Jump to Colors and Fonts` which will allow you to edit 
 the color of your current scheme, for that entry.
 
