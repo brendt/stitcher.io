@@ -75,8 +75,7 @@ to optimise performance. I've written about those options [here](/blog/phpstorm-
 Distraction free mode will hide all panes by default, 
 but you can easily bring them back via the command palette or key bindings.
 
-Besides this "no clutter by default", your code will also align more centered.
-This can be a much more pleasant reading experience. 
+Besides this "no clutter by default", your code will also align more centered, which can be a much more pleasant reading experience. 
 The width of this centered code view is configured in `Settings > Editor > Code Style > Hard wrap at`.
 
 <p>
