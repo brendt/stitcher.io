@@ -36,7 +36,7 @@ For example: generate getters and setters without docblocks, generate test funct
 
 When pressing `alt + enter` (`Show Intention Actions`) on a string, you'll get multiple useful actions.
 Things like `replace quotes` to toggle between single- and double quotes, 
-`split string` to.. split the string, and more.
+`split string` to split the string, and more.
 
 <p>
     <img src="/resources/img/static/phpstorm-power-users/string-actions.gif"/>
