@@ -87,7 +87,7 @@ The width of this centered code view is configured in `Settings > Editor > Code 
 
 ## Color inspection
 
-Do you want to know why a word is highlighted or change it?
+Do you want to know why a word is highlighted or change the colouring?
 There's a command called `Jump to Colors and Fonts` which will allow you to edit 
 the color of your current scheme, for that entry.
 
