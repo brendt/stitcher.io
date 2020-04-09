@@ -154,6 +154,7 @@ div.center > p {
     display: none;
 }
 
+.image-noborder + p > a > img,
 .image-noborder + p > img {
     box-shadow: none;
 }

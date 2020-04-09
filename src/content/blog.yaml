@@ -1,3 +1,9 @@
+combining-event-sourcing-and-stateful-systems:
+    date: 2020-04-14
+    title: Combining event sourcing and stateful systems
+    content: src/content/blog/2020-04-14-event-sourced.md
+    next: laravel-beyond-crud
+
 new-in-php-8:
     date: 2020-04-10
     title: "New in PHP 8"
