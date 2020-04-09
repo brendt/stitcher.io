@@ -2,7 +2,7 @@
 
 Just like we don't want to work with random arrays full of data, we also don't want the most critical part of our project, the business functionality, to be spread throughout random functions and classes.
 
-Here's an example: one of the user stories in your project might be for "an admin to create an invoice". This means saving an invoice in the database, but also a lot more:
+Here's an example: one of the user stories in your project might be for "an admin to create an invoice". Not only does this mean to save an invoice in the database, you also need to:
 
 - First: calculate the price of each individual invoice line and the total price
 - Save the invoice to the database
@@ -14,8 +14,6 @@ A common practice in Laravel is to create "fat models" which will handle all thi
 In this chapter we will look at another approach to adding this behaviour into our codebase.
 
 Instead of mixing functionality in models or controllers, we will treat these user stories as first class citizens of the project. I tend to call these "actions". 
-
-{{ ad:carbon }}
 
 ## Terminology
 
@@ -77,33 +75,33 @@ Keep in mind though that you're free to come up with your own naming conventions
 
 ## Into practice
 
-With all of the terminology out of the way, let's talk about why actions are useful, and how to actually use them.
+With all of the terminology issues out of the way, let's talk about why actions are useful, and how to actually use them.
 
-First let's talk about re-usability. The trick when using actions is to split them in small enough pieces so that some things are reusable, while keeping them large enough to not end up with an overload of them. Take our invoice example: generating a PDF from an invoice is something that is likely to happen from within several contexts in our application. Sure there's the PDF that's generated when an invoice is actually created, but an admin might also want to see a preview or draft of it, before sending it. 
+First let's talk about re-usability. The trick when using actions is to split them in small enough pieces so that some parts are reusable, while keeping them large enough to not end up with an overload of them. Take our invoice example: generating a PDF from an invoice is something that is likely to happen from within several contexts in our application. Sure there's the PDF that's generated when an invoice is actually created, but an admin might also want to see a preview or draft of it, before sending it. 
 
 These two user stories: "creating an invoice" and "previewing an invoice" obviously require two entry points, two controllers. On the other hand though, generating the PDF based on the invoice is something that's done in both cases.
 
-When you start spending time thinking about what the application actually will do, you'll notice that there are lots of actions that can be reused. Of course, we also need to be careful not to over-abstract our code. It's often better to copy-paste a little code than to make premature abstractions.
+When you start spending time thinking about all the things the application will do, you'll notice that there are lots of actions that can be reused. Of course, we also need to be careful not to over-abstract our code. It's often better to copy-paste some code than to make premature abstractions.
 
-A good rule of thumb is to think about the functionality when making abstractions, instead of the technical properties of code. When two actions might do similar things, though they do it in completely different contexts, you should be careful not to start abstracting them too early.
+A good rule of thumb when making abstractions is to think about functionality and context, instead of the technical properties of code. Even though two actions have similar code, they can belong to completely different contexts. In these cases you should be careful not to start making abstractions too early: there might be future changes within both contexts, in which case premature abstractions would make the refactoring process more complicated.
 
 On the other hand, there are cases where abstractions can be helpful. Take again our invoice PDF example: chances are you need to generate more PDFs than just for invoices — at least this is the case in our projects. It might make sense to have a general `GeneratePdfAction`, which can work with an interface, one that `Invoice` then implements.
 
 But, let's be honest, chances are the majority of our actions will be rather specific to their user stories, and not be re-usable. You might think that actions, in these cases, are unnecessary overhead. Hang on though, because re-usability is not the only reason to use them. Actually, the most important reason has nothing to do with technical benefits at all: actions allow the programmer to think in ways that are closer to the real world, instead of the code.
 
-Say you need to make changes to the way invoices are created. A typical Laravel application will probably have this invoice creation logic spread across a controller and a model, maybe a job which generates the PDF, and finally an event listener to send the invoice mail. That's a lot of places you need to know of. Once again our code is spread across the codebase, grouped by its technical properties, rather than its meaning.
+Say you need to make changes to the way invoices are created. A typical Laravel application will probably have this invoice creation logic spread across a controller and a model, maybe a job which generates the PDF, and finally an event listener to send the invoice mail. That's a lot of steps you need to know of. Once again our code is spread across the codebase, grouped by its technical properties, rather than its meaning.
 
 Actions reduce the cognitive load that's introduced by such a system. If you need to work on how invoices are created, you can simply go to the action class, and start from there. 
 
-Don't be mistaken: actions may very well work together with eg. asynchronous jobs and event listeners; though these jobs and listeners merely provide the infrastructure for actions to work, and not the business logic itself. This is a good example of why we need to split the domain and application layers: each has their own purpose.
+Don't be mistaken: actions may very well work together with asynchronous jobs and event listeners; though these jobs and listeners merely provide the infrastructure for actions to work, and not the business logic itself. This is a good example of why we need to split the domain and application layers: each has their own purpose.
 
 So we got re-usability and a reduction of cognitive load, but there's even more! 
 
-Because actions are small pieces of software that live almost on their own, it's very easy to unit test them. In your tests you don't have to worry about sending fake HTTP requests, setting up facade fakes, etc. You can simply make a new action, maybe provide some mock dependencies, pass it the required input data and make assertions on its output.
+Because actions are small pieces of software that live almost on their own, it's very easy to unit test them. You don't have to worry about setting up facade fakes or sending fake HTTP requests. You can simply make a new action, maybe provide some mock dependencies, pass it the required input data and make assertions on its output.
 
-For example, the `CreateInvoiceLineAction`: it will take data about which article it will invoice, as well as an amount and a period; and it will calculate the total price and prices with and without VAT. These are things you can write robust, yet simple, unit tests for.
+For example, the `CreateInvoiceLineAction`: it will accept data on which article it will invoice, as well as an amount and a period; and it will calculate the total price and prices with and without VAT. These are things you can write robust, yet simple, unit tests for.
 
-If all your actions are properly unit tested, you can be very confident that the bulk of the functionality that needs to be provided by the application actually works as intended. Now it's only a matter of using these actions in ways that make sense for the end user, and write some integration tests for those pieces.
+When all your actions are properly unit tested, you can be very confident that the bulk of the functionality that needs to be provided by the application actually works as intended. Now it's only a matter of using these actions in ways that make sense for the end user, and write some integration tests for those pieces.
 
 ## Composing actions
 
@@ -111,7 +109,7 @@ One important characteristic of actions that I already mentioned before briefly,
 
 You get the idea. Let's be clear though that a deep dependency chain is something you want to avoid — it makes the code complex and highly dependant on each other — yet there are several cases where having DI is very beneficial.
 
-Take again the example of the `CreateInvoiceLineAction` which has to calculate VAT prices. Now depending on the context, an invoice line might have a price including or excluding VAT. Calculating VAT prices is something trivial, yet we don't want our `CreateInvoiceLineAction` to be concerned with the details of it. 
+Take again the example of the `CreateInvoiceLineAction` which has to calculate VAT prices. Depending on context, an invoice line might have a price including or excluding VAT. Calculating VAT prices is something trivial, yet we don't want our `CreateInvoiceLineAction` to be concerned with the details of it. 
 
 So imagine we have a simple `VatCalculator` class — which is something that might live in the `\Support` namespace — it could be injected like so:
 
