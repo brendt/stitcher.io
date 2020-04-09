@@ -6,8 +6,6 @@ In this chapter, I will not tell you to ditch all the model functionality that's
 
 My point of view is that we should embrace the framework, instead of trying to fight it; though we should embrace it in such a way that large projects stay maintainable. Let's dive in. 
 
-{{ ad:carbon }}
-
 ## Models ≠ business logic
 
 The first pitfall that many developers fall into, is that they think of models as _the_ place to be when it comes to business logic. I already listed a few responsibilities of models which are built-into Laravel, and I would argue to be careful not to add any more.
@@ -108,7 +106,7 @@ class Invoice extends Model
 }
 ```
 
-This is what I meant by embracing the framework: you don't need to introduce new patterns like repositories per se, you can build upon what Laravel provides. Giving it some thought, we strike the perfect balance between using the commodities provided by the framework, and preventing our code from growing too large in specific places.  
+This is what I meant by embracing the framework: you don't need to introduce new patterns like repositories, you can build upon what Laravel provides. Giving it some thought, we strike the perfect balance between using the commodities provided by the framework, and preventing our code from growing too large in specific places.  
 
 Using this mindset, we can also provide custom collection classes for relations. Laravel has great collection support, though you often end up with long chains of collection functions either in the model or in the application layer. This again isn't ideal, and luckily Laravel provides us with the needed hooks to bundle collection logic into a dedicated class.
 
@@ -167,14 +165,10 @@ Try to keep your models clean and data-oriented, instead of having them provide 
 
 ## Empty bags of nothingness
 
-I appreciate Taylor Otwell also keeping an eye on this blog series. Last week [he asked](*https://mobile.twitter.com/taylorotwell/status/1188449730055036928) how to avoid our objects becoming nothing more than empty bags of data, an anti-pattern Martin Fowler [wrote about](*https://martinfowler.com/bliki/AnemicDomainModel.html).
-
-Because Taylor took the time to ask me about it on Twitter, I figured I might as well include my response in this chapter, where all people can read about it.
+As a reaction to this chapter, someone asked how to avoid our objects becoming nothing more than empty bags of data, an anti-pattern Martin Fowler [wrote about](*https://martinfowler.com/bliki/AnemicDomainModel.html).
 
 The answer — my answer — is twofold. First of all: I don't think of models as empty bags with plain old data. Using accessors, mutators and casts, they provide a rich layer between the plain data in the database, and the data the developer wants to use. In this chapter I argued to move several other responsibilities to separate classes, that's true, yet I believe that models in their "trimmed" down version still offer a lot more value than simple bags of data, thanks to all the functionality Laravel provides.
 
-Secondly, I think it's worth to mention Alan Kay's vision on this topic (he's the one who came up with the term OOP). He himself said in [this talk](*https://www.youtube.com/watch?time_continue=2265&v=oKg1hTOQXoY) that he regretted calling the paradigm "object oriented", and not "process oriented". Alan argues that he's actually a proponent of splitting process and data. 
+Secondly, I think it's worth to mention Alan Kay's vision on this topic (he's the one who came up with the term OOP). He said, in [a talk back in 1997](*https://www.youtube.com/watch?time_continue=2265&v=oKg1hTOQXoY), that he regretted calling the paradigm "object oriented", and not "process oriented". Alan argues that he's actually a proponent of splitting process and data. 
 
 Whether you agree with that point of view or not is up to you. I do admit to have been influenced by some of Alan's insights, and you might notice that throughout this blog series. Like I said before: don't think of this series as the holy grail of software design. My goal is to challenge the current way you're writing code, making you think whether there are more optimal ways to solve some of your problems.
-
-So let's make sure to continue the discussion, we can [mail](mailto:brent@stitcher.io) about it, or we can discuss it [on Twitter](*https://mobile.twitter.com/brendt_gd).
