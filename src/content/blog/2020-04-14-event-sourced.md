@@ -20,13 +20,13 @@ A simplified version would look something like this:
 
 <div class="image-noborder mobile-only">
 
-[![](/resources/img/blog/event-sourcing/es-1-mobile.png)](*/resources/img/blog/event-sourcing/es-1-mobile.png)
+[![](/resources/img/blog/event-sourcing/es_1_mobile.png)](*/resources/img/blog/event-sourcing/es_1_mobile.png)
 
 </div> 
 
 <div class="image-noborder desktop-only">
 
-[![](/resources/img/blog/event-sourcing/es-1.png)](*/resources/img/blog/event-sourcing/es-1.png)
+[![](/resources/img/blog/event-sourcing/es_1.png)](*/resources/img/blog/event-sourcing/es_1.png)
 
 </div> 
 
@@ -65,13 +65,13 @@ The boundary would look like this, where each service has its own internal desig
 
 <div class="image-noborder mobile-only">
 
-[![](/resources/img/blog/event-sourcing/es-2-mobile.png)](*/resources/img/blog/event-sourcing/es-2-mobile.png)
+[![](/resources/img/blog/event-sourcing/es_2_mobile.png)](*/resources/img/blog/event-sourcing/es_2_mobile.png)
 
 </div> 
 
 <div class="image-noborder desktop-only">
 
-[![](/resources/img/blog/event-sourcing/es-2.png)](*/resources/img/blog/event-sourcing/es-2.png)
+[![](/resources/img/blog/event-sourcing/es_2.png)](*/resources/img/blog/event-sourcing/es_2.png)
 
 </div> 
 
@@ -88,13 +88,13 @@ Reactors will handle side effects and will never be replayed, projectors will ma
 
 <div class="image-noborder mobile-only">
 
-[![](/resources/img/blog/event-sourcing/es-3-mobile.png)](*/resources/img/blog/event-sourcing/es-3-mobile.png)
+[![](/resources/img/blog/event-sourcing/es_3_mobile.png)](*/resources/img/blog/event-sourcing/es_3_mobile.png)
 
 </div> 
 
 <div class="image-noborder desktop-only">
 
-[![](/resources/img/blog/event-sourcing/es-3.png)](*/resources/img/blog/event-sourcing/es-3.png)
+[![](/resources/img/blog/event-sourcing/es_3.png)](*/resources/img/blog/event-sourcing/es_3.png)
 
 </div>
 
@@ -108,13 +108,13 @@ To achieve this, we introduced a third kind of event listener. There already are
 
 <div class="image-noborder mobile-only">
 
-[![](/resources/img/blog/event-sourcing/es-4-mobile.png)](*/resources/img/blog/event-sourcing/es-4-mobile.png)
+[![](/resources/img/blog/event-sourcing/es_4_mobile.png)](*/resources/img/blog/event-sourcing/es_4_mobile.png)
 
 </div> 
 
 <div class="image-noborder desktop-only">
 
-[![](/resources/img/blog/event-sourcing/es-4.png)](*/resources/img/blog/event-sourcing/es-4.png)
+[![](/resources/img/blog/event-sourcing/es_4.png)](*/resources/img/blog/event-sourcing/es_4.png)
 
 </div>
 
@@ -142,13 +142,13 @@ Finally we're able to consume data in our applications, from within all contexts
 
 <div class="image-noborder mobile-only">
 
-[![](/resources/img/blog/event-sourcing/es-5-mobile.png)](*/resources/img/blog/event-sourcing/es-5-mobile.png)
+[![](/resources/img/blog/event-sourcing/es_5_mobile.png)](*/resources/img/blog/event-sourcing/es_5_mobile.png)
 
 </div> 
 
 <div class="image-noborder desktop-only">
 
-[![](/resources/img/blog/event-sourcing/es-5.png)](*/resources/img/blog/event-sourcing/es-5.png)
+[![](/resources/img/blog/event-sourcing/es_5.png)](*/resources/img/blog/event-sourcing/es_5.png)
 
 </div>
 
@@ -160,13 +160,13 @@ Now, here's a final overview. Some arrows are still missing from this diagram, b
 
 <div class="image-noborder mobile-only">
 
-[![](/resources/img/blog/event-sourcing/es-6-mobile.png)](*/resources/img/blog/event-sourcing/es-6-mobile.png)
+[![](/resources/img/blog/event-sourcing/es_6_mobile.png)](*/resources/img/blog/event-sourcing/es_6_mobile.png)
 
 </div> 
 
 <div class="image-noborder desktop-only">
 
-[![](/resources/img/blog/event-sourcing/es-6.png)](*/resources/img/blog/event-sourcing/es-6.png)
+[![](/resources/img/blog/event-sourcing/es_6.png)](*/resources/img/blog/event-sourcing/es_6.png)
 
 </div>
 
