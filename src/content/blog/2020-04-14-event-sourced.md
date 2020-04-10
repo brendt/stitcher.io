@@ -14,7 +14,7 @@ I hope you understand that I deliberately am keeping these terms a little vague 
 
 Let’s first discuss an approach of how to design this system based on my [Laravel beyond CRUD](*/blog/laravel-beyond-crud) series.
 
-In such system there would probably be two domain groups: `Product` and `Order`, and two applications making use of both these domains: an `AdminApplication` and a `CustomerApplication`. 
+In such a system there would probably be two domain groups: `Product` and `Order`, and two applications making use of both these domains: an `AdminApplication` and a `CustomerApplication`. 
 
 A simplified version would look something like this:
 
@@ -31,7 +31,7 @@ A simplified version would look something like this:
 </div> 
 
 
-Having used this architecture successfully in previous projects, we could simply rely on it and call it a day. There are a few downsides with it though, specifically for this new project: we have to keep in mind that reporting and historical tracking are key aspects of ordering products. We want to treat them as such in our code, and not as a mere side effect. 
+Having used this architecture successfully in previous projects, we could simply rely on it and call it a day. There are a few downsides with it though, specifically for this new project: we have to keep in mind that reporting and historical tracking are key aspects of the ordering process. We want to treat them as such in our code, and not as a mere side effect. 
 
 For example: we could use our activity log package to keep track of "history messages" about what happened with an order. We could also start writing custom queries on the order and history tables to generate reports.
 
@@ -102,7 +102,7 @@ One design decision we made here was to not split our read and write models, for
 
 The most important rule to remember is that the whole state of the `Order` context should be able to be rebuilt only from its stored events.
 
-So how do we pull in data from other contexts? How can the `Order` context be notified when something happens within the `Product` context that's relevant to it? One thing is for sure: all relevant information regarding `Products`, will need to be stored as events within the `Order` context; since within that context, events are the only source of truth.
+So how do we pull in data from other contexts? How can the `Order` context be notified when something happens within the `Product` context that's relevant to it? One thing is for sure: all relevant information regarding `Products` will need to be stored as events within the `Order` context; since within that context, events are the only source of truth.
 
 To achieve this, we introduced a third kind of event listener. There already are projectors and reactors; now we add the concept of subscribers. These subscribers are allowed to listen to events from other contexts, and handle them accordingly within their current context. Most likely, they will almost always convert external events to internal, stored ones.
 
@@ -118,11 +118,11 @@ To achieve this, we introduced a third kind of event listener. There already are
 
 </div>
 
-From the moment events are stored within the `Order` context, we' can safely forget about any dependency on the `Product` context. 
+From the moment events are stored within the `Order` context, we can safely forget about any dependency on the `Product` context. 
 
 Some readers might think that we're duplicating data by copying events between these two contexts. We're of course storing an `Orders` specific event, based on when a `Product` was `created`, so yes, some data will be copied. There are, however, more benefits to this than you might think.
 
-First of all: the `Product` context doesn't need to know anything about what other contexts will be using its data. It doesn't have to take event versioning into account, because its events are never stored themselves. This allows us to work in the `Product` context as if it was any normal, stateful application, without the complexity event sourcing adds.
+First of all: the `Product` context doesn't need to know anything about which other contexts will use its data. It doesn't have to take event versioning into account, because its events will never be stored. This allows us to work in the `Product` context as if it was any normal, stateful application, without the complexity event sourcing adds.
 
 Second: there will be more than just the `Order` context that's event sourced, and all of these contexts can individually listen to relevant events triggered within the `Product` context.
 
@@ -130,15 +130,15 @@ And third: we don't have to store a full copy of the original `Product` events, 
 
 ## What about data migrations?
 
-Say this system has been in production for over a year, and we decide to add a whole new event sourced context, which also requires knowledge about the `Product` context. The original `Product` events weren't stored — because of the reasons listed above — so how can we build an initial state for our new context?
+A new question arose.
 
-One question that presented itself was how we'd handle such a scenario. 
+Say this system has been in production for a year, and we decide to add a new context that's event sourced; one which also requires knowledge about the `Product` context. The original `Product` events weren't stored — because of the reasons listed above — so how can we build an initial state for our new context?
 
-The answer is this: at the time of deployment, we'll have to read all product data, and send relevant events to the newly added context, based on the existing products. This one-time migration is an added cost, though it gives us the freedom to work within the `Product` context without ever having to worry about storing events. For this project that's a price worth paying.
+The answer is this: at the time of deployment, we'll have to read all product data, and send relevant events to the newly added context, based on the existing products. This one-time migration is an added cost, though it gives us the freedom to work within the `Product` context without ever having to worry about the outside. For this project that's a price worth paying.
 
 ## Final integration
 
-Finally we're able to consume data in our applications, from within all contexts, using readonly models. Again, in our case and as of now, these models are readonly by convention; we might change that in the future. 
+Finally we're able to consume data in our applications gathered from all contexts, by using readonly models. Again, in our case and as of now, these models are readonly by convention; we might change that in the future. 
 
 <div class="image-noborder mobile-only">
 
