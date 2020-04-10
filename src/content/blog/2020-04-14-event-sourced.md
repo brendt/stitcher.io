@@ -78,7 +78,7 @@ The most important rule to remember is that the whole state of the `Order` conte
 
 So how do we pull in data from other contexts? How can the `Order` context be notified when something happens within the `Product` context that's relevant to it? One thing is for sure: all relevant information regarding `Products`, will need to be stored as events within the `Order` context; since within that context, events are the only source of truth.
 
-To achieve this, we introduced a fourth kind of event listener. There already are aggregate roots, projectors and reactors; now we add the concept of subscribers. These subscribers are allowed to listen to events from other contexts, and handle them accordingly within their current context. Most likely, they will almost always convert external events to internal, stored ones.
+To achieve this, we introduced a third kind of event listener. There already are projectors and reactors; now we add the concept of subscribers. These subscribers are allowed to listen to events from other contexts, and handle them accordingly within their current context. Most likely, they will almost always convert external events to internal, stored ones.
 
 <div class="image-noborder"></div>
 
