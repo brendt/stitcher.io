@@ -112,6 +112,12 @@ Finally we're able to consume data in our applications, from within all contexts
 
 Communication from applications to the `Product` context is done like any normal stateful application would do. Communication between applications and event sourced contexts such as `Orders` is done via its aggregate root. 
 
+Now, here's a final overview. Some arrows are still missing from this diagram, but I hope that the relevant flow between and inside contexts and applications is clear.
+
+<div class="image-noborder"></div>
+
+[![](/resources/img/blog/event-sourcing/es-6.png)](*/resources/img/blog/event-sourcing/es-6.png) 
+
 ---
 
 The key in solving our problem was to look at DDD's bounded contexts. They describe strict boundaries within our codebase, ones that we cannot simply cross whenever we want. Sure this adds a layer of complexity, though it also adds the freedom to build each context whatever way we want, without having to worry about supporting others.
