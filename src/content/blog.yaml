@@ -1,3 +1,13 @@
+new-in-php-8:
+    date: 2020-04-10
+    title: "New in PHP 8"
+    content: src/content/blog/2020-01-16-new-in-php-8.md
+    next: new-in-php-74
+    highlight: true
+    meta:
+        description: "New features, deprecations and improvements in PHP 8"
+    tag: php-8
+
 minor-versions-breaking-changes:
     date: 2020-03-26
     title: Minor versions, breaking changes
@@ -21,16 +31,6 @@ event-driven-php:
     next: new-in-php-8
     meta:
         description: "A close look at a event-sourced, long running server architecture in PHP"
-    tag: php-8
-
-new-in-php-8:
-    date: 2020-02-27
-    title: "New in PHP 8"
-    content: src/content/blog/2020-01-16-new-in-php-8.md
-    next: new-in-php-74
-    highlight: true
-    meta:
-        description: "New features, deprecations and improvements in PHP 8"
     tag: php-8
 
 bitwise-booleans-in-php:
