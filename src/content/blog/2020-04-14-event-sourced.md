@@ -18,9 +18,18 @@ In such system there would probably be two domain groups: `Product` and `Order`,
 
 A simplified version would look something like this:
 
-<div class="image-noborder"></div>
+<div class="image-noborder mobile-only">
+
+[![](/resources/img/blog/event-sourcing/es-1-mobile.png)](*/resources/img/blog/event-sourcing/es-1-mobile.png)
+
+</div> 
+
+<div class="image-noborder desktop-only">
 
 [![](/resources/img/blog/event-sourcing/es-1.png)](*/resources/img/blog/event-sourcing/es-1.png)
+
+</div> 
+
 
 Having used this architecture successfully in previous projects, we could simply rely on it and call it a day. There are a few downsides with it though, specifically for this new project: we have to keep in mind that reporting and historical tracking are key aspects of ordering products. We want to treat them as such in our code, and not as a mere side effect. 
 
@@ -54,9 +63,18 @@ Obviously we wouldn't actually build an API to communicate between our services,
 
 The boundary would look like this, where each service has its own internal design.
 
-<div class="image-noborder"></div>
+<div class="image-noborder mobile-only">
+
+[![](/resources/img/blog/event-sourcing/es-2-mobile.png)](*/resources/img/blog/event-sourcing/es-2-mobile.png)
+
+</div> 
+
+<div class="image-noborder desktop-only">
 
 [![](/resources/img/blog/event-sourcing/es-2.png)](*/resources/img/blog/event-sourcing/es-2.png)
+
+</div> 
+
 
 If you read my Laravel beyond CRUD series, you're already familiar with how the `Product` context works. There's nothing new going on over there. The `Order` context deserves a little more background information though.
 
@@ -68,9 +86,17 @@ The `OrderAggregateRoot` will keep track of everything that happens within this 
 
 Reactors will handle side effects and will never be replayed, projectors will make projections. In our case these are simple Laravel models. These models can be read from any other context, though they can only be written to from within projectors.
 
-<div class="image-noborder"></div>
+<div class="image-noborder mobile-only">
+
+[![](/resources/img/blog/event-sourcing/es-3-mobile.png)](*/resources/img/blog/event-sourcing/es-3-mobile.png)
+
+</div> 
+
+<div class="image-noborder desktop-only">
 
 [![](/resources/img/blog/event-sourcing/es-3.png)](*/resources/img/blog/event-sourcing/es-3.png)
+
+</div>
 
 One design decision we made here was to not split our read and write models, for now we rely on a spoken _and_ written convention that these models are only written to via their projectors. One example of such a projection model would be an `Order`.
 
@@ -80,9 +106,17 @@ So how do we pull in data from other contexts? How can the `Order` context be no
 
 To achieve this, we introduced a third kind of event listener. There already are projectors and reactors; now we add the concept of subscribers. These subscribers are allowed to listen to events from other contexts, and handle them accordingly within their current context. Most likely, they will almost always convert external events to internal, stored ones.
 
-<div class="image-noborder"></div>
+<div class="image-noborder mobile-only">
+
+[![](/resources/img/blog/event-sourcing/es-4-mobile.png)](*/resources/img/blog/event-sourcing/es-4-mobile.png)
+
+</div> 
+
+<div class="image-noborder desktop-only">
 
 [![](/resources/img/blog/event-sourcing/es-4.png)](*/resources/img/blog/event-sourcing/es-4.png)
+
+</div>
 
 From the moment events are stored within the `Order` context, we' can safely forget about any dependency on the `Product` context. 
 
@@ -106,9 +140,17 @@ The answer is this: at the time of deployment, we'll have to read all product da
 
 Finally we're able to consume data in our applications, from within all contexts, using readonly models. Again, in our case and as of now, these models are readonly by convention; we might change that in the future. 
 
-<div class="image-noborder"></div>
+<div class="image-noborder mobile-only">
 
-[![](/resources/img/blog/event-sourcing/es-5.png)](*/resources/img/blog/event-sourcing/es-5.png) 
+[![](/resources/img/blog/event-sourcing/es-5-mobile.png)](*/resources/img/blog/event-sourcing/es-5-mobile.png)
+
+</div> 
+
+<div class="image-noborder desktop-only">
+
+[![](/resources/img/blog/event-sourcing/es-5.png)](*/resources/img/blog/event-sourcing/es-5.png)
+
+</div>
 
 Communication from applications to the `Product` context is done like any normal stateful application would do. Communication between applications and event sourced contexts such as `Orders` is done via its aggregate root. 
 
@@ -116,7 +158,17 @@ Now, here's a final overview. Some arrows are still missing from this diagram, b
 
 <div class="image-noborder"></div>
 
-[![](/resources/img/blog/event-sourcing/es-6.png)](*/resources/img/blog/event-sourcing/es-6.png) 
+<div class="image-noborder mobile-only">
+
+[![](/resources/img/blog/event-sourcing/es-6-mobile.png)](*/resources/img/blog/event-sourcing/es-6-mobile.png)
+
+</div> 
+
+<div class="image-noborder desktop-only">
+
+[![](/resources/img/blog/event-sourcing/es-6.png)](*/resources/img/blog/event-sourcing/es-6.png)
+
+</div>
 
 ---
 
