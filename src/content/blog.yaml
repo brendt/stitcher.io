@@ -3,6 +3,8 @@ combining-event-sourcing-and-stateful-systems:
     title: Combining event sourcing and stateful systems
     content: src/content/blog/2020-04-14-event-sourced.md
     next: laravel-beyond-crud
+    meta:
+        description: "Bridging the gap between stateful and event sourced sub-systems"
 
 new-in-php-8:
     date: 2020-04-10
