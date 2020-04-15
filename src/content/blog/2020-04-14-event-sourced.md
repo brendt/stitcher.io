@@ -1,4 +1,4 @@
-In this two-part series, my colleague [Freek](*https://twitter.com/freekmurze) and I will discuss the architecture of a project we're working on. We will share our insights and answers to problems we encountered along the way. This part will be about the design of the system, while Freek's part will look at the concrete implementation.
+In this two-part series, my colleague [Freek](*https://twitter.com/freekmurze) and I will discuss the architecture of a project we're working on. We will share our insights and answers to problems we encountered along the way. This part will be about the design of the system, while [Freek's part](*https://freek.dev/1634-mixing-event-sourcing-in-a-traditional-laravel-app) will look at the concrete implementation.
 
 Let's set the scene.
 
@@ -176,4 +176,4 @@ The key in solving our problem was to look at DDD's bounded contexts. They descr
 
 The final piece of the puzzle was to solely rely on events as a means of communication between contexts. Once again it adds a layer of complexity, but also a means of decoupling and flexibility. 
 
-Now it's time to take a deep dive into how we programmed this within a Laravel project. Here's my colleague Freek.
+Now it's time to take a deep dive into how we programmed this within a Laravel project. Here's my colleague Freek with [part two](*https://freek.dev/1634-mixing-event-sourcing-in-a-traditional-laravel-app).
