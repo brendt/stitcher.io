@@ -4,7 +4,7 @@ Let's set the scene.
 
 {{ ad:carbon }}
 
-This project is one of the larger ones we've worked on. In the end it will serve hundreds of thousands of users, handle large amounts of financial transactions and standalone tenant-specific installations need to be created on the fly.
+This project is one of the larger ones we've worked on. In the end it will serve hundreds of thousands of users, handle large amounts of financial transactions and standalone tenant-specific installations will need to be created on the fly.
 
 One key requirement is that the product ordering flow — the core of the business — can be easily reported on, as well as tracked throughout history.
 
