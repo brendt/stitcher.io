@@ -55,7 +55,7 @@ Nevertheless, we did some labour intensive research, and managed to find an answ
 
 If we wanted the `Products` module to be an independent, stateful system, we had to clearly respect the boundaries between `Products` and `Orders`. Instead of one monolithic application, we would have to treat these two modules as two separate contexts — separate services, which were only allowed to speak with each other in such a way that it be could guaranteed the `Order` context would never end up in an invalid state.    
 
-If the `Order` context is built in such a way that it doesn't rely on the `Product` context directly, it wouldn't matter how that `Product` context was built.
+If the `Order` context is built whereby it doesn't rely on the `Product` context directly, it wouldn't matter how that `Product` context was built.
 
 When discussing this with Freek, I phrased it like this: think of `Products` as a separate service, accessed via a REST API. How would we guarantee our event sourced application would still work, even if the API goes offline, or makes changes to its data structure.
 
