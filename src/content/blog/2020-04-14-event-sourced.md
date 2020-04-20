@@ -47,7 +47,7 @@ So either we event source everything, or find a solution for this problem.
 
 ## Event source all the things?!
 
-From playing around with event sourcing in some of our hobby projects, we were painfully aware that we shouldn't underestimate the complexity it adds. Furthermore, Greg Young stated that event sourcing a whole system is most often a bad idea — he has a [whole talk](*https://www.youtube.com/watch?v=LDW0QWie21s) on misconceptions about event sourcing, it's worth a watch!
+From playing around with event sourcing in some of our hobby projects, we were painfully aware that we shouldn't underestimate the complexity it adds. Furthermore, Greg Young stated that event sourcing a whole system is often a bad idea — he has a [whole talk](*https://www.youtube.com/watch?v=LDW0QWie21s) on misconceptions about event sourcing and is worth a watch!
 
 It was clear to us that we did not want to event source the whole application. It simply wouldn't make sense to do so. The only alternative was to find a way to combine a stateful system, together with an event sourced system. Surprisingly we couldn't find many resources on this topic. 
 
