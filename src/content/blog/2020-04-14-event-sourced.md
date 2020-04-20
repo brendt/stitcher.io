@@ -41,7 +41,7 @@ Naturally we looked at event sourcing, a wonderful and flexible solution that fu
 
 While it was clear that an event sourced system would solve many of the problems, it would also introduce lots of overhead, even in places where it wouldn't add any value.
 
-Here's what I mean with that: if we decide to event source the `Orders` module, which relies on data from the `Products` module, we also need to event source that one, because otherwise we could end up with an invalid state. If `Products` weren't event sourced, and one was deleted, we'd couldn't rebuild the `Orders` state anymore, since it's missing information.
+Here's what I mean with that: if we decide to event source the `Orders` module, which relies on data from the `Products` module, we also need to event source that one, because otherwise we could end up with an invalid state. If `Products` weren't event sourced, and one was deleted, we couldn't rebuild the `Orders` state anymore, since it's missing information.
 
 So either we event source everything, or find a solution for this problem.
 
