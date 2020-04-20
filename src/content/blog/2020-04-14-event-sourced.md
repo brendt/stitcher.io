@@ -82,7 +82,7 @@ If you read my Laravel beyond CRUD series, you're already familiar with how the 
 
 So let's look at the event sourced part. I assume you that if you're reading this post, you have at least an interest in event sourcing, so I won't explain everything in detail.
 
-The `OrderAggregateRoot` will keep track of everything that happens within this context. It will be the entry point for applications to talk with. It will dispatch events, which are stored and propagated to all reactors and projectors.
+The `OrderAggregateRoot` will keep track of everything that happens within this context and will be the entry point for applications to talk with. It will also dispatch events, which are stored and propagated to all reactors and projectors.
 
 Reactors will handle side effects and will never be replayed, projectors will make projections. In our case these are simple Laravel models. These models can be read from any other context, though they can only be written to from within projectors.
 
