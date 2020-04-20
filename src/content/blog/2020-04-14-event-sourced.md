@@ -37,7 +37,7 @@ For example: we could use our activity log package to keep track of "history mes
 
 However, these solutions only work properly when they are minor side effects of the core business. In this case, they are not. So Freek and I were tasked with figuring out a design for this project that made reporting and historical tracking an easy-to-maintain and easy-to-use, core part of the application.
 
-Naturally we looked at event sourcing, a wonderful and flexible solution that fulfills the above requirements. Nothing comes for free though: event sourcing requires quite a lot of extra code to be written in order to do otherwise simple things. Where you'd normally have simple CRUD actions manipulating data in the database, you now have to worry about dispatching events, handling them with projectors and reactors, always keeping versioning in mind.   
+Naturally we looked at event sourcing, a wonderful and flexible solution that fulfills the above requirements. Nothing comes for free though: event sourcing requires quite a lot of extra code to be written in order to do otherwise simple things. Where you'd normally have simple CRUD actions manipulating data in the database, you now have to worry about dispatching events, handling them with projectors and reactors, whilst always keeping versioning in mind.   
 
 While it was clear that an event sourced system would solve many of the problems, it would also introduce lots of overhead, even in places where it wouldn't add any value.
 
