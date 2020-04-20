@@ -154,8 +154,26 @@ div.center > p {
     display: none;
 }
 
+.image-noborder img,
+.image-noborder + p > a > img,
 .image-noborder + p > img {
     box-shadow: none;
+}
+
+.mobile-only {
+    display:none;
+
+    @media(max-width:630px) {
+        display:block;
+    }
+}
+
+.desktop-only {
+    display:none;
+
+    @media(min-width:631px) {
+        display:block;
+    }
 }
 
 .no-break {
