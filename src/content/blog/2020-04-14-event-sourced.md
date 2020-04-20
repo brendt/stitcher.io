@@ -126,7 +126,7 @@ First of all: the `Product` context doesn't need to know anything about which ot
 
 Second: there will be more than just the `Order` context that's event sourced, and all of these contexts can individually listen to relevant events triggered within the `Product` context.
 
-And third: we don't have to store a full copy of the original `Product` events, each context can cherry-pick and store the data that's relevant for its own use case.
+And third: we don't have to store a full copy of the original `Product` events since each context can cherry-pick and store the data that's relevant for its own use case.
 
 ## What about data migrations?
 
