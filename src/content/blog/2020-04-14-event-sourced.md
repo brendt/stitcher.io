@@ -172,7 +172,7 @@ Now, here's a final overview. Some arrows are still missing from this diagram, b
 
 ---
 
-The key in solving our problem was to look at DDD's bounded contexts. They describe strict boundaries within our codebase, ones that we cannot simply cross whenever we want. Sure this adds a layer of complexity, though it also adds the freedom to build each context whatever way we want, without having to worry about supporting others.
+The key in solving our problem was to look at DDD's bounded contexts. They describe strict boundaries within our codebase - ones that we cannot simply cross whenever we want. Sure this adds a layer of complexity, though it also adds the freedom to build each context whatever way we want, without having to worry about supporting others.
 
 The final piece of the puzzle was to solely rely on events as a means of communication between contexts. Once again it adds a layer of complexity, but also a means of decoupling and flexibility. 
 
