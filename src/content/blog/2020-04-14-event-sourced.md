@@ -4,7 +4,7 @@ Let's set the scene.
 
 {{ ad:carbon }}
 
-This project is one of the larger ones we've worked on. In the end it will serve hundreds of thousands of users, it'll handle large amounts of financial transactions, standalone tenant-specific installations need to be created on the fly.
+This project is one of the larger ones we've worked on. In the end it will serve hundreds of thousands of users, handle large amounts of financial transactions and standalone tenant-specific installations will need to be created on the fly.
 
 One key requirement is that the product ordering flow — the core of the business — can be easily reported on, as well as tracked throughout history.
 
@@ -37,25 +37,25 @@ For example: we could use our activity log package to keep track of "history mes
 
 However, these solutions only work properly when they are minor side effects of the core business. In this case, they are not. So Freek and I were tasked with figuring out a design for this project that made reporting and historical tracking an easy-to-maintain and easy-to-use, core part of the application.
 
-Naturally we looked at event sourcing, a wonderful and flexible solution that fulfills the above requirements. Nothing comes for free though: event sourcing requires quite a lot of extra code to be written in order to do otherwise simple things. Where you'd normally have simple CRUD actions manipulating data in the database, you now have to worry about dispatching events, handling them with projectors and reactors, always keeping versioning in mind.   
+Naturally we looked at event sourcing, a wonderful and flexible solution that fulfills the above requirements. Nothing comes for free though: event sourcing requires quite a lot of extra code to be written in order to do otherwise simple things. Where you'd normally have simple CRUD actions manipulating data in the database, you now have to worry about dispatching events, handling them with projectors and reactors, whilst always keeping versioning in mind.   
 
 While it was clear that an event sourced system would solve many of the problems, it would also introduce lots of overhead, even in places where it wouldn't add any value.
 
-Here's what I mean with that: if we decide to event source the `Orders` module, which relies on data from the `Products` module, we also need to event source that one, because otherwise we could end up with an invalid state. If `Products` weren't event sourced, and one was deleted, we'd couldn't rebuild the `Orders` state anymore, since it's missing information.
+Here's what I mean with that: if we decide to event source the `Orders` module, which relies on data from the `Products` module, we also need to event source that one, because otherwise we could end up with an invalid state. If `Products` weren't event sourced, and one was deleted, we couldn't rebuild the `Orders` state anymore, since it's missing information.
 
 So either we event source everything, or find a solution for this problem.
 
 ## Event source all the things?!
 
-From playing around with event sourcing in some of our hobby projects, we were painfully aware that we shouldn't underestimate the complexity it adds. Furthermore, Greg Young stated that event sourcing a whole system is most often a bad idea — he has a [whole talk](*https://www.youtube.com/watch?v=LDW0QWie21s) on misconceptions about event sourcing, it's worth a watch!
+From playing around with event sourcing in some of our hobby projects, we were painfully aware that we shouldn't underestimate the complexity it adds. Furthermore, Greg Young stated that event sourcing a whole system is often a bad idea — he has a [whole talk](*https://www.youtube.com/watch?v=LDW0QWie21s) on misconceptions about event sourcing and is worth a watch!
 
-It was clear to us that we did not want to event source the whole application. It simply wouldn't make sense to do so. The only alternative was to find a way to combine a stateful system, together with an event sourced system. Surprisingly we couldn't find many resources on this topic. 
+It was clear to us that we did not want to event source the whole application; it simply wouldn't make sense to do so. The only alternative was to find a way to combine a stateful system, together with an event sourced system, but surprisingly, we couldn't find many resources on this topic. 
 
 Nevertheless, we did some labour intensive research, and managed to find an answer to our question. The answer didn't come from the event sourcing community though, but rather from well-established DDD practices: bounded contexts.
 
-If we wanted the `Products` module to be an independent, stateful system, we had to clearly respect the boundaries between `Products` and `Orders`. Instead of one monolithic application, we would have to treat these two modules as two separate contexts — separate services, which were only allowed to speak with each other in such a way so that it be could guaranteed the `Order` context would never end up in an invalid state.    
+If we wanted the `Products` module to be an independent, stateful system, we had to clearly respect the boundaries between `Products` and `Orders`. Instead of one monolithic application, we would have to treat these two modules as two separate contexts — separate services, which were only allowed to speak with each other in such a way that it be could guaranteed the `Order` context would never end up in an invalid state.    
 
-If the `Order` context is built in such a way that it doesn't rely on the `Product` context directly, it wouldn't matter how that `Product` context was built.
+If the `Order` context is built whereby it doesn't rely on the `Product` context directly, it wouldn't matter how that `Product` context was built.
 
 When discussing this with Freek, I phrased it like this: think of `Products` as a separate service, accessed via a REST API. How would we guarantee our event sourced application would still work, even if the API goes offline, or makes changes to its data structure.
 
@@ -82,9 +82,9 @@ If you read my Laravel beyond CRUD series, you're already familiar with how the 
 
 So let's look at the event sourced part. I assume you that if you're reading this post, you have at least an interest in event sourcing, so I won't explain everything in detail.
 
-The `OrderAggregateRoot` will keep track of everything that happens within this context. It will be the entry point for applications to talk with. It will dispatch events, which are stored and propagated to all reactors and projectors.
+The `OrderAggregateRoot` will keep track of everything that happens within this context and will be the entry point for applications to talk with. It will also dispatch events, which are stored and propagated to all reactors and projectors.
 
-Reactors will handle side effects and will never be replayed, projectors will make projections. In our case these are simple Laravel models. These models can be read from any other context, though they can only be written to from within projectors.
+Reactors will handle side effects which will never be replayed and projectors will make projections. In our case these are simple Laravel models. These models can be read from any other context, though they can only be written to from within projectors.
 
 <div class="image-noborder mobile-only">
 
@@ -126,7 +126,7 @@ First of all: the `Product` context doesn't need to know anything about which ot
 
 Second: there will be more than just the `Order` context that's event sourced, and all of these contexts can individually listen to relevant events triggered within the `Product` context.
 
-And third: we don't have to store a full copy of the original `Product` events, each context can cherry-pick and store the data that's relevant for its own use case.
+And third: we don't have to store a full copy of the original `Product` events since each context can cherry-pick and store the data that's relevant for its own use case.
 
 ## What about data migrations?
 
@@ -172,7 +172,7 @@ Now, here's a final overview. Some arrows are still missing from this diagram, b
 
 ---
 
-The key in solving our problem was to look at DDD's bounded contexts. They describe strict boundaries within our codebase, ones that we cannot simply cross whenever we want. Sure this adds a layer of complexity, though it also adds the freedom to build each context whatever way we want, without having to worry about supporting others.
+The key in solving our problem was to look at DDD's bounded contexts. They describe strict boundaries within our codebase - ones that we cannot simply cross whenever we want. Sure this adds a layer of complexity, though it also adds the freedom to build each context whatever way we want, without having to worry about supporting others.
 
 The final piece of the puzzle was to solely rely on events as a means of communication between contexts. Once again it adds a layer of complexity, but also a means of decoupling and flexibility. 
 
