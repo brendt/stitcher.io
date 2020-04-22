@@ -44,9 +44,10 @@ h2 {
     position: relative;
 }
 
-h3 {
+body h3 {
     font-size: 1.5em;
     margin-top: 1.1em;
+    color: $color-black;
 }
 
 h2, h3 {
@@ -55,7 +56,7 @@ h2, h3 {
         border-radius: 5px;
         background-color: $color-php;
         color: #fff;
-        font-variant: small-caps;
+        text-transform: lowercase;
         position:relative;
         top:-4px;
 
