@@ -476,6 +476,11 @@ array-destructuring-with-list-in-php:
     next: new-in-php-74
     meta:
         description: "How to destructure arrays in PHP using list or its shorthand notation"
+    footnotes:
+        -   link: /blog/shorthand-comparisons-in-php
+            title: Shorthand comparisons in PHP
+        -   link: /blog/array-merge-vs+
+            title: Array merge vs. +
 
 php-73-upgrade-mac:
     date: 2019-03-21
@@ -814,7 +819,6 @@ where-a-curly-bracket-belongs:
     meta:
         description: Thoughts about where to place a curly bracket, and what it means for your cognitive load.
 
-
 mysql-import-json-binary-character-set:
     date: 2018-01-09
     type: piece of code
@@ -823,7 +827,6 @@ mysql-import-json-binary-character-set:
     content: src/content/blog/2018-01-09-mysql-import-json-binary-character-set.md
     meta:
         description: How to fix "cannot create a JSON value from a string with CHARACTER SET 'binary'" MySQL import error
-
 
 asynchronous-php:
     date: 2017-12-24
@@ -835,7 +838,6 @@ asynchronous-php:
         reddit: https://www.reddit.com/r/PHP/comments/7oacw3/working_on_a_simple_asynchronous_and_parallel_php/
     meta:
         description: We created a new asynchronous PHP package at Spatie.
-
 
 optimised-uuids-in-mysql:
     date: 2017-11-29
@@ -859,6 +861,11 @@ shorthand-comparisons-in-php:
         reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
     meta:
         description: Taking a closer look at the ternary, null coalescing and spaceship operators in PHP.
+    footnotes:
+        - link: /blog/array-destructuring-with-list-in-php
+          title: Array destructuring in PHP
+        - link: /blog/array-merge-vs+
+          title: Array merge vs. +
 
 phpstorm-performance:
     date: 2017-10-22
