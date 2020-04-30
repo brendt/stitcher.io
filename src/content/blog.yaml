@@ -5,6 +5,9 @@ combining-event-sourcing-and-stateful-systems:
     next: laravel-beyond-crud
     meta:
         description: "Bridging the gap between stateful and event sourced sub-systems"
+    footnotes:
+        -   link: /blog/laravel-beyond-crud
+            title: "Laravel beyond CRUD: a blog series on designing large Laravel applications"
 
 new-in-php-8:
     date: 2020-04-10
@@ -15,6 +18,13 @@ new-in-php-8:
     meta:
         description: "New features, deprecations and improvements in PHP 8"
     tag: php-8
+    footnotes:
+        - link: /blog/php-in-2020
+          title: PHP in 2020
+        - link: /blog/new-in-php-74
+          title: What's new in PHP 7.4
+        - link: /blog/new-in-php-73
+          title: What's new in PHP 7.3
 
 minor-versions-breaking-changes:
     date: 2020-03-26
@@ -31,6 +41,13 @@ php-reimagined:
     next: new-in-php-74
     meta:
         description: "My personal take on how to improve PHP"
+    footnotes:
+        -   link: /blog/new-in-php-8
+            title: What's new in PHP 8
+        -   link: /blog/what-php-can-be
+            title: A deep dive into PHP's type system
+        -   link: /blog/php-in-2019
+            title: PHP in 2019
 
 event-driven-php:
     date: 2020-03-13
@@ -79,6 +96,13 @@ php-in-2020:
     next: new-in-php-8
     meta:
         description: "PHP isn't the same old crappy language it was ten years ago"
+    footnotes:
+      -   link: /blog/new-in-php-8
+          title: What's new in PHP 8
+      -   link: /blog/php-reimagined
+          title: My vision on how PHP could evolve
+      -   link: /blog/php-in-2019
+          title: PHP in 2019
 
 php-preload-benchmarks:
     date: 2020-01-10
@@ -88,6 +112,15 @@ php-preload-benchmarks:
     meta:
         description: "Some benchmarks with the new preloading feature in PHP 7.4"
     tag: php-74
+    footnotes:
+          -   link: /blog/preloading-in-php-74
+              title: Preloading in PHP 7.4
+          -   link: /blog/new-in-php-74
+              title: What's new in PHP 7.4
+          -   link: /blog/short-closures-in-php
+              title: Short closures in PHP 7.4
+          -   link: /blog/typed-properties-in-php-74
+              title: Typed properties in PHP 7.4
 
 laravel-beyond-crud-08-view-models:
     date: 2019-12-07
@@ -106,6 +139,13 @@ php-74-upgrade-mac:
     tag: php-74
     meta:
         description: "How to upgrade to PHP 7.4 on a Mac with Homebrew"
+    footnotes:
+        -   link: /blog/new-in-php-74
+            title: What's new in PHP 7.4
+        -   link: /blog/new-in-php-8
+            title: What's new in PHP 8
+        -   link: /blog/php-in-2020
+            title: PHP in 2020
 
 new-in-php-74:
     date: 2019-11-26
@@ -117,6 +157,15 @@ new-in-php-74:
     tag: php-74
     meta:
         description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
+    footnotes:
+        -   link: /blog/new-in-php-8
+            title: What's new in PHP 8
+        -   link: /blog/php-74-upgrade-mac
+            title: Upgrade to PHP 7.4 on a Mac
+        -   link: /blog/php-in-2020
+            title: PHP in 2020
+        -   link: /blog/new-in-php-73
+            title: What's new in PHP 7.3
 
 preloading-in-php-74:
     date: 2019-07-05
@@ -126,6 +175,15 @@ preloading-in-php-74:
     tag: php-74
     meta:
         description: Preloading allows for parsed PHP files to be available for all requests
+    footnotes:
+        -   link: /blog/php-preload-benchmarks
+            title: Preloading benchmarks
+        -   link: /blog/new-in-php-74
+            title: What's new in PHP 7.4
+        -   link: /blog/short-closures-in-php
+            title: Short closures in PHP 7.4
+        -   link: /blog/typed-properties-in-php-74
+            title: Typed properties in PHP 7.4
 
 short-closures-in-php:
     date: 2019-05-02
@@ -135,6 +193,13 @@ short-closures-in-php:
     tag: php-74
     meta:
         description: "Short closures, also called arrow functions, are available in PHP 7.4"
+    footnotes:
+        -   link: /blog/new-in-php-74
+            title: What's new in PHP 7.4
+        -   link: /blog/typed-properties-in-php-74
+            title: Typed properties in PHP 7.4
+        -   link: /blog/preloading-in-php-74
+            title: Preloading in PHP 7.4
 
 typed-properties-in-php-74:
     date: 2019-06-30
@@ -145,6 +210,13 @@ typed-properties-in-php-74:
     meta:
         description: "PHP 7.4 adds typed properties to classes"
     disableMetaDescription: true
+    footnotes:
+          -   link: /blog/new-in-php-74
+              title: What's new in PHP 7.4
+          -   link: /blog/short-closures-in-php
+              title: Short closures in PHP 7.4
+          -   link: /blog/preloading-in-php-74
+              title: Preloading in PHP 7.4
 
 laravel-beyond-crud-07-entering-the-application-layer:
     date: 2019-11-22
@@ -412,6 +484,13 @@ php-73-upgrade-mac:
     next: new-in-php-73
     meta:
         description: "How to upgrade to PHP 7.3 on a Mac with Homebrew"
+    footnotes:
+        -   link: /blog/new-in-php-73
+            title: What's new in PHP 7.3
+        -   link: /blog/new-in-php-74
+            title: What's new in PHP 7.4
+        -   link: /blog/new-in-php-8
+            title: What's new in PHP 8
 
 laravel-queueable-actions:
     date: 2019-03-11
@@ -504,6 +583,15 @@ new-in-php-73:
     next: new-in-php-74
     meta:
         description: "PHP 7.3 has trailing function call commas, flexible Heredoc, the is_countable function and more."
+    footnotes:
+        -   link: /blog/php-73-upgrade-mac
+            title: Upgrade to PHP 7.3 on a Mac
+        -   link: /blog/new-in-php-8
+            title: What's new in PHP 8
+        -   link: /blog/php-in-2020
+            title: PHP in 2020
+        -   link: /blog/new-in-php-74
+            title: What's new in PHP 7.4
 
 share-a-blog-codingwriter-com:
     date: 2018-11-14
@@ -665,6 +753,15 @@ what-php-can-be:
     meta:
         description: "Thoughts on PHP's type system and what it means for the language as a whole."
         image: resources/img/meta/what-php-can-be.png
+    footnotes:
+        - link: /blog/php-generics-and-why-we-need-them
+          title: Why we need PHP generics
+        - link: /blog/php-in-2020
+          title: PHP in 2020
+        - link: /blog/php-reimagined
+          title: My vision on how PHP could evolve
+        - link: /blog/new-in-php-8
+          title: What's new in PHP 8
 
 phpstorm-tips-for-power-users:
     date: 2018-03-15
@@ -865,6 +962,13 @@ php-generics-and-why-we-need-them:
         description: >
             PHP has some problems with arrays. Generics can fix those problems.
             In this blog post, we'll be exploring the possibilities if this RFC were to be added.
+    footnotes:
+        -   link: /blog/new-in-php-8
+            title: What's new in PHP 8
+        -   link: /blog/php-reimagined
+            title: My vision on how PHP could evolve
+        -   link: /blog/php-in-2020
+            title: PHP in 2020
 
 stitcher-alpha-5:
     date: 2017-05-01
