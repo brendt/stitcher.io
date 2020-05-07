@@ -397,6 +397,7 @@ a-programmers-cognitive-load:
             There are a lot of things we can do to make this easier.
     footnotes:
         - { link: "/blog/what-php-can-be", title: "Thoughts on PHP's type system and what it means for the language as a whole" }
+        - { link: "/blog/a-project-at-spatie", title: "An in-depth look into one of our client projects" }
 
 starting-a-podcast:
     date: 2019-05-14
@@ -443,6 +444,8 @@ unsafe-sql-functions-in-laravel:
     next: new-in-php-74
     meta:
         description: "An SQL injection vulnerability in Laravel has been disclosed and fixed"
+    footnotes:
+        - { link: /blog/laravel-custom-relation-classes, title: "Building custom relation classes in Laravel" }
 
 array-destructuring-with-list-in-php:
     date: 2019-04-01
@@ -493,6 +496,8 @@ php-enums:
     next: php-generics-and-why-we-need-them
     meta:
         description: "How to handle enums in PHP."
+    footnotes:
+        - { link: /blog/enums-without-enums, title: "Enums without enums", description: "— I did a followup post, showing another technique" }
 
 php-jit:
     date: 2019-02-06
