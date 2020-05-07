@@ -12,6 +12,36 @@
     @include outOfBox;
 }
 
+.footnotes {
+    background-color: $color-primary-pastel;
+    padding: 1em 1.3em;
+    border-left: 5px solid $color-primary;
+
+    @include outOfBox;
+
+    h2 {
+        margin-top: 0;
+        padding-top: 0;
+        color: $color-body;
+        font-size: 1.2em;
+        margin-bottom: .5em;
+    }
+
+    p {
+        margin-bottom: 0;
+        font-size: 1.2em;
+        padding-left: .2rem;
+    }
+
+    p + p {
+        margin-top: .2em;
+
+        @media (max-width: $width-container-mobile) {
+            margin-top: .5em;
+        }
+    }
+}
+
 .banner {
     //background-color: $color-primary-pastel;
     color: $color-black;

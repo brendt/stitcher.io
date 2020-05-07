@@ -6,8 +6,8 @@ combining-event-sourcing-and-stateful-systems:
     meta:
         description: "Bridging the gap between stateful and event sourced sub-systems"
     footnotes:
-        -   link: /blog/laravel-beyond-crud
-            title: "Laravel beyond CRUD: a blog series on designing large Laravel applications"
+        - { link: "/blog/tests-and-types", title: "Thoughts on strong and weakly typed programming languages" }
+        - { link: /blog/laravel-beyond-crud, title: "Laravel beyond CRUD: a blog series on designing large Laravel applications" }
 
 new-in-php-8:
     date: 2020-04-10
@@ -19,12 +19,9 @@ new-in-php-8:
         description: "New features, deprecations and improvements in PHP 8"
     tag: php-8
     footnotes:
-        - link: /blog/php-in-2020
-          title: PHP in 2020
-        - link: /blog/new-in-php-74
-          title: What's new in PHP 7.4
-        - link: /blog/new-in-php-73
-          title: What's new in PHP 7.3
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 minor-versions-breaking-changes:
     date: 2020-03-26
@@ -42,12 +39,9 @@ php-reimagined:
     meta:
         description: "My personal take on how to improve PHP"
     footnotes:
-        -   link: /blog/new-in-php-8
-            title: What's new in PHP 8
-        -   link: /blog/what-php-can-be
-            title: A deep dive into PHP's type system
-        -   link: /blog/php-in-2019
-            title: PHP in 2019
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/what-php-can-be, title: "A deep dive into PHP's type system" }
+        - { link: /blog/php-in-2019, title: "PHP in 2019" }
 
 event-driven-php:
     date: 2020-03-13
@@ -57,6 +51,8 @@ event-driven-php:
     meta:
         description: "A close look at a event-sourced, long running server architecture in PHP"
     tag: php-8
+    footnotes:
+        - { link: /blog/combining-event-sourcing-and-stateful-systems, title: "Combining event sourcing and stateful systems" }
 
 bitwise-booleans-in-php:
     date: 2020-02-14
@@ -65,6 +61,10 @@ bitwise-booleans-in-php:
     next: enums-without-enums
     meta:
         description: "How to use bitmasks to store booleans"
+    footnotes:
+        - { link: /blog/shorthand-comparisons-in-php, title: "Shorthand comparisons in PHP" }
+        - { link: /blog/array-merge-vs+, title: "Array merge vs. +" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
 
 enums-without-enums:
     date: 2020-02-01
@@ -73,6 +73,10 @@ enums-without-enums:
     next: new-in-php-8
     meta:
         description: "Exploring patterns to add enum-like behaviour in PHP"
+    footnotes:
+        - { link: /blog/php-generics-and-why-we-need-them, title: "Generics in PHP" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
+        - { link: /blog/shorthand-comparisons-in-php, title: "Shorthand comparisons in PHP" }
 
 laravel-beyond-crud-09-test-factories:
     date: 2020-01-29
@@ -83,10 +87,8 @@ laravel-beyond-crud-09-test-factories:
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
-        - link: https://laravel.com/docs/6.x/database-testing
-          title: Laravel's documentation about database testing
-        - link: https://tighten.co/blog/tidy-up-your-tests-with-class-based-model-factories
-          title: Tighten also uses a similar approach to model factories
+        - { link: "https://laravel.com/docs/6.x/database-testing", title: "Laravel's documentation about database testing" }
+        - { link: "https://tighten.co/blog/tidy-up-your-tests-with-class-based-model-factories", title: "Tighten also uses a similar approach to model factories" }
 
 php-in-2020:
     date: 2020-01-17
@@ -97,12 +99,9 @@ php-in-2020:
     meta:
         description: "PHP isn't the same old crappy language it was ten years ago"
     footnotes:
-      -   link: /blog/new-in-php-8
-          title: What's new in PHP 8
-      -   link: /blog/php-reimagined
-          title: My vision on how PHP could evolve
-      -   link: /blog/php-in-2019
-          title: PHP in 2019
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-reimagined, title: "My vision on how PHP could evolve" }
+        - { link: /blog/php-in-2019, title: "PHP in 2019" }
 
 php-preload-benchmarks:
     date: 2020-01-10
@@ -113,14 +112,10 @@ php-preload-benchmarks:
         description: "Some benchmarks with the new preloading feature in PHP 7.4"
     tag: php-74
     footnotes:
-          -   link: /blog/preloading-in-php-74
-              title: Preloading in PHP 7.4
-          -   link: /blog/new-in-php-74
-              title: What's new in PHP 7.4
-          -   link: /blog/short-closures-in-php
-              title: Short closures in PHP 7.4
-          -   link: /blog/typed-properties-in-php-74
-              title: Typed properties in PHP 7.4
+        - { link: /blog/preloading-in-php-74, title: "Preloading in PHP 7.4" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
+        - { link: /blog/typed-properties-in-php-74, title: "Typed properties in PHP 7.4" }
 
 laravel-beyond-crud-08-view-models:
     date: 2019-12-07
@@ -140,12 +135,9 @@ php-74-upgrade-mac:
     meta:
         description: "How to upgrade to PHP 7.4 on a Mac with Homebrew"
     footnotes:
-        -   link: /blog/new-in-php-74
-            title: What's new in PHP 7.4
-        -   link: /blog/new-in-php-8
-            title: What's new in PHP 8
-        -   link: /blog/php-in-2020
-            title: PHP in 2020
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
 
 new-in-php-74:
     date: 2019-11-26
@@ -158,14 +150,14 @@ new-in-php-74:
     meta:
         description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
     footnotes:
-        -   link: /blog/new-in-php-8
-            title: What's new in PHP 8
-        -   link: /blog/php-74-upgrade-mac
-            title: Upgrade to PHP 7.4 on a Mac
-        -   link: /blog/php-in-2020
-            title: PHP in 2020
-        -   link: /blog/new-in-php-73
-            title: What's new in PHP 7.3
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
+        - { link: /blog/typed-properties-in-php-74, title: "Typed properties in PHP 7.4" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-74-upgrade-mac, title: "Upgrade to PHP 7.4 on a Mac" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+        - { link: /blog/preloading-in-php-74, title: "Preloading in PHP 7.4" }
 
 preloading-in-php-74:
     date: 2019-07-05
@@ -176,14 +168,10 @@ preloading-in-php-74:
     meta:
         description: Preloading allows for parsed PHP files to be available for all requests
     footnotes:
-        -   link: /blog/php-preload-benchmarks
-            title: Preloading benchmarks
-        -   link: /blog/new-in-php-74
-            title: What's new in PHP 7.4
-        -   link: /blog/short-closures-in-php
-            title: Short closures in PHP 7.4
-        -   link: /blog/typed-properties-in-php-74
-            title: Typed properties in PHP 7.4
+        - { link: /blog/php-preload-benchmarks, title: "Preloading benchmarks" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
+        - { link: /blog/typed-properties-in-php-74, title: "Typed properties in PHP 7.4" }
 
 short-closures-in-php:
     date: 2019-05-02
@@ -194,12 +182,9 @@ short-closures-in-php:
     meta:
         description: "Short closures, also called arrow functions, are available in PHP 7.4"
     footnotes:
-        -   link: /blog/new-in-php-74
-            title: What's new in PHP 7.4
-        -   link: /blog/typed-properties-in-php-74
-            title: Typed properties in PHP 7.4
-        -   link: /blog/preloading-in-php-74
-            title: Preloading in PHP 7.4
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/typed-properties-in-php-74, title: "Typed properties in PHP 7.4" }
+        - { link: /blog/preloading-in-php-74, title: "Preloading in PHP 7.4" }
 
 typed-properties-in-php-74:
     date: 2019-06-30
@@ -211,12 +196,9 @@ typed-properties-in-php-74:
         description: "PHP 7.4 adds typed properties to classes"
     disableMetaDescription: true
     footnotes:
-          -   link: /blog/new-in-php-74
-              title: What's new in PHP 7.4
-          -   link: /blog/short-closures-in-php
-              title: Short closures in PHP 7.4
-          -   link: /blog/preloading-in-php-74
-              title: Preloading in PHP 7.4
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
+        - { link: /blog/preloading-in-php-74, title: "Preloading in PHP 7.4" }
 
 laravel-beyond-crud-07-entering-the-application-layer:
     date: 2019-11-22
@@ -236,12 +218,9 @@ laravel-beyond-crud-06-managing-domains:
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
-        - link: https://freek.dev/1486-getting-started-with-domain-oriented-laravel
-          title: Freek gets started with domain oriented Laravel
-        - link: https://schlein.net/blog/stick-to-the-default
-          title: Sebastian Schlein voices his concerns about the architecture I discuss in this blog series
-        - link: https://basecamp.com/shapeup/0.3-chapter-01
-          title: An online book about Basecamp's approach to product management
+        - { link: "https://freek.dev/1486-getting-started-with-domain-oriented-laravel", title: "Freek gets started with domain oriented Laravel" }
+        - { link: "https://schlein.net/blog/stick-to-the-default", title: "Sebastian Schlein voices his concerns about the architecture I discuss in this blog series" }
+        - { link: "https://basecamp.com/shapeup/0.3-chapter-01", title: "An online book about Basecamp's approach to product management" }
 
 laravel-beyond-crud-05-states:
     date: 2019-11-16
@@ -252,14 +231,10 @@ laravel-beyond-crud-05-states:
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
-        - link: https://www.youtube.com/watch?v=N12L5D78MAA
-          title: Christopher Okhravi explains state machines in depth
-        - link: https://docs.spatie.be/laravel-model-states/v1/01-introduction/
-          title: My package to handle model states in Laravel
-        - link: https://symfony.com/doc/current/workflow/workflow-and-state-machine.html
-          title: Symfony's workflow package to build complex state machines
-        - link: https://www.youtube.com/watch?v=29MAL8pJImQ
-          title: Sandi Metz on getting rid of if statements
+        - { link: "https://www.youtube.com/watch?v=N12L5D78MAA", title: "Christopher Okhravi explains state machines in depth" }
+        - { link: "https://docs.spatie.be/laravel-model-states/v1/01-introduction/", title: "My package to handle model states in Laravel" }
+        - { link: "https://symfony.com/doc/current/workflow/workflow-and-state-machine.html", title: "Symfony's workflow package to build complex state machines" }
+        - { link: "https://www.youtube.com/watch?v=29MAL8pJImQ", title: "Sandi Metz on getting rid of if statements" }
 
 laravel-custom-relation-classes:
     date: 2019-11-09
@@ -269,12 +244,9 @@ laravel-custom-relation-classes:
     meta:
         description: Making custom relation classes in Laravel
     footnotes:
-        - link: https://laravel.com/docs/6.x/eloquent-relationships
-          title: The official Laravel documentation on relationships
-        - link: https://github.com/laravel/framework/blob/6.x/src/Illuminate/Database/Eloquent/Relations/HasMany.php
-          title: The source code of the HasMany relationship, the source of inspiration for this post
-        - link: https://stitcher.io/blog/laravel-has-many-through
-          title: A cheatsheet for the HasManyThrough relation
+        - { link: "https://laravel.com/docs/6.x/eloquent-relationships", title: "The official Laravel documentation on relationships" }
+        - { link: "https://github.com/laravel/framework/blob/6.x/src/Illuminate/Database/Eloquent/Relations/HasMany.php", title: "The source code of the HasMany relationship, the source of inspiration for this post" }
+        - { link: "https://stitcher.io/blog/laravel-has-many-through", title: "A cheatsheet for the HasManyThrough relation" }
 
 laravel-has-many-through:
     date: 2019-11-08
@@ -283,6 +255,8 @@ laravel-has-many-through:
     next: laravel-beyond-crud
     meta:
         description: How to use Laravel's HasManyTrough
+    footnotes:
+        - { link: "/blog/laravel-custom-relation-classes", title: "Building custom relation classes in Laravel" }
 
 can-i-translate-your-blog:
     date: 2019-11-07
@@ -299,14 +273,10 @@ laravel-beyond-crud-04-models:
     book: true
     next: laravel-beyond-crud-05-states
     footnotes:
-        - link: https://timacdonald.me/dedicated-eloquent-model-query-builders/
-          title: Custom query builders in Laravel
-        - link: https://timacdonald.me/giving-collections-a-voice/
-          title: Custom Eloquent collections
-        - link: https://martinfowler.com/bliki/AnemicDomainModel.html
-          title: Martin Fowler on anemic domain models
-        - link: https://www.youtube.com/watch?time_continue=2265&v=oKg1hTOQXoY
-          title: Alan Kay about his vision of OOP
+        - { link: "https://timacdonald.me/dedicated-eloquent-model-query-builders/", title: "Custom query builders in Laravel" }
+        - { link: "https://timacdonald.me/giving-collections-a-voice/", title: "Custom Eloquent collections" }
+        - { link: "https://martinfowler.com/bliki/AnemicDomainModel.html", title: "Martin Fowler on anemic domain models" }
+        - { link: "https://www.youtube.com/watch?time_continue=2265&v=oKg1hTOQXoY", title: "Alan Kay about his vision of OOP" }
     meta:
         description: "A blog series about managing larger Laravel projects"
 
@@ -319,12 +289,9 @@ laravel-beyond-crud-03-actions:
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
-        - link: https://martinfowler.com/eaaCatalog/transactionScript.html
-          title: Martin Fowler on transaction scripts
-        - link: https://stitcher.io/blog/laravel-queueable-actions
-          title: Queueable actions in Laravel
-        - link: https://freek.dev/1371-refactoring-to-actions
-          title: Refactoring to actions
+        - { link: "https://martinfowler.com/eaaCatalog/transactionScript.html", title: "Martin Fowler on transaction scripts" }
+        - { link: "https://stitcher.io/blog/laravel-queueable-actions", title: "Queueable actions in Laravel" }
+        - { link: "https://freek.dev/1371-refactoring-to-actions", title: "Refactoring to actions" }
 
 laravel-beyond-crud-02-working-with-data:
     date: 2019-10-18
@@ -335,12 +302,9 @@ laravel-beyond-crud-02-working-with-data:
     meta:
         description: "A blog series about managing larger Laravel projects"
     footnotes:
-        - link: https://www.destroyallsoftware.com/talks/ideology
-          title: Gary Bernhardt's thoughts on type systems
-        - link: https://github.com/spatie/data-transfer-object
-          title: Spatie's DataTransferObject package
-        - link: https://github.com/spatie/data-transfer-object/issues/17
-          title: Matthias Noback on the difference between value objects and DTOs
+        - { link: "https://www.destroyallsoftware.com/talks/ideology", title: "Gary Bernhardt's thoughts on type systems" }
+        - { link: "https://github.com/spatie/data-transfer-object", title: "Spatie's DataTransferObject package" }
+        - { link: "https://github.com/spatie/data-transfer-object/issues/17", title: "Matthias Noback on the difference between value objects and DTOs" }
 
 laravel-beyond-crud-01-domain-oriented-laravel:
     date: 2019-10-17
@@ -383,6 +347,8 @@ a-letter-to-the-php-team:
     next: new-in-php-74
     meta:
         description: "A few thoughts on how PHP, the language, is developed nowadays"
+    footnotes:
+        - { link: "/blog/a-letter-to-the-php-team-reply-to-joe", title: "Joe Watkins replied to my letter, this is my reply to him" }
 
 things-dependency-injection-is-not-about:
     date: 2019-07-30
@@ -398,6 +364,10 @@ tests-and-types:
     next: liskov-and-type-safety
     meta:
         description: Thoughts on strong and weakly typed programming languages
+    footnotes:
+        - { link: "/blog/liskov-and-type-safety", title: "What makes a type system safe; how does the Liskov substitution principle help with this; and what does it mean regarding type variance?" }
+        - { link: "/blog/combining-event-sourcing-and-stateful-systems", title: "Bridging the gap between stateful and event sourced sub-systems" }
+        - { link: "/blog/what-php-can-be", title: "Thoughts on PHP's type system and what it means for the language as a whole" }
 
 what-are-objects-anyway-rant-with-brent:
     date: 2019-06-05
@@ -425,6 +395,8 @@ a-programmers-cognitive-load:
         description: >
             As programmers we're almost always reading code.
             There are a lot of things we can do to make this easier.
+    footnotes:
+        - { link: "/blog/what-php-can-be", title: "Thoughts on PHP's type system and what it means for the language as a whole" }
 
 starting-a-podcast:
     date: 2019-05-14
@@ -442,6 +414,9 @@ php-in-2019:
     next: new-in-php-74
     meta:
         description: "PHP isn't the same old crappy language it was ten years ago"
+    footnotes:
+        - { link: "/blog/php-in-2020", title: "PHP is even better in 2020!" }
+        - { link: "/blog/new-in-php-74", title: "What's new in PHP 7.4" }
 
 solid-interfaces-and-final-rant-with-brent:
     date: 2019-05-07
@@ -477,10 +452,9 @@ array-destructuring-with-list-in-php:
     meta:
         description: "How to destructure arrays in PHP using list or its shorthand notation"
     footnotes:
-        -   link: /blog/shorthand-comparisons-in-php
-            title: Shorthand comparisons in PHP
-        -   link: /blog/array-merge-vs+
-            title: Array merge vs. +
+        - { link: /blog/shorthand-comparisons-in-php, title: "Shorthand comparisons in PHP" }
+        - { link: /blog/array-merge-vs+, title: "Array merge vs. +" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
 
 php-73-upgrade-mac:
     date: 2019-03-21
@@ -490,12 +464,9 @@ php-73-upgrade-mac:
     meta:
         description: "How to upgrade to PHP 7.3 on a Mac with Homebrew"
     footnotes:
-        -   link: /blog/new-in-php-73
-            title: What's new in PHP 7.3
-        -   link: /blog/new-in-php-74
-            title: What's new in PHP 7.4
-        -   link: /blog/new-in-php-8
-            title: What's new in PHP 8
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
 
 laravel-queueable-actions:
     date: 2019-03-11
@@ -589,14 +560,10 @@ new-in-php-73:
     meta:
         description: "PHP 7.3 has trailing function call commas, flexible Heredoc, the is_countable function and more."
     footnotes:
-        -   link: /blog/php-73-upgrade-mac
-            title: Upgrade to PHP 7.3 on a Mac
-        -   link: /blog/new-in-php-8
-            title: What's new in PHP 8
-        -   link: /blog/php-in-2020
-            title: PHP in 2020
-        -   link: /blog/new-in-php-74
-            title: What's new in PHP 7.4
+        - { link: /blog/php-73-upgrade-mac, title: "Upgrade to PHP 7.3 on a Mac" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 
 share-a-blog-codingwriter-com:
     date: 2018-11-14
@@ -759,14 +726,10 @@ what-php-can-be:
         description: "Thoughts on PHP's type system and what it means for the language as a whole."
         image: resources/img/meta/what-php-can-be.png
     footnotes:
-        - link: /blog/php-generics-and-why-we-need-them
-          title: Why we need PHP generics
-        - link: /blog/php-in-2020
-          title: PHP in 2020
-        - link: /blog/php-reimagined
-          title: My vision on how PHP could evolve
-        - link: /blog/new-in-php-8
-          title: What's new in PHP 8
+        - { link: /blog/php-generics-and-why-we-need-them, title: "Why we need PHP generics" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/php-reimagined, title: "My vision on how PHP could evolve" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
 
 phpstorm-tips-for-power-users:
     date: 2018-03-15
@@ -862,10 +825,8 @@ shorthand-comparisons-in-php:
     meta:
         description: Taking a closer look at the ternary, null coalescing and spaceship operators in PHP.
     footnotes:
-        - link: /blog/array-destructuring-with-list-in-php
-          title: Array destructuring in PHP
-        - link: /blog/array-merge-vs+
-          title: Array merge vs. +
+        - { link: /blog/array-destructuring-with-list-in-php, title: "Array destructuring in PHP" }
+        - { link: /blog/array-merge-vs+, title: "Array merge vs. +" }
 
 phpstorm-performance:
     date: 2017-10-22
@@ -970,12 +931,9 @@ php-generics-and-why-we-need-them:
             PHP has some problems with arrays. Generics can fix those problems.
             In this blog post, we'll be exploring the possibilities if this RFC were to be added.
     footnotes:
-        -   link: /blog/new-in-php-8
-            title: What's new in PHP 8
-        -   link: /blog/php-reimagined
-            title: My vision on how PHP could evolve
-        -   link: /blog/php-in-2020
-            title: PHP in 2020
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-reimagined, title: "My vision on how PHP could evolve" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
 
 stitcher-alpha-5:
     date: 2017-05-01
