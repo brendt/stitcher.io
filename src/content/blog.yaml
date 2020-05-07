@@ -866,6 +866,7 @@ responsive-images-as-css-background:
         title: Responsive images as CSS background - Piece of Code
         description: >
             Integrating the Responsive Images spec together with CSS backgrounds.
+
 object-oriented-generators:
     date: 2017-06-17
     type: piece of code
@@ -876,6 +877,7 @@ object-oriented-generators:
         title: Process forks - Piece of Code
         description: >
             Create loop-able, array-like collections in PHP with type checking.
+
 process-forks:
     date: 2017-06-09
     type: piece of code
@@ -886,6 +888,7 @@ process-forks:
         title: Process forks - Piece of Code
         description: >
             Create loop-able, array-like collections in PHP with type checking.
+
 
 performance-101-building-the-better-web:
     date: 2017-05-30
@@ -899,6 +902,7 @@ performance-101-building-the-better-web:
             From the perspective of both backend- and frontend development;
             client- and server side optimisations.
 
+
 aray-objects-with-fixed-types:
     date: 2017-05-25
     type: piece of code
@@ -910,6 +914,7 @@ aray-objects-with-fixed-types:
         description: >
             Create loop-able, array-like collections in PHP with type checking.
 
+
 stitcher-beta-1:
     date: 2017-05-20
     type: news
@@ -918,6 +923,7 @@ stitcher-beta-1:
     meta:
         description: >
             The first beta release of Stitcher has arrived!
+
 
 php-generics-and-why-we-need-them:
     date: 2017-05-17
