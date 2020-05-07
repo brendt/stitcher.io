@@ -150,7 +150,6 @@ new-in-php-74:
     meta:
         description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
     footnotes:
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
         - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
         - { link: /blog/typed-properties-in-php-74, title: "Typed properties in PHP 7.4" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
@@ -506,6 +505,9 @@ php-jit:
     next: new-in-php-74
     meta:
         description: "The pros and cons of the pending RFC to add a JIT compiler to PHP."
+    footnotes:
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 
 announcing-aggregate:
     date: 2019-01-29
@@ -538,6 +540,9 @@ comparing-dates:
     next: structuring-unstructured-data
     meta:
         description: How to reliably compare dates and periods.
+    footnotes:
+        - { link: /blog/enums-without-enums, title: "Enums without enums", description: "— I did a followup post, showing another technique" }
+        - { link: /blog/combining-event-sourcing-and-stateful-systems, title: "Bridging the gap between stateful and event sourced sub-systems" }
 
 have-you-thought-about-casing:
     date: 2018-12-20
@@ -566,9 +571,9 @@ new-in-php-73:
         description: "PHP 7.3 has trailing function call commas, flexible Heredoc, the is_countable function and more."
     footnotes:
         - { link: /blog/php-73-upgrade-mac, title: "Upgrade to PHP 7.3 on a Mac" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/php-in-2020, title: "PHP in 2020" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 
 share-a-blog-codingwriter-com:
     date: 2018-11-14
@@ -610,6 +615,9 @@ array-merge-vs+:
     highlight: true
     meta:
         description: How to merge arrays in PHP
+    footnotes:
+        - { link: /blog/shorthand-comparisons-in-php, title: "Shorthand comparisons in PHP" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
 
 laravel-view-models-vs-view-composers:
     date: 2018-10-16
