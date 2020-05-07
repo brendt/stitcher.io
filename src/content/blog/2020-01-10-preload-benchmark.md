@@ -1,4 +1,4 @@
-After writing about [how preloading works](*/blog/preloading-in-php-74), it's time to measure its impact in practice.
+After writing about [how preloading works](/blog/preloading-in-php-74), it's time to measure its impact in practice.
 Before diving into results, we need to make sure we're all on the same page: what we're measuring, and what not. 
 
 Because I want to know whether preloading will have a practical impact on my projects, I'll be running benchmarks on a real project, on the homepage of my hobby project [aggregate.stitcher.io](*https://aggregate.stitcher.io/). 

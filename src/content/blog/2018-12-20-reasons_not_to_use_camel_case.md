@@ -1,6 +1,6 @@
 <p id="uncamel-button"></p>
 
-I've made the argument [many](*/blog/where-a-curly-bracket-belongs) [times](*/blog/visual-perception-of-code) [before](*/blog/a-programmers-cognitive-load):
+I've made the argument [many](/blog/where-a-curly-bracket-belongs) [times](/blog/visual-perception-of-code) [before](/blog/a-programmers-cognitive-load):
 programmers shouldn't underestimate the value of code readability.
 Today I'll argue once more against a common practice we all seem to take for granted: casing.
 

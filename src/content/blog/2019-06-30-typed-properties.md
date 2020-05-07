@@ -24,7 +24,7 @@ class Foo
 }
 ```
 
-If you're unsure about the added benefit of types, I'd recommend you reading [this post](*/blog/tests-and-types) first.
+If you're unsure about the added benefit of types, I'd recommend you reading [this post](/blog/tests-and-types) first.
 
 ## Uninitialized
 
@@ -230,7 +230,7 @@ Typed property Bar::$i must be int, string used</hljs>
 
 ## Type variance and inheritance
 
-Even though ((PHP 7.4)) introduced [improved type variance](*/blog/new-in-php-74#improved-type-variance-rfc), typed properties are still invariant. This means that the following is not valid:
+Even though ((PHP 7.4)) introduced [improved type variance](/blog/new-in-php-74#improved-type-variance-rfc), typed properties are still invariant. This means that the following is not valid:
 
 ```php
 class A {}
@@ -320,7 +320,7 @@ class Bar extends Foo
 Like a said at the start of this post, typed properties are a _major_ addition to ((PHP)). 
 There's lots more to say about them. I'd suggest you reading through the [((RFC))](*https://wiki.php.net/rfc/typed_properties_v2) to know all the neat little details.
 
-If you're new to ((PHP 7.4)), you probably want to read the [full list](*/blog/new-in-php-74) of changes made and features added. To be honest, it's one of the best releases in a long time, and worth your time!
+If you're new to ((PHP 7.4)), you probably want to read the [full list](/blog/new-in-php-74) of changes made and features added. To be honest, it's one of the best releases in a long time, and worth your time!
 
 Finally, if you have any thoughts you want to share on the topic, I'd love to hear from you!
 You can reach me via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).

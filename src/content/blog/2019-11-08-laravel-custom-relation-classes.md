@@ -53,7 +53,7 @@ class PersonResource extends JsonResource
 
 Notice especially the `Person::activeContracts` relation. How could we make this work?
 
-A first thought might be by using a `HasManyThrough` relation, but remember that we're 4 levels deep in our relation hierarchy. Besides that, I find `HasManyThrough` to be [very confusing](*/blog/laravel-has-many-through).
+A first thought might be by using a `HasManyThrough` relation, but remember that we're 4 levels deep in our relation hierarchy. Besides that, I find `HasManyThrough` to be [very confusing](/blog/laravel-has-many-through).
 
 We could query the contracts on the fly, one-by-one per person. The issue with that is that we're introducing an n+1 issue since there'll be an extra query _per_ person. Imagine the performance impact if you're dealing with more than just a few models.
 

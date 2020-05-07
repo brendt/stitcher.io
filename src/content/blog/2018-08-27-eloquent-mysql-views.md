@@ -206,7 +206,7 @@ SQL;
     }
 ```
 
-Sidenote: I'm very much looking forward to PHP 7.3 and [flexible Heredoc syntax](*/blog/new-in-php-73).
+Sidenote: I'm very much looking forward to PHP 7.3 and [flexible Heredoc syntax](/blog/new-in-php-73).
 
 Now that we have a migration in place, all else just works like normal Laravel!
 

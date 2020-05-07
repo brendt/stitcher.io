@@ -1,4 +1,4 @@
-In my [previous post](*/blog/enums-without-enums) I wrote about applying enum patterns in PHP, without native enum support.
+In my [previous post](/blog/enums-without-enums) I wrote about applying enum patterns in PHP, without native enum support.
 
 In that post, I gave the example of a "date range boundaries" enum, one that represents which boundaries are included in the range, and which are not. It had four possible values:
 

@@ -1,4 +1,4 @@
-Thanks you Joe for taking the time to [reply](*https://blog.krakjoe.ninja/2019/08/bearings.html) to [my letter](*/blog/a-letter-to-the-php-team), I really appreciate it! I'll be happy to reply here.
+Thanks you Joe for taking the time to [reply](*https://blog.krakjoe.ninja/2019/08/bearings.html) to [my letter](/blog/a-letter-to-the-php-team), I really appreciate it! I'll be happy to reply here.
 
 Your reply started by addressing the P++ shenanigans:
 

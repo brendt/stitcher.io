@@ -12,7 +12,7 @@ Besides this front-facing client process, there's also a complex admin panel to 
 
 I hope you understand that I deliberately am keeping these terms a little vague because obviously this isn't an open-source project, though I think the concepts of "product management" and "orders" is clear enough for you to understand the design decisions we've made.
 
-Let’s first discuss an approach of how to design this system based on my [Laravel beyond CRUD](*/blog/laravel-beyond-crud) series.
+Let’s first discuss an approach of how to design this system based on my [Laravel beyond CRUD](/blog/laravel-beyond-crud) series.
 
 In such a system there would probably be two domain groups: `Product` and `Order`, and two applications making use of both these domains: an `AdminApplication` and a `CustomerApplication`. 
 

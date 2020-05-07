@@ -1,4 +1,4 @@
-Enums are still lacking in PHP, yet there is a clean way to have enum-like behaviour in your code bases, without using  external dependencies. Take the example of [date range boundaries](*/blog/comparing-dates): its boundaries can be included or excluded. Here's how a `Boundaries` enum would be used:
+Enums are still lacking in PHP, yet there is a clean way to have enum-like behaviour in your code bases, without using  external dependencies. Take the example of [date range boundaries](/blog/comparing-dates): its boundaries can be included or excluded. Here's how a `Boundaries` enum would be used:
 
 ```php
 $dateRange = <hljs type>DateRange</hljs>::<hljs prop>make</hljs>(

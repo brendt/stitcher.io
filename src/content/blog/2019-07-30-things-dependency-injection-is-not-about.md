@@ -28,7 +28,7 @@ Service location will ask the container for a specific object. This makes the co
 
 Some frameworks promote this use of the container, because it can be simple and fast at the start of a project. In projects with hundreds, maybe even thousands of classes registered in the container, the use of service location can and will become a mess; one that proper use of dependency injection would solve.
 
-I also recommend you to read my post on [why service location is an anti-pattern](*/blog/service-locator-anti-pattern).
+I also recommend you to read my post on [why service location is an anti-pattern](/blog/service-locator-anti-pattern).
 
 ## Shared dependencies
 
@@ -52,4 +52,4 @@ A lot of magic happens here, but auto wiring can be a useful tool for rapid appl
 
 ---
 
-If by now, you want a refresher on the basics of what dependency injection _is_ about. You can go read up on it [here](*/blog/dependency-injection-for-beginners).
+If by now, you want a refresher on the basics of what dependency injection _is_ about. You can go read up on it [here](/blog/dependency-injection-for-beginners).

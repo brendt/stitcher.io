@@ -10,7 +10,7 @@ You know, things like "application logic" for example.
 
 {{ ad:carbon }}
 
-I wrote about visual code improvements a while back in a previous blogpost about [cognitive load](*/blog/a-programmers-cognitive-load).
+I wrote about visual code improvements a while back in a previous blogpost about [cognitive load](/blog/a-programmers-cognitive-load).
 Today I want to focus on that one little, yet very important character in our codebase: the curly bracket. 
 More specifically, we're only going to look at the opening curly bracket, 
 because there's little to no discussion about the closing one.
@@ -233,4 +233,4 @@ I'm looking forward to discussing this further with you!
 
 If you're looking for more to read on clean code. 
 Feel free to browse this blog a little further. 
-[This is the best starting point](*/blog/a-programmers-cognitive-load).   
+[This is the best starting point](/blog/a-programmers-cognitive-load).   

@@ -1,4 +1,4 @@
-It's only been two weeks since I announced I'm [starting a newsletter](*/blog/starting-a-newsletter), 
+It's only been two weeks since I announced I'm [starting a newsletter](/blog/starting-a-newsletter), 
 and here I am again with something new: a podcast.
 
 People who know me IRL know I listen to _lots_ of podcasts every day.

@@ -166,4 +166,4 @@ valet restart
 
 ## Last step
 
-Finally you should test and upgrade your projects for [PHP 7.3 compatibility](*/blog/new-in-php-73). 
+Finally you should test and upgrade your projects for [PHP 7.3 compatibility](/blog/new-in-php-73). 

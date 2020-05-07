@@ -1,7 +1,7 @@
 People who follow my work or Spatie's, might have come across a pattern we use in some of our projects. 
 We call them "actions", and simply put they are classes to encapsulate business logic.
 
-You can read up on how we structure projects by domains and actions [here](*/blog/organise-by-domain), 
+You can read up on how we structure projects by domains and actions [here](/blog/organise-by-domain), 
 and find examples of actions in the [code of my aggregate project](*https://github.com/brendt/aggregate.stitcher.io/blob/master/app/Domain/Post/Actions/AddViewAction.php).
 
 {{ ad:carbon }}

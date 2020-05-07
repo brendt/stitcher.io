@@ -42,7 +42,7 @@ Instead of using the default Laravel project structure, our code is split into t
 "application code" and "domain code". 
 
 Domain code holds all business logic and is used by the application layer. 
-If you want to dive further into this topic, you can read about it [here](*/blog/organise-by-domain).
+If you want to dive further into this topic, you can read about it [here](/blog/organise-by-domain).
 
 The following graph shows how application and domain code relate to each other:
 

@@ -153,4 +153,4 @@ pecl install imagick
 
 ## Last step
 
-Finally you should test and upgrade your projects for [PHP 7.4 compatibility](*/blog/new-in-php-74). 
+Finally you should test and upgrade your projects for [PHP 7.4 compatibility](/blog/new-in-php-74). 

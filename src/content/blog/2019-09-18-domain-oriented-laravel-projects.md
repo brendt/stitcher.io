@@ -1,4 +1,4 @@
-This post is a followup on a [previous post](*/blog/organise-by-domain) I wrote on how to organise your Laravel projects by domains. You're not required to read that post beforehand, though it might offer some more context to what I'll write today.
+This post is a followup on a [previous post](/blog/organise-by-domain) I wrote on how to organise your Laravel projects by domains. You're not required to read that post beforehand, though it might offer some more context to what I'll write today.
 
 {{ ad:carbon }}
 
@@ -8,7 +8,7 @@ This paradigm describes a set of rules and patterns to structure Laravel project
 
 While Laravel's default project structure might give you a very quick start and almost no overhead, we know from experience that this approach doesn't scale very well in larger projects, especially when you're working with a team of multiple developers.
 
-To be clear: we're talking about projects that take more than a few months of development time, and teams of three or more developers. If you want a more in-depth feel about the size and scope of the projects where we use this approach, you can check out my blog post [here](*/blog/a-project-at-spatie).
+To be clear: we're talking about projects that take more than a few months of development time, and teams of three or more developers. If you want a more in-depth feel about the size and scope of the projects where we use this approach, you can check out my blog post [here](/blog/a-project-at-spatie).
 
 On a final note: many of the principles I describe today are borrowed from DDD and hexagonal architectures. We find that some principles in these paradigms are overkill for the scope of our projects, which is why we took the liberty to taylor them to our needs.
 
@@ -408,7 +408,7 @@ In short: view models are classes which are responsible for representing the dat
 
 In a classic ((HTTP)) application, this response would be a rendered ((HTML)) view, hence the name "view model"; though it's perfectly fine to also have a ((JSON)) representation for ((AJAX)) requests.
 
-Once again, view models are a topic worth their own post; so be sure to go read about them [here](*/blog/laravel-view-models).
+Once again, view models are a topic worth their own post; so be sure to go read about them [here](/blog/laravel-view-models).
 
 ---
 
