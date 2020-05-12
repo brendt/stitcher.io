@@ -10,7 +10,7 @@ combining-event-sourcing-and-stateful-systems:
         - { link: /blog/laravel-beyond-crud, title: "Laravel beyond CRUD: a blog series on designing large Laravel applications" }
 
 new-in-php-8:
-    date: 2020-04-10
+    date: 2020-05-12
     title: "New in PHP 8"
     content: src/content/blog/2020-01-16-new-in-php-8.md
     next: new-in-php-74
