@@ -226,4 +226,4 @@ As a final note, for those worrying about generics: the syntax won't conflict wi
 
 ---
 
-I've got some use-cases already in mind for attributes, what about you? If you've got some thoughts to share about this awesome new feature in PHP 8, you can reach me on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
+I've got some use-cases already in mind for attributes, what about you? If you've got some thoughts to share about this awesome new feature in PHP 8, you can reach me on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io), or we can discuss it over on [Reddit](*https://www.reddit.com/r/PHP/comments/gixnf3/attributes_in_php_8/).
