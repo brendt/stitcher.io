@@ -43,14 +43,22 @@
 
         {% if post.author is defined %}
             <div class="wrapper">
-                <div class="author">
-                    Thanks to
-                    <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a> for writing this guest post!
+                <div class="author footnotes">
+                    <h2>Heads up!</h2>
+                    This post is a guest post, written by <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a>. If you're interested in writing guest posts yourselves, you can find all information on it <a href="/blog/guest-posts">over here</a>.
                 </div>
             </div>
         {% endif %}
 
         {{ post.content|raw }}
+
+        {% if post.author is defined %}
+            <hr>
+            <p>
+                Once again thanks to
+                <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a> for writing this guest post, be sure to check them out!
+            </p>
+        {% endif %}
 
         {% if post.footnotes is defined %}
             <nav class="footnotes">
@@ -75,13 +83,6 @@
             {##}
             {#            Finally, if you find that my content is really valuable to you, you could consider supporting me <a href="https://www.patreon.com/brendt" target="_blank" rel="noopener noreferrer">on Patreon</a>.#}
         </div>
-
-        {% if post.author is defined %}
-            <div class="author">
-                Once again thanks to
-                <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a> for writing this guest post, be sure to check him out!
-            </div>
-        {% endif %}
     </article>
 
     <footer>
@@ -104,12 +105,6 @@
                     {% endif %}
                 </a>
             {% endif %}
-
-            {#            {% if post.next.url is not defined %}#}
-            {#                <a href="https://criticast.io/" target="_blank" rel="noopener noreferrer" class="cta cta-ghost">#}
-            {#                    I've started a podcast blog! 🎧#}
-            {#                </a>#}
-            {#            {% endif %}#}
         </nav>
 
         {% include '_partials/links.twig' %}
