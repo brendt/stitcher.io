@@ -29,7 +29,9 @@ Also yes, I know, the syntax might not be what you wished or hoped for. You migh
 
 That being said, let's focus on the cool stuff: how would this `ListensTo` work under the hood?
 
-First of all, custom attributes are simple classes, annotated themselves with the `<<Attribute>>` attribute. Here's what it would look like:
+First of all, custom attributes are simple classes, annotated themselves with the `<<Attribute>>` attribute. As a little side note, the attribute was first called `<<PhpAttribute>>`, and still listed as so in the RFC. However the name has been changed to `<<Attribute>>`, as you can read [here](*https://news-web.php.net/php.internals/109987). 
+
+Here's what it would look like:
 
 ```php
 <<<hljs type>Attribute</hljs>>>
