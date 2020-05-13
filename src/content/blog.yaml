@@ -1,3 +1,14 @@
+attributes-in-php-8:
+    date: 2020-05-13
+    title: Attributes in PHP 8
+    content: src/content/blog/2020-05-13-attributes-in-php-8.md
+    next: new-in-php-8
+    meta:
+        description: "A close look at attributes, also known as annotations; in PHP 8"
+    footnotes:
+        - { link: "/blog/new-in-php-8", title: "New in PHP 8", description: " — A comprehensive list of all things new in PHP 8" }
+        - { link: "/blog/php-jit", title: "The JIT in PHP 8", description: " — A close look at the JIT, and what it means for PHP" }
+
 combining-event-sourcing-and-stateful-systems:
     date: 2020-04-14
     title: Combining event sourcing and stateful systems
@@ -19,6 +30,7 @@ new-in-php-8:
         description: "New features, deprecations and improvements in PHP 8"
     tag: php-8
     footnotes:
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
         - { link: /blog/php-in-2020, title: "PHP in 2020" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
         - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
@@ -39,6 +51,7 @@ php-reimagined:
     meta:
         description: "My personal take on how to improve PHP"
     footnotes:
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/what-php-can-be, title: "A deep dive into PHP's type system" }
         - { link: /blog/php-in-2019, title: "PHP in 2019" }
@@ -100,6 +113,7 @@ php-in-2020:
         description: "PHP isn't the same old crappy language it was ten years ago"
     footnotes:
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
         - { link: /blog/php-reimagined, title: "My vision on how PHP could evolve" }
         - { link: /blog/php-in-2019, title: "PHP in 2019" }
 
@@ -839,6 +853,7 @@ shorthand-comparisons-in-php:
         description: Taking a closer look at the ternary, null coalescing and spaceship operators in PHP.
     footnotes:
         - { link: /blog/array-destructuring-with-list-in-php, title: "Array destructuring in PHP" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
         - { link: /blog/array-merge-vs+, title: "Array merge vs. +" }
 
 phpstorm-performance:
