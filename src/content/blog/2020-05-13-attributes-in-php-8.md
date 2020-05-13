@@ -119,7 +119,7 @@ First there's the `$attribute->newInstance()` call. This is actually the place w
 
 This means that, technically, you don't even need to construct the custom attribute. You could call `$attribute->getArguments()` directly. You'd still need the custom class though, otherwise there would be an error. Furthermore, instantiating the class means you've got the flexibility of the constructor the parse input whatever way you like. All in all I'd say it would be good to always instantiate the attribute using `newInstance()`.
 
-The second thing worth mentioning is the use of `ReflectionMethod::getAttributes()`, the function that return all attributes for a method. You can pass two arguments to it, to filter its output.
+The second thing worth mentioning is the use of `ReflectionMethod::getAttributes()`, the function that returns all attributes for a method. You can pass two arguments to it, to filter its output.
 
 In order to understand this filtering though, there's one more thing you need to know about attributes first. This might have been obvious to you, but I wanted to mention it real quick anyway: it's possible to add several attributes to the same method, class, property or constant.
 
