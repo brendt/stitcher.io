@@ -32,7 +32,7 @@ That being said, let's focus on the cool stuff: how would this `ListensTo` work 
 First of all, custom attributes are simple classes, annotated themselves with the `<<Attribute>>` attribute. Here's what it would look like:
 
 ```php
-<<<hljs type>PhpAttribute</hljs>>>
+<<<hljs type>Attribute</hljs>>>
 class ListensTo
 {
     public <hljs type>string</hljs> $event;
