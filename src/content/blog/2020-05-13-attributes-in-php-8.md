@@ -1,4 +1,4 @@
-As of PHP 8, we'll be able to use attributes. The goal of attributes, also known as annotations many other languages, is to add meta data to classes, methods, variables and what not; in a structured way.
+As of PHP 8, we'll be able to use attributes. The goal of these attributes, also known as annotations in many other languages, is to add meta data to classes, methods, variables and what not; in a structured way.
 
 The concept of attributes isn't new at all, we've been using docblocks to simulate their behaviour for years now. With the addition of attributes though, we now have a first-class citizen in the language to represent this kind of meta data, instead of having to manually parse docblocks.
 
