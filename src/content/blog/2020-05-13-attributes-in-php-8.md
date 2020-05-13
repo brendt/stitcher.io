@@ -126,7 +126,7 @@ In order to understand this filtering though, there's one more thing you need to
 You could, for example, do this:
 
 ```php
-<<<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>(), '/products/create')>>
+<<<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')>>
 <<<hljs type>Autowire</hljs>>>
 class ProductsCreateController
 {
@@ -213,7 +213,7 @@ And can take no, one or several arguments, which are defined by the attribute's 
 ```php
 <<<hljs type>Listens</hljs>(<hljs type>ProductCreatedEvent</hljs>::class)>>
 <<<hljs type>Autowire</hljs>>>
-<<<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>get</hljs>(), '/products/create')>>
+<<<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')>>
 ```
 
 ### Built-in attributes
