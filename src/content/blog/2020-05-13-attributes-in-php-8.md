@@ -216,6 +216,17 @@ And can take no, one or several arguments, which are defined by the attribute's 
 <<<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')>>
 ```
 
+As for things you can pass to an attribute, you've already seen that class constants, `::class` names and scalar types are allowed. There's a little more to be said about this though: attributes only accept constant AST expressions as input arguments. 
+
+This means that scalar expressions are possible — even bit shifts — as well as using `::class` and constants.
+
+```php
+<<<hljs type>AttributeWithScalarExpression</hljs>(1+1)>>
+<<<hljs type>AttributeWithClassNameAndConstants</hljs>(<hljs type>PDO</hljs>::class, <hljs prop>PHP_VERSION_ID</hljs>)>>
+<<<hljs type>AttributeWithClassConstant</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>)>>
+<<<hljs type>AttributeWithBitShift</hljs>(4 >> 1, 4 << 1)>>
+``` 
+
 ### Built-in attributes
 
 Once the base RFC had been accepted, new opportunities arose to add built-in attributes to the core. One such example is the [`<<Deprecated>>`](*https://wiki.php.net/rfc/deprecated_attribute) attribute, and a popular example has been a `<<Jit>>` attribute — if you're not sure what that last one is about, you can read my post about [what the JIT is](/blog/php-jit).
