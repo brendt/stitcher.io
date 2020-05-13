@@ -175,7 +175,7 @@ Properties and constants;
 public <hljs type>int</hljs> $foo;
 
 <<<hljs type>ConstAttribute</hljs>>>
-public const BAR;
+public const BAR = 1;
 ```
 
 Methods and functions;
