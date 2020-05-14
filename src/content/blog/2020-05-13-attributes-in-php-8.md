@@ -218,7 +218,7 @@ And can take no, one or several arguments, which are defined by the attribute's 
 <<<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')>>
 ```
 
-As for things you can pass to an attribute, you've already seen that class constants, `::class` names and scalar types are allowed. There's a little more to be said about this though: attributes only accept constant AST expressions as input arguments. 
+As for allowed parameters you can pass to an attribute, you've already seen that class constants, `::class` names and scalar types are allowed. There's a little more to be said about this though: attributes only accept constant expressions as input arguments.
 
 This means that scalar expressions are allowed — even bit shifts — as well as `::class`, constants, arrays and array unpacking, boolean expressions and the null coalescing operator. A list of everything that's allowed as a constant expression can be found in the [source code](*https://github.com/php/php-src/blob/9122638ecd7dfee1cbd141a15a8d59bfc47f6ab3/Zend/zend_compile.c#L8500-L8514).
 
