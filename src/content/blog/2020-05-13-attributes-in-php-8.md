@@ -39,7 +39,7 @@ class ListensTo
 {
     public <hljs type>string</hljs> $event;
 
-    public function __construct(<hljs type>string</hljs> $eventClass)
+    public function __construct(<hljs type>string</hljs> $event)
     {
         $this->event = $event;
     }
