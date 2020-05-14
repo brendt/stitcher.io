@@ -119,7 +119,7 @@ You can see it's easier to read meta data this way, compared to parsing docblock
 
 First there's the `$attribute->newInstance()` call. This is actually the place where our custom attribute class is instantiated. It will take the parameters listed in the attribute definition in our subscriber class, and pass them to the constructor. 
 
-This means that, technically, you don't even need to construct the custom attribute. You could call `$attribute->getArguments()` directly. You'd still need the custom class though, otherwise there would be an error. Furthermore, instantiating the class means you've got the flexibility of the constructor the parse input whatever way you like. All in all I'd say it would be good to always instantiate the attribute using `newInstance()`.
+This means that, technically, you don't even need to construct the custom attribute. You could call `$attribute->getArguments()` directly. Furthermore, instantiating the class means you've got the flexibility of the constructor the parse input whatever way you like. All in all I'd say it would be good to always instantiate the attribute using `newInstance()`.
 
 The second thing worth mentioning is the use of `ReflectionMethod::getAttributes()`, the function that returns all attributes for a method. You can pass two arguments to it, to filter its output.
 
