@@ -227,7 +227,7 @@ This means that scalar expressions are allowed — even bit shifts — as well a
 <<<hljs type>AttributeWithClassNameAndConstants</hljs>(<hljs type>PDO</hljs>::class, <hljs prop>PHP_VERSION_ID</hljs>)>>
 <<<hljs type>AttributeWithClassConstant</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>)>>
 <<<hljs type>AttributeWithBitShift</hljs>(4 >> 1, 4 << 1)>>
-``` 
+```
 
 ### Built-in attributes
 
