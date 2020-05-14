@@ -1,3 +1,18 @@
+array-chunk-in-php:
+    date: 2020-05-14
+    title: array_chunk in PHP
+    content: src/content/blog/2020-05-14-array-chunk-php.md
+    next: new-in-php-8
+    meta:
+        description: "How array_chunk works in PHP"
+    footnotes:
+        - { link: /blog/shorthand-comparisons-in-php, title: "Shorthand comparisons in PHP" }
+        - { link: /blog/array-merge-vs+, title: "Array merge vs. +" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
+    author:
+        name: Dan Englishby
+        url: https://twitter.com/DanEnglishby
+
 attributes-in-php-8:
     date: 2020-05-13
     title: Attributes in PHP 8
