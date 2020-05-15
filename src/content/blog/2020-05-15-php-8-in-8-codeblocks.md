@@ -15,7 +15,7 @@ class ProductSubscriber
 }
 ```
 
-Attributes — aka annotations — you can about them in depth in [this post](/blog/attributes-in-php-8).
+Attributes — aka annotations — you can read about them in depth in [this post](/blog/attributes-in-php-8).
 
 ---
 
