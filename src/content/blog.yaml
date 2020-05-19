@@ -1,3 +1,12 @@
+builders-and-architects-two-types-of-programmers:
+    date: 2020-05-18
+    title: "Builders and architects: two types of programmers"
+    content: src/content/blog/2020-05-18-builders-and-architects-two-types-of-programmers.md
+    next: a-programmers-cognitive-load
+    meta:
+        description: "Dealing with different personalities within your team"
+        image: resources/img/blog/builders-and-architects/meta.png
+
 php-8-in-8-code-blocks:
     date: 2020-05-15
     title: PHP 8 in 8 code blocks
