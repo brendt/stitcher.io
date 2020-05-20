@@ -6,6 +6,11 @@ builders-and-architects-two-types-of-programmers:
     meta:
         description: "Dealing with different personalities within your team"
         image: resources/img/blog/builders-and-architects/meta.png
+    footnotes:
+          - { link: "https://www.16personalities.com/articles/our-theory", title: "MBTI", description: " — The theory behind the Myers-Briggs Type Indicator" }
+          - { link: "/blog/where-a-curly-bracket-belongs", title: "Where a curly bracket belongs" }
+          - { link: "/blog/a-programmers-cognitive-load", title: "A programmer's cognitive load" }
+          - { link: "https://excalidraw.com/", title: "Illustrations made with Excalidraw" }
 
 php-8-in-8-code-blocks:
     date: 2020-05-15
