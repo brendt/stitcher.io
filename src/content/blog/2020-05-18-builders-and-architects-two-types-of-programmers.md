@@ -82,11 +82,13 @@ Having this knowledge about yourself and your co-workers allows for better team 
 
 ---
 
-Understanding there are different kinds of people who think differently than you do, does seem like such a simple realisation. Yet the internet and suboptimal or even broken teams show that a principle so easy to understand, is difficult to bring into practice.
+One thing I want to emphasize at the end of this post, is that my goal was not to promote MBTI. Rather it's to make you think about how people's personalities differ from each other, and how this can result both in conflicts as well as opportunities. MBTI is just an example of how one could visualise these differences.
+
+Understanding there are different kinds of people who think differently than you do, seems like such a simple realisation. Yet the internet and suboptimal or even broken teams show that a principle so easy to understand, is difficult to bring into practice.
 
 If you want to, you can truly change the way you handle inter-personal conflicts. Even though you probably are right, try to think about ways to support your adversary, yes even leveraging them to a higher level. You'll be surprised that you're the one who benefits the most.
 
-If you want to know your own MBTI profile, you can test it for free online! There's a great website called [16personalities.com](*https://www.16personalities.com/) providing a 20-minutes test. I'm interested to see the results! Let me know your profile and check up on others in [this poll](*https://twitter.com/brendt_gd/status/1262986404231077890).
+If you do want to know your own MBTI profile, you can test it for free online. Again this profile won't tell you who you really are, but it has to power to address the differences in personalities between you and other programmers. There's a great website called [16personalities.com](*https://www.16personalities.com/) providing a 20-minutes test. I'm interested to see the results! Let me know your profile and check up on others in [this poll](*https://twitter.com/brendt_gd/status/1262986404231077890).
 
 Want to share your own thoughts on the topic? You can send me an [email](mailto:brendt@stitcher.io) or we can discuss it on [HN](*https://news.ycombinator.com/item?id=23243740).
 
