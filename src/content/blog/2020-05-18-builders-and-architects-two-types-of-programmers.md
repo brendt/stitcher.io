@@ -86,7 +86,7 @@ Understanding there are different kinds of people who think differently than you
 
 If you want to, you can truly change the way you handle inter-personal conflicts. Even though you probably are right, try to think about ways to support your adversary, yes even leveraging them to a higher level. You'll be surprised that you're the one who benefits the most.
 
-If you want to know your own MBTI profile, you can test it for free online! There's a great website called [16personalities.com](*https://www.16personalities.com/) providing a 20-minutes test. I'm interested to see the results! Let me know your profile and check up on others on [twitter](*https://twitter.com/brendt_gd).
+If you want to know your own MBTI profile, you can test it for free online! There's a great website called [16personalities.com](*https://www.16personalities.com/) providing a 20-minutes test. I'm interested to see the results! Let me know your profile and check up on others on [twitter](*https://twitter.com/brendt_gd/status/1262986404231077890).
 
 Want to share your own thoughts on the topic? You can send me an [email](mailto:brendt@stitcher.io) or we can discuss it on the previously mentioned [twitter](*https://twitter.com/brendt_gd).
 
