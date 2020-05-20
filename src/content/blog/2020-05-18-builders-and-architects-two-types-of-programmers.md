@@ -48,7 +48,7 @@ Instead of focusing on what they disagree on, let's try another approach: let's,
 
 ![](/resources/img/blog/builders-and-architects/builders-4.png)
 
-Here's how that looks: while architects enjoy abstract thinking, they often have difficulties putting their thoughts into practice: they run into problems they didn't anticipate for, or the actual implementation is too complex and they loose their drive. On the other hand, builders enjoy working towards a clear goal, they find energy in a project taking shape. So let's sit them down, together, and combine their strengths.
+Here's how that looks: while architects enjoy abstract thinking, they often have difficulties putting their thoughts into practice: they run into problems they didn't anticipate, or the actual implementation is too complex and they lose their drive. On the other hand, builders enjoy working towards a clear goal, they find energy in a project taking shape. So let's sit them down, together, and combine their strengths.
 
 <div class="image-noborder"></div>
 
