@@ -88,6 +88,6 @@ If you want to, you can truly change the way you handle inter-personal conflicts
 
 If you want to know your own MBTI profile, you can test it for free online! There's a great website called [16personalities.com](*https://www.16personalities.com/) providing a 20-minutes test. I'm interested to see the results! Let me know your profile and check up on others in [this poll](*https://twitter.com/brendt_gd/status/1262986404231077890).
 
-Want to share your own thoughts on the topic? You can send me an [email](mailto:brendt@stitcher.io) or we can discuss it on the previously mentioned [twitter](*https://twitter.com/brendt_gd).
+Want to share your own thoughts on the topic? You can send me an [email](mailto:brendt@stitcher.io) or we can discuss it on [HN](*https://news.ycombinator.com/item?id=23243740).
 
 Thanks for reading, until next time! 
