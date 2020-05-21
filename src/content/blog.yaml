@@ -3,7 +3,7 @@ the-ikea-effect:
     title: The IKEA effect
     content: src/content/blog/2020-05-21-the-ikea-effect.md
     meta:
-        description: "The value we give things we create ourselves"
+        description: "About the value of our own creations"
         image: resources/img/blog/ikea/meta.png
     footnotes:
         - { link: "/blog/builders-and-architects-two-types-of-programmers", title: "Dealing with different personalities within your team" }
