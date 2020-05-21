@@ -20,6 +20,10 @@ I immediately came up with the name "The IKEA effect" and I congratulated myself
 
 > The IKEA effect is a cognitive bias in which consumers place a disproportionately high value on products they partially created
 
+<div class="image-noborder"></div>
+
+![](/resources/img/blog/ikea/1.png)
+
 ## The IKEA Effect revisited
 
 In my career as a programmer I noticed this phenomenon's negative side effects quite often. It manifests itself in different ways and in different levels of an organization. 
