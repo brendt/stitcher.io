@@ -1,8 +1,24 @@
+the-ikea-effect:
+    date: 2020-05-21
+    title: The IKEA effect
+    content: src/content/blog/2020-05-21-the-ikea-effect.md
+    meta:
+        description: "The value we give things we create ourselves"
+#        image: resources/img/blog/builders-and-architects/meta.png
+    footnotes:
+        - { link: "/blog/builders-and-architects-two-types-of-programmers", title: "Dealing with different personalities within your team" }
+        - { link: "/blog/a-programmers-cognitive-load", title: "A programmer's cognitive load" }
+        - { link: "https://excalidraw.com/", title: "Illustrations made with Excalidraw" }
+    author:
+        name: Dimitris Karapanos
+        url: https://twitter.com/gpanos00
+
 builders-and-architects-two-types-of-programmers:
     date: 2020-05-20
     title: "Builders and architects: two types of programmers"
     content: src/content/blog/2020-05-18-builders-and-architects-two-types-of-programmers.md
     next: a-programmers-cognitive-load
+    highlight: true
     meta:
         description: "Dealing with different personalities within your team"
         image: resources/img/blog/builders-and-architects/meta.png
