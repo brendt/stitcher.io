@@ -58,4 +58,4 @@ This are my takeaways.
 
 ---
 
-Once again thanks to [Dimitris](*https://twitter.com/gpanos00), be sure to check him out! If you're interested in discussing your thoughts in this topic, you go share them [on HN](*https://news.ycombinator.com/item?id=23256032).
+Once again thanks to [Dimitris](*https://twitter.com/gpanos00), be sure to check him out! If you're interested in discussing your thoughts in this topic, you can share them [on HN](*https://news.ycombinator.com/item?id=23256032).
