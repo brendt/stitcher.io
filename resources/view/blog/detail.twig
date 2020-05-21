@@ -52,14 +52,6 @@
 
         {{ post.content|raw }}
 
-        {% if post.author is defined %}
-            <hr>
-            <p>
-                Once again thanks to
-                <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a> for writing this guest post, be sure to check them out!
-            </p>
-        {% endif %}
-
         {% if post.footnotes is defined %}
             <nav class="footnotes">
                 <h2>Footnotes</h2>

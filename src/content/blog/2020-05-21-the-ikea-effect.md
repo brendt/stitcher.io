@@ -55,3 +55,7 @@ This are my takeaways.
 **Know when to stop**: if something doesn't feel right, gets weirdly complicated to model it in your solution, then it smells bad. Stop and revisit your approach better now than later. Do you find yourself lost? Struggling to find a way to make it work? Maybe the problem is too hard for your level of expertise. There is no shame in this. Communicate it early with your senior experts ask for tips, pair coding, anything that can help you grow your game to be able to fight the beast.
 
 **Wrap it up**: don't try to make every little part perfect. Pay attention to the core of the solution and learn to live with the rest. Ship it and after some time when you are emotionally detached revisit and refactor.
+
+---
+
+Once again thanks to [Dimitris](*https://twitter.com/gpanos00), be sure to check him out! If you're interested in discussing your thoughts in this topic, you go share them [on HN](*https://news.ycombinator.com/item?id=23256032).
