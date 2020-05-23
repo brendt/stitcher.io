@@ -12,6 +12,7 @@ php-74-in-7-code-blocks:
         - { link: /blog/typed-properties-in-php-74, title: "Typed properties in PHP 7.4" }
         - { link: /blog/liskov-and-type-safety, title: "Liskov and type safety" }
         - { link: "/blog/php-8-in-8-code-blocks", title: "PHP 8 in 8 code blocks", description: " — The best features of PHP 8" }
+        - { link: /blog/preloading-in-php-74, title: "Preloading in PHP 7.4" }
 
 the-ikea-effect:
     date: 2020-05-21

@@ -29,7 +29,7 @@ Type properties. There's quite a lot to tell [about them](/blog/typed-properties
 ---
 
 ```php
-$data['date'] <hljs green>??=</hljs> new DateTime();
+$data['date'] <hljs green>??=</hljs> new <hljs type>DateTime</hljs>();
 ```
 
 The null coalescing assignment operator.
