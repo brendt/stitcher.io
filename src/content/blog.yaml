@@ -1,3 +1,18 @@
+php-74-in-7-code-blocks:
+    date: 2020-05-23
+    title: PHP 7.4 in 7 code blocks
+    content: src/content/blog/2020-05-23-php-74-in-7-codeblocks.md
+    next: php-8-in-8-code-blocks
+    meta:
+        description: "The best features of PHP 7.4"
+        image: resources/img/blog/php-74/meta.png
+    footnotes:
+        - { link: "/blog/new-in-php-74", title: "New in PHP 7.4", description: " — A comprehensive list of all things new in PHP 7.4" }
+        - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
+        - { link: /blog/typed-properties-in-php-74, title: "Typed properties in PHP 7.4" }
+        - { link: /blog/liskov-and-type-safety, title: "Liskov and type safety" }
+        - { link: "/blog/php-8-in-8-code-blocks", title: "PHP 8 in 8 code blocks", description: " — The best features of PHP 8" }
+
 the-ikea-effect:
     date: 2020-05-21
     title: The IKEA effect
