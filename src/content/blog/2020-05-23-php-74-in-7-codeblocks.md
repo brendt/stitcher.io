@@ -11,7 +11,7 @@ PHP 7.4, the last edition in the 7.* series, brings lots of new and handy change
 );
 ```
 
-Arrow functions, a.k.a. short closures.
+Arrow functions, a.k.a. short closures. You can read about them in depth in [this post](/blog/short-closures-in-php).
 
 ---
 
@@ -32,7 +32,7 @@ Type properties. There's quite a lot to tell [about them](/blog/typed-properties
 $data['date'] <hljs green>??=</hljs> new <hljs type>DateTime</hljs>();
 ```
 
-The null coalescing assignment operator.
+The null coalescing assignment operator. If you're unfamiliar with te null coalescing operator, you can read all about [shorthand operators](/blog/shorthand-comparisons-in-php) in this blog.
 
 ---
 
@@ -61,7 +61,7 @@ Improved type variance. If you're not sure what that's about, you should take a 
 $result = [<hljs green>...</hljs>$arrayA, <hljs green>...</hljs>$arrayB];
 ```
 
-The array spread operator.
+The array spread operator. There are a few [sidenotes](/blog/new-in-php-74#array-spread-operator-rfc) to be made about them.
 
 ---
 
@@ -69,7 +69,7 @@ The array spread operator.
 $formattedNumber = 107<hljs green>_</hljs>925<hljs green>_</hljs>284.88;
 ```
 
-The numeric literal separator.
+The numeric literal separator, which is only a visual aid.
 
 ---
 
@@ -78,7 +78,7 @@ The numeric literal separator.
 <hljs keyword>opcache.preload</hljs>=/path/to/project/preload.php
 ```
 
-Preloading improves PHP performance across requests.
+Preloading improves PHP performance across requests. It's a complicated topic, but I wrote about it [here](/blog/preloading-in-php-74).
 
 ---
 
