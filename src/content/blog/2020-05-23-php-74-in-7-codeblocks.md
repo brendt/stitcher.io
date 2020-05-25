@@ -32,7 +32,7 @@ Type properties. There's quite a lot to tell [about them](/blog/typed-properties
 $data['date'] <hljs green>??=</hljs> new <hljs type>DateTime</hljs>();
 ```
 
-The null coalescing assignment operator. If you're unfamiliar with te null coalescing operator, you can read all about [shorthand operators](/blog/shorthand-comparisons-in-php) in this blog.
+The null coalescing assignment operator. If you're unfamiliar with the null coalescing operator, you can read all about [shorthand operators](/blog/shorthand-comparisons-in-php) in this blog.
 
 ---
 
