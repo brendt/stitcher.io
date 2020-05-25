@@ -36,7 +36,7 @@ When working on a solution to a problem, the deeper you go, your focus switches 
 
 How many times I found myself searching and furiously going through stackoverflow to make this one thing work! When I finally got this little piece of the solution working, I was so attached to it that I wouldn't even consider the thought that it might not be the right way to do it. 
 
-I was ready to defend its honor against anyone who dared to challenge it! At this stage the feedback in any kind or form — either this comes from code review or over the water cooler — the result is tension. The worst part is that the feedback is probably right, but your are already too blind to see or accept it.
+I was ready to defend its honor against anyone who dared to challenge it! At this stage the feedback in any kind or form — either this comes from code review or over the water cooler — the result is tension. The worst part is that the feedback is probably right, but you are already too blind to see or accept it.
 
 ## The assembly manual
 
