@@ -5,7 +5,6 @@ improvements-on-laravel-nova:
     next: php-8-in-8-code-blocks
     meta:
         description: "6 things you might not know about Laravel Nova"
-        image: resources/img/blog/php-74/meta.png
     footnotes:
         - { link: "https://www.masteringnova.com", title: "Mastering Nova", description: " — An in-depth course on Laravel Nova by Bruno Falcao" }
         - { link: "/blog/laravel-beyond-crud", title: "Laravel beyond CRUD", description: " — A series about managing larger than average Laravel applications" }
