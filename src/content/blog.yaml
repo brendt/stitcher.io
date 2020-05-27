@@ -1,3 +1,18 @@
+new-in-php-8:
+    date: 2020-05-12
+    title: "What's new in PHP 8"
+    content: src/content/blog/2020-01-16-new-in-php-8.md
+    next: new-in-php-74
+    highlight: true
+    meta:
+        description: "All new features, deprecations, speed and performance improvements in PHP 8"
+    tag: php-8
+    footnotes:
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+
 improvements-on-laravel-nova:
     date: 2020-05-26
     title: Improvements on Laravel Nova
@@ -108,21 +123,6 @@ combining-event-sourcing-and-stateful-systems:
     footnotes:
         - { link: "/blog/tests-and-types", title: "Thoughts on strong and weakly typed programming languages" }
         - { link: /blog/laravel-beyond-crud, title: "Laravel beyond CRUD: a blog series on designing large Laravel applications" }
-
-new-in-php-8:
-    date: 2020-05-12
-    title: "New in PHP 8"
-    content: src/content/blog/2020-01-16-new-in-php-8.md
-    next: new-in-php-74
-    highlight: true
-    meta:
-        description: "New features, deprecations and improvements in PHP 8"
-    tag: php-8
-    footnotes:
-        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
-        - { link: /blog/php-in-2020, title: "PHP in 2020" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 minor-versions-breaking-changes:
     date: 2020-03-26
