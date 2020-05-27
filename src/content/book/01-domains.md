@@ -87,11 +87,9 @@ app/App/Console/
 
 You might have noticed that the above example doesn't follow the Laravel convention of `\App` as the single root namespace. Since applications are only part of our project, and because there can be several, it doesn't make sense to use `\App` as the root for everything.
 
-Note that if you do prefer to stay closer to Laravel's default structure, you're allowed to do that. This means you'll end up with namespaces like `\App\Domain` and `\App\Api`. But you're free to do what you're comfortable with.
+If you do prefer to stay closer to Laravel's default structure, you're allowed to do that. This means you'll end up with namespaces like `\App\Domain` and `\App\Api`. But you're free to do what you're comfortable with.
 
-If you want to separate the root namespaces though, you will need to make some changes to how Laravel is bootstrapped. 
-
-First of all, you'll need to register all root namespaces in `composer.json`:
+If you want to separate the root namespaces though, you can do so by making a slight change in `composer.json`:
 
 ```json
 {
@@ -108,36 +106,6 @@ First of all, you'll need to register all root namespaces in `composer.json`:
 ```
 
 Note that I also have a `\Support` root namespace, which for now you can think of as the dumping ground for all little helpers that don't belong anywhere.
-
-Next, we need to re-register the `\App` namespace, since Laravel will use it for several things internally.
-
-```php
-namespace App;
-
-use <hljs type>Illuminate\Foundation\Application</hljs> as <hljs type>LaravelApplication</hljs>;
-
-class BaseApplication extends LaravelApplication
-{
-    protected $namespace = 'App\\';
-
-    public function path($path = '')
-    {
-        return $this->basePath.DIRECTORY_SEPARATOR.'app/App'.($path ? DIRECTORY_SEPARATOR.$path : $path);
-    }
-}
-```
-
-Finally, we need to use our custom base application by registering it in `bootstrap/app.php`:
-
-```php
-// bootstrap/app.php
-
-$app = new <hljs type>App\BaseApplication</hljs>(
-    <hljs prop>realpath</hljs>(__DIR__.'/../')
-);
-```
-
-Unfortunately there's no cleaner way to do this, as the framework never intended for the default folder structure to change. Again, if you're uncomfortable with making these changes, feel free to keep using Laravel's default root namespace structure. 
 
 --- 
 
