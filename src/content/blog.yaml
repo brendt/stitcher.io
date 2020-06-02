@@ -1,3 +1,16 @@
+the-latest-php-version:
+    date: 2020-06-02
+    title: The latest PHP version
+    content: src/content/blog/2020-06-02-the-latest-php-version.md
+    next: new-in-php-8
+    meta:
+        description: "How modern PHP versions are managed"
+    footnotes:
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/php-74-upgrade-mac, title: "How to upgrade to PHP 7.4 on a Mac" }
+
 new-in-php-8:
     date: 2020-05-28
     title: "What's new in PHP 8"
@@ -8,6 +21,7 @@ new-in-php-8:
         description: "All new features, deprecations, speed and performance improvements in PHP 8"
     tag: php-8
     footnotes:
+        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
         - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
         - { link: /blog/php-in-2020, title: "PHP in 2020" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }

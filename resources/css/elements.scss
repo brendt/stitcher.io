@@ -332,3 +332,35 @@ span.number {
     line-height: 1em;
     white-space: nowrap;
 }
+
+table {
+    font-size: 1.3rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    border-spacing: 0;
+
+    @include outOfBox();
+
+    @media (max-width: $width-container-mobile) {
+        font-size: 1rem;
+    }
+}
+
+tr {
+    background-color: darken($color-primary-pastel, 3);
+}
+
+tr:nth-child(2n) {
+    background-color: $color-primary-pastel;
+}
+
+tr.highlight-text {
+    font-weight: bold;
+}
+
+tr > td:first-child {
+}
+
+td {
+    padding: .5em 1em;
+}
