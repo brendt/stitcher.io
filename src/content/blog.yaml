@@ -1,6 +1,6 @@
 the-latest-php-version:
     date: 2020-06-02
-    title: The latest PHP version
+    title: What's the latest PHP version?
     content: src/content/blog/2020-06-02-the-latest-php-version.md
     next: new-in-php-8
     meta:
