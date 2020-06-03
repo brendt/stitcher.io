@@ -4,9 +4,11 @@ Once this survey has gathered enough results, I will publish my conclusions on t
 
 {{ ad:carbon }}
 
+Simply scroll down 👇 to participate!
+
 ---
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeS9kXn3P5jcjKYRJnnRImjUOVbOuSRwid3i3jPNCoUBf52Qw/viewform?embedded=true" width="640" height="4500" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeS9kXn3P5jcjKYRJnnRImjUOVbOuSRwid3i3jPNCoUBf52Qw/viewform?embedded=true" width="640" height="4500" frameborder="0" marginheight="0" marginwidth="0">Hang on a second…</iframe>
 
 ---
 
