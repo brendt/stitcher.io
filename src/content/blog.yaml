@@ -1,3 +1,15 @@
+type-system-in-php-survey:
+    date: 2020-06-03
+    title: "Survey: type systems in PHP"
+    content: src/content/blog/2020-06-03-type-system-survey.md
+    next: new-in-php-8
+    meta:
+        description: "A survey about how we use type systems in PHP"
+    footnotes:
+        - { link: "/blog/tests-and-types", title: "Thoughts on strong and weakly typed programming languages" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/the-latest-php-version, title: "The latest PHP version" }
+
 the-latest-php-version:
     date: 2020-06-02
     title: What's the latest PHP version?
