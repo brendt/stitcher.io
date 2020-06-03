@@ -4,7 +4,7 @@ Once this survey has gathered enough results, I will publish my conclusions on t
 
 {{ ad:carbon }}
 
-Simply scroll down 👇 to participate!
+Simply scroll down 👇 to participate, or follow [this link](*https://docs.google.com/forms/d/e/1FAIpQLSeS9kXn3P5jcjKYRJnnRImjUOVbOuSRwid3i3jPNCoUBf52Qw/viewform).
 
 ---
 
