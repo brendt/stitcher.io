@@ -761,6 +761,7 @@ array-merge-vs+:
     meta:
         description: How to merge arrays in PHP
     footnotes:
+        - { link: /blog/what-is-array-plus-in-php, title: "A summary about array + array in PHP" }
         - { link: /blog/shorthand-comparisons-in-php, title: "Shorthand comparisons in PHP" }
         - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
 
@@ -983,6 +984,7 @@ shorthand-comparisons-in-php:
     meta:
         description: Taking a closer look at the ternary, null coalescing and spaceship operators in PHP.
     footnotes:
+        - { link: /blog/what-is-array-plus-in-php, title: "A summary about array + array in PHP" }
         - { link: /blog/array-destructuring-with-list-in-php, title: "Array destructuring in PHP" }
         - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
         - { link: /blog/array-merge-vs+, title: "Array merge vs. +" }
