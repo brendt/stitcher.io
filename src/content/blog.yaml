@@ -1,3 +1,19 @@
+merging-multidimensional-arrays-in-php:
+    date: 2020-06-05
+    title: "How to merge multidimensional arrays in PHP?"
+    content: src/content/blog/2020-06-05-merge-multi-dimensional-arrays.md
+    next: new-in-php-8
+    meta:
+        description: There's a difference between array_merge and array_merge_recursive
+
+what-is-array-plus-in-php:
+    date: 2020-06-05
+    title: "What does array + do in PHP?"
+    content: src/content/blog/2020-06-05-what-is-array-plus-in-php.md
+    next: new-in-php-8
+    meta:
+        description: Array + array in PHP is a different kind of merge
+
 type-system-in-php-survey:
     date: 2020-06-03
     title: "Survey: type systems in PHP"
