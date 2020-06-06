@@ -754,7 +754,7 @@ share-a-blog-assertchris-io:
 
 array-merge-vs+:
     date: 2018-10-24
-    title: array_merge in PHP
+    title: array_merge or + in PHP
     content: src/content/blog/2018-10-24-array-merge-vs+.md
     next: shorthand-comparisons-in-php
     highlight: true
