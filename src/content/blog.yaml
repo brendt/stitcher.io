@@ -645,11 +645,11 @@ php-enums:
 
 php-jit:
     date: 2019-02-06
-    title: PHP JIT
+    title: JIT in PHP 8
     content: src/content/blog/2019-02-06-php-jit.md
     next: new-in-php-74
     meta:
-        description: "The pros and cons of the pending RFC to add a JIT compiler to PHP."
+        description: "The pros and cons of adding a JIT compiler to PHP."
     footnotes:
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
