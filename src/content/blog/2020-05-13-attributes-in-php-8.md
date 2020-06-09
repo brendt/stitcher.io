@@ -29,12 +29,12 @@ Also yes, I know, the syntax might not be what you wished or hoped for. You migh
 
 That being said, let's focus on the cool stuff: how would this `ListensTo` work under the hood?
 
-First of all, custom attributes are simple classes, annotated themselves with the `<<PhpAttribute>>` attribute.
+First of all, custom attributes are simple classes, annotated themselves with the `<<Attribute>>` attribute; this base `Attribute` used to be called `PhpAttribute` in the original RFC, but was changed with [another RFC](*https://wiki.php.net/rfc/attribute_amendments) afterwards.
 
 Here's what it would look like:
 
 ```php
-<<<hljs type>PhpAttribute</hljs>>>
+<<<hljs type>Attribute</hljs>>>
 class ListensTo
 {
     public <hljs type>string</hljs> $event;
@@ -46,9 +46,9 @@ class ListensTo
 }
 ```
 
-That's it — pretty simple right? Keep in mind the goal of attributes: they are meant to add meta data to classes and methods, nothing more. They shouldn't — and can't — be used for, for example, argument input validation. In other words: you wouldn't have access to the parameters passed to a method within its attributes.
+That's it — pretty simple right? Keep in mind the goal of attributes: they are meant to add meta data to classes and methods, nothing more. They shouldn't — and can't — be used for, for example, argument input validation. In other words: you wouldn't have access to the parameters passed to a method within its attributes. There was a previous RFC that allowed this behaviour, but this RFC specifically kept things more simple.
 
-There was a previous RFC that allowed this behaviour, but this RFC specifically kept things more simple.
+
 
 Back to the event subscriber example: we still need to read the meta data and register our subscribers based somewhere. Coming from a Laravel background, I'd use a service provider as the place to do this, but feel free to come up with other solutions.
 
@@ -229,7 +229,53 @@ This means that scalar expressions are allowed — even bit shifts — as well a
 <<<hljs type>AttributeWithBitShift</hljs>(4 >> 1, 4 << 1)>>
 ```
 
-### Built-in attributes
+## Attribute configuration
+
+By default, attributes can be added everywhere, as listed above. It's possible, however, to configure them so they can only be used in specific places. For example you could make it so that `ClassAttribute` can only be used on classes, and nowhere else. This configuration is done by passing a flag to the `Attribute` attribute on the attribute class.
+
+It looks like this:
+
+```php
+<<<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>TARGET_CLASS</hljs>)>>
+class ClassAttribute
+{
+}
+```
+
+The following flags are available:
+
+```php
+<hljs type>Attribute</hljs>::<hljs prop>TARGET_CLASS</hljs>
+<hljs type>Attribute</hljs>::<hljs prop>TARGET_FUNCTION</hljs>
+<hljs type>Attribute</hljs>::<hljs prop>TARGET_METHOD</hljs>
+<hljs type>Attribute</hljs>::<hljs prop>TARGET_PROPERTY</hljs>
+<hljs type>Attribute</hljs>::<hljs prop>TARGET_CLASS_CONSTANT</hljs>
+<hljs type>Attribute</hljs>::<hljs prop>TARGET_PARAMETER</hljs>
+<hljs type>Attribute</hljs>::<hljs prop>TARGET_ALL</hljs>
+```
+
+These are bitmask flags, so you can combine them [using a binary OR operation](/blog/bitwise-booleans-in-php).
+
+```php
+<<<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>TARGET_METHOD</hljs>|<hljs type>Attribute</hljs>::<hljs prop>TARGET_FUNCTION</hljs>)>>
+class ClassAttribute
+{
+}
+```
+
+Another configuration flag is about repeatability. By default the same attribute can't be applied twice, unless it's specifically marked as repeatable. This is done the same way as target configuration, with a bit flag. 
+
+```php
+<<<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>IS_REPEATABLE</hljs>)>>
+class ClassAttribute
+{
+}
+```
+
+Note that all these flags are only validated when calling `$attribute->newInstance()`, not earlier.
+
+
+## Built-in attributes
 
 Once the base RFC had been accepted, new opportunities arose to add built-in attributes to the core. One such example is the [`<<Deprecated>>`](*https://wiki.php.net/rfc/deprecated_attribute) attribute, and a popular example has been a `<<Jit>>` attribute — if you're not sure what that last one is about, you can read my post about [what the JIT is](/blog/php-jit).
 
