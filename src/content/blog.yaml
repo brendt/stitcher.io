@@ -1,3 +1,15 @@
+attributes-in-php-8:
+    date: 2020-06-09
+    title: Attributes in PHP 8
+    content: src/content/blog/2020-05-13-attributes-in-php-8.md
+    next: new-in-php-8
+    meta:
+        description: "A close look at attributes, also known as annotations; in PHP 8"
+    footnotes:
+        - { link: "https://wiki.php.net/rfc/attribute_amendments", title: "Amendments to the original RFC" }
+        - { link: "/blog/new-in-php-8", title: "New in PHP 8", description: " — A comprehensive list of all things new in PHP 8" }
+        - { link: "/blog/php-jit", title: "The JIT in PHP 8", description: " — A close look at the JIT, and what it means for PHP" }
+
 merging-multidimensional-arrays-in-php:
     date: 2020-06-05
     title: "How to merge multidimensional arrays in PHP?"
@@ -143,18 +155,6 @@ array-chunk-in-php:
     author:
         name: Dan Englishby
         url: https://twitter.com/DanEnglishby
-
-attributes-in-php-8:
-    date: 2020-05-13
-    title: Attributes in PHP 8
-    content: src/content/blog/2020-05-13-attributes-in-php-8.md
-    next: new-in-php-8
-    meta:
-        description: "A close look at attributes, also known as annotations; in PHP 8"
-    footnotes:
-        - { link: "https://wiki.php.net/rfc/attribute_amendments", title: "Amendments to the original RFC" }
-        - { link: "/blog/new-in-php-8", title: "New in PHP 8", description: " — A comprehensive list of all things new in PHP 8" }
-        - { link: "/blog/php-jit", title: "The JIT in PHP 8", description: " — A close look at the JIT, and what it means for PHP" }
 
 combining-event-sourcing-and-stateful-systems:
     date: 2020-04-14
