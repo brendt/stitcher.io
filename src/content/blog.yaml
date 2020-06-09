@@ -5,6 +5,7 @@ type-system-in-php-survey-results:
     next: new-in-php-8
     meta:
         description: "How does type system usage compare to team and project size?"
+        image: resources/img/blog/survey/meta.png
     footnotes:
         - { link: "/blog/tests-and-types", title: "Thoughts on strong and weakly typed programming languages" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
