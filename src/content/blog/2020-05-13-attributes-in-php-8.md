@@ -231,7 +231,7 @@ This means that scalar expressions are allowed — even bit shifts — as well a
 
 ## Attribute configuration
 
-By default, attributes can be added everywhere, as listed above. It's possible, however, to configure them so they can only be used in specific places. For example you could make it so that `ClassAttribute` can only be used on classes, and nowhere else. This configuration is done by passing a flag to the `Attribute` attribute on the attribute class.
+By default, attributes can be added in several places, as listed above. It's possible, however, to configure them so they can only be used in specific places. For example you could make it so that `ClassAttribute` can only be used on classes, and nowhere else. Opting-in this behaviour is done by passing a flag to the `Attribute` attribute on the attribute class.
 
 It looks like this:
 
