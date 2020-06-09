@@ -1,3 +1,15 @@
+type-system-in-php-survey-results:
+    date: 2020-06-09
+    title: "Survey results: type systems in PHP"
+    content: src/content/blog/2020-06-09-survey-results.md
+    next: new-in-php-8
+    meta:
+        description: "How does type system usage compare to team and project size?"
+    footnotes:
+        - { link: "/blog/tests-and-types", title: "Thoughts on strong and weakly typed programming languages" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/the-latest-php-version, title: "The latest PHP version" }
+
 attributes-in-php-8:
     date: 2020-06-09
     title: Attributes in PHP 8
@@ -34,6 +46,7 @@ type-system-in-php-survey:
     meta:
         description: "A survey about how we use type systems in PHP"
     footnotes:
+        - { link: "/blog/type-system-in-php-survey-results", title: "The results of the survey are in!" }
         - { link: "/blog/tests-and-types", title: "Thoughts on strong and weakly typed programming languages" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/the-latest-php-version, title: "The latest PHP version" }

@@ -38,6 +38,15 @@ div.center {
     text-align: center;
 }
 
+em.center {
+    display: block;
+    text-align:center;
+}
+
+em.small {
+    font-size: 1rem;
+}
+
 div.center > p {
     padding-right: 0;
 }
@@ -158,6 +167,10 @@ div.center > p {
 .image-noborder + p > a > img,
 .image-noborder + p > img {
     box-shadow: none;
+}
+
+.image-noborder + p + p > em {
+    margin-top: -3rem;
 }
 
 .mobile-only {
