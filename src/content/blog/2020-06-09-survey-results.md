@@ -25,9 +25,9 @@ This "type profile" was determined by mapping the answers to relevant questions 
 
 <em class="center small">Type profile of all participants</em>
 
-One thing that immediately stood out is the large amount of people who lean towards the use of a strict type system. I did not expect this. From discussions I had on Twitter, I had the feeling that more people would lean towards not using PHP's type system.
+One thing that immediately stood out is the large amount of people who lean towards the use of a strict type system. I did not expect this. From discussions I had on Twitter, I had the feeling that more people would be in group `C`, `D` or `E`.
 
-These are some of the most popular arguments against the use of PHP's type system, at least the one I heard in my discussions:
+These are some of the most popular arguments against the use of PHP's type system, at least the ones I heard in my discussions:
 
 - PHP's type system still fails at runtime, so there's no advantage to using it
 - Types add unnecessary visual overload
@@ -35,7 +35,7 @@ These are some of the most popular arguments against the use of PHP's type syste
 
 Of course this survey wanted to examine whether there's a correlation between personal preference and team- and project size. Let's look at team size first.
 
-This chart shows the average team size, and for each team size the distribution of type profiles within that group.
+This chart shows the average team size, and for each group the distribution of type profiles within that group.
 
 <div class="image-noborder"></div>
 
@@ -43,7 +43,7 @@ This chart shows the average team size, and for each team size the distribution 
 
 <em class="center small">Type profile distribution, grouped by team size</em>
 
-We'd need to look at relative results to test whether there's a correlation or not though. So here goes, but keep in mind that the group with `2-10 people`, is by far the largest.
+We'd need to look at relative results to test whether there's a correlation or not. So here goes, but keep in mind that the group with `2-10 people`, is by far the largest.
 
 <div class="image-noborder"></div>
 
@@ -51,7 +51,7 @@ We'd need to look at relative results to test whether there's a correlation or n
 
 <em class="center small">Relative type profile distribution, grouped by team size</em>
 
-As I expected, based from my discussions: profiles `D` and `E` are more present in smaller teams.
+As I expected, based on discussions: profiles `D` and `E` are more present in smaller teams. Yet I admit I expected that group to be larger again.
 
 Next I looked at project size. I asked participants to describe the size of an average project they work on: small, medium, large or extra large.
 
@@ -61,7 +61,7 @@ Next I looked at project size. I asked participants to describe the size of an a
 
 <em class="center small">Relative type profile distribution, grouped by project size</em>
 
-This chart does a growth of type `A` and `B`, related to the size of the project. Most times, "project size" also translates to "project duration", which is why I also asked participants to rate the project duration of such an average project. 
+This chart shows a growth of type `A` and `B`, related to the size of the project. Most times, "project size" also translates to "project duration", which is why I also asked participants to rate the project duration of such an average project. 
 
 <div class="image-noborder"></div>
 
@@ -69,14 +69,14 @@ This chart does a growth of type `A` and `B`, related to the size of the project
 
 <em class="center small">Relative type profile distribution, grouped by project duration</em>
 
-Again we see a preference for stricter type systems in longer projects, but we should of course be aware that there were less participants in these groups.
+Again we see a preference for stricter type systems in longer projects, but we should of course be aware that there were less participants in these groups. Furthermore, I found it interesting that in this case, there' no linear pattern to discover, as with the previous charts.
 
-## Final conclusions
+## Conclusions
 
 Unfortunately, I think there weren't enough participants distributed across all kinds of projects and team sizes to draw final conclusions here. 
 
 Up front, I assumed that the group who preferred not to use type systems would have been larger; but maybe it's simply a more vocal group, even though smaller? I can't say that for sure though.
 
-I do think that, even with a small amount of participants, we can assume there is a correlation between type system usage and project- and team size; but I'd need to conduct a larger survey to prove that.
+I do think that, even with a small amount of participants, we can assume there is a correlation between type system usage and project- and team size; but ideally, we'd need a larger participant pool.
 
 My personal takeaway is that when entering type system discussions, we should be wary to compare each others preference: there might be a good case that you're simply working in a completely different kind of project, and there's no way of telling who's right or wrong.
