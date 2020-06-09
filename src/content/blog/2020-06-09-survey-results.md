@@ -1,14 +1,13 @@
-I'm a proponent of using PHP's type system as much as possible, though often found resistance with the people I interact with on Twitter and Reddit.
+I use PHP's type system as much as possible, though often found resistance with the people I interact with on Twitter and Reddit.
+After having discussed the topic numerous times, I felt like both "camps" were not really listening to each other, or at least not understanding each others point. 
 
-After discussed the topic numerous times, I felt like both "camps" were not really listening to each other, or at least not understanding each others point. 
-
-It made me wonder if and how the team we work with, and the kind of projects we work on, might influence our view of type system usage. 
+It made me wonder if and how the team we work in, and the kind of projects we work on, might influence our view of type system usage. 
 
 I decided to do a little survey, and gather some actual insights in the topic.
 
 {{ ad:carbon }}
 
-Fair warning: I'm no neutral player in this discussion, but I want to make clear that it wan't my intention to make my own case. I wanted to see whether our seemingly pointless discussions might be caused by the different kinds of projects and teams, and not to prove there's one and only true answer.
+Fair warning: I'm no neutral player in this discussion, but I want to make clear that it wan't my intention to make my own case. I wanted to see whether our seemingly pointless discussions might be caused by the difference in context; I don't want to prove there's one and only true answer.
 
 With all that being said, let's look at the results.
 
