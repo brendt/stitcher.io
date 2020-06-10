@@ -7,7 +7,7 @@ I decided to do a little survey, and gather some actual insights in the topic.
 
 {{ ad:carbon }}
 
-Fair warning: I'm no neutral player in this discussion, but I want to make clear that it wan't my intention to make my own case. I wanted to see whether our seemingly pointless discussions might be caused by the difference in context; I don't want to prove there's one and only true answer.
+Fair warning: I'm no neutral player in this discussion, but I want to make clear that it wasn't my intention to make my own case. I wanted to see whether our seemingly pointless discussions might be caused by the difference in context; I don't want to prove there's one and only true answer.
 
 With all that being said, let's look at the results.
 
