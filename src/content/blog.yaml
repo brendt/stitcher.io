@@ -1,3 +1,19 @@
+new-in-php-8:
+    date: 2020-06-11
+    title: "What's new in PHP 8"
+    content: src/content/blog/2020-01-16-new-in-php-8.md
+    next: new-in-php-74
+    highlight: true
+    meta:
+        description: "All new features, deprecations, speed and performance improvements in PHP 8"
+    tag: php-8
+    footnotes:
+        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+        -
 type-system-in-php-survey-results:
     date: 2020-06-09
     title: "Survey results: type systems in PHP"
@@ -64,22 +80,6 @@ the-latest-php-version:
         - { link: /blog/php-in-2020, title: "PHP in 2020" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
         - { link: /blog/php-74-upgrade-mac, title: "How to upgrade to PHP 7.4 on a Mac" }
-
-new-in-php-8:
-    date: 2020-05-28
-    title: "What's new in PHP 8"
-    content: src/content/blog/2020-01-16-new-in-php-8.md
-    next: new-in-php-74
-    highlight: true
-    meta:
-        description: "All new features, deprecations, speed and performance improvements in PHP 8"
-    tag: php-8
-    footnotes:
-        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
-        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
-        - { link: /blog/php-in-2020, title: "PHP in 2020" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 improvements-on-laravel-nova:
     date: 2020-05-26
