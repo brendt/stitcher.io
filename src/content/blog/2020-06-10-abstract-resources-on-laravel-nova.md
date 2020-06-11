@@ -148,7 +148,7 @@ Abstract Resource, you can do it like:
     protected method getModelInstance(){
         $resourceKey = explode('/', request()->path())[1];
         $resourceClass = Nova::resourceForKey($resourceKey);
-        return $resourceClass::$model->all()->count();
+        return new $resourceClass::$model;
     }
 ```
 and in your model Resource:
