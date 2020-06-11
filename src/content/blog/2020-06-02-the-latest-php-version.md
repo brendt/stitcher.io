@@ -51,59 +51,55 @@ PHP 8 is still in the RFC phase, so things are still changing, but not for long 
 <table>
 <tr>
     <td>Alpha 1</td>
-    <td>June 18, 2020</td>
+    <td>June 25, 2020</td>
 </tr>
 <tr>
     <td>Alpha 2</td>
-    <td>July 2, 2020</td>
+    <td>July 9, 2020</td>
 </tr>
 <tr>
     <td>Alpha 3</td>
-    <td>July 16, 2020</td>
+    <td>July 23, 2020</td>
 </tr>
 <tr>
     <td>Feature freeze</td>
-    <td>July 28, 2020</td>
+    <td>August 04, 2020</td>
 </tr>
 <tr>
     <td>Beta 1</td>
-    <td>July 30, 2020</td>
+    <td>August 06, 2020</td>
 </tr>
 <tr>
     <td>Beta 2</td>
-    <td>August 13, 2020</td>
+    <td>August 20, 2020</td>
 </tr>
 <tr>
     <td>Beta 3</td>
-    <td>August 27, 2020</td>
+    <td>September 3, 2020</td>
 </tr>
 <tr>
     <td>Release candidate 1</td>
-    <td>September 10, 2020</td>
+    <td>September 17, 2020</td>
 </tr>
 <tr>
     <td>Release candidate 2</td>
-    <td>September 24, 2020</td>
+    <td>October 1, 2020</td>
 </tr>
 <tr>
     <td>Release candidate 3</td>
-    <td>October 8, 2020</td>
+    <td>October 15, 2020</td>
 </tr>
 <tr>
     <td>Release candidate 4</td>
-    <td>October 22, 2020</td>
+    <td>October 29, 2020</td>
 </tr>
 <tr>
     <td>Release candidate 5</td>
-    <td>November 5, 2020</td>
-</tr>
-<tr>
-    <td>Release candidate 6</td>
-    <td>November 19, 2020</td>
+    <td>November 12, 2020</td>
 </tr>
 <tr>
     <td>General availability</td>
-    <td>December 3, 2020</td>
+    <td>November 26, 2020</td>
 </tr>
 </table>
 
