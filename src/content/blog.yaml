@@ -1,3 +1,17 @@
+constructor-promotion-in-php-8:
+    date: 2020-06-12
+    title: "Property promotion in PHP 8"
+    content: src/content/blog/2020-06-12-constructor-promotion.md
+    next: new-in-php-8
+    meta:
+        description: "Constructor promotion in PHP significantly reduces the amount of code we need to write for simple objects"
+    tag: php-8
+    footnotes:
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+        - { link: /blog/php-jit, title: "The JIT in PHP 8" }
+        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
+
 new-in-php-8:
     date: 2020-06-11
     title: "What's new in PHP 8"
@@ -8,6 +22,7 @@ new-in-php-8:
         description: "All new features, deprecations, speed and performance improvements in PHP 8"
     tag: php-8
     footnotes:
+        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
         - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
         - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
         - { link: /blog/php-in-2020, title: "PHP in 2020" }
