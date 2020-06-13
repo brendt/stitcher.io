@@ -163,6 +163,47 @@ and in your model Resource:
     }
 ```
 
+### Allowing your model Resource not to use 'trashed' behavior
+
+The Field 'BelongsTo' already have an option to remove the checkbox 'With Trashed'
+(basically not to show trashed items), but what if want to remove it from any
+other relationship operation (e.g.: BelongsToMany).
+
+You just need to apply the following code in your Abstract Resource:
+
+```
+    /**
+     * Based the trashed behavior on a new policy called trashedAny()
+     *
+     * @return boolean
+     */
+    public static function softDeletes()
+    {
+        // Is this resource authorized on trashedAny?
+        if (static::authorizable()) {
+            return method_exists(Gate::getPolicyFor(static::newModel()), 'trashedAny')
+                ? Gate::check('trashedAny', get_class(static::newModel()))
+                : true;
+        };
+
+        return parent::softDeletes();
+    }
+```
+
+in this example, all you have to do is to define a Policy for your model, and then
+create a new method called 'trashedAny(User $user)', as example:
+
+```
+    UserPolicy.php
+
+    [...]
+
+    public function trashedAny(User $user)
+    {
+        return false;
+    }
+```
+
 These were examples that can trigger your thoughts about how to leverage
 Abstract Resources on your Nova projects.
 
