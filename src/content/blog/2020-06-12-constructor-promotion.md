@@ -204,7 +204,7 @@ $property-><hljs prop>getDocComment</hljs>(); // "/** @var string */"
 
 ### Attributes
 
-Just like doc blocks, [attributes](/blog/attributes-in-php8) are allowed on promoted properties. When transpiled, they will be present both on the constructor parameter, as well as the class property. 
+Just like doc blocks, [attributes](/blog/attributes-in-php-8) are allowed on promoted properties. When transpiled, they will be present both on the constructor parameter, as well as the class property. 
 
 ```php
 class MyClass
