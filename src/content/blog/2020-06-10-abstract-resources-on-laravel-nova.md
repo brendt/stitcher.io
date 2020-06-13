@@ -167,11 +167,13 @@ and in your model Resource:
 
 The Field 'BelongsTo' already have an option to remove the checkbox 'With Trashed'
 (basically not to show trashed items), but what if want to remove it from any
-other relationship operation (e.g.: BelongsToMany).
+other relationship operation (e.g.: BelongsToMany)?
 
 You just need to apply the following code in your Abstract Resource:
 
 ```
+    use Illuminate\Support\Facades\Gate;
+
     /**
      * Based the trashed behavior on a new policy called trashedAny()
      *
