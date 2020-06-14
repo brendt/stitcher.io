@@ -309,7 +309,7 @@ class A
     ) {}
 }
 
-class B
+class B extends A
 {
     public function __construct(
         $a,
