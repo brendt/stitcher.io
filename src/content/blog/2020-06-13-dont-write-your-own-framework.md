@@ -26,4 +26,6 @@ In the end we never actually got to know whether the bug had been exploited: it 
 
 Don't write your own framework, at least not when you're building websites for paying clients; who trust your work to be professional and secure. Whatever framework you use, make sure it's backed by a large community.
 
+Want to share your thoughts? Let's discuss them on [HN](*https://news.ycombinator.com/item?id=23508370).
+
 {{ ad:carbon }}
