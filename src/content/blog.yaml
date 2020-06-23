@@ -1,5 +1,5 @@
 abstract-resources-in-laravel-nova:
-    date: 2020-06-18
+    date: 2020-06-23
     title: Abstract resources in Laravel Nova
     content: src/content/blog/2020-06-18-abstract-resources-in-laravel-nova.md
     next: improvements-on-laravel-nova
