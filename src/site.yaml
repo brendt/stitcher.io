@@ -70,6 +70,22 @@
             posts:
                 book: true
 
+/laravel-beyond-crud-book:
+    template: blog/book.twig
+    variables:
+        title: Laravel beyond CRUD
+        posts: src/content/blog.yaml
+        meta:
+            description: "A blog series about managing larger Laravel projects"
+    config:
+        order:
+            variable: posts
+            field: date
+            direction: asc
+        filter:
+            posts:
+                book: true
+
 /php-74:
     template: blog/overview_tag.twig
     variables:
