@@ -18,6 +18,10 @@ h1 {
     color: $color-primary;
     font-size: 3em;
 
+    &.small-title {
+        font-size: 2.5em;
+    }
+
     @media (max-width: $width-container-mobile) {
         font-size: 2.2em;
     }

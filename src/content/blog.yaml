@@ -1,3 +1,17 @@
+braille-and-the-history-of-software:
+    date: 2020-06-27
+    title: Braille, and the history of software development
+    smallTitle: true
+    content: src/content/blog/2020-06-26-braille-and-the-history-of-software.md
+    next: php-in-2020
+    meta:
+        description: An unexpected similarity between braille and how software is developed
+        image: /resources/img/blog/braille/meta.png
+    footnotes:
+        - { link: "https://99percentinvisible.org/episode/the-universal-page/", title: "The Universal Page", description: " — A 99% Invisible episode about the history of braille" }
+        - { link: "https://www.nfb.org/sites/www.nfb.org/files/images/nfb/publications/fr/fr28/fr280108.htm", title: "The war of the Dots", description: " — A timeline of the War of the Dots"}
+        - { link: /blog/php-in-2020, title: "PHP in 2020", description: "PHP is also still evolving significantly" }
+
 abstract-resources-in-laravel-nova:
     date: 2020-06-23
     title: Abstract resources in Laravel Nova

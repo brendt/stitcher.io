@@ -36,7 +36,7 @@
         </aside>
 
         {% if post.disableTitle is not defined %}
-            <h1>
+            <h1 {% if post.smallTitle is defined %}class="small-title"{% endif %}>
                 {{ post.title }}
             </h1>
         {% endif %}
