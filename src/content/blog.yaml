@@ -1,11 +1,11 @@
 braille-and-the-history-of-software:
     date: 2020-06-27
-    title: Braille, and the history of software development
+    title: Braille, and the evolution of software development
     smallTitle: true
     content: src/content/blog/2020-06-26-braille-and-the-history-of-software.md
     next: php-in-2020
     meta:
-        description: An unexpected similarity between braille and how software is developed
+        description: An unexpected similarity between braille the hisotry and future of software development
         image: /resources/img/blog/braille/meta.png
     footnotes:
         - { link: "https://99percentinvisible.org/episode/the-universal-page/", title: "The Universal Page", description: " — A 99% Invisible episode about the history of braille" }
