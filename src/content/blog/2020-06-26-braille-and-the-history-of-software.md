@@ -52,4 +52,4 @@ Braille is just one example of how much time it takes to optimise a process or s
 
 ---
 
-Food for thought, what do you think? Let me know on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).
+Food for thought, [what do you think](*https://news.ycombinator.com/item?id=23687998)?
