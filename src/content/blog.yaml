@@ -1,3 +1,20 @@
+new-in-php-8:
+    date: 2020-07-01
+    title: "What's new in PHP 8"
+    content: src/content/blog/2020-01-16-new-in-php-8.md
+    next: new-in-php-74
+    highlight: true
+    meta:
+        description: "All new features, deprecations, speed and performance improvements in PHP 8"
+    tag: php-8
+    footnotes:
+        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
+        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+
 braille-and-the-history-of-software:
     date: 2020-06-27
     title: Braille, and the evolution of software development
@@ -50,23 +67,6 @@ constructor-promotion-in-php-8:
         - { link: /blog/php-jit, title: "The JIT in PHP 8" }
         - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
 
-new-in-php-8:
-    date: 2020-06-17
-    title: "What's new in PHP 8"
-    content: src/content/blog/2020-01-16-new-in-php-8.md
-    next: new-in-php-74
-    highlight: true
-    meta:
-        description: "All new features, deprecations, speed and performance improvements in PHP 8"
-    tag: php-8
-    footnotes:
-        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
-        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
-        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
-        - { link: /blog/php-in-2020, title: "PHP in 2020" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
-        -
 type-system-in-php-survey-results:
     date: 2020-06-09
     title: "Survey results: type systems in PHP"
