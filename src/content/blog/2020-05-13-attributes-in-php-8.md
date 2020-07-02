@@ -15,10 +15,10 @@ use <hljs type>\Support\Attributes\ListensTo</hljs>;
 
 class ProductSubscriber
 {
-    <<<hljs type>ListensTo</hljs>(<hljs type>ProductCreated</hljs>::class)>>
+    @@<hljs type>ListensTo</hljs>(<hljs type>ProductCreated</hljs>::class)
     public function onProductCreated(<hljs type>ProductCreated</hljs> $event) { /* … */ }
 
-    <<<hljs type>ListensTo</hljs>(<hljs type>ProductDeleted</hljs>::class)>>
+    @@<hljs type>ListensTo</hljs>(<hljs type>ProductDeleted</hljs>::class)
     public function onProductDeleted(<hljs type>ProductDeleted</hljs> $event) { /* … */ }
 }
 ```
@@ -29,12 +29,12 @@ Also yes, I know, the syntax might not be what you wished or hoped for. You migh
 
 That being said, let's focus on the cool stuff: how would this `ListensTo` work under the hood?
 
-First of all, custom attributes are simple classes, annotated themselves with the `<<Attribute>>` attribute; this base `Attribute` used to be called `PhpAttribute` in the original RFC, but was changed with [another RFC](*https://wiki.php.net/rfc/attribute_amendments) afterwards.
+First of all, custom attributes are simple classes, annotated themselves with the `@@Attribute` attribute; this base `Attribute` used to be called `PhpAttribute` in the original RFC, but was changed with [another RFC](*https://wiki.php.net/rfc/attribute_amendments) afterwards.
 
 Here's what it would look like:
 
 ```php
-<<<hljs type>Attribute</hljs>>>
+@@<hljs type>Attribute</hljs>
 class ListensTo
 {
     public <hljs type>string</hljs> $event;
@@ -128,8 +128,8 @@ In order to understand this filtering though, there's one more thing you need to
 You could, for example, do this:
 
 ```php
-<<<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')>>
-<<<hljs type>Autowire</hljs>>>
+@@<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')
+@@<hljs type>Autowire</hljs>
 class ProductsCreateController
 {
     public function __invoke() { /* … */ }
@@ -151,7 +151,7 @@ For example, say you're parsing container definitions, which relies on several a
 ```php
 $attributes = $reflectionClass-><hljs prop>getAttributes</hljs>(
     <hljs type>ContainerAttribute</hljs>::class, 
-    <hljs type>ReflectionAttribute</hljs>::IS_INSTANCEOF
+    <hljs type>ReflectionAttribute</hljs>::<hljs prop>IS_INSTANCEOF</hljs>
 );
 ```
 
@@ -164,58 +164,58 @@ Now that you have an idea of how attributes work in practice, it's time for some
 In classes, as well as anonymous classes;
 
 ```php
-<<<hljs type>ClassAttribute</hljs>>>
+@@<hljs type>ClassAttribute</hljs>
 class MyClass { /* … */ }
 
-$object = new <<<hljs type>ObjectAttribute</hljs>>> class () { /* … */ };
+$object = new @@<hljs type>ObjectAttribute</hljs> class () { /* … */ };
 ```
 
 Properties and constants;
 
 ```php
-<<<hljs type>PropertyAttribute</hljs>>>
+@@<hljs type>PropertyAttribute</hljs>
 public <hljs type>int</hljs> $foo;
 
-<<<hljs type>ConstAttribute</hljs>>>
+@@<hljs type>ConstAttribute</hljs>
 public const BAR = 1;
 ```
 
 Methods and functions;
 
 ```php
-<<<hljs type>MethodAttribute</hljs>>>
+@@<hljs type>MethodAttribute</hljs>
 public function doSomething(): void { /* … */ }
 
-<<<hljs type>FunctionAttribute</hljs>>>
+@@<hljs type>FunctionAttribute</hljs>
 function foo() { /* … */ }
 ```
 
 As well as closures;
 
 ```php
-$closure = <<<hljs type>ClosureAttribute</hljs>>> <hljs keyword>fn</hljs>() => /* … */;
+$closure = @@<hljs type>ClosureAttribute</hljs> <hljs keyword>fn</hljs>() => /* … */;
 ```
 
 And method and function parameters;
 
 ```php
-function foo(<<<hljs type>ArgumentAttribute</hljs>>> $bar) { /* … */ }
+function foo(@@<hljs type>ArgumentAttribute</hljs> $bar) { /* … */ }
 ```
 
 They can be declared before or after docblocks;
 
 ```php
 /** @return void */
-<<<hljs type>MethodAttribute</hljs>>>
+@@<hljs type>MethodAttribute</hljs>
 public function doSomething(): void { /* … */ }
 ```
 
 And can take no, one or several arguments, which are defined by the attribute's constructor:
 
 ```php
-<<<hljs type>Listens</hljs>(<hljs type>ProductCreatedEvent</hljs>::class)>>
-<<<hljs type>Autowire</hljs>>>
-<<<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')>>
+@@<hljs type>Listens</hljs>(<hljs type>ProductCreatedEvent</hljs>::class)
+@@<hljs type>Autowire</hljs>
+@@<hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')
 ```
 
 As for allowed parameters you can pass to an attribute, you've already seen that class constants, `::class` names and scalar types are allowed. There's a little more to be said about this though: attributes only accept constant expressions as input arguments.
@@ -223,10 +223,10 @@ As for allowed parameters you can pass to an attribute, you've already seen that
 This means that scalar expressions are allowed — even bit shifts — as well as `::class`, constants, arrays and array unpacking, boolean expressions and the null coalescing operator. A list of everything that's allowed as a constant expression can be found in the [source code](*https://github.com/php/php-src/blob/9122638ecd7dfee1cbd141a15a8d59bfc47f6ab3/Zend/zend_compile.c#L8500-L8514).
 
 ```php
-<<<hljs type>AttributeWithScalarExpression</hljs>(1+1)>>
-<<<hljs type>AttributeWithClassNameAndConstants</hljs>(<hljs type>PDO</hljs>::class, <hljs prop>PHP_VERSION_ID</hljs>)>>
-<<<hljs type>AttributeWithClassConstant</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>)>>
-<<<hljs type>AttributeWithBitShift</hljs>(4 >> 1, 4 << 1)>>
+@@<hljs type>AttributeWithScalarExpression</hljs>(1 + 1)
+@@<hljs type>AttributeWithClassNameAndConstants</hljs>(<hljs type>PDO</hljs>::class, <hljs prop>PHP_VERSION_ID</hljs>)
+@@<hljs type>AttributeWithClassConstant</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>)
+@@<hljs type>AttributeWithBitShift</hljs>(4 >> 1, 4 << 1)
 ```
 
 ## Attribute configuration
@@ -236,7 +236,7 @@ By default, attributes can be added in several places, as listed above. It's pos
 It looks like this:
 
 ```php
-<<<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>TARGET_CLASS</hljs>)>>
+@@<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>TARGET_CLASS</hljs>)
 class ClassAttribute
 {
 }
@@ -257,7 +257,7 @@ The following flags are available:
 These are bitmask flags, so you can combine them [using a binary OR operation](/blog/bitwise-booleans-in-php).
 
 ```php
-<<<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>TARGET_METHOD</hljs>|<hljs type>Attribute</hljs>::<hljs prop>TARGET_FUNCTION</hljs>)>>
+@@<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>TARGET_METHOD</hljs>|<hljs type>Attribute</hljs>::<hljs prop>TARGET_FUNCTION</hljs>)
 class ClassAttribute
 {
 }
@@ -266,7 +266,7 @@ class ClassAttribute
 Another configuration flag is about repeatability. By default the same attribute can't be applied twice, unless it's specifically marked as repeatable. This is done the same way as target configuration, with a bit flag. 
 
 ```php
-<<<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>IS_REPEATABLE</hljs>)>>
+@@<hljs type>Attribute</hljs>(<hljs type>Attribute</hljs>::<hljs prop>IS_REPEATABLE</hljs>)
 class ClassAttribute
 {
 }
@@ -277,7 +277,7 @@ Note that all these flags are only validated when calling `$attribute->newInstan
 
 ## Built-in attributes
 
-Once the base RFC had been accepted, new opportunities arose to add built-in attributes to the core. One such example is the [`<<Deprecated>>`](*https://wiki.php.net/rfc/deprecated_attribute) attribute, and a popular example has been a `<<Jit>>` attribute — if you're not sure what that last one is about, you can read my post about [what the JIT is](/blog/php-jit).
+Once the base RFC had been accepted, new opportunities arose to add built-in attributes to the core. One such example is the [`@@Deprecated`](*https://wiki.php.net/rfc/deprecated_attribute) attribute, and a popular example has been a `@@Jit` attribute — if you're not sure what that last one is about, you can read my post about [what the JIT is](/blog/php-jit).
 
 I'm sure we'll see more and more built-in attributes in the future.
 
