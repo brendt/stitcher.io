@@ -161,7 +161,7 @@ In other words, let's use `1225` as the JIT option.
 </tr>
 </table>
 
-Once again — small is an understatement — increase of performance!
+Once again a — small is an understatement — increase of performance!
 
 One thing I'm wondering though: if we're only profiling on the first request, there probably are some parts of the code that will be missed out on optimisations; that's something someone will probably need to do some more research on.
 
