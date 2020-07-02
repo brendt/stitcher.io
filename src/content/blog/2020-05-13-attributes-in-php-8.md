@@ -25,7 +25,7 @@ class ProductSubscriber
 
 I'll be showing other examples later in this post, but I think the example of event subscribers is a good one to explain the use of attributes at first.
 
-Also yes, I know, the syntax might not be what you wished or hoped for. You might have preferred `@`, or `@:`, or docblocks or, … It's here to stay though, so we better learn to deal with it. The only thing that's worth mentioning on the syntax is that all options were discussed, and there are very good reasons why this syntax was chosen. You can read a short summary about it in [the RFC](*https://wiki.php.net/rfc/attributes_v2#alternative_syntaxwhy_not_use_or_like_other_languages), or you can read the whole discussion about the RFC on the [internals list](*https://externals.io/message/108907).
+Also yes, I know, the syntax might not be what you wished or hoped for. You might have preferred `@`, or `@:`, or docblocks or, … It's here to stay though, so we better learn to deal with it. The only thing that's worth mentioning on the syntax is that all options were discussed, and there are very good reasons why this syntax was chosen. You can read the whole discussion about the RFC on the [internals list](*https://externals.io/message/110640).
 
 That being said, let's focus on the cool stuff: how would this `ListensTo` work under the hood?
 
