@@ -1,3 +1,16 @@
+jit-in-real-life-web-applications:
+    date: 2020-07-02
+    title: "PHP 8: JIT performance in real-life web applications"
+    content: src/content/blog/2020-07-02-jit-in-real-life-web-applications.md
+    next: new-in-php-8
+    tag: php-8
+    meta:
+        description: "What performance impact does the JIT have on real-life web applications"
+    footnotes:
+        - { link: /blog/php-jit, title: "The JIT explained" }
+        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+
 new-in-php-8:
     date: 2020-07-01
     title: "What's new in PHP 8"
@@ -54,7 +67,7 @@ dont-write-your-own-framework:
 
 constructor-promotion-in-php-8:
     date: 2020-06-12
-    title: "Constructor property promotion in PHP 8"
+    title: "PHP 8: Constructor property promotion"
     content: src/content/blog/2020-06-12-constructor-promotion.md
     next: new-in-php-8
     meta:
@@ -720,6 +733,7 @@ php-jit:
     meta:
         description: "The pros and cons of adding a JIT compiler to PHP."
     footnotes:
+        - { link: /blog/jit-in-real-life-web-applications, title: "Real life benchmarks of the JIT" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 

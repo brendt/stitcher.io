@@ -345,8 +345,16 @@ table {
     }
 }
 
+tr.table-head {
+    background-color: #fff;
+}
+
 tr {
     background-color: darken($color-primary-pastel, 3);
+}
+
+td.right {
+    text-align: right;
 }
 
 tr:nth-child(2n) {
