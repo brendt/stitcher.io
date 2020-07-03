@@ -44,7 +44,7 @@ The `static` return type is built-in.
 
 ```ini
 [JIT]
-<hljs keyword green>opcache.jit</hljs>=5
+<hljs keyword green>opcache.jit</hljs>=1225
 ```
 
 [The just-in-time compiler](/blog/php-jit) for PHP.
@@ -87,15 +87,14 @@ Trailing commas are allowed in parameter lists
 
 ---
 
-```
-<hljs prop green>str_contains</hljs>('string with lots of words', 'words');
+```php
+$result = <hljs keyword>match</hljs>($input) {
+    0 => "hello",
+    '1', '2', '3' => "world",
+};
+``` 
 
-<hljs prop green>str_starts_with</hljs>('haystack', 'hay');
-
-<hljs prop green>str_ends_with</hljs>('haystack', 'stack');
-```
-
-New string functions.
+The `match` expression as an improvement to the `switch` expression.
 
 --- 
 
