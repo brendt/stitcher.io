@@ -194,4 +194,4 @@ A slight decrease in performance. One I cannot explain to be honest. I'm sure so
 
 So, that concludes my JIT testing. As expected: the JIT probably won't have a significant impact on web applications, at least not right now. 
 
-I won't discuss my thoughts on whether the JIT itself is a good addition or not in this post, let's have those discussions together on [social media](*https://twitter.com/brendt_gd)!  
+I won't discuss my thoughts on whether the JIT itself is a good addition or not in this post, let's have those discussions together on [social media](*https://news.ycombinator.com/item?id=23721344)!  
