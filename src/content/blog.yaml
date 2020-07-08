@@ -12,6 +12,14 @@ php-8-match-or-switch:
         - { link: /blog/php-jit, title: "The JIT explained" }
         - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
 
+laravel-beyond-crud-the-next-chapter:
+    date: 2020-07-09
+    title: "Laravel beyond CRUD: the next chapter"
+    content: src/content/blog/2020-07-09-laravel-beyond-crud-the-next-chapter.md
+    next: new-in-php-8
+    meta:
+        description: "I'm making a video course and an ebook, based on the series"
+
 jit-in-real-life-web-applications:
     date: 2020-07-02
     title: "PHP 8: JIT performance in real-life web applications"
