@@ -1,3 +1,17 @@
+php-8-match-or-switch:
+    date: 2020-07-08
+    title: "PHP 8: match or switch?"
+    content: src/content/blog/2020-07-08-php-8-match-or-switch.md
+    next: new-in-php-8
+    tag: php-8
+    meta:
+        description: "The new match expression in PHP 8 explained"
+    footnotes:
+        - { link: https://wiki.php.net/rfc/match_expression_v2, title: "The match expression RFC" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-jit, title: "The JIT explained" }
+        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
+
 jit-in-real-life-web-applications:
     date: 2020-07-02
     title: "PHP 8: JIT performance in real-life web applications"
