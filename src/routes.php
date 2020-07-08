@@ -32,6 +32,7 @@ $redirects = [
     '/blog/laravel-beyond-crud-07-entering-the-application-layer' => 'https://laravel-beyond-crud.com/',
     '/blog/laravel-beyond-crud-08-view-models' => 'https://laravel-beyond-crud.com/',
     '/blog/laravel-beyond-crud-09-test-factories' => 'https://laravel-beyond-crud.com/',
+    '/laravel-beyond-crud' => '/blog/laravel-beyond-crud',
 ];
 
 $router = App::router();
