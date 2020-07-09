@@ -1,3 +1,11 @@
+laravel-beyond-crud:
+    date: 2020-07-09
+    title: "Laravel beyond CRUD: the next chapter"
+    content: src/content/blog/2020-07-09-laravel-beyond-crud-the-next-chapter.md
+    next: new-in-php-8
+    meta:
+        description: "I'm making a video course and an ebook, based on the series"
+
 php-8-match-or-switch:
     date: 2020-07-08
     title: "PHP 8: match or switch?"
@@ -552,15 +560,6 @@ laravel-beyond-crud-01-domain-oriented-laravel:
     content: src/content/book/01-domains.md
     book: true
     next: laravel-beyond-crud-02-working-with-data
-    meta:
-        description: "A blog series about managing larger Laravel projects"
-
-laravel-beyond-crud:
-    date: 2019-10-16
-    title: "Laravel beyond CRUD"
-    content: src/content/book/00-intro.md
-    book: true
-    next: laravel-beyond-crud-01-domain-oriented-laravel
     meta:
         description: "A blog series about managing larger Laravel projects"
 
