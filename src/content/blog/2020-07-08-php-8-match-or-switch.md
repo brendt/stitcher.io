@@ -90,19 +90,7 @@ $message = <hljs keyword>match</hljs> ($statusCode) {
 
 ## Complex conditions and performance
 
-Like with `switch`, you sometimes need complex calculations to determine whether an arm evaluates to true or false. For example whether a string matches a regular expression:
-
-```php
-$message = <hljs keyword>match</hljs> ($line) {
-    $this-><hljs prop>matchesRegex</hljs>($line) => 'match A',
-    $this-><hljs prop>matchesOtherRegex</hljs>($line) => 'match B',
-    default => 'no match',
-};
-```
-
-A `switch` statement would execute all these regex functions before evaluating each arm. The `match` expression will start by resolving the first arm's condition, stop if it evaluates to true, and so on. In some cases, this might result in a significant performance increase!
-
-This is also the reason, by the way, why you don't want to use the "array key match workaround" — I admit I've been guilty of doing this in the past!
+During the RFC discussion, some people suggested the following pattern as an argument against adding the `match` expression:
 
 ```php
 $message = [
@@ -111,7 +99,7 @@ $message = [
 ][$line] ?? 'no match';
 ```
 
-This technique will also execute all regex functions first, again decreasing performance. So you're better off with `match`, in those cases. 
+There's one big caveat though: this technique will execute all regex functions first, decreasing performance. A good argument for `match`.
 
 ## Throwing exceptions
 
