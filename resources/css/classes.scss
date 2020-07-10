@@ -105,6 +105,15 @@ div.center > p {
     color: $color-primary;
 }
 
+.cta-small {
+    padding: .3em 1em;
+    font-size: 1.2rem;
+}
+
+.cta-bold {
+    font-weight: bold;
+}
+
 .cta-light {
     background-color: #fff;
     color: lighten(#000, 40);

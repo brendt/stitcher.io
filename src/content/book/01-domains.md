@@ -1,10 +1,16 @@
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
+
 > Humans think in categories, our code should be a reflection of that.
 
 First things first, I didn't come up with the term "domain" — I got it from the popular programming paradigm DDD, or "domain driven design". According to Oxford Dictionary, a "domain" can be described as *"A specified sphere of activity or knowledge"*.
 
 While my use of the word "domain" won't exactly mean the same as when used within DDD, there are several similarities. If you're familiar with DDD, you'll discover these similarities throughout this book. I tried my best to mention any overlap and differences when relevant.
-
-{{ ad:carbon }}
 
 So, domains. You could also call them "groups", "modules"; some people call them "services". Whichever name you prefer, domains describe a set of the business problems you're trying to solve.
 
@@ -107,6 +113,14 @@ If you want to separate the root namespaces though, you can do so by making a sl
 
 Note that I also have a `\Support` root namespace, which for now you can think of as the dumping ground for all little helpers that don't belong anywhere.
 
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
+
 --- 
 
 Whatever folder structure you use, most important is that you start thinking in groups of related business concepts, rather than in groups of code with the same technical properties.
@@ -114,3 +128,4 @@ Whatever folder structure you use, most important is that you start thinking in 
 Within each group, each domain, there's room to structure the code in ways that make it easy to use within those individual groups though. The first part of this book will look closely at how domains can be structured internally and which patterns can be used to help you keep your codebase maintainable as it grows over time. After that, we'll look at the application layer, how the domain can be consumed exactly, and how we improve upon existing Laravel concepts by using for example view models.
 
 There's a lot of ground to cover, and I hope you'll be able to learn many things from this that you'll be able to put into practice right away.
+

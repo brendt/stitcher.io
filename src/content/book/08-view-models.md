@@ -1,3 +1,11 @@
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
+
 In this chapter of my [Laravel beyond CRUD](/blog/laravel-beyond-crud) series, we take a deep dive in the application layer. A major trend throughout the series is to keep code clean, concise and manageable. This chapter won't be any different, as we'll look at how to keep controllers clean and to-the-point. 
 
 The pattern we'll use to help us is called the view model pattern.
@@ -10,7 +18,7 @@ In this chapter I'll show you the basic principles of the pattern,
 we'll take a look at how they integrate in Laravel projects,
 and finally I'll show you how we use the pattern in one of our projects.
 
-{{ ad:carbon }}
+
 
 Let's get started. 
 
@@ -318,6 +326,14 @@ it'll all fit in your head.
 But what about the kind of projects we're writing about in this series? When you're working with several developers, in a codebase that counts thousands upon thousands lines of code, it won't all fit in your head anymore - certainly not on that scale. What's more, we haven't even considered your colleagues and the difficulties they will face, individually and as a team!
 
 That's why the view model pattern is the preferred approach. It makes clear from the controller itself what variables are available to the view. On top of that, you can re-use the same view model for multiple contexts. 
+
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
 
 One last benefit — one you might not have thought about —  
 is that we can pass data into the view model explicitly. 

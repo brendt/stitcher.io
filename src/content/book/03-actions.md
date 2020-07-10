@@ -1,4 +1,12 @@
-> Now that we can work with data in a type-safe and transparent way, we need to start doing something with it.
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
+
+>> Now that we can work with data in a type-safe and transparent way, we need to start doing something with it.
 
 Just like we don't want to work with random arrays full of data, we also don't want the most critical part of our project, the business functionality, to be spread throughout random functions and classes.
 
@@ -15,7 +23,7 @@ In this chapter we will look at another approach to adding this behaviour into o
 
 Instead of mixing functionality in models or controllers, we will treat these user stories as first class citizens of the project. I tend to call these "actions". 
 
-{{ ad:carbon }}
+
 
 ## Terminology
 
@@ -178,6 +186,14 @@ The first one will be known to people who are familiar with DDD: commands and ha
 For the scope of our projects, splitting actions into commands and handlers was taking it a step too far. We would almost never need the added flexibility, yet it would take a lot longer to write the code.
 
 The second alternative worth mentioning is event driven systems. If you ever worked in an event driven system, you might think that actions are too directly coupled to the places where they are actually used. Again the same argument applies: event driven systems offer more flexibility, yet for our projects it would have been overkill to use them. Furthermore event driven systems add a layer of indirectness that makes the code more complex to reason about. While this indirectness does offer benefits, they wouldn't outweigh the cost of maintenance for us. 
+
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
 
 ---
 

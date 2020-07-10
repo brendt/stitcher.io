@@ -1,10 +1,16 @@
 Note: this chapter mostly addresses domain-related code. We'll come back to the application layer in future chapters.
 
----
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
 
 In this chapter of [Laravel beyond CRUD](/blog/laravel-beyond-crud), we're going to look at how we can manage domain data for tests. Test factories in Laravel are a known concept, though they lack in many areas: they aren't very flexible and are also kind of a black box to the user.
 
-{{ ad:carbon }}
+
 
 Take the example of factory states, a powerful pattern, yet poorly implemented in Laravel.
 
@@ -238,6 +244,14 @@ $invoiceB = $invoiceFactory-><hljs prop>create</hljs>();
 ```
 
 If our `paid` method wasn't immutable, it would mean that `$invoiceB` would also be a paid invoice! Sure, we could micro-manage every model creation, but that takes away from the flexibility of this pattern. That's why immutable functions are great: you can set up a base factory, and reuse it throughout your tests, without worrying about unintended side effects!
+
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
 
 ---
 

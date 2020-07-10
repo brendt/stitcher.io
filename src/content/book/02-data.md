@@ -1,3 +1,11 @@
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
+
 At the core of every project, you find data. Almost every application's task can be summarized like so:  provide, interpret and manipulate data in whatever way the business wants.
 
 You probably noticed this yourself too: at the start of a project you don't start building controllers and jobs, you start by building, what Laravel calls, models. Large projects benefit from making ERDs and other kinds of diagrams to conceptualise what data will be handled by the application. Only when that's clear, you can start building the entry points and hooks that work with your data.
@@ -5,8 +13,6 @@ You probably noticed this yourself too: at the start of a project you don't star
 In this chapter we'll take a close look at how to work with data in a structured way, so that all developers in your team can write the application to handle this data in a predictable and safe way.
 
 You might be thinking of models right now, but we need to take a few more steps back at first. 
-
-{{ ad:carbon }}
 
 ## Type theory
 
@@ -292,6 +298,14 @@ class CustomerData extends DataTransferObject
 By default though, docblocks don't give any guarantees that the data is of the type they say it is. Luckily PHP has its reflection API, and with it, a lot more is possible.
 
 The solution provided by this package can be thought of as an extension of PHPs type system. While there's only so much one can do in userland and at runtime, still it adds value. If you're unable to use PHP 7.4 and want a little more certainty that your docblock types are actually respected, this package has you covered.
+
+<div class="author footnotes">
+<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
+</p>
+<br>
+
+<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
+</div>
 
 ---
 
