@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Bangers;
+    src: url(/resources/fonts/Bangers/Bangers-Regular.ttf);
+}
+
 $color-black: #353535;
 $color-white: #ffffff;
 $color-orange: #fd5d1f;
@@ -26,6 +31,7 @@ $width-mobile: 460px;
 
 
 $font-title: Verdana, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-title-comic: Bangers, Verdana, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-subtitle: Times, "Times New Roman", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-body: Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 

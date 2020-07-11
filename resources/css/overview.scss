@@ -14,6 +14,7 @@ header {
     display: block;
     max-width: 1000px;
     margin: 2em auto 3em;
+    text-align: center;
 
     p {
         @media(min-width:$width-container-mobile) {
@@ -59,25 +60,47 @@ h1 {
     padding-right: 0;
 }
 
+nav.overview {
+    display: flex;
+    justify-content: center;
+}
+
 nav.overview > a {
-    width: 100%;
-    margin: 0 0 1em 0;
+    --tag-color-background: $color-primary;
+    --tag-color-text: #fff;
+
+    width: 500px;
+    height: 400px;
+    margin: .5em;
+    position: relative;
     text-decoration: none;
     overflow: hidden;
     background-color: lighten($color-gray, 15);
     padding: 3em;
-    @include outOfBox;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     @media (max-width: $width-mobile) {
         padding: 2em 1.5em;
     }
 
+    @media (max-width: $width-container-mobile-lrg) {
+        height: auto;
+        max-width: 500px;
+    }
+
     h1 {
         padding-bottom: 0;
         font-size: 2em;
+        margin-top: .5em;
 
         @media (max-width: $width-container-mobile) {
             font-size: 1.7em;
+        }
+
+        @media (max-width: $width-container-mobile-lrg) {
+            margin-top: 0;
         }
     }
 
@@ -87,7 +110,7 @@ nav.overview > a {
 
     &.highlight:hover,
     &:hover {
-        box-shadow: inset 0 0 0 10px $color-primary;
+        box-shadow: inset 0 0 0 10px var(--tag-color-background);
     }
 
     @media (max-width: $width-container) {
@@ -107,6 +130,21 @@ nav.overview > a {
         }
     }
 }
+
+.post-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: .7em;
+    margin-top: .7em;
+    font-family: $font-body;
+    font-size: 1.1em;
+    padding: .3em .7em;
+    background-color: var(--tag-color-background);
+    color: var(--tag-color-text);
+    font-weight: bold;
+}
+
 
 nav.overview p {
     margin-top: 1em;

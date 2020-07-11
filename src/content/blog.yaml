@@ -11,7 +11,7 @@ php-8-match-or-switch:
     title: "PHP 8: match or switch?"
     content: src/content/blog/2020-07-08-php-8-match-or-switch.md
     next: new-in-php-8
-    tag: php-8
+    tag: src/content/tags/php-8.yaml
     meta:
         description: "The new match expression in PHP 8 explained"
     footnotes:
@@ -25,7 +25,7 @@ jit-in-real-life-web-applications:
     title: "PHP 8: JIT performance in real-life web applications"
     content: src/content/blog/2020-07-02-jit-in-real-life-web-applications.md
     next: new-in-php-8
-    tag: php-8
+    tag: src/content/tags/php-8.yaml
     meta:
         description: "What performance impact does the JIT have on real-life web applications"
     footnotes:
@@ -41,7 +41,7 @@ new-in-php-8:
     highlight: true
     meta:
         description: "All new features, deprecations, speed and performance improvements in PHP 8"
-    tag: php-8
+    tag: src/content/tags/php-8.yaml
     footnotes:
         - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
         - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
@@ -94,7 +94,7 @@ constructor-promotion-in-php-8:
     next: new-in-php-8
     meta:
         description: "Constructor promotion in PHP significantly reduces the amount of code we need to write for simple objects"
-    tag: php-8
+    tag: src/content/tags/php-8.yaml
     footnotes:
         - { link: "https://wiki.php.net/rfc/constructor_promotion", title: "Constructor property promotion RFC"}
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
@@ -298,7 +298,7 @@ event-driven-php:
     next: new-in-php-8
     meta:
         description: "A close look at a event-sourced, long running server architecture in PHP"
-    tag: php-8
+    tag: src/content/tags/php-8.yaml
     footnotes:
         - { link: /blog/combining-event-sourcing-and-stateful-systems, title: "Combining event sourcing and stateful systems" }
 
@@ -331,6 +331,7 @@ laravel-beyond-crud-09-test-factories:
     title: "09. Test factories"
     content: src/content/book/09-test-factories.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud
     meta:
         description: "A blog series about managing larger Laravel projects"
@@ -359,7 +360,7 @@ php-preload-benchmarks:
     next: new-in-php-74
     meta:
         description: "Some benchmarks with the new preloading feature in PHP 7.4"
-    tag: php-74
+    tag: src/content/tags/php-74.yaml
     footnotes:
         - { link: /blog/preloading-in-php-74, title: "Preloading in PHP 7.4" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
@@ -371,6 +372,7 @@ laravel-beyond-crud-08-view-models:
     title: "08. View models"
     content: src/content/book/08-view-models.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud-09-test-factories
     meta:
         description: "A blog series about managing larger Laravel projects"
@@ -380,7 +382,7 @@ php-74-upgrade-mac:
     title: Upgrade to PHP 7.4 with Homebrew on Mac
     content: src/content/blog/2019-11-28-php-74-upgrade-mac.md
     next: new-in-php-74
-    tag: php-74
+    tag: src/content/tags/php-74.yaml
     meta:
         description: "How to upgrade to PHP 7.4 on a Mac with Homebrew"
     footnotes:
@@ -395,7 +397,7 @@ new-in-php-74:
     disableTitle: true
     content: src/content/blog/2019-01-01-new-in-php-74.md
     next: new-in-php-73
-    tag: php-74
+    tag: src/content/tags/php-74.yaml
     meta:
         description: "A to-the-point list of features, changes and deprecations in PHP 7.4, available as of November 28, 2019"
     footnotes:
@@ -412,7 +414,7 @@ preloading-in-php-74:
     title: Preloading in PHP 7.4
     content: src/content/blog/2019-07-05-preloading-in-php-74.md
     next: new-in-php-74
-    tag: php-74
+    tag: src/content/tags/php-74.yaml
     meta:
         description: Preloading allows for parsed PHP files to be available for all requests
     footnotes:
@@ -426,7 +428,7 @@ short-closures-in-php:
     title: Arrow functions in PHP 7.4
     content: src/content/blog/2019-05-02-short-closures-in-php.md
     next: new-in-php-74
-    tag: php-74
+    tag: src/content/tags/php-74.yaml
     meta:
         description: "Short closures, also called arrow functions, are available in PHP 7.4"
     footnotes:
@@ -439,7 +441,7 @@ typed-properties-in-php-74:
     title: Typed properties in PHP 7.4
     content: src/content/blog/2019-06-30-typed-properties.md
     next: new-in-php-74
-    tag: php-74
+    tag: src/content/tags/php-74.yaml
     meta:
         description: "PHP 7.4 adds typed properties to classes"
     disableMetaDescription: true
@@ -453,6 +455,7 @@ laravel-beyond-crud-07-entering-the-application-layer:
     title: "07. Entering the application layer"
     content: src/content/book/07-application-layer.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud-08-view-models
     meta:
         description: "A blog series about managing larger Laravel projects"
@@ -462,6 +465,7 @@ laravel-beyond-crud-06-managing-domains:
     title: "06. Managing domains"
     content: src/content/book/06-managing-domains.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud-07-entering-the-application-layer
     meta:
         description: "A blog series about managing larger Laravel projects"
@@ -475,6 +479,7 @@ laravel-beyond-crud-05-states:
     title: "05. States"
     content: src/content/book/05-states.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud-06-managing-domains
     meta:
         description: "A blog series about managing larger Laravel projects"
@@ -519,6 +524,7 @@ laravel-beyond-crud-04-models:
     title: "04. Models"
     content: src/content/book/04-models.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud-05-states
     footnotes:
         - { link: "https://timacdonald.me/dedicated-eloquent-model-query-builders/", title: "Custom query builders in Laravel" }
@@ -533,6 +539,7 @@ laravel-beyond-crud-03-actions:
     title: "03. Actions"
     content: src/content/book/03-actions.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud-04-models
     meta:
         description: "A blog series about managing larger Laravel projects"
@@ -546,6 +553,7 @@ laravel-beyond-crud-02-working-with-data:
     title: "02. Working with data"
     content: src/content/book/02-data.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud-03-actions
     meta:
         description: "A blog series about managing larger Laravel projects"
@@ -559,6 +567,7 @@ laravel-beyond-crud-01-domain-oriented-laravel:
     title: "01. Domain oriented Laravel"
     content: src/content/book/01-domains.md
     book: true
+    tag: src/content/tags/lbc.yaml
     next: laravel-beyond-crud-02-working-with-data
     meta:
         description: "A blog series about managing larger Laravel projects"

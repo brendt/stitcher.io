@@ -8,15 +8,15 @@
 {% endblock %}
 
 {% block content %}
-    <header class="wrapper">
-        <h1>
+    <header>
+        <h1 class="comic">
             stitcher.io
         </h1>
 
         {% include '_partials/header_links.twig' %}
     </header>
 
-    <div class="wrapper">
+    <div class="">
         <nav class="overview">
 
 {#            <a href="https://criticast.io/" target="_blank" rel="noopener noreferrer" class="highlight small">#}
@@ -25,7 +25,13 @@
 
             {% for post in posts %}
                 {% if post.hidden is not defined or post.hidden == false %}
-                    <a href="/blog/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
+                    <a href="/blog/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %} {% if post.tag.color is defined %}style="--tag-color-text: {{ post.tag.color.text }}; --tag-color-background: {{ post.tag.color.background }}"{% endif %}>
+                        {% if post.tag.name is defined %}
+                            <span class="post-tag">
+                                {{ post.tag.name }}
+                            </span>
+                        {% endif %}
+
                         {% if post.title is defined %}
                             <h1>
                                 {{ post.title }}

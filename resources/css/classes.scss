@@ -1,5 +1,11 @@
 @import "css/variables";
 
+.comic {
+    font-family: $font-title-comic;
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+
 h1, h2, h3, h4, h5 {
     .heading-anchor {
         position: absolute;
@@ -90,6 +96,7 @@ div.center > p {
     color: #fff;
     text-decoration: none;
     font-family: $font-title;
+    font-weight: 600;
     transition: all 100ms ease-out;
     border: 3px solid $color-primary;
 
