@@ -4,6 +4,7 @@
     font-family: $font-title-comic;
     letter-spacing: 2px;
     font-weight: 300;
+    text-shadow: 2px 1px rgba(0,0,0,0.4);
 }
 
 h1, h2, h3, h4, h5 {
@@ -46,7 +47,7 @@ div.center {
 
 em.center {
     display: block;
-    text-align:center;
+    text-align: center;
 }
 
 em.small {
@@ -190,18 +191,18 @@ div.center > p {
 }
 
 .mobile-only {
-    display:none;
+    display: none;
 
-    @media(max-width:630px) {
-        display:block;
+    @media(max-width: 630px) {
+        display: block;
     }
 }
 
 .desktop-only {
-    display:none;
+    display: none;
 
-    @media(min-width:631px) {
-        display:block;
+    @media(min-width: 631px) {
+        display: block;
     }
 }
 
