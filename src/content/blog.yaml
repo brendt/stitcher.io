@@ -1,3 +1,11 @@
+why-we-need-named-params-in-php:
+    date: 2020-07-11
+    title: Why we need named arguments in PHP
+    content: src/content/blog/2020-07-11-why-we-need-named-params-in-php.md
+    next: new-in-php-8
+    meta:
+        description: "Making the case to vote YES for the named arguments RFC"
+
 laravel-beyond-crud:
     date: 2020-07-09
     title: "Laravel beyond CRUD: the next chapter"
