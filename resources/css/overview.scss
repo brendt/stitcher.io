@@ -40,6 +40,8 @@ header {
 
         font-weight: 600;
         color: $color-primary;
+        font-size: 4em;
+        margin-top: .7em;
     }
 }
 
@@ -63,23 +65,34 @@ h1 {
 nav.overview {
     display: flex;
     justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 nav.overview > a {
+    &:nth-child(1),
+    &:nth-child(8n){
+        width: 700px;
+        height: 300px;
+    }
+
     --tag-color-background: $color-primary;
     --tag-color-text: #fff;
 
-    width: 500px;
+    width: 400px;
     height: 400px;
     margin: .5em;
     position: relative;
     text-decoration: none;
     overflow: hidden;
     background-color: lighten($color-gray, 15);
-    padding: 3em;
+    padding: 2.5em 3em;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     justify-content: space-between;
+    //box-shadow: inset 0 0 0 2px black;
+    border: 2px solid #000;
 
     @media (max-width: $width-mobile) {
         padding: 2em 1.5em;
@@ -93,7 +106,6 @@ nav.overview > a {
     h1 {
         padding-bottom: 0;
         font-size: 2em;
-        margin-top: .1em;
 
         @media (max-width: $width-container-mobile) {
             font-size: 1.7em;
