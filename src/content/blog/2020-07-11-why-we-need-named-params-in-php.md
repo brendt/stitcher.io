@@ -86,7 +86,11 @@ class Address
 }
 ```
 
-Sure the calling site still need to add it, but at least you don't have to worry about micro managing the parameter order anymore.
+Sure the calling site still need to add it, but at least you don't have to worry about micro managing the parameter order anymore. 
+
+But what if users decide to use ordered arguments instead? You'd need some way to ensure named arguments are used in these cases. The answer is surprisingly dull: establish conventions with your team, and optionally enforce them with tools like phpcs.
+
+Yes, ideally, we'd want the language to prevent us from any possible misstep; but that simply isn't a realistic expectation. To me, that still isn't an argument for voting against this RFC. I've been working with teams of developers for years now, and project conventions need to be established anyway. They work just fine.
 
 ## Dealing with PHP's own legacy
 
