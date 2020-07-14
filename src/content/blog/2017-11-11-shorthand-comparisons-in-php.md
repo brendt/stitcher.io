@@ -169,6 +169,20 @@ $input = [
 $input['undefined'] ?? $input['key'] ?? 'fallback'; // 'key'
 ```
 
+### Nested coalescing
+
+It's possible to use the null coalescing operator on nested object properties, even when a property in the chain is `null`.
+
+```php
+$a = (<hljs type>object</hljs>) [
+    'prop' => null,
+];
+
+<hljs prop>var_dump</hljs>($a-><hljs prop>prop</hljs>-><hljs prop>b</hljs> ?? 'empty');
+
+// 'empty'
+```
+
 ### Null coalescing assignment operator
 
 In PHP 7,4, we can expect an even shorter syntax called the ["null coalescing assignment operator"](https://wiki.php.net/rfc/null_coalesce_equal_operator).
