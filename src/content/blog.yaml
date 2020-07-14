@@ -1,3 +1,20 @@
+shorthand-comparisons-in-php:
+    date: 2020-07-14
+    type: blog
+    title: Shorthand comparisons in PHP
+    teaserTitle: Shorthand comparisons
+    content: src/content/blog/2017-11-11-shorthand-comparisons-in-php.md
+    next: short-closures-in-php
+    discuss:
+        reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
+    meta:
+        description: Taking a closer look at the ternary, null coalescing and spaceship operators in PHP.
+    footnotes:
+        - { link: /blog/what-is-array-plus-in-php, title: "A summary about array + array in PHP" }
+        - { link: /blog/array-destructuring-with-list-in-php, title: "Array destructuring in PHP" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+        - { link: /blog/array-merge-vs+, title: "Array merge vs. +" }
+
 why-we-need-named-params-in-php:
     date: 2020-07-11
     title: Why we need named arguments in PHP
@@ -1084,23 +1101,6 @@ optimised-uuids-in-mysql:
         reddit: https://www.reddit.com/r/PHP/comments/7gk8tp/optimising_uuids_for_better_performance/
     meta:
         description: I spent some time improving the performance of UUIDs on the database level.
-
-shorthand-comparisons-in-php:
-    date: 2017-11-11
-    type: blog
-    title: Shorthand comparisons in PHP
-    teaserTitle: Shorthand comparisons
-    content: src/content/blog/2017-11-11-shorthand-comparisons-in-php.md
-    next: short-closures-in-php
-    discuss:
-        reddit: https://www.reddit.com/r/PHP/comments/7e6oq7/looking_at_two_basic_operators_shorthand/
-    meta:
-        description: Taking a closer look at the ternary, null coalescing and spaceship operators in PHP.
-    footnotes:
-        - { link: /blog/what-is-array-plus-in-php, title: "A summary about array + array in PHP" }
-        - { link: /blog/array-destructuring-with-list-in-php, title: "Array destructuring in PHP" }
-        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
-        - { link: /blog/array-merge-vs+, title: "Array merge vs. +" }
 
 phpstorm-performance:
     date: 2017-10-22
