@@ -10,12 +10,14 @@ use Brendt\Stitcher\Plugin\Adapter\GuideAdapter;
 use Brendt\Stitcher\Plugin\Markdown\CodeRenderer;
 use Brendt\Stitcher\Plugin\Markdown\HeadingAnchor;
 use Brendt\Stitcher\Plugin\Markdown\HighlightCodeBlockRenderer;
+use Brendt\Stitcher\Plugin\Markdown\HighlightInlineCodeRenderer;
 use Brendt\Stitcher\Plugin\Markdown\ImageRenderer;
 use Brendt\Stitcher\Plugin\Markdown\NumberParser;
 use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Element\Heading;
 use League\CommonMark\Block\Element\IndentedCode;
 use League\CommonMark\Environment;
+use League\CommonMark\Inline\Element\Code;
 use League\CommonMark\Inline\Element\Text;
 use Pageon\Lib\Markdown\MarkdownParser;
 use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
@@ -40,6 +42,7 @@ class AppServiceProvider implements Plugin
         MarkdownParser::extension(function (Environment $environment) {
             return $environment
                 ->addInlineRenderer(Text::class, new AdRenderer())
+                ->addInlineRenderer(Code::class, new HighlightInlineCodeRenderer())
                 ->addInlineParser(new AbbrParser())
                 ->addInlineParser(new NumberParser())
                 ->addBlockRenderer(Heading::class, new HeadingAnchor())
