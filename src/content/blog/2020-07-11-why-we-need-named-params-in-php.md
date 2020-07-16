@@ -27,7 +27,7 @@ If, for some reason, the open source maintainer would want to change the name of
 
 Now, let me tell you something from my point of view as an open source maintainer: this rarely happens. 
 
-As a matter of fact, I can only think of a handful occurrences. And the only reason we decided to do renames on those occurrences, was because we were already working on a new major version and we figured we might as well improve the naming a little bit while we were at at.
+As a matter of fact, I can only think of a handful occurrences. And the only reason we decided to do renames on those occurrences, was because we were already working on a new major version and we figured we might as well improve the naming a little bit while we were at it.
 
 I'm not the only one with that opinion by the way, Nicolas Grekas is amongst the people voting yes, and he knows a thing or two about OSS development. Oh and here's [Mohamed Said](*https://twitter.com/themsaid/status/1281819955231690753?s=20), one of the core maintainers of Laravel:
 
@@ -98,7 +98,7 @@ Pop quiz! How to set a cookie without a value, which expires two hours from now?
 
 Did you look up the docs or consult your IDE?
 
-That's fine, it's a confusing function after all. Named arguments can offer a little more clatiry though. Compare the two following notations:
+That's fine, it's a confusing function after all. Named arguments can offer a little more clarity though. Compare the two following notations:
 
 ```php
 <hljs prop>setcookie</hljs>(
