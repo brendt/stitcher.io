@@ -295,6 +295,26 @@ public function (<hljs type>array</hljs> $input): void
 
 <em class="center small">PHP 8</em>
 
+## The nullsafe operator
+
+If you're familiar with the [null coalescing operator](/blog/shorthand-comparisons-in-php#null-coalescing-operator) you're already familiar with its shortcomings: it doesn't work on method calls. Instead you need intermediate checks, or rely on `<hljs prop>optional</hljs>` helpers provided by some frameworks:
+
+```php
+$startDate = $dateAsString = $booking-><hljs prop>getStartDate</hljs>();
+
+$dateAsString = $startDate ? $startDate-><hljs prop>asDateTimeString</hljs>() : null;
+```
+
+<em class="center small">PHP 7.4</em>
+
+With the addition of the nullsafe operator, we can now have null coalescing-like behaviour on methods!
+
+```php
+$dateAsString = $booking-><hljs prop>getStartDate</hljs>()?-><hljs prop>asDateTimeString</hljs>();
+``` 
+
+<em class="center small">PHP 8</em>
+
 ---
 
 What's your favourite [PHP 8 feature](/blog/new-in-php-8)? Let me know via [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io)!
