@@ -1,3 +1,12 @@
+php-8-before-and-after:
+    date: 2020-07-20
+    title: "PHP 8: before and after"
+    content: src/content/blog/2020-07-20-php-8-before-and-after.md
+    next: new-in-php-8
+    meta:
+        description: The impact of PHP 8 on my code
+
+
 shorthand-comparisons-in-php:
     date: 2020-07-14
     type: blog
