@@ -300,7 +300,7 @@ public function (<hljs type>array</hljs> $input): void
 If you're familiar with the [null coalescing operator](/blog/shorthand-comparisons-in-php#null-coalescing-operator) you're already familiar with its shortcomings: it doesn't work on method calls. Instead you need intermediate checks, or rely on `<hljs prop>optional</hljs>` helpers provided by some frameworks:
 
 ```php
-$startDate = $dateAsString = $booking-><hljs prop>getStartDate</hljs>();
+$startDate = $booking-><hljs prop>getStartDate</hljs>();
 
 $dateAsString = $startDate ? $startDate-><hljs prop>asDateTimeString</hljs>() : null;
 ```
