@@ -70,7 +70,7 @@ DTOs and VOs are valid cases where these kinds of large constructors are allowed
 
 Large constructors happen, and named parameters would not only add more clarity, but also offer the flexibility of changing the parameter order after the fact, without having to worry about fixing the order at all.
 
-Take the our `Address` object, for example. Let's say we need to support number suffixes. We can add that argument without having to worry about the order that other places called it:
+Take our `Address` object, for example. Let's say we need to support number suffixes. We can add that argument without having to worry about the order that other places called it:
 
 ```php
 class Address
