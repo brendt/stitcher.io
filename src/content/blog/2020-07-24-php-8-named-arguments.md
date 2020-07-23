@@ -219,7 +219,7 @@ class ProductSubscriber
 
 ---
 
-It's not possible to have a variable as a the argument name:
+It's not possible to have a variable as the argument name:
 
 ```php
 $field = 'age';
