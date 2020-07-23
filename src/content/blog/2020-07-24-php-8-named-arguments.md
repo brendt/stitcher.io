@@ -34,7 +34,7 @@ $data = new <hljs type>CustomerData</hljs>(...$customerRequest-><hljs prop>valid
 
 <em class="center small">Named arguments also support array spreading</em>
 
-You might have guessed it from the examples: named arguments allow to pass input data into a function, based on their argument name instead of the argument order.
+You might have guessed it from the examples: named arguments allow you to pass input data into a function, based on their argument name instead of the argument order.
 
 I would named arguments are a great feature that will have a significant impact on my day-to-day programming life.
 You're probably wondering about the details though: what if you pass a wrong name, what's up with that array spreading syntax? Well, let's look at all those questions in-depth.
