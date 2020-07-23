@@ -1,11 +1,25 @@
+php-8-named-arguments:
+    date: 2020-07-24
+    title: "PHP 8: named arguments"
+    content: src/content/blog/2020-07-24-php-8-named-arguments.md
+    next: new-in-php-8
+    tag: src/content/tags/php-8.yaml
+    meta:
+        description: A close look at named parameters in PHP 8
+    footnotes:
+        - { link: "https://wiki.php.net/rfc/named_params", title: "The named arguments RFC" }
+        - { link: /blog/why-we-need-named-params-in-php, title: "Why we need named arguments" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8" }
+        - { link: /blog/constructor-promotion-in-php-8, title: "Constructor property promotion in PHP 8" }
+
 php-8-before-and-after:
     date: 2020-07-20
     title: "PHP 8: before and after"
     content: src/content/blog/2020-07-20-php-8-before-and-after.md
     next: new-in-php-8
+    tag: src/content/tags/php-8.yaml
     meta:
         description: The impact of PHP 8 on my code
-
 
 shorthand-comparisons-in-php:
     date: 2020-07-14
@@ -29,6 +43,7 @@ why-we-need-named-params-in-php:
     title: Why we need named arguments in PHP
     content: src/content/blog/2020-07-11-why-we-need-named-params-in-php.md
     next: new-in-php-8
+    tag: src/content/tags/php-8.yaml
     meta:
         description: "Making the case to vote YES for the named arguments RFC"
 

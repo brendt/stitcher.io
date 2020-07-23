@@ -20,7 +20,7 @@ Named parameters would allow to call this function like so:
 
 ```php
 $pendingMedia
-    -><hljs prop>toMediaCollection</hljs>(<hljs type>collection</hljs>: 'downloads', <hljs type>disk</hljs>: 's3');
+    -><hljs prop>toMediaCollection</hljs>(<hljs prop>collection</hljs>: 'downloads', <hljs prop>disk</hljs>: 's3');
 ```
 
 If, for some reason, the open source maintainer would want to change the name of the `$collection` or `$disk` variables, they would have to tag a major release, because named arguments would make that a breaking change.
@@ -112,8 +112,8 @@ Or:
 
 ```php
 <hljs prop>setcookie</hljs>(
-    <hljs type>name</hljs>: 'test',
-    <hljs type>expires</hljs>: <hljs prop>time</hljs>() + 60 * 60 * 2,
+    <hljs prop>name</hljs>: 'test',
+    <hljs prop>expires</hljs>: <hljs prop>time</hljs>() + 60 * 60 * 2,
 );
 ```
 
