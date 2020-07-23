@@ -261,7 +261,7 @@ public function register(EventLister $lister)
 
 <em class="small center">Runtime error in case `$listener` is an instance of `<hljs type>MyListener</hljs>`</em>
 
-This pragmatic approach was chosen to prevent a major breaking change when all inherited argument would have to keep the same name. Seems like a good solution to me.
+This pragmatic approach was chosen to prevent a major breaking change when all inherited arguments would have to keep the same name. Seems like a good solution to me.
 
 ---
 
