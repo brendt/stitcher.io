@@ -89,7 +89,7 @@ In the example I showed, we didn't need to set the a cookie `$value`, but we did
 
 <em class="center small">`setcookie` with named arguments</em>
 
-Besides skipping arguments with default values, there's also the benefit of having clarity about which variable does what. Something that's especially useful in functions with large method signatures. Now we could say that lots of arguments are usually a code smell; we still have to deal with them no matter what, so it's better to have a sane way of doing so, than nothing at all. 
+Besides skipping arguments with default values, there's also the benefit of having clarity about which variable does what; something that's especially useful in functions with large method signatures. Now we could say that lots of arguments are usually a code smell; we still have to deal with them no matter what, so it's better to have a sane way of doing so, than nothing at all. 
 
 ## Named arguments in depth
 
