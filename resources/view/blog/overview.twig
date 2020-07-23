@@ -27,6 +27,12 @@
                             </h1>
                         {% endif %}
 
+                        {% if post.tag.name is defined %}
+                            <span class="post-tag">
+                                {{ post.tag.name }}
+                            </span>
+                        {% endif %}
+
                         <div>
                             {% if post.meta.description is defined and post.meta.description %}
                                 <p>
