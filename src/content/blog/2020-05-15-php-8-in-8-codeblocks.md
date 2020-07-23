@@ -2,7 +2,7 @@ PHP 8 brings lots of new features, in this list we'll look at the most outstandi
 
 {{ ad:carbon }}
 
---- 
+---
 
 ```php
 use <hljs type>\Support\Attributes\ListensTo</hljs>;
