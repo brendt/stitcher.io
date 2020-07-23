@@ -88,7 +88,7 @@ class CartsProjector implements Projector
 
 ## Static instead of doc blocks
 
-A smaller one, but this one will have a day-by-day impact. I often find myself still needing doc blocks because of two things: static return types en generics. The latter one can't be solved yet, but luckily the first one will in PHP 8!
+A smaller one, but this one will have a day-by-day impact. I often find myself still needing doc blocks because of two things: static return types and generics. The latter one can't be solved yet, but luckily the first one will in PHP 8!
 
 When I'd write this in PHP 7.4:
 
@@ -189,7 +189,7 @@ class InvoiceState extends Enum
 
 <em class="center small">PHP 7.4</em>
 
-I would argue that for complexer conditions, you're better off using [the state pattern](/blog/laravel-beyond-crud-05-states), yet there are cases where an enum does suffice. This weird array syntax already is a shorthand for a more verbose conditional:
+I would argue that for more complex conditions, you're better off using [the state pattern](/blog/laravel-beyond-crud-05-states), yet there are cases where an enum does suffice. This weird array syntax already is a shorthand for a more verbose conditional:
 
 ```php
 /**
