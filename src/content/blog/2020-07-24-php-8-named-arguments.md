@@ -265,6 +265,6 @@ This pragmatic approach was chosen to prevent a major breaking change when all i
 
 ---
 
-That's most there is to tell about named arguments, if you want to know a little more backstory behind some design decisions, I'd encourage you to read [the RFC](https://wiki.php.net/rfc/named_params). 
+That's most there is to tell about named arguments. If you want to know a little more backstory behind some design decisions, I'd encourage you to read [the RFC](https://wiki.php.net/rfc/named_params). 
 
 Are you looking forward to using named arguments? Let me know via [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io)!
