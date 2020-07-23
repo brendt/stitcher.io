@@ -43,7 +43,7 @@ You're probably wondering about the details though: what if you pass a wrong nam
 
 ## Why named arguments?
 
-Let's say this feature was a highly debated one, and there were some [counter arguments](/blog/why-we-need-named-params-in-php) to not adding them. However, I'd say their benefit far outweigh the fear of backwards compatibility problems or bloated APIs. The way I see it they will allow us to write cleaner and more flexible code.
+Let's say this feature was a highly debated one, and there were some [counter arguments](/blog/why-we-need-named-params-in-php) to not adding them. However, I'd say their benefit far outweigh the fear of backwards compatibility problems or bloated APIs. The way I see it, they will allow us to write cleaner and more flexible code.
 
 For one, named arguments allow you to skip default values. Take a look again at the cookie example:
 
