@@ -88,7 +88,7 @@ class CartsProjector implements Projector
 
 ## Static instead of doc blocks
 
-A smaller one, but this one will have a day-by-day impact. I often find myself still needing doc blocks because of two things: static return types en generics. The latter one can't be solved yet, but luckily the first one will in PHP 8!
+A smaller one, but this one will have a day-by-day impact. I often find myself still needing doc blocks because of two things: static return types and generics. The latter one can't be solved yet, but luckily the first one will in PHP 8!
 
 When I'd write this in PHP 7.4:
 
