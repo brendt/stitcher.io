@@ -135,4 +135,4 @@ So let's not spread fear about harder-to-maintain code, or open source software 
 
 ---
 
-By the way, right now the vote is 40 yes and 14 no, meaning the RFC would pass at this point. If you can vote and haven't done yet: do it now, and vote yes! If you voted no and read this post, I'd like you to reconsider you vote, thanks!
+By the way the vote will pass at this point! You can read about [named arguments in depth](/blog/php-8-named-arguments) on this blog!

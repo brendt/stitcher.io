@@ -74,16 +74,13 @@ Non-capturing catches: no need to specify an exception variable if you don't nee
 ---
 
 ```php
-public function(
-    <hljs type>string</hljs> $parameterA,
-    <hljs type>int</hljs> $parameterB,
-    <hljs type>Foo</hljs> $objectfoo<hljs green>,</hljs>
-) {
-    // …
-}
+<hljs prop>setcookie</hljs>(
+    <hljs prop>name</hljs>: 'test',
+    <hljs prop>expires</hljs>: <hljs prop>time</hljs>() + 60 * 60 * 2,
+);
 ```
 
-Trailing commas are allowed in parameter lists
+[Named arguments](/blog/php-8-named-arguments).
 
 ---
 
@@ -95,24 +92,6 @@ $result = <hljs keyword>match</hljs>($input) {
 ``` 
 
 The `match` expression as an improvement to the `switch` expression.
-
---- 
-
-Let's not fool ourselves: 8 code blocks isn't enough to summarise all great new things in PHP 8. So let's just add a few more.
-
-```php
-function bar(<hljs type green>Stringable</hljs> $stringable) { /* … */ }
-```
-
-A new [`Stringable` interface](/blog/new-in-php-8#new-stringable-interface-rfc).
-
----
-
-```php
-$object<hljs green>::<hljs keyword>class</hljs></hljs>
-```
-
-Call `::class` directly on objects.
 
 ---
 

@@ -1,5 +1,5 @@
 php-8-named-arguments:
-    date: 2020-07-24
+    date: 2020-07-23
     title: "PHP 8: named arguments"
     content: src/content/blog/2020-07-24-php-8-named-arguments.md
     next: new-in-php-8
@@ -20,6 +20,11 @@ php-8-before-and-after:
     tag: src/content/tags/php-8.yaml
     meta:
         description: The impact of PHP 8 on my code
+    footnotes:
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8" }
+        - { link: /blog/constructor-promotion-in-php-8, title: "Constructor property promotion in PHP 8" }
 
 shorthand-comparisons-in-php:
     date: 2020-07-14
@@ -46,6 +51,11 @@ why-we-need-named-params-in-php:
     tag: src/content/tags/php-8.yaml
     meta:
         description: "Making the case to vote YES for the named arguments RFC"
+    footnotes:
+        - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8" }
+        - { link: /blog/constructor-promotion-in-php-8, title: "Constructor property promotion in PHP 8" }
 
 laravel-beyond-crud:
     date: 2020-07-09
@@ -92,6 +102,8 @@ new-in-php-8:
         description: "All new features, deprecations, speed and performance improvements in PHP 8"
     tag: src/content/tags/php-8.yaml
     footnotes:
+        - { link: /blog/php-8-match-or-switch, title: "The match operator in PHP 8" }
+        - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
         - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
         - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
         - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
