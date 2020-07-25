@@ -1,4 +1,4 @@
-It was a [close call](/blog/why-we-need-named-params-in-php), but named arguments — also called named parameters — are supported in [PHP 8](/blog/new-in-php-8)! In this post I'll discuss their ins and outs, but let me show you first what they look like, a few examples in the wild:
+It was a [close call](/blog/why-we-need-named-params-in-php), but named arguments — also called named parameters — are supported in [PHP 8](/blog/new-in-php-8)! In this post I'll discuss their ins and outs, but let me show you first what they look like with a few examples in the wild:
 
 ```php
 <hljs prop>setcookie</hljs>(
@@ -34,16 +34,16 @@ $data = new <hljs type>CustomerData</hljs>(...$customerRequest-><hljs prop>valid
 
 <em class="center small">Named arguments also support array spreading</em>
 
-You might have guessed it from the examples: named arguments allow to pass input data into a function, based on their argument name instead of the argument order.
+You might have guessed it from the examples: named arguments allow you to pass input data into a function, based on their argument name instead of the argument order.
 
-I would named arguments are a great feature that will have a significant impact on my day-to-day programming life.
+I would argue named arguments are a great feature that will have a significant impact on my day-to-day programming life.
 You're probably wondering about the details though: what if you pass a wrong name, what's up with that array spreading syntax? Well, let's look at all those questions in-depth.
 
 {{ ad:carbon }}
 
 ## Why named arguments?
 
-Let's say this feature was a highly debated one, and there were some [counter arguments](/blog/why-we-need-named-params-in-php) to not adding them. However, I'd say their benefit far outweigh the fear of backwards compatibility problems or bloated APIs. The way I see it they will allow us to write cleaner and more flexible code.
+Let's say this feature was a highly debated one, and there were some [counter arguments](/blog/why-we-need-named-params-in-php) to not adding them. However, I'd say their benefit far outweigh the fear of backwards compatibility problems or bloated APIs. The way I see it, they will allow us to write cleaner and more flexible code.
 
 For one, named arguments allow you to skip default values. Take a look again at the cookie example:
 
@@ -89,7 +89,7 @@ In the example I showed, we didn't need to set the a cookie `$value`, but we did
 
 <em class="center small">`setcookie` with named arguments</em>
 
-Besides skipping arguments with default values, there's also the benefit of having clarity about which variable does what. Something that's especially useful in functions with large method signatures. Now we could say that lots of arguments are usually a code smell; we still have to deal with them no matter what, so it's better to have a sane way of doing so, than nothing at all. 
+Besides skipping arguments with default values, there's also the benefit of having clarity about which variable does what; something that's especially useful in functions with large method signatures. Now we could say that lots of arguments are usually a code smell; we still have to deal with them no matter what, so it's better to have a sane way of doing so, than nothing at all. 
 
 ## Named arguments in depth
 
@@ -219,7 +219,7 @@ class ProductSubscriber
 
 ---
 
-It's not possible to have a variable as a the argument name:
+It's not possible to have a variable as the argument name:
 
 ```php
 $field = 'age';
@@ -261,10 +261,10 @@ public function register(EventLister $lister)
 
 <em class="small center">Runtime error in case `$listener` is an instance of `<hljs type>MyListener</hljs>`</em>
 
-This pragmatic approach was chosen to prevent a major breaking change when all inherited argument would have to keep the same name. Seems like a good solution to me.
+This pragmatic approach was chosen to prevent a major breaking change when all inherited arguments would have to keep the same name. Seems like a good solution to me.
 
 ---
 
-That's most there is to tell about named arguments, if you want to know a little more backstory behind some design decisions, I'd encourage you to read [the RFC](https://wiki.php.net/rfc/named_params). 
+That's most there is to tell about named arguments. If you want to know a little more backstory behind some design decisions, I'd encourage you to read [the RFC](https://wiki.php.net/rfc/named_params). 
 
 Are you looking forward to using named arguments? Let me know via [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io)!
