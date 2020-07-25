@@ -1,3 +1,11 @@
+my-journey-into-event-sourcing:
+    date: 2020-07-25
+    title: My journey into event sourcing
+    content: src/content/blog/2020-07-25-my-journey-into-event-sourcing.md
+    next: combining-event-sourcing-and-stateful-systems
+    meta:
+        description: A collection of talks that have guided me while learning event sourcing
+
 php-8-named-arguments:
     date: 2020-07-23
     title: "PHP 8: named arguments"
