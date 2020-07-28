@@ -250,7 +250,7 @@ class MyListener implements EventListener
 PHP will silently allow changing the name of `$event` to `$myEvent`, and `$handler` to `$myHandler`; _but_ if you decide to use named arguments using the parent's name, it will result in a runtime error:
 
 ```php
-public function register(EventLister $lister)
+public function register(EventListener $listener)
 {
     $listener-><hljs prop>on</hljs>(
         <hljs striped prop>event</hljs>: $this-><hljs prop>event</hljs>,
