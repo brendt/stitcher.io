@@ -41,6 +41,29 @@
         next: true
         meta: true
 
+/podcasts/all:
+    template: blog/overview.twig
+    variables:
+        detailUrl: /podcasts
+        overviewTitle: podcasts
+        title: Podcasts
+        posts: src/content/podcasts.yaml
+        meta:
+            description: "Podcast reviews — Listen. Critically."
+
+/podcasts/{id}:
+    template: blog/detail.twig
+    variables:
+        overviewUrl: /podcasts/all
+        post: src/content/podcasts.yaml
+        meta:
+            description: "Podcast reviews — Listen. Critically."
+    config:
+        collection:
+            variable: post
+            parameter: id
+        next: true
+
 /newsletter:
     template: newsletter/index.twig
     variables:

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d24e9a5487d26441ec1e41b39cc15be2",
+    "content-hash": "097ddc2f9df2cded6e233360ecf08091",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -915,16 +915,16 @@
         },
         {
             "name": "pageon/stitcher-core",
-            "version": "1.0.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "c149f5c5ff420c459a875795558f9394ea29d298"
+                "reference": "9ffd598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/c149f5c5ff420c459a875795558f9394ea29d298",
-                "reference": "c149f5c5ff420c459a875795558f9394ea29d298",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/9ffd598",
+                "reference": "9ffd598",
                 "shasum": ""
             },
             "require": {
@@ -951,6 +951,7 @@
                 "phpunit/phpunit": "^6.0",
                 "symfony/process": "^4.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -958,9 +959,23 @@
                     "Pageon\\": "src/Pageon"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Stitcher\\Test\\": "tests",
+                    "Stitcher\\Test\\Plugin\\": "tests/test_project/src/Plugin",
+                    "Stitcher\\Test\\Controller\\": "tests/test_project/src/Controller",
+                    "Pageon\\Test\\": "tests"
+                },
+                "files": [
+                    "src/Pageon/helpers.php"
+                ]
+            },
             "description": "Static website generator in PHP",
-            "time": "2019-11-25T14:19:16+00:00"
+            "support": {
+                "source": "https://github.com/pageon/stitcher-core/tree/master",
+                "issues": "https://github.com/pageon/stitcher-core/issues"
+            },
+            "time": "2020-08-06T05:32:35+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -2426,9 +2441,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "pageon/stitcher-core": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
