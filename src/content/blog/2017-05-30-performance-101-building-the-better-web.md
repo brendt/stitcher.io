@@ -46,7 +46,7 @@ Also think about inlining the important resources in your HTML pages, at least w
 
 A good place to go from here would be Tim Kadlec's blog: [https://timkadlec.com](*https://timkadlec.com/).
 
-{{ ad:google }}
+
 
 ### In summary
 

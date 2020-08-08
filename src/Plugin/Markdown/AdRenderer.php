@@ -18,7 +18,6 @@ class AdRenderer implements InlineRendererInterface
     public function __construct()
     {
         $this->google = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_google.twig');
-        $this->google = '';
         $this->carbon = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_carbon.twig');
     }
 

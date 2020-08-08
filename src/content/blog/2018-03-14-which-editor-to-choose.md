@@ -172,7 +172,7 @@ Furthermore, each package has its own configuration page with a lot of documenta
 
 ---
 
-{{ ad:google }}
+
 
 That was a lot of information! Some of the most important things summarized:
 

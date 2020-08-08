@@ -4,6 +4,8 @@ If I can name one thing I especially liked about this podcast, is that I actuall
 
 Instead, this podcast focuses on the 13 final minutes of descent, the 13 final minutes before touchdown on the Moon.
 
+{{ ad:google }}
+
 I was happily surprised by the pace and quality of this podcast. Each episode highlights one aspect of the lunar module's final descent, and tells the story behind it. 
 
 For example there's an episode on how the lunar module is piloted by Neil and Buzz; one about how the third crew member, Michael Collins, experienced the descent from the command module; one about how program alarms were handled, minutes before touchdown; and lots more.
