@@ -2,6 +2,7 @@
     template: blog/overview.twig
     variables:
         title: Blog
+        overviewTitle: programming
         posts: src/content/blog.yaml
         meta:
             description: "My personal thoughts on the web and programming."
