@@ -55,6 +55,7 @@
     template: blog/detail.twig
     variables:
         overviewUrl: /podcasts/all
+        detailUrl: /podcasts
         post: src/content/podcasts.yaml
         meta:
             description: "Podcast reviews — Listen. Critically."

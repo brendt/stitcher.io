@@ -20,7 +20,7 @@
         <nav class="overview">
             {% for post in posts %}
                 {% if post.hidden is not defined or post.hidden == false %}
-                    <a href="{{ detailUrl ?? '/blog/' }}/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
+                    <a href="{{ detailUrl ?? '/blog' }}/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
                         {% if post.title is defined %}
                             <h1>
                                 {{ post.title }}
