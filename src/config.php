@@ -26,7 +26,6 @@ return [
         'resources/img/meta_small.png',
         'resources/img/rant-with-brent/logo.png',
         'resources/fonts/Bangers',
-        'resources/js/cookie.js',
     ],
 
     'errorPages' => [
