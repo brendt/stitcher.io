@@ -1,6 +1,44 @@
 @import 'css/classes.scss';
 @import 'css/elements.scss';
 
+
+
+#cookies-eu-banner {
+    position: fixed;
+    z-index: 999;
+    font-size: 1rem;
+    font-family: $font-body;
+    width: 500px;
+    background-color: $color-primary-pastel;
+    bottom: 0;
+    padding: 1rem;
+
+    @media (max-width:600px) {
+        width: 100%;
+    }
+
+    button {
+        background: none;
+        padding: 0;
+        margin: 0;
+        border: none;
+        outline: none;
+        font-weight: bolder;
+        font-family: $font-body;
+        cursor:pointer;
+
+        &+button {
+            margin-left: 1rem;
+        }
+    }
+
+    & > div {
+        text-align: right;
+        padding-right: 1rem;
+        margin-top: .5rem;
+    }
+}
+
 .author {
     background-color: $color-primary-pastel;
     font-size: 1.2em;

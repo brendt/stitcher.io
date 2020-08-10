@@ -42,6 +42,11 @@
         next: true
         meta: true
 
+/cookies:
+    template: blog/detail.twig
+    variables:
+        post: src/content/cookies.yaml
+
 /podcasts/all:
     template: blog/overview.twig
     variables:

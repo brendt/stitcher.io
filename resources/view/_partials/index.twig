@@ -4,43 +4,55 @@
     {% block head %}
         <title>{%~ if title is defined %}{{ title }} - {% elseif meta.title is defined %}{{ meta.title }} - {% endif ~%}stitcher.io</title>
 
-        {% block meta %}
-            {% if _meta is defined %}
-                {{ _meta.render({
-                    'title': {
-                        'suffix': ' - stitcher.io',
-                    },
-                })|raw }}
-            {% endif %}
+    {% block meta %}
+    {% if _meta is defined %}
+    {{ _meta.render({
+        'title': {
+            'suffix': ' - stitcher.io',
+        },
+    })|raw }}
+    {% endif %}
 
-            {% if meta.image.src is defined %}
-                <meta property="og:image" content="https://stitcher.io{{ meta.image.src }}"/>
-                <meta property="twitter:image" content="https://stitcher.io{{ meta.image.src }}"/>
-                <meta name="image" content="https://stitcher.io{{ meta.image.src }}"/>
-                <meta name="twitter:card" content="summary_large_image" />
-            {% elseif post.meta.image.src is defined %}
-                <meta property="og:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
-                <meta property="twitter:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
-                <meta name="image" content="https://stitcher.io{{ post.meta.image.src }}"/>
-                <meta name="twitter:card" content="summary_large_image" />
-            {% else %}
-                <meta name="twitter:card" content="summary" />
-                <meta property="twitter:image" content="https://stitcher.io/resources/img/meta_small.png"/>
-            {% endif %}
+    {% if meta.image.src is defined %}
+    <meta property="og:image" content="https://stitcher.io{{ meta.image.src }}"/>
+    <meta property="twitter:image" content="https://stitcher.io{{ meta.image.src }}"/>
+    <meta name="image" content="https://stitcher.io{{ meta.image.src }}"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    {% elseif post.meta.image.src is defined %}
+    <meta property="og:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+    <meta property="twitter:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+    <meta name="image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    {% else %}
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:image" content="https://stitcher.io/resources/img/meta_small.png"/>
+    {% endif %}
 
-            <meta name="twitter:creator" content="@brendt_gd" />
+    <meta name="twitter:creator" content="@brendt_gd"/>
 
-            <link rel="apple-touch-icon" sizes="180x180" href="/resources/img/favicon/apple-touch-icon.png">
-            <link rel="icon" type="image/png" sizes="32x32" href="/resources/img/favicon/favicon-32x32.png">
-            <link rel="icon" type="image/png" sizes="16x16" href="/resources/img/favicon/favicon-16x16.png">
-            <link rel="manifest" href="/resources/img/favicon/site.webmanifest">
-            <link rel="mask-icon" href="/resources/img/favicon/safari-pinned-tab.svg" color="#fc3149">
-            <meta name="msapplication-TileColor" content="#ffffff">
-            <meta name="theme-color" content="#ffffff">
-        {% endblock %}
+    <link rel="apple-touch-icon" sizes="180x180" href="/resources/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/resources/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/resources/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/resources/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/resources/img/favicon/safari-pinned-tab.svg" color="#fc3149">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
     {% endblock %}
+    {% endblock %}
+
+    <script data-ad-client="ca-pub-7163240497326235" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 <body>
+
+<div id="cookies-eu-banner" style="display: none;">
+    By continuing your visit to this site, you accept the use of cookies.
+    <a href="/cookies" id="cookies-eu-more">Read more</a>.
+
+    <div>
+        <button id="cookies-eu-reject">Reject</button>
+        <button id="cookies-eu-accept">Accept</button>
+    </div>
+</div>
 
 {#<div class="ruler"></div>#}
 
@@ -50,8 +62,14 @@
     {% block content %}{% endblock %}
 
     {% block footer %}{% endblock %}
+{% endblock %}
 
-    <script>
+{% block scripts %}{% endblock %}
+
+{{ js.inline('resources/js/cookies.js')|raw }}
+
+<script>
+    new CookiesEuBanner(function () {
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -59,10 +77,8 @@
 
         ga('create', 'UA-99779066-1', 'auto');
         ga('send', 'pageview');
-    </script>
-{% endblock %}
-
-{% block scripts %}{% endblock %}
+    });
+</script>
 
 </body>
 </html>
