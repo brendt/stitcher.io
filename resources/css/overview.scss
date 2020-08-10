@@ -30,6 +30,11 @@ header {
             padding-top: 0;
             padding-bottom: 0;
             font-size: 1.2em;
+
+            @media(max-width:$width-container-mobile) {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
         }
     }
 
@@ -72,15 +77,16 @@ nav.overview {
 nav.overview > a {
     &:nth-child(1),
     &:nth-child(8n){
-        width: 700px;
-        height: 300px;
+        @media (min-width: $width-mobile) {
+            height: 300px;
+            width: 700px;
+        }
     }
 
     --tag-color-background: $color-primary;
     --tag-color-text: #fff;
 
     width: 400px;
-    height: 400px;
     margin: .5em;
     position: relative;
     text-decoration: none;
@@ -94,8 +100,13 @@ nav.overview > a {
     //box-shadow: inset 0 0 0 2px black;
     border: 2px solid #000;
 
+    @media (min-width: $width-mobile) {
+        height: 400px;
+    }
+
     @media (max-width: $width-mobile) {
         padding: 2em 1.5em;
+        border: none;
     }
 
     @media (max-width: $width-container-mobile-lrg) {
@@ -155,6 +166,10 @@ nav.overview > a {
     background-color: var(--tag-color-background);
     color: var(--tag-color-text);
     font-weight: bold;
+
+    @media (max-width: $width-mobile) {
+        font-size: .9em;
+    }
 }
 
 
