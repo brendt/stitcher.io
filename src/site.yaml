@@ -73,6 +73,28 @@
             parameter: id
         next: true
 
+/games/all:
+    template: blog/overview.twig
+    variables:
+        detailUrl: /games
+        overviewTitle: games
+        title: Games
+        posts: src/content/games.yaml
+        meta:
+            description: "Anything game related crossing my path"
+
+/games/{id}:
+    template: blog/detail.twig
+    variables:
+        overviewUrl: /games/all
+        detailUrl: /games
+        post: src/content/games.yaml
+    config:
+        collection:
+            variable: post
+            parameter: id
+        next: true
+
 /newsletter:
     template: newsletter/index.twig
     variables:
