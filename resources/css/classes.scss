@@ -230,13 +230,17 @@ div.center > p {
     }
 }
 
-.ad-container {
+.ad-container:not(.ad-google) {
     margin-bottom: 1em;
 
     @media (min-width: $width-container) {
         height: 140px;
         overflow: hidden;
     }
+}
+
+.ad-google {
+    margin-bottom: 100px;
 }
 
 #carbonads {
