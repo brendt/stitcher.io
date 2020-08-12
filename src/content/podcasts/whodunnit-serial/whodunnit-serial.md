@@ -4,7 +4,7 @@ After re-listening the series five or six times over the years, I think I finall
 
 If you haven't listened to Serial, I must warn you: there are spoilers ahead. Let's dive in!
 
----
+{{ ad:google }}
 
 Instead of focusing on call logs, timelines or possible murder sites — all of which are a mess whatever story you believe — I want to start with what Sarah, Dana and Julie ended in episode twelve: looping back to motive.  
 

@@ -21,6 +21,6 @@ So, season 1: the case of Jacob Wetterling, one where an 11 year old boy disappe
 
 Then there's season 2 about Curtis Flowers, a man who has been tried six times for the same crime. He himself maintained his innocence for 21 years. This season tries to figure out the truth, all the while when Curtis is on death row.
 
----
+{{ ad:google }}
 
 I was skeptical when I started listening to this podcast. At first I thought it was just a ripoff of Serial. And while there are elements clearly inspired by it, In the Dark is a podcast worth being called original, and worth the listen. 

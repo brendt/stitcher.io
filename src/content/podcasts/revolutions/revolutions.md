@@ -12,6 +12,6 @@ I think "Revolutions" is a great example of where contents beats form. There's n
 
 By now, Revolutions has 10 seasons, each of them covering a specific revolution. You're perfectly able to choose a season, but you do need to listen it as a whole.
 
----
+{{ ad:google }}
 
 If history is your thing, or if you're not sure about it yet, you should give Revolutions a try!

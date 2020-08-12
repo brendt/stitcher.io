@@ -4,7 +4,7 @@ Let me tell you: even though I thought I knew how unsafe of a place the internet
 
 Now you don't need to be an "IT person" to be able to enjoy this podcast: Jack Rhysider, the host, does an amazing job to explain what everything is about, also for non-techies.
 
----
+{{ ad:google }}
 
 Being a one-man show, Darknet Diaries is worth the title "success". Jack was able to quit his job and work on the podcast fulltime, something many podcast creators can only dream about.
 

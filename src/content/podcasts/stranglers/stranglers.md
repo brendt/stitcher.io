@@ -6,6 +6,8 @@ Stranglers tells the true story about a serial killer hunting in Boston back in 
 
 All in all, Stranglers gives you what you might expect from a true crime podcast: one story told week by week — oh, I'm sorry, that's Serial I'm talking about 😅. 
 
+{{ ad:google }}
+
 There are of course similarities to Serial, as have almost all true crime podcasts. I don't mind though, as long as the story is good, and the podcast isn't over engineered.
 
 With Stranglers, it's on the verge of "over the top", yet not… completely. There's the occasional sound effect and interview reenactment, which personally I don't think adds that much of value. If there's one thing they do, it is to remind you that you're listening to a heavily edited podcast, rather than the story itself. 

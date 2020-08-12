@@ -6,6 +6,8 @@ It also opened my mind to give other fictional podcasts a try.
 What makes this an even more unique podcast, is that it's improvised on the spot. Don't worry though: there are some main plot lines throughout the seasons.
 When you listen closely, you can sometimes pick up small details which give away the improvisation, but I think that's part of the charm in this genre.
 
+{{ ad:google }}
+
 Improvisation has one big advantage: it creates genuine, non-scripted, funny moments. Because all of the six crew members have experience in the comedy and improv scene, there are lots of hilarious moments — I burst out into laughter more than once listening to this podcast, usually on the train… You can imagine the looks people gave me. 
 
 Nevertheless, good times ensued!

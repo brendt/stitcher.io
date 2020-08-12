@@ -10,6 +10,8 @@ So how can I convince you to listen to this podcast without spoiling anything? W
 
 Besides the compelling story telling, a few things stand out.
 
+{{ ad:google }}
+
 First of all there's a narrator telling parts of the story. It's like one of the characters is explaining specific parts as we go. It's a liberating format: the story telling isn't confined to "the rules of podcasting" where there always has to be some kind of recording device present. This podcast simply ditches that rule, which I find liberating.
 
 Second, the sound design is amazing. There's nothing over the top like many fictional podcasts, yet you may expect a very high quality edit. I've written about this before: sound effects can make or break the listening experience, and The Edge of Sleep gets it right.

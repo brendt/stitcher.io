@@ -13,7 +13,7 @@ Since there are only three episodes, I was finished with it after a day, and I p
 
 The story is unique enough, not some cliche romance, the music is awesome and the voice actors are great. One of the lead characters is portrayed by Jonathan Groff, who also voiced Olaf in Frozen, as wel as King George in Hamilton — what a coincidence!
 
----
+{{ ad:google }}
 
 I'd say 36 questions is a unique podcasting experience, unlike anything you've ever heard. I've actually searched for podcasts within the same genre ever since, but wasn't able to find one anywhere close to this one.
 
