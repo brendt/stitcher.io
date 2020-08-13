@@ -53,6 +53,7 @@
     template: blog/overview.twig
     variables:
         detailUrl: /podcasts
+        rssUrl: /podcasts/rss
         overviewTitle: podcasts
         title: Podcasts
         posts: src/content/podcasts.yaml
@@ -63,6 +64,7 @@
     template: blog/detail.twig
     variables:
         overviewUrl: /podcasts/all
+        rssUrl: /podcasts/rss
         detailUrl: /podcasts
         post: src/content/podcasts.yaml
         meta:
@@ -77,6 +79,7 @@
     template: blog/overview.twig
     variables:
         detailUrl: /games
+        rssUrl: /games/rss
         overviewTitle: games
         title: Games
         posts: src/content/games.yaml
@@ -87,6 +90,7 @@
     template: blog/detail.twig
     variables:
         overviewUrl: /games/all
+        rssUrl: /games/rss
         detailUrl: /games
         post: src/content/games.yaml
     config:
