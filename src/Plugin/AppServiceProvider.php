@@ -18,7 +18,9 @@ use League\CommonMark\Block\Element\Heading;
 use League\CommonMark\Block\Element\IndentedCode;
 use League\CommonMark\Environment;
 use League\CommonMark\Inline\Element\Code;
+use League\CommonMark\Inline\Element\Image;
 use League\CommonMark\Inline\Element\Text;
+use Pageon\Html\Image\ImageFactory;
 use Pageon\Lib\Markdown\MarkdownParser;
 use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
 use Stitcher\App;
@@ -40,9 +42,12 @@ class AppServiceProvider implements Plugin
     public static function boot(): void
     {
         MarkdownParser::extension(function (Environment $environment) {
+            $imageFactory = App::get(ImageFactory::class);
+
             return $environment
                 ->addInlineRenderer(Text::class, new AdRenderer())
                 ->addInlineRenderer(Code::class, new HighlightInlineCodeRenderer())
+                ->addInlineRenderer(Image::class, new ImageRenderer($imageFactory))
                 ->addInlineParser(new AbbrParser())
                 ->addInlineParser(new NumberParser())
                 ->addBlockRenderer(Heading::class, new HeadingAnchor())

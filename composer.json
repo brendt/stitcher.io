@@ -1,6 +1,6 @@
 {
     "require": {
-        "pageon/stitcher-core": "dev-master#9ffd598",
+        "pageon/stitcher-core": "dev-master#71a0e05",
         "spatie/commonmark-highlighter": "^1.0",
         "illuminate/support": "~5.7.0",
         "twig/twig":"^2.8.0"
