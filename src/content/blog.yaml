@@ -1,3 +1,22 @@
+new-in-php-8:
+    date: 2020-08-13
+    title: "What's new in PHP 8"
+    content: src/content/blog/2020-01-16-new-in-php-8.md
+    next: new-in-php-74
+    highlight: true
+    meta:
+        description: "All new features, deprecations, speed and performance improvements in PHP 8"
+    tag: src/content/tags/php-8.yaml
+    footnotes:
+        - { link: /blog/php-8-match-or-switch, title: "The match operator in PHP 8" }
+        - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
+        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
+        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+
 my-journey-into-event-sourcing:
     date: 2020-07-25
     title: My journey into event sourcing
@@ -99,25 +118,6 @@ jit-in-real-life-web-applications:
         - { link: /blog/php-jit, title: "The JIT explained" }
         - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-
-new-in-php-8:
-    date: 2020-07-03
-    title: "What's new in PHP 8"
-    content: src/content/blog/2020-01-16-new-in-php-8.md
-    next: new-in-php-74
-    highlight: true
-    meta:
-        description: "All new features, deprecations, speed and performance improvements in PHP 8"
-    tag: src/content/tags/php-8.yaml
-    footnotes:
-        - { link: /blog/php-8-match-or-switch, title: "The match operator in PHP 8" }
-        - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
-        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
-        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
-        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
-        - { link: /blog/php-in-2020, title: "PHP in 2020" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 braille-and-the-history-of-software:
     date: 2020-06-27

@@ -8,6 +8,14 @@ So what do they look like? How do we make custom attributes? Are there any cavea
 
 ## Rundown
 
+<div class="author footnotes">
+<p>
+
+Note that the attribute syntax can still change, it's still [undecided](*https://wiki.php.net/rfc/shorter_attribute_syntax_change#voting).
+
+</p>
+</div>
+
 First things first, here's what attribute would look like in the wild:
 
 ```php
