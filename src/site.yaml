@@ -16,6 +16,7 @@
     template: blog/overview.twig
     variables:
         title: Blog
+        overviewTitle: programming
         posts: src/content/blog.yaml
         meta:
             description: "My personal thoughts on the web and programming."
@@ -32,6 +33,7 @@
 /blog/{id}:
     template: blog/detail.twig
     variables:
+        overviewTitle: programming
         post: src/content/blog.yaml
         meta:
             description: "My personal thoughts on the web and programming."

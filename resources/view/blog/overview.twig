@@ -8,6 +8,10 @@
 {% endblock %}
 
 {% block content %}
+    {% if (overviewTitle ?? null) == 'programming' %}
+        {% include '_partials/ad_scout.twig' %}
+    {% endif %}
+
     <header>
         {% include '_partials/header_links.twig' %}
 
