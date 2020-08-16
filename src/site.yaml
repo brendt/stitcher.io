@@ -53,6 +53,7 @@
     template: blog/overview.twig
     variables:
         detailUrl: /podcasts
+        rssUrl: /podcasts/rss
         overviewTitle: podcasts
         title: Podcasts
         posts: src/content/podcasts.yaml
@@ -63,10 +64,35 @@
     template: blog/detail.twig
     variables:
         overviewUrl: /podcasts/all
+        rssUrl: /podcasts/rss
         detailUrl: /podcasts
         post: src/content/podcasts.yaml
         meta:
             description: "Podcast reviews — Listen. Critically."
+    config:
+        collection:
+            variable: post
+            parameter: id
+        next: true
+
+/games/all:
+    template: blog/overview.twig
+    variables:
+        detailUrl: /games
+        rssUrl: /games/rss
+        overviewTitle: games
+        title: Games
+        posts: src/content/games.yaml
+        meta:
+            description: "Anything game related crossing my path"
+
+/games/{id}:
+    template: blog/detail.twig
+    variables:
+        overviewUrl: /games/all
+        rssUrl: /games/rss
+        detailUrl: /games
+        post: src/content/games.yaml
     config:
         collection:
             variable: post

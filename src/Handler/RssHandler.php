@@ -10,7 +10,7 @@ use Stitcher\Variable\VariableParser;
 use Stitcher\Variable\YamlVariable;
 use Symfony\Component\Yaml\Yaml;
 
-class RssHandler
+abstract class RssHandler
 {
     /** @var \Stitcher\Renderer\Renderer */
     private $renderer;
@@ -26,7 +26,7 @@ class RssHandler
     public function handle(): Response
     {
         $posts = YamlVariable::make(
-            File::path('src/content/blog.yaml'),
+            File::path($this->getSourcePath()),
             App::get(Yaml::class),
             App::get(VariableParser::class)
         )->getParsed();
@@ -38,4 +38,6 @@ class RssHandler
 
         return new Response(200, ['Content-Type' => 'application/xml;charset=UTF-8'], $rss);
     }
+
+    abstract protected function getSourcePath(): string;
 }

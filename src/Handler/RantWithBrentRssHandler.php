@@ -10,7 +10,7 @@ use Stitcher\Variable\VariableParser;
 use Stitcher\Variable\YamlVariable;
 use Symfony\Component\Yaml\Yaml;
 
-class RssPodcastHandler
+class RantWithBrentRssHandler
 {
     /** @var \Stitcher\Renderer\Renderer */
     private $renderer;

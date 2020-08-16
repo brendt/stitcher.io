@@ -1,7 +1,9 @@
 <?php
 
-use Brendt\Stitcher\Handler\RssPodcastHandler;
-use Brendt\Stitcher\Handler\RssHandler;
+use Brendt\Stitcher\Handler\GamesRssHandler;
+use Brendt\Stitcher\Handler\PodcastsRssHandler;
+use Brendt\Stitcher\Handler\RantWithBrentRssHandler;
+use Brendt\Stitcher\Handler\BlogRssHandler;
 use Stitcher\App;
 
 $redirects = [
@@ -34,7 +36,7 @@ foreach ($redirects as $url => $targetUrl) {
 }
 
 $newsLetters = [
-    'https://mailchi.mp/7ee0ee7c848b/1-new-in-php'
+    'https://mailchi.mp/7ee0ee7c848b/1-new-in-php',
 ];
 
 foreach ($newsLetters as $i => $newsLetter) {
@@ -48,5 +50,7 @@ foreach ($newsLetters as $i => $newsLetter) {
     $router->redirect("/newsletter/{$index}", $newsLetter);
 }
 
-$router->get('/rss', RssHandler::class);
-$router->get('/rss/rant-with-brent', RssPodcastHandler::class);
+$router->get('/rss', BlogRssHandler::class);
+$router->get('/games/rss', GamesRssHandler::class);
+$router->get('/podcasts/rss', PodcastsRssHandler::class);
+$router->get('/rss/rant-with-brent', RantWithBrentRssHandler::class);

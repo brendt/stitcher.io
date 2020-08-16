@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "097ddc2f9df2cded6e233360ecf08091",
+    "content-hash": "fe73ac7d24d89c70e70be7d785b416a7",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -919,12 +919,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "9ffd598"
+                "reference": "71a0e05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/9ffd598",
-                "reference": "9ffd598",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/71a0e05",
+                "reference": "71a0e05",
                 "shasum": ""
             },
             "require": {
@@ -975,7 +975,7 @@
                 "source": "https://github.com/pageon/stitcher-core/tree/master",
                 "issues": "https://github.com/pageon/stitcher-core/issues"
             },
-            "time": "2020-08-06T05:32:35+00:00"
+            "time": "2020-08-12T04:37:31+00:00"
         },
         {
             "name": "pimple/pimple",

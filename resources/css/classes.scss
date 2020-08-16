@@ -54,6 +54,10 @@ em.small {
     font-size: 1rem;
 }
 
+img + em.small {
+    margin-top: -1rem;
+}
+
 pre + p > em.small {
     margin-top: -1.5em;
 }
