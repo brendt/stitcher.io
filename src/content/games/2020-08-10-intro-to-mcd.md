@@ -64,7 +64,7 @@ Soul DPSing requires a specific set of gear, in order to increase the amount of 
 
 One must-have artifact is the [Corrupted Beacon](*https://minecraft.gamepedia.com/Minecraft_Dungeons:Corrupted_Beacon), which emits a high damage beam while slowly consuming your gathered souls. The [Lightning Rod](*https://minecraft.gamepedia.com/Minecraft_Dungeons:Lightning_Rod) and [Harvester](*https://minecraft.gamepedia.com/Minecraft_Dungeons:Harvester) are two other great DPS-focused artifacts you can use in addition.    
 
-![I'm tanking the Corrupted Cauldron, while my wife is soul DPS]sresources/img/games/intro-to-mcd/mcd-5.jpeg)
+![I'm tanking the Corrupted Cauldron, while my wife is soul DPS](/resources/img/games/intro-to-mcd/mcd-5.jpeg)
 
 To ensure your gather enough souls to feed your artifacts, it's best to invest in at least two soul-focused gear items. There's the [Soul Knife](*https://minecraft.gamepedia.com/Minecraft_Dungeons:Soul_Knife) and [Soul Bow](*https://minecraft.gamepedia.com/Minecraft_Dungeons:Soul_Bow), but there's also armor that increase the amounts of souls gathered. Two examples are the [Phantom Armor](*https://minecraft.gamepedia.com/Minecraft_Dungeons:Phantom_Armor) and [Wither Armor](*https://minecraft.gamepedia.com/Minecraft_Dungeons:Wither_Armor).
 
