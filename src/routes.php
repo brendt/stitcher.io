@@ -8,6 +8,8 @@ use Stitcher\App;
 
 $redirects = [
     '/feed' => '/rss',
+    '/games' => '/games/all',
+    '/podcasts' => '/podcasts/all',
     '/blog/laravel-domains' => '/blog/organise-by-domain',
     '/blog' => '/blog/page-1',
     '/presentations' => 'https://github.com/brendt/presentations',
