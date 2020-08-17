@@ -20,7 +20,7 @@ So, luckily, the story line isn't what makes MCD great. It's actually the grindi
 
 The mechanics of the game are rather simple: every character has a melee and ranged attack, as well as three special abilities called artifacts.
 
-As you go around dungeons, you fight mobs that become stronger as you do, some dungeons have bosses, and you often find treasure around them. Loot consists of all kinds of items, as well as emeralds. You can use these emeralds to buy gear and artifacts outside of the dungeons, but be wary since you never know what you're buying, you get a random item over time.
+As you go around dungeons, you fight mobs that become stronger as you do, some dungeons have bosses, and you often find treasure around them. Loot consists of all kinds of items, as well as emeralds. You can use these emeralds to buy gear and artifacts outside of the dungeons, but be wary since you never know what you're buying: you get a random item over time.
 
 Each artifact has its own effect, ranging from healing yourself and team mates, stunning enemies, special buffs , etc. You can pick and choose whatever artifacts you want, if you manage to find them during your dungeon runs, of course.
 
