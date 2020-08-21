@@ -1,3 +1,11 @@
+differences:
+    date: 2020-08-21
+    title: Differences
+    content: src/content/blog/2020-8-21-differences.md
+    next: new-in-php-8
+    meta:
+        image: /resources/img/comics/differences.png
+
 new-in-php-8:
     date: 2020-08-13
     title: "What's new in PHP 8"
