@@ -22,6 +22,6 @@ Besides the book, I've also created an additional video course: some episodes ta
 
 I believe this book will help you designing and managing large applications, no matter what background you're coming from. The beauty of it — if I can say so myself — is that all patterns and principles described can be taken out of the context I personally work in, and applied to many other kinds of projects, even outside of Laravel.
 
-
-
 So if your interest is piqued, you can take a look over here: [https://laravel-beyond-crud.com/](*https://laravel-beyond-crud.com/)!
+
+PS: both the book and video course are a living product: the book might get small revisions over time, and I'm already working on a couple of new videos that will be added to the course over the next few weeks. So keep your eye out for even more content to come!
