@@ -1,4 +1,4 @@
-It's been over a year in the making: the Laravel Beyond CRUD book and video course are here! Regular followers already know what it is about, but happily repeat it, in case you're new.
+It's been over a year in the making and I happy to say it's here: the Laravel Beyond CRUD book and video course are now available. Regular followers already know what it is about, but I happily repeat it, in case you're new.
 
 ---
 
@@ -12,10 +12,16 @@ In this book, I'll write about the knowledge we gained over the years in designi
 
 In this book I'll give you concrete solutions to real life problems, but its actual goal is to teach you a mindset. I want to share the process we went through, so that you can apply it to your problems, and come up with the solutions that work best for you.
 
+My colleague [Freek](*https://twitter.com/freekmurze) phrased it like this:
+
+> Don't dogmatically keep following rules you agreed on in the past, but keep challenging them.
+
 ---
 
 Besides the book, I've also created an additional video course: some episodes take written theory and visualise it, others will dive deep into code in ways a book couldn't do.
 
 I believe this book will help you designing and managing large applications, no matter what background you're coming from. The beauty of it — if I can say so myself — is that all patterns and principles described can be taken out of the context I personally work in, and applied to many other kinds of projects, even outside of Laravel.
+
+
 
 So if your interest is piqued, you can take a look over here: [https://laravel-beyond-crud.com/](*https://laravel-beyond-crud.com/)!
