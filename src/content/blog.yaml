@@ -1,7 +1,15 @@
+laravel-beyond-crud-is-here:
+    date: 2020-08-26
+    title: Laravel Beyond CRUD is here!
+    content: src/content/blog/2020-08-26-lbc-launch.md
+    meta:
+        description: Laravel Beyond CRUD is a book and video course on designing and managing large Laravel applications
+    next: new-in-php-8
+
 differences:
     date: 2020-08-21
     title: Differences
-    content: src/content/blog/2020-8-21-differences.md
+    content: src/content/blog/2020-08-21-differences.md
     next: new-in-php-8
     meta:
         image: /resources/img/comics/differences.png
