@@ -2,6 +2,8 @@ dont-get-stuck:
     date: 2020-08-29
     title: "Don't get stuck"
     content: src/content/blog/dont-get-stuck.md
+    meta:
+        description: Why I quit my job
 
 annotations:
     date: 2020-08-28
