@@ -1,10 +1,10 @@
-Both managers were looking at me in disbelieve, they seemed to be stunned for a few seconds. I just told them I'd decided to resign. One of them quickly recovered, smiled, and told me he regretted my decision, but realised it's expected in our sector: people usually don't spend more than a few years at the same company.
+Both managers were looking at me in disbelieve, they seemed to be stunned for a few seconds. I just told them I'd decided to resign. One of them quickly recovered, smiled, and told me he regretted my decision. He realised it's expected in our sector: people usually don't spend more than a few years at the same company.
 
 I didn't want to chit-chat much longer so I nodded, apologised (I'm not sure why), and told them I'd be checking out the paperwork with the office manager later that week. I left the room, went back to my desk.
 
 I received a mail from the other manager over the weekend, the one who didn't say much during our conversation. He wrote he was perplexed, didn't see this coming, and regretted the decision tremendously. He told me if there was anything he could do to keep me, I should tell him.
 
----
+{{ ad:carbon }}
 
 My decision to leave was final though. It wasn't a financial one, in fact I was just about to get a significant raise and more responsibilities. It also wasn't a relational one, I really appreciated all of my colleagues back then; I'd even call some of them good friends.
 
@@ -18,6 +18,8 @@ I've since realised that this manager was wrong: it's not normal to switch jobs 
 
 ---
 
-This strikes me most though: their rational was that they needed to first make profits, before they'd be able to properly invest in their people.
+I don't regret having worked for that company: I did learn valuable lessons there. It's ok to be at a place where there's little or no room for growth, as long as it's not too long. Watch out, and critically assess your situation from time to time; you might get stuck without even knowing it.
 
-The irony of that, is that almost all developers at the company got frustrated after years of that message, which meant they weren't motivated as much, which resulted in lesser quality, which resulted in people leaving, which meant years of knowledge left the company. 
+My advice? Either try to change your position and responsibilities within the company or, if that doesn't work, change jobs. I realise that's easy to write, like I also realise it's not as easy as it sounds. I noticed being stuck after two years and it took me another whole year to find a place where I believed there was enough room to grow. 
+
+Whatever turns your path will take, knowing you want to go somewhere and not stand idle is the most important first step. 
