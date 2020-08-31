@@ -23,3 +23,7 @@ I don't regret having worked for that company: I did learn valuable lessons ther
 My advice? Either try to change your position and responsibilities within the company or, if that doesn't work, change jobs. I realise that's easy to write, like I also realise it's not as easy as it sounds. I noticed being stuck after two years and it took me another whole year to find a place where I believed there was enough room to grow. 
 
 Whatever turns your path will take, knowing you want to go somewhere and not stand idle is the most important first step. 
+
+---
+
+If you're interested to know more about what was going on in that company and the reasons I decided to quit, I wrote about a [disaster we encountered](/blog/dont-write-your-own-framework) when I worked there.

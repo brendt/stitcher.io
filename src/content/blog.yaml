@@ -1,7 +1,7 @@
 dont-get-stuck:
     date: 2020-08-29
     title: "Don't get stuck"
-    content: src/content/blog/dont-get-stuck.md
+    content: src/content/blog/2020-08-29-dont-get-stuck.md
     meta:
         description: Why I quit my job
 
