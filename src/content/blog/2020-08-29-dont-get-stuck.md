@@ -1,4 +1,4 @@
-*Note: this post isn't about my current job.*
+*Note: this post is about a previous job, not my current one.*
 
 Both managers were looking at me in disbelief, they seemed to be stunned for a few seconds. I just told them I'd decided to resign. One of them quickly recovered, smiled, and told me he regretted my decision. Though he also realised it's expected in our sector: people usually don't spend more than a few years at the same company.
 
