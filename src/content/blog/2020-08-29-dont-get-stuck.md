@@ -26,4 +26,4 @@ Whatever turns your path will take, knowing you want to go somewhere and not sta
 
 ---
 
-If you're interested to know more about what was going on in that company and the reasons I decided to quit, I wrote about a [disaster we encountered](/blog/dont-write-your-own-framework) when I worked there. If you've got your own story to share, let's head over to [hacker news](*https://news.ycombinator.com/vote?id=24328785&how=up&goto=item%3Fid%3D24328785).
+If you're interested to know more about what was going on in that company and the reasons I decided to quit, I wrote about a [disaster we encountered](/blog/dont-write-your-own-framework) when I worked there. If you've got your own story to share, let's head over to [hacker news](*https://news.ycombinator.com/item?id=24328785).
