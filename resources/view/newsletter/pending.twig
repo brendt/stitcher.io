@@ -1,0 +1,27 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/overview.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>
+            stitcher.io
+        </h1>
+
+        {% include '_partials/header_links.twig' %}
+    </header>
+
+    <article>
+        <p class="author footnotes">You'll receive a confirmation mail shortly.</p>
+
+        <p>
+            <a href="/">Back</a>
+        </p>
+    </article>
+
+{% endblock %}

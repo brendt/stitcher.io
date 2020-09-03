@@ -371,3 +371,26 @@ tr > td:first-child {
 td {
     padding: .5em 1em;
 }
+
+form {
+    display: flex;
+    align-items: baseline;
+    font-family: $font-body;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+input {
+    font-size: 1.2rem;
+    padding: .5em;
+    font-family: $font-body;
+    font-weight: normal;
+    border: 1px solid $color-black;
+}
+
+input:focus {
+    border: 1px solid $color-primary;
+    outline: none;
+}

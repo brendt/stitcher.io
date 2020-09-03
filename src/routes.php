@@ -24,8 +24,8 @@ $redirects = [
     '/keybindings' => '/blog/mastering-key-bindings',
     '/curly' => '/blog/where-a-curly-bracket-belongs',
     '/blog/array-merge-vs' => '/blog/array-merge-vs+',
-    '/newsletter-signup' => 'http://eepurl.com/go5zFj',
-    '/signup' => 'http://eepurl.com/go5zFj',
+    '/newsletter-signup' => '/newsletter/subscribe',
+    '/signup' => '/newsletter/subscribe',
 
     '/laravel-beyond-crud' => '/blog/laravel-beyond-crud',
 ];

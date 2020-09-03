@@ -99,18 +99,33 @@
             parameter: id
         next: true
 
-/newsletter:
+/newsletter/success:
+    template: newsletter/success.twig
+    variables:
+        title: Stitcher Mail
+        meta:
+            description: Subsribe to Stitcher Mail!
+
+/newsletter/pending:
+    template: newsletter/pending.twig
+    variables:
+        title: Stitcher Mail
+        meta:
+            description: Subsribe to Stitcher Mail!
+
+/newsletter/unsub:
+    template: newsletter/unsub.twig
+    variables:
+        title: Stitcher Mail
+        meta:
+            description: Subsribe to Stitcher Mail!
+
+/newsletter/subscribe:
     template: newsletter/index.twig
     variables:
-        posts: src/content/newsletter.yaml
-        title: Newsletter
+        title: Stitcher Mail
         meta:
-            description: An archive of all my newsletters
-    config:
-        order:
-            variable: posts
-            field: date
-            direction: desc
+            description: Subsribe to Stitcher Mail!
 
 /laravel-beyond-crud:
     template: blog/overview_tag.twig

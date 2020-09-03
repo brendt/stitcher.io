@@ -16,33 +16,23 @@
         {% include '_partials/header_links.twig' %}
     </header>
 
-    <nav class="overview">
+    <article>
+        <p>Do you want to receive occasional mails about what's going on on this blog? Feel free to leave behind your email address!</p>
 
-        <p style="margin-bottom: 2em;">
-            I write a monthly-ish newsletter about anything programming related that crosses my path.
-            If you're interested in following it, you can sign up for it <a href="/signup" target="_blank" rel="noopener noreferrer">here</a>.
-        </p>
+        <nav class="overview">
+            <form action="https://mail.stitcher.io/subscribe/81fa83d0-4a0b-4eff-b897-f6ce51dfb7f0" method="post">
+                <div>
+                    <label for="email">Email</label>
+                    <input name="email" style="margin-left:.5em;"/>
+                </div>
 
-        {% for post in posts %}
-            {% if post.hidden is not defined or post.hidden == false %}
-                <a href="{{ post.url }}">
-                    <h1>
-                        {{ post.title }}
-                    </h1>
+                <div style="margin-left:1em;">
+                    <button type="submit" class="cta cta-small">Subscribe</button>
+                </div>
+            </form>
+        </nav>
 
-                    <div>
-                        {% if post.date is defined %}
-                            <aside>
-                                {{ post.date|date("F d, Y") }}
-                            </aside>
-                        {% endif %}
-                    </div>
-                </a>
-            {% endif %}
-        {% endfor %}
-    </nav>
+        <p><br>You'll receive a confirmation mail shortly after.</p>
+    </article>
 
-    <footer>
-        {% include '_partials/links.twig' %}
-    </footer>
 {% endblock %}
