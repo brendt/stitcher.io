@@ -27,7 +27,7 @@ I'll be showing other examples later in this post, but I think the example of ev
 
 Also yes, I know, the syntax might not be what you wished or hoped for. You might have preferred `@`, or `@:`, or docblocks or, … It's here to stay though, so we better learn to deal with it. The only thing that's worth mentioning on the syntax is that all options were discussed, and there are very good reasons why this syntax was chosen. You can read the whole discussion about the RFC on the [internals list](*https://externals.io/message/110640).
 
-That being said, let's focus on the cool stuff: how would this `ListensTo` work under the hood?
+That being said, let's focus on the cool stuff: how would this `<hljs type>ListensTo</hljs>` work under the hood?
 
 First of all, custom attributes are simple classes, annotated themselves with the `<hljs comment>#[</hljs><hljs type>Attribute</hljs><hljs comment>]</hljs>` attribute; this base `<hljs type>Attribute</hljs>` used to be called `<hljs type>PhpAttribute</hljs>` in the original RFC, but was changed with [another RFC](*https://wiki.php.net/rfc/attribute_amendments) afterwards.
 
@@ -37,11 +37,11 @@ Here's what it would look like:
 #[<hljs type>Attribute</hljs>]
 class ListensTo
 {
-    public <hljs type>string</hljs> $event;
+    public <hljs type>string</hljs> <hljs prop>$event</hljs>;
 
     public function __construct(<hljs type>string</hljs> $event)
     {
-        $this->event = $event;
+        $this-><hljs prop>event</hljs> = $event;
     }
 }
 ```
@@ -60,7 +60,7 @@ class EventServiceProvider extends ServiceProvider
     // In real life scenarios, 
     //  we'd automatically resolve and cache all subscribers
     //  instead of using a manual array.
-    private <hljs type>array</hljs> $subscribers = [
+    private <hljs type>array</hljs> <hljs prop>$subscribers</hljs> = [
         <hljs type>ProductSubscriber</hljs>::class,
     ];
 
@@ -117,11 +117,11 @@ private function resolveListeners(<hljs type>string</hljs> $subscriberClass): ar
 
 You can see it's easier to read meta data this way, compared to parsing docblock strings. There are two intricacies worth looking into though.
 
-First there's the `$attribute->newInstance()` call. This is actually the place where our custom attribute class is instantiated. It will take the parameters listed in the attribute definition in our subscriber class, and pass them to the constructor. 
+First there's the `$attribute-><hljs prop>newInstance</hljs>()` call. This is actually the place where our custom attribute class is instantiated. It will take the parameters listed in the attribute definition in our subscriber class, and pass them to the constructor. 
 
-This means that, technically, you don't even need to construct the custom attribute. You could call `$attribute->getArguments()` directly. Furthermore, instantiating the class means you've got the flexibility of the constructor the parse input whatever way you like. All in all I'd say it would be good to always instantiate the attribute using `newInstance()`.
+This means that, technically, you don't even need to construct the custom attribute. You could call `$attribute-><hljs prop>getArguments</hljs>()` directly. Furthermore, instantiating the class means you've got the flexibility of the constructor the parse input whatever way you like. All in all I'd say it would be good to always instantiate the attribute using `<hljs prop>newInstance</hljs>()`.
 
-The second thing worth mentioning is the use of `ReflectionMethod::getAttributes()`, the function that returns all attributes for a method. You can pass two arguments to it, to filter its output.
+The second thing worth mentioning is the use of `<hljs type>ReflectionMethod</hljs>::<hljs prop>getAttributes</hljs>()`, the function that returns all attributes for a method. You can pass two arguments to it, to filter its output.
 
 In order to understand this filtering though, there's one more thing you need to know about attributes first. This might have been obvious to you, but I wanted to mention it real quick anyway: it's possible to add several attributes to the same method, class, property or constant.
 
@@ -138,15 +138,15 @@ class ProductsCreateController
 }
 ```
 
-With that in mind, it's clear why `Reflection*::getAttributes()` returns an array, so let's look at how its output can be filtered.
+With that in mind, it's clear why `<hljs type>Reflection*</hljs>::<hljs prop>getAttributes</hljs>()` returns an array, so let's look at how its output can be filtered.
 
-Say you're parsing controller routes, you're only interested in the `Route` attribute. You can easily pass that class as a filter:
+Say you're parsing controller routes, you're only interested in the `<hljs type>Route</hljs>` attribute. You can easily pass that class as a filter:
 
 ```php
 $attributes = $reflectionClass-><hljs prop>getAttributes</hljs>(<hljs type>Route</hljs>::class);
 ```
 
-The second parameter changes how that filtering is done. You can pass in `ReflectionAttribute::IS_INSTANCEOF`, which will return all attributes implementing a given interface.
+The second parameter changes how that filtering is done. You can pass in `<hljs type>ReflectionAttribute</hljs>::<hljs prop>IS_INSTANCEOF</hljs>`, which will return all attributes implementing a given interface.
 
 For example, say you're parsing container definitions, which relies on several attributes, you could do something like this:
 
@@ -233,7 +233,7 @@ This means that scalar expressions are allowed — even bit shifts — as well a
 
 ## Attribute configuration
 
-By default, attributes can be added in several places, as listed above. It's possible, however, to configure them so they can only be used in specific places. For example you could make it so that `ClassAttribute` can only be used on classes, and nowhere else. Opting-in this behaviour is done by passing a flag to the `Attribute` attribute on the attribute class.
+By default, attributes can be added in several places, as listed above. It's possible, however, to configure them so they can only be used in specific places. For example you could make it so that `<hljs type>ClassAttribute</hljs>` can only be used on classes, and nowhere else. Opting-in this behaviour is done by passing a flag to the `<hljs type>Attribute</hljs>` attribute on the attribute class.
 
 It looks like this:
 
@@ -274,7 +274,7 @@ class ClassAttribute
 }
 ```
 
-Note that all these flags are only validated when calling `$attribute->newInstance()`, not earlier.
+Note that all these flags are only validated when calling `$attribute-><hljs prop>newInstance</hljs>()`, not earlier.
 
 
 ## Built-in attributes
