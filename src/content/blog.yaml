@@ -223,7 +223,7 @@ attributes-in-php-8:
     meta:
         description: "A close look at attributes, also known as annotations; in PHP 8"
     footnotes:
-        - { link: "https://externals.io/message/110640#110810", title: "@@ was voted to be the final syntax" }
+        - { link: "https://wiki.php.net/rfc/shorter_attribute_syntax_change#voting", title: "#[] was voted to be the final syntax" }
         - { link: "https://wiki.php.net/rfc/attribute_amendments", title: "Amendments to the original RFC" }
         - { link: "/blog/new-in-php-8", title: "New in PHP 8", description: " — A comprehensive list of all things new in PHP 8" }
         - { link: "/blog/php-jit", title: "The JIT in PHP 8", description: " — A close look at the JIT, and what it means for PHP" }

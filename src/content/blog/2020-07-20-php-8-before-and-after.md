@@ -58,27 +58,27 @@ class CartsProjector implements Projector
 {
     use ProjectsEvents;
 
-    @@<hljs type>SubscribesTo</hljs>(<hljs type>CartStartedEvent</hljs>::class)
+    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartStartedEvent</hljs><hljs keyword>::class</hljs>)]
     public function onCartStarted(<hljs type>CartStartedEvent</hljs> $event): void
     { /* … */ }
 
-    @@<hljs type>SubscribesTo</hljs>(<hljs type>CartItemAddedEvent</hljs>::class)
+    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartItemAddedEvent</hljs><hljs keyword>::class</hljs>)]
     public function onCartItemAdded(<hljs type>CartItemAddedEvent</hljs> $event): void
     { /* … */ }
 
-    @@<hljs type>SubscribesTo</hljs>(<hljs type>CartItemRemovedEvent</hljs>::class)
+    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartItemRemovedEvent</hljs><hljs keyword>::class</hljs>)]
     public function onCartItemRemoved(<hljs type>CartItemRemovedEvent</hljs> $event): void
     { /* … */ }
 
-    @@<hljs type>SubscribesTo</hljs>(<hljs type>CartCheckedOutEvent</hljs>::class)
+    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartCheckedOutEvent</hljs><hljs keyword>::class</hljs>)]
     public function onCartCheckedOut(<hljs type>CartCheckedOutEvent</hljs> $event): void
     { /* … */ }
 
-    @@<hljs type>SubscribesTo</hljs>(<hljs type>CartExpiredEvent</hljs>::class)
+    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartExpiredEvent</hljs><hljs keyword>::class</hljs>)]
     public function onCartExpired(<hljs type>CartExpiredEvent</hljs> $event): void
     { /* … */ }
 
-    @@<hljs type>SubscribesTo</hljs>(<hljs type>CouponAddedToCartItemEvent</hljs>::class)
+    #[<hljs type>SubscribesTo</hljs>(<hljs type>CouponAddedToCartItemEvent</hljs><hljs keyword>::class</hljs>)]
     public function onCouponAddedToCartItem(<hljs type>CouponAddedToCartItemEvent</hljs> $event): void
     { /* … */ }
 }

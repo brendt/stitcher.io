@@ -212,7 +212,7 @@ In this case, `$args` in `<hljs type>CustomerData</hljs>::<hljs prop>new</hljs>`
 ```php
 class ProductSubscriber
 {
-    @@<hljs type>ListensTo</hljs>(<hljs prop>event</hljs>: <hljs type>ProductCreated</hljs>::class)
+    #[<hljs type>ListensTo</hljs>(<hljs prop>event</hljs>: <hljs type>ProductCreated</hljs><hljs keyword>::class</hljs>)]
     public function onProductCreated(<hljs type>ProductCreated</hljs> $event) { /* … */ }
 }
 ```
