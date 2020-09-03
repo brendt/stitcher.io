@@ -216,7 +216,7 @@ type-system-in-php-survey-results:
         - { link: /blog/the-latest-php-version, title: "The latest PHP version" }
 
 attributes-in-php-8:
-    date: 2020-06-09
+    date: 2020-09-03
     title: "PHP 8: Attributes"
     content: src/content/blog/2020-05-13-attributes-in-php-8.md
     next: new-in-php-8
