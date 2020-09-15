@@ -50,6 +50,7 @@ The [RFC](*https://wiki.php.net/rfc/jit) lists the meaning of each number. Mind 
     <tr><td>2</td> <td>Profile on first request and compile hot functions on second request</td></tr>
     <tr><td>3</td> <td>Profile on the fly and compile hot functions</td></tr>
     <tr><td>4</td> <td>Compile functions with @jit tag in doc-comments</td></tr>
+    <tr><td>5</td> <td>Tracing JIT</td></tr>
 </table>
 
 #### R — register allocation
