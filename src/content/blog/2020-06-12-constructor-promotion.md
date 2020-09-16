@@ -210,7 +210,7 @@ Just like doc blocks, [attributes](/blog/attributes-in-php-8) are allowed on pro
 class MyClass
 {
     public function __construct(
-        <<<hljs type>MyAttribute</hljs>>>
+        <hljs comment>#[<hljs type>MyAttribute</hljs>]</hljs>
         <hljs keyword>public</hljs> <hljs prop>$a</hljs>,  
     ) {}
 }
@@ -221,11 +221,11 @@ Will be transpiled to:
 ```php
 class MyClass 
 {
-    <<<hljs type>MyAttribute</hljs>>>
+    #[<hljs type>MyAttribute</hljs>]
     public <hljs prop>$a</hljs>;
  
     public function __construct(
-        <<<hljs type>MyAttribute</hljs>>>
+        <hljs comment>#[<hljs type>MyAttribute</hljs>]</hljs>
         $a,
     ) {
         $this-><hljs prop>a</hljs> = $a;
