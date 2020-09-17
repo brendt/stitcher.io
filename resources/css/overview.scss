@@ -17,7 +17,7 @@ header {
     text-align: center;
 
     p {
-        @media(min-width:$width-container-mobile) {
+        @media(min-width: $width-container-mobile) {
             padding: 1rem;
         }
         font-size: 1.5rem;
@@ -31,7 +31,7 @@ header {
             padding-bottom: 0;
             font-size: 1.2em;
 
-            @media(max-width:$width-container-mobile) {
+            @media(max-width: $width-container-mobile) {
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
@@ -39,7 +39,7 @@ header {
     }
 
     h1 {
-        @media(min-width:$width-container-mobile) {
+        @media(min-width: $width-container-mobile) {
             padding: 1rem;
         }
 
@@ -53,84 +53,51 @@ header {
     }
 }
 
-h1 {
-    font-family: $font-title;
-
-    font-kerning: normal;
-    font-size: 2.5em;
-    line-height: 1.1em;
-    letter-spacing: 2px;
-    font-weight: 300;
-
-    max-width: 100%;
-    margin-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-bottom: .5em;
-    padding-right: 0;
-}
-
 nav.overview {
     max-width: 1000px;
     margin: 0 auto;
 }
 
-nav.overview > a {
-    --tag-color-background: $color-primary;
-    --tag-color-text: #fff;
+nav {
+    @include outOfBox;
 
-    width: 100%;
-    text-decoration: none;
-    //background-color: lighten($color-gray, 15);
-    padding: 0;
-    padding-bottom: 1.5em;
-    align-items: baseline;
-    margin: .5em .5em 3em;
-    border-left: 5px solid #000;
-
-    @media (max-width: $width-container) {
-        display: block;
-    }
-
-    > * +* {
-        margin-left: 1em;
-    }
-
-    > h1 {
-        font-size: 1.5em;
-    }
-
-    > p {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    > aside {
-        margin-left: 1.4rem;
-    }
-
-    @media (max-width: $width-mobile) {
-        padding: 2em 1.5em;
-        border: none;
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    @media (max-width: $width-container) {
-        margin-left: 1em;
-        margin-right: 1em;
-    }
-
-    &.highlight {
-        background-color: $color-primary-pastel;
-    }
-
-    &.highlight:hover,
-    &:hover {
-        box-shadow: inset 0 0 0 10px var(--tag-color-background);
-    }
-
+    font-size: 1.1em;
 }
+
+nav > a {
+    display: block;
+    font-size: 1.1em;
+    font-family: $font-body;
+    margin: .3em;
+    padding: 1em;
+    text-decoration: none;
+
+    > * + * {
+        margin-left: .3em;
+    }
+
+    .post-title {
+        background-color: #000;
+        color: #fff;
+        padding: .5em;
+        font-weight: bold;
+    }
+
+    &:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    @media(max-width: $width-container-mobile) {
+        text-align: center;
+
+        .post-title {
+            display: block;
+            margin-top: 1em;
+        }
+    }
+}
+
 
 .post-tag {
     position: absolute;

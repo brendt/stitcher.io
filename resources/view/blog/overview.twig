@@ -12,53 +12,32 @@
         {% include '_partials/ad_scout.twig' %}
     {% endif %}
 
-    <header>
+    <article class="blog">
         {% include '_partials/header_links.twig' %}
 
         <h1>
             <span>
-                stitcher.io
-            </span>
-
-            <span>
-                {{ overviewTitle ? overviewTitle : '' }}
+                stitcher.io {{ overviewTitle ? overviewTitle : '' }}
             </span>
         </h1>
-    </header>
+    </article>
 
-    <div class="">
-        <nav class="overview">
+    <div class="wrapper">
+        <nav>
             {% for post in posts %}
                 {% if post.hidden is not defined or post.hidden == false %}
                     <a href="{{ detailUrl ?? '/blog' }}/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
-                        {% if post.title is defined %}
-                            <h1>
-                                <span>
-                                    {{ post.title }}
-                                </span>
-                            </h1>
-                        {% endif %}
-
-                        {% if post.tag.name is defined %}
-                            <span class="post-tag">
-                                {{ post.tag.name }}
+                        {% if post.date is defined %}
+                            <span>
+                                {{ post.date|date("Y-m-d") }}
                             </span>
                         {% endif %}
 
-                            {% if post.meta.description is defined and post.meta.description %}
-                                <p>
-                                    {{ post.meta.description }}
-                                </p>
-                            {% endif %}
-
-                            {% if post.date is defined %}
-                                <aside>
-                                    {% if post.author is defined %}
-                                        Written by {{ post.author.name }} on
-                                    {% endif %}
-                                    {{ post.date|date("F d, Y") }}
-                                </aside>
-                            {% endif %}
+                        {% if post.title is defined %}
+                            <span class="post-title">
+                                {{ post.title }}
+                            </span>
+                        {% endif %}
                     </a>
                 {% endif %}
             {% endfor %}
