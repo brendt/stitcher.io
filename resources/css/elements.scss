@@ -41,6 +41,7 @@ h1 > span {
     background-color: $color-primary;
     padding: .5rem;
     color: #fff;
+    line-height: 1.6em;
 }
 
 
@@ -53,8 +54,13 @@ h1 {
         font-size: 2.5em;
     }
 
+    @media (max-width: $width-container-mobile-lrg) {
+        text-align: center;
+    }
+
     @media (max-width: $width-container-mobile) {
         font-size: 2.2em;
+        line-height: 2em;
     }
 
     line-height: 1.2em;
@@ -408,8 +414,11 @@ td {
 }
 
 form {
-    display: flex;
-    align-items: baseline;
+    @media(min-width: $width-container-mobile-lrg) {
+        display: flex;
+        align-items: baseline;
+    }
+
     font-family: $font-body;
 }
 

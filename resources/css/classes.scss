@@ -226,17 +226,15 @@ div.center > p {
     font-family: $font-title;
     font-size: .9rem;
     padding: .6em 0;
-    background-color: #000;
-    font-weight: bold;
+    background-color: $color-primary-pastel;
 
     p {
         font-size: 1em;
-        color: #fff;
+        color: #000;
         margin-bottom: 0;
 
-
         a {
-            color: #fff;
+            color: #000;
             text-decoration: underline;
 
             &:hover{

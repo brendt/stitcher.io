@@ -10,7 +10,7 @@ $color-orange-dark: #742100;
 $color-primary-pastel: #fcf4f5;
 $color-gray: #D3D3D3;
 $color-php: #8892bf;
-$color-primary: #000;
+$color-primary: #fe2977;
 $color-secondary: #000;
 $color-body: #333;
 $color-primary-light: #FCF4F5;
@@ -46,8 +46,8 @@ $font-code: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
     padding-right: $padding-right;
 
     @media (max-width: $width-base) {
-        padding-right: 20px;
-        padding-left: 20px
+        padding-right: 10px;
+        padding-left: 10px
     }
 }
 

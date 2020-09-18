@@ -8,49 +8,19 @@ nav.overview {
     margin-top: 1em;
 }
 
-header {
-    color: #000;
-    border: none;
-    display: block;
-    max-width: 1000px;
-    margin: 2em auto 3em;
-    text-align: center;
+.links {
+    font-family: $font-body;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 1.2em;
 
-    p {
-        @media(min-width: $width-container-mobile) {
-            padding: 1rem;
-        }
-        font-size: 1.5rem;
-        margin-bottom: 0;
-
-        &.links {
-            font-family: $font-body;
-            margin-top: 0;
-            margin-bottom: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            font-size: 1.2em;
-
-            @media(max-width: $width-container-mobile) {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-        }
+    @media(max-width: $width-container-mobile) {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
-    h1 {
-        @media(min-width: $width-container-mobile) {
-            padding: 1rem;
-        }
-
-        @include outOfBox;
-
-        font-weight: 600;
-        color: $color-primary;
-        font-size: 2em;
-        line-height: 2em;
-        margin-top: .7em;
-    }
+    margin-top: 1em;
 }
 
 nav.overview {
@@ -77,23 +47,24 @@ nav > a {
     }
 
     .post-title {
-        background-color: #000;
+        background-color: $color-primary;
         color: #fff;
         padding: .5em;
         font-weight: bold;
     }
 
     &:hover {
-        background-color: #000;
-        color: #fff;
+        background-color: $color-primary-pastel;
+        color: #000;
+        box-shadow: inset 0 0 0 4px $color-primary;
     }
 
-    @media(max-width: $width-container-mobile) {
+    @media(max-width: $width-container-mobile-lrg) {
         text-align: center;
 
         .post-title {
             display: block;
-            margin-top: 1em;
+            margin-top: .33em;
         }
     }
 }
