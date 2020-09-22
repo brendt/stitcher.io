@@ -45,3 +45,30 @@ aside {
 article p em {
     font-style: italic;
 }
+
+
+.sidenote {
+    @include outOfBox();
+    font-size: .9em;
+    padding:2rem 1rem .1rem 2rem;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+
+    color: #000;
+    background-color: $color-primary-pastel;
+
+    > h2 {
+        color: #000;
+        margin: 0 0 1rem;
+    }
+
+    > p {
+        color: #000;
+        font-weight: bolder;
+    }
+}
+
+.sidenote pre {
+    max-width: calc(100% - 1em);
+    margin-left: 0;
+}
