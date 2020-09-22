@@ -226,11 +226,21 @@ div.center > p {
     font-family: $font-title;
     font-size: .9rem;
     padding: .6em 0;
-    background-color: $color-primary-light;
+    background-color: $color-primary-pastel;
 
     p {
         font-size: 1em;
+        color: #000;
         margin-bottom: 0;
+
+        a {
+            color: #000;
+            text-decoration: underline;
+
+            &:hover{
+                text-decoration: none;
+            }
+        }
     }
 
     &.patreon-light {

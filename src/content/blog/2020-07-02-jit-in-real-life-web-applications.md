@@ -4,11 +4,9 @@ For those interested in [the JIT in PHP 8](/blog/php-jit), I did some benchmarks
 
 ## Setup
 
-These benchmarks are run on my local machine. As so, they don't say anything about absolute performance gains, we're only able to make conclusions what kind of relative impact the JIT has on our code.
+Let's set the scene first. These benchmarks were run on my local machine. As so, they don't say anything about absolute performance gains, I'm only interested in making conclusions about the relative impact the JIT has on real-life code.
 
-I'll be using one of [my hobby projects](*https://github.com/brendt/aggregate.stitcher.io), written in Laravel. Since these benchmarks were run on the first alpha version of PHP 8, I had to manually fix some deprecation warnings in Laravel's source code, all locally.
-
-Finally: I'll be running PHP FPM, configured to spawn 20 child processes, and I'll always make sure to only run 20 concurrent requests at once, just to eliminate any extra performance hits on the FPM level. Sending these requests is done using the following command, with ApacheBench:
+I'll be running PHP FPM, configured to spawn 20 child processes, and I'll always make sure to only run 20 concurrent requests at once, just to eliminate any extra performance hits on the FPM level. Sending these requests is done using the following command, with ApacheBench:
 
 ```
 ab -n 100 -c 20 -l http://aggregate.stitcher.io.test:8081/discover
@@ -16,71 +14,80 @@ ab -n 100 -c 20 -l http://aggregate.stitcher.io.test:8081/discover
 
 ## JIT Setup
 
-The JIT setup requires a section on its own. Honestly, this is one of the most confusing ways of configuring a PHP extension I've ever seen, and I'm afraid the syntax is here to stay, since we're too close to [PHP 8's feature freeze](/blog/the-latest-php-version) for another RFC to make changes to it. 
-
-So here goes:
-
-The JIT is enabled by specifying `opcache.jit_buffer_size` in `php.ini`. If this directive is excluded, the default value is set to 0, and the JIT won't run.
-
-Next, there are several JIT control options, they are all stored in a single directive called `opcache.jit` and could, for example, look like this:
+With the project in place, let's configure the JIT itself. The JIT is enabled by specifying the `<hljs prop>opcache.jit_buffer_size</hljs>` option in `php.ini`. If this directive is excluded, the default value is set to 0, and the JIT won't run.
 
 ```ini
-opcache.jit_buffer_size=100M
-opcache.jit=1235
+<hljs prop>opcache.jit_buffer_size</hljs>=100M
 ```
 
-The [RFC](*https://wiki.php.net/rfc/jit) lists the meaning of each number. Mind you: this is not a bit mask, each number simply represents another configuration option. The RFC lists the following options:
+You'll also want to set a JIT mode, which will determine how the JIT will monitor and react to hot parts of your code. You'll need to use the `<hljs prop>opcache.jit</hljs>` option. Its default is set to `tracing`, but you can override it using `function`:
 
-#### O — Optimization level
+```ini
+<hljs prop>opcache.jit</hljs>=function
+; opcache.jit=tracing
+```
 
-<table>
-    <tr><td>0</td> <td>don't JIT</td></tr>
-    <tr><td>1</td> <td>minimal JIT (call standard VM handlers)</td></tr>
-    <tr><td>2</td> <td>selective VM handler inlining</td></tr>
-    <tr><td>3</td> <td>optimized JIT based on static type inference of individual function</td></tr>
-    <tr><td>4</td> <td>optimized JIT based on static type inference and call tree</td></tr>
-    <tr><td>5</td> <td>optimized JIT based on static type inference and inner procedure analyses</td></tr>
-</table>
-
-#### T — JIT trigger
-
-<table>
-    <tr><td>0</td> <td>JIT all functions on first script load</td></tr>
-    <tr><td>1</td> <td>JIT function on first execution</td></tr>
-    <tr><td>2</td> <td>Profile on first request and compile hot functions on second request</td></tr>
-    <tr><td>3</td> <td>Profile on the fly and compile hot functions</td></tr>
-    <tr><td>4</td> <td>Compile functions with @jit tag in doc-comments</td></tr>
-    <tr><td>5</td> <td>Tracing JIT</td></tr>
-</table>
-
-#### R — register allocation
-
-<table>
-    <tr><td>0</td> <td>don't perform register allocation</td></tr>
-    <tr><td>1</td> <td>use local liner-scan register allocator</td></tr>
-    <tr><td>2</td> <td>use global liner-scan register allocator</td></tr>
-</table>
-
-#### C — CPU specific optimization flags
-
-<table>
-    <tr><td>0</td> <td>none</td></tr>
-    <tr><td>1</td> <td>enable AVX instruction generation</td></tr>
-</table>
-
-One small gotcha: the RFC lists these options in reverse order, so the first digit represents the `C` value, the second the `R`, and so on.
-
-Anyways, the RFC proposes `1235` as the best default, it will do maximum jitting, profile on the fly, use a global liner-scan register allocator — whatever that might be — and enables AVX instruction generation. 
-
-In my benchmarks, I'll use several variations of JIT configuration, in order to compare the differences.
-
+In our real-life benchmarks, I'll compare both modes with each other.
 So let's start benchmarking!
 
 ## Establishing a baseline
 
-First it's best to establish whether the JIT is working properly or not. We know from the RFC that it does have a significant impact on calculating a Mandelbrot — something most of us probably don't do in our web apps. 
+First it's best to establish whether the JIT is working properly or not. We know from the RFC that it does have a significant impact on calculating a fractal. So let's start with that example. I copied the mandelbrot example from the RFC, and accessed it via the same HTTP application I'll run the next benchmarks on:
 
-So let's start with that example. I copied some mandelbrot code and accessed it via the same HTTP application I'll run the next benchmarks on. These are the results:
+```php
+public function index()
+{
+    for ($y = -39; $y < 39; $y++) {
+        <hljs prop>printf</hljs>("\n");
+
+        for ($x = -39; $x < 39; $x++) {
+            $i = $this-><hljs prop>mandelbrot</hljs>(
+                $x / 40.0,
+                $y / 40.0
+            );
+
+            if ($i == 0) {
+                <hljs prop>printf</hljs>("*");
+            } else {
+                <hljs prop>printf</hljs>(" ");
+            }
+        }
+    }
+
+    <hljs prop>printf</hljs>("\n");
+}
+
+private function mandelbrot($x, $y)
+{
+    $cr = $y - 0.5;
+    $ci = $x;
+    $zi = 0.0;
+    $zr = 0.0;
+    $i = 0;
+
+    while (1) {
+        $i++;
+        
+        $temp = $zr * $zi;
+        
+        $zr2 = $zr * $zr;
+        $zi2 = $zi * $zi;
+        
+        $zr = $zr2 - $zi2 + $cr;
+        $zi = $temp + $temp + $ci;
+
+        if ($zi2 + $zr2 > 16) {
+            return $i;
+        }
+
+        if ($i > 5000) {
+            return 0;
+        }
+    }
+}
+```
+
+After running `ab` for a few hundred requests, we can see the results:
 
 <table>
 <tr class="table-head">
@@ -89,17 +96,35 @@ So let's start with that example. I copied some mandelbrot code and accessed it 
 </tr>
 <tr>
     <td>Mandelbrot without JIT</td>
-    <td class="right">15.24</td>
+    <td class="right">3.60</td>
 </tr>
 <tr>
-    <td>Mandelbrot with JIT</td>
-    <td class="right">38.99</td>
+    <td>Mandelbrot with tracing JIT</td>
+    <td class="right">41.36</td>
 </tr>
-</table> 
+</table>
 
-Great, it looks like the JIT is working! That's more than a two time performance increase. Let's more on to our first real-life comparison. We're going to start slow: the JIT configured with `1231`, and 100 MB of buffer size.
+Great, it looks like the JIT is working! That's even a ten times performance increase! Having verified it works as expected, let's move on to our first real-life comparison. We're going to compare no JIT with the function and tracing JIT; using 100MB of memory. The page we're going to benchmark shows an overview of posts, so there's some recursion happening. We're also touching several core parts of Laravel as well: routing, the dependency container, as well as the ORM layer. 
 
-The page we're benchmarking shows an overview of posts, so there's some recursion happening, and were touching several core parts of the Laravel as well: routing, DI, ORM, authentication. 
+<div class="sidenote">
+<h2>Side note:</h2>
+
+If you want to verify whether the JIT is running, you can use `<hljs prop>opcache_get_status</hljs>()`, it has a `jit` entry which lists all relevant information:
+
+```php
+dd(<hljs prop>opcache_get_status</hljs>()['jit']);
+
+// array:7 [▼
+//   "enabled" => true
+//   "on" => true
+//   "kind" => 5
+//   "opt_level" => 4
+//   "opt_flags" => 6
+//   "buffer_size" => 104857584
+//   "buffer_free" => 104478688
+// ]
+```
+</div>
 
 <table>
 <tr class="table-head">
@@ -108,19 +133,19 @@ The page we're benchmarking shows an overview of posts, so there's some recursio
 </tr>
 <tr>
     <td>No JIT</td>
-    <td class="right">6.48</td>
+    <td class="right">63.56</td>
 </tr>
 <tr>
-    <td>JIT enabled (<code>1231</code>, 100M buffer)</td>
-    <td class="right">6.33</td>
+    <td>Function JIT</td>
+    <td class="right">66.32</td>
+</tr>
+<tr>
+    <td>tracing JIT</td>
+    <td class="right">69.45</td>
 </tr>
 </table>
 
-Hm. A decrease in performance enabling the JIT? Sure that's possible! What the [JIT does](/blog/php-jit) is look at the code when its executing, discover "hot" parts of the code, and optimise those for the next run as machine code.
-
-With the current configuration, analysing the code will happen on the fly, on every request. If there's little or no code to optimise, it's natural that there will be a performance price to pay.
-
-So let's test a different setup, the one the RFC proposes as the most optimal one: `1235`
+Here we see the results: enabling the JIT only has a slight improvement. In fact, running the benchmarks over and over, the results differ slightly every time: I've even seen cases where a JIT enabled run performs worse than the non JIT'ed version. Before drawing final conclusions, let's bump the memory buffer limit. We'll give the JIT a little more room to breath with 500MB of memory instead of 100MB.
 
 <table>
 <tr class="table-head">
@@ -129,67 +154,21 @@ So let's test a different setup, the one the RFC proposes as the most optimal on
 </tr>
 <tr>
     <td>No JIT</td>
-    <td class="right">6.48</td>
+    <td class="right">71.69</td>
 </tr>
 <tr>
-    <td>JIT enabled (<code>1235</code>, 100M buffer)</td>
-    <td class="right">6.75</td>
+    <td>Function JIT</td>
+    <td class="right">72.82</td>
+</tr>
+<tr>
+    <td>Tracing JIT</td>
+    <td class="right">70.11</td>
 </tr>
 </table>
 
-Here we see an increase, albeit a teeny-tiny one. Turns out there were some parts that could be optimised, and their performance gain outweighed the performance cost.
+As you can see: a case of the JIT performing worse. Like I said at the beginning of this post: I want to measure the relative the JIT has on real-life web projects. It's clear from these tests that sometimes there might be benefits, but it's in no way as noticeable as the fractal example we started out with. I admit I'm not really surprised by that. Like I wrote before: the're very little hot code to be optimised in real-life applications, we're only rarely doing fractal-like computations.
 
-There's two more things to test: what if we don't profile on every request, but instead only at the start, that's what the `T` option is for: _2 — Profile on first request and compile hot functions on second request_. 
-
-In other words, let's use `1225` as the JIT option.
-
-<table>
-<tr class="table-head">
-    <td></td>
-    <td class="right">requests/second (more is better)</td>
-</tr>
-<tr>
-    <td>No JIT</td>
-    <td class="right">6.48</td>
-</tr>
-<tr>
-    <td>JIT enabled (<code>1235</code>, 100M buffer)</td>
-    <td class="right">6.75</td>
-</tr>
-<tr>
-    <td>JIT enabled (<code>1225</code>, 100M buffer)</td>
-    <td class="right">6.78</td>
-</tr>
-</table>
-
-Once again a — small is an understatement — increase of performance!
-
-One thing I'm wondering though: if we're only profiling on the first request, there probably are some parts of the code that will be missed out on optimisations; that's something someone will probably need to do some more research on.
-
-So I suspect using `1225` in benchmarks has a positive impact because we're always requesting the same page, but in practice this probably will be a less optimal approach.
-
-Finally, let's bump the buffer limit. Let's give the JIT a little more room to breath with 500MB of memory:
-
-<table>
-<tr class="table-head">
-    <td></td>
-    <td class="right">requests/second (more is better)</td>
-</tr>
-<tr>
-    <td>No JIT</td>
-    <td class="right">6.48</td>
-</tr>
-<tr>
-    <td>JIT enabled (<code>1235</code>, 100M buffer)</td>
-    <td class="right">6.75</td>
-</tr>
-<tr>
-    <td>JIT enabled (<code>1235</code>, 500M buffer)</td>
-    <td class="right">6.52</td>
-</tr>
-</table>
-
-A slight decrease in performance. One I cannot explain to be honest. I'm sure someone smarter than me can provide us the answer though!
+So am I saying there's no need for the JIT? Not quite, I think the JIT can open up new areas for PHP: areas where complex computations do benefit from JIT'ed code. I'm thinking about machine learning, AI, stuff like that. The JIT _might_ give opportunities to the PHP community that didn't exist yet, but it's unclear to say anything with certainty at this point. 
 
 ---
 

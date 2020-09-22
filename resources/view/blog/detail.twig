@@ -30,7 +30,7 @@
 
         {% if post.disableTitle is not defined %}
             <h1 class="{% if post.smallTitle is defined %}small-title{% endif %}">
-                {{ post.title }}
+                <span>{{ post.title }}</span>
             </h1>
         {% endif %}
 

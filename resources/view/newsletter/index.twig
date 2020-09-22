@@ -8,29 +8,26 @@
 {% endblock %}
 
 {% block content %}
-    <header>
-        <h1>
-            stitcher.io
-        </h1>
-
-        {% include '_partials/header_links.twig' %}
-    </header>
 
     <article>
+        <h1>
+            <span>
+                stitcher.io newsletter
+            </span>
+        </h1>
+
         <p>Do you want to receive occasional mails about what's going on on this blog? Feel free to leave behind your email address!</p>
 
-        <nav class="overview">
-            <form action="https://mail.stitcher.io/subscribe/81fa83d0-4a0b-4eff-b897-f6ce51dfb7f0" method="post">
-                <div>
-                    <label for="email">Email</label>
-                    <input name="email" style="margin-left:.5em;"/>
-                </div>
+        <form action="https://mail.stitcher.io/subscribe/81fa83d0-4a0b-4eff-b897-f6ce51dfb7f0" method="post">
+            <div>
+                <label for="email">Email</label>
+                <input name="email" style="margin-left:.5em;"/>
+            </div>
 
-                <div style="margin-left:1em;">
-                    <button type="submit" class="cta cta-small">Subscribe</button>
-                </div>
-            </form>
-        </nav>
+            <div style="margin-left:1em;">
+                <button type="submit" class="cta cta-small">Subscribe</button>
+            </div>
+        </form>
 
         <p><br>You'll receive a confirmation mail shortly after.</p>
     </article>
