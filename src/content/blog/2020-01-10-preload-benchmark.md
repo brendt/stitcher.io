@@ -11,53 +11,59 @@ Let's set the stage.
 
 {{ ad:carbon }}
 
-## Setup
+## Preloading Setup
 
 Since I don't want to measure how much exactly will be gained by using preloading or not, I decided to run these benchmarks on my local machine, using Apache Bench. I'll be sending 5000 requests, with 50 concurrent requests at a time.
+ The webserver is nginx, using php-fpm. Because there were some bugs in early versions of preloading, we're only able to successfully run our benchmarks as early as PHP 7.4.2.
 
- The webserver is nginx, using php-fpm. Because there are [some bugs](*https://bugs.php.net/bug.php?id=78918) in early versions of preloading, we're only able to successfully run our benchmarks as early as PHP 7.4.2, which is not released yet. I've used a dev build for all my testing. 
-
-The project itself is built in Laravel, and its code (including the preload script) can be found [on GitHub](*https://github.com/brendt/aggregate.stitcher.io).
-
-Finally, I'll be benchmarking three scenarios: one with preloading disabled, one with all Laravel and application code preloaded, and one with an optimised list of preloaded classes. I'll explain these scenarios one by one.
+I'll be benchmarking three scenarios: one with preloading disabled, one with all Laravel and application code preloaded, and one with an optimised list of preloaded classes. The reasoning for that latter one is that preloading also comes with a memory overhead, if we're only preloading "hot" classes — classes that are used very often — we might be able to find a sweet spot between performance gain and memory usage.
 
 ## Preloading disabled
 
-This is our baseline scenario, we start php-fpm and run our benchmarks:
+We start php-fpm and run our benchmarks:
 
 ```
 ./php-7_4_2/sbin/php-fpm --nodaemonize
 
-ab -n 5000 -c 50 -l http://aggregate.stitcher.io.test:8080/
+ab -n 5000 -c 50 -l http://aggregate.stitcher.io.test:8080/discover
 ```
 
-Here are the results:
-
-```
-Requests per second:    64.79 [#/sec] (mean)
-Time per request:       771.667 [ms] (mean)
-```
+These were the results: we're able to process `64.79` requests per second, with an average time of `771ms` per request.
+This is our baseline scenario, we can compare the next results to this one.
 
 ## Naive preloading
 
 Next we'll preload all Laravel and application code. This is the naive approach, because we're never using all Laravel classes in a request. Because we're preloading many more files than strictly needed, we'll have to pay a penalty for it. In this case 1165 classes and their dependencies were preloaded, resulting in a total of 1366 functions and 1256 classes to be preloaded.
 
-If you're wondering how we can measure the exact amount of files that were preloaded: we can read that info from `opcache_get_status`:
+Like I mentioned before,you can read that info from `<hljs prop>opcache_get_status</hljs>`:
 
 ```php
 <hljs prop>opcache_get_status</hljs>()['preload_statistics'];
 ```
 
-Another metric we get from `opcache_get_status` is the memory used for preloaded scripts. In this case it's around 17.43 MB.
-
+Another metric we get from `<hljs prop>opcache_get_status</hljs>` is the memory used for preloaded scripts. In this case it's 17.43 MB.
 Even though we're preloading more code than we actually need, naive preloading already has a positive impact on performance.
 
-```
-Requests per second:    79.69 [#/sec] (mean)
-Time per request:       627.440 [ms] (mean)
-```
 
-That's around 20% performance gain compared to not using preloading at all. 
+<table>
+<tr class="table-head">
+    <td></td>
+    <td class="right">requests/second</td>
+    <td class="right">time per request</td>
+</tr>
+<tr>
+    <td>No preloading</td>
+    <td class="right">64.79</td>
+    <td class="right">771ms</td>
+</tr>
+<tr>
+    <td>Naive preloading</td>
+    <td class="right">79.69</td>
+    <td class="right">627ms</td>
+</tr>
+</table>
+
+You can already see a performance gain: we're able to manage more requests per second, and the average amount of time to process one request has dropped with ±20%.
 
 ## Optimised
 
@@ -71,31 +77,31 @@ Next, I only preloaded these classes, 427 in total. Together with all their depe
 
 These are the benchmark results for this setup:
 
-```
-Requests per second:    86.12 [#/sec] (mean)
-Time per request:       580.558 [ms] (mean)
-```
+<table>
+<tr class="table-head">
+    <td></td>
+    <td class="right">requests/second</td>
+    <td class="right">time per request</td>
+</tr>
+<tr>
+    <td>No preloading</td>
+    <td class="right">64.79</td>
+    <td class="right">771ms</td>
+</tr>
+<tr>
+    <td>Naive preloading</td>
+    <td class="right">79.69</td>
+    <td class="right">627ms</td>
+</tr>
+<tr>
+    <td>Optimised preloading</td>
+    <td class="right">86.12</td>
+    <td class="right">580ms</td>
+</tr>
+</table>
 
-That's around a 25% performance gain compared to not using preloading, and an 8% gain compared to using the naive approach.
+That's around a 25% performance gain compared to not using preloading, and an 8% gain compared to using the naive approach. There's a flaw with this setup though, since I generated an optimised preloading list for one specific page. In practice you would probably need to preload more code, if you want all your pages covered.
 
-There's a flaw with this setup though, since I generated an optimised preloading list for one specific page. In practice you would probably need to preload more code, if you want all your pages covered.
-
-Another approach could be to monitor which classes are loaded how many times over the period of several hours on your production server, and compile a preload list based on those metrics. Unfortunately I'm not able to test this approach out yet, since I'm not using preloading in production yet.
-
-## In summary
-
-Who doesn't like a graph or two when it comes to benchmarks? Let's compare the amount of requests per second, more is better:
-
-### Requests per second
-
-![](/resources/img/blog/preload/requests_per_second.svg)
-
-And also let's compare the response time per request, in which case less is better.
-
-### Time per request
-
-![](/resources/img/blog/preload/time_per_request.svg)
-
-I think it's safe to say that preloading, even with a naive approach; will have a positive performance impact, also on real-life projects built upon a full-blown framework.
-
+Another approach could be to monitor which classes are loaded how many times over the period of several hours or days on your production server, and compile a preload list based on those metrics
+It's safe to say that preloading — even using the naive "preload everything" approach — has a positive performance impact, also on real-life projects built upon a full-blown framework.
 How much exactly there is to be gained will depend on your code, your server and the framework you're using. I'd say go try it out! 
