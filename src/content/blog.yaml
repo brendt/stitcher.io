@@ -1,3 +1,13 @@
+why-light-themes-are-better-according-to-science:
+    date: 2020-09-26
+    title: Light colour schemes are better, based on science
+    content: src/content/blog/2020-09-26-why-light-themes-are-better-according-to-science.md
+    footnotes:
+        - { title: "The Pulfrich effect explained", link: "https://www.youtube.com/watch?v=Q-v4LsbFc5c" }
+        - { title: "The Pulfrich effect on Wikipedia", link: "https://en.wikipedia.org/wiki/Pulfrich_effect" }
+        - { title: "Astigmatism on Wikipedia", link: "https://en.wikipedia.org/wiki/Astigmatism" }
+        - { title: "The Dark Side of Dark Mode", link: "https://tidbits.com/2019/05/31/the-dark-side-of-dark-mode/" }
+
 the-case-for-transpiled-generics:
     date: 2020-09-17
     title: The case for transpiled generics in PHP
