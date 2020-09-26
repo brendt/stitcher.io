@@ -1036,8 +1036,8 @@ visual-perception-of-code:
             Are there things you can do to make it easier?
 
 phpstorm-scopes:
-    date: 2018-06-07
-    title: Scopes in PHPStorm
+    date: 2020-09-26
+    title: Scopes in JetBrains IDEs
     content: src/content/blog/2018-06-07-phpstorm-scopes.md
     next: what-php-can-be
     meta:
