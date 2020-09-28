@@ -1,4 +1,4 @@
-As I programmer I think I should always critically look at my own toolset and try to optimise it, regardless of my own subjective preference. It's by doing so that I've come to the conclusion that light colour schemes are better than dark ones, and today I want to share those thoughts with you. 
+As a programmer I think I should always critically look at my own toolset and try to optimise it, regardless of my own subjective preference. It's by doing so that I've come to the conclusion that light colour schemes are better than dark ones, and today I want to share those thoughts with you. 
  
  Before looking at theory, grab a pair of sunglasses if you have any laying around. With both eyes open, cover only _one_ eye with one of the sunglass glasses. Make it so you're looking through your sunglasses with one eye, and use the other one like you're used to. 
 
