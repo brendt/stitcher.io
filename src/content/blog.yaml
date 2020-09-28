@@ -2,6 +2,9 @@ why-light-themes-are-better-according-to-science:
     date: 2020-09-26
     title: Which colour scheme is better?
     content: src/content/blog/2020-09-26-why-light-themes-are-better-according-to-science.md
+    next: a-programmers-cognitive-load
+    meta:
+        description: There are several arguments to be made for light colour schemes.
     footnotes:
         - { title: "The Pulfrich effect explained", link: "https://www.youtube.com/watch?v=Q-v4LsbFc5c" }
         - { title: "The Pulfrich effect on Wikipedia", link: "https://en.wikipedia.org/wiki/Pulfrich_effect" }
