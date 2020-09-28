@@ -1,4 +1,6 @@
-Light colour schemes are the better choice when programming, and today I'll prove you why. But before looking at theory, grab a pair of sunglasses if you have any laying around. With both eyes open, cover only _one_ eye with one of the sunglass glasses. Make it so you're looking through your sunglasses with one eye, and use the other one like you're used to. 
+As I programmer I think I should always critically look at my own toolset, to try and optimise it, regardless of my own subjective preference. It's by doing so that I've come to the conclusion that light colour schemes are better than dark ones, and today I want to share those thoughts with you. 
+ 
+ Before looking at theory, grab a pair of sunglasses if you have any laying around. With both eyes open, cover only _one_ eye with one of the sunglass glasses. Make it so you're looking through your sunglasses with one eye, and use the other one like you're used to. 
 
 With that setup in place, have fun watching this video in 3D!
 
@@ -26,9 +28,9 @@ By only covering one eye with sunglasses, you add a few milliseconds of delay to
 
 {{ ad:carbon }}
 
-Now on to programming. Using a dark colour scheme to write code requires _more_ eye processing power than using a light colour scheme.
+Now on to programming. If you're using a dark colour scheme, you're deliberately adding extra delay, so says the Pulfirch effect. 
 Sure the difference seems negligible, it's only a few milliseconds. Actually, it's a few milliseconds _every_ time you "rescan" your screen; that's between 10 or 50 times a second, depending on what research you want to believe.
-Still you probably won't notice any real-time difference, but more processing power does mean you add more load to your brain, meaning that a dark colour scheme actually _is_ more exhausting.
+Still you probably won't notice any real-time difference, but over time this adds up, and the extra effort needed by your eyes can become to feel exhausting.
 
 Besides the Pulfrich effect, there are other reasons that make light colour schemes superior. First of there's what human eyes are used to, what they are built for. Most of us are awake during the day and asleep at night. The human eye is better adapted to interpreting light scenes with dark points of focus, instead of the other way around.
 
