@@ -43,7 +43,7 @@ Lastly, there have been extensive studies about the readability of computer scre
 
 ## Readability !== Brightness
 
-Many times I share these arguments with someone who clings to the dark side, they tell me light colour schemes hurt their eyes because they are too bright; you might be thinking the same right now. I've got two answers for you.
+Often when I share these arguments with someone who clings to the dark side, they tell me light colour schemes hurt their eyes because they are too bright; you might be thinking the same right now. I've got two answers for you.
 
 First: you don't need to use a white `#fff` background with black `#000` text. There's lots of light colour schemes that don't go to the extreme ends. The important thing is that there's enough contrast between fore- and background, and that the background is lighter than the foreground.
 Second: you can always adjust the brightness of your screen. You don't need to turn it up to a 100%! You'd only do that if the text is otherwise unreadable, and guess when that happens? If you'd use a dark scheme!
