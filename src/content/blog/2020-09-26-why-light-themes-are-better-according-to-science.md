@@ -28,7 +28,7 @@ By only covering one eye with sunglasses, you add a few milliseconds of delay to
 
 Now on to programming. Using a dark colour scheme to write code requires _more_ eye processing power than using a light colour scheme.
 Sure the difference seems negligible, it's only a few milliseconds. Actually, it's a few milliseconds _every_ time you "rescan" your screen; that's between 10 or 50 times a second, depending on what research you want to believe.
-Still you probably won't notice any real-time difference, but more processing power does mean you add more load to your brain, meaning that a dark colour scheme actually _is_ more exhaustive.
+Still you probably won't notice any real-time difference, but more processing power does mean you add more load to your brain, meaning that a dark colour scheme actually _is_ more exhausting.
 
 Besides the Pulfrich effect, there are other reasons that make light colour schemes superior. First of there's what human eyes are used to, what they are built for. Most of us are awake during the day and asleep at night. The human eye is better adapted to interpreting light scenes with dark points of focus, instead of the other way around.
 
