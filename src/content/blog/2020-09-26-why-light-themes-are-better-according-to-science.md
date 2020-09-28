@@ -40,9 +40,6 @@ As a sidenote: if you often experience headaches after a day of programming, you
 
 Lastly, there have been extensive studies about the readability of computer screens, one example is a study by Etienne Grandjean, called "Ergonomic Aspects of Visual Display Terminals". You can't read it online; if you manage to find it in a library you should check out pages 137-142. Its conclusion, like several other studies is that it's indeed easier to read dark text on a light background, then the other way around.
 
-
-## Readability !== Brightness
-
 Often when I share these arguments with someone who clings to the dark side, they tell me light colour schemes hurt their eyes because they are too bright; you might be thinking the same right now. I've got two answers for you.
 
 First: you don't need to use a white `#fff` background with black `#000` text. There's lots of light colour schemes that don't go to the extreme ends. The important thing is that there's enough contrast between fore- and background, and that the background is lighter than the foreground.
