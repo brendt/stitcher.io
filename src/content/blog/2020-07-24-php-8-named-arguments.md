@@ -171,6 +171,10 @@ $data = new <hljs type>CustomerData</hljs>(...$input);
 
 ---
 
+{{ ad:front-line }}
+
+---
+
 If you're using variadic functions, named arguments will be passed with their key name into the variadic arguments array. Take the following example:
 
 ```php

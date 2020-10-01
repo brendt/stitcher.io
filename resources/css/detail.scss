@@ -58,17 +58,33 @@ article p em {
     background-color: $color-primary-pastel;
 
     > h2 {
-        color: #000;
+        color: inherit;
         margin: 0 0 1rem;
     }
 
     > p {
-        color: #000;
+        color: inherit;
         font-weight: bolder;
+    }
+
+    a {
+        color: inherit;
+        text-decoration-color: inherit;
     }
 }
 
 .sidenote pre {
     max-width: calc(100% - 1em);
     margin-left: 0;
+}
+
+.sidenote.frontline {
+    background-color: #0756b0;
+    background-image: linear-gradient(to right, #0756b0 0%, #4530a8 80%);
+    color: #fff;
+    text-decoration-color: #fff;
+
+    a {
+        font-weight: bold;
+    }
 }

@@ -48,7 +48,7 @@ class ListensTo
 
 That's it — pretty simple right? Keep in mind the goal of attributes: they are meant to add meta data to classes and methods, nothing more. They shouldn't — and can't — be used for, for example, argument input validation. In other words: you wouldn't have access to the parameters passed to a method within its attributes. There was a previous RFC that allowed this behaviour, but this RFC specifically kept things more simple.
 
-
+{{ ad:front-line }}
 
 Back to the event subscriber example: we still need to read the meta data and register our subscribers based somewhere. Coming from a Laravel background, I'd use a service provider as the place to do this, but feel free to come up with other solutions.
 
@@ -284,6 +284,10 @@ Once the base RFC had been accepted, new opportunities arose to add built-in att
 I'm sure we'll see more and more built-in attributes in the future.
 
 As a final note, for those worrying about generics: the syntax won't conflict with them, if they ever were to be added in PHP, so we're safe!
+
+---
+
+{{ ad:front-line }}
 
 ---
 

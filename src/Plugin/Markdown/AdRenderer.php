@@ -15,10 +15,13 @@ class AdRenderer implements InlineRendererInterface
 
     private $carbon;
 
+    private $frontLine;
+
     public function __construct()
     {
         $this->google = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_google.twig');
         $this->carbon = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_carbon.twig');
+        $this->frontLine = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_front_line.twig');
     }
 
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer, $inTightList = false)
@@ -28,6 +31,10 @@ class AdRenderer implements InlineRendererInterface
         }
 
         $content = $inline->getContent();
+
+        if (strpos($content, '{{ ad:front-line }}') !== false) {
+            $content = str_replace('{{ ad:front-line }}', $this->frontLine, $content);
+        }
 
         if (strpos($content, '{{ ad:carbon }}') !== false) {
             return $this->renderCarbon($content);
