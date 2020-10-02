@@ -1,3 +1,10 @@
+what-a-good-pr-looks-like:
+    date: 2020-10-02
+    title: What a good PR looks like
+    content: src/content/blog/2020-10-02-good-pr.md
+    meta:
+        description: It's Hacktoberfest, be nice and don't spam
+
 why-light-themes-are-better-according-to-science:
     date: 2020-09-26
     title: Which colour scheme is better?
