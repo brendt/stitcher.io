@@ -1,3 +1,10 @@
+front-line-php:
+    date: 2020-10-05
+    title: Front Line PHP
+    meta:
+        description: The book on modern PHP and PHP 8
+    content: src/content/blog/2020-10-05-front-line-php.md
+
 what-a-good-pr-looks-like:
     date: 2020-10-02
     title: What a good PR looks like
