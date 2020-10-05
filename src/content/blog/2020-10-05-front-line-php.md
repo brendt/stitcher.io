@@ -6,6 +6,6 @@ So that's why I'm introducing the next chapter, or better said: a bundle of chap
 
 Like my [previous book](*https://laravel-beyond-crud.com/), I'm working together with [Spatie](*https://spatie.be/) — the company I work at — to ensure it'll be the greatest product possible. You can expect Front Line PHP to launch in December 2020, right around the time PHP 8 arrives. It'll be accompanied by a _free_ video series, teaching you all about PHP 8 in practice. 
 
-I'm really looking forward to sharing all of this with you, so make sure you [subscribe to the dedicated newsletter](*https://front-line-php.com/) to receive all relevant updates. If you want to know a little more, head over to the [Front Line PHP website](*https://front-line-php.com/), which will receive regular updates over the coming weeks. I hope you're as exited as I am. If you have any questions or remarks, you're of course free to reach out to me via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
+I'm really looking forward to sharing all of this with you, so make sure you [subscribe to the dedicated newsletter](*https://front-line-php.com/) to receive all relevant updates. If you want to know a little more, head over to the [Front Line PHP website](*https://front-line-php.com/), which will receive regular updates over the coming weeks. I hope you're as excited as I am. If you have any questions or remarks, you're of course free to reach out to me via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
 
 Thanks!
