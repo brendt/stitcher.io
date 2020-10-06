@@ -105,6 +105,8 @@ These features, by the way, are decided upon by a core committee who votes on RF
 
 It _is_ possible by the way, for the dates to shift a little bit still, this will depend on how testing goes early on. Speaking of testing: everyone is allowed to do so, it's even encouraged to try stuff out in your own projects, so that enough feedback can be provided to the core team on time.
 
+{{ ad:front-line }}
+
 ---
 
 I told you there was more to PHP's release cycle than just one active version 😁. My advice for modern-day projects would be this: always make sure to update at the latest a few months after GA. Don't lack behind 2 or 3 versions, or even worse: be stuck in PHP 5 land. 
