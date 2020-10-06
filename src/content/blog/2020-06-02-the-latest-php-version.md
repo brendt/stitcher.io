@@ -46,7 +46,7 @@ During the alpha phase, new features are still allowed to be added. But once in 
 
 These features, by the way, are decided upon by a core committee who votes on RFCs, which stands for _request for comments_. These RFCs describe a feature or a change to the language, and are discussed in depth. Everyone is allowed to make RFCs if they want to, but RFCs are of course critically looked at.
 
-PHP 8 is still in the RFC phase, so things are still changing, but not for long anymore! This is the timeline of alpha, beta, RCs and GA, it looks like this:
+## PHP 8 release schedule
 
 <table>
 <tr>
@@ -78,23 +78,23 @@ PHP 8 is still in the RFC phase, so things are still changing, but not for long 
     <td>September 3, 2020</td>
 </tr>
 <tr>
-    <td>Release candidate 1</td>
+    <td>Beta 4</td>
     <td>September 17, 2020</td>
 </tr>
 <tr>
-    <td>Release candidate 2</td>
+    <td>Release candidate 1</td>
     <td>October 1, 2020</td>
 </tr>
 <tr>
-    <td>Release candidate 3</td>
+    <td>Release candidate 2</td>
     <td>October 15, 2020</td>
 </tr>
 <tr>
-    <td>Release candidate 4</td>
+    <td>Release candidate 3</td>
     <td>October 29, 2020</td>
 </tr>
 <tr>
-    <td>Release candidate 5</td>
+    <td>Release candidate 4</td>
     <td>November 12, 2020</td>
 </tr>
 <tr>
@@ -102,8 +102,6 @@ PHP 8 is still in the RFC phase, so things are still changing, but not for long 
     <td>November 26, 2020</td>
 </tr>
 </table>
-
-As you can see, we're closing in on the first alpha releases.
 
 It _is_ possible by the way, for the dates to shift a little bit still, this will depend on how testing goes early on. Speaking of testing: everyone is allowed to do so, it's even encouraged to try stuff out in your own projects, so that enough feedback can be provided to the core team on time.
 
