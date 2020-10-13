@@ -19,9 +19,9 @@
         <meta name="image" content="https://stitcher.io{{ post.meta.image.src }}"/>
         <meta name="twitter:card" content="summary_large_image"/>
     {% elseif post is defined %}
-        <meta property="og:image" content="https://stitcher.io/blog/{{ post.id }}/meta.png"/>
-        <meta property="twitter:image" content="https://stitcher.io/blog/{{ post.id }}/meta.png"/>
-        <meta name="image" content="https://stitcher.io/blog/{{ post.id }}/meta.png"/>
+        <meta property="og:image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
+        <meta property="twitter:image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
+        <meta name="image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
         <meta name="twitter:card" content="summary_large_image"/>
     {% elseif meta.image.src is defined %}
         <meta property="og:image" content="https://stitcher.io{{ meta.image.src }}"/>

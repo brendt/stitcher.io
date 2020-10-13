@@ -38,17 +38,9 @@ class MetaImageHandler
 
         $path = File::path("public/img/meta/{$slug}.png");
 
-        $noCache = str_contains('nocache', $request->getUri()->getQuery());
-
-        if (file_exists($path) && ! $noCache) {
-            return $this->response($path);
-        }
-
         if (! is_dir(File::path('public/img/meta/'))) {
             mkdir(File::path('public/img/meta/'), 0777, true);
         }
-
-        $path = File::path("public/img/meta/{$slug}.png");
 
         Browsershot::html($html)
             ->windowSize(1200, 627)
