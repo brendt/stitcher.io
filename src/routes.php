@@ -53,7 +53,7 @@ foreach ($newsLetters as $i => $newsLetter) {
     $router->redirect("/newsletter/{$index}", $newsLetter);
 }
 
-$router->get('/blog/{slug}/meta.jpg', MetaImageHandler::class);
+$router->get('/blog/{slug}/meta.png', MetaImageHandler::class);
 $router->get('/rss', BlogRssHandler::class);
 $router->get('/games/rss', GamesRssHandler::class);
 $router->get('/podcasts/rss', PodcastsRssHandler::class);
