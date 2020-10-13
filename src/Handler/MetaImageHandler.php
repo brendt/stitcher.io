@@ -36,7 +36,7 @@ class MetaImageHandler
             ['post' => $post]
         );
 
-        $path = File::path("public/blog/{$slug}/meta.png");
+        $path = File::path("public/img/meta/{$slug}.png");
 
         $noCache = str_contains('nocache', $request->getUri()->getQuery());
 
@@ -44,9 +44,11 @@ class MetaImageHandler
             return $this->response($path);
         }
 
-        if (! is_dir(File::path("public/blog/{$slug}"))) {
-            mkdir(File::path('public/blog/{$slug}'), 0777, true);
+        if (! is_dir(File::path('public/img/meta/'))) {
+            mkdir(File::path('public/img/meta/'), 0777, true);
         }
+
+        $path = File::path("public/img/meta/{$slug}.png");
 
         Browsershot::html($html)
             ->windowSize(1200, 627)
