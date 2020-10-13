@@ -14,18 +14,23 @@
     {% endif %}
 
     {% if meta.image.src is defined %}
-    <meta property="og:image" content="https://stitcher.io{{ meta.image.src }}"/>
-    <meta property="twitter:image" content="https://stitcher.io{{ meta.image.src }}"/>
-    <meta name="image" content="https://stitcher.io{{ meta.image.src }}"/>
-    <meta name="twitter:card" content="summary_large_image"/>
+        <meta property="og:image" content="https://stitcher.io{{ meta.image.src }}"/>
+        <meta property="twitter:image" content="https://stitcher.io{{ meta.image.src }}"/>
+        <meta name="image" content="https://stitcher.io{{ meta.image.src }}"/>
+        <meta name="twitter:card" content="summary_large_image"/>
     {% elseif post.meta.image.src is defined %}
-    <meta property="og:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
-    <meta property="twitter:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
-    <meta name="image" content="https://stitcher.io{{ post.meta.image.src }}"/>
-    <meta name="twitter:card" content="summary_large_image"/>
+        <meta property="og:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+        <meta property="twitter:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+        <meta name="image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+        <meta name="twitter:card" content="summary_large_image"/>
+    {% elseif post is defined %}
+        <meta property="og:image" content="https://stitcher.io/blog/{{ post.id }}/meta.jpg"/>
+        <meta property="twitter:image" content="https://stitcher.io/blog/{{ post.id }}/meta.jpg"/>
+        <meta name="image" content="https://stitcher.io/blog/{{ post.id }}/meta.jpg"/>
+        <meta name="twitter:card" content="summary_large_image"/>
     {% else %}
-    <meta name="twitter:card" content="summary"/>
-    <meta property="twitter:image" content="https://stitcher.io/resources/img/meta_small.png"/>
+        <meta name="twitter:card" content="summary"/>
+        <meta property="twitter:image" content="https://stitcher.io/resources/img/meta_small.png"/>
     {% endif %}
 
     <meta name="twitter:creator" content="@brendt_gd"/>
@@ -42,10 +47,12 @@
 </head>
 <body>
 
+{% block cookies %}
 <div id="cookies-eu-banner" style="display: none;">
     By continuing your visit to this site, you accept the use of cookies.
     <a href="/cookies" id="cookies-eu-more">Read more</a>.
 </div>
+{% endblock %}
 
 {#<div class="ruler"></div>#}
 

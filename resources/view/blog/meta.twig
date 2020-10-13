@@ -1,0 +1,28 @@
+{% extends '_partials/index.twig' %}
+
+{% block meta %}
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/meta.scss')|raw }}
+{% endblock %}
+
+{% block cookies %}
+{% endblock %}
+
+{% block content %}
+    <div class="meta-image">
+        <h1>
+            <span>
+                {{ post.title }}
+            </span>
+        </h1>
+    </div>
+
+    <div class="meta-footer">
+        <span>stitcher.io</span>
+    </div>
+{% endblock %}

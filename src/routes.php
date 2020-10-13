@@ -1,6 +1,7 @@
 <?php
 
 use Brendt\Stitcher\Handler\GamesRssHandler;
+use Brendt\Stitcher\Handler\MetaImageHandler;
 use Brendt\Stitcher\Handler\PodcastsRssHandler;
 use Brendt\Stitcher\Handler\RantWithBrentRssHandler;
 use Brendt\Stitcher\Handler\BlogRssHandler;
@@ -52,6 +53,7 @@ foreach ($newsLetters as $i => $newsLetter) {
     $router->redirect("/newsletter/{$index}", $newsLetter);
 }
 
+$router->get('/blog/{slug}/meta.jpg', MetaImageHandler::class);
 $router->get('/rss', BlogRssHandler::class);
 $router->get('/games/rss', GamesRssHandler::class);
 $router->get('/podcasts/rss', PodcastsRssHandler::class);
