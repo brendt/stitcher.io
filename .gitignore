@@ -5,6 +5,7 @@ vendor/
 /public/static/
 /public/resources
 /public/sitemap.xml
+/public/img/meta
 .env
 /data
 Envoy.blade.php
