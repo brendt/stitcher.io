@@ -5,7 +5,7 @@ That's right, people actually start singing from time to time.
 
 ---
 
-I first discovered 36 questions after doing a google search for… well, "musical podcast". I recently listened to Hamilton, which is a [story for another time](/review/revolutions); and was a little hooked on musicals back then. I wondered if anyone ever considered combining musicals and podcasts together.
+I first discovered 36 questions after doing a google search for… well, "musical podcast". I recently listened to Hamilton, which is a [story for another time](/podcasts/revolutions); and was a little hooked on musicals back then. I wondered if anyone ever considered combining musicals and podcasts together.
 
 To my surprise, there were a handful, but most of them were rather strange, not really what I was looking for: they included music, but not full blown songs. 36 questions did, however; so I gave it a shot.
 
