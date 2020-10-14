@@ -4,7 +4,8 @@
         "spatie/commonmark-highlighter": "^1.0",
         "illuminate/support": "~5.7.0",
         "twig/twig":"^2.8.0",
-        "spatie/browsershot": "^3.40"
+        "spatie/browsershot": "^3.40",
+        "symfony/console": "^4.0"
     },
     "repositories" : [
         {
