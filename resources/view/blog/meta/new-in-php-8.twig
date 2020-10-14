@@ -12,11 +12,16 @@
 
         pre {
             width: 1000px;
-            top: 40px;
+            top: 10px;
             left: 100px;
             margin-left: 0;
             position: absolute;
             z-index: 0;
+            font-size: 22px;
+        }
+
+        .meta-footer {
+            padding-top: 10px;
         }
     </style>
 
@@ -29,11 +34,8 @@
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Router</span>
 </span>{
     <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">(
-        <span class="hljs-highlight  keyword">public</span> <span class="hljs-highlight  type">RouteCollector</span> <span class="hljs-highlight  prop">$collector</span>
+        <span class="hljs-highlight  keyword">public</span> <span class="hljs-highlight  type">RouteCollector|Collector</span> <span class="hljs-highlight  prop">$collector</span>
     )</span> </span>{}
-
-    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span><span class="hljs-params">(<span class="hljs-highlight  type">int|string</span> $id, <span class="hljs-highlight  type">array</span> $query, <span class="hljs-highlight  type">array</span> $body)</span>: <span class="hljs-highlight  type"><span class="hljs-title">Route</span></span>
-    </span>{ <span class="hljs-comment">/* … */</span> }
 }
 
 
