@@ -104,28 +104,28 @@
     variables:
         title: Stitcher Mail
         meta:
-            description: Subsribe to Stitcher Mail!
+            description: Subscribe to Stitcher Mail!
 
 /newsletter/pending:
     template: newsletter/pending.twig
     variables:
         title: Stitcher Mail
         meta:
-            description: Subsribe to Stitcher Mail!
+            description: Subscribe to Stitcher Mail!
 
 /newsletter/unsub:
     template: newsletter/unsub.twig
     variables:
         title: Stitcher Mail
         meta:
-            description: Subsribe to Stitcher Mail!
+            description: Subscribe to Stitcher Mail!
 
 /newsletter/subscribe:
     template: newsletter/index.twig
     variables:
         title: Stitcher Mail
         meta:
-            description: Subsribe to Stitcher Mail!
+            description: Subscribe to Stitcher Mail!
 
 /laravel-beyond-crud:
     template: blog/overview_tag.twig
