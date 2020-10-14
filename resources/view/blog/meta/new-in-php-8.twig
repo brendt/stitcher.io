@@ -1,0 +1,45 @@
+{% extends 'blog/meta.twig' %}
+
+{% block meta_body %}
+    <style>
+        h1 {
+            z-index: 1;
+            position: absolute;
+            top: 20px;
+            right: -50px;
+            width: 500px;
+        }
+
+        pre {
+            width: 1000px;
+            top: 40px;
+            left: 100px;
+            margin-left: 0;
+            position: absolute;
+            z-index: 0;
+        }
+    </style>
+
+    <h1>
+        <span>New in </span><br><span>PHP 8</span>
+    </h1>
+
+
+    <pre><code class="language-php hljs php"><span class="hljs-comment">#[<span class="hljs-highlight  type">InitilizedBy</span>(<span class="hljs-highlight  type">RouterInitializer</span>::class)]</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Router</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">(
+        <span class="hljs-highlight  keyword">public</span> <span class="hljs-highlight  type">RouteCollector</span> <span class="hljs-highlight  prop">$collector</span>
+    )</span> </span>{}
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handle</span><span class="hljs-params">(<span class="hljs-highlight  type">int|string</span> $id, <span class="hljs-highlight  type">array</span> $query, <span class="hljs-highlight  type">array</span> $body)</span>: <span class="hljs-highlight  type"><span class="hljs-title">Route</span></span>
+    </span>{ <span class="hljs-comment">/* … */</span> }
+}
+
+
+$router-&gt;<span class="hljs-highlight  prop">handle</span>(
+    <span class="hljs-highlight  prop">id</span>: $id,
+    <span class="hljs-highlight  prop">body</span>: $body,
+);</code></pre>
+
+{% endblock %}

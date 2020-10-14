@@ -32,9 +32,13 @@ class MetaImageHandler
         $post = $yaml->parse(file_get_contents(File::path('src/content/blog.yaml')))[$slug] ?? null;
 
         $html = $this->renderer->renderTemplate(
-            'blog/meta.twig',
+            $post['meta']['template'] ?? 'blog/meta.twig',
             ['post' => $post]
         );
+
+        if (str_contains($request->getUri()->getQuery(), 'html') !== false) {
+            return new Response(200, [], $html);
+        }
 
         $path = File::path("public/img/meta/{$slug}.png");
 

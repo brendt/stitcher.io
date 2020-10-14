@@ -1,12 +1,21 @@
 @import "css/variables";
 
+body {
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-.meta-image {
+.meta-container {
+    width: 1200px;
+    height: 627px;
+    background-color: #fff;
+    position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: calc(100vh - 25px);
-    position: relative;
 }
 
 h1 {

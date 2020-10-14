@@ -8,21 +8,28 @@
 
     {{ css.inline('resources/css/blog.scss')|raw }}
     {{ css.inline('resources/css/meta.scss')|raw }}
+    {{ css.inline('resources/css/code.scss')|raw }}
 {% endblock %}
 
 {% block cookies %}
 {% endblock %}
 
 {% block content %}
-    <div class="meta-image">
-        <h1>
-            <span>
-                {{ post.title }}
-            </span>
-        </h1>
-    </div>
+    <div class="meta-container">
+        <div class="meta-image">
+            {% block meta_body %}
+                <h1>
+                    <span>
+                        {{ post.title }}
+                    </span>
+                </h1>
+            {% endblock %}
+        </div>
 
-    <div class="meta-footer">
-        <span>stitcher.io</span>
+        <div class="meta-footer">
+            {% block meta_footer %}
+                <span>stitcher.io</span>
+            {% endblock %}
+        </div>
     </div>
 {% endblock %}
