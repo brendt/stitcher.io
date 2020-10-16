@@ -119,7 +119,7 @@ public static function new(): <hljs type>static</hljs>
 
 ## DTO's, property promotion and named arguments
 
-If you read my blog, you know I wrote quite a bit about the use of PHP's type system combined with [data transfer objects](/blog/laravel-beyond-crud-02-working-with-data). Naturally, I use lots of DTOs in my own code, so you can image how happy I am, being able to rewrite this:
+If you read my blog, you know I wrote quite a bit about the use of PHP's type system combined with [data transfer objects](/blog/laravel-beyond-crud-02-working-with-data). Naturally, I use lots of DTOs in my own code, so you can imagine how happy I am, being able to rewrite this:
 
 ```php
 class CustomerData extends DataTransferObject
