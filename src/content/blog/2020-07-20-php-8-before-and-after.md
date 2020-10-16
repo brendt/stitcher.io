@@ -239,6 +239,7 @@ class InvoiceState extends Enum
             self::PAID => 'green',
             <hljs keyword>default</hljs> => 'gray',
         };
+    }
 }
 ```
 
