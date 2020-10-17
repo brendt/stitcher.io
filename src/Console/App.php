@@ -5,6 +5,7 @@ namespace Brendt\Stitcher\Console;
 use Brendt\Stitcher\Console\Commands\RedditOwnCommand;
 use Brendt\Stitcher\Console\Commands\RedditSubStatusCommand;
 use Brendt\Stitcher\Console\Commands\RedditSyncCommand;
+use Brendt\Stitcher\Console\Commands\RedditWeekCommand;
 use Brendt\Stitcher\Console\Commands\TwitterOwnCommand;
 use Brendt\Stitcher\Console\Commands\TwitterSyncCommand;
 use Symfony\Component\Console\Application;
@@ -24,14 +25,15 @@ class App extends Application
             getenv('TWITTER_ACCESS_TOKEN_SECRET')
         );
 
-        $blogRepostiory = new BlogRepository();
+        $blogRepository = new BlogRepository();
 
         $this->addCommands([
             new RedditOwnCommand($redditDataRepository),
             new RedditSubStatusCommand($redditDataRepository),
             new RedditSyncCommand($redditDataRepository),
+            new RedditWeekCommand($redditDataRepository),
             new TwitterSyncCommand($twitterDataRepository),
-            new TwitterOwnCommand($twitterDataRepository, $blogRepostiory),
+            new TwitterOwnCommand($twitterDataRepository, $blogRepository),
         ]);
     }
 }

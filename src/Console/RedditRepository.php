@@ -4,7 +4,6 @@ namespace Brendt\Stitcher\Console;
 
 use Brendt\Stitcher\Console\DTO\RedditPost;
 use Illuminate\Support\Collection;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RedditRepository
@@ -12,14 +11,13 @@ class RedditRepository
     private const CACHE_PATH = __DIR__ . '/Data/reddit.json';
 
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return \Illuminate\Support\Collection|\Brendt\Stitcher\Console\DTO\RedditPost[]
      */
-    public function all(InputInterface $input, OutputInterface $output): Collection
+    public function all(OutputInterface $output): Collection
     {
-        if ($input->getOption('clean') === false && file_exists(self::CACHE_PATH)) {
+        if (file_exists(self::CACHE_PATH)) {
             return $this->asCollection(json_decode(file_get_contents(self::CACHE_PATH), true));
         }
 

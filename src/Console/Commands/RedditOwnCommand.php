@@ -24,13 +24,12 @@ class RedditOwnCommand extends Command
     {
         parent::__construct('reddit:own');
 
-        $this->addOption('--clean', null, InputOption::VALUE_OPTIONAL, '', false);
         $this->repository = $repository;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $submissions = $this->repository->all($input, $output)
+        $submissions = $this->repository->all($output)
             ->filter(fn(RedditPost $submission) => $submission->domain === 'stitcher.io')
             ->groupBy(fn(RedditPost $submission) => $submission->url)
             ->map(function (Collection $items) {

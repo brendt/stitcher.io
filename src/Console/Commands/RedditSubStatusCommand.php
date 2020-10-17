@@ -19,13 +19,12 @@ class RedditSubStatusCommand extends Command
     {
         parent::__construct('reddit:sub-status');
 
-        $this->addOption('--clean', null, InputOption::VALUE_OPTIONAL, '', false);
         $this->repository = $repository;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $submissions = $this->repository->all($input, $output)
+        $submissions = $this->repository->all($output)
             ->groupBy(fn(RedditPost $submission) => $submission->subreddit)
             ->map(function (Collection $items) {
                 $ownCount = $items
