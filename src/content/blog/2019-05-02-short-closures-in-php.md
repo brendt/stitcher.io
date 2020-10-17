@@ -48,6 +48,8 @@ If you want to return a value by reference, the following syntax should be used:
 In short, short closures allow the same functionality you'd expect from normal closures, 
 with the exception of only allowing one expression.
 
+{{ ad:front-line }}
+
 ## No multi-line
 
 You read it right: short closures can only have _one_ expression; that one expression may be spread over multiple lines for formatting, but it must always be one expression. 

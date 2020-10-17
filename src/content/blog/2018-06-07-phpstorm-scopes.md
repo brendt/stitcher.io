@@ -31,6 +31,8 @@ in file tabs and when using file navigation.
 
 ![](/resources/img/blog/phpstorm-coloured-scopes/tab-colours.png)
 
+{{ ad:front-line }}
+
 ## Filtering by scope
 
 Besides colours, scopes also allow for easy filtering. For example, in the tree view:
