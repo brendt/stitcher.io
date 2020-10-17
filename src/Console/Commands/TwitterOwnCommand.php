@@ -11,6 +11,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class TwitterOwnCommand extends Command
@@ -27,6 +28,8 @@ class TwitterOwnCommand extends Command
 
         $this->twitterRepository = $twitterRepository;
         $this->blogRepository = $blogRepository;
+
+        $this->addOption('top', null, InputOption::VALUE_NONE);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -37,18 +40,34 @@ class TwitterOwnCommand extends Command
             ->groupBy(fn(Tweet $tweet) => $tweet->ownUrl)
             ->map(
                 fn(Collection $tweets) => $tweets->sortBy(
-                    fn(Tweet $tweet) => $tweet->date->getTimestamp()
+                    function (Tweet $tweet) use ($input) {
+                        if ($input->getOption('top')) {
+                            return $tweet->likes;
+                        }
+
+                        return $tweet->date->getTimestamp();
+                    }
                 )
             );
 
         $posts = $this->blogRepository
             ->all()
-            ->sortBy(function (BlogPost $post) use ($tweetsPerUrl) {
-                if (! isset($tweetsPerUrl[$post->url])) {
-                    return $post->date->getTimestamp();
+            ->filter(function (BlogPost $post) use ($tweetsPerUrl) {
+                $tweetsForUrl = $tweetsPerUrl[$post->url] ?? null;
+
+                return $tweetsForUrl !== null;
+            })
+            ->sortBy(function (BlogPost $post) use ($input, $tweetsPerUrl) {
+                $tweetsForUrl = $tweetsPerUrl[$post->url];
+
+                /** @var \Brendt\Stitcher\Console\DTO\Tweet $tweet */
+                $tweet = $tweetsForUrl->last();
+
+                if ($input->getOption('top')) {
+                    return $tweet->likes;
                 }
 
-                return $tweetsPerUrl[$post->url]->last()->date->getTimestamp();
+                return $tweet->date->getTimestamp();
             });
 
         $table = new Table($output);
