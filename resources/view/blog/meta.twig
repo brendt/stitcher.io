@@ -16,20 +16,23 @@
 
 {% block content %}
     <div class="meta-container">
-        <div class="meta-image">
-            {% block meta_body %}
-                <h1>
+        {% block meta_container %}
+
+            <div class="meta-image">
+                {% block meta_body %}
+                    <h1>
                     <span>
                         {{ post.title }}
                     </span>
-                </h1>
-            {% endblock %}
-        </div>
+                    </h1>
+                {% endblock %}
+            </div>
 
-        <div class="meta-footer">
-            {% block meta_footer %}
-                <span>stitcher.io</span>
-            {% endblock %}
-        </div>
+            <div class="meta-footer">
+                {% block meta_footer %}
+                    <span>stitcher.io</span>
+                {% endblock %}
+            </div>
+        {% endblock %}
     </div>
 {% endblock %}

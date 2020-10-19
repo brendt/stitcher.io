@@ -1147,6 +1147,7 @@ responsive-images-done-right:
     content: src/content/blog/2018-03-07-responsive-images-done-right.md
     meta:
         description: How to render responsive images in an optimal way.
+        template: blog/meta/responsive-images.twig
     previousPost:
         title: Tackling responsive images
         id: tackling_responsive_images-part_1
