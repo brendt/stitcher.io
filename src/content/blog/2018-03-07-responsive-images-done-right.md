@@ -50,16 +50,45 @@ How does that sound? You now have a small margin of possible "overhead"
 for variable screen sizes, but at least we're sure that margin won't be more than 10%.
 Depending on the size of the image, for example: a thumbnail vs. a hero image;
 we could even reduce the margin to 5% instead of 10%.
-
 This will result in a different `srcset` for every image,
 but that's not our concern: the responsive images spec can handle that for us.
 
-This is how you would determine such variable dimensions in PHP:
+So how can you determine the dimensions of, say 10 variants of the same image, if you only know the dimensions of the original image? This is where high school maths come into play.
+
+```
+<hljs comment>We start with these known variables</hljs>
+<hljs prop>filesize</hljs> = 1.000.000
+<hljs prop>width</hljs> = 1920
+<hljs prop>ratio</hljs> = 9 / 16
+<hljs prop>height</hljs> = <hljs prop>ratio</hljs> * <hljs prop>width</hljs>
+
+<hljs comment>Next we introduce another one: area</hljs>
+<hljs prop>area</hljs> = <hljs prop>width</hljs> * <hljs prop>height</hljs>
+ <=> <hljs prop>area</hljs> = <hljs prop>width</hljs> * <hljs prop>width</hljs> * <hljs prop>ratio</hljs>
+
+<hljs comment>We say that the pixelprice is filesize / area</hljs>
+<hljs prop>pixelprice</hljs> = <hljs prop>filesize</hljs> / <hljs prop>area</hljs>
+
+<hljs comment>Now we can replace variables until we have the desired result</hljs>
+ <=> <hljs prop>filesize</hljs> = <hljs prop>pixelprice</hljs> * <hljs prop>area</hljs>
+ <=> <hljs prop>filesize</hljs> = <hljs prop>pixelprice</hljs> * (<hljs prop>width</hljs> * <hljs prop>width</hljs> * <hljs prop>ratio</hljs>)
+ <=> <hljs prop>width</hljs> * <hljs prop>width</hljs> * <hljs prop>ratio</hljs> = <hljs prop>filesize</hljs> / <hljs prop>pixelprice</hljs>
+ <=> <hljs prop>width</hljs> ^ 2 = (<hljs prop>filesize</hljs> / <hljs prop>pixelprice</hljs>) / <hljs prop>ratio</hljs>
+ <=> <hljs prop>width</hljs> = sqrt((<hljs prop>filesize</hljs> / <hljs prop>pixelprice</hljs>) / <hljs prop>ratio</hljs>)
+``` 
+
+This proof says that given a constant `pixelprice`, we can calculate the width a scaled-down image needs to have a specified filesize. Here's the thing though: `pixelprice` is an approximation of what one pixel in this image costs. Because we'll scale down the image as a whole, this approximation is enough to yield accurate results though. Here's the implementation in PHP:
 
 ```php
-// $fileSize = file size of the source image
-// $width = width of the source image
-// $height = height of the source image
+/*
+$fileSize        file size of the source image
+$width           width of the source image
+$height          height of the source image
+$area            the amount of pixels
+                 `$width * $height` or `$width * $width * $ration` 
+$pixelPrice      the approximate price per pixel:
+                 `$fileSize / $area`
+*/
 
 $dimensions = [];
 
@@ -69,25 +98,25 @@ $pixelPrice = $fileSize / $area;
 $stepModifier = $fileSize * 0.1;
 
 while ($fileSize > 0) {
-    $newWidth = floor(sqrt(($fileSize / $pixelPrice) / $ratio));
+    $newWidth = <hljs prop>floor</hljs>(
+        <hljs prop>sqrt</hljs>(
+            ($fileSize / $pixelPrice) / $ratio
+        )
+    );
 
-    $dimensions[] = new Dimension($newWidth, $newWidth * $ratio);
+    $dimensions[] = new <hljs type>Dimension</hljs>($newWidth, $newWidth * $ratio);
 
     $fileSize -= $stepModifier;
 }
 ```
 
-I won't go into the details of this formula in this post.
-I've [written about it](*https://www.stitcher.io/blog/tackling_responsive_images-part_2) before,
-but I do want to make clear that this approach will be able to calculate the dimensions for each variation 
+I want to clarify once more that this approach will be able to calculate the dimensions for each variation 
 with a 10% reduction in file size, without having to scale that image beforehand.
 That means there's no performance overhead or multiple guesses to know how an image should be scaled.
 
 ## In practice
 
-Let's take a look at a picture of a parrot.
-
-This image has a fixed `srcset`:
+Let's take a look at a picture of a parrot. This image has a fixed `srcset`:
 
 <p>
     <img src="/resources/img/static/responsive/parrot-fixed-800.jpg" srcset="/resources/img/static/responsive/parrot-fixed-1920.jpg 1920w, /resources/img/static/responsive/parrot-fixed-1200.jpg 1200w, /resources/img/static/responsive/parrot-fixed-800.jpg 800w, /resources/img/static/responsive/parrot-fixed-400.jpg 400w"/>
@@ -95,36 +124,29 @@ This image has a fixed `srcset`:
 
 This one has a dynamic `srcset`:
 
-![parrot](/resources/img/blog/responsive/parrot.jpg)
+![](/resources/img/blog/responsive/parrot.jpg)
 
 Feel free to open up your inspector and play around with it in responsive mode.
-Be sure to disable browser cache and compare which image is loaded on different screen sizes.
+Be sure to disable browser cache and compare which image is loaded on different screen sizes. Also keep in mind that the pixel density of your screen can have an impact.
 
-For example, on an iPhone 7 screen, the fixed width image loads the 800px variant,
-while the dynamic version loads the 678px image!
-
-On smaller screens, a simple smartphone for example,
-there are multiple variations available for the dynamic variant,
-while the statically scaled image will always load the 400px image.
-
-Can you imagine doing this by hand?
-Neither can I! Of course I implemented this rendering method into Stitcher,
-and we also implemented it at my job, Spatie, in the Laravel media library.
-
-Usage is as simple as this:
+Can you imagine doing this by hand? Neither can I! One of the first features I proposed when I started working at Spatie, my current job, was to add this behaviour in the [Laravel media library](*https://spatie.be/docs/laravel-medialibrary/v8/responsive-images/using-your-own-width-calculator), its usage is as simple as this:
 
 ```php
 $model
-   ->addMedia($yourImageFile)
-   ->withResponsiveImages()
-   ->toMediaCollection();
+   -><hljs prop>addMedia</hljs>($yourImageFile)
+   -><hljs prop>withResponsiveImages</hljs>()
+   -><hljs prop>toMediaCollection</hljs>();
 ```
 
-```html
-<img src="{{ $media->getFullUrl() }}" srcset="{{ $media->getSrcset() }}" sizes="[your own logic]"/>
+```
+<<hljs keyword>img</hljs> 
+    <hljs prop>src</hljs>="{{ $media->getFullUrl() }}" 
+    <hljs prop>srcset</hljs>="{{ $media->getSrcset() }}" 
+    <hljs prop>sizes</hljs>="[your own logic]"
+/>
 ```
 
-You can read more about it [here](*https://docs.spatie.be/laravel-medialibrary/v7/responsive-images/getting-started-with-responsive-images).
+{{ ad:front-line }}
 
 To finish off, here are the links which I mentioned at the start of this post.
 
