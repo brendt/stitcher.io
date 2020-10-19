@@ -50,3 +50,16 @@ and saves a lot of time in the long run.
 There's also the possibility to set default options though, 
 which will be used every every time you create a new project.
 Go to `File > New Project Settings > Preference for New Projects` and configure your default scopes and colours over there, the same way you'd do as explained before.
+
+And just in case you'd need some inspiration, these are my default scopes:
+
+```
+<hljs blue>App</hljs>
+file:app//*||file:config//*||file:routes//*||file:app||file:config||file:routes||file:src//*||file:src
+
+<hljs purple>Resources</hljs>
+file:resources//*||file:resources
+
+<hljs yellow>Database</hljs>
+file:database//*||file:database
+```
