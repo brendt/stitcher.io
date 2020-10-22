@@ -39,7 +39,7 @@ h3 {
 aside {
     font-size: 1.2em;
     margin-top: 1rem;
-    padding-top:1em;
+    padding-top: 1em;
 }
 
 article p em {
@@ -50,7 +50,7 @@ article p em {
 .sidenote {
     @include outOfBox();
     font-size: .9em;
-    padding:2rem 1rem .1rem 2rem;
+    padding: 2rem 1rem .1rem 2rem;
     margin-top: 3rem;
     margin-bottom: 4rem;
 
@@ -86,5 +86,39 @@ article p em {
 
     a {
         font-weight: bold;
+    }
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+
+    @media (max-width: $width-mobile) {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input[type="email"] {
+        border: none;
+        font-family: $font-body;
+        font-weight: normal;
+
+        &:active,
+        &:focus {
+            box-shadow: inset 0 -3px 0 0 $color-primary;
+        }
+        font-size: 1em;
+        margin-left: .5em;
+    }
+
+    label {
+        font-size: 1em;
+    }
+
+    button {
+        font-weight: normal;
+        margin-left: 1em;
+        font-size: 1em;
     }
 }
