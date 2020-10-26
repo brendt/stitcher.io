@@ -1,0 +1,19 @@
+00-index:
+    title: 00 — Index
+    content: src/content/blogs-for-devs/00-index.md
+
+01-intro:
+    title: 01 — Intro
+    content: src/content/blogs-for-devs/01-intro.md
+
+02-content-is-king:
+    title: 02 — Content is King
+    content: src/content/blogs-for-devs/02-content-is-king.md
+
+03-the-stack:
+    title: 03 — The Stack
+    content: src/content/blogs-for-devs/03-the-stack.md
+
+04-your-audience:
+    title: 04 — Your Audience
+    content: src/content/blogs-for-devs/04-your-audience.md

@@ -44,6 +44,37 @@
         next: true
         meta: true
 
+/blogs-for-devs:
+    template: blog/overview.twig
+    variables:
+        title: Blogs for Devs
+        overviewTitle: Blogs for Devs
+        posts: src/content/blogs-for-devs.yaml
+        overviewUrl: /blogs-for-devs/00-index
+        rssUrl: /blogs-for-devs/rss
+        detailUrl: /blogs-for-devs
+    config:
+        order:
+            variable: posts
+            field: title
+            direction: asc
+
+
+/blogs-for-devs/{id}:
+    template: blog/detail.twig
+    variables:
+        overviewUrl: /blogs-for-devs/00-index
+        rssUrl: /blogs-for-devs/rss
+        detailUrl: /blogs-for-devs
+        post: src/content/blogs-for-devs.yaml
+        meta:
+            description: "Podcast reviews — Listen. Critically."
+    config:
+        collection:
+            variable: post
+            parameter: id
+        next: true
+
 /cookies:
     template: blog/detail.twig
     variables:
