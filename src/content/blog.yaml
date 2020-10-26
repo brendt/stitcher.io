@@ -373,6 +373,7 @@ php-8-in-8-code-blocks:
     next: new-in-php-8
     meta:
         description: "The best features of PHP 8"
+        template: blog/meta/php-8-in-8-codeblocks.twig
     footnotes:
         - { link: "/blog/new-in-php-8", title: "New in PHP 8", description: " — A comprehensive list of all things new in PHP 8" }
         - { link: "/blog/attributes-in-php-8", title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }

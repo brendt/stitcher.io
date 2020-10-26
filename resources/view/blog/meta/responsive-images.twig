@@ -1,36 +1,6 @@
 {% extends 'blog/meta.twig' %}
 
 {% block meta_container %}
-
-    <style>
-        .meta-container {
-            overflow: hidden;
-        }
-
-        img {
-            right:0;
-            position: absolute;
-            z-index: 0;
-            top: 0;
-            width: 100%;
-        }
-
-        h1 {
-            position: relative;
-            z-index: 1;
-        }
-
-        .meta-footer {
-            z-index: 1;
-            align-items: center;
-        }
-
-        .meta-footer span {
-            background-color: #fff;
-            padding: 10px 20px;
-        }
-    </style>
-
     {{  parent() }}
 
     <img src="https://stitcher.io/resources/img/static/responsive/parrot-fixed-800.jpg"/>

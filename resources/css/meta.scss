@@ -16,6 +16,7 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    overflow: hidden;
 }
 
 h1 {
@@ -25,6 +26,8 @@ h1 {
     font-size: 70px;
     display: block;
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 .meta-footer {
@@ -39,5 +42,20 @@ h1 {
     font-weight: bold;
     height: 100px;
     position: absolute;
+    width: 100%;
+    z-index: 1;
+    align-items: center;
+}
+
+.meta-footer span {
+    background-color: #fff;
+    padding: 10px 20px;
+}
+
+img {
+    right:0;
+    position: absolute;
+    z-index: 0;
+    top: 0;
     width: 100%;
 }

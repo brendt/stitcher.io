@@ -13,6 +13,7 @@ use Brendt\Stitcher\Plugin\Markdown\HighlightCodeBlockRenderer;
 use Brendt\Stitcher\Plugin\Markdown\HighlightInlineCodeRenderer;
 use Brendt\Stitcher\Plugin\Markdown\ImageRenderer;
 use Brendt\Stitcher\Plugin\Markdown\NumberParser;
+use Brendt\Stitcher\Plugin\Twig\ImageExtension;
 use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Element\Heading;
 use League\CommonMark\Block\Element\IndentedCode;
@@ -26,6 +27,7 @@ use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
 use Stitcher\App;
 use Stitcher\Page\Adapter\AdapterFactory;
 use Stitcher\Plugin;
+use Stitcher\Renderer\RendererFactory;
 
 class AppServiceProvider implements Plugin
 {
@@ -54,6 +56,11 @@ class AppServiceProvider implements Plugin
                 ->addBlockRenderer(FencedCode::class, new HighlightCodeBlockRenderer())
                 ->addBlockRenderer(IndentedCode::class, new IndentedCodeRenderer());
         });
+
+//        /** @var \Stitcher\Renderer\RendererFactory $rendererFactory */
+//        $rendererFactory = App::get(RendererFactory::class);
+//
+//        $rendererFactory->addExtension(new ImageExtension());
 
         /** @var AdapterFactory $adapterFactory */
         $adapterFactory = App::get(AdapterFactory::class);
