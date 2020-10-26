@@ -9,10 +9,10 @@ use <hljs type>\Support\Attributes\ListensTo</hljs>;
 
 class ProductSubscriber
 {
-    #[<hljs type green>ListensTo</hljs>(<hljs type>ProductCreated</hljs><hljs keyword>::class</hljs>]
+    #[<hljs type green>ListensTo</hljs>(<hljs type>ProductCreated</hljs><hljs keyword>::class</hljs>)]
     public function onProductCreated(<hljs type>ProductCreated</hljs> $event) { /* … */ }
 
-    #[<hljs type green>ListensTo</hljs>(<hljs type>ProductDeleted</hljs><hljs keyword>::class</hljs>]
+    #[<hljs type green>ListensTo</hljs>(<hljs type>ProductDeleted</hljs><hljs keyword>::class</hljs>)]
     public function onProductDeleted(<hljs type>ProductDeleted</hljs> $event) { /* … */ }
 }
 ```
