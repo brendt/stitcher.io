@@ -5,7 +5,7 @@ PHP 8 brings lots of new features, in this list we'll look at the most outstandi
 ---
 
 ```php
-use <hljs type>\Support\Attributes\ListensTo</hljs>;
+use <hljs type>Support\Attributes\ListensTo</hljs>;
 
 class ProductSubscriber
 {
