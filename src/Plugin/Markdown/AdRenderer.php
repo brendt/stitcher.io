@@ -15,13 +15,20 @@ class AdRenderer implements InlineRendererInterface
 
     private $carbon;
 
-    private $frontLine;
+    private array $ctas = [
+        '{{ cta:flp }}' => __DIR__ . '/../../../resources/view/_partials/cta_front_line.twig',
+        '{{ cta:flp8 }}' => __DIR__ . '/../../../resources/view/_partials/cta_front_line_php8.twig',
+        '{{ cta:flp_mail }}' => __DIR__ . '/../../../resources/view/_partials/cta_front_line_mail.twig',
+    ];
 
     public function __construct()
     {
         $this->google = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_google.twig');
         $this->carbon = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_carbon.twig');
-        $this->frontLine = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_front_line.twig');
+
+        foreach ($this->ctas as $key => $path) {
+            $this->ctas[$key] = file_get_contents($path);
+        }
     }
 
     public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer, $inTightList = false)
@@ -32,8 +39,8 @@ class AdRenderer implements InlineRendererInterface
 
         $content = $inline->getContent();
 
-        if (strpos($content, '{{ ad:front-line }}') !== false) {
-            $content = str_replace('{{ ad:front-line }}', $this->frontLine, $content);
+        foreach ($this->ctas as $key => $cta) {
+            $content = str_replace($key, $cta, $content);
         }
 
         if (strpos($content, '{{ ad:carbon }}') !== false) {

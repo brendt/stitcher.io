@@ -119,7 +119,7 @@ Ok, there's one more thing: pattern matching. It's a technique used in other pro
 
 Pattern matching isn't supported right now, because it's quite a complex feature, but Ilija Tovilo, the [RFC author](*https://wiki.php.net/rfc/match_expression_v2) did mention it as a possible future feature. Something to look out for!
 
-{{ ad:front-line }}
+{{ cta:flp }}
 
 ## So, switch or match?
 

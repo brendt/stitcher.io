@@ -31,7 +31,7 @@ in file tabs and when using file navigation.
 
 ![](/resources/img/blog/phpstorm-coloured-scopes/tab-colours.png)
 
-{{ ad:front-line }}
+{{ cta:flp }}
 
 ## Filtering by scope
 

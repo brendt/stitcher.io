@@ -115,7 +115,7 @@ public static function new(): <hljs type>static</hljs>
 
 <em class="center small">PHP 8</em>
 
-{{ ad:front-line }}
+{{ cta:flp8 }}
 
 ## DTO's, property promotion and named arguments
 
@@ -320,7 +320,7 @@ $dateAsString = $booking-><hljs prop>getStartDate</hljs>()?-><hljs prop>asDateTi
 
 ---
 
-{{ ad:front-line }}
+{{ cta:flp }}
 
 ---
 

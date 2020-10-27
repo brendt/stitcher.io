@@ -92,7 +92,7 @@ article p em {
 .newsletter-form {
     display: flex;
     justify-content: center;
-    align-items: baseline;
+    align-items: center;
 
     @media (max-width: $width-mobile) {
         flex-direction: column;
@@ -108,17 +108,53 @@ article p em {
         &:focus {
             box-shadow: inset 0 -3px 0 0 $color-primary;
         }
+
         font-size: 1em;
         margin-left: .5em;
+        padding: .5em;
     }
 
     label {
         font-size: 1em;
+
+        @media (max-width: $width-mobile) {
+            margin-bottom: .5em;
+        }
     }
 
     button {
         font-weight: normal;
-        margin-left: 1em;
-        font-size: 1em;
+        margin: 0 0 0 1em;
+        font-size: .9em;
+
+        @media (max-width: $width-mobile) {
+            margin-top: .5em;
+        }
+    }
+}
+
+.sidenote .newsletter-form {
+    font-size: 1.3em;
+    margin-bottom: 1em;
+}
+
+.frontline .newsletter-form {
+    input[type="email"] {
+        font-size: .9em;
+
+        &:active,
+        &:focus {
+            box-shadow: inset 0 -3px 0 0 #000;
+        }
+    }
+
+    button {
+        background-color: #f0de38;
+        border-color: #f0de38;
+        color: #000;
+
+        &:hover {
+            border-color: #000;
+        }
     }
 }

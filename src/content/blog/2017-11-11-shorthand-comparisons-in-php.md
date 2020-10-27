@@ -88,7 +88,7 @@ in this [Stack Overflow answer](*https://stackoverflow.com/questions/20559150/te
 
 Furthermore, as PHP 7.4, the use of chained ternaries without brackets is [deprecated](/blog/new-in-php-74#left-associative-ternary-operator-deprecation-rfc).
 
-{{ ad:front-line }}
+{{ cta:flp_mail }}
 
 ## Null coalescing operator
 

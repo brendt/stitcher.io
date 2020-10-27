@@ -1,4 +1,4 @@
-{{ ad:front-line }}
+{{ cta:flp8 }}
 
 ## Upgrading with Homebrew
 
