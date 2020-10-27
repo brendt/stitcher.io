@@ -5,6 +5,8 @@
 01-intro:
     title: 01 — Intro
     content: src/content/blogs-for-devs/01-intro.md
+    meta:
+        template: 'blog/meta/blogs-for-devs.twig'
 
 02-content-is-king:
     title: 02 — Content is King

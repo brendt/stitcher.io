@@ -29,7 +29,9 @@ class MetaImageHandler
         /** @var \Symfony\Component\Yaml\Yaml $yaml */
         $yaml = App::get(Yaml::class);
 
-        $post = $yaml->parse(file_get_contents(File::path('src/content/blog.yaml')))[$slug] ?? null;
+        $post = $yaml->parse(file_get_contents(File::path('src/content/blog.yaml')))[$slug]
+            ?? $yaml->parse(file_get_contents(File::path('src/content/blogs-for-devs.yaml')))[$slug]
+            ?? null;
 
         $html = $this->renderer->renderTemplate(
             $post['meta']['template'] ?? 'blog/meta.twig',
