@@ -1,3 +1,15 @@
+php-8-jit-setup:
+    date: 2020-10-29
+    title: How to setup the JIT in PHP 8
+    meta:
+        description: A technical guide to setting up and using the JIT in PHP 8
+    content: src/content/blog/2020-10-29-jit-setup.md
+    footnotes:
+        - { title: "What's new in PHP 8", link: "/blog/new-in-php-8" }
+        - { title: "The JIT explained", link: "/blog/php-jit" }
+        - { title: "Benchmarks on real-life applications with the JIT", link: "/blog/jit-in-real-life-web-applications" }
+        - { title: "The JIT RFC", link: "https://wiki.php.net/rfc/jit" }
+
 front-line-php:
     date: 2020-10-05
     title: Front Line PHP
