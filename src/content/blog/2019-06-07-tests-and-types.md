@@ -191,6 +191,8 @@ don't forget they are reusable throughout the code base.
 Chances are you'll be able to re-use most of the types you're making;
 as these custom categories most likely apply to your business, and are used throughout it.
 
+{{ cta:mail }}
+
 ### Verbosity
 
 Next, many would consider my solution too verbose when actually using it:

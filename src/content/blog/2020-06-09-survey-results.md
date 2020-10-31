@@ -80,3 +80,5 @@ Up front, I assumed that the group who preferred not to use type systems would h
 I do think that, even with a small amount of participants, we can assume there is a correlation between type system usage and project- and team size; but ideally, we'd need a larger participant pool.
 
 My personal takeaway is that when entering type system discussions, we should be wary to compare each others preference: there might be a good case that you're simply working in a completely different kind of project, and there's no way of telling who's right or wrong.
+
+{{ cta:mail }}

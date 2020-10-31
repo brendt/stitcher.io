@@ -45,7 +45,7 @@ Often when I share these arguments with someone who clings to the dark side, the
 First: you don't need to use a white `#fff` background with black `#000` text. There's lots of light colour schemes that don't go to the extreme ends. The important thing is that there's enough contrast between fore- and background, and that the background is lighter than the foreground.
 Second: you can always adjust the brightness of your screen. You don't need to turn it up to a 100%! You'd only do that if the text is otherwise unreadable, and guess when that happens? If you'd use a dark scheme!
 
----
+{{ cta:mail }}
 
 I don't want to end with theory though. Over the past three years, I've put light themes to the test: I've challenged myself and dozens of others to switch to a light theme for **one week**. I wanna do the same with you: try it for one week, and let me know whether you're switching back to a dark theme or not. Based on my past experiments I can tell you that only a few people decide to switch back. The majority stays with a light scheme because, guess what, it's actually better.
 

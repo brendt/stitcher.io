@@ -42,6 +42,8 @@ These days, the core teams keeps a consistent release cycle: one new release eve
 
 Every new release is done in stages: the last months before the general availability — GA, or simply _the release_ — is focused on testing all the new features and changes. First there are couple of alpha releases, followed by beta releases, followed by release candidates, followed by the final release: GA.
 
+{{ cta:mail }}
+
 During the alpha phase, new features are still allowed to be added. But once in beta, the final form of the new version has been decided on. 
 
 These features, by the way, are decided upon by a core committee who votes on RFCs, which stands for _request for comments_. These RFCs describe a feature or a change to the language, and are discussed in depth. Everyone is allowed to make RFCs if they want to, but RFCs are of course critically looked at.

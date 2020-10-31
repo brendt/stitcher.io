@@ -317,6 +317,8 @@ class Bar extends Foo
 <hljs full error text>Fatal error: Type of Bar::$a must be int (as in class Foo)</hljs>
 ```
 
+{{ cta:mail }}
+
 ## There's more!
 
 Like a said at the start of this post, typed properties are a _major_ addition to ((PHP)). 
@@ -328,3 +330,4 @@ Finally, if you have any thoughts you want to share on the topic, I'd love to he
 You can reach me via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
 
 Until next time!
+

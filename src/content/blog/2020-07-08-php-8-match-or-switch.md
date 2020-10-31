@@ -57,6 +57,7 @@ $message = <hljs keyword>match</hljs> ($statusCode) {
 // $message = 'unknown status code'
 ```
 
+{{ cta:mail }}
 
 ## Unknown values cause errors
 

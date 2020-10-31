@@ -50,6 +50,4 @@ Maybe there will even be only a handful of languages, one or two per field: web 
 
 Braille is just one example of how much time it takes to optimise a process or system. Let's not fool ourselves thinking we already know the best solutions for our problems in software development. Let's keep that in mind when were advocating for the next big thing. Let's stay humble and realise we're only playing a small part in history.
 
----
-
-Food for thought, [what do you think](*https://news.ycombinator.com/item?id=23687998)?
+{{ cta:mail }}

@@ -93,3 +93,5 @@ If you do want to know your own MBTI profile, you can test it for free online. A
 Want to share your own thoughts on the topic? You can send me an [email](mailto:brendt@stitcher.io) or we can discuss it on [HN](*https://news.ycombinator.com/item?id=23243740).
 
 Thanks for reading, until next time! 
+
+{{ cta:mail }}

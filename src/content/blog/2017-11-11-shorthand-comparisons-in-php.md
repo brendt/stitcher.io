@@ -48,6 +48,8 @@ The righthand operand will be used for so called "falsy values".
 Examples would be `0` or `'0'`, an empty array or string, `null`, an undefined or unassigned variable, and of course `false` itself. 
 All these values will make the ternary operator use its righthand operand. 
 
+{{ cta:mail }}
+
 ### Shorthand ternary operator
 
 Since PHP 5.3, it's possible to leave out the lefthand operand, allowing for even shorter expressions:

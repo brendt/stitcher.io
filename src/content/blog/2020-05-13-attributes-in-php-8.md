@@ -159,6 +159,8 @@ $attributes = $reflectionClass-><hljs prop>getAttributes</hljs>(
 
 It's a nice shorthand, built into the core.
 
+{{ cta:mail }}
+
 ## Technical theory
 
 Now that you have an idea of how attributes work in practice, it's time for some more theory, making sure you understand them thoroughly. First of all, I mentioned this briefly before, attributes can be added in several places.

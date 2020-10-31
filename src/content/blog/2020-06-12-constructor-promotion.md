@@ -90,7 +90,7 @@ So let's look at what promoted properties can and can't do, there's quite a lot 
 
 Promoted properties can only be used in constructors. That might seem obvious but I thought it was worth mentioning this, just to be clear.
 
----
+{{ cta:mail }}
 
 ### No duplicates allowed
 

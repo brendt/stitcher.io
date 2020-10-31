@@ -24,6 +24,8 @@ This sounds nice in theory, but we probably still need to be able to perform com
 
 First, let's look at the second pillar: event sourcing.
 
+{{ cta:mail }}
+
 ## Event sourcing 
 
 Why would I suggest to make event sourcing part of the core of this architecture? You could very well have a long running server with all data loaded in-memory from a normal database.

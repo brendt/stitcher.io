@@ -84,3 +84,5 @@ $second = [
 Using `+` will keep the `original` value, while `array_merge` would `override` it.
 
 One more thing to mention is that `+` will apply the same behaviour when [merging multidimensional arrays](/blog/merging-multidimensional-arrays-in-php).
+
+{{ cta:mail }}

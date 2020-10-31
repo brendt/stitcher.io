@@ -22,7 +22,7 @@ So we did the only thing we could do: manually update all of our websites, some 
 
 In the end we never actually got to know whether the bug had been exploited: it was discovered by accident by one of our colleagues over the weekend, and we didn't keep access logs longer than a few days. So nobody could tell whether someone had unauthorised access to one of our sites over the past years; let alone know if, and which data had been leaked.
 
----
+{{ cta:mail }}
 
 Don't write your own framework, at least not when you're building websites for paying clients; who trust your work to be professional and secure. Whatever framework you use, make sure it's backed by a large community.
 

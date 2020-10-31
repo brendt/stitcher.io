@@ -93,11 +93,7 @@ $result = <hljs keyword>match</hljs>($input) {
 
 The `match` expression as an improvement to the `switch` expression.
 
----
-
 {{ cta:flp }}
-
----
 
 There's even more. If you want a full list, you can find it [on this blog](/blog/new-in-php-8).
 

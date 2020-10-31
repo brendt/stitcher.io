@@ -164,6 +164,8 @@ If any changes were made to your Valet config, you should restart it:
 valet restart
 ```
 
+{{ cta:mail }}
+
 ## Last step
 
 Finally you should test and upgrade your projects for [PHP 7.3 compatibility](/blog/new-in-php-73). 

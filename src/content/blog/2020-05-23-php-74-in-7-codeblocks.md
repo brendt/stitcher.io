@@ -80,7 +80,4 @@ The numeric literal separator, which is only a visual aid.
 
 Preloading improves PHP performance across requests. It's a complicated topic, but I wrote about it [here](/blog/preloading-in-php-74).
 
----
-
-There's even more. If you want a full list, you can find it [on this blog](/blog/new-in-php-74).
-What 7.4 feature do you like the most? Let me know on [Twitter](*https://twitter.com/brendt_gd) or via [email](mailto:brendt@stitcher.io).
+{{ cta:mail }}

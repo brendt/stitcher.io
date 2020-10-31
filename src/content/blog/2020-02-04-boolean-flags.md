@@ -138,7 +138,7 @@ PHP's dynamic type system will automatically cast the result, `0` or a numeric v
 }
 ```
 
----
+{{ cta:mail }}
 
 Let's make clear that you shouldn't be doing this for performance motivations in PHP. There might even be edge cases where this approach would be less optimal, because our inclusion mask can't be garbage collected unless there are no reference anymore to _any_ of the boolean flags.
 

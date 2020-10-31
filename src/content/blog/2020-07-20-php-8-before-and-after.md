@@ -245,6 +245,8 @@ class InvoiceState extends Enum
 
 <em class="center small">PHP 8</em>
 
+{{ cta:mail }}
+
 ## Union types instead of doc blocks
 
 When I mentioned the `<hljs type>static</hljs>` return type before, I forgot another use case where docblock type hints were required: union types. At least, they were required before, because PHP 8 supports them natively!
@@ -318,10 +320,6 @@ $dateAsString = $booking-><hljs prop>getStartDate</hljs>()?-><hljs prop>asDateTi
 
 <em class="center small">PHP 8</em>
 
----
-
 {{ cta:flp }}
-
----
 
 What's your favourite [PHP 8 feature](/blog/new-in-php-8)? Let me know via [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io)!

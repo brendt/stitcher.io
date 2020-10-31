@@ -69,6 +69,8 @@ there are also plenty of multi-line ones, and I'll personally miss the short syn
 There's hope though: it is possible to add multi-line short closures in the future, 
 but that's an RFC on its own.
 
+{{ cta:mail }}
+
 ## Values from outer scope
 
 Another significant difference between short and normal closures is that the short ones don't 

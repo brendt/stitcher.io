@@ -79,3 +79,5 @@ $second = [
 ```
 
 All of that being said, you could also use the `+` operator to merge multidimensional arrays, but [it will work slightly different](/blog/what-is-array-plus-in-php) compared to `array_merge`.
+
+{{ cta:mail }}

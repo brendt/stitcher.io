@@ -65,6 +65,8 @@ Even though we're preloading more code than we actually need, naive preloading a
 
 You can already see a performance gain: we're able to manage more requests per second, and the average amount of time to process one request has dropped with ±20%.
 
+{{ cta:mail }}
+
 ## Optimised
 
 Finally we want to compare the performance gain when we're using an optimised preloading list. For testing purposes I started the server without preloading enabled, and dumped all classes that are used within that request:

@@ -262,6 +262,7 @@ All of this can of course also be automated, and will probably be done in the fu
 
 For now, most important to remember is that composer will add support, so that you don't have to make preload files yourself, and that this feature is very easy to setup on your server, given that you've got full control over it.
 
----
+{{ cta:mail }}
 
 Will you be using preloading once PHP 7.4 arrives? Any remarks or thoughts after reading this post? Let me know via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
+

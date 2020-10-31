@@ -78,6 +78,8 @@ The boundary would look like this, where each service has its own internal desig
 
 If you read my Laravel beyond CRUD series, you're already familiar with how the `Product` context works. There's nothing new going on over there. The `Order` context deserves a little more background information though.
 
+{{ cta:mail }}
+
 ## Event source some parts
 
 So let's look at the event sourced part. I assume you that if you're reading this post, you have at least an interest in event sourcing, so I won't explain everything in detail.
