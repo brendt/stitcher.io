@@ -89,6 +89,16 @@ article p em {
     }
 }
 
+.sidenote.blogs-for-devs {
+    background-color: #222;
+    color: #fff;
+    text-decoration-color: #fff;
+
+    a {
+        font-weight: bold;
+    }
+}
+
 .newsletter-form {
     display: flex;
     justify-content: center;
@@ -136,9 +146,7 @@ article p em {
 .sidenote .newsletter-form {
     font-size: 1.3em;
     margin-bottom: 1em;
-}
 
-.sidenote.frontline .newsletter-form {
     input[type="email"] {
         font-size: .9em;
 
@@ -147,7 +155,9 @@ article p em {
             box-shadow: inset 0 -3px 0 0 #000;
         }
     }
+}
 
+.frontline .newsletter-form {
     button {
         background-color: #f0de38;
         border-color: #f0de38;
