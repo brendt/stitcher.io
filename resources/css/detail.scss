@@ -64,7 +64,7 @@ article p em {
 
     > p {
         color: inherit;
-        font-weight: bolder;
+        font-weight: 300;
     }
 
     a {
@@ -90,9 +90,9 @@ article p em {
 }
 
 .sidenote.blogs-for-devs {
-    background-color: #222;
-    color: #fff;
-    text-decoration-color: #fff;
+    background-color: $color-primary-pastel;
+    color: #000;
+    text-decoration-color: #000;
 
     a {
         font-weight: bold;
