@@ -1,5 +1,6 @@
 <?php
 
+use Brendt\Stitcher\Handler\BlogsForDevsRssHandler;
 use Brendt\Stitcher\Handler\GamesRssHandler;
 use Brendt\Stitcher\Handler\MetaImageHandler;
 use Brendt\Stitcher\Handler\PodcastsRssHandler;
@@ -8,7 +9,7 @@ use Brendt\Stitcher\Handler\BlogRssHandler;
 use Stitcher\App;
 
 $redirects = [
-    '/blogs-for-devs' => '/blogs-for-devs/intro',
+    '/blogs-for-devs' => '/blogs-for-devs/01-intro',
     '/feed' => '/rss',
     '/games' => '/games/all',
     '/podcasts' => '/podcasts/all',
@@ -60,4 +61,5 @@ $router->get('/blog/{slug}/meta', MetaImageHandler::class);
 $router->get('/rss', BlogRssHandler::class);
 $router->get('/games/rss', GamesRssHandler::class);
 $router->get('/podcasts/rss', PodcastsRssHandler::class);
+$router->get('/blogs-for-devs/rss', BlogsForDevsRssHandler::class);
 $router->get('/rss/rant-with-brent', RantWithBrentRssHandler::class);

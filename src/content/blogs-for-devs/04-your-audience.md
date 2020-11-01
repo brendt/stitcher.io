@@ -72,3 +72,5 @@ We'll cover  all these points in later chapters as well.
 - Date to write about things that don't match with your current audience. It's a great way to further grow.
 - Aim for your blog to be self-sufficient and not only rely on hype-spikes.
 </div>
+
+{{ cta:blogs_more }}

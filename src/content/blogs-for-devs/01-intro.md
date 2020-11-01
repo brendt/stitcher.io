@@ -14,6 +14,8 @@ Oh — before I forget: this series will be released over the course of several 
 
 {{ cta:blogs_mail_short }}
 
+If you're still in doubt whether this series is for you, have a look at what we'll cover throughout the weeks:
+
 ## Index
 
 - 01 – Intro
@@ -47,10 +49,3 @@ Oh — before I forget: this series will be released over the course of several 
 **[16 – In closing](/blogs-for-devs/16-in-closing)**
 
 {{ cta:blogs_mail }}
-
-
-<footer>
-<nav class="spacer">
-<a href="/blogs-for-devs/02-content-is-king" class="cta">Start reading!</a>
-</nav>
-</footer>
