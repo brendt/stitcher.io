@@ -2,7 +2,7 @@
     title: Blogs for Devs
     content: src/content/blogs-for-devs/01-intro.md
     meta:
-        template: blog/meta/blogs-for-devs.twig
+        template: blog/meta/blogs-for-devs-intro.twig
 
 02-content-is-king:
     title: 02 — Content is King
