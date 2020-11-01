@@ -44,20 +44,12 @@
         next: true
         meta: true
 
-/blogs-for-devs:
-    template: blog/overview.twig
+/blogs-for-devs/intro:
+    template: blogs-for-devs.twig
     variables:
-        title: Blogs for Devs
-        overviewTitle: Blogs for Devs
-        posts: src/content/blogs-for-devs.yaml
-        overviewUrl: /blogs-for-devs/00-index
+        intro: src/content/blogs-for-devs/01-intro.md
         rssUrl: /blogs-for-devs/rss
         detailUrl: /blogs-for-devs
-    config:
-        order:
-            variable: posts
-            field: title
-            direction: asc
 
 
 /blogs-for-devs/{id}:

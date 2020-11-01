@@ -8,6 +8,7 @@ use Brendt\Stitcher\Handler\BlogRssHandler;
 use Stitcher\App;
 
 $redirects = [
+    '/blogs-for-devs' => '/blogs-for-devs/intro',
     '/feed' => '/rss',
     '/games' => '/games/all',
     '/podcasts' => '/podcasts/all',
