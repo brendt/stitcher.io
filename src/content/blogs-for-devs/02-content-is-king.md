@@ -47,3 +47,12 @@ In fact, I often even revisit my older posts. I'll update them when I gained new
 ---
 
 For more than three years, I've kept to this one simple rule: content above all else. It's not only my guiding rule when writing, but it'll also be the primary thought throughout this series. Of course you'll need ways to promote and monetise your blog. And that's entirely possible all while keeping your content king. 
+
+<div class="sidenote">
+<h2>In summary</h2>
+
+- Good content is priority number 1.
+- Don't write when you're not inspired, you'll burn out in the long run.
+- You don't need to be a master writer. Simple and plain English is fine.
+- Connect the dots: your posts are a collection of connected thoughts.
+</div>
