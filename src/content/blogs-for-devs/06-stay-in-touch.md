@@ -1,5 +1,8 @@
 
 
+You need ways to stay in touch though. That's why I give people several ways of doing so. I realise only a small portion will be interested in keeping in touch, and that's fine. My advice would be to have several ways for people to stay 
+
+
 - The internet is a place of fast consumption
 - No one will return or even remember your blog after they've read one post. Even if they found it great
 - Offer them ways to stay in touch: via mail, RSS or by following you on social media
