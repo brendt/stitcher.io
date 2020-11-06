@@ -129,8 +129,8 @@ You could, for example, do this:
 
 ```php
 #[
-    <hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create')
-    <hljs type>Autowire</hljs>
+    <hljs type>Route</hljs>(<hljs type>Http</hljs>::<hljs prop>POST</hljs>, '/products/create'),
+    <hljs type>Autowire</hljs>,
 <hljs comment>]</hljs>
 class ProductsCreateController
 {
