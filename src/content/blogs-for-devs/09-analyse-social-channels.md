@@ -8,3 +8,12 @@
 - Community tools
 - Examples
 - Know what content does well, and what not
+
+<div class="sidenote">
+<h2>In summary</h2>
+
+</div>
+
+---
+
+{{ cta:blogs_more }}

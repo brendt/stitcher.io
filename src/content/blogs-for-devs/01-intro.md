@@ -24,28 +24,26 @@ If you're still in doubt whether this series is for you, have a look at what we'
 
 - [02 – Content is King](/blogs-for-devs/02-content-is-king)
 - [03 – The Stack](/blogs-for-devs/03-the-stack)
-- [04 – Your audience](/blogs-for-devs/04-your-audience)
+- 04 – Your audience
 
 **Part 2 — Engage**
 
-- [05 – Interaction](/blogs-for-devs/05-interaction)
-- [06 – Stay in Touch](/blogs-for-devs/06-stay-in-touch)
-- [07 – Be Searchable](/blogs-for-devs/07-be-searchable)
-- [08 – Cross Posting](/blogs-for-devs/08-cross-posting)
+- 05 – Interaction
+- 06 – Stay in Touch
+- 07 – Be Searchable
 
 **Part 3 — Analyze**
 
-- [09 – Analytics](/blogs-for-devs/09-analytics)
-- [10 – SEO](/blogs-for-devs/10-seo)
-- [11 – Social Channels](/blogs-for-devs/11-social-channels)
-- [12 – When to Post?](/blogs-for-devs/12-when-to-post)
+- 08 – Analytics
+- 09 – Social Channels
+- 10 – When to Post?
 
-**Part 4 — Monitize**
+**Part 4 — Monetize**
 
-- [13 – Ads](/blogs-for-devs/13-ads)
-- [14 – Sponsors](/blogs-for-devs/14-sponsors)
-- [15 – Products](/blogs-for-devs/15-products)
+- 11 – Ads
+- 12 – Sponsors
+- 13 – Products
 
-**[16 – In closing](/blogs-for-devs/16-in-closing)**
+**14 – In closing**
 
-{{ cta:blogs_mail }}
+{{ cta:blogs_more }}

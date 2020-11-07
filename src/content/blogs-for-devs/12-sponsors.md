@@ -6,3 +6,12 @@
 - Price to ask per week will depend on how much visitors you have per week, and also look at how much they'd make on average per customer. 
 - Sponsor messages can't be ad blocked
 - Sponsors can cancel
+
+<div class="sidenote">
+<h2>In summary</h2>
+
+</div>
+
+---
+
+{{ cta:blogs_more }}

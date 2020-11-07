@@ -15,8 +15,16 @@ I do indeed use some channels to just push my content out to the world. I do try
 
 One advantage that comes for free if you engage with your audience is the feedback they provide. Not everything you write will be the best thing ever, and sometimes your audience will tell you. Listen to that feedback, even if it might hurt your ego (I know it does hurt mine a little every time). The people who take the time to reach out to tell you what they didn't like are the most valuable ones. If you've kept an open line of communication, it'll be easy to have a meaningful conversation with them. It will only improve your blog in the long run.
 
----
-
 So that's where I stand: invest in genuine online relations, it's the better way to long-lasting success. It might not be the fastest way, but I believe it helps build something you can be proud of in the end.
 
-{{ cta:blogs_mail }}
+<div class="sidenote">
+<h2>In summary</h2>
+
+- Your audience isn't a means to make money.
+- Invest in genuine online relations to build a quality blog.
+- Listen to feedback, the people who dedicate time to criticize you are valuable.
+</div>
+
+---
+
+{{ cta:blogs_more }}

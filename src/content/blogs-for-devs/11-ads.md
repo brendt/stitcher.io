@@ -7,3 +7,12 @@
 - If you're a technical blogger your target audience will have a higher rate of ad blockers
 - If you decide to go with ads, look for ads that provide at least some value, eg. Carbon ads
 - Don't overdo it. Remember: content is king, ads shouldn't be intrusive 
+
+<div class="sidenote">
+<h2>In summary</h2>
+
+</div>
+
+---
+
+{{ cta:blogs_more }}

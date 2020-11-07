@@ -34,4 +34,6 @@ I must admit that I probably wouldn't build my own static site generator again i
 - Simplicity is key when starting, you can always expand later.
 </div>
 
+---
+
 {{ cta:blogs_more }}

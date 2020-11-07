@@ -28,5 +28,17 @@
     meta:
         template: blog/meta/blogs-for-devs.twig
 
+06-stay-in-touch:
+    title: 06 — Stay in Touch
+    content: src/content/blogs-for-devs/06-stay-in-touch.md
+    meta:
+        template: blog/meta/blogs-for-devs.twig
+
+07-be-searchable:
+    title: 07 — Be Searchable
+    content: src/content/blogs-for-devs/07-be-searchable.md
+    meta:
+        template: blog/meta/blogs-for-devs.twig
+
 
 

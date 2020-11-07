@@ -14,3 +14,16 @@
 
 - Free tool which is amazing
 - Few examples
+
+### Search console
+
+- Mention robots and sitemap
+
+<div class="sidenote">
+<h2>In summary</h2>
+
+</div>
+
+---
+
+{{ cta:blogs_more }}
