@@ -56,6 +56,8 @@ foreach ($newsLetters as $i => $newsLetter) {
 }
 
 $router->get('/img/meta/{slug}.png', MetaImageHandler::class);
+$router->get('/blog/{slug}/meta', MetaImageHandler::class);
+$router->get('/blogs-for-devs/{slug}/meta', MetaImageHandler::class);
 $router->get('/img/meta/{slug}.png/nocache', MetaImageHandler::class);
 $router->get('/blog/{slug}/meta', MetaImageHandler::class);
 $router->get('/rss', BlogRssHandler::class);
