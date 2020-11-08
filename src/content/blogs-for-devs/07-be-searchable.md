@@ -1,4 +1,4 @@
-While the social media driven hype-spikes often result in an adrenaline rush, they don't grow your blog as significantly as you might think. Even when you offer them ways to [stay in touch](*/blogs-for-devs/06-stay-in-touch), only a small portion of them will ever return. I admit: most of the times I read a blog post myself, I'm not aware of which blog I'm reading it on.
+While the social media driven hype-spikes often result in an adrenaline rush, they don't grow your blog as significantly as you might think. Even when you offer readers ways to [stay in touch](*/blogs-for-devs/06-stay-in-touch), only a small portion of them will ever return.
 
 Take a look at the amount of returning visitors, grouped by the channel they used to visit my blog:
 
@@ -10,11 +10,10 @@ It's time for some SEO.
 
 {{ cta:blogs_mail }}
 
-I admit I kind of dislike the term "SEO", it makes me think of dark marketing patterns. SEO doesn't always have to have a dark side though: you don't need to do thorough keyword analysis, write content specifically for Google or buy backlinks to your blog. 
+I admit I kind of dislike the term "SEO", it makes me think of dark marketing patterns. SEO doesn't always have to have a dark side though: you don't need to do thorough keyword analysis, write content specifically for Google or buy backlinks to your blog to have your content high in Google.
 
 As long as you keep writing [great content](*/blogs-for-devs/02-content-is-king) and invest in [genuine online relations](*/blogs-for-devs/05-interaction), Google will find you.
-
-There are five practical tips I want to give you that don't rely on all the dirty things SEO is associated with. Let's begin
+There are five practical tips I want to give you that don't rely on all those dark patterns SEO is associated with. Let's begin
 
 ## Content and Performance
 
@@ -24,9 +23,9 @@ What Google _does_ take into account is site performance and mobile experience. 
 
 ## Internal links
 
-I've mentioned this before: I think of my content as more than standalone posts. They are a network of connected thoughts and ideas, and it's worth linking them together. With that I literally mean having hyperlinks to your own content. It will help Google better understand the content of your site. If one post is doing well in Google search, and it has connection to other posts, Google will be able to connect the dots. Once I started investing in internal links, I could see search traffic rise steadily.
+You should think of your content as more than standalone posts. They are a network of connected thoughts and ideas, and it's worth linking them together. With that I literally mean having hyperlinks to your own content. Besides being very useful for your readers, it will also help Google better understand the structure of your blog. If one post is doing well in Google search, and it has connection to other posts, Google will be able to connect the dots. Every since I started investing in internal links, traffic has been rising steadily.
 
-Also make sure that Google knows how to crawl your site. Add a [robots.txt](*https://support.google.com/webmasters/answer/6062608?hl=en) and build a [sitemap](*https://support.google.com/webmasters/answer/183668?hl=en). We'll discuss how to analyse your technical setup in a later chapter.
+Also make sure that Google knows how to crawl your site. Add a [robots.txt](*https://support.google.com/webmasters/answer/6062608?hl=en) and build a [sitemap](*https://support.google.com/webmasters/answer/183668?hl=en). We'll discuss how to analyse your technical setup in a later chapter, using Analytics and Search Console.
 
 ## Cross posting
 
@@ -40,7 +39,10 @@ Adding a canonical URL is as simple as adding the following HTML tag in the `hea
 <<hljs keyword>head</hljs>>
 <!-- … -->
 
-<<hljs keyword>link</hljs> <hljs prop>rel</hljs>="canonical" <hljs prop>href</hljs>="https://stitcher.io/blog/07-be-searchable">
+<<hljs keyword>link</hljs> 
+    <hljs prop>rel</hljs>="canonical" 
+    <hljs prop>href</hljs>="https://stitcher.io/blogs-for-devs/07-be-searchable"
+/>
 </<hljs keyword>head</hljs>>
 ```
 
@@ -52,12 +54,13 @@ Cross posting not only allows you to reach a larger audience, but also shows Goo
 
 ## External sharing
 
-People will already share your content on social media, which also has an impact on SEO; but even better is it when other popular blogs or platforms start sharing your content. There's little you can do to force people though (I wouldn't invest in buying backlinks), but writing quality content and being an active person on social media can help.
+People will already share your content on social media, which also has an impact on SEO; but it's even better when other popular blogs or platforms start sharing your content. There's little you can do to force people though (I wouldn't invest in buying backlinks), but writing quality content and being an active person on social media can help. Invest in relations with other popular blogs, make sure they can find you.
 
 ## Long-tail keywords
 
-I you can't help it and want to invest in keywords to help improve your content, it's my experience that it's best to invest in long-tail keywords. These are keywords with a relatively small amount of searches, which means your content will more easily end up higher in the search results.
+I you can't help it and want to invest in keywords to help improve your content, it's my experience that it's best to invest in long-tail keywords. These are keywords with a relatively small amount of searches, which means your content will more easily end up higher in the search results for those keywords.
 
+Even though those keywords have less searches overall, small amounts add up in the end. It's way more realistic to optimise for those first, before trying to write for a very contested keyword.
 You could use a free Chrome extension called [Keyword Surfer](*https://chrome.google.com/webstore/detail/keyword-surfer/bafijghppfhdpldihckdcadbcobikaca?hl=en) to analyse what keywords are best to invest in.
 
 Let's look at an example.
@@ -77,7 +80,7 @@ I'd encourage you to try all these tips out yourself, find a process that works 
 <div class="sidenote">
 <h2>In summary</h2>
 
-- SEO traffic is much more stable than the traffic drive by social media.
+- SEO traffic is much more stable than the traffic driven by social media.
 - Content and performance are still key.
 - Connect your content: Google picks up on this.
 - Cross post, but make sure to use canonical URLs.
