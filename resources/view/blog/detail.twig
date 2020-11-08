@@ -3,7 +3,11 @@
 {% block meta %}
     {{ parent() }}
 
-    <link rel="canonical" href="https://stitcher.io{{ detailUrl ?? '/blog' }}/{{ post.id }}" />
+    {% if post.meta.canonical ?? false %}
+        <link rel="canonical" href="{{ post.meta.canonical }}" />
+    {% else %}
+        <link rel="canonical" href="https://stitcher.io{{ detailUrl ?? '/blog' }}/{{ post.id }}" />
+    {% endif %}
 {% endblock %}
 
 {% block head %}
