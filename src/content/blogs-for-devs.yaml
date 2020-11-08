@@ -1,6 +1,15 @@
+subscribe:
+    title: "Coming soon: Blogs for Devs"
+    content: src/content/blogs-for-devs/00-teaser.md
+    date: 2020-11-22
+    meta:
+        template: blog/meta/blogs-for-devs-intro.twig
+        description: How to grow, manage and monitize your blog
+
 01-intro:
     title: Blogs for Devs
     content: src/content/blogs-for-devs/01-intro.md
+    date: 2020-11-29
     meta:
         template: blog/meta/blogs-for-devs-intro.twig
         description: How to grow, manage and monitize your blog
@@ -8,6 +17,7 @@
 02-content-is-king:
     title: 02 — Content is King
     content: src/content/blogs-for-devs/02-content-is-king.md
+    date: 2020-11-29
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -15,6 +25,7 @@
 03-the-stack:
     title: 03 — The Stack
     content: src/content/blogs-for-devs/03-the-stack.md
+    date: 2020-11-29
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -22,6 +33,7 @@
 04-your-audience:
     title: 04 — Your Audience
     content: src/content/blogs-for-devs/04-your-audience.md
+    date: 2020-12-06
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -29,6 +41,7 @@
 05-interaction:
     title: 05 — Interaction
     content: src/content/blogs-for-devs/05-interaction.md
+    date: 2020-12-13
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -36,6 +49,7 @@
 06-stay-in-touch:
     title: 06 — Stay in Touch
     content: src/content/blogs-for-devs/06-stay-in-touch.md
+    date: 2020-12-13
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -43,6 +57,7 @@
 07-be-searchable:
     title: 07 — Be Searchable
     content: src/content/blogs-for-devs/07-be-searchable.md
+    date: 2020-12-20
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
