@@ -3,7 +3,7 @@
 #    title: Blogs for Devs
 #    meta:
 #        canonical: "https://stitcher.io/blogs-for-devs/01-intro"
-#        description: How to grow, manage and monitize your blog
+#        description: How to grow, manage and monetize your blog
 #        template: blog/meta/blogs-for-devs-intro.twig
 #    content: src/content/blogs-for-devs/01-intro.md
 #    next:
@@ -15,7 +15,7 @@ blogs-for-devs-coming-soon:
     title: "Coming soon: Blogs for Devs"
     meta:
         canonical: "https://stitcher.io/blogs-for-devs/subscribe"
-        description: How to grow, manage and monitize your blog
+        description: How to grow, manage and monetize your blog
         template: blog/meta/blogs-for-devs-intro.twig
     content: src/content/blogs-for-devs/00-teaser.md
 
