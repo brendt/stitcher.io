@@ -4,16 +4,18 @@ Take a look at the amount of returning visitors, grouped by the channel they use
 
 ![Returning visitors per channel per week](/resources/img/blogs-for-devs/07-01.png)
 
-It's clear that there's one channel above all that's the best way to ensure people return to your blog: Google. So how to ensure Google knows where you are, and to have your content show up in search results? 
+There's one channel to rule them all when it comes to returning visitors: Google. So how to ensure Google knows where you are, and have your content show up high in search results? 
 
 It's time for some SEO.
 
 {{ cta:blogs_mail }}
 
-I admit I kind of dislike the term "SEO", it makes me think of dark marketing patterns. SEO doesn't always have to have a dark side though: you don't need to do thorough keyword analysis, write content specifically for Google or buy backlinks to your blog to have your content high in Google.
+I admit I kind of dislike the term "SEO", it makes me think of dark marketing patterns. SEO doesn't always have to have a dark side though: you don't need to do spend endless amounts of time on keyword analysis, write content specifically for Google or buy backlinks to your blog to have your content high in Google.
 
 As long as you keep writing [great content](*/blogs-for-devs/02-content-is-king) and invest in [genuine online relations](*/blogs-for-devs/05-interaction), Google will find you.
-There are five practical tips I want to give you that don't rely on all those dark patterns SEO is associated with. Let's begin
+There are five practical tips I want to give you that don't rely on whatever dark patterns SEO is associated with. 
+
+Let's begin.
 
 ## Content and Performance
 
