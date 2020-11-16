@@ -75,4 +75,6 @@ We'll cover all these points in depth in later chapters as well.
 
 ---
 
+{{ cta:blogs_index }}
+
 {{ cta:blogs_more }}

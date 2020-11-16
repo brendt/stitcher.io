@@ -90,6 +90,10 @@ article p em {
 }
 
 .sidenote.blogs-for-devs {
+    &.index {
+        background-color: darken(#fff, 5);
+    }
+
     background-color: $color-primary-pastel;
     color: #000;
     text-decoration-color: #000;

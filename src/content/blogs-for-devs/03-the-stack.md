@@ -36,4 +36,7 @@ I must admit that I probably wouldn't build my own static site generator again i
 
 ---
 
+{{ cta:blogs_index }}
+
 {{ cta:blogs_more }}
+

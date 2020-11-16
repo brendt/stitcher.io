@@ -48,6 +48,7 @@
     template: blog/detail.twig
     variables:
         overviewUrl: /blogs-for-devs/01-intro
+        overviewTitle: Blog for Devs
         rssUrl: /blogs-for-devs/rss
         detailUrl: /blogs-for-devs
         post: src/content/blogs-for-devs.yaml

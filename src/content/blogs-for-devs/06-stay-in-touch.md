@@ -34,4 +34,6 @@ Whatever technical setup you choose, make sure to offer your audience several wa
 
 ---
 
+{{ cta:blogs_index }}
+
 {{ cta:blogs_more }}

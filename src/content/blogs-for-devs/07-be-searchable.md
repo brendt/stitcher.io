@@ -92,4 +92,6 @@ I'd encourage you to try all these tips out yourself, find a process that works 
 
 ---
 
+{{ cta:blogs_index }}
+
 {{ cta:blogs_more }}

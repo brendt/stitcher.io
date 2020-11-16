@@ -151,4 +151,6 @@ When I put this strategy to the test, I discovered a few posts with potential. P
 
 ---
 
+{{ cta:blogs_index }}
+
 {{ cta:blogs_more }}

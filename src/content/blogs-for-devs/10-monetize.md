@@ -43,4 +43,6 @@ So while ads are a nice way of earning a little extra with your blog, there are 
 
 </div>
 
+{{ cta:blogs_index }}
+
 {{ cta:blogs_more }}

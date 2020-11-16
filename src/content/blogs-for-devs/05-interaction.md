@@ -27,4 +27,6 @@ So that's where I stand: invest in genuine online relations, it's the better way
 
 ---
 
+{{ cta:blogs_index }}
+
 {{ cta:blogs_more }}

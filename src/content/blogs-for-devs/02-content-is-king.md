@@ -56,3 +56,9 @@ For more than three years, I've kept to this one simple rule: content above all 
 - You don't need to be a master writer. Simple and plain English is fine.
 - Connect the dots when possible: each post is part of a larger whole.
 </div>
+
+---
+
+{{ cta:blogs_index }}
+
+{{ cta:blogs_more }}

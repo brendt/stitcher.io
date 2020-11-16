@@ -16,18 +16,6 @@ Oh — before I forget: this series will be released over the course of several 
 
 If you're still in doubt whether this series is for you, have a look at what we'll cover throughout the weeks:
 
-## Index
-
-- 01 – Intro
-- [02 – Content is King](/blogs-for-devs/02-content-is-king)
-- [03 – The Stack](/blogs-for-devs/03-the-stack)
-- 04 – Your audience
-- 05 – Interaction
-- 06 – Stay in Touch
-- 07 – Be Searchable
-- 08 – Analytics
-- 09 – Social Channels
-- 10 – Monetize
-- 11 – In closing
+{{ cta:blogs_index }}
 
 {{ cta:blogs_more }}

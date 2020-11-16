@@ -90,4 +90,6 @@ I could tell much more about how I use data to improve my blog, but it's outside
 
 ---
 
+{{ cta:blogs_index }}
+
 {{ cta:blogs_more }}
