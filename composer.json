@@ -21,10 +21,5 @@
         "psr-4": {
             "Brendt\\Stitcher\\": "src/"
         }
-    },
-    "config": {
-        "platform": {
-            "ext-imagick": "3.4.4"
-        }
     }
 }
