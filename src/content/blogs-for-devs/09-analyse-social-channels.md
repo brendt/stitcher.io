@@ -104,11 +104,41 @@ Another example: Twitter. I really don't want to spam my followers by reporting.
 
 There are of course tools that can do all of this for you, but I enjoy the freedom of being able to do whatever I want with my data, and not paying for it. Unfortunately I'm not able to share these tools with you at the moment, since they aren't built with reusability and configuration in mind, but that might change in the future; depending on whether there's enough interest in them or not. [Let me know](*https://twitter.com/brendt_gd)!
 
+## When to post
+
+Another metric to keep in mind is when it's best to post your content: what time of day and what day of week. Mind you: the best time will vary from channel to channel. There isn't a guaranteed 100% success rate if you post on the right time, but over the years I found that often does make a difference.
+
+There's different factors to take into account: you want a time where enough people are online, but not too many submissions are posted at once, you also want to time your post so that it isn't too close to another one of yours. I find that keeping time zone into account helps: I usually post when it's early morning in the USA (which is the largest group of my audience). This means that my post usually can gather some upvotes from my European and Asian audience, before the USA wakes up. When the "masses" arrive later in the day, the post usually already is higher up and more visible.
+
+I also used my tool to analyse what days are the best to post on per subreddit. The data looks something like this:
+
+```txt
++---------------------+-----------+---------+
+| Subreddit           | Weekday   | Upvotes |
++---------------------+-----------+---------+
+| r/laravel           | Sunday    | 2       |
+|                     | Monday    | 187     |
+|                     | Wednesday | 218     |
+|                     | Tuesday   | 234     |
+|                     | Saturday  | 317     |
+|                     | Thursday  | 335     |
+|                     | Friday    | 342     |
++---------------------+-----------+---------+
+| r/PHP               | Sunday    | 154     |
+|                     | Saturday  | 253     |
+|                     | Tuesday   | 2154    |
+|                     | Wednesday | 2174    |
+|                     | Thursday  | 2516    |
+|                     | Friday    | 2964    |
+|                     | Monday    | 2974    |
++---------------------+-----------+---------+
+```   
+
+In case of Reddit, there's a great free tool available that can do post analysis as well: [https://laterforreddit.com/](*https://laterforreddit.com/).
+
 ---
 
-When I put this strategy to the test, I discovered a few posts with potential. Posts that I thought might do well on one channel or another. Sure thing, the first day I used this analyser, I already got a post going viral on Hacker News.
-
-I don't check these stats every week, by the way. I figure it's most important to not spam your audience. Still having insights into 
+When I put this strategy to the test, I discovered a few posts with potential. Posts that I thought might do well on one channel or another. Sure thing, the first day I used this analyser, I already got a post going viral on Hacker News. I don't check these stats every week, by the way. I figure it's most important to not spam your audience.
 
 <div class="sidenote">
 <h2>In summary</h2>
@@ -116,6 +146,7 @@ I don't check these stats every week, by the way. I figure it's most important t
 - Social channels are one-time hype-spikes, but what if you could repeat them from time to time?
 - You'll need ways to monitor how your content does on those channels.
 - This kind of data is another source that you can use to determine what content is worth writing, and what not.
+- Beware that posting on the right time can make a significant difference. Play around with this.
 </div>
 
 ---

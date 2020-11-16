@@ -73,47 +73,23 @@ subscribe:
 09-analyse-social-channels:
     title: 09 — Social Channels
     content: src/content/blogs-for-devs/09-analyse-social-channels.md
-    date: 2021-01-10
-    meta:
-        template: blog/meta/blogs-for-devs.twig
-        description: How to grow, manage and monitize your blog
-
-10-when-to-post:
-    title: 10 — When to Post
-    content: src/content/blogs-for-devs/10-when-to-post.md
-    date: 2021-01-10
-    meta:
-        template: blog/meta/blogs-for-devs.twig
-        description: How to grow, manage and monitize your blog
-
-11-ads:
-    title: 11 — Ads
-    content: src/content/blogs-for-devs/11-ads.md
     date: 2021-01-17
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
 
-12-sponsors:
-    title: 12 — Sponsors
-    content: src/content/blogs-for-devs/12-sponsors.md
-    date: 2021-01-17
+10-monetize:
+    title: 10 — Monetize
+    content: src/content/blogs-for-devs/10-monetize.md
+    date: 2021-01-24
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
 
-13-products:
-    title: 13 — Products
-    content: src/content/blogs-for-devs/13-products.md
-    date: 2021-01-17
-    meta:
-        template: blog/meta/blogs-for-devs.twig
-        description: How to grow, manage and monitize your blog
-
-14-in-closing:
-    title: 14 — In Closing
-    content: src/content/blogs-for-devs/14-in-closing.md
-    date: 2021-01-17
+11-in-closing:
+    title: 11 — In Closing
+    content: src/content/blogs-for-devs/11-in-closing.md
+    date: 2021-01-24
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog

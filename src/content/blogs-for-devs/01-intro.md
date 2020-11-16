@@ -19,31 +19,15 @@ If you're still in doubt whether this series is for you, have a look at what we'
 ## Index
 
 - 01 – Intro
-
-**Part 1 — Write**
-
 - [02 – Content is King](/blogs-for-devs/02-content-is-king)
 - [03 – The Stack](/blogs-for-devs/03-the-stack)
 - 04 – Your audience
-
-**Part 2 — Engage**
-
 - 05 – Interaction
 - 06 – Stay in Touch
 - 07 – Be Searchable
-
-**Part 3 — Analyze**
-
 - 08 – Analytics
 - 09 – Social Channels
-- 10 – When to Post?
-
-**Part 4 — Monetize**
-
-- 11 – Ads
-- 12 – Sponsors
-- 13 – Products
-
-**14 – In closing**
+- 10 – Monetize
+- 11 – In closing
 
 {{ cta:blogs_more }}
