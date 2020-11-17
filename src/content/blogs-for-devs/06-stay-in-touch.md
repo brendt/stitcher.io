@@ -8,7 +8,7 @@ The internet is a fast place of consumption, and your audience wants to spend as
 
 {{ cta:blogs_mail }}
 
-Now, I realise not everyone wants to subscribe to a newsletter, and that's totally fine. Thats why I'd advice to have at least three ways for people to stay in touch with you:
+Now, I realise not everyone wants to subscribe to a newsletter, and that's totally fine. Thats why I'd advise to have at least three ways for people to stay in touch with you:
 
 - Via RSS, which is the smallest form of commitment
 - Via at least one social media channel
