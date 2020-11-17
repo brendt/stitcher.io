@@ -4,6 +4,7 @@ php-8-nullsafe-operator:
     content: src/content/blog/2020-11-17-the-nullsafe-operator.md
     meta:
         description: The nullsafe operator allows you to safely call methods and properties on nullables on PHP 8.
+        template: blog/meta/nullsafe-operator.twig
     footnotes:
         - { title: "Dealing with null", link: "https://front-line-php.com/dealing-with-null" }
         - { title: "The nullsafe operator RFC", link: "https://wiki.php.net/rfc/nullsafe_operator" }
@@ -97,6 +98,7 @@ new-in-php-8:
         template: 'blog/meta/new-in-php-8.twig'
     tag: src/content/tags/php-8.yaml
     footnotes:
+        - { link: /blog/php-8-nullsafe-operator, title: "The nullsafe operator" }
         - { link: /blog/php-8-match-or-switch, title: "The match operator in PHP 8" }
         - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
         - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
