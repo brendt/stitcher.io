@@ -126,7 +126,7 @@ One final note to make: remember that I mentioned PHP's fast request/response cy
 
 ## The downsides
 
-All of this sounds interesting in theory, but what about in practice? What about performance? How much RAM will you need to store everything in memory? Will we able to optimise reading the state by performing complex queries? How will snapshots be stored? What about versioning?
+All of this sounds interesting in theory, but what about in practice? What about performance? How much RAM will you need to store everything in memory? Will we be able to optimise reading the state by performing complex queries? How will snapshots be stored? What about versioning?
 
 Lots of questions are still unanswered. The goal of this post was not to provide all answers, but rather share some thoughts and questions with you, the community. Who knows what you can come up with? 
 
