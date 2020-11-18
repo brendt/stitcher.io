@@ -47,7 +47,7 @@ class Order
 $order = new <hljs type>Order</hljs>();
 ```
 
-Here we have an `<hljs type>Order</hljs>` object which has an optional relation to an `<hljs type>Invoice</hljs>` object. Now image we'd want to get the invoice's number (if the invoice isn't null). You could do this both with the null coalescing operator and the nullsafe operator:
+Here we have an `<hljs type>Order</hljs>` object which has an optional relation to an `<hljs type>Invoice</hljs>` object. Now imagine we'd want to get the invoice's number (if the invoice isn't null). You could do this both with the null coalescing operator and the nullsafe operator:
 
 ```php
 <hljs prop>var_dump</hljs>($order-><hljs prop>invoice</hljs>?-><hljs prop>number</hljs>);
