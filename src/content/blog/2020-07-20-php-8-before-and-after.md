@@ -115,7 +115,7 @@ public static function new(): <hljs type>static</hljs>
 
 <em class="center small">PHP 8</em>
 
-{{ cta:flp8 }}
+{{ cta:flp }}
 
 ## DTO's, property promotion and named arguments
 

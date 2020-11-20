@@ -1,4 +1,4 @@
-{{ cta:flp8 }}
+{{ cta:flp }}
 
 ## Upgrading with Homebrew
 

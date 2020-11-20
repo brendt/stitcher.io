@@ -18,8 +18,6 @@ class AdRenderer implements InlineRendererInterface
     private array $ctas = [
         '{{ cta:mail }}' => __DIR__ . '/../../../resources/view/_partials/cta_mail.twig',
         '{{ cta:flp }}' => __DIR__ . '/../../../resources/view/_partials/cta_front_line.twig',
-        '{{ cta:flp8 }}' => __DIR__ . '/../../../resources/view/_partials/cta_front_line_php8.twig',
-        '{{ cta:flp_mail }}' => __DIR__ . '/../../../resources/view/_partials/cta_front_line_mail.twig',
     ];
 
     public function __construct()

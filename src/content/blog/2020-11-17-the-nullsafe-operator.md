@@ -97,7 +97,7 @@ While the null coalescing operator would crash:
 <hljs text red full>Fatal error: Uncaught Error: Call to a member function format() on null</hljs>
 ```
 
-{{ cta:flp_mail }}
+{{ cta:flp }}
 
 ### Short circuiting
 
