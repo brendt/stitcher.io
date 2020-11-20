@@ -1,9 +1,9 @@
 php-8-nullsafe-operator:
     date: 2020-11-17
-    title: "PHP 8: the nullsafe operator"
+    title: "PHP 8: the null safe operator"
     content: src/content/blog/2020-11-17-the-nullsafe-operator.md
     meta:
-        description: The nullsafe operator allows you to safely call methods and properties on nullables on PHP 8.
+        description: The null safe operator allows you to safely call methods and properties on nullables on PHP 8.
         template: blog/meta/nullsafe-operator.twig
     footnotes:
         - { title: "Dealing with null", link: "https://front-line-php.com/dealing-with-null" }
