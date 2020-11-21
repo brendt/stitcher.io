@@ -3,3 +3,4 @@ Make sure to leave your email address if you want to be notified when new chapte
 
 {{ cta:blogs_mail_short }}
 
+You can [read a preview](/blogs-for-devs/01-intro) right now!

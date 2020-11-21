@@ -1,7 +1,7 @@
 subscribe:
     title: "Coming soon: Blogs for Devs"
     content: src/content/blogs-for-devs/00-teaser.md
-    date: 2020-12-06
+    date: 2020-11-29
     meta:
         template: blog/meta/blogs-for-devs-intro.twig
         description: How to grow, manage and monitize your blog
@@ -9,7 +9,7 @@ subscribe:
 01-intro:
     title: Blogs for Devs
     content: src/content/blogs-for-devs/01-intro.md
-    date: 2020-12-13
+    date: 2020-11-29
     meta:
         template: blog/meta/blogs-for-devs-intro.twig
         description: How to grow, manage and monitize your blog
@@ -17,7 +17,7 @@ subscribe:
 02-content-is-king:
     title: 02 — Content is King
     content: src/content/blogs-for-devs/02-content-is-king.md
-    date: 2020-12-13
+    date: 2020-12-06
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -25,7 +25,7 @@ subscribe:
 03-the-stack:
     title: 03 — The Stack
     content: src/content/blogs-for-devs/03-the-stack.md
-    date: 2020-12-13
+    date: 2020-12-06
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -33,7 +33,7 @@ subscribe:
 04-your-audience:
     title: 04 — Your Audience
     content: src/content/blogs-for-devs/04-your-audience.md
-    date: 2020-12-20
+    date: 2020-12-13
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -41,7 +41,7 @@ subscribe:
 05-interaction:
     title: 05 — Interaction
     content: src/content/blogs-for-devs/05-interaction.md
-    date: 2020-12-27
+    date: 2020-12-20
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -49,7 +49,7 @@ subscribe:
 06-stay-in-touch:
     title: 06 — Stay in Touch
     content: src/content/blogs-for-devs/06-stay-in-touch.md
-    date: 2020-12-27
+    date: 2020-12-20
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -57,7 +57,7 @@ subscribe:
 07-be-searchable:
     title: 07 — Be Searchable
     content: src/content/blogs-for-devs/07-be-searchable.md
-    date: 2021-01-03
+    date: 2020-12-27
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -65,7 +65,7 @@ subscribe:
 08-analytics:
     title: 08 — Analytics
     content: src/content/blogs-for-devs/08-analytics.md
-    date: 2021-01-10
+    date: 2021-01-03
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -73,7 +73,7 @@ subscribe:
 09-analyse-social-channels:
     title: 09 — Social Channels
     content: src/content/blogs-for-devs/09-analyse-social-channels.md
-    date: 2021-01-17
+    date: 2021-01-10
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -81,7 +81,7 @@ subscribe:
 10-monetize:
     title: 10 — Monetize
     content: src/content/blogs-for-devs/10-monetize.md
-    date: 2021-01-24
+    date: 2021-01-17
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
@@ -89,7 +89,7 @@ subscribe:
 11-in-closing:
     title: 11 — In Closing
     content: src/content/blogs-for-devs/11-in-closing.md
-    date: 2021-01-24
+    date: 2021-01-17
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
