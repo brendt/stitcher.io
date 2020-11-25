@@ -1,3 +1,24 @@
+new-in-php-8:
+    date: 2020-11-25
+    title: "What's new in PHP 8"
+    content: src/content/blog/2020-01-16-new-in-php-8.md
+    next: new-in-php-74
+    highlight: true
+    meta:
+        description: "All new features, deprecations, speed and performance improvements in PHP 8"
+        template: 'blog/meta/new-in-php-8.twig'
+    tag: src/content/tags/php-8.yaml
+    footnotes:
+        - { link: /blog/php-8-nullsafe-operator, title: "The nullsafe operator" }
+        - { link: /blog/php-8-match-or-switch, title: "The match operator in PHP 8" }
+        - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
+        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
+        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+
 php-8-nullsafe-operator:
     date: 2020-11-17
     title: "PHP 8: the null safe operator"
@@ -86,27 +107,6 @@ differences:
     next: annotations
     meta:
         image: /resources/img/comics/differences.png
-
-new-in-php-8:
-    date: 2020-08-13
-    title: "What's new in PHP 8"
-    content: src/content/blog/2020-01-16-new-in-php-8.md
-    next: new-in-php-74
-    highlight: true
-    meta:
-        description: "All new features, deprecations, speed and performance improvements in PHP 8"
-        template: 'blog/meta/new-in-php-8.twig'
-    tag: src/content/tags/php-8.yaml
-    footnotes:
-        - { link: /blog/php-8-nullsafe-operator, title: "The nullsafe operator" }
-        - { link: /blog/php-8-match-or-switch, title: "The match operator in PHP 8" }
-        - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
-        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
-        - { link: /blog/the-latest-php-version, title: "The latest PHP version", description: " — how modern PHP versions are managed" }
-        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
-        - { link: /blog/php-in-2020, title: "PHP in 2020" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 my-journey-into-event-sourcing:
     date: 2020-07-25
