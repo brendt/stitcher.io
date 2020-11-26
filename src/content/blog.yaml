@@ -20,7 +20,7 @@ new-in-php-8:
     next: new-in-php-74
     highlight: true
     meta:
-        description: "All new features, deprecations, speed and performance improvements in PHP 8"
+        description: "PHP 8 is available now!"
         template: 'blog/meta/new-in-php-8.twig'
     tag: src/content/tags/php-8.yaml
     footnotes:
