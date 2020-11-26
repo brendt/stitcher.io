@@ -1,4 +1,7 @@
+Note: PHP 8 hasn't been released yet, so it'll be a few more hours before you can use Homebrew to update to it.
+
 {{ ad:carbon }}
+
 
 ## Upgrading with Homebrew
 
