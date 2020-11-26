@@ -1,5 +1,20 @@
+php-8-upgrade-mac:
+    date: 2020-11-26
+    title: Upgrade to PHP 8 with Homebrew on Mac
+    content: src/content/blog/2020-11-26-php-8-upgrade-mac.md
+    next: new-in-php-8
+    meta:
+        description: "How to upgrade to PHP 8 on a Mac with Homebrew"
+    footnotes:
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/php-8-nullsafe-operator, title: "The nullsafe operator" }
+        - { link: /blog/php-8-match-or-switch, title: "The match operator in PHP 8" }
+        - { link: /blog/php-8-named-arguments, title: "Named arguments in PHP 8" }
+        - { link: /blog/constructor-promotion-in-php-8, title: "Property promotion in PHP 8" }
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+
 new-in-php-8:
-    date: 2020-11-25
+    date: 2020-11-26
     title: "What's new in PHP 8"
     content: src/content/blog/2020-01-16-new-in-php-8.md
     next: new-in-php-74
