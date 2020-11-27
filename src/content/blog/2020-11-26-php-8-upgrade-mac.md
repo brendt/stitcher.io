@@ -2,7 +2,6 @@ Note: PHP 8 hasn't been released yet, so it'll be a few more hours before you ca
 
 {{ ad:carbon }}
 
-
 ## Upgrading with Homebrew
 
 Start by making sure brew is up-to-date:
@@ -11,11 +10,30 @@ Start by making sure brew is up-to-date:
 brew update
 ```
 
-Next, upgrade PHP:
+Next, upgrade PHP. You can either use the built-in php recipe, use tap `shivammathur/homebrew-php`. I'd recommend the second approach, since it allows you to easily install several PHP versions and switch between them.
+
+### Normal upgrade
 
 ```bash
 brew upgrade php
 ```
+
+### Upgrade with `shivammathur/homebrew-php`
+
+```bash
+brew tap shivammathur/php
+brew install shivammathur/php/php@8.0
+```
+
+To switch between versions, use the following command:
+
+```bash
+brew link --overwrite --force php@8.0
+```
+
+You can read more in the [repository](*https://github.com/shivammathur/homebrew-php).
+
+### Next steps
 
 Check the current version by running `php -v`: 
 
