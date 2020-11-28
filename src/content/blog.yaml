@@ -1,6 +1,6 @@
 blogs-for-devs:
     date: 2020-11-28
-    title: "Announcing: Blogs for Devs"
+    title: "Announcing Blogs for Devs"
     meta:
         canonical: "https://stitcher.io/blogs-for-devs/01-intro"
         description: How to grow, manage and monetize your blog
@@ -29,7 +29,7 @@ new-in-php-8:
     date: 2020-11-26
     title: "What's new in PHP 8"
     content: src/content/blog/2020-01-16-new-in-php-8.md
-    next: new-in-php-74
+    next: blogs-for-devs
     highlight: true
     meta:
         description: "PHP 8 is available now!"
