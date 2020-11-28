@@ -6,6 +6,9 @@ blogs-for-devs:
         description: How to grow, manage and monetize your blog
         template: blog/meta/blogs-for-devs-intro.twig
     content: src/content/blogs-for-devs/01-intro.md
+    next:
+        url: /blogs-for-devs/02-content-is-king
+        title: "Next up: 02 — Content is King"
 
 php-8-upgrade-mac:
     date: 2020-11-26
