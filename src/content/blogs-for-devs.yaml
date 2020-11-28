@@ -1,7 +1,7 @@
 subscribe:
     title: "Subscribe to Blogs for Devs"
     content: src/content/blogs-for-devs/00-teaser.md
-    date: 2020-11-29
+    date: 2020-11-28
     meta:
         template: blog/meta/blogs-for-devs-intro.twig
         description: How to grow, manage and monitize your blog
@@ -9,7 +9,7 @@ subscribe:
 01-intro:
     title: Blogs for Devs
     content: src/content/blogs-for-devs/01-intro.md
-    date: 2020-11-29
+    date: 2020-11-28
     meta:
         template: blog/meta/blogs-for-devs-intro.twig
         description: How to grow, manage and monitize your blog
@@ -17,7 +17,7 @@ subscribe:
 02-content-is-king:
     title: 02 — Content is King
     content: src/content/blogs-for-devs/02-content-is-king.md
-    date: 2020-11-29
+    date: 2020-11-28
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
