@@ -53,6 +53,8 @@ For more than three years, I've kept to this one simple rule: content above all 
 
 - Good content is priority number 1.
 - Don't write when you're not inspired, you'll burn out in the long run.
+- Keep a backlog of ideas.
+- Have a design that puts focus on your content and make your blog performant to ensure a pleasant reading experience.
 - You don't need to be a master writer. Simple and plain English is fine.
 - Connect the dots when possible: each post is part of a larger whole.
 </div>
