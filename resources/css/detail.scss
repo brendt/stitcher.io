@@ -64,7 +64,7 @@ article p em {
 
     > p {
         color: inherit;
-        font-weight: bolder;
+        font-weight: 300;
     }
 
     a {
@@ -83,6 +83,20 @@ article p em {
     background-image: linear-gradient(to right, #0756b0 0%, #4530a8 80%);
     color: #fff;
     text-decoration-color: #fff;
+
+    a {
+        font-weight: bold;
+    }
+}
+
+.sidenote.blogs-for-devs {
+    &.index {
+        background-color: darken(#fff, 5);
+    }
+
+    background-color: $color-primary-pastel;
+    color: #000;
+    text-decoration-color: #000;
 
     a {
         font-weight: bold;
@@ -136,9 +150,7 @@ article p em {
 .sidenote .newsletter-form {
     font-size: 1.3em;
     margin-bottom: 1em;
-}
 
-.sidenote.frontline .newsletter-form {
     input[type="email"] {
         font-size: .9em;
 
@@ -147,7 +159,9 @@ article p em {
             box-shadow: inset 0 -3px 0 0 #000;
         }
     }
+}
 
+.frontline .newsletter-form {
     button {
         background-color: #f0de38;
         border-color: #f0de38;

@@ -44,6 +44,22 @@
         next: true
         meta: true
 
+/blogs-for-devs/{id}:
+    template: blog/detail.twig
+    variables:
+        overviewUrl: /blogs-for-devs/01-intro
+        overviewTitle: Blog for Devs
+        rssUrl: /blogs-for-devs/rss
+        detailUrl: /blogs-for-devs
+        post: src/content/blogs-for-devs.yaml
+        meta:
+            description: "A series on how to manage and grow your blog"
+    config:
+        collection:
+            variable: post
+            parameter: id
+        next: true
+
 /cookies:
     template: blog/detail.twig
     variables:

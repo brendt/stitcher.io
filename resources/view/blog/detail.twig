@@ -3,7 +3,11 @@
 {% block meta %}
     {{ parent() }}
 
-    <link rel="canonical" href="https://stitcher.io/blog/{{ post.id }}">
+    {% if post.meta.canonical ?? false %}
+        <link rel="canonical" href="{{ post.meta.canonical }}" />
+    {% else %}
+        <link rel="canonical" href="https://stitcher.io{{ detailUrl ?? '/blog' }}/{{ post.id }}" />
+    {% endif %}
 {% endblock %}
 
 {% block head %}
@@ -21,6 +25,10 @@
     {% if (overviewTitle ?? null) == 'programming' %}
         {% include '_partials/ad_scout.twig' %}
     {% endif %}
+
+{#    {% if (overviewTitle ?? null) == 'Blog for Devs' %}#}
+{#        {% include '_partials/ad_kinsta.twig' %}#}
+{#    {% endif %}#}
 
     <article class="blog">
         <aside>

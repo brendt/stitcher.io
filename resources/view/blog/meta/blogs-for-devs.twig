@@ -1,0 +1,29 @@
+{% extends 'blog/meta.twig' %}
+
+{% block meta_container %}
+    <style>
+        h1 {
+            text-align: left;
+            margin-top: -10px;
+        }
+        h1 .sub {
+            font-size: .6em;
+        }
+    </style>
+
+    <div class="meta-image">
+        <h1>
+            <span class="sub">
+                Blogs for Devs
+            </span>
+            <br>
+            <span>{{ post.title }}</span>
+        </h1>
+    </div>
+
+    <div class="meta-footer">
+        <span>stitcher.io</span>
+    </div>
+
+    <img src="{{ source('blog/meta/img/graph.txt') }}"/>
+{% endblock %}

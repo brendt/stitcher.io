@@ -325,3 +325,8 @@ div.center > p {
     @include wrapper();
 }
 
+h1 > .subtitle {
+    display: block;
+    font-size: .5em;
+    padding-left: 1rem;
+}
