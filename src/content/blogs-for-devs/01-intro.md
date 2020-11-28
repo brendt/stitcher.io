@@ -1,6 +1,6 @@
 When I started my blog in 2017 I never imagined it'd be as successful as now. I never seriously invested in SEO or did any aggressive marketing campaigns, and yet here we are: closing in to 2 million sessions, and the end is no where near.
 
-![Cumulated amount of sessions per week](/resources/img/blogs-for-devs/01-01.png)
+[![Cumulated amount of sessions per week](/resources/img/blogs-for-devs/01-01.png)](*/resources/img/blogs-for-devs/01-01.png)
 
 I did of course do something to put my content out there. Over the years I found ways to reach people who might be interested in reading what I wrote. But still, there wasn't much effort involved: I'd share a link from time to time; I'd listen to feedback (a thick skin is an asset if you're writing a blog, people on the internet _love_ to tell you you're wrong); I tried to improve my writing.
 
