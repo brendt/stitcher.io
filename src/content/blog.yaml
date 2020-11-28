@@ -1,11 +1,11 @@
-blogs-for-devs-coming-soon:
-    date: 2020-11-29
-    title: "Coming soon: Blogs for Devs"
+blogs-for-devs:
+    date: 2020-11-28
+    title: "Announcing: Blogs for Devs"
     meta:
-        canonical: "https://stitcher.io/blogs-for-devs/subscribe"
+        canonical: "https://stitcher.io/blogs-for-devs/01-intro"
         description: How to grow, manage and monetize your blog
         template: blog/meta/blogs-for-devs-intro.twig
-    content: src/content/blogs-for-devs/00-teaser.md
+    content: src/content/blogs-for-devs/01-intro.md
 
 php-8-upgrade-mac:
     date: 2020-11-26

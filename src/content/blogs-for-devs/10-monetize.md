@@ -4,11 +4,11 @@ While making money with my blog isn't my primary goal, it's still nice to have a
 
 ## Ads
 
-Ads are probably the worst way to monetize your blog. While they are easy to set up, they also:
+Ads are probably the worst way to monetise your blog. While they are easy to set up, they also:
 
 - are blocked by many clients,
 - often are irrelevant to your audience,
-- pay very little compared to other monetization options.
+- pay very little compared to other monetisation options.
 
 If you're starting out though, ads are pretty much the only option you've got. I only started playing around with ads after a year or so, and only managed to make 5 - 10 USD a month. It's a nice way of covering hosting and DNS costs, but that's about it.
 
@@ -22,7 +22,7 @@ So while ads are a nice way of earning a little extra with your blog, there are 
 
 ## Sponsors
 
-- Direct sponsors are a better way of monetization
+- Direct sponsors are a better way of monetisation
 - It's only viable if you have a decent amount of visitors, which is why SEO visitors are nice: no effort for a steady flow of traffic
 - Price to ask per week will depend on how much visitors you have per week, and also look at how much they'd make on average per customer. 
 - Sponsor messages can't be ad blocked
