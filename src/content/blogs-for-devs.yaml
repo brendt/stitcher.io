@@ -17,7 +17,7 @@ subscribe:
 02-content-is-king:
     title: 02 — Content is King
     content: src/content/blogs-for-devs/02-content-is-king.md
-    date: 2020-12-06
+    date: 2020-11-29
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monitize your blog
