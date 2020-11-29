@@ -1,3 +1,11 @@
+when-i-lost-a-few-hundred-leads:
+    date: 2020-11-29
+    title: "When I lost a few hundred leads"
+    content: src/content/blog/2020-11-29-when-i-lost-a-few-hundred-leads.md
+    meta:
+        description: I wrote a costly bug once
+    next: dont-get-stuck
+
 blogs-for-devs:
     date: 2020-11-28
     title: "Announcing Blogs for Devs"

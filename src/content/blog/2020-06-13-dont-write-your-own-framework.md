@@ -2,6 +2,8 @@ We were sitting with 5 or 6 backend developers around the large meeting table. I
 
 Less than 2 hours before, I walked into the office, not yet aware of any harm. I was immediately called to the meeting room at the back, there was no time to sit at my desk. Still I quickly grabbed a coffee, and went to the back where a few other colleagues already gathered.
 
+{{ ad:carbon }}
+
 With them was our boss, a nice guy; there wasn't any "upper management" culture or anything, we were just colleagues. The other people in the room already knew what was going on, so he explained to me personally.
 
 There was a bug, in our in-house framework. 
@@ -22,10 +24,8 @@ So we did the only thing we could do: manually update all of our websites, some 
 
 In the end we never actually got to know whether the bug had been exploited: it was discovered by accident by one of our colleagues over the weekend, and we didn't keep access logs longer than a few days. So nobody could tell whether someone had unauthorised access to one of our sites over the past years; let alone know if, and which data had been leaked.
 
-{{ cta:mail }}
-
 Don't write your own framework, at least not when you're building websites for paying clients; who trust your work to be professional and secure. Whatever framework you use, make sure it's backed by a large community.
 
 Want to share your thoughts? Let's discuss them on [HN](*https://news.ycombinator.com/item?id=23508370).
 
-{{ ad:carbon }}
+{{ cta:diary }}

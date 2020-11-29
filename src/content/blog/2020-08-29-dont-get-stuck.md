@@ -26,6 +26,4 @@ My advice? Either try to change your position and responsibilities within the co
 
 Whatever turns your path will take, knowing you want to go somewhere and not stand idle is the most important first step. 
 
-{{ cta:mail }}
-
-If you're interested to know more about what was going on in that company and the reasons I decided to quit, I wrote about a [disaster we encountered](/blog/dont-write-your-own-framework) when I worked there. If you've got your own story to share, let's head over to [hacker news](*https://news.ycombinator.com/item?id=24328785).
+{{ cta:diary }}
