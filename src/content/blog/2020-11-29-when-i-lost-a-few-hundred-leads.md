@@ -1,3 +1,9 @@
+<div class="sidenote">
+<h2>Before you start…</h2>
+
+<p>Some readers have reached out to me and talked about solutions to the technical problems described in this post. I'd like to make clear that this post isn't about how to deal with or prevent bugs. It's about how I felt during a rather bad and stressful time, and to talk about emotions. While I appreciate the effort of trying to solve the problem, that's not what this post is about. Also keep in mind that this happened to me five years ago, not recently. With that out of the way, I hope you find value in this post.</p>
+</div>
+
 I went home that evening anxious and stressed out. I'm not ashamed to admit I had to fight back a few tears on the train during my commute back home. Those weren't tears of sadness, mind you, rather tears of fear.
 
 It had only been a few hours since my manager came to me saying that one of our clients complaint that someone called them, saying they expected to have gotten a call after filling in the contact form and they never did.
@@ -42,7 +48,7 @@ $formSubmission-><hljs prop>name</hljs> = $form-><hljs prop>get</hljs>('name');
 $formSubmission-><hljs prop>email</hljs> = $form-><hljs prop>get</hljs>('email');
 // …
 
-$orm-><hljs prop>save</hljs>($formSubmission);
+$entityManager-><hljs prop>save</hljs>($formSubmission);
 ```
 
 The bug, simple as it may sound, was a simple typo:
