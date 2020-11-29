@@ -3,7 +3,7 @@ when-i-lost-a-few-hundred-leads:
     title: "When I lost a few hundred leads"
     content: src/content/blog/2020-11-29-when-i-lost-a-few-hundred-leads.md
     meta:
-        description: I wrote a costly bug once
+        description: About the emotional impact of a bug I wrote
     next: dont-get-stuck
 
 blogs-for-devs:
