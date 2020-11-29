@@ -58,9 +58,9 @@ As it turns out, our form library — written by us for our in-house framework �
 
 The database however expected a boolean value, and thus an error was thrown.
 
-This isn't that big of a problem, albeit not that no one knew of it. The second part of the bug was the empty page: this one was served directly from nginx whenever an error would occur — we wouldn't want our clients to be bothered by error pages. It turned out that one of my colleagues had set it up a few months ago, and I didn't know of it. When a lead saw the empty page, they probably thought the form was submitted just fine, they didn't know there should be a "thank you" page instead. 
+This isn't that big of a problem, albeit not that no one knew of it. The second part of the bug was the empty page: this one was served directly from nginx whenever an error would occur — we didn't want visitors to be bothered by error pages. It turned out that one of my colleagues had set it up a few months ago, and I didn't know of it. When a lead saw the empty page, they probably thought the form was submitted just fine, they didn't know there should be a "thank you" page instead. We never saw the error happening during testing, because no one (including myself) thought about checking that checkbox: it was only conditionally shown if another checkbox was enabled in a previous step in the form; so the erroneous code never ran during testing.
 
-Finally: we weren't automatically notified of errors in production, which meant no one knew about it until the client complained. Also: the error never happened during testing, because no one (including myself) thought about checking that checkbox. If it was unchecked, the `null` value would be casted to `false` automatically, and everything worked fine.
+Finally we also weren't automatically notified of errors in production, which meant no one knew about it until the client complained. 
 
 ---
 
