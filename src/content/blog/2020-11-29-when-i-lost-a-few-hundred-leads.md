@@ -68,7 +68,7 @@ I deployed a fix for the typo (which I wrote to begin with), I told my manager a
 
 I remember a sickening feeling starting to rise from this point on.
 
-I check the log files, and scan for the error. I'm stunned for a few moments. It's not just a few errors. It's hundreds. Hundreds of leads that we lost over the past month. I started to shake a little. After a few inutes I reported back to my manager. I again explained the bug itself, why it had been undetected for a month, and finally gave him the hard numbers. There was nothing we could do: those leads were lost. 
+I check the log files, and scan for the error. I'm stunned for a few moments. It's not just a few errors. It's hundreds. Hundreds of leads that we lost over the past month. I started to shake a little. After a few minutes I reported back to my manager. I again explained the bug itself, why it had been undetected for a month, and finally gave him the hard numbers. There was nothing we could do: those leads were lost. 
 
 ## The aftermath
 
