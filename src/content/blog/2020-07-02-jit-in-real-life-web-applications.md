@@ -147,7 +147,7 @@ dd(<hljs prop>opcache_get_status</hljs>()['jit']);
 </tr>
 </table>
 
-Here we see the results: enabling the JIT only has a slight improvement. In fact, running the benchmarks over and over, the results differ slightly every time: I've even seen cases where a JIT enabled run performs worse than the non JIT'ed version. Before drawing final conclusions, let's bump the memory buffer limit. We'll give the JIT a little more room to breath with 500MB of memory instead of 100MB.
+Here we see the results: enabling the JIT only has a slight improvement. In fact, running the benchmarks over and over, the results differ slightly every time: I've even seen cases where a JIT enabled run performs worse than the non JIT'ed version. Before drawing final conclusions, let's bump the memory buffer limit. We'll give the JIT a little more room to breathe with 500MB of memory instead of 100MB.
 
 <table>
 <tr class="table-head">
@@ -168,7 +168,7 @@ Here we see the results: enabling the JIT only has a slight improvement. In fact
 </tr>
 </table>
 
-As you can see: a case of the JIT performing worse. Like I said at the beginning of this post: I want to measure the relative the JIT has on real-life web projects. It's clear from these tests that sometimes there might be benefits, but it's in no way as noticeable as the fractal example we started out with. I admit I'm not really surprised by that. Like I wrote before: the're very little hot code to be optimised in real-life applications, we're only rarely doing fractal-like computations.
+As you can see: a case of the JIT performing worse. Like I said at the beginning of this post: I want to measure the relative impact the JIT has on real-life web projects. It's clear from these tests that sometimes there might be benefits, but it's in no way as noticeable as the fractal example we started out with. I admit I'm not really surprised by that. Like I wrote before: there's very little hot code to be optimised in real-life applications, we're only rarely doing fractal-like computations.
 
 So am I saying there's no need for the JIT? Not quite, I think the JIT can open up new areas for PHP: areas where complex computations do benefit from JIT'ed code. I'm thinking about machine learning, AI, stuff like that. The JIT _might_ give opportunities to the PHP community that didn't exist yet, but it's unclear to say anything with certainty at this point. 
 
