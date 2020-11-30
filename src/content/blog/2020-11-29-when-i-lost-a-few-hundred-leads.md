@@ -6,7 +6,7 @@
 
 I went home that evening anxious and stressed out. I'm not ashamed to admit I had to fight back a few tears on the train during my commute back home. Those weren't tears of sadness, mind you, rather tears of fear.
 
-It had only been a few hours since my manager came to me saying that one of our clients complaint that someone called them, saying they expected to have gotten a call after filling in the contact form and they never did.
+It had only been a few hours since my manager came to me saying that one of our clients complained that someone called them, saying they expected to have gotten a call after filling in the contact form and they never did.
 They asked me to look into it.
 
 See, this client sold a particular service to people, and they could fill in a form on the website to ask for a quote. Depending on their residence the closest office would call them back after they'd filled in that form. This wasn't a super complex form, it had three steps, and asked some information about people's project, some check boxes, radio buttons and drop downs — you've seen such forms before. Every request submitted is called "a lead" (a potential client), hence the name we internally gave the form: "the lead form".
@@ -60,7 +60,7 @@ $formSubmission-><hljs prop>more_feedback_required</hljs> =
 
 Can you spot the `requierd` when calling `$form-><hljs prop>get</hljs>()`?
 
-As it turns out, our form library — written by us for our in-house framework — wouldn't give an error when you're trying to get a unknown property, it simply returns `null`. 
+As it turns out, our form library — written by us for our in-house framework — wouldn't give an error when you're trying to get an unknown property, it simply returns `null`. 
 
 The database however expected a boolean value, and thus an error was thrown.
 
@@ -96,11 +96,11 @@ Third: I should test better myself, I shouldn't assume that a checkbox is just a
 
 Next: I tend to code more defensively. I constantly ask myself: are null values possible? Anything unexpected that could happen? I prefer to add an extra check rather than assuming it'll work fine.
 
-And finally: I learned not to blame others first. I think it's a trait of many junior developers to think to problem happened somewhere else. It was an important and humbling lesson to learn, and I tend to be more cautious when blaming an external party these days.
+And finally: I learned not to blame others first. I think it's a trait of many junior developers to think the problem happened somewhere else. It was an important and humbling lesson to learn, and I tend to be more cautious when blaming an external party these days.
 
 ---
 
-It's strange writing this blogpost. I was a young developer when this happened to me, and it's something that I think has had an lasting impact on my programming career. I also think we don't talk about this often enough. I lay awake at night thinking about how angry the client would be, what the impact would be on the company I worked for. Even though I realise most of my feelings were exaggerated, they still were there. I wasn't able to just turn them off. I felt fear and shame, and had little people to talk about it.
+It's strange writing this blogpost. I was a young developer when this happened to me, and it's something that I think has had a lasting impact on my programming career. I also think we don't talk about this often enough. I lay awake at night thinking about how angry the client would be, what the impact would be on the company I worked for. Even though I realise most of my feelings were exaggerated, they still were there. I wasn't able to just turn them off. I felt fear and shame, and had little people to talk about it.
 
 We write about our success stories, but what about our mistakes? What about the impact of these kinds of experiences on our mental health? Many of us in the software industry are introverts, or feel like we can't talk about our deepest emotions. 
 
