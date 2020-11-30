@@ -1,7 +1,7 @@
 <div class="sidenote">
 <h2>Before you start…</h2>
 
-<p>Some readers have reached out to me and talked about solutions to the technical problems described in this post. I'd like to make clear that this post isn't about how to deal with or prevent bugs. It's about how I felt during a rather bad and stressful time, and to talk about emotions. While I appreciate the effort of trying to solve the problem, that's not what this post is about. Also keep in mind that this happened to me five years ago, not recently. With that out of the way, I hope you find value in this post.</p>
+<p>Some readers have reached out to me and talked about solutions to the technical problems described in this post. I'd like to make clear that this post isn't about how to deal with or prevent bugs. It's about how I felt during a rather bad and stressful time, to talk about emotions and how to self-reflect and improve. With that out of the way, I hope you find value in this post.</p>
 </div>
 
 I went home that evening anxious and stressed out. I'm not ashamed to admit I had to fight back a few tears on the train during my commute back home. Those weren't tears of sadness, mind you, rather tears of fear.
@@ -27,7 +27,7 @@ Ok, that means that the form was never submitted then? I sigh out loud: "it prob
 
 So I call their marketing team and ask if they know anything more about this lead. They tell me they'll look into it and I, again, went on with my day. An hour goes by and I've already forgotten about the whole affair thanks to my "not my problem" mentality. Suddenly my manager's back again: team marketing wants to speak to me and he hands me the phone.
 
-They have found the screen recording for that particular lead. The lead actually submitted the form. They'll send me the recording now.
+They have found the screen recording for that particular lead. Around 50% of all sessions were recorded, so we were pretty lucky finding it. It turns out the lead actually submitted the form, they'll send me the recording now.
 
 This is the point where I start to consider that it _might_ be my problem after all, but let's not jump to conclusions. I watch the recording, and yes indeed: the lead fills in step one, step two, step three, submits it and… that's not the right page. He should see a "thank you" page after submitting the form. Instead he sees a page with the header and footer of the website, but without any content on it.
 
@@ -64,9 +64,11 @@ As it turns out, our form library — written by us for our in-house framework �
 
 The database however expected a boolean value, and thus an error was thrown.
 
-This isn't that big of a problem, albeit not that no one knew of it. The second part of the bug was the empty page: this one was served directly from nginx whenever an error would occur — we didn't want visitors to be bothered by error pages. It turned out that one of my colleagues had set it up a few months ago, and I didn't know of it. When a lead saw the empty page, they probably thought the form was submitted just fine, they didn't know there should be a "thank you" page instead. We never saw the error happening during testing, because no one (including myself) thought about checking that checkbox: it was only conditionally shown if another checkbox was enabled in a previous step in the form; so the erroneous code never ran during testing.
+This isn't that big of a problem, albeit not that no one knew of it. The second part of the bug was the empty page: this one was served directly from nginx whenever an error would occur — we didn't want visitors to be bothered by error pages. It turned out that one of my colleagues had set it up a few months ago, and I didn't know of it. When a lead saw the empty page, they probably thought the form was submitted just fine, they didn't know there should be a "thank you" page instead. 
 
-Finally we also weren't automatically notified of errors in production, which meant no one knew about it until the client complained. 
+Next, we never saw the error happening during testing, because the erroneous code only ran in specific cases, and no one thought about testing those. The form itself was unit tested, but not all edge cases were.
+
+Finally we weren't automatically notified of errors in production, which meant no one knew about it until the client complained. At the time, the company didn't do any error monitoring on production, that might seem completely bonkers, but yes: it happens.
 
 ---
 
@@ -82,7 +84,7 @@ The following days were probably the most stressful in my career up until today.
 
 I can honestly tell you that I had a hard time dealing with this feeling of guilt, even though my manager and colleagues were understanding.
 
-I could of course point fingers to others: we shouldn't have used our own framework with its quirky form validation; devops should have installed some kind of error tracking; the empty error page should never have existed. I admit I thought all these thoughts the days after, I even felt anger towards some of my colleagues for a while. But I learned that anger didn't get me anywhere. I better spent my time looking at how _I_ could learn from all of this, instead of pointing fingers at others.
+I could of course point fingers to others: we shouldn't have used our own framework with its quirky form validation; devops should have installed some kind of error tracking; the empty error page should have been more clear. I admit I thought all these thoughts the days after, I even felt anger towards some of my colleagues for a while. But I learned that anger didn't get me anywhere. I better spent my time looking at how _I_ could learn from all of this, instead of pointing fingers at others.
 
 So, after a few weeks of processing, what felt to me like a trauma; I found the courage to look at what I could have done differently. What I could learn from this.
 
@@ -92,7 +94,9 @@ Next: I don't use tools I don't know or trust. This [wasn't the first time](/blo
 
 Third: I should test better myself, I shouldn't assume that a checkbox is just a checkbox. I should be skeptical towards every line of code I write. This incident is one of the reasons I came to love strongly typed systems more and more. I don't want a language that tries to be smart and juggle types here and there. I want a language that crashes hard when something happens that shouldn't happen, the stronger the type system, the better.
 
-Finally: I tend to code more defensively. I constantly ask myself: are null values possible? Anything unexpected that could happen? I prefer to add an extra check rather than assuming it'll work fine.
+Next: I tend to code more defensively. I constantly ask myself: are null values possible? Anything unexpected that could happen? I prefer to add an extra check rather than assuming it'll work fine.
+
+And finally: I learned not to blame others first. I think it's a trait of many junior developers to think to problem happened somewhere else. It was an important and humbling lesson to learn, and I tend to be more cautious when blaming an external party these days.
 
 ---
 
