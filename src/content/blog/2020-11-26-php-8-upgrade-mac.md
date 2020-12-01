@@ -74,10 +74,19 @@ If you're using Laravel Valet, you should do the following steps to upgrade it:
 composer global update
 ```
 
-Now run `valet install`:
+You can use `valet use` to switch between PHP versions:
 
 ```bash
-valet install
+valet use php@8.0
+valet use php@7.4
+```
+
+Note that if you're switching from PHP 8 to PHP 7.4, there's a bug in Valet that doesn't properly update the changes. You can solve it by manually removing the valet socket after having run `valet use php@7.4`:
+
+```
+cd ~/.config/valet
+rm valet.sock
+valet restart
 ```
 
 ## Extensions
