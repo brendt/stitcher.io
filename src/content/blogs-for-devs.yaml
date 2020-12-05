@@ -10,6 +10,7 @@ subscribe:
     title: Blogs for Devs
     content: src/content/blogs-for-devs/01-intro.md
     date: 2020-11-28
+    back: "https://stitcher.io/"
     meta:
         template: blog/meta/blogs-for-devs-intro.twig
         description: How to grow, manage and monetize your blog
