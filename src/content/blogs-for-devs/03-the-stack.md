@@ -4,7 +4,7 @@ In this chapter we'll discuss the best technical stack for your blog. Disclaimer
 
 I want to make something clear: you're building a blog, not Facebook or Reddit. The only thing your website needs to do is serve a few simple HTML pages, CSS scripts and maybe an image here and there. I want to take you back to May, 2019; more specifically Wednesday the 15th.
 
-This was the first time one of my posts went viral on Hacker News. I posted a link without thinking too much of it, and noticed two hours later that more than 300 people were browsing my blog at once. It turned out the post was rather well received, and eventually ended up with [908 upvotes](*https://news.ycombinator.com/item?id=19917655).
+This was the first time one of my posts went viral on Hacker News. I posted a link without thinking too much of it and noticed two hours later that more than 300 people were browsing my blog at once. It turned out the post was rather well received, and eventually ended up with [908 upvotes](*https://news.ycombinator.com/item?id=19917655).
 
 This is what going viral on Hackernews looks like:
 
@@ -16,7 +16,7 @@ My blog was serving around 1000 requests per minute (including images and resour
 
 Nope, just a static website running on the cheapest digital ocean droplet.
 
-Now, my blog is powered by my own hobby-project static site generator written in PHP; but when you're reading this, it's all just HTML pages saved on the server. It turns out the simple solution is often the best one. Like I said: you're not Facebook or Reddit, you'll be fine with the cheapest solution you can think of. 
+My blog is powered by my own hobby-project static site generator written in PHP. When you're reading this however, it's all just HTML pages saved on the server. It turns out the simple solution is often the best one. Like I said: you're not Facebook or Reddit, you'll be fine with the cheapest solution you can think of. 
 
 In fact, I'm still curious to know the limits of my current setup, because I haven't encountered them yet.
 
