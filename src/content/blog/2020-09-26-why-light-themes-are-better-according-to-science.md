@@ -53,7 +53,7 @@ Now I reckon there _are_ people who can't use a light colour scheme because of a
 
 So try it out, and let me know your findings via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io)!
 
-PS: if you're using PhpStorm, you can check these two light colour schemes:
+PS: if you're using PhpStorm or any other JetBrain IDE, you can check these two light colour schemes:
 
 - [Light Lite](*https://github.com/brendt/phpstorm-light-lite-theme)
 - [Photon Light](*https://github.com/brendt/phpstorm-photon-theme)
