@@ -30,14 +30,14 @@ subscribe:
     meta:
         template: blog/meta/blogs-for-devs-03.twig
         description: How to grow, manage and monetize your blog
-#
-#04-your-audience:
-#    title: 04 — Your Audience
-#    content: src/content/blogs-for-devs/04-your-audience.md
-#    date: 2020-12-12
-#    meta:
-#        template: blog/meta/blogs-for-devs.twig
-#        description: How to grow, manage and monetize your blog
+
+04-your-audience:
+    title: 04 — Your Audience
+    content: src/content/blogs-for-devs/04-your-audience.md
+    date: 2020-12-12
+    meta:
+        template: blog/meta/blogs-for-devs-04.twig
+        description: How to grow, manage and monetize your blog
 #
 #05-interaction:
 #    title: 05 — Interaction

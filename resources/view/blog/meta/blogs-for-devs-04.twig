@@ -1,0 +1,40 @@
+{% extends 'blog/meta.twig' %}
+
+{% block meta_container %}
+    <style>
+        h1 {
+            text-align: left;
+            margin-top: -10px;
+        }
+
+        h1 .sub {
+            font-size: .6em;
+        }
+
+        img {
+            top: -70px;
+            left:23px;
+            box-shadow: none;
+        }
+
+        .meta-container {
+            background-color: #b4d2f8;
+        }
+    </style>
+
+    <div class="meta-image">
+        <h1>
+            <span class="sub">
+                Blogs for Devs
+            </span>
+            <br>
+            <span>{{ post.title }}</span>
+        </h1>
+    </div>
+
+    <div class="meta-footer">
+        <span>stitcher.io</span>
+    </div>
+
+    <img src="{{ source('blog/meta/img/blogs-for-devs-04.txt') }}"/>
+{% endblock %}
