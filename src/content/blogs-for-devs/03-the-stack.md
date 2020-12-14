@@ -22,7 +22,7 @@ In fact, I'm still curious to know the limits of my current setup, because I hav
 
 {{ cta:blogs_mail }}
 
-Stick with the simplest stack possible. I'd advice to use a static site generator, or cache your blog statically if you're using a blogging engine like WordPress. If you're a developer like me, you _could_ probably build something on your own, but honestly I'd advice against that.
+Stick with the simplest stack possible. I'd advise you to use a static site generator, or cache your blog statically if you're using a blogging engine like WordPress. If you're a developer like me, you _could_ probably build something on your own, but honestly I'd advise against that.
 
 I must admit that I probably wouldn't build my own static site generator again if I had to start from scratch today. There are enough open source and free alternatives out there. I still like my own solution because I can hack it whatever way I want and add little niceties, but honestly it's easier to start with something you can set up in 30 minutes and forget about it afterwards. Remember: [Content is King](*/blogs-for-devs/02-content-is-king), so don't waste too much time on setting up a complex solution. You can worry about that later if you really want to.
 
