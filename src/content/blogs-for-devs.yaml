@@ -38,22 +38,22 @@ subscribe:
     meta:
         template: blog/meta/blogs-for-devs-04.twig
         description: How to grow, manage and monetize your blog
-#
-#05-interaction:
-#    title: 05 — Interaction
-#    content: src/content/blogs-for-devs/05-interaction.md
-#    date: 2020-12-19
-#    meta:
-#        template: blog/meta/blogs-for-devs.twig
-#        description: How to grow, manage and monetize your blog
-#
-#06-stay-in-touch:
-#    title: 06 — Stay in Touch
-#    content: src/content/blogs-for-devs/06-stay-in-touch.md
-#    date: 2020-12-19
-#    meta:
-#        template: blog/meta/blogs-for-devs.twig
-#        description: How to grow, manage and monetize your blog
+
+05-interaction:
+    title: 05 — Interaction
+    content: src/content/blogs-for-devs/05-interaction.md
+    date: 2020-12-19
+    meta:
+        template: blog/meta/blogs-for-devs.twig
+        description: How to grow, manage and monetize your blog
+
+06-stay-in-touch:
+    title: 06 — Stay in Touch
+    content: src/content/blogs-for-devs/06-stay-in-touch.md
+    date: 2020-12-19
+    meta:
+        template: blog/meta/blogs-for-devs.twig
+        description: How to grow, manage and monetize your blog
 #
 #07-be-searchable:
 #    title: 07 — Be Searchable

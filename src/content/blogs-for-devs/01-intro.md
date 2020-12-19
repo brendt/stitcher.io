@@ -1,3 +1,5 @@
+{{ cta:blogs_index }}
+
 When I started my blog in 2017 I never imagined it'd be as successful as now. I never seriously invested in SEO or did any aggressive marketing campaigns, and yet here we are: closing in to 2 million sessions, and the end is no where near.
 
 [![Cumulated amount of sessions per week](/resources/img/blogs-for-devs/01-01.png)](*/resources/img/blogs-for-devs/01-01.png)
@@ -9,13 +11,5 @@ I guess the reason it feels like little effort is because it's something I actua
 Throughout this series I'll share everything I learned during my blogging journey with you: how to start, how to grow, how to analyse, how to engage with your audience, how to make money by writing on the internet. I'm a developer so some topics will be technical, but even if you've got no programming experience, you'll be able to learn lots — I'll keep things as simple as possible.
 
 So, are you a blogger? Has it been your long-time dream of starting a blog? I'm happy to share my experience with you!
-
-Oh — before I forget: this series will be released over the course of several weeks. If you want to follow along you should definitely leave your email address:
-
-{{ cta:blogs_mail_short }}
-
-If you're still in doubt whether this series is for you, have a look at what we'll cover throughout the weeks:
-
-{{ cta:blogs_index }}
 
 {{ cta:blogs_more }}

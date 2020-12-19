@@ -16,7 +16,7 @@ Now, I realise not everyone wants to subscribe to a newsletter, and that's total
 
 The advantage of having three ways of reaching people, is that they are automatically categorized. People who subscribe to your newsletter are probably your most loyal audience. You could ask them directly about supporting you and your content, for example by asking them to share your newest blog post.
 
-Social media on the other hand ([Twitter](*https://twitter.com/brendt_gd) in my case) has the advantage of a faster growing audience, but it's not guaranteed that all followers will be as loyal. That's ok: you can use social media to remind that audience there _is_ a mailing list available, in case they'd like to opt-in. I also use Twitter to get a feeling of what my audience is interested in, what topics they like and which not.
+Social media on the other hand ([Twitter](*https://twitter.com/brendt_gd) in my case) has the advantage of a faster growing audience, but it's not guaranteed that all followers will be as invested. That's ok: you can use social media to remind your follower base there _is_ a mailing list available, in case they'd like to opt-in. I also use Twitter to get a feeling of what my audience is interested in, what topics they like and which not. It's an easy way of sharing an idea and getting a reasonable amount of feedback in a short amount of time.
 
 Given that your newsletter subscribers are your closest audience, it's important to treat them right. Don't spam them with content they aren't interested in, and generally don't send more than one mail a week, at most. You could also share your content on your mailing list a few days before you send it out to the world: after all, it's an exclusive place to be.
 
