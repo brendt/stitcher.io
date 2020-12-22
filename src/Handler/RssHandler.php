@@ -32,11 +32,16 @@ abstract class RssHandler
         )->getParsed();
 
         $rss = $this->renderer->renderTemplate(
-            'rss.twig',
+            $this->getTemplatePath(),
             ['posts' => $posts]
         );
 
         return new Response(200, ['Content-Type' => 'application/xml;charset=UTF-8'], $rss);
+    }
+
+    protected function getTemplatePath(): string
+    {
+        return 'rss.twig';
     }
 
     abstract protected function getSourcePath(): string;

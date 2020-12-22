@@ -1,0 +1,25 @@
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://www.stitcher.io/blogs-for-devs/rss</id>
+    <link href="https://www.stitcher.io/blogs-for-devs/rss"/>
+    <title><![CDATA[ stitcher.io ]]></title>
+    <updated>{{ date()|date('c') }}</updated>
+    {% for post in posts %}
+        {% if post.hidden is not defined or post.hidden == false %}
+            <entry>
+                <title><![CDATA[ {{ post.title }} ]]></title>
+
+                <link rel="alternate" href="https://stitcher.io/blogs-for-devs/{{ post.id }}"/>
+
+                <id>https://www.stitcher.io/blogs-for-devs/{{ post.id }}</id>
+
+                <author>
+                    <name><![CDATA[ Brent Roose ]]></name>
+                </author>
+
+                <summary type="html"><![CDATA[ {{  post.content|raw }} ]]></summary>
+
+                <updated>{{ post.date|date('c') }}</updated>
+            </entry>
+        {% endif %}
+    {% endfor %}
+</feed>

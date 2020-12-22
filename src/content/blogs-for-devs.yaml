@@ -54,7 +54,7 @@ subscribe:
     meta:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monetize your blog
-#
+
 #07-be-searchable:
 #    title: 07 — Be Searchable
 #    content: src/content/blogs-for-devs/07-be-searchable.md

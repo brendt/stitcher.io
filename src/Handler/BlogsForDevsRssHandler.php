@@ -8,4 +8,9 @@ class BlogsForDevsRssHandler extends RssHandler
     {
         return 'src/content/blogs-for-devs.yaml';
     }
+
+    protected function getTemplatePath(): string
+    {
+        return 'rss-blogs-for-devs.twig';
+    }
 }
