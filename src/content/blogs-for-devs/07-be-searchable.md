@@ -25,7 +25,7 @@ What Google _does_ take into account is site performance and mobile experience. 
 
 ## Internal links
 
-You should think of your content as more than standalone posts. They are a network of connected thoughts and ideas, and it's worth linking them together. With that I literally mean having hyperlinks to your own content. Besides being very useful for your readers, it will also help Google better understand the structure of your blog. If one post is doing well in Google search, and it has connection to other posts, Google will be able to connect the dots. Every since I started investing in internal links, traffic has been rising steadily.
+You should think of your content as more than standalone posts. They are a network of connected thoughts and ideas, and it's worth linking them together. With that I literally mean having hyperlinks to your own content. Besides being very useful for your readers, it will also help Google better understand the structure of your blog. If one post is doing well in Google search, and it has connection to other posts, Google will be able to connect the dots. Ever since I started investing in internal links, traffic has been rising steadily.
 
 Also make sure that Google knows how to crawl your site. Add a [robots.txt](*https://support.google.com/webmasters/answer/6062608?hl=en) and build a [sitemap](*https://support.google.com/webmasters/answer/183668?hl=en). We'll discuss how to analyse your technical setup in a later chapter, using Analytics and Search Console.
 
@@ -60,7 +60,7 @@ People will already share your content on social media, which also has an impact
 
 ## Long-tail keywords
 
-I you can't help it and want to invest in keywords to help improve your content, it's my experience that it's best to invest in long-tail keywords. These are keywords with a relatively small amount of searches, which means your content will more easily end up higher in the search results for those keywords.
+If you can't help it and want to invest in keywords to help improve your content, it's my experience that it's best to invest in long-tail keywords. These are keywords with a relatively small amount of searches, which means your content will more easily end up higher in the search results for those keywords.
 
 Even though those keywords have less searches overall, small amounts add up in the end. It's way more realistic to optimise for those first, before trying to write for a very contested keyword.
 You could use a free Chrome extension called [Keyword Surfer](*https://chrome.google.com/webstore/detail/keyword-surfer/bafijghppfhdpldihckdcadbcobikaca?hl=en) to analyse what keywords are best to invest in.
