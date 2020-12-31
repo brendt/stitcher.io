@@ -1,3 +1,11 @@
+how-to-be-right-on-the-internet:
+    date: 2020-12-31
+    title: "How to be right on the internet"
+    content: src/content/blog/2020-12-31-how-to-be-right-on-the-internet.md
+    meta:
+        description: Dealing with online arguments and discussions in a constructive way
+    next: when-i-lost-a-few-hundred-leads
+
 when-i-lost-a-few-hundred-leads:
     date: 2020-11-29
     title: "When I lost a few hundred leads"
