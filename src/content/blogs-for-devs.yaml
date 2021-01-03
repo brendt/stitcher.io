@@ -62,15 +62,15 @@ subscribe:
     meta:
         template: blog/meta/blogs-for-devs-07.twig
         description: How to grow, manage and monetize your blog
-#
-#08-analytics:
-#    title: 08 — Analytics
-#    content: src/content/blogs-for-devs/08-analytics.md
-#    date: 2021-01-02
-#    meta:
-#        template: blog/meta/blogs-for-devs.twig
-#        description: How to grow, manage and monetize your blog
-#
+
+08-analytics:
+    title: 08 — Analytics
+    content: src/content/blogs-for-devs/08-analytics.md
+    date: 2021-01-03
+    meta:
+        template: blog/meta/blogs-for-devs-08.twig
+        description: How to grow, manage and monetize your blog
+
 #09-analyse-social-channels:
 #    title: 09 — Social Channels
 #    content: src/content/blogs-for-devs/09-analyse-social-channels.md
