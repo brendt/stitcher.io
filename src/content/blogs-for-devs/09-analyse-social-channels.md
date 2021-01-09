@@ -1,4 +1,4 @@
-When I had been blogging for around 2 years, a simple thought occurred to me: I had written around 50 posts up until then, and most of them were still relevant today. Yet I didn't share the old ones anymore. I shared them once in the past, and that was it. I had lots of content laying around, and didn't do anything with it anymore. That had to change. 
+When I had been blogging for around 2 years, a simple thought occurred to me: I had written around 50 posts up until then, and most of them were still relevant today. Yet I didn't share the old ones anymore. I shared them once in the past, and that was it. I had lots of content lying around, and didn't do anything with it anymore. That had to change. 
 
 While tools like Google Analytics give great insights within the context of your site, they give little information about how your content is doing on social channels like Reddit, Twitter or Hacker News. Those channels often only result in short hype-spikes, but there's lots of potential audience waiting for your content, they just need to discover it.
 
@@ -12,7 +12,7 @@ Being a developer, I did what I know best: write my own tools to help automate t
 
 - Which posts have I shared already, and where?
 - Which types of posts were popular on which channels?
-- Which posts might be up for a repost (eg. after a year or month, depending on the channel)?
+- Which posts might be up for a repost (e.g. after a year or month, depending on the channel)?
 
 My three main social channels are Twitter, Reddit (with several subreddits) and Hacker News. Those are the ones I focussed on when writing this tool. I wrote a little script that looks for my own submissions on Twitter and Reddit, and for links to my content on Hacker News. I synced them to a local data store, and generated some tables from them. Here's for example part of the Reddit analysis:
 
@@ -106,11 +106,11 @@ There are of course tools that can do all of this for you, but I enjoy the freed
 
 ## When to post
 
-Another metric to keep in mind is when it's best to post your content: what time of day and what day of week. Mind you: the best time will vary from channel to channel. There isn't a guaranteed 100% success rate if you post on the right time, but over the years I found that often does make a difference.
+Another metric to keep in mind is when it's best to post your content: what time of day and what day of week. Mind you: the best time will vary from channel to channel. There isn't a guaranteed 100% success rate if you post at the right time, but over the years I found that often does make a difference.
 
-There's different factors to take into account: you want a time where enough people are online, but not too many submissions are posted at once, you also want to time your post so that it isn't too close to another one of yours. I find that keeping time zone into account helps: I usually post when it's early morning in the USA (which is the largest group of my audience). This means that my post usually can gather some upvotes from my European and Asian audience, before the USA wakes up. When the "masses" arrive later in the day, the post usually already is higher up and more visible.
+There are different factors to take into account: you want a time when enough people are online, but not too many submissions are posted at once, you also want to time your post so that it isn't too close to another one of yours. I find that keeping time zone into account helps: I usually post when it's early morning in the USA (which is the largest group of my audience). This means that my post usually can gather some upvotes from my European and Asian audience, before the USA wakes up. When the "masses" arrive later in the day, the post usually already is higher up and more visible.
 
-I also used my tool to analyse what days are the best to post on per subreddit. The data looks something like this:
+I also used my tool to analyze what days are the best to post on per subreddit. The data looks something like this:
 
 ```txt
 +---------------------+-----------+---------+
@@ -138,7 +138,7 @@ In case of Reddit, there's a great free tool available that can do post analysis
 
 ---
 
-When I put this strategy to the test, I discovered a few posts with potential. Posts that I thought might do well on one channel or another. Sure thing, the first day I used this analyser, I already got a post going viral on Hacker News. I don't check these stats every week, by the way. I figure it's most important to not spam your audience.
+When I put this strategy to the test, I discovered a few posts with potential. Posts that I thought might do well on one channel or another. Sure thing, the first day I used this analyzer, I already got a post going viral on Hacker News. I don't check these stats every week, by the way. I figure it's most important to not spam your audience.
 
 <div class="sidenote">
 <h2>In summary</h2>
@@ -146,7 +146,7 @@ When I put this strategy to the test, I discovered a few posts with potential. P
 - Social channels are one-time hype-spikes, but what if you could repeat them from time to time?
 - You'll need ways to monitor how your content does on those channels.
 - This kind of data is another source that you can use to determine what content is worth writing, and what not.
-- Beware that posting on the right time can make a significant difference. Play around with this.
+- Beware that posting at the right time can make a significant difference. Play around with this.
 </div>
 
 ---
