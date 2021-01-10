@@ -12,12 +12,12 @@ So what does that have to do with websites?
 
 {{ ad:carbon }}
 
-I was a toddler when the internet began to grow, so I'm too young to have witnessed its rise first hand. Still I got into web development at an early age, writing HTML at the age of 12. These were times where the web was still shaping itself to what we know today. Just like Star Wars, the web had to deal with lots of technical limitations but with those limitations came creativity.
+I was a toddler when the internet began to grow, so I'm too young to have witnessed its rise first hand. Still I got into web development at an early age, writing HTML at the age of 12. These were times when the web was still shaping itself to what we know today. Just like Star Wars, the web had to deal with lots of technical limitations but with those limitations came creativity.
 
-When I browse the web today, there's very little creativity left to find. Sure most websites are as polished as can be, but compare their design to ten others in the same niche and you'll notice there's very little creativity left. While so many websites these days are pixel-perfect, they lack the soul and personality the web used to have. 
+When I browse the web today, there's very little creativity left to find. Sure most websites are as polished as can be, but compare their design to ten others in the same niche, and you'll notice there's very little creativity left. While so many websites these days are pixel-perfect, they lack the soul and personality the web used to have. 
 
 Do the test yourself: think about a topic and do a simple google search. Whether it's email campaigns, travel blogs, social media or news sites; there's very little distinction between them.
 
-I wish websites aimed to be more like Star Wars: a time where useful content is what really mattered and to be a place where you could express yourself without having to stick to a set of rules describing the "best way to design your place on the internet". Making an effort to stand out and hang on to what made the web unique in the first place. We're allowed to break free from best practices, we're allowed experiment. 
+I wish websites aimed to be more like Star Wars: a time when useful content is what really mattered and to be a place where you could express yourself without having to stick to a set of rules describing the "best way to design your place on the internet". Making an effort to stand out and hang on to what made the web unique in the first place. We're allowed to break free from best practices, we're allowed to experiment. 
 
 The web still allows you to do so, the only thing holding us back is us.
