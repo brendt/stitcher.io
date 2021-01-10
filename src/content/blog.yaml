@@ -1,3 +1,11 @@
+websites-like-star-wars:
+    date: 2021-01-10
+    title: Websites should be more like Star Wars
+    content: src/content/blog/2021-01-10-websites-like-star-wars.md
+    meta:
+        template: blog/meta/websites-like-star-wars.twig
+        description: The old web was a place where creativity flourished
+
 how-to-be-right-on-the-internet:
     date: 2020-12-31
     title: "How to be right on the internet"
