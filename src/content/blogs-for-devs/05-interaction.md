@@ -1,4 +1,4 @@
-An experience blogger once told me that I should think of my blog as more than "just a blog". If we're speaking in terms of sales, my blog isn't the product, I am. I'm selling myself, my ideas; my blog just happens to be one way of doing it.
+An experienced blogger once told me that I should think of my blog as more than "just a blog". If we're speaking in terms of sales, my blog isn't the product, I am. I'm selling myself, my ideas; my blog just happens to be one way of doing it.
 
 Honestly I don't really like that analogy too much. It makes me feel like a blog is all about making money, and that my audience is just the means to that money. Personally, money has never been the goal of why I write. Don't get me wrong: it's nice to earn a little by doing what I love, but I wouldn't manage to keep doing it was only for the money.
 
