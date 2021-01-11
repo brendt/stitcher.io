@@ -14,7 +14,7 @@ By only writing when you want to, you'll write about things you're actually pass
 
 ## Don't bother with a fancy design
 
-People come to your blog to read, sp that should be your primary motive when designing it. Don't bother with fancy bells and whistles, a white sheet of paper with black text is all that really matter. Choose a font that's readable on all devices and don't go too fancy with it.
+People come to your blog to read, so that should be your primary motive when designing it. Don't bother with fancy bells and whistles, a white sheet of paper with black text is all that really matter. Choose a font that's readable on all devices and don't go too fancy with it.
 
 You can still add a personal touch by playing around with a highlight color or maybe a more fancy title font; but keep it as simple as possible. Optimise for your audience's reading experience, they'll thank you for that.
 
