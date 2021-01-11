@@ -53,7 +53,7 @@ Addressing your perspective and acknowledging that there can be differences is o
 
 When reading someone's comments, you might be inclined to assume an undertone, an emotion, maybe even an unspoken opinion. These assumptions might trigger you in writing a more offensive response. You should be aware that all of this can happen unconsciously, and protect yourself from it. 
 
-The most effective way of doing so is by describing how you interpreted any give kind of text. Next you should allow the other party to correct your assumptions.
+The most effective way of doing so is by describing how you interpreted any given kind of text. Next you should allow the other party to correct your assumptions.
 
 "_I interpreted what you've written here as such and such, and want to make it clear that my answer is based on that interpretation. If you didn't mean it the way I interpreted it, please let me know._"
 
