@@ -80,7 +80,7 @@ $foo->a = 1;
 While uninitialized state is only checked when reading the value of a property, type validation is done when writing to it.
 This means that you can be sure that no invalid type will ever end up as a property's value.
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 ## Defaults and constructors
 

@@ -173,7 +173,7 @@ $data = new <hljs type>CustomerData</hljs>(...$input);
 
 ---
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 ---
 

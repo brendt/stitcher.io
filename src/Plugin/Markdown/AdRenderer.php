@@ -18,7 +18,7 @@ class AdRenderer implements InlineRendererInterface
     private array $ctas = [
         '{{ cta:mail }}' => __DIR__ . '/../../../resources/view/_partials/cta_mail.twig',
         '{{ cta:diary }}' => __DIR__ . '/../../../resources/view/_partials/cta_diary.twig',
-        '{{ cta:flp }}' => __DIR__ . '/../../../resources/view/_partials/cta_front_line.twig',
+        '{{ cta:dynamic }}' => __DIR__ . '/../../../resources/view/_partials/cta_dynamic.twig',
         '{{ cta:blogs_mail }}' => __DIR__ . '/../../../resources/view/_partials/cta_blogs_mail.twig',
         '{{ cta:blogs_mail_short }}' => __DIR__ . '/../../../resources/view/_partials/cta_blogs_mail_short.twig',
         '{{ cta:blogs_more }}' => __DIR__ . '/../../../resources/view/_partials/cta_blogs_more.twig',

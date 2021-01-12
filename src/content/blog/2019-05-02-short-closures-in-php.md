@@ -48,7 +48,7 @@ If you want to return a value by reference, the following syntax should be used:
 In short, short closures allow the same functionality you'd expect from normal closures, 
 with the exception of only allowing one expression.
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 ## No multi-line
 

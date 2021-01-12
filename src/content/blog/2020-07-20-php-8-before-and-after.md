@@ -115,7 +115,7 @@ public static function new(): <hljs type>static</hljs>
 
 <em class="center small">PHP 8</em>
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 ## DTO's, property promotion and named arguments
 
@@ -320,6 +320,6 @@ $dateAsString = $booking-><hljs prop>getStartDate</hljs>()?-><hljs prop>asDateTi
 
 <em class="center small">PHP 8</em>
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 What's your favourite [PHP 8 feature](/blog/new-in-php-8)? Let me know via [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io)!

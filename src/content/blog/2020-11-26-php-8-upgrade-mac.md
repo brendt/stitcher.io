@@ -64,7 +64,7 @@ And make sure that your local web server also uses PHP 8 by visiting this script
 Note: if you're using Laravel Valet, please keep on reading, 
 you need some extra steps in order for the web server to properly work. 
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 ## Valet
 

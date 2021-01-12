@@ -1,4 +1,4 @@
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 ## Upgrading with Homebrew
 

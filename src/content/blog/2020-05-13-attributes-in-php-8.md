@@ -48,7 +48,7 @@ class ListensTo
 
 That's it — pretty simple right? Keep in mind the goal of attributes: they are meant to add meta data to classes and methods, nothing more. They shouldn't — and can't — be used for, for example, argument input validation. In other words: you wouldn't have access to the parameters passed to a method within its attributes. There was a previous RFC that allowed this behaviour, but this RFC specifically kept things more simple.
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 Back to the event subscriber example: we still need to read the meta data and register our subscribers based somewhere. Coming from a Laravel background, I'd use a service provider as the place to do this, but feel free to come up with other solutions.
 
@@ -289,7 +289,7 @@ As a final note, for those worrying about generics: the syntax won't conflict wi
 
 ---
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 ---
 

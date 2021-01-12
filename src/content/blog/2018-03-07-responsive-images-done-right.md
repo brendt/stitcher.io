@@ -146,7 +146,7 @@ $model
 />
 ```
 
-{{ cta:flp }}
+{{ cta:dynamic }}
 
 To finish off, here are the links which I mentioned at the start of this post.
 
