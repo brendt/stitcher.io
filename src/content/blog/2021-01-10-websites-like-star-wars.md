@@ -23,3 +23,5 @@ Test it yourself: think about a topic and do a simple google search. Whether it'
 I wish more websites aimed to be more like Star Wars: not sticking to the modern day rules and instead hold on to the things that give character, that make your website unique. We're allowed to break free from best practices, we're allowed to experiment. 
 
 The web still allows you to do so, the only thing holding us back is us.
+
+{{ cta:mail }}
