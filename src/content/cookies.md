@@ -101,7 +101,7 @@ For more information about the cookies we use and your choices regarding cookies
 
 We may use third-party Service providers to monitor and analyze the use of our Service.
 
-- **Google analytics**
+- **Google analytics** with [IP Anonymization](*https://support.google.com/analytics/answer/2763052)
 
 ### Advertising
 
