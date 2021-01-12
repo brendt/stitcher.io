@@ -71,7 +71,10 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','/analytics.js','ga');
 
-    ga('create', 'UA-99779066-1', 'auto');
+    ga('create', 'UA-99779066-1', {
+        'storage': 'none',
+        storeGac: false,
+    });
     ga('set', 'anonymizeIp', true);
     ga('send', 'pageview');
 
