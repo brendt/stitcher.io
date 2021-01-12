@@ -1,4 +1,4 @@
-I'm not the biggest Star Wars fan myself, but I can enjoy one of the movies from time to time. Whenever I watch one there is _one_ thing that always stands out: the movement in everything Star Wars related feels… odd.
+I have to admit I'm not the biggest Star Wars fan, but I can enjoy one of the movies from time to time. Whenever I watch one there is _one_ thing that always stands out: the movement in everything Star Wars related feels… odd.
 
 Here's what I mean with that: whenever a door slides open or a non-human character speaks, whenever a droid walks or moves; those movements feel a little unnatural to me. It makes the characters feel like puppets, and it makes objects like sliding doors feel like they have no actual weight. 
 
