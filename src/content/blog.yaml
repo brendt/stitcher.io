@@ -5,6 +5,7 @@ php-reimagined:
     next: new-in-php-8
     meta:
         description: "Things I'd change about PHP"
+        template: blog/meta/php-reimagined.twig
     footnotes:
         - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }

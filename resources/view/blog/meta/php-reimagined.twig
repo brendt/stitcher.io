@@ -1,0 +1,48 @@
+{% extends '_partials/index.twig' %}
+
+{% block meta %}
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/meta.scss')|raw }}
+    {{ css.inline('resources/css/code.scss')|raw }}
+
+    <style>
+        h1 small {
+            font-size: .5em;
+            margin-top: -10px;
+            display: block;
+        }
+    </style>
+{% endblock %}
+
+{% block cookies %}
+{% endblock %}
+
+{% block content %}
+    <div class="meta-container">
+        {% block meta_container %}
+
+            <div class="meta-image">
+                {% block meta_body %}
+                    <h1>
+                    <span>
+                        {{ post.title }}
+                    </span>
+                        <small>{{ post.meta.description }}</small>
+                    </h1>
+
+                {% endblock %}
+            </div>
+
+            <div class="meta-footer">
+                {% block meta_footer %}
+                    <span>stitcher.io</span>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
