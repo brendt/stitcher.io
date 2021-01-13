@@ -1,3 +1,16 @@
+php-reimagined:
+    date: 2021-01-13
+    title: If it were up to me
+    content: src/content/blog/2019-03-21-a-new-php.md
+    next: new-in-php-8
+    meta:
+        description: "Things I'd change about PHP"
+    footnotes:
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/what-php-can-be, title: "A deep dive into PHP's type system" }
+        - { link: /blog/php-in-2019, title: "PHP in 2019" }
+
 websites-like-star-wars:
     date: 2021-01-10
     title: Websites should be more like Star Wars
@@ -489,19 +502,6 @@ minor-versions-breaking-changes:
     next: new-in-php-74
     meta:
         description: "How a minor version update broke our project"
-
-php-reimagined:
-    date: 2020-03-20
-    title: PHP reimagined
-    content: src/content/blog/2019-03-21-a-new-php.md
-    next: new-in-php-74
-    meta:
-        description: "My personal take on how to improve PHP"
-    footnotes:
-        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
-        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-        - { link: /blog/what-php-can-be, title: "A deep dive into PHP's type system" }
-        - { link: /blog/php-in-2019, title: "PHP in 2019" }
 
 event-driven-php:
     date: 2020-03-13
