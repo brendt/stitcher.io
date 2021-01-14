@@ -54,7 +54,7 @@ In comparison, let's take a look at what an average month on my blog looks like 
 
 [![Sessions per day](/resources/img/blogs-for-devs/04-02.png)](/resources/img/blogs-for-devs/04-02.png)
 
-A consistent flow of visitors is what will define the success of your bog. This doesn't happen overnight though. It took me 2 years before this regular flow of people started to come in. 
+A consistent flow of visitors is what will define the success of your blog. This doesn't happen overnight though. It took me 2 years before this regular flow of people started to come in. 
 
 How does that happen? I'd say there are three things to focus on:
 
