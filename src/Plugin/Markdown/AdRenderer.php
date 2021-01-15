@@ -2,6 +2,7 @@
 
 namespace Brendt\Stitcher\Plugin\Markdown;
 
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use League\CommonMark\Block\Element\Paragraph;
 use League\CommonMark\ElementRendererInterface;
@@ -25,6 +26,8 @@ class AdRenderer implements InlineRendererInterface
         '{{ cta:blogs_index }}' => __DIR__ . '/../../../resources/view/_partials/cta_blogs_index.twig',
     ];
 
+    private int $stamp = 0;
+
     public function __construct()
     {
         $this->google = file_get_contents(__DIR__ . '/../../../resources/view/_partials/ad_google.twig');
@@ -44,7 +47,13 @@ class AdRenderer implements InlineRendererInterface
         $content = $inline->getContent();
 
         foreach ($this->ctas as $key => $cta) {
-            $content = str_replace($key, $cta, $content);
+            while (Str::contains($content, $key)) {
+                $stampedCta = str_replace('{{ stamp }}', $this->stamp, $cta);
+
+                $content = Str::replaceFirst($key, $stampedCta, $content);
+
+                $this->stamp += 1;
+            }
         }
 
         if (strpos($content, '{{ ad:carbon }}') !== false) {
