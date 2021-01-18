@@ -247,7 +247,7 @@ class CreateInvoiceAction
 
 Keep in mind that this is an oversimplified example. For example: in real life you're have several `Invoiceable` items which would be added to the invoice.
 
-But for the sake of the example, let's keep it at this. If you want to dive deeper into the subject of actions, you can read up on them [here](*http://stitcher.io.test/blog/laravel-queueable-actions). 
+But for the sake of the example, let's keep it at this. If you want to dive deeper into the subject of actions, you can read up on them [here](*http://stitcher.io/blog/laravel-queueable-actions). 
 
 People coming from the ((DDD)) scene might recognise this pattern as "commands" and "handlers" combined. Once again, we choose to simplify two powerful concepts, because it is flexible enough for our projects.  
 
@@ -278,7 +278,7 @@ class InvoiceLineData extends DataTransferObject
 }
 ```
 
-We try our best to transform whatever unstructured data we're dealing with, as fast as possible to ((DTO))s. There's a lot to tell about ((DTO))s, which why you can read up on them in a [dedicated post](*http://stitcher.io.test/blog/structuring-unstructured-data).
+We try our best to transform whatever unstructured data we're dealing with, as fast as possible to ((DTO))s. There's a lot to tell about ((DTO))s, which why you can read up on them in a [dedicated post](*http://stitcher.io/blog/structuring-unstructured-data).
 
 In short: working with predictable and strongly typed data offers a lot of benefits. PHP doesn't offer a native `struct` type, so we made [a package](*https://github.com/spatie/data-transfer-object) that will take care of type safety for us.
 
