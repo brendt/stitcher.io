@@ -1,3 +1,12 @@
+a-storm-in-a-glass-of-water:
+    date: 2021-01-20
+    title: A storm in a glass of water
+    content: src/content/blog/2021-01-20-a-storm-in-a-glass-of-water.md
+    next: new-in-php-8
+    meta:
+        description: "PHP 8 isn't a nightmare"
+        template: blog/meta/storm-water.twig
+
 php-reimagined:
     date: 2021-01-13
     title: If it were up to me
