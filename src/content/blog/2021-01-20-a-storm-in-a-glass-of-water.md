@@ -4,6 +4,8 @@ Suitably titled "A Perfect Storm", the author voices their concerns about how up
 
 There's no denying that PHP 8 introduces [some breaking changes](/blog/new-in-php-8). Especially the addition of union types, named arguments and consequently the changes made to the reflection API might feel like a pain.
 
+{{ ad:carbon }}
+
 What the author seems to forget when calling PHP 8 "a nightmare" and claiming it'll take years before being able to use it, is that PHP 8 is a major version, and things are allowed to break. Better yet: it's the entire purpose of a major release.
 
 I don't blame the author for this sentiment, it lives in lots of people's mind. I think it's a side effect from a long and stable period of releases during the 7.x era. We've got used to easy updates, and we find it difficult when our code breaks because of one.
