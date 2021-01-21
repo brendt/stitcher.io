@@ -1,6 +1,6 @@
 I just read a post about PHP 8 that I couldn't just silently ignore. If you want to read it first, go [check it out](*https://24daysindecember.net/2020/12/21/a-perfect-storm/).
 
-Suitably titled "A Perfect Storm", the author voices their concerns about how upgrading to PHP 8 isn't an easy path, and how open source maintainers have to struggle to be able to support PHP 8 on top of their existing codebase.
+With a fitting title "A Perfect Storm", the author voices their concerns about how upgrading to PHP 8 isn't an easy path, and how open source maintainers have to struggle to be able to support PHP 8 on top of their existing codebase.
 
 There's no denying that PHP 8 introduces [some breaking changes](/blog/new-in-php-8). Especially the addition of union types, named arguments and consequently the changes made to the reflection API might feel like a pain.
 
