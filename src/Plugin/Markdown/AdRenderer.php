@@ -24,6 +24,7 @@ class AdRenderer implements InlineRendererInterface
         '{{ cta:blogs_mail_short }}' => __DIR__ . '/../../../resources/view/_partials/cta_blogs_mail_short.twig',
         '{{ cta:blogs_more }}' => __DIR__ . '/../../../resources/view/_partials/cta_blogs_more.twig',
         '{{ cta:blogs_index }}' => __DIR__ . '/../../../resources/view/_partials/cta_blogs_index.twig',
+        '{{ cta:81 }}' => __DIR__ . '/../../../resources/view/_partials/cta_81.twig',
     ];
 
     private int $stamp = 0;
