@@ -6,7 +6,7 @@ new-in-php-81:
     meta:
         description: "What we can expect to come in PHP 8.1"
     footnotes:
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
         - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
