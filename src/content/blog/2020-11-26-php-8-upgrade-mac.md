@@ -81,7 +81,7 @@ valet use php@8.0
 valet use php@7.4
 ```
 
-Note that if you're switching from PHP 8 to PHP 7.4, there's a bug in Valet that doesn't properly update the changes. You can solve it by manually removing the valet socket after having run `valet use php@7.4`:
+Note that if you're using an older Valet version (prior to v2.13.18), when switching from PHP 8 to PHP 7.4 there was a bug that didn't properly update the changes. This was fixed in Valet 2.13.18 so that it now automatically removes the valet socket after having run `valet use php@7.4`. If you need to do this manually, you can run:
 
 ```
 cd ~/.config/valet
