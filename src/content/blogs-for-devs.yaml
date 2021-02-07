@@ -79,13 +79,13 @@ subscribe:
         template: blog/meta/blogs-for-devs.twig
         description: How to grow, manage and monetize your blog
 
-#10-monetize:
-#    title: 10 — Monetize
-#    content: src/content/blogs-for-devs/10-monetize.md
-#    date: 2021-01-16
-#    meta:
-#        template: blog/meta/blogs-for-devs.twig
-#        description: How to grow, manage and monetize your blog
+10-monetize:
+    title: 10 — Monetize
+    content: src/content/blogs-for-devs/10-monetize.md
+    date: 2021-01-16
+    meta:
+        template: blog/meta/blogs-for-devs.twig
+        description: How to grow, manage and monetize your blog
 #
 #11-in-closing:
 #    title: 11 — In Closing
