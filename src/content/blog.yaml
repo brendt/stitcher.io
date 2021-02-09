@@ -95,6 +95,7 @@ new-in-php-8:
         template: 'blog/meta/new-in-php-8.twig'
     tag: src/content/tags/php-8.yaml
     footnotes:
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
         - { link: /blog/php-8-upgrade-mac, title: "Upgrading to PHP 8 using Homebrew on a Mac" }
         - { link: /blog/php-8-nullsafe-operator, title: "The nullsafe operator" }
         - { link: /blog/php-8-match-or-switch, title: "The match operator in PHP 8" }
