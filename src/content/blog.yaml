@@ -1,3 +1,26 @@
+php-enums:
+    date: 2021-02-17
+    title: PHP Enums
+    content: src/content/blog/2021-02-17-php-enums.md
+    next: new-in-php-81
+    meta:
+        description: "Enums in PHP 8.1"
+    footnotes:
+        - { link: /blog/new-in-php-81, title: "New in PHP 8.1" }
+        - { link: https://wiki.php.net/rfc/enumerations, title: "The enums RFC" }
+        - { link: /blog/php-enums-before-php-81, title: "PHP Enums before PHP 8.1" }
+
+php-enums-before-php-81:
+    date: 2021-02-17
+    title: PHP Enums before PHP 8.1
+    content: src/content/blog/2019-02-18-php-enums.md
+    next: new-in-php-81
+    meta:
+        description: "How to handle enums before PHP 8.1"
+    footnotes:
+        - { link: /blog/new-in-php-81, title: "New in PHP 8.1" }
+        - { link: /blog/enums-without-enums, title: "Enums without enums", description: "— I did a followup post, showing another technique" }
+
 new-in-php-81:
     date: 2021-01-29
     title: "What's new in PHP 8.1"
@@ -6,6 +29,7 @@ new-in-php-81:
     meta:
         description: "What we can expect to come in PHP 8.1"
     footnotes:
+        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
         - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
@@ -971,16 +995,6 @@ craftsmen-know-their-tools:
     meta:
         description: "Programmers shouldn't underestimate the value of properly learning their toolset"
         image: resources/img/blog/craftsmen/3.jpeg
-
-php-enums:
-    date: 2019-02-18
-    title: PHP Enums
-    content: src/content/blog/2019-02-18-php-enums.md
-    next: php-generics-and-why-we-need-them
-    meta:
-        description: "How to handle enums in PHP."
-    footnotes:
-        - { link: /blog/enums-without-enums, title: "Enums without enums", description: "— I did a followup post, showing another technique" }
 
 php-jit:
     date: 2019-02-06
