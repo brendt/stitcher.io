@@ -6,6 +6,7 @@ php-enums:
     meta:
         description: "Enums in PHP 8.1"
     footnotes:
+        - { link: https://github.com/sponsors/iluuu1994, title: "Ilija Tovilo's sponsor page (he did all the programming)" }
         - { link: /blog/new-in-php-81, title: "New in PHP 8.1" }
         - { link: https://wiki.php.net/rfc/enumerations, title: "The enums RFC" }
         - { link: /blog/php-enums-before-php-81, title: "PHP Enums before PHP 8.1" }
