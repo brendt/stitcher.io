@@ -12,6 +12,7 @@ use Brendt\Stitcher\Plugin\Markdown\HeadingAnchor;
 use Brendt\Stitcher\Plugin\Markdown\HighlightCodeBlockRenderer;
 use Brendt\Stitcher\Plugin\Markdown\HighlightInlineCodeRenderer;
 use Brendt\Stitcher\Plugin\Markdown\ImageRenderer;
+use Brendt\Stitcher\Plugin\Markdown\LinkRenderer;
 use Brendt\Stitcher\Plugin\Markdown\NumberParser;
 use Brendt\Stitcher\Plugin\Twig\ImageExtension;
 use League\CommonMark\Block\Element\FencedCode;
@@ -20,6 +21,7 @@ use League\CommonMark\Block\Element\IndentedCode;
 use League\CommonMark\Environment;
 use League\CommonMark\Inline\Element\Code;
 use League\CommonMark\Inline\Element\Image;
+use League\CommonMark\Inline\Element\Link;
 use League\CommonMark\Inline\Element\Text;
 use Pageon\Html\Image\ImageFactory;
 use Pageon\Lib\Markdown\MarkdownParser;
@@ -47,6 +49,7 @@ class AppServiceProvider implements Plugin
             $imageFactory = App::get(ImageFactory::class);
 
             return $environment
+                ->addInlineRenderer(Link::class, new LinkRenderer())
                 ->addInlineRenderer(Text::class, new AdRenderer())
                 ->addInlineRenderer(Code::class, new HighlightInlineCodeRenderer())
                 ->addInlineRenderer(Image::class, new ImageRenderer($imageFactory))
