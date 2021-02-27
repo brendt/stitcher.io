@@ -132,7 +132,7 @@ When using a "generic" implementation of e.g. a model class, type hinting the `-
  So we're stuck with type hinting the `$posts` variable, in our code.
  
 ```php
-/** @var Blog[] $posts */
+/** @var Post[] $posts */
 $posts = $blogModel->find();
 ```
 
