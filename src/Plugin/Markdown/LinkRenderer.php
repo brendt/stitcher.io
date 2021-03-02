@@ -29,21 +29,14 @@ class LinkRenderer implements InlineRendererInterface
             $attributes['target'] = '_blank';
         }
 
+        $attributes['href'] = $url;
 
-        if (Str::startsWith($url, '#')) {
-            $attributes['href'] = $url;
-        } else {
-            if (Str::startsWith($url, '/')) {
-                if (Config::get('environment') === 'local') {
-                    $host = 'http://stitcher.io.test';
-                } else {
-                    $host = 'https://stitcher.io';
-                }
+        $pingUrl = Config::get('environment') === 'local'
+            ? 'http://analytics.stitcher.io.test/r'
+            : 'https://analytics.stitcher.io/r';
 
-                $url = $host . $url;
-            }
-
-            $attributes['href'] = 'https://analytics.stitcher.io/r?url=' . urlencode($url);
+        if (! Str::startsWith($url, '#')) {
+            $attributes['ping'] = $pingUrl;
         }
 
         return new HtmlElement(
