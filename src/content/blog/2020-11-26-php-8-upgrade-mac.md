@@ -1,6 +1,4 @@
-Note: PHP 8 hasn't been released yet, so it'll be a few more hours before you can use Homebrew to update to it.
-
-{{ ad:carbon }}
+{{ cta:dynamic }}
 
 ## Upgrading with Homebrew
 
@@ -64,7 +62,7 @@ And make sure that your local web server also uses PHP 8 by visiting this script
 Note: if you're using Laravel Valet, please keep on reading, 
 you need some extra steps in order for the web server to properly work. 
 
-{{ cta:dynamic }}
+{{ ad:carbon }}
 
 ## Valet
 
