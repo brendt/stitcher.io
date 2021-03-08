@@ -1,12 +1,10 @@
 {
     "require": {
-        "pageon/stitcher-core": "dev-master#71a0e05",
-        "spatie/commonmark-highlighter": "^1.0",
-        "illuminate/support": "~5.7.0",
-        "twig/twig":"^2.8.0",
+        "php": "^8.0",
+        "pageon/stitcher-core": "dev-master",
+        "spatie/commonmark-highlighter": "^2.0",
         "spatie/browsershot": "^3.40",
-        "symfony/console": "^4.0",
-        "dg/twitter-php": "^4.1"
+        "symfony/console": "^4.0"
     },
     "repositories" : [
         {

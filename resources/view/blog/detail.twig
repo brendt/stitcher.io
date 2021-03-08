@@ -77,7 +77,7 @@
                 <a class="cta" href="{{ detailUrl ?? '/blog' }}/{{ post.next.id }}">
                     Next up:&nbsp; {{ post.next.title }}
                 </a>
-            {% elseif _browse.next is defined %}
+            {% elseif _browse.next.id is defined %}
                 <a class="cta" href="{{ detailUrl ?? '/blog' }}/{{ _browse.next.id }}">
                     Next up:&nbsp;
                     {% if _browse.next.teaserTitle is defined %}
@@ -85,6 +85,10 @@
                     {% else %}
                         {{ _browse.next.title }}
                     {% endif %}
+                </a>
+            {% else %}
+                <a class="cta" href="/">
+                    Back
                 </a>
             {% endif %}
         </nav>

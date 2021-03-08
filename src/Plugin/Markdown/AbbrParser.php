@@ -3,17 +3,17 @@
 namespace Brendt\Stitcher\Plugin\Markdown;
 
 use League\CommonMark\Inline\Element\Text;
-use League\CommonMark\Inline\Parser\AbstractInlineParser;
+use League\CommonMark\Inline\Parser\InlineParserInterface;
 use League\CommonMark\InlineParserContext;
 
-class AbbrParser extends AbstractInlineParser
+class AbbrParser implements InlineParserInterface
 {
-    public function getCharacters()
+    public function getCharacters(): array
     {
         return ['('];
     }
 
-    public function parse(InlineParserContext $inlineContext)
+    public function parse(InlineParserContext $inlineContext): bool
     {
         $cursor = $inlineContext->getCursor();
 

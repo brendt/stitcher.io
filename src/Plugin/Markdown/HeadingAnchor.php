@@ -3,14 +3,24 @@
 namespace Brendt\Stitcher\Plugin\Markdown;
 
 use League\CommonMark\Block\Element\AbstractBlock;
-use League\CommonMark\Block\Renderer\HeadingRenderer;
+use League\CommonMark\Block\Element\Heading;
+use League\CommonMark\Block\Renderer\BlockRendererInterface;
 use League\CommonMark\ElementRendererInterface;
+use League\CommonMark\HtmlElement;
 
-class HeadingAnchor extends HeadingRenderer
+class HeadingAnchor implements BlockRendererInterface
 {
     public function render(AbstractBlock $block, ElementRendererInterface $htmlRenderer, $inTightList = false)
     {
-        $block = parent::render($block, $htmlRenderer, $inTightList);
+        if (!($block instanceof Heading)) {
+            throw new \InvalidArgumentException('Incompatible block type: ' . \get_class($block));
+        }
+
+        $tag = 'h' . $block->getLevel();
+
+        $attrs = $block->getData('attributes', []);
+
+        $block = new HtmlElement($tag, $attrs, $htmlRenderer->renderInlines($block->children()));
 
         $slug = $this->slug($block->getContents());
 

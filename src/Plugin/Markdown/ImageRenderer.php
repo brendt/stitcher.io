@@ -4,7 +4,6 @@ namespace Brendt\Stitcher\Plugin\Markdown;
 
 use League\CommonMark\ElementRendererInterface;
 use League\CommonMark\Inline\Element\AbstractInline;
-use League\CommonMark\Inline\Element\Link;
 
 class ImageRenderer extends \Pageon\Lib\Markdown\ImageRenderer
 {
