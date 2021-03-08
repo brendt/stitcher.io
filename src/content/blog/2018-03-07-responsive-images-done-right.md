@@ -55,7 +55,7 @@ but that's not our concern: the responsive images spec can handle that for us.
 
 So how can you determine the dimensions of, say 10 variants of the same image, if you only know the dimensions of the original image? This is where high school maths come into play.
 
-```
+```txt
 <hljs comment>We start with these known variables</hljs>
 <hljs prop>filesize</hljs> = 1.000.000
 <hljs prop>width</hljs> = 1920
