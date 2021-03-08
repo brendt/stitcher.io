@@ -1236,12 +1236,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pageon/stitcher-core.git",
-                "reference": "3ec2add47d1964ff2d62378c6c56a1e11251848b"
+                "reference": "0340bbc91c50b20705755ba34dabbab0768e5377"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/3ec2add47d1964ff2d62378c6c56a1e11251848b",
-                "reference": "3ec2add47d1964ff2d62378c6c56a1e11251848b",
+                "url": "https://api.github.com/repos/pageon/stitcher-core/zipball/0340bbc91c50b20705755ba34dabbab0768e5377",
+                "reference": "0340bbc91c50b20705755ba34dabbab0768e5377",
                 "shasum": ""
             },
             "require": {
@@ -1294,7 +1294,7 @@
                 "source": "https://github.com/pageon/stitcher-core/tree/master",
                 "issues": "https://github.com/pageon/stitcher-core/issues"
             },
-            "time": "2021-03-08T05:10:14+00:00"
+            "time": "2021-03-08T05:22:35+00:00"
         },
         {
             "name": "phpoption/phpoption",
