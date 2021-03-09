@@ -25,16 +25,7 @@ abstract class RssHandler
 
     public function handle(): Response
     {
-        $posts = YamlVariable::make(
-            File::path($this->getSourcePath()),
-            App::get(Yaml::class),
-            App::get(VariableParser::class)
-        )->getParsed();
-
-        $rss = $this->renderer->renderTemplate(
-            $this->getTemplatePath(),
-            ['posts' => $posts]
-        );
+        $rss = file_get_contents(__DIR__ . '/../../public/rss.xml');
 
         return new Response(200, ['Content-Type' => 'application/xml;charset=UTF-8'], $rss);
     }
