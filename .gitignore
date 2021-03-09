@@ -11,3 +11,4 @@ vendor/
 Envoy.blade.php
 Envoy*
 src/Console/submissions.json
+/public/rss.xml
