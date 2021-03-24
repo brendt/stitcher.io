@@ -1,3 +1,16 @@
+new-in-php-81:
+    date: 2021-03-24
+    title: "What's new in PHP 8.1"
+    content: src/content/blog/2021-01-29-new-in-php-81.md
+    next: new-in-php-8
+    meta:
+        description: "What we can expect to come in PHP 8.1"
+    footnotes:
+        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+
 php-enums:
     date: 2021-02-17
     title: PHP Enums
@@ -21,19 +34,6 @@ php-enums-before-php-81:
     footnotes:
         - { link: /blog/new-in-php-81, title: "New in PHP 8.1" }
         - { link: /blog/enums-without-enums, title: "Enums without enums", description: "— I did a followup post, showing another technique" }
-
-new-in-php-81:
-    date: 2021-01-29
-    title: "What's new in PHP 8.1"
-    content: src/content/blog/2021-01-29-new-in-php-81.md
-    next: new-in-php-8
-    meta:
-        description: "What we can expect to come in PHP 8.1"
-    footnotes:
-        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
-        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 a-storm-in-a-glass-of-water:
     date: 2021-01-20
