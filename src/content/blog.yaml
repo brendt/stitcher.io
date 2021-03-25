@@ -1,3 +1,11 @@
+dont-write-your-own-framework:
+    date: 2021-03-25
+    title: "Don't write your own framework"
+    content: src/content/blog/2020-06-13-dont-write-your-own-framework.md
+    next: constructor-promotion-in-php-8
+    meta:
+        description: How an in-house framework broke a few hundred websites
+
 new-in-php-81:
     date: 2021-03-24
     title: "What's new in PHP 8.1"
@@ -351,14 +359,6 @@ abstract-resources-in-laravel-nova:
     author:
         name: Bruno Falcao
         url: https://twitter.com/brunocfalcao
-
-dont-write-your-own-framework:
-    date: 2020-06-13
-    title: "Don't write your own framework"
-    content: src/content/blog/2020-06-13-dont-write-your-own-framework.md
-    next: constructor-promotion-in-php-8
-    meta:
-        description: How an in-house framework broke a few hundred websites
 
 constructor-promotion-in-php-8:
     date: 2020-06-12

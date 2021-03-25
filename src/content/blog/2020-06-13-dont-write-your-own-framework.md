@@ -1,3 +1,9 @@
+<div class="sidenote">
+<h2>You can listen to this post</h2>
+
+If you prefer listening over reading, you can listen to this post [on YouTube](*https://www.youtube.com/watch?v=oy0b2U9fyRo&ab_channel=BrentRoose) or by subscribing to my podcast feed on [iTunes](*https://podcasts.apple.com/be/podcast/rant-with-brent/id1462956030), [Stitcher](*https://www.stitcher.com/s?fid=403581&refid=stpr.) or [Spotify](*https://open.spotify.com/show/43sF0kY3BWepaO9CkLvVdJ?si=R-MIXaMHQbegQyq3gQm7Yw)
+</div>
+
 We were sitting with 5 or 6 backend developers around the large meeting table. It was 10 in the morning on a Monday, and we were all silently working on our laptops. There was a hasty atmosphere, and everyone tried to concentrate on the task ahead.
 
 Less than 2 hours before, I walked into the office, not yet aware of any harm. I was immediately called to the meeting room at the back, there was no time to sit at my desk. Still I quickly grabbed a coffee, and went to the back where a few other colleagues already gathered.
