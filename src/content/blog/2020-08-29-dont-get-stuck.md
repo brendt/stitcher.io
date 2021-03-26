@@ -16,7 +16,7 @@ I decided to leave because I got stuck and there wasn't any room to grow anymore
 
 Even though I'd been advocating within the company to make significant changes, both on a technical level, as well as on the management side; it didn't seem achievable. We were still struggling to deliver the quality we promised our clients, we were using out of date technologies, I went home feeling down and depressed almost every day.
 
-I wasn't the only one, by the way. During the 3 years I worked for this company, 8 uot of 25 people left, and around the same amount were hired; always young developers, straight from school, just like I three years before. Every time this happened, it was described as "the normal flow" a web development company has to deal with, just like our manager told me during my resignation.  
+I wasn't the only one, by the way. During the 3 years I worked for this company, 8 out of 25 people left, and around the same amount were hired; always young developers, straight from school, just like I three years before. Every time this happened, it was described as "the normal flow" a web development company has to deal with, just like our manager told me during my resignation.  
 
 I've since realised that this manager was wrong: it's not normal to switch jobs every 5 years, to have a third of your company come and go, and be replaced with inexperienced developers. And mind you: there should always be room for those juniors to grow, but who will teach them if most of the experienced developers left? 
 
