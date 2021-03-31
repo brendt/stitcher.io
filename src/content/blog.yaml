@@ -1,8 +1,16 @@
+honesty:
+    date: 2021-03-29
+    title: "Honesty"
+    content: src/content/blog/2021-03-29-honesty.md
+    next: dont-get-stuck
+    meta:
+        description: What happens when you're not entirely honest with your clients and colleagues
+
 dont-write-your-own-framework:
     date: 2021-03-25
     title: "Don't write your own framework"
     content: src/content/blog/2020-06-13-dont-write-your-own-framework.md
-    next: constructor-promotion-in-php-8
+    next: dont-get-stuck
     meta:
         description: How an in-house framework broke a few hundred websites
 
