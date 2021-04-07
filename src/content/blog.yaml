@@ -1,3 +1,9 @@
+building-an-event-loop-with-fibers-in-php-81:
+    date: 2021-04-07
+    title: "Building an event loop with Fibers in PHP 8.1"
+    content: src/content/blog/2021-04-07/building-an-event-loop-with-fibers-in-php-81.md
+    next: new-in-php-81
+
 honesty:
     date: 2021-03-31
     title: "Honesty"
