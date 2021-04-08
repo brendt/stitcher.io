@@ -1,8 +1,14 @@
-building-an-event-loop-with-fibers-in-php-81:
-    date: 2021-04-07
-    title: "Building an event loop with Fibers in PHP 8.1"
-    content: src/content/blog/2021-04-07/building-an-event-loop-with-fibers-in-php-81.md
+fibers-with-a-grain-of-salt:
+    date: 2021-04-08
+    title: "Fibers with a grain of salt"
+    content: src/content/blog/2021-04-07-fibers.md
     next: new-in-php-81
+    footnotes:
+        - { link: "https://wiki.php.net/rfc/fibers", title: "The Fibers RFC"}
+        - { link: "/blog/new-in-php-81", title: "What's new in PHP 8.1"}
+        - { link: "https://amphp.org", title: "Amp, an async framework for PHP"}
+        - { link: "https://reactphp.org", title: "ReactPHP, another async framework for PHP"}
+        - { link: "https://golangbot.com/goroutines", title: "Goroutines, green threads in Go"}
 
 honesty:
     date: 2021-03-31
