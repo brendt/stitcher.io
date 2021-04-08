@@ -1,3 +1,11 @@
+thoughts-on-event-sourcing:
+    date: 2021-04-08
+    title: "Thoughts on Event Sourcing"
+    content: src/content/blog/2021-04-08-thoughts-on-event-sourcing.md
+    next: honesty
+    meta:
+        description: A personal look on event sourcing and the PHP community
+
 honesty:
     date: 2021-03-31
     title: "Honesty"
