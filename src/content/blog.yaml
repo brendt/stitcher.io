@@ -5,6 +5,9 @@ thoughts-on-event-sourcing:
     next: honesty
     meta:
         description: A personal look on event sourcing and the PHP community
+    footnotes:
+        - { link: "https://www.eventstore.com/blog/php-and-event-sourcing", title: "My guest post on the Event Store blog" }
+        - { link: "https://www.youtube.com/watch?v=LXDnjtgfl2k", title: "The audio version of my post" }
 
 honesty:
     date: 2021-03-31
