@@ -4,7 +4,7 @@ what-event-sourcing-is-not-about:
     content: src/content/blog/2021-04-10-what-event-sourcing-is-not-about.md
     next: thoughts-on-event-sourcing
     meta:
-        description: Back to basics
+        description: A close look at what event sourcing actually means
         template: blog/meta/event-sourcing.twig
     footnotes:
       - { link: "https://www.eventstore.com/blog/php-and-event-sourcing", title: "My guest post about event sourcing on the Event Store blog" }
