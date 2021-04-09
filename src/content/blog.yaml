@@ -1,3 +1,18 @@
+what-event-sourcing-is-not-about:
+    date: 2021-04-10
+    title: "What event sourcing is not about"
+    content: src/content/blog/2021-04-10-what-event-sourcing-is-not-about.md
+    next: thoughts-on-event-sourcing
+    meta:
+        description: Back to basics
+        template: blog/meta/event-sourcing.twig
+    footnotes:
+      - { link: "https://www.eventstore.com/blog/php-and-event-sourcing", title: "My guest post about event sourcing on the Event Store blog" }
+      - { link: "https://www.youtube.com/watch?v=LDW0QWie21", title: "Greg Young about the history of event sourcing" }
+      - { link: "https://www.youtube.com/watch?v=STKCRSUsyP0", title: "Martin Fowler about event driven architectures" }
+      - { link: "/blog/combining-event-sourcing-and-stateful-systems", title: "Combining event sourcing and stateful systems" }
+      - { link: "https://event-sourcing-laravel.com/", title: "My course about event sourcing" }
+
 thoughts-on-event-sourcing:
     date: 2021-04-08
     title: "Thoughts on Event Sourcing"
@@ -6,6 +21,7 @@ thoughts-on-event-sourcing:
     meta:
         description: A personal look on event sourcing and the PHP community
     footnotes:
+        - { link: "/blog/what-event-sourcing-is-not-about", title: "What event sourcing is not about" }
         - { link: "https://www.eventstore.com/blog/php-and-event-sourcing", title: "My guest post on the Event Store blog" }
         - { link: "https://www.youtube.com/watch?v=LXDnjtgfl2k", title: "The audio version of my post" }
 
@@ -559,6 +575,8 @@ combining-event-sourcing-and-stateful-systems:
     meta:
         description: "Bridging the gap between stateful and event sourced sub-systems"
     footnotes:
+        - { link: "/blog/what-event-sourcing-is-not-about", title: "What event sourcing is not about" }
+        - { link: "https://event-sourcing-laravel.com/", title: "My course about event sourcing" }
         - { link: "/blog/tests-and-types", title: "Thoughts on strong and weakly typed programming languages" }
         - { link: /blog/laravel-beyond-crud, title: "Laravel beyond CRUD: a blog series on designing large Laravel applications" }
 
