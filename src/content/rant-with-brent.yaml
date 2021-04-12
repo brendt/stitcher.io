@@ -1,3 +1,11 @@
+rant-with-brent-07:
+  date: 2021-04-12
+  title: "07: Fibers with a Grain of Salt"
+  link: https://feeds.soundcloud.com/stream/1027534648-brent-roose-826312539-07-fibers.mp3
+  description: "A close look at fibers in PHP 8.1"
+  season: 1
+  episode: 7
+
 rant-with-brent-06:
   date: 2021-04-07
   title: "06: Thoughts on Event Sourcing"
