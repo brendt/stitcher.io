@@ -3,6 +3,9 @@ fibers-with-a-grain-of-salt:
     title: "Fibers with a grain of salt"
     content: src/content/blog/2021-04-07-fibers.md
     next: new-in-php-81
+    meta:
+        description: Thoughts on Fibers in PHP 8.1
+        template: blog/meta/fibers.twig
     footnotes:
         - { link: "https://wiki.php.net/rfc/fibers", title: "The Fibers RFC"}
         - { link: "/blog/new-in-php-81", title: "What's new in PHP 8.1"}
