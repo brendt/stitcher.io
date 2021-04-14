@@ -1,3 +1,16 @@
+new-in-php-81:
+    date: 2021-04-14
+    title: "What's new in PHP 8.1"
+    content: src/content/blog/2021-01-29-new-in-php-81.md
+    next: new-in-php-8
+    meta:
+        description: "What we can expect to come in PHP 8.1"
+    footnotes:
+        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+
 fibers-with-a-grain-of-salt:
     date: 2021-04-12
     title: "Fibers with a grain of salt"
@@ -55,19 +68,6 @@ dont-write-your-own-framework:
     next: dont-get-stuck
     meta:
         description: How an in-house framework broke a few hundred websites
-
-new-in-php-81:
-    date: 2021-03-24
-    title: "What's new in PHP 8.1"
-    content: src/content/blog/2021-01-29-new-in-php-81.md
-    next: new-in-php-8
-    meta:
-        description: "What we can expect to come in PHP 8.1"
-    footnotes:
-        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
-        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 php-enums:
     date: 2021-02-17
