@@ -1,3 +1,15 @@
+php-in-2021:
+    date: 2021-04-15
+    title: PHP in 2021
+    content: src/content/blog/2021-04-15-php-in-2021.md
+    next: new-in-php-81
+    meta:
+        description: A look back and forward on PHP
+    footnotes:
+        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+
 new-in-php-81:
     date: 2021-04-14
     title: "What's new in PHP 8.1"
