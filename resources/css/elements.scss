@@ -1,12 +1,12 @@
 @import "css/variables";
 
 body {
-    font-size: 17px;
+    font-size: 16px;
     background-color: #fefefe;
     margin: 0;
     padding: 0;
     color: #111;
-    font-weight: 200;
+    font-weight: 400;
 
     @media (max-width: $width-container-mobile-lrg) {
         font-size: 16px;
@@ -186,7 +186,7 @@ p > em {
 
 blockquote {
     font-family: $font-subtitle;
-    font-weight: 200;
+    font-weight: 400;
     font-size: 1.25em;
     color: $color-primary;
     line-height: 2em;
