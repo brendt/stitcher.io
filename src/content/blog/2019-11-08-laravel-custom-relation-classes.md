@@ -6,7 +6,7 @@ We want an admin user to see an overview of all people in the system in a table,
 
 The relation between `Contract` and `Person` is as follows:
 
-```
+```txt
 <hljs type>Contract</hljs> > <hljs type>HabitantContract</hljs> > <hljs type>Habitant</hljs> > <hljs type>Person</hljs>
 ```
 

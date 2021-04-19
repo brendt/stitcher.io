@@ -3,7 +3,7 @@ It takes three arguments, integers between ((#0#)) and ((#255#)); and converts i
 
 Here's what this function's definition might look like in a dynamic, weakly typed language:
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(red, green, blue) {
     // …
 }
@@ -12,7 +12,7 @@ Here's what this function's definition might look like in a dynamic, weakly type
 I think we all agree that "program correctness" is essential. 
 We don't want any bugs, so we write tests.
 
-```
+```txt
 <hljs prop>assert</hljs>(<hljs prop>rgbToHex</hljs>(<hljs keyword>0</hljs>, <hljs keyword>0</hljs>, <hljs keyword>0</hljs>) == '000000')
 
 <hljs prop>assert</hljs>(<hljs prop>rgbToHex</hljs>(<hljs keyword>255</hljs>, <hljs keyword>255</hljs>, <hljs keyword>255</hljs>) == 'ffffff')
@@ -27,31 +27,31 @@ But human reasoning tells us that if these three cases work, all probably do.
 
 What happens though if we pass doubles instead of integers? 
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(<hljs keyword>1.5</hljs>, <hljs keyword>20.2</hljs>, <hljs keyword>100.1</hljs>)
 ``` 
 
 Or numbers outside of the allowed range?
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(<hljs keyword>-504</hljs>, <hljs keyword>305</hljs>, <hljs keyword>-59</hljs>)
 ```
 
 What about `null`?
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(<hljs keyword>null</hljs>, <hljs keyword>null</hljs>, <hljs keyword>null</hljs>)
 ```
 
 Or strings?
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>("red", "green", "blue")
 ```
 
 Or the wrong amount of arguments?
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>()
 
 <hljs prop>rgbToHex</hljs>(1, 2)
@@ -74,7 +74,7 @@ If we filter input by a type — you can think of it as a subcategory of all ava
 
 Say we'd only allow integers:
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(<hljs type>Int</hljs> red, <hljs type>Int</hljs> green, <hljs type>Int</hljs> blue) 
 {
     // …
@@ -109,7 +109,7 @@ Nevertheless in theory, a type could be preconfigured in such a way that it's sm
 Languages that lack these kinds of generic types, often need to build custom types.
 Being an OO programmer myself, I would use classes to do this.
 
-```
+```txt
 <hljs keyword>class</hljs> <hljs type>MinMaxInt</hljs>
 {
     <hljs keyword>public</hljs> <hljs prop>MinMaxInt</hljs>(<hljs type>Int</hljs> min, <hljs type>Int</hljs> max, <hljs type>Int</hljs> value)
@@ -126,7 +126,7 @@ If we're using an instance of `MinMaxInt`, we can be sure its value is constrain
 Still, this `MinMaxInt` class is too generic for our case. 
 If we were to type `rgbToHex` with it, we're still not sure what the exact boundaries are:
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(<hljs type>MinMaxInt</hljs> red, <hljs type>MinMaxInt</hljs> green, <hljs type>MinMaxInt</hljs> blue) 
 {
     // …
@@ -137,7 +137,7 @@ We need a more specific type: `RgbValue`.
 Adding it depends, again, on the programming language and personal preference. 
 I would extend `MinMaxInt`, but feel free to do whatever fits you best.
 
-```
+```txt
 <hljs keyword>class</hljs> <hljs type>RgbValue</hljs> <hljs keyword>extends</hljs> <hljs type>MinMaxInt</hljs>
 {
     <hljs keyword>public</hljs> <hljs prop>RgbValue</hljs>(<hljs type>Int</hljs> value)
@@ -150,7 +150,7 @@ I would extend `MinMaxInt`, but feel free to do whatever fits you best.
 Now we've arrived at a working solution. 
 By using the `RgbValue` type, most of our tests become redundant.
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(<hljs type>RgbValue</hljs> red, <hljs type>RgbValue</hljs> green, <hljs type>RgbValue</hljs> blue) 
 {
     // …
@@ -173,7 +173,7 @@ That's true in my example, which is influenced by the languages I work in.
 It depends on the capabilities of the language though. 
 Given a language that allows this:
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(
     <hljs type>Int</hljs><<hljs keyword>0</hljs>, <hljs keyword>255</hljs>> red, 
     <hljs type>Int</hljs><<hljs keyword>0</hljs>, <hljs keyword>255</hljs>> green, 
@@ -197,7 +197,7 @@ as these custom categories most likely apply to your business, and are used thro
 
 Next, many would consider my solution too verbose when actually using it:
 
-```
+```txt
 <hljs prop>rgbToHex</hljs>(
     <hljs keyword>new</hljs> <hljs type>RgbValue</hljs>(<hljs keyword>60</hljs>),
     <hljs keyword>new</hljs> <hljs type>RgbValue</hljs>(<hljs keyword>102</hljs>),

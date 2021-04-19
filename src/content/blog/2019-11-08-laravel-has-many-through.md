@@ -1,4 +1,4 @@
-```
+```txt
 - The current model <hljs red>Country</hljs> has a relation to <hljs yellow>Post</hljs> via <hljs blue>User</hljs>
 - The <hljs blue>intermediate model</hljs> is linked to the <hljs red>current model</hljs> via <hljs blue>users.country_id</hljs>
 - The <hljs yellow>target model</hljs> is linked to the <hljs blue>intermediate model</hljs> via <hljs yellow>posts.user_id</hljs>
@@ -6,7 +6,7 @@
 - <hljs yellow>posts.user_id</hljs> maps to <hljs blue>users.id</hljs>
 ```
 
-```
+```txt
 <hljs red>countries</hljs>
     <hljs red>id</hljs> - integer
     name - string

@@ -53,7 +53,7 @@ $entityManager-><hljs prop>save</hljs>($formSubmission);
 
 The bug, simple as it may sound, was a simple typo:
 
-```
+```txt
 $formSubmission-><hljs prop>more_feedback_required</hljs> = 
     $form-><hljs prop>get</hljs>('more_feedback_requierd');
 ```

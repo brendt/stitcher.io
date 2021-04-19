@@ -66,7 +66,7 @@ Since we've been using invoicing as the example throughout this series though, I
  
 Oh and, happy scrolling! 
 
-```
+```txt
 App/Admin
 ├── <hljs purple>Controllers</hljs>
 │   ├── <hljs textgrey>█████████</hljs>
@@ -566,7 +566,7 @@ Once again a concept like invoices is spread across multiple directories, and mi
 
 The solution? No surprises here, I hope; it's the same as we did with domains: group together code that belongs together. In this example, invoices:
 
-```
+```txt
 Admin
 └── <hljs blue>Invoices</hljs>
     ├── <hljs purple>Controllers</hljs>

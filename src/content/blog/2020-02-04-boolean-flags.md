@@ -49,7 +49,7 @@ Nevertheless, it's a cool, geeky thing to know, and possible in PHP.
 
 So let's store these two flags in one variable.
 
-```
+```txt
 <hljs keyword>abstract</hljs> <hljs keyword>class</hljs> <hljs type>Boundaries</hljs>
 {
     <hljs keyword>protected</hljs> <hljs type>int</hljs> $inclusionMask = <hljs textgrey>0b</hljs>00;
@@ -68,21 +68,21 @@ Here's where [bitwise operators](*https://www.php.net/manual/en/language.operato
 
 Take the following two binary values:
 
-```
+```txt
 <hljs textgrey>0b</hljs>0100101;
 <hljs textgrey>0b</hljs>1010101;
 ```
 
 What happens when we apply an `and` operation on both of these values? The result will have all bits set to `1` wherever both bits were `1` in the two original values:
 
-```
+```txt
 <hljs textgrey>0b</hljs>0<hljs type>1</hljs>00<hljs green>1</hljs>0<hljs green>1</hljs>;
 <hljs textgrey>0b</hljs><hljs type>1</hljs>0<hljs type>1</hljs>0<hljs green>1</hljs>0<hljs green>1</hljs>;
 ```
 
 This is the end result:
 
-```
+```txt
 <hljs textgrey>0b</hljs>0000<hljs green>1</hljs>0<hljs green>1</hljs>;
 ```
 
@@ -92,7 +92,7 @@ How so? Since we're only interested in knowing the value of the start boundary, 
 
 Here's an example where the start bit is `0`:
 
-```
+```txt
 <hljs textgrey>0b</hljs><hljs type>1</hljs>0; <hljs textgrey>// The mask we're applying</hljs>
 <hljs textgrey>0b</hljs>0<hljs type>1</hljs>; <hljs textgrey>// The inclusion mask</hljs>
 
@@ -101,7 +101,7 @@ Here's an example where the start bit is `0`:
 
 And here's one where the start bit is `1`:
 
-```
+```txt
 <hljs textgrey>0b</hljs><hljs green>1</hljs>0; <hljs textgrey>// The mask we're applying</hljs>
 <hljs textgrey>0b</hljs><hljs green>1</hljs>0; <hljs textgrey>// The inclusion mask</hljs>
 
@@ -112,7 +112,7 @@ The end bit will always be `0` in this case, because the mask we're applying has
 
 So how to do this in PHP? By using the binary `and` operator, which is a single `&`:
 
-```
+```txt
 <hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>startIncluded</hljs>(): <hljs type>bool</hljs> 
 {
     <hljs keyword>return</hljs> <hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>10;
@@ -126,7 +126,7 @@ So how to do this in PHP? By using the binary `and` operator, which is a single 
 
 PHP's dynamic type system will automatically cast the result, `0` or a numeric value, to a boolean. If you want to be more explicit though, you can write it like so:
 
-```
+```txt
 <hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>startIncluded</hljs>(): <hljs type>bool</hljs> 
 {
     <hljs keyword>return</hljs> (<hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>10) !== 0;

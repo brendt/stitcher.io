@@ -93,7 +93,7 @@ respective display context without the dependency of other display contexts. For
 you can have a `showOnIndex()` and a `showOnCreating()`, using a callback on the method
 that should return `true`.
 
-```
+```txt
 <hljs prop>showOnIndex</hljs>()
 <hljs prop>showOnDetail</hljs>()
 <hljs prop>showOnCreating</hljs>()
@@ -158,7 +158,7 @@ URL for Amazon S3 and will immediately upload the file.
 
 ![](/resources/img/blog/improvements-on-laravel-nova/vapor-fields.jpg)
 
-```
+```txt
 <hljs type>VaporFile</hljs>::<hljs prop>make</hljs>('Filename'),
 <hljs type>VaporImage</hljs>::<hljs prop>make</hljs>('Avatar')-><hljs prop>maxWidth</hljs>(80)-><hljs prop>rounded</hljs>(false),
 ```

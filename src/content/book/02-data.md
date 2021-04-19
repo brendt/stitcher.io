@@ -141,7 +141,7 @@ Now imagine for a minute that you're working with a team of several developers o
 
 It turns out that strongly typed systems in combination with static analysis can be a great help in understanding what exactly we're dealing with. Languages like Rust, for example, solve this problem cleanly:
 
-```
+```txt
 <hljs keyword>struct</hljs> <hljs type>CustomerData</hljs> {
     <hljs prop>name</hljs>: <hljs type>String</hljs>,
     <hljs prop>email</hljs>: <hljs type>String</hljs>,
