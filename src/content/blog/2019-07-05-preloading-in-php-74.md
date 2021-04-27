@@ -225,10 +225,6 @@ By adding this class in the same preload script, we're now able to load the whol
     -><hljs prop>load</hljs>();
 ```
 
-<div class="author">
-At the moment, there's <a href="https://bugs.php.net/bug.php?id=78918" target="_blank">a bug</a> in the core which prevents <code>require_once</code> from working correctly. Let's hope it'll get fixed soon.
-</div>
-
 ## Does it work?
 
 That's of course the most important question: were all files correctly loaded? You can simply test it by restarting the server, and dump the output of `opcache_get_status()` in a PHP script. You'll see it has a key called `preload_statistics`, which will list all preloaded functions, classes and scripts; as well as the memory consumed by the preloaded files.
@@ -237,6 +233,8 @@ That's of course the most important question: were all files correctly loaded? Y
 
 One promising feature is probably an automated preloading solution based on composer, which is used by most modern day PHP projects already.
 People are working to add a preload configuration option in `composer.json`, which in turn will generate the preload file for you! At the moment, this feature is still a work in progress, but you can follow it [here](*https://github.com/composer/composer/issues/7777). 
+
+**Update 2019-11-29**: composer support has stopped, as can be read by [Jordi's](*https://github.com/composer/composer/issues/7777#issuecomment-559725760) answer.
 
 ## Server requirements
 
