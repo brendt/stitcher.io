@@ -1,3 +1,10 @@
+parallel-php:
+    date: 2021-04-28
+    title: Running PHP code in parallel, the easy way
+    content: src/content/blog/2021-04-28-parallel-php.md
+    meta:
+        description: I made a no-nonsensewrapper around pcntl_fork
+
 php-in-2021:
     date: 2021-04-15
     title: PHP in 2021
