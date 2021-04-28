@@ -78,7 +78,7 @@ $responses = <hljs type>Promise\Utils</hljs>::<hljs prop>unwrap</hljs>($promises
 
 ---
 
-Of all of the above, Amp's approach would have my preference, were it not that it still has quite a lot of overhead  for my simple use cases. Honestly, all I wanted to do was to run some functions in parallel and wait until all of the are finished. I don't want to be bothered by looking up documentation about the particular API a framework is using. Did I have to import a function here? How to unwrap promises? How to wait for everything to finish?
+Of all of the above, Amp's approach would have my preference, were it not that it still has quite a lot of overhead  for my simple use cases. Honestly, all I wanted to do was to run some functions in parallel and wait until all of them are finished. I don't want to be bothered by looking up documentation about the particular API a framework is using. Did I have to import a function here? How to unwrap promises? How to wait for everything to finish?
 
 All of the above examples are great solutions for the 10% cases that require people to have lots of control, but what about the 90% of cases where you just want to do one thing as simply as possible?
 
@@ -160,4 +160,4 @@ If you want to know more or want to try the package yourself, you can check it o
 
 Less is more. That's one of my core principles when coding. I prefer code that forces me to do something one way but always works, instead of a highly configurable frameworks that makes me wonder how to use it every time I look at it. I feel that many developers often get lost in a maze of high configurability and extensibility and forget their original end goal by doing so.
 
-I hope this package with can be of help for that group of people who fall in the 90% category.
+I hope this package can be of help for that group of people who fall in the 90% category.
