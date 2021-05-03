@@ -149,7 +149,8 @@ And finally, before and after bindings can be run both in the child process and 
 There are of course a few things this package doesn't do:
 
 - there's no pool managing the amount of concurrent processes, you're in charge if you need to;
-- there are no promises
+- there are no promises;
+- [pcntl](*https://www.php.net/manual/en/book.pcntl.php) doesn't work on Windows and doesn't run in web requests;
 - there's no behind the scenes exception handling, if a child fails it'll throw an exception and stop the process flow.
 
 In other words: it's the perfect solution for the 90% case where you just want to run some functions in parallel and be done with it. If you need anything more than that, then the solutions listed above are a great start. There's also another package of ours called [`spatie/async`](*https://github.com/spatie/async) that doesn't work with promises but does offer pool configuration and extensive exception handling.
