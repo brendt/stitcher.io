@@ -159,6 +159,6 @@ If you want to know more or want to try the package yourself, you can check it o
 
 {{ cta:mail }}
 
-Less is more. That's one of my core principles when coding. I prefer code that forces me to do something one way but always works, instead of a highly configurable frameworks that makes me wonder how to use it every time I look at it. I feel that many developers often get lost in a maze of high configurability and extensibility and forget their original end goal by doing so.
+Less is more. That's one of my core principles when coding. I prefer code that forces me to do something one way but always works, instead of a highly configurable framework that makes me wonder how to use it every time I look at it. I feel that many developers often get lost in a maze of high configurability and extensibility and forget their original end goal by doing so.
 
 I hope this package can be of help for that group of people who fall in the 90% category.
