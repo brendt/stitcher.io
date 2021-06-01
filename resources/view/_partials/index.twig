@@ -66,6 +66,7 @@
 {{ js.inline('resources/js/cookies.js')|raw }}
 
 <script>
+    // GA
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -92,8 +93,25 @@
 
     ga('send', 'pageview');
 
+    // COOKIE
     new CookiesEuBanner(function () {
     });
+
+    // SCOPE
+    var url = (new URL(document.location));
+    var params = url.searchParams;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", 'https://scope.spatie.be/scope', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        url: window.location.href,
+        screen_size: window.innerWidth,
+        referrer: document.referrer,
+        utm_campaign: params.get('utm_campaign'),
+        utm_source: params.get('utm_source'),
+        utm_medium: params.get('utm_medium'),
+        site_uuid: '5780a20f-4896-4c50-8512-e6d9dbdfeb4f',
+    }));
 </script>
 
 
