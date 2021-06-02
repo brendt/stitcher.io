@@ -18,7 +18,7 @@ php-in-2021:
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
 
 new-in-php-81:
-    date: 2021-04-14
+    date: 2021-06-01
     title: "What's new in PHP 8.1"
     content: src/content/blog/2021-01-29-new-in-php-81.md
     next: new-in-php-8
