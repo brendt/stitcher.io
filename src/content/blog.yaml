@@ -1,14 +1,16 @@
-why-we-need-multiline-short-closures-in-php:
+why-we-need-multi-line-short-closures-in-php:
     date: 2021-06-03
-    title: Why we need multiline short closures in PHP
+    title: Why we need multi-line short closures in PHP
     content: src/content/blog/2021-06-03-why-we-need-multiline-short-closures-in-php.md
+    meta:
+        description: Thoughts on the multi-line short closures RFC
 
 parallel-php:
     date: 2021-04-28
     title: Running PHP code in parallel, the easy way
     content: src/content/blog/2021-04-28-parallel-php.md
     meta:
-        description: I made a no-nonsensewrapper around pcntl_fork
+        description: I made a no-nonsense wrapper around pcntl_fork
 
 php-in-2021:
     date: 2021-04-15
