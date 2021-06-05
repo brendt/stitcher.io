@@ -1,3 +1,11 @@
+php-version-stats-july-2021:
+    date: 2021-07-20
+    title: "PHP version stats: July, 2021"
+    content: src/content/blog/2021-07-20-php-version-stats-july-2021.md
+    meta:
+        description: Insights in PHP's version usage
+        template: blog/meta/version-stats.twig
+
 why-we-need-multi-line-short-closures-in-php:
     date: 2021-06-03
     title: Why we need multi-line short closures in PHP
