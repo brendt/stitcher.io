@@ -131,7 +131,7 @@ This RFC makes the language's syntax more consistent, and a consistent language 
 
 When writing code, I don't want to be bothered with having to change `<hljs keyword>fn</hljs>` to `<hljs keyword>function</hljs>` when refactoring a closure that suddenly does need to be written on two lines instead of the prior one. 
 
-It might seem like such a small detail, but it are those details that impact our day-by-day developer life. And isn't that what a maturing language should be about? Look at features like property promotion, named arguments, enums, attributes, the match operator, etc. You could argue that none of those feature are "necessary" to write working PHP code, but still they do improve my day-by-day life significantly — and I hope yours too.
+It might seem like such a small detail, but it's those details that impact our day-by-day developer life. And isn't that what a maturing language should be about? Look at features like property promotion, named arguments, enums, attributes, the match operator, etc. You could argue that none of those feature are "necessary" to write working PHP code, but still they do improve my day-by-day life significantly — and I hope yours too.
 
 ### Holding on to the past
 
