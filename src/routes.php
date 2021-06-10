@@ -1,7 +1,9 @@
 <?php
 
+use Brendt\Stitcher\Handler\AddLikeHandler;
 use Brendt\Stitcher\Handler\BlogsForDevsRssHandler;
 use Brendt\Stitcher\Handler\GamesRssHandler;
+use Brendt\Stitcher\Handler\GetLikesHandler;
 use Brendt\Stitcher\Handler\MetaImageHandler;
 use Brendt\Stitcher\Handler\PodcastsRssHandler;
 use Brendt\Stitcher\Handler\RantWithBrentRssHandler;
@@ -64,3 +66,5 @@ $router->get('/games/rss', GamesRssHandler::class);
 $router->get('/podcasts/rss', PodcastsRssHandler::class);
 $router->get('/blogs-for-devs/rss', BlogsForDevsRssHandler::class);
 $router->get('/rss/rant-with-brent', RantWithBrentRssHandler::class);
+$router->post('/likes/{slug}/{likeId}', AddLikeHandler::class);
+$router->get('/likes/{slug}/{likeId}', GetLikesHandler::class);

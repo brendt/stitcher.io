@@ -4,9 +4,9 @@
     {{ parent() }}
 
     {% if post.meta.canonical ?? false %}
-        <link rel="canonical" href="{{ post.meta.canonical }}" />
+        <link rel="canonical" href="{{ post.meta.canonical }}"/>
     {% else %}
-        <link rel="canonical" href="https://stitcher.io{{ detailUrl ?? '/blog' }}/{{ post.id }}" />
+        <link rel="canonical" href="https://stitcher.io{{ detailUrl ?? '/blog' }}/{{ post.id }}"/>
     {% endif %}
 {% endblock %}
 
@@ -26,9 +26,9 @@
         {% include '_partials/ad_scout.twig' %}
     {% endif %}
 
-{#    {% if (overviewTitle ?? null) == 'Blog for Devs' %}#}
-{#        {% include '_partials/ad_kinsta.twig' %}#}
-{#    {% endif %}#}
+    {# {% if (overviewTitle ?? null) == 'Blog for Devs' %} #}
+    {# {% include '_partials/ad_kinsta.twig' %} #}
+    {# {% endif %} #}
 
     <article class="blog">
         <aside>
@@ -46,12 +46,23 @@
             <div class="wrapper">
                 <div class="author footnotes">
                     <h2>Heads up!</h2>
-                    This is a guest post, written by <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a>. If you're interested in writing guest posts yourselves, you can find all information on how to <a href="/blog/guest-posts">over here</a>.
+                    This is a guest post, written by
+                    <a href="{{ post.author.url ?? '' }}" target="_blank" rel="noopener noreferrer">{{ post.author.name }}</a>. If you're interested in writing guest posts yourselves, you can find all information on how to
+                    <a href="/blog/guest-posts">over here</a>.
                 </div>
             </div>
         {% endif %}
 
         {{ post.content|raw }}
+
+        <div class="like-container">
+            <div class="like unliked hidden">
+                👍
+            </div>
+            <div class="like liked hidden">
+                👍 <span class="counter">0</span>
+            </div>
+        </div>
 
         {% if post.footnotes is defined %}
             <nav class="footnotes">
@@ -100,6 +111,115 @@
 {% block footer %}{% endblock %}
 
 {% block scripts %}
+    <script>
+        const currentUrl = window.location.href.split('/');
+        const slug = currentUrl[currentUrl.length - 1];
+        const like = document.querySelector('.unliked');
+        const liked = document.querySelector('.liked');
+        const counter = liked.querySelector('.counter');
+
+        const showLiked = function () {
+            liked.classList.remove('hidden');
+            like.classList.add('hidden');
+        };
+
+        const showLike = function () {
+            liked.classList.add('hidden');
+            like.classList.remove('hidden');
+        };
+
+        const uuid = function () {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        const getCookie = function (name) {
+            const value = `; ${document.cookie}`;
+
+            const parts = value.split(`; ${name}=`);
+
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        const setCookie = function (name, value, expire) {
+            const date = new Date();
+
+            date.setTime(date.getTime() + (expire * 24 * 60 * 60 * 1000));
+
+            const expireString = "expires=" + date.toUTCString();
+
+            document.cookie = name + "=" + value + ";" + expireString + ";path=/";
+        }
+
+        const getLikeId = function () {
+            let likeId = getCookie('likeId');
+
+            if (! likeId) {
+                likeId = uuid();
+                setCookie('likeId', likeId, 999999);
+            }
+
+            return likeId;
+        }
+
+        const setCounter = function (count) {
+            counter.innerHTML = `${count}`;
+        };
+
+        const addLike = function () {
+            like.classList.add('hidden');
+            liked.classList.remove('hidden');
+
+            likeId = getLikeId();
+
+            let request = new XMLHttpRequest();
+
+            const url = '/likes/{{ post.id }}/' + likeId;
+
+            request.open('POST', url, true);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            request.send();
+
+            const newCount = parseInt(counter.innerHTML) + 1;
+
+            setCounter(newCount);
+
+            showLiked();
+        };
+
+        const initLikes = function () {
+            const url = '/likes/{{ post.id }}/' + getLikeId();
+
+            let request = new XMLHttpRequest();
+
+            request.open('GET', url, true);
+
+            request.onload = function () {
+                if (this.status < 200 || this.status >= 400) {
+                    return;
+                }
+
+                const data = JSON.parse(this.response);
+
+                setCounter(data.like_count);
+
+                if (data.has_liked) {
+                    showLiked();
+                } else {
+                    showLike();
+                }
+            };
+
+            request.send();
+        };
+
+        like.addEventListener('click', addLike);
+
+        document.addEventListener('DOMContentLoaded', initLikes)
+    </script>
+
     {{ parent() }}
 
     {% if post.disableAds is not defined or post.disableAds == false %}
@@ -109,6 +229,6 @@
             });
         </script>
 
-{#        <script async src="/ads.js"></script>#}
+        {# <script async src="/ads.js"></script> #}
     {% endif %}
 {% endblock %}
