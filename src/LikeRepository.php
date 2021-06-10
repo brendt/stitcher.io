@@ -51,4 +51,9 @@ class LikeRepository
 
         return $this;
     }
+
+    public function all(): array
+    {
+        return $this->likes;
+    }
 }
