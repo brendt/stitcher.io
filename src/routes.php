@@ -8,6 +8,7 @@ use Brendt\Stitcher\Handler\MetaImageHandler;
 use Brendt\Stitcher\Handler\PodcastsRssHandler;
 use Brendt\Stitcher\Handler\RantWithBrentRssHandler;
 use Brendt\Stitcher\Handler\BlogRssHandler;
+use Brendt\Stitcher\Handler\RemoveLikeHandler;
 use Stitcher\App;
 
 $redirects = [
@@ -66,5 +67,6 @@ $router->get('/games/rss', GamesRssHandler::class);
 $router->get('/podcasts/rss', PodcastsRssHandler::class);
 $router->get('/blogs-for-devs/rss', BlogsForDevsRssHandler::class);
 $router->get('/rss/rant-with-brent', RantWithBrentRssHandler::class);
+$router->post('/likes/delete/{slug}/{likeId}', RemoveLikeHandler::class);
 $router->post('/likes/{slug}/{likeId}', AddLikeHandler::class);
 $router->get('/likes/{slug}/{likeId}', GetLikesHandler::class);

@@ -169,9 +169,6 @@
         };
 
         const addLike = function () {
-            like.classList.add('hidden');
-            liked.classList.remove('hidden');
-
             likeId = getLikeId();
 
             let request = new XMLHttpRequest();
@@ -187,6 +184,24 @@
             setCounter(newCount);
 
             showLiked();
+        };
+
+        const removeLike = function () {
+            likeId = getLikeId();
+
+            let request = new XMLHttpRequest();
+
+            const url = '/likes/delete/{{ post.id }}/' + likeId;
+
+            request.open('POST', url, true);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            request.send();
+
+            const newCount = parseInt(counter.innerHTML) - 1;
+
+            setCounter(newCount);
+
+            showLike();
         };
 
         const initLikes = function () {
@@ -216,6 +231,7 @@
         };
 
         like.addEventListener('click', addLike);
+        liked.addEventListener('click', removeLike);
 
         document.addEventListener('DOMContentLoaded', initLikes)
     </script>

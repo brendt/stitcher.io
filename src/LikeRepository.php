@@ -44,4 +44,11 @@ class LikeRepository
     {
         return isset($this->likes[$slug][$likeId]);
     }
+
+    public function remove(string $slug, string $likeId): self
+    {
+        unset($this->likes[$slug][$likeId]);
+
+        return $this;
+    }
 }

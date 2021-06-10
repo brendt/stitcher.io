@@ -351,9 +351,6 @@ h1 > .subtitle {
     padding: 5px 10px;
     margin-bottom: 1em;
     background-color: #fff;
-}
-
-.like.unliked {
     cursor: pointer;
 }
 
@@ -362,7 +359,6 @@ h1 > .subtitle {
     background-color: $color-primary;
     color: #fff;
     font-weight: bold;
-    cursor: default;
 }
 
 .like.hidden {
