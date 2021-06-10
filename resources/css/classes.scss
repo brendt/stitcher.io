@@ -364,3 +364,7 @@ h1 > .subtitle {
 .like.hidden {
     display: none;
 }
+
+.like.unliked:hover {
+    background-color: $color-primary;
+}

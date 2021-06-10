@@ -55,14 +55,9 @@
 
         {{ post.content|raw }}
 
-        <div class="like-container">
-            <div class="like unliked hidden">
-                👍
-            </div>
-            <div class="like liked hidden">
-                👍 <span class="counter">0</span>
-            </div>
-        </div>
+        {% if 'like-container' not in post.body %}
+            {% include '_partials/cta_like.twig' %}
+        {% endif %}
 
         {% if post.footnotes is defined %}
             <nav class="footnotes">
