@@ -18,7 +18,7 @@ class AllLikesHandler
             'content-type' => 'application/json',
         ], json_encode(
             [
-                'total' => count($all),
+                'total' => collect($all)->flatten()->count(),
                 'data' => $all,
             ],
             JSON_PRETTY_PRINT
