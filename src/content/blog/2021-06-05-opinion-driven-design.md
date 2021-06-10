@@ -1,3 +1,5 @@
+A common pitfall in software design is trying to please everyone, or at least as many people as possible.
+
 I've been programming for almost 15 years now, and doing quite a lot of [open source](*https://spatie.be/open-source?search=&sort=-downloads) as well these recent years. There's one principle I've become more and more convinced about over the years: don't try to please everyone — and this especially holds true when it comes to open source.
 
 When trying to please everyone, you'll end up with a product that's:
@@ -19,3 +21,5 @@ This way of opinion-driven design has a few advantages:
 - 
 
 Don't take my word for it though, instead look at the greatest software architects that came before us: https://www.youtube.com/watch?v=Udi0rk3jZYM
+
+**You're in charge**
