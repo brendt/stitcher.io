@@ -4,7 +4,7 @@
     font-family: $font-title-comic;
     letter-spacing: 2px;
     font-weight: 300;
-    text-shadow: 2px 1px rgba(0,0,0,0.9);
+    text-shadow: 2px 1px rgba(0, 0, 0, 0.9);
 }
 
 h1, h2, h3, h4, h5 {
@@ -243,7 +243,7 @@ div.center > p {
             color: #000;
             text-decoration: underline;
 
-            &:hover{
+            &:hover {
                 text-decoration: none;
             }
         }
@@ -335,4 +335,36 @@ h1 > .subtitle {
     display: block;
     font-size: .5em;
     padding-left: 1rem;
+}
+
+.like-container {
+    display: flex;
+    justify-content: center;
+}
+
+.like {
+    font-size: 1.5em;
+    border: 2px solid $color-primary;
+    border-radius: 10px;
+    display: inline-block;
+    text-align: center;
+    padding: 5px 10px;
+    margin-bottom: 1em;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.like.liked {
+    border-width: 2px;
+    background-color: $color-primary;
+    color: #fff;
+    font-weight: bold;
+}
+
+.like.hidden {
+    display: none;
+}
+
+.like.unliked:hover {
+    background-color: $color-primary;
 }

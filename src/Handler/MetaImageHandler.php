@@ -9,8 +9,6 @@ use Stitcher\App;
 use Stitcher\File;
 use Stitcher\Renderer\Renderer;
 use Stitcher\Renderer\RendererFactory;
-use Stitcher\Variable\VariableParser;
-use Stitcher\Variable\YamlVariable;
 use Symfony\Component\Yaml\Yaml;
 
 class MetaImageHandler

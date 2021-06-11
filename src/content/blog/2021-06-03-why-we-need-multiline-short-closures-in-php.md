@@ -131,7 +131,7 @@ This RFC makes the language's syntax more consistent, and a consistent language 
 
 When writing code, I don't want to be bothered with having to change `<hljs keyword>fn</hljs>` to `<hljs keyword>function</hljs>` when refactoring a closure that suddenly does need to be written on two lines instead of the prior one. 
 
-It might seem like such a small detail, but it are those details that impact our day-by-day developer life. And isn't that what a maturing language should be about? Look at features like property promotion, named arguments, enums, attributes, the match operator, etc. You could argue that none of those feature are "necessary" to write working PHP code, but still they do improve my day-by-day life significantly — and I hope yours too.
+It might seem like such a small detail, but it's those details that impact our day-by-day developer life. And isn't that what a maturing language should be about? Look at features like property promotion, named arguments, enums, attributes, the match operator, etc. You could argue that none of those feature are "necessary" to write working PHP code, but still they do improve my day-by-day life significantly — and I hope yours too.
 
 ### Holding on to the past
 
@@ -139,7 +139,7 @@ Finally, some people might find it difficult to deal with change, and you really
 
 Do you know why closures right now don't auto-import variables from the outer scope? You might have gotten used to it, but do you know why they were designed this way 12 years ago? Larry [did some digging](*https://externals.io/message/113740#113780) in the mailing list archives, and discovered there were three reasons why `<hljs keyword>use</hljs>` was introduced in the first place:
 
-- there were performance concerns if variables of the outer-scope were auto-captured — concerns that are not longer relevant today;
+- there were performance concerns if variables of the outer-scope were auto-captured — concerns that are no longer relevant today;
 - it was used to avoid surprise by-reference value passing — which also isn't a problem since we're always using by-value passing; and
 - it allowed users to explicitly capture variables by-value or by-reference, which is now cleanly solved because of the distinction between `<hljs keyword>function</hljs>` and `<hljs keyword>fn</hljs>`.
 

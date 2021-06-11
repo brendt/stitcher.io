@@ -127,6 +127,7 @@ h3 > small {
 article {
     @include wrapper();
     font-family: $font-body;
+    position: relative;
 }
 
 p {
