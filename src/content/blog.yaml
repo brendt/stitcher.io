@@ -1,7 +1,9 @@
 a-new-major-version-of-laravel-event-sourcing:
-    date: 2021-06-10
+    date: 2021-06-11
     title: A new major version of Laravel Event Sourcing
     content: src/content/blog/2021-06-10-a-new-major-version-of-laravel-event-sourcing.md
+    meta:
+        description: A look at what's new in spatie/laravel-event-sourcing
 
 why-we-need-multi-line-short-closures-in-php:
     date: 2021-06-03

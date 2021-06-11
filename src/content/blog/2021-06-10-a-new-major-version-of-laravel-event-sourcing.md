@@ -5,6 +5,8 @@ a popular event sourcing framework in the Java world, and several people pitched
 
 In this post, I'll walk you through all significant changes, but first I want to mention the course that we've built at Spatie over the last months about event sourcing. If you're working on an event sourced project or thinking about starting one, this course will be of great help. Check it out on [https://event-sourcing-laravel.com/](*https://event-sourcing-laravel.com/)!
 
+{{ cta:like }}
+
 ### Consistent event handling
 
 If you've used previous versions of our package, you might have struggled with how event handlers were registered across classes. Aggregate roots required you to write `applyEventName` functions, while projectors and reactors had an explicit event mapping. 
