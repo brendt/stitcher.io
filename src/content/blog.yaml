@@ -1,6 +1,5 @@
 a-new-major-version-of-laravel-event-sourcing:
-    date: 2021-06-11
-    hidden: true
+    date: 2021-06-15
     title: A new major version of Laravel Event Sourcing
     content: src/content/blog/2021-06-10-a-new-major-version-of-laravel-event-sourcing.md
     meta:
