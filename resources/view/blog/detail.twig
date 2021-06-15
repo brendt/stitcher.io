@@ -111,14 +111,17 @@
         const slug = currentUrl[currentUrl.length - 1];
         const like = document.querySelector('.unliked');
         const liked = document.querySelector('.liked');
+        const placeholder = document.querySelector('.placeholder');
         const counter = liked.querySelector('.counter');
 
         const showLiked = function () {
+            placeholder.classList.add('hidden');
             liked.classList.remove('hidden');
             like.classList.add('hidden');
         };
 
         const showLike = function () {
+            placeholder.classList.add('hidden');
             liked.classList.add('hidden');
             like.classList.remove('hidden');
         };
