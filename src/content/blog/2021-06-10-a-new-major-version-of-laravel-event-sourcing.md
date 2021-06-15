@@ -193,7 +193,7 @@ Besides these new features, there are also some quality-of-life changes across t
 - The minimum required Laravel version is now 8.0
 - There's better support for [handling concurrency](*https://github.com/spatie/laravel-event-sourcing/discussions/214) within the same aggregate root instance
 - There's a way to [fake reactors and projectors](*https://github.com/spatie/laravel-event-sourcing/discussions/181)
-- There's an [improved event query builder](*https://github.com/spatie/laravel-event-sourcing/blob/v5/src/StoredEvents/Models/EloquentStoredEventQueryBuilder.php)
+- There's an [improved event query builder](*https://github.com/spatie/laravel-event-sourcing/blob/main/src/StoredEvents/Models/EloquentStoredEventQueryBuilder.php)
 - And [more](*https://github.com/spatie/laravel-event-sourcing/blob/v5/CHANGELOG.md)
 
 ---
