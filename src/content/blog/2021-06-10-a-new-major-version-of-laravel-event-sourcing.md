@@ -11,7 +11,7 @@ In this post, I'll walk you through all significant changes, but first I want to
 
 If you've used previous versions of our package, you might have struggled with how event handlers were registered across classes. Aggregate roots required you to write `applyEventName` functions, while projectors and reactors had an explicit event mapping. 
 
-Whatever class your writing will now register event handlers the same way: by looking at the type of the event. You don't need any more configuration or naming conventions anymore. 
+Whatever class you're writing will now register event handlers the same way: by looking at the type of the event. You don't need any more configuration or naming conventions anymore. 
 
 ```php
 class CartAggregateRoot extends AggregateRoot
