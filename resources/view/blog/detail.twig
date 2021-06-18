@@ -55,7 +55,7 @@
 
         {{ post.content|raw }}
 
-        {% if 'like-container' not in post.body %}
+        {% if 'like-container' not in post.content %}
             {% include '_partials/cta_like.twig' %}
         {% endif %}
 

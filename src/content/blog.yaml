@@ -1,3 +1,10 @@
+what-about-config-builders:
+    date: 2021-06-18
+    title: What about config builders?
+    content: src/content/blog/2021-06-18-what-about-config-builders.md
+    meta:
+        description: A random quality-of-life improvement idea for managing config values
+
 a-new-major-version-of-laravel-event-sourcing:
     date: 2021-06-15
     title: A new major version of Laravel Event Sourcing
