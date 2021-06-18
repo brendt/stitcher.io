@@ -234,7 +234,7 @@ Let's just assume we're already running PHP 8.1, we could write parts of it like
 )
 ```
 
-These ideas aren't new, by the way. We've been using config objects in some of [our packages](*https://spatie.be/open-source?search=&sort=-downloads) at Spatie, but we always start from a simple array and convert it when booting the application. There's also PHP CS that uses [the same approach](*https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/3.0/doc/config.rst). And I believe Symfony has some kind of config validation component, but that's used to validate raw data, which is kind of the opposite of this idea.
+These ideas aren't new, by the way. We've been using config objects in some of [our packages](*https://spatie.be/open-source?search=&sort=-downloads) at Spatie, but we always start from a simple array and convert it when booting the application. There's also PHP CS that uses [the same approach](*https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/3.0/doc/config.rst). Also, Symfony just recently [added support](https://symfony.com/blog/new-in-symfony-5-3-config-builder-classes) for a fluent interface to build their config files; great!
 
 {{ cta:mail }}
 
