@@ -169,7 +169,54 @@ return <hljs type>AuthConfig</hljs>::<hljs prop>make</hljs>()
 
 Thanks to named arguments and their support for [variadic functions](/blog/php-8-named-arguments#named-arguments-in-depth), we end up with a conciser syntax, while still having all documentation available to us: it's added as property types and doc blocks in these config objects, instead of being hard coded in the config files as text.
 
+To me that's the most important value: your IDE tells you what you need to do, instead of having to read documentation — inline or external:
+
+![](/resources/img/blog/config/config-1.png)
+
 The only thing needed for this to work is some kind of interface that requires these config builders, as I like to call them, to implement a `<hljs prop>toArray</hljs>` method. You could go one step further and turn things around by always using config objects instead of arrays, which would allow you to also make use of their built-in documentation when reading config, and not only when initializing it. That's a bit more of a aggressive change though.
+
+Here's what a config builder implementation would look like:
+
+```php
+class AuthConfig extends ConfigBuilder
+{
+    public function defaults(
+        <hljs type>?string</hljs> $guard = <hljs keyword>null</hljs>,
+        <hljs type>?string</hljs> $password = <hljs keyword>null</hljs>,
+        <hljs comment>// …</hljs>
+    ): self {
+        $this-><hljs prop>config</hljs>['defaults']['guard'] = 
+            $guard 
+            ?? $this-><hljs prop>config</hljs>['defaults']['guard'] 
+            ?? null;
+            
+        $this-><hljs prop>config</hljs>['defaults']['password'] = 
+            $password 
+            ?? $this-><hljs prop>config</hljs>['defaults']['password'] 
+            ?? null;
+
+        return $this;
+    }
+
+    public function guards(<hljs type>GuardConfig</hljs> ...$guardConfigs): self
+    {
+        foreach ($guardConfigs as $name => $guardConfig) {
+            $this-><hljs prop>config</hljs>['guards'][$name] = $guardConfig-><hljs prop>toArray</hljs>();
+        }
+
+        return $this;
+    }
+
+    // …
+
+    public function passwordTimeout(<hljs type>int</hljs> $timeout): self
+    {
+        $this-><hljs prop>config</hljs>['password_timeout'] = $timeout;
+        
+        return $this;
+    }
+}
+```
 
 Another improvement I can come up with is by using [enums](/blog/php-enums) instead of string values. They will be natively available in [PHP 8.1](/blog/new-in-php-81), but there are also [alternatives](/blog/php-enums-before-php-81) out there for older PHP versions.
 
