@@ -1,25 +1,41 @@
-A common pitfall in software design is trying to please everyone, or at least as many people as possible.
+I once worked at a company that wrote and maintained an in-house framework. They probably made around 250 websites and applications with it over the course of ten years.
+Despite many shortcomings, the company kept using it for a simple reason: they were in control.
 
-I've been programming for almost 15 years now, and doing quite a lot of [open source](*https://spatie.be/open-source?search=&sort=-downloads) as well these recent years. There's one principle I've become more and more convinced about over the years: don't try to please everyone — and this especially holds true when it comes to open source.
+Thanks to that control, they were able to tailor to their own needs without any overhead. While I would argue that using popular, community-backed frameworks instead of writing your own is almost always the better choice, I can appreciate some of the reasoning this company made.
 
-When trying to please everyone, you'll end up with a product that's:
+Except, in the end, that company utterly failed in creating what they set out to do. Instead a tool shaped specifically for their needs, the core developers often wanted flexibility: they dreamt of open sourcing their framework and growing popular, so it needed to handle as many cases as possible. And thus, flexibility and configuration were often prioritized, even though they rarely added much — if any — value to company projects. The core developers were always able to convince the not-so-technical managers. But in reality, the design and flexibility of this framework was often just a burden for me and my colleagues to deal with.
 
-- overly complex to use;
-- often mediocre in many areas; and
-- a mess to maintain.
+Problems like premature optimizations and over-abstractions are unfortunately common in software design. I'm not sure why, but somehow programmers often tend to think they need to account for every possible outcome, even when those outcomes aren't relevant to their use cases. We're afraid of losing our audience because our solutions can't handle the most specific of specific edge cases — I've personally been there more than once.
 
-Instead, I find it better to carefully think about your opinion and hold on to it. 
+In trying to create a solution that works for the 10%, we've made it worse for the other 90%.  
 
-We should focus more on building opinionated software that only provides one way of doing something, while also making sure that that one way is the absolute best way you can think of.
-
-Some people might not like your opinionated design, and that's fine. They aren't forced to use it. In reality though, it often doesn't matter that much to most people, as long as your solution solves their problems.
-
-This way of opinion-driven design has a few advantages:
-
-- you show you're a master in your field
-- software becomes easier to use, since there aren't n-amount of ways to do the same thing;
-- 
+---
 
 Don't take my word for it though, instead look at the greatest software architects that came before us: https://www.youtube.com/watch?v=Udi0rk3jZYM
 
 **You're in charge**
+
+opinion-driven
+doesn't mean not doing any market research
+opinions can evolve
+the burden of legacy support
+stability vs progression
+determination to evolve
+confidence
+opinionated vs configurable
+pleasing everyone
+users don't want choice > can be confusing
+
+problem - solution - witness
+quote - problem - solution
+story - problem - solution (statik?)
+
+"by trying to solve as many problems as possible, it actually failed in solving any of them properly"
+
+"do programmers actually want their framework to give them a choice?"
+
+"do programmers really want a framework that gives them 3 or 4 or 5 ways to do the same thing?"
+
+> Example from Laravel
+
+Acknowledge that popular frameworks do have a legacy burden to carry, but breaking changes can be allowed
