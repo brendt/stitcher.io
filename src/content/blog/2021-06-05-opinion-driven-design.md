@@ -15,30 +15,21 @@ possible. And thus, flexibility and configuration were often prioritized, even t
 value to company projects. The core developers were always able to convince the not-so-technical managers; while in
 reality, the design and flexibility of this framework was often just a burden for me and my colleagues to deal with.
 
-Problems like premature optimizations and over-abstractions are unfortunately common in software design. I'm not sure
-why, but somehow programmers — myself included — tend to think they need to account for every possible outcome, even when those
-outcomes aren't relevant to their use cases. There often is some kind of fear for losing our audience when our solutions
-can't handle the most specific of specific edge cases. A very counter-productive thought.
+This mindset of "high configurability and flexibility" is, unfortunately, common in software design. I'm not sure
+why, but somehow programmers — myself included — often think they need to account for every possible outcome, even when those
+outcomes aren't relevant to their use cases. Many of us deal with some kind of fear of losing our audience if the code we're writing isn't able to handle the most specific of specific edge cases. A very counter-productive thought.
 
 ---
 
-Lately I've come to appreciate an opinion-driven approach to software design. Especially in
-the [open source](*https://spatie.be/open-source?search=&sort=-downloads) world, where you're writing code for others to
-use. I often tricked myself in thinking I'd need to write more code for more flexibility. "If I want this package to be
-useful to many" — I said to myself — "I need it to be flexible".
+Lately I've come to appreciate an opinion-driven approach to software design. Especially in the [open source](*https://spatie.be/open-source?search=&sort=-downloads) world, where you're writing code for others to use. I used to tell myself I'd need to write more code for more flexibility "if I want this package to grow popular".
 
 I don't believe that anymore.
 
-Instead, I prefer one way of solving a problem, instead of several possibilities. It's my goal to come up with a
-solution that is extremely good and user friendly, but still only offers one way of doing something.
-
-As an open source maintainer, I realise that not everyone might like my solution as much as I do. Others might have preferred a solution that slightly better fit their problem. In the end though, if the job gets done, if my code is reliable,
-clear and useful, there rarely are any complaints. So I started to prefer opinion-driven design when I realised that
-flexibility comes with a price that is often not worth paying.
+These days, I prefer one way of solving a problem, instead of offering several options. As an open source maintainer, I realise that not everyone might like the solutions I come up with as much as I do; but in the end, if the job gets done, if my code is reliable, clear and useful; there rarely are any complaints. So I started to prefer opinion-driven design when I realised that flexibility comes with a price that is often not worth paying.
 
 I'm not the only one benefiting by the way. When users of my open source code only get one way of doing something, they
-don't have to be worried about micro-decisions that don't affect the end result. And that, for me, is good software
-design: allowing programmers to focus on decisions that really matter and offer value to their projects or clients,
+don't have to be worried about micro-decisions that wouldn't affect the end result. And that, for me, is good software
+design: allowing programmers to focus on decisions that really matter and offer value to their projects and clients;
 instead of wasting time on unnecessary details.
 
 ---
@@ -60,9 +51,9 @@ almost [half a year](*https://github.com/spatie/data-transfer-object/issues/151)
 we made the right choice. We took a strong, opinionated stance for static type systems, and reimagined the package from the ground
 up, and thus made it future-proof.
 
-I've got another example from Laravel, the popular back-end framework. I work with it every day and absolutely love it.
-And still there is room for improvement.
+---
 
+I've got another example, from Laravel this time, the popular back-end framework. I work with it every day and absolutely love it. Though I must also admit there is room for improvement.
 Take a look at request validation for example:
 
 ```php
@@ -135,9 +126,9 @@ class MyRequest extends Request
 
 And this leaves me wondering… why do we need four ways of doing the same thing? Of course, the answer isn't simple if you're considering a framework with ten years of history. These features were added incrementally over the years, and the old ways were kept for backwards compatibility.
 
-Should there be a moment though in software design where these old ties are broken? Where opinionated decisions can be made to improve such code bases, as well as the developer experience of people using them? I believe the majority of people would benefit: maintainers have less code and execution paths to worry about, while users have less options to think about, and thus decreasing the learning curve. 
+Should there be a moment though in software design where these old ties are broken? Where opinionated decisions can be made to improve such code bases, as well as the developer experience of people using them? I believe the majority of people would benefit: maintainers have less code and execution paths to worry about, while users have less micro-decisions to deal with, and thus decreasing the learning curve and cognitive load. 
 
-I'd like to see some more opinion-driven design in the software world so that I don't have to be bothered with micro-decisions every other step. I believe it would result in better software, overall.
+I would like to see some more opinion-driven design, so that I don't have to be bothered with micro-decisions every other step. I believe it would result in better software, overall.
 
 {{ cta:like }}
 

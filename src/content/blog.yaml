@@ -2,6 +2,9 @@ opinion-driven-design:
     date: 2021-06-21
     title: Opinion-driven design
     content: src/content/blog/2021-06-05-opinion-driven-design.md
+    meta:
+        description: Some of my personal thoughts on how we design open source projects
+    hidden: true
 
 what-about-config-builders:
     date: 2021-06-18
