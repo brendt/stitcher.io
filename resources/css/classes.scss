@@ -204,6 +204,19 @@ div.center > p {
     box-shadow: none;
 }
 
+.image-wide + p,
+.image-wide + p
+{
+    @include outOfBoxWide();
+}
+
+
+.image-wide + p > a > img,
+.image-wide + p > img
+{
+    width: 100%;
+}
+
 .image-noborder + p + p > em {
     margin-top: -3rem;
 }

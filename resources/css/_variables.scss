@@ -58,6 +58,13 @@ $font-code: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
     }
 }
 
+@mixin outOfBoxWide() {
+    @media(min-width: 1250px) {
+        width: 1200px;
+        margin-left: -200px;
+    }
+}
+
 
 @mixin fontWeight() {
     font-weight: 400;

@@ -161,7 +161,7 @@ li ul li {
 }
 
 ul {
-    font-weight: 400;
+    font-weight: 300;
     color: $color-body;
     margin-left: 40px;
     padding-left: 1.5em;
@@ -382,8 +382,6 @@ table {
     margin-bottom: 2rem;
     border-spacing: 0;
 
-    @include outOfBox();
-
     @media (max-width: $width-container-mobile) {
         font-size: 1rem;
     }
@@ -391,6 +389,7 @@ table {
 
 tr.table-head {
     background-color: #fff;
+    font-weight: bold;
 }
 
 tr {

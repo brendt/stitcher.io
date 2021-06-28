@@ -1,10 +1,16 @@
 php-version-stats-july-2021:
-    date: 2021-07-20
+    date: 2021-06-28
     title: "PHP version stats: July, 2021"
     content: src/content/blog/2021-07-20-php-version-stats-july-2021.md
     meta:
         description: Insights in PHP's version usage
         template: blog/meta/version-stats.twig
+    footnotes:
+        - { title: "Live version data on Packagist", link: "https://packagist.org/php-statistics" }
+        - { title: "PHP in 2021", link: "/blog/php-in-2021" }
+        - { title: "What's new in PHP 8.1", link: "/blog/new-in-php-81" }
+        - { title: "What's new in PHP 8", link: "/blog/new-in-php-8" }
+        - { title: "What's new in PHP 7.4", link: "/blog/new-in-php-74" }
 
 opinion-driven-design:
     date: 2021-06-23
