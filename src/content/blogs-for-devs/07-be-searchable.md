@@ -37,7 +37,7 @@ The reality is that you'll reach a wider audience if you cross post, but there's
 
 Adding a canonical URL is as simple as adding the following HTML tag in the `head` of your page. Here's what it looks like for this chapter:
 
-```
+```txt
 <<hljs keyword>head</hljs>>
 <!-- … -->
 

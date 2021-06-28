@@ -368,3 +368,11 @@ h1 > .subtitle {
 .like.unliked:hover {
     background-color: $color-primary;
 }
+
+.like.placeholder {
+    cursor: default;
+    border-color: #888;
+    background-color: #ddd;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
