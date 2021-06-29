@@ -1,3 +1,13 @@
+what-about-request-classes:
+    date: 2021-06-29
+    title: What about typed request classes?
+    content: src/content/blog/2021-06-30-what-about-request-classes.md
+    footnotes:
+        - { title: "Opinion-driven design", link: "/blog/opinion-driven-design" }
+        - { title: "What about config builders?", link: "/blog/what-about-config-builders" }
+        - { title: "What's new in PHP 8", link: "/blog/new-in-php-8" }
+        - { title: "Attributes in PHP 8", link: "/blog/attributes-in-php-8" }
+
 php-version-stats-july-2021:
     date: 2021-06-28
     title: "PHP version stats: July, 2021"
@@ -19,6 +29,9 @@ opinion-driven-design:
     content: src/content/blog/2021-06-05-opinion-driven-design.md
     meta:
         description: Some of my personal thoughts on how we design open source projects
+    footnotes:
+        - { title: "What about typed request classes?", link: "/blog/what-about-request-classes" }
+        - { title: "What about config builders?", link: "/blog/what-about-config-builders" }
 
 what-about-config-builders:
     date: 2021-06-18
@@ -26,6 +39,10 @@ what-about-config-builders:
     content: src/content/blog/2021-06-18-what-about-config-builders.md
     meta:
         description: A random quality-of-life improvement idea for managing config values
+    footnotes:
+        - { title: "Opinion-driven design", link: "/blog/opinion-driven-design" }
+        - { title: "What about typed request classes?", link: "/blog/what-about-request-classes" }
+        - { title: "What's new in PHP 8", link: "/blog/new-in-php-8" }
 
 a-new-major-version-of-laravel-event-sourcing:
     date: 2021-06-15
@@ -33,6 +50,10 @@ a-new-major-version-of-laravel-event-sourcing:
     content: src/content/blog/2021-06-10-a-new-major-version-of-laravel-event-sourcing.md
     meta:
         description: A look at what's new in spatie/laravel-event-sourcing
+    footnotes:
+        - { title: "Opinion-driven design", link: "/blog/opinion-driven-design" }
+        - { title: "What about typed request classes?", link: "/blog/what-about-request-classes" }
+        - { title: "What about config builders?", link: "/blog/what-about-config-builders" }
 
 why-we-need-multi-line-short-closures-in-php:
     date: 2021-06-03
@@ -47,6 +68,10 @@ parallel-php:
     content: src/content/blog/2021-04-28-parallel-php.md
     meta:
         description: I made a no-nonsense wrapper around pcntl_fork
+    footnotes:
+        - { title: "Opinion-driven design", link: "/blog/opinion-driven-design" }
+        - { title: "What about typed request classes?", link: "/blog/what-about-request-classes" }
+        - { title: "What about config builders?", link: "/blog/what-about-config-builders" }
 
 php-in-2021:
     date: 2021-04-15
