@@ -2,6 +2,7 @@ php-version-stats-july-2021:
     date: 2021-06-28
     title: "PHP version stats: July, 2021"
     content: src/content/blog/2021-07-20-php-version-stats-july-2021.md
+    versionStatsDate: 2021-07-01
     meta:
         description: Insights in PHP's version usage
         template: blog/meta/version-stats.twig

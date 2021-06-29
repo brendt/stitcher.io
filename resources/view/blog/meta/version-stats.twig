@@ -42,7 +42,11 @@
                 </span>
                 <br>
                 <span style="margin-top: .33em; display: inline-block; font-size: 2rem;">
-                    {{ post.date | date("F, Y") }}
+                    {% if post.versionStatsDate ?? null %}
+                        {{ post.versionStatsDate | date("F, Y") }}
+                    {% else %}
+                        {{ post.date | date("F, Y") }}
+                    {% endif %}
                 </span>
             </h1>
         </div>
