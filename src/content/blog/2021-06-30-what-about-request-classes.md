@@ -63,7 +63,7 @@ I've been thinking about the overhead that's associated with this two-step reque
 
 So why not do exactly that: have a way for our request classes to be properly typed, without the overhead of having to transform it manually to a DTO? 
 
-I could build up some expense here to get you all excited about it, but I trust my readers to be able to draw their own, informed conclusions, so I'm just going to show you what it would look like in the end:
+I could build up some suspense here to get you all excited about it, but I trust my readers to be able to draw their own, informed conclusions, so I'm just going to show you what it would look like in the end:
 
 ```php
 class PostEditRequest extends Request
