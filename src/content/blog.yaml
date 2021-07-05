@@ -1,3 +1,16 @@
+new-in-php-81:
+    date: 2021-07-05
+    title: "What's new in PHP 8.1"
+    content: src/content/blog/2021-01-29-new-in-php-81.md
+    next: new-in-php-8
+    meta:
+        description: "What we can expect to come in PHP 8.1"
+    footnotes:
+        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
+
 what-about-request-classes:
     date: 2021-06-29
     title: What about typed request classes?
@@ -85,18 +98,6 @@ php-in-2021:
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
 
-new-in-php-81:
-    date: 2021-06-01
-    title: "What's new in PHP 8.1"
-    content: src/content/blog/2021-01-29-new-in-php-81.md
-    next: new-in-php-8
-    meta:
-        description: "What we can expect to come in PHP 8.1"
-    footnotes:
-        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
-        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 fibers-with-a-grain-of-salt:
     date: 2021-04-12
