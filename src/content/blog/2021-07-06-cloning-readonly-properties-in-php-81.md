@@ -61,7 +61,7 @@ $postC = $postA-><hljs prop>with</hljs>(<hljs prop>title:</hljs> 'c', <hljs prop
 There are of course a few caveats:
 
 - this package will skip calling the constructor when cloning an object, meaning any logic in the constructor won't be executed; and
-- the `<hljs prop>with</hljs>` method will de a shallow clone, meaning that nested objects aren't cloned as well.
+- the `<hljs prop>with</hljs>` method will be a shallow clone, meaning that nested objects aren't cloned as well.
 
 I imagine this package being useful for simple data-transfer and value objects; which are exactly the types of objects that readonly properties were designed for to start with.
 
