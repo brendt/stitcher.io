@@ -1,3 +1,17 @@
+cloning-readonly-properties-in-php-81:
+    date: 2021-07-06
+    title: Cloning and changing readonly properties in PHP 8.1
+    content: src/content/blog/2021-07-06-cloning-readonly-properties-in-php-81.md
+    smallTitle: true
+    meta:
+        description: "Readonly properties in PHP 8.1 can't be changed — or can they?"
+    footnotes:
+        - { link: https://github.com/spatie/php-cloneable, title: "spatie/php-cloneable" }
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+        - { link: https://wiki.php.net/rfc/readonly_properties_v2, title: "The readonly properties RFC" }
+        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+
 new-in-php-81:
     date: 2021-07-05
     title: "What's new in PHP 8.1"
@@ -6,6 +20,7 @@ new-in-php-81:
     meta:
         description: "What we can expect to come in PHP 8.1"
     footnotes:
+        - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning and changing readonly properties" }
         - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
