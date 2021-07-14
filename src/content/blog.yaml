@@ -1,3 +1,10 @@
+rethinking-with-events:
+    date: 2021-07-14
+    title: Rethinking with events
+    content: src/content/blog/2021-07-14-rethinking-with-events.md
+    meta:
+        description: A real-life example of how an event-driven system can improve code quality
+
 cloning-readonly-properties-in-php-81:
     date: 2021-07-06
     title: Cloning and changing readonly properties in PHP 8.1
