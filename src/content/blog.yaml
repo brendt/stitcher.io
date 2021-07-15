@@ -1,6 +1,6 @@
 rethinking-with-events:
     date: 2021-07-14
-    title: Rethinking with events
+    title: An event-driven mindset
     content: src/content/blog/2021-07-14-rethinking-with-events.md
     meta:
         description: A real-life example of how an event-driven system can improve code quality
