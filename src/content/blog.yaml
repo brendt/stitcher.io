@@ -5,6 +5,10 @@ an-event-driven-mindset:
     meta:
         description: A real-life example of how an event-driven system can improve code quality
     next: thoughts-on-event-sourcing
+    footnotes:
+        - { link: "https://www.youtube.com/watch?v=56x4pDgQWtM", title: "Implementing spatie.be's achievement system (part 1)" }
+        - { link: "https://www.youtube.com/watch?v=p-7JmFYOLLw", title: "Implementing spatie.be's achievement system (part 2)" }
+        - { link: "https://event-sourcing-laravel.com/", title: "My event sourcing course" }
 
 cloning-readonly-properties-in-php-81:
     date: 2021-07-06
