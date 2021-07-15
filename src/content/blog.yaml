@@ -8,6 +8,7 @@ an-event-driven-mindset:
     footnotes:
         - { link: "https://www.youtube.com/watch?v=56x4pDgQWtM", title: "Implementing spatie.be's achievement system (part 1)" }
         - { link: "https://www.youtube.com/watch?v=p-7JmFYOLLw", title: "Implementing spatie.be's achievement system (part 2)" }
+        - { link: "https://github.com/spatie/spatie.be/pull/181", title: "The pull request for spatie.be's achievement system" }
         - { link: "https://event-sourcing-laravel.com/", title: "My event sourcing course" }
 
 cloning-readonly-properties-in-php-81:
