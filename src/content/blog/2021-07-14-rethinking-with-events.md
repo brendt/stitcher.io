@@ -1,10 +1,10 @@
 I'm working on a new feature for our [Spatie](*https://spatie.be) website: I'm adding a lightweight form of gamification for our ±10,000 users. 
 
-Here's how it works: every time a user watches one of our course videos, every time they complete a video series or a pull request gets merged on GitHub, they'll receive experience points. On top of that, there are also some achievements to reward users for their efforts. For example there's a "10 pull requests" achievement, as well as a "100 XP" achievement and a few others. 
+Here's how it works: every time a user watches one of our course videos, every time they complete a video series or a pull request gets merged on GitHub, they'll receive experience points. On top of that, there are also some achievements to reward users for their efforts. For example, there's a "10 pull requests" achievement, as well as a "100 XP" achievement and a few others. 
 
 Getting an achievement will reward the user with a digital badge, and in some cases they'll get some kind of certificate as well.
 
-As you can see, it's a small, contained system, with well defined boundaries. And I'd like to discuss one aspect of it with you today.
+As you can see, it's a small, contained system, with well-defined boundaries. And I'd like to discuss one aspect of it with you today.
 
 ---
 
@@ -55,9 +55,9 @@ This code clearly represents the ordered steps we listed at first, but there are
 
 Let's consider "awarding XP" and "unlocking achievements" for a moment. These are two equally important parts of our system. In fact, there's also an achievement for XP being awarded, which means that our current implementation is either lacking, or that there's some added functionality in `$user-><hljs prop>award</hljs>(10);` that we don't know about. Let's assume the latter for now.
 
-Even though these two parts are equally important and not directly dependant on each other, we've combined them into one process because it seems like they belong together. However, an unfortunate side effect of doing so, is that our `<hljs type>RegisterPullRequest</hljs>` class is growing larger and more complex. Making a change to how pull request achievements are handled, will inevitably take us to the same place where XP rewards are handled.
+Even though these two parts are equally important and not directly dependent on each other, we've combined them into one process because it seems like they belong together. However, an unfortunate side effect of doing so, is that our `<hljs type>RegisterPullRequest</hljs>` class is growing larger and more complex. Making a change to how pull request achievements are handled, will inevitably take us to the same place where XP rewards are handled.
 
-While you might find it still relatively easy to reason about this isolated (simplified) example, I think most of us can agree that yes, in fact, we're mixing several processes together into one: we're creating some kind of "god-class" that manages and oversees a complex process. We've created a single point of failure. And the more complex our business becomes, this code has the potential to grow larger, complexer and more difficult to reason about.
+While you might find it still relatively easy to reason about this isolated (simplified) example, I think most of us can agree that yes, in fact, we're mixing several processes together into one: we're creating some kind of "god-class" that manages and oversees a complex process. We've created a single point of failure. And the more complex our business becomes, this code has the potential to grow larger, more complex and more difficult to reason about.
 
 Speaking for myself, I've written these kinds of classes more than I'd like to admit, and I've seen it applied in many other code bases as well. And from experience, I can tell you they grow much larger than the example we're working with today.
 
@@ -109,7 +109,7 @@ class ExperienceManager
 
 Now that these two systems are separated, it's much easier to reason about them because they live in isolation. 
 
-It doesn't stop there by the way. What about that "achievement for a given amount of XP" I mentioned at the beginning of this post? `<hljs type>ExperienceEarned</hljs>` could be an event itself that our `<hljs type>AchievementManager</hljs>` listens for as well:
+It doesn't stop there, by the way. What about that "achievement for a given amount of XP" I mentioned at the beginning of this post? `<hljs type>ExperienceEarned</hljs>` could be an event itself that our `<hljs type>AchievementManager</hljs>` listens for as well:
 
 ```php
 class AchievementManager
