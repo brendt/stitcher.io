@@ -18,6 +18,7 @@ $redirects = [
     '/games' => '/games/all',
     '/podcasts' => '/podcasts/all',
     '/blog/laravel-domains' => '/blog/organise-by-domain',
+    '/blog/rethinking-with-events' => '/blog/an-event-driven-mindset',
     '/blog' => '/blog/page-1',
     '/presentations' => 'https://github.com/brendt/presentations',
     '/slides' => 'https://github.com/brendt/presentations',
