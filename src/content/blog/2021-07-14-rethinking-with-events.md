@@ -1,4 +1,4 @@
-I'm working on a new feature for our [Spatie](*https://spatie.be) website: I'm adding a lightweight form of gamification for our ±10.000 users. 
+I'm working on a new feature for our [Spatie](*https://spatie.be) website: I'm adding a lightweight form of gamification for our ±10,000 users. 
 
 Here's how it works: every time a user watches one of our course videos, every time they complete a video series or a pull request gets merged on GitHub, they'll receive experience points. On top of that, there are also some achievements to reward users for their efforts. For example there's a "10 pull requests" achievement, as well as a "100 XP" achievement and a few others. 
 
@@ -40,7 +40,7 @@ class RegisterPullRequest
             $user-><hljs prop>unlock</hljs>($achievement);
             
             // Notify the user
-            $user-><hljs prop>notify</hljs>(new <hljs type>AchievmentNotification</hljs>($achievement));
+            $user-><hljs prop>notify</hljs>(new <hljs type>AchievementNotification</hljs>($achievement));
         }
     }
 }
@@ -90,7 +90,7 @@ class AchievementManager
         
         $user-><hljs prop>unlock</hljs>($achievement);
         
-        $user-><hljs prop>notify</hljs>(new <hljs type>AchievmentNotification</hljs>($achievement));
+        $user-><hljs prop>notify</hljs>(new <hljs type>AchievementNotification</hljs>($achievement));
     }
 }
 ```
@@ -137,7 +137,7 @@ class AchievementManager
         
         $user-><hljs prop>unlock</hljs>($achievement);
         
-        $user-><hljs prop>notify</hljs>(new <hljs type>AchievmentNotification</hljs>($achievement));
+        $user-><hljs prop>notify</hljs>(new <hljs type>AchievementNotification</hljs>($achievement));
     }
 }
 ```
