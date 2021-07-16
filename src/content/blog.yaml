@@ -1,3 +1,16 @@
+php-81-before-and-after:
+    date: 2021-07-16
+    title: "PHP 8.1: before and after"
+    content: src/content/blog/2021-07-16-php-81-before-and-after.md
+    next: new-in-php-81
+    meta:
+        description: The impact of PHP 8.1 on my code
+    footnotes:
+        - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
+        - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning readonly properties in PHP 8.1" }
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+        - { link: /blog/php-8-before-and-after, title: "PHP 8: before and after" }
+
 an-event-driven-mindset:
     date: 2021-07-14
     title: An event-driven mindset
