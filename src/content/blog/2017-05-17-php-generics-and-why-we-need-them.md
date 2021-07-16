@@ -91,6 +91,8 @@ But the downside of this approach: you would have to call the function with an u
 <hljs prop>handlePosts</hljs>(...$posts);
 ```
 
+{{ cta:mail }}
+
 ## Performance
 
 You can imagine it's better to know beforehand whether an array contains only elements of a certain type, rather then
