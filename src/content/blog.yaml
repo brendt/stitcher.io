@@ -376,6 +376,8 @@ the-case-for-transpiled-generics:
     content: src/content/blog/2020-09-17-transpiled-generics.md
     meta:
         description: I lay out my arguments why adding generics that don't do anything at runtime is a good idea.
+    footnotes:
+          - { title: "A basic explanation as to why we need generics", link: "/blog/php-generics-and-why-we-need-them" }
 
 dont-get-stuck:
     date: 2020-08-29
@@ -1618,6 +1620,7 @@ php-generics-and-why-we-need-them:
             PHP has some problems with arrays. Generics can fix those problems.
             In this blog post, we'll be exploring the possibilities if this RFC were to be added.
     footnotes:
+        - { link: /blog/the-case-for-transpiled-generics, title: "The case for transpiled generics" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/php-reimagined, title: "My vision on how PHP could evolve" }
         - { link: /blog/php-in-2020, title: "PHP in 2020" }

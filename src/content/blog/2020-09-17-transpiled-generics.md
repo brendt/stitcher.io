@@ -1,8 +1,8 @@
-<div class="author footnotes">
+<div class="footnotes">
 
 This is a mail I sent to PHP's internals, these are my thoughts, and you can follow the internals discussion [here](https://externals.io/message/111875), or share your own thoughts [on Reddit](https://www.reddit.com/r/PHP/comments/iuhtgd/ive_proposed_an_approach_to_generics_on_internals/?).
 
-</div>
+</div><br>
 
 Hello internals
 

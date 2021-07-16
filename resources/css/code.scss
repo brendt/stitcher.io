@@ -76,6 +76,12 @@ $color-purple: #9d3af6;
     background: none;
 }
 
+.generic,
+.generic > .hljs-title,
+{
+    color: $color-purple;
+}
+
 
 .hljs-tag,
 .hljs-name,
