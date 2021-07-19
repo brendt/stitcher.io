@@ -1,3 +1,11 @@
+we-dont-need-runtime-type-checks:
+    date: 2021-07-17
+    title: We don't need runtime type checks
+    content: src/content/blog/2021-07-17-we-dont-need-runtime-type-checks.md
+    next: php-generics-and-why-we-need-them
+    meta:
+        description: Making the case for static analysis
+
 php-81-before-and-after:
     date: 2021-07-16
     title: "PHP 8.1: before and after"
