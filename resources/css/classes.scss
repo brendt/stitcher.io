@@ -204,6 +204,14 @@ div.center > p {
     box-shadow: none;
 }
 
+.image-small + p img {
+    max-width: 40%;
+}
+
+.image-left + p img {
+    margin-left: 0;
+}
+
 .image-wide + p,
 .image-wide + p
 {
