@@ -1,0 +1,25 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/overview.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>
+            <span>
+                The Road to PHP 8.1
+            </span>
+        </h1>
+
+        <p class="author footnotes">You've been successfully subscribed! Make sure to check whether you've received the welcome mail within this and 2 minutes! If you didn't receive a conformation mail, please check your spam and add brendt@stitcher.io to your contacts.</p>
+
+        <p>
+            <a href="/">Back</a>
+        </p>
+    </article>
+
+{% endblock %}

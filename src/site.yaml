@@ -184,3 +184,33 @@
 
 /favicon:
     template: favicon.twig
+
+
+
+/the-road-to-php-81/success:
+    template: the-road-to-php-81/success.twig
+    variables:
+        title: The Road to PHP 8.1
+        meta:
+            description: Subscribe to The Road to PHP 8.1!
+
+/the-road-to-php-81/pending:
+    template: the-road-to-php-81/pending.twig
+    variables:
+        title: The Road to PHP 8.1
+        meta:
+            description: Subscribe to The Road to PHP 8.1!
+
+/the-road-to-php-81/unsub:
+    template: the-road-to-php-81/unsub.twig
+    variables:
+        title: The Road to PHP 8.1
+        meta:
+            description: Subscribe to The Road to PHP 8.1!
+
+/the-road-to-php-81/subscribe:
+    template: the-road-to-php-81/index.twig
+    variables:
+        title: The Road to PHP 8.1
+        meta:
+            description: Subscribe to Stitcher Mail!

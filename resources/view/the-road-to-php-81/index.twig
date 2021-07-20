@@ -1,0 +1,35 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/overview.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+
+    <article>
+        <h1>
+            <span>
+                The Road to PHP 8.1
+            </span>
+        </h1>
+
+        <p>The Road to PHP 8.1 is my newest pop-up newsletter: you'll receive one mail per day for the next two weeks to learn about all new things in PHP 8.1. Afterwards you won't receive any new or follow-up mails, unless you want to.</p>
+
+        <form action="https://mail.stitcher.io/subscribe/08ed03db-09a9-4201-8ba5-a5479280b2ad" method="post">
+            <div>
+                <label for="email">Email</label>
+                <input name="email" style="margin-left:.5em;"/>
+            </div>
+
+            <div style="margin-left:1em;">
+                <button type="submit" class="cta cta-small">Subscribe</button>
+            </div>
+        </form>
+
+        <p><br>You'll receive a confirmation mail shortly after, make sure to check your spam if it doesn't show up within 2 minutes.</p>
+    </article>
+
+{% endblock %}
