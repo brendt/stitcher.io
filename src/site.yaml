@@ -12,6 +12,12 @@
             field: date
             direction: desc
 
+/books:
+    template: books.twig
+    variables:
+        title: Books
+        content: src/content/books.md
+
 /blog/page-{page}:
     template: blog/overview.twig
     variables:
