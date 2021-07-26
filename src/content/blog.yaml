@@ -6,6 +6,12 @@ we-dont-need-runtime-type-checks:
     meta:
         description: Making the case for static analysis
 
+optimistic-or-realistic-estimates:
+    date: 2021-07-23
+    title: "Would you like some optimism or realism with your estimate, sir?"
+    smallTitle: true
+    content: src/content/blog/2021-07-23-optimistic-or-realistic-estimates.md
+
 php-81-before-and-after:
     date: 2021-07-16
     title: "PHP 8.1: before and after"

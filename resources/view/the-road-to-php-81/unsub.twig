@@ -1,0 +1,25 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/overview.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>
+            <span>
+                The Road to PHP 8.1
+            </span>
+        </h1>
+
+        <p class="author footnotes">You've been unsubscribed.</p>
+
+        <p>
+            <a href="/">Back</a>
+        </p>
+    </article>
+
+{% endblock %}
