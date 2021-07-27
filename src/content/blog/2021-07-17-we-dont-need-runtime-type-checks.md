@@ -8,15 +8,17 @@ Now, I've written about type systems before ([here](/blog/tests-and-types), [her
 
 The tradeoff? We need a community-wide mind shift: there are still many PHP developers (including internal developers) who are taken aback by the idea of static type checking. My only goal today is to encourage you to think outside your box, to imagine what would be possible if PHP shifted towards a built-in, statically type-checked model.
 
+Whether you're into static type systems or not, I promise it'll be interesting nevertheless. Let's dive in!
+
 ---
 
-A while back, it became clear that generics in PHP are probably [not coming any time soon](*https://github.com/PHPGenerics/php-generics-rfc/issues/45), one of the main reasons being that there are two ways to implement them, and both have significant problems. Either there's too large an impact on runtime performance, or the implementation is just way too complex to get right.
+A while back, it became clear that generics in PHP are probably [not coming any time soon](*https://github.com/PHPGenerics/php-generics-rfc/issues/45). One of the main reasons being that there are two ways to implement them, and both have significant problems. Either there's too large an impact on runtime performance, or the implementation is just way too complex to get right.
 
 Both approaches did assume a runtime type-checked implementation though. So I shared a thought experiment with internals: what if we only need to support the syntax for generics, and have static analysers do all the checks? I called them [transpiled generics](/blog/the-case-for-transpiled-generics) back then, but _runtime-erased_ or _runtime-ignored_ generics is probably a better name.
 
-My thinking was that adding support for generic syntax shouldn't be all that hard, and without runtime type checks, there shouldn't be any performance impact. It makes sense if you think about it from a static analysis point of view: your code has already been analysed, and it's been proven to work correctly, so there's no more need for runtime type checks. On top of that, most developers only want generics as a way to get better code insights _while_ coding. Does the "I want to know what items are in an array" argument ring a bell?
+My thinking was that adding support for generic syntax shouldn't be all that hard, and without runtime type checks, there shouldn't be any performance impact. It makes sense if you think about it from a static analysis point of view: your code has already been analysed, and it's been proven to work correctly, so there's no more need for runtime type checks. On top of that, most developers only want generics as a way to get better code insights _while_ coding; does the "I want to know what items are in an array" argument ring a bell?
 
-Of course there could still be _some_ type information exposed at runtime via reflection, but we can't deny that not having runtime type checks is a major paradigm shift that most PHP developers aren't used to. Here's [Sara's response](*https://www.reddit.com/r/PHP/comments/iuhtgd/ive_proposed_an_approach_to_generics_on_internals/g5pgkbn/) on my runtime-ignored generics idea (which Hack already does):
+Of course there could still be _some_ type information exposed at runtime via reflection, but we can't deny that having types ignored at runtime is a major paradigm shift that most PHP developers aren't used to. Here's [Sara's response](*https://www.reddit.com/r/PHP/comments/iuhtgd/ive_proposed_an_approach_to_generics_on_internals/g5pgkbn/) on my runtime-ignored generics idea (which Hack already does) and how it requires a mind-shift:
 
 > Oh, I agree that there's real value in HackLang's approach. It's just that there is a mountain of inertia around "The PHP Way" and it's going to take an equal and opposite mountain to alter course.
 > Entirely possible, even probable, but we won't see that level of shift in the next five years.
@@ -29,7 +31,7 @@ And now, before I get an angry mob chasing me: I'm not suggesting we bundle a st
 
 Of course, in an ideal world, PHP would ship with such a built-in, opt-in static analyser; instead of users having to rely on third party tools. Because the main problem with third party tools is consistency between them. Case in point: PhpStorm will support a basic form a generic-type doc blocks in their [next release](*https://blog.jetbrains.com/phpstorm/2021/07/phpstorm-2021-2-beta/), years after Psalm and PHPStan added support for them.
 
-If there was an official spec supported by internals, static analysis players wouldn't have any choice but to follow that spec. That's the major problem with doc block type checks at the moment: there are no rules, so every vendor does whatever they want.
+If there was an official spec supported by internals, static analysis vendors wouldn't have any choice but to follow that spec. That's the major problem with doc block type checks at the moment: there are no rules, so every vendor does whatever they want.
 
 The idea of a centralised static analyser isn't new, by the way, but you can imagine it's a massive undertaking to get right. Here's [Rasmus](*https://externals.io/message/101477#101592) on the matter a few years ago:
 
@@ -38,7 +40,7 @@ The idea of a centralised static analyser isn't new, by the way, but you can ima
 
 {{ cta:mail }}
 
-When I asked Nikita about the idea of runtime-ignored types and generics, he described the main problem [like so](*https://www.reddit.com/r/PHP/comments/j65968/ama_with_the_phpstorm_team_from_jetbrains_on/g7zg9mt/):
+When I asked Nikita about the idea of runtime-ignored types and generics, he described the main problem with generics that _have_ a runtime implementation [like so](*https://www.reddit.com/r/PHP/comments/j65968/ama_with_the_phpstorm_team_from_jetbrains_on/g7zg9mt/):
 
 > Complexity is a pretty big problem for us, and I think severely underestimated by non-contributors. Feature additions that seem simple on the surface tend to interact with other existing features in ways that balloon the complexity.
 
@@ -80,5 +82,31 @@ I'd want to see these changes to the language today, though I know that's an unr
 What's your opinion? [Let me know](*https://twitter.com/brendt_gd).
 
 {{ cta:like }}
+
+{{ cta:mail }}
+
+## Sidenotes
+
+I'll probably add some more information to this section when people read this post and share their feedback, though I could already think of a couple of things.
+
+### Psalm + Rector as a "transpiler" ?
+
+Someone mentioned the idea about using [PHP without runtime type checks](*https://www.youtube.com/watch?v=N2PENQpQVjQ&t=2454s) by using a combination of [Psalm](*https://psalm.dev/) and [Rector](*https://getrector.org/): Psalm first analysed the codebase, and Rector removed all type hints afterwards to generate a "compiled" production build. 
+
+It's an interesting step to further explore the problem space, and while it doesn't mean there's support for custom syntax, there might be potential in the Psalm + Rector combo.
+
+### Why not use … ?
+
+The classic question that gets asked by skeptics: why not use Java or C# or whatever other language if you want to rely on static analysis so much?
+
+Well, the answer is simple: the ecosystem.
+
+### What about the FIG?
+
+The main problem with doc block types is one of consistency, which maybe the FIG could solve?
+
+I'm not sure about the relevance of the FIG these days: I can't imagine the FIG having an influence over the development of, for example, PhpStorm; and there are very little significant frameworks still following PSRs to the rule. 
+
+So, yes, maybe? I'd love to be proven wrong. 
 
 {{ cta:mail }}
