@@ -5,6 +5,10 @@ we-dont-need-runtime-type-checks:
     next: php-generics-and-why-we-need-them
     meta:
         description: Making the case for static analysis
+    footnotes:
+        - { link: /blog/tests-and-types, title: "The difference between tests and types" }
+        - { link: /blog/liskov-and-type-safety, title: "Liskov and type safety" }
+        - { link: /blog/the-case-for-transpiled-generics, title: "Transpiling generics" }
 
 optimistic-or-realistic-estimates:
     date: 2021-07-23

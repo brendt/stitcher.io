@@ -4,7 +4,7 @@ I'm fairly certain that I could disable PHP's runtime type checking altogether â
 
 Because, here's the thing about runtime type checks: they are a debugging device, not so much a safety net. Runtime type errors make it easier to detect and fix bugs, but the reality is that whenever a type error is trigged, our code still crashed at runtime. When type errors occur in production, the end result is the program crashing, nothing you can do about it.
 
-Now, I've written about type systems before ([here](/blog/tests-and-types), [here](/blog/liskov-and-type-safety) and [here](/blog/the-case-for-transpiled-generics)), so if you want more background information about them be sure to do some followup reading. Today, I want to discuss how static analysis has the power to revolutionize the way we write PHP code much more than it already does today, and how it can open doors to many new possibilities.
+Now, I've written about type systems before, you'll find some references at the end of this post; so if you want more background information about them be sure to do some followup reading. Today, I want to discuss how static analysis has the power to revolutionize the way we write PHP code much more than it already does today, and how it can open doors to many new possibilities.
 
 The tradeoff? We need a community-wide mind shift: there are still many PHP developers (including internal developers) who are taken aback by the idea of static type checking. My only goal today is to encourage you to think outside your box, to imagine what would be possible if PHP shifted towards a built-in, statically type-checked model.
 
