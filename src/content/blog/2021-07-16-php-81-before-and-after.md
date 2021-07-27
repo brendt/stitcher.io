@@ -146,4 +146,4 @@ $callback = $object-><hljs prop>method</hljs>(...);
 
 ---
 
-There are even [more features](/blog/new-in-php-81) in PHP 8.1, but these are the ones I'm most exited about. What's your favourite one? Let me know on [Twitter](*https://twitter.com/brendt_gd)!
+There are even [more features](/blog/new-in-php-81) in PHP 8.1, but these are the ones I'm most excited about. What's your favourite one? Let me know on [Twitter](*https://twitter.com/brendt_gd)!
