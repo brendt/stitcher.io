@@ -23,11 +23,9 @@ Of course there could still be _some_ type information exposed at runtime via re
 > Oh, I agree that there's real value in HackLang's approach. It's just that there is a mountain of inertia around "The PHP Way" and it's going to take an equal and opposite mountain to alter course.
 > Entirely possible, even probable, but we won't see that level of shift in the next five years.
 
-It'll take a few more years, but it's probably the way PHP _will_ evolve anyway, according to Sara. The reason it works for Hack, by the way, is because the static analysis step is _required_ by Hack at server startup. You cannot "forget" to run an external tool and end up with buggy code.
+It'll take a few more years, but it's probably the way PHP _will_ evolve anyway, according to Sara.
 
-That seems to be the biggest problem people have with static analysis in PHP today: it's opt-in. 
-
-And now, before I get an angry mob chasing me: I'm not suggesting we bundle a static analyser in PHP that you're required to run (that would mean a "compilation" step in practice). What I _am_ suggesting is that we can disable PHP's runtime type checks if we want to, and deal with the consequences ourselves. If you want to use generics in such a scenario then, yes, you'll have to use a static analyser. If you don't want to, that's fine, but you won't be able to use generics.
+Now, before I get an angry mob chasing me: I'm not suggesting we bundle a static analyser in PHP that you're required to run (that would mean a "compilation" step in practice). What I _am_ suggesting is that we can disable PHP's runtime type checks if we want to, and deal with the consequences ourselves. If you want to use generics in such a scenario then, yes, you'll have to use a static analyser. If you don't want to, that's fine, but you won't be able to use generics.
 
 Of course, in an ideal world, PHP would ship with such a built-in, opt-in static analyser; instead of users having to rely on third party tools. Because the main problem with third party tools is consistency between them. Case in point: PhpStorm will support a basic form a generic-type doc blocks in their [next release](*https://blog.jetbrains.com/phpstorm/2021/07/phpstorm-2021-2-beta/), years after Psalm and PHPStan added support for them.
 
@@ -108,5 +106,9 @@ The main problem with doc block types is one of consistency, which maybe the FIG
 I'm not sure about the relevance of the FIG these days: I can't imagine the FIG having an influence over the development of, for example, PhpStorm; and there are very little significant frameworks still following PSRs to the rule. 
 
 So, yes, maybe? I'd love to be proven wrong. 
+
+### Python already does this
+
+Python's whole type system is built on type-erasure. So it's interesting to note that what I'm proposing here isn't anything new.
 
 {{ cta:mail }}
