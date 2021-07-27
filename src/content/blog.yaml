@@ -1,5 +1,5 @@
 we-dont-need-runtime-type-checks:
-    date: 2021-07-17
+    date: 2021-07-26
     title: We don't need runtime type checks
     content: src/content/blog/2021-07-17-we-dont-need-runtime-type-checks.md
     next: php-generics-and-why-we-need-them
