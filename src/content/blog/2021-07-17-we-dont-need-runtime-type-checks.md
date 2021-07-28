@@ -69,7 +69,7 @@ So, this is where we are today:
 - PHP's runtime type checker is reaching its limitations (generics being the most obvious example)
 - There _are_ already runtime-ignored types (doc blocks), but there's no consensus on syntax and usage across static analysis communities
 - Runtime-ignored types require a mind-shift that many developers find difficult at this point
-- Transpiling PHP is possible, it's been done before, but it's a massive undertaking an likely to fail again if tried without proper support
+- Transpiling PHP is possible, it's been done before, but it's a massive undertaking and likely to fail again if tried without proper support
 
 I see much more potential for static analysis. It has made my code more stable and easier to write, and I couldn't do without it anymore. On the other hand, the community and toolset has still a long way to go, and we're all playing a part in that journey. 
 
