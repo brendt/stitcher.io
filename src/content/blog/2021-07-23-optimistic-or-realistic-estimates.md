@@ -20,7 +20,7 @@ I've been using this tactic for years now, and it seem to actually work pretty w
 
 What I think is key here, is that there's an open communication between my client and myself. There's a level of trust, and I feel safe to just tell them the truth, even though I know sometimes they might have liked a more optimistic version. 
 
-This level of trust and communication is the of working together for a couple of years though. It might be lacking at the start of a new project. That's why so many starting projects are under-estimated, and why there's almost always a point in the project where expectations need to be adjusted (with all the consequences that come with it, these usually aren't happy times in a project's lifespan).
+This level of trust and communication comes from working together for a couple of years though. It might be lacking at the start of a new project. That's why so many starting projects are under-estimated, and why there's almost always a point in the project where expectations need to be adjusted (with all the consequences that come with it, these usually aren't happy times in a project's lifespan).
 
 So I try to ask clients up front: do you want an optimistic or realistic estimate? I tell them I know the realistic one will be better in the long run.
 
