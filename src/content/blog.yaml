@@ -1,7 +1,7 @@
-road-to-php-81:
-    date: 2021-07-28
-    title: The road to PHP 8.1
-    content: src/content/blog/road-to-php-81.md
+evolution-of-a-php-object:
+    date: 2021-07-30
+    title: The evolution of a PHP object throughout the years
+    content: src/content/blog/2021-07-30-evolution-of-a-php-object.md
 
 we-dont-need-runtime-type-checks:
     date: 2021-07-26
