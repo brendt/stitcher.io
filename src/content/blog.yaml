@@ -1,3 +1,8 @@
+road-to-php-81:
+    date: 2021-07-28
+    title: The road to PHP 8.1
+    content: src/content/blog/road-to-php-81.md
+
 we-dont-need-runtime-type-checks:
     date: 2021-07-26
     title: We don't need runtime type checks
