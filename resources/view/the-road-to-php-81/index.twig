@@ -5,6 +5,51 @@
 
     {{ css.inline('resources/css/blog.scss')|raw }}
     {{ css.inline('resources/css/overview.scss')|raw }}
+
+    <style>
+        @media (min-width: 600px) {
+            .field {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        form {
+            display: block;
+        }
+
+        .field {
+            width: 100%;
+            margin-top: 1em;
+        }
+
+        .field > input {
+            flex-grow: 1;
+            width: 100%;
+            margin-top: .3em;
+            border-radius: 15px;
+            background-color: #f2f2f2;
+            border: 2px solid #e3e3e3;
+            padding: 10px;
+            font-weight: normal;
+        }
+
+        .field > input:focus,
+        .field > input:active {
+            border: 2px solid #fe2977;
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        .field > label {
+            width: 200px;
+        }
+
+        .field button {
+            border-radius: 15px;
+            padding: .5em;
+            font-weight: bold;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -19,13 +64,18 @@
         <p>The Road to PHP 8.1 is my newest pop-up newsletter: you'll receive one mail per day for the next ten days to learn about all new things in PHP 8.1. Afterwards you won't receive any new or follow-up mails, unless you want to.</p>
 
         <form action="https://mail.stitcher.io/subscribe/08ed03db-09a9-4201-8ba5-a5479280b2ad" method="post">
-            <div>
-                <label for="email">Email</label>
-                <input name="email" style="margin-left:.5em;"/>
+            <div class="field">
+                <label for="first_name">Your name</label>
+                <input name="first_name" id="first_name" type="text" required/>
             </div>
 
-            <div style="margin-left:1em;">
-                <button type="submit" class="cta cta-small">Subscribe</button>
+            <div class="field">
+                <label for="email">Email</label>
+                <input name="email" id="email" type="email" required/>
+            </div>
+
+            <div class="field">
+                <button type="submit" class="cta cta-small">subscribe</button>
             </div>
         </form>
 
