@@ -199,7 +199,7 @@ class BlogData
 
 ## November 2020: PHP 8.0
 
-Another game changer: [PHP 8](/blog/new-in-php-8) adds [promoted properties](/blog/constructor-promotion-in-php-8)!
+Another game changer: [PHP 8](/blog/new-in-php-8) adds [promoted properties](/blog/constructor-promotion-in-php-8); also, trailing commas in parameter lists are now a thing!
 
 ```php
 class BlogData
@@ -207,7 +207,7 @@ class BlogData
     public function __construct(
         <hljs keyword>private</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
         <hljs keyword>private</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs>,
-        <hljs keyword>private</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>
+        <hljs keyword>private</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
     ) {}
     
     public function getTitle(): string
@@ -238,7 +238,7 @@ class BlogData
     public function __construct(
         <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
         <hljs keyword>public readonly</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs>,
-        <hljs keyword>public readonly</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>
+        <hljs keyword>public readonly</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
     ) {}
 }
 ```
