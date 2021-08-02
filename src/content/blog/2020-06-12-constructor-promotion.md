@@ -237,7 +237,7 @@ class MyClass
 
 ### Not allowed in abstract constructors
 
-I didn't even knew abstract constructors were a thing, but here goes! Promoted properties are not allowed in them.
+I didn't even know abstract constructors were a thing, but here goes! Promoted properties are not allowed in them.
 
 ```php
 abstract class A
