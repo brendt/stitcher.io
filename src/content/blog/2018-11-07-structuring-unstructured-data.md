@@ -192,7 +192,7 @@ If the value is of a wrong type, we simply throw a `TypeError`.
 
 Doing this extra check means we cannot write to the properties directly. 
 At least not if they are declared public.
-And in our case public properties is something we really want, 
+And in our case public properties are something we really want, 
 because of when we're using these objects.
 We want to be able to easily read data from them; 
 we don't care as much on making writes easy, 
