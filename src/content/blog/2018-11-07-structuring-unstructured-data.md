@@ -57,7 +57,7 @@ In this case, there are several ways of knowing what data we're dealing with:
 - Or use a debugger to inspect it.
 
 I simply wanted to use this data, 
-but next I know I'm deep into debugging what kind of data I'm actually dealing with.
+but next thing I know, I'm deep into debugging what kind of data I'm actually dealing with.
 Are these really the things a programmer should be focused on?
 
 Eliminating this uncertainty can reduce your cognitive load significantly.
