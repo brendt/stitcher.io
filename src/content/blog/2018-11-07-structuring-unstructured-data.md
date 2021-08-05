@@ -294,6 +294,5 @@ I hope this post inspired you to think about your own code bases,
 and that you might be prompted to try this pattern out in your projects;
 with [our package](*https://github.com/spatie/data-transfer-object) or your own implementation.
 
-If there are any thoughts coming to your mind, 
-if you want to discuss this further; I'd love to here from you!
+If there are any thoughts that come to your mind or if you want to discuss this further, I'd love to here from you!
 You can reach me via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io). 
