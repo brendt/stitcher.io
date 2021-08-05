@@ -183,8 +183,6 @@ the benefits in the long run are worth it.
 Sidenote: when I say "in the long run", I mean that this approach is especially useful in larger projects,
 where you're working in the same code base with multiple developers, over a longer timespan.
 
-
-
 ## Reflecting types
 
 So, how can we assure that our properties are of the correct type? 
