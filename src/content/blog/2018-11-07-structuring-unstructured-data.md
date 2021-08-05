@@ -62,7 +62,7 @@ Are these really the things a programmer should be focused on?
 
 Eliminating this uncertainty can reduce your cognitive load significantly.
 This means you can focus on things that really matter: 
-stuff like application- and business logic.
+things like application and business logic.
 You know, that's what most clients pay you to do.
 
 It turns out that strongly typed systems can be a great help in understanding what exactly we're dealing with.
