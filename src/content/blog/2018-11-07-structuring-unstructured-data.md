@@ -278,7 +278,7 @@ So how to enforce this in PHP?
 Unfortunately: we don't.
 There has been talk of so called "read only" properties in PHP's core,
 but it's a difficult thing to get right.
-Than what about our userland type system? 
+Then what about our userland type system? 
 Unless we're giving up the ease of reading, the auto completion part;
 there will be no way to achieve this goal in PHP.
 
