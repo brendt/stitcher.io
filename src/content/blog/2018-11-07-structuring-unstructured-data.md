@@ -213,7 +213,7 @@ so magic setters are, unfortunately, a no go.
 ### Via the constructor
 
 Like in the previous example, we pass an array of data to the constructor,
-and the constructor will map that data unto the properties of its class. 
+and the constructor will map that data onto the properties of its class. 
 This is the way to go.
 
 Here's a simplified way of doing this:
