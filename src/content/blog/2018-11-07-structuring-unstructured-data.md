@@ -147,7 +147,7 @@ class BlogPost
 ```
 
 Docblocks are kind of a mess though: they are quite verbose and ugly;
-but more important: they don't give any guarantees that the data is of the type they say it is! 
+but more importantly, they don't give any guarantees that the data is of the type they say it is! 
 
 Luckily, PHP has its reflection API. With it, a lot more is possible, even today.
 The above example can actually be type validated with a little reflection magic, 
