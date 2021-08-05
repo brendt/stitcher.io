@@ -290,8 +290,6 @@ So for now, unfortunately,
 our package will allow writes to an object's properties after it is constructed.
 We are just careful not to do it.
 
-
-
 I hope this post inspired you to think about your own code bases, 
 and that you might be prompted to try this pattern out in your projects;
 with [our package](*https://github.com/spatie/data-transfer-object) or your own implementation.
