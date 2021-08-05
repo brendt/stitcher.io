@@ -37,7 +37,7 @@ At some point though, one should wonder whether there are better solutions for t
 
 Regular readers of this blog may know that I've written about type theory in [the past](/blog/liskov-and-type-safety).
 I won't revisit the pros and cons on strong type systems;
-but I do want to say that array are a terrible choice 
+but I do want to say that arrays are a terrible choice 
 if they are meant to be used as anything else but lists.
 
 Here's a simple question for you: what's in this array?
