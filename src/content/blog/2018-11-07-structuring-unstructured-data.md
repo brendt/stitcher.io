@@ -164,7 +164,7 @@ $blogPost = new BlogPost([
 
 That seems like a lot of overhead, right? 
 Remember the first example though! 
-We're not trying to construct these object manually, 
+We're not trying to construct these objects manually, 
 we're reading them from a CSV file, a request or somewhere else:
 
 ```php
