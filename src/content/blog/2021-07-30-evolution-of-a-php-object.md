@@ -197,6 +197,8 @@ class BlogData
 }
 ```
 
+{{ cta:dynamic }}
+
 ## November 2020: PHP 8.0
 
 Another game changer: [PHP 8](/blog/new-in-php-8) adds [promoted properties](/blog/constructor-promotion-in-php-8); also, trailing commas in parameter lists are now a thing!
