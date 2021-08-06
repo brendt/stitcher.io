@@ -37,7 +37,7 @@ At some point though, one should wonder whether there are better solutions for t
 
 Regular readers of this blog may know that I've written about type theory in [the past](/blog/liskov-and-type-safety).
 I won't revisit the pros and cons on strong type systems;
-but I do want to say that array are a terrible choice 
+but I do want to say that arrays are a terrible choice 
 if they are meant to be used as anything else but lists.
 
 Here's a simple question for you: what's in this array?
@@ -57,12 +57,12 @@ In this case, there are several ways of knowing what data we're dealing with:
 - Or use a debugger to inspect it.
 
 I simply wanted to use this data, 
-but next I know I'm deep into debugging what kind of data I'm actually dealing with.
+but next thing I know, I'm deep into debugging what kind of data I'm actually dealing with.
 Are these really the things a programmer should be focused on?
 
 Eliminating this uncertainty can reduce your cognitive load significantly.
 This means you can focus on things that really matter: 
-stuff like application- and business logic.
+things like application and business logic.
 You know, that's what most clients pay you to do.
 
 It turns out that strongly typed systems can be a great help in understanding what exactly we're dealing with.
@@ -147,7 +147,7 @@ class BlogPost
 ```
 
 Docblocks are kind of a mess though: they are quite verbose and ugly;
-but more important: they don't give any guarantees that the data is of the type they say it is! 
+but more importantly, they don't give any guarantees that the data is of the type they say it is! 
 
 Luckily, PHP has its reflection API. With it, a lot more is possible, even today.
 The above example can actually be type validated with a little reflection magic, 
@@ -164,7 +164,7 @@ $blogPost = new BlogPost([
 
 That seems like a lot of overhead, right? 
 Remember the first example though! 
-We're not trying to construct these object manually, 
+We're not trying to construct these objects manually, 
 we're reading them from a CSV file, a request or somewhere else:
 
 ```php
@@ -183,18 +183,16 @@ the benefits in the long run are worth it.
 Sidenote: when I say "in the long run", I mean that this approach is especially useful in larger projects,
 where you're working in the same code base with multiple developers, over a longer timespan.
 
-
-
 ## Reflecting types
 
 So, how can we assure that our properties are of the correct type? 
 Simple: read the `@var` docblock declartion, validate the value against that type, 
-and only than set it. 
+and only then set it. 
 If the value is of a wrong type, we simply throw a `TypeError`.
 
 Doing this extra check means we cannot write to the properties directly. 
 At least not if they are declared public.
-And in our case public properties is something we really want, 
+And in our case public properties are something we really want, 
 because of when we're using these objects.
 We want to be able to easily read data from them; 
 we don't care as much on making writes easy, 
@@ -215,7 +213,7 @@ so magic setters are, unfortunately, a no go.
 ### Via the constructor
 
 Like in the previous example, we pass an array of data to the constructor,
-and the constructor will map that data unto the properties of its class. 
+and the constructor will map that data onto the properties of its class. 
 This is the way to go.
 
 Here's a simplified way of doing this:
@@ -280,7 +278,7 @@ So how to enforce this in PHP?
 Unfortunately: we don't.
 There has been talk of so called "read only" properties in PHP's core,
 but it's a difficult thing to get right.
-Than what about our userland type system? 
+Then what about our userland type system? 
 Unless we're giving up the ease of reading, the auto completion part;
 there will be no way to achieve this goal in PHP.
 
@@ -292,12 +290,9 @@ So for now, unfortunately,
 our package will allow writes to an object's properties after it is constructed.
 We are just careful not to do it.
 
-
-
 I hope this post inspired you to think about your own code bases, 
 and that you might be prompted to try this pattern out in your projects;
 with [our package](*https://github.com/spatie/data-transfer-object) or your own implementation.
 
-If there are any thoughts coming to your mind, 
-if you want to discuss this further; I'd love to here from you!
+If there are any thoughts that come to your mind or if you want to discuss this further, I'd love to here from you!
 You can reach me via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io). 
