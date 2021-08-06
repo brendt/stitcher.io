@@ -1,6 +1,15 @@
+the-road-to-php:
+    date: 2021-08-06
+    title: The Road to PHP 8.1
+    meta:
+        description: A popup newsletter about what's coming in PHP 8.1
+    content: src/content/blog/2021-08-06-the-road-to-php.md
+
 evolution-of-a-php-object:
     date: 2021-07-29
     title: The evolution of a PHP object throughout the years
+    meta:
+        template: blog/meta/evolution-of-php-object.twig
     content: src/content/blog/2021-07-30-evolution-of-a-php-object.md
 
 we-dont-need-runtime-type-checks:
