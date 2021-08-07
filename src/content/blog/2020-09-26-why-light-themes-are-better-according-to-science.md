@@ -28,7 +28,7 @@ By only covering one eye with sunglasses, you add a few milliseconds of delay to
 
 {{ ad:carbon }}
 
-Now on to programming. If you're using a dark colour scheme, you're deliberately adding extra delay, so says the Pulfirch effect. 
+Now on to programming. If you're using a dark colour scheme, you're deliberately adding extra delay, so says the Pulfrich effect. 
 Sure the difference seems negligible, it's only a few milliseconds. Actually, it's a few milliseconds _every_ time you "rescan" your screen; that's between 10 or 50 times a second, depending on what research you want to believe.
 Still you probably won't notice any real-time difference, but over time this adds up, and the extra effort needed by your eyes can become to feel exhausting.
 
