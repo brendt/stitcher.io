@@ -36,6 +36,8 @@ Brent
 
 I'd like to ask you — the blog reader — the same: if you have any thoughts to share about this topic, please [send me an email](mailto:brendt@stitcher.io) (if the mailto link doesn't work: brendt@stitcher.io). I'll try my best to answer all mails, it might take a while!
 
+If this post resonates with you, please consider sharing it with your audience. I think there's an important message here, but I'll let you be the judge of that.
+
 
 
 {{ cta:diary }}
