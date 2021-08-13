@@ -1,3 +1,10 @@
+why-do-i-write:
+    date: 2021-08-13
+    title: Why do I write?
+    meta:
+        description: Thoughts on a fast-food content-creation culture
+    content: src/content/blog/2021-08-13-why-do-i-write.md
+
 the-road-to-php:
     date: 2021-08-06
     title: The Road to PHP 8.1
