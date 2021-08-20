@@ -1,3 +1,4 @@
+
 I once worked at a company that wrote and maintained an in-house framework. Over the course of ten years, they probably
 made around 250 websites and applications with it. Despite many shortcomings, the company kept using their framework for
 a simple reason: they were in control.
@@ -6,7 +7,7 @@ Thanks to that control, they were able to tailor their framework to their own ne
 would argue that using popular, community-backed frameworks is almost always the better
 choice over writing your own , I can appreciate some of their reasoning.
 
-{{ ad:carbon }}
+{{ cta:dynamic }}
 
 Except, in the end, they utterly failed in creating what they originally set out to do. Instead of a tool shaped
 specifically for their needs, the framework's core developers often wanted flexibility: they dreamt of open sourcing
