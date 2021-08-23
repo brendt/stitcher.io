@@ -13,6 +13,7 @@ use Brendt\Stitcher\Handler\RemoveLikeHandler;
 use Stitcher\App;
 
 $redirects = [
+    '/repot' => 'https://youtu.be/Swu2M1LL33c',
     '/the-road-to-php-81/subscribe' => 'https://road-to-php.com',
     '/the-road-to-php-81/pending' => 'https://road-to-php.com/success',
     '/the-road-to-php-81/unsub' => 'https://road-to-php.com/unsub',
