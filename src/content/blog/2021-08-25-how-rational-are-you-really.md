@@ -61,7 +61,7 @@ I don't mind that people aren't consistent in how they write types in or out of 
 
 It makes me wonder, could it be that there are more such opinions that we think we're sure of; but that, in reality, we haven't actually thought trough all that well? Tabs or spaces, light or dark colour schemes, active record or entity mapper, dependency injection or service location, … 
 
-How many more rational opinions do we have that turn out not to be so rational after all. Opinions that are habit-driven; that we think of as "the best option", not because they are but because we know them and we're comfortable with what we know.
+How many more rational opinions do we have that turn out not to be so rational after all. Opinions that are habit-driven; that we think of as "the best option" — not because they are, but because they've worked in the past.
 
 Do we, "rational thinkers" are in fact, just like everyone else, influenced by emotion, sometimes without knowing it?
 
