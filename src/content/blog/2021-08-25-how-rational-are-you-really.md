@@ -25,7 +25,7 @@ $arrayOfFoo = …
 
 I've asked this question maybe three or four times over the years, and I consistently get the same answer from a large group of respondents: they use the full class name, so that they don't have to scroll to the top of the file to know what they are dealing with.
 
-My response, time and time again, has been: so what about real types? Property types, argument types, return types? Do you also use the full class name in those cases? 
+My response, time and time again, has been: so what about real types? Property types, argument types, return types? Do you use the full class name in those cases as well? 
 
 ```php
 class Bar
@@ -61,13 +61,13 @@ I don't mind that people aren't consistent in how they write types in or out of 
 
 It makes me wonder, could it be that there are more such opinions that we think we're sure of; but that, in reality, we haven't actually thought trough all that well? Tabs or spaces, light or dark colour schemes, active record or entity mapper, dependency injection or service location, … 
 
-How many more rational opinions do we have that turn out not to be so rational after all. Opinions that are habit-driven; that we think of as "the best option" — not because they are, but because they've worked in the past.
+How many "rational opinions" do we have that turn out to be irrational after all? Opinions that are habit-driven; that we think of as "the best option" — not because they are, but because they've worked in the past and we're comfortable using them.
 
-Do we, "rational thinkers" are in fact, just like everyone else, influenced by emotion, sometimes without knowing it?
+Are we — the "rational thinkers" — in fact, just like everyone else, influenced by emotion, sometimes without even knowing it?
 
 ---
 
-The real reason to always use full class names in doc blocks, by the way, is because PHP doesn't have a reflection API for import statements. So if you want to map an imported class name from a doc block to its FQCN, you'd need to manually parse the file. Mind you: import statements are quite difficult to parse: there are aliases, partial namespace imports, grouped imports, function imports, and more. 
+The real reason to always use full class names in doc blocks, by the way, is because PHP doesn't have a reflection API for import statements. So if you want to map a class name from a doc block to its FQCN, you'd need to manually parse that PHP file. Mind you: import statements are quite difficult to parse: there are aliases, partial namespace imports, grouped imports, function imports, and more. 
 
 Fortunately, the problem I describe here isn't really a problem anymore. There's a package called `phpdocumentor/type-resolver` that supports exactly [this kind of parsing](https://github.com/phpDocumentor/TypeResolver#resolving-partial-classes-and-structural-element-names).
 
@@ -75,9 +75,9 @@ So the only _real_ argument against importing doc block types, turns out to be n
 
 ---
 
-How sure are we of our opinions? How fiercely and emotionally does we defend those opinions, even when we might not have thought them through all that well?
+How sure are we of our opinions? How fiercely and emotionally do we defend those opinions, even when haven't thought them through all that well? And can we admit it when we're wrong, maybe apologise and move on?
 
-I don't want to start a fight over tabs or spaces, importing types or not; but I do want to encourage you to critically look at your own opinions, wonder whether you thought them through well enough; and if you'd be willing to change them, if they turn out to be more biased than you thought.
+I don't want to start a fight over tabs or spaces, importing types or not; but I do want to encourage you to critically look at your own opinions. Wonder whether you thought them through well enough; and if you'd be willing to change them, if they turn out to be more biased than you thought.
 
 ---
 
