@@ -1,4 +1,4 @@
-From time to time, I like to ask a simple coding style question on Twitter. It usually goes something like this: do you write FQCN's (fully qualified class names) in your doc blocks or not? In other words, do you write code like this:
+Now and then, I like to ask a simple coding style question on Twitter. It usually goes something like this: do you write FQCN's (fully qualified class names) in your doc blocks or not? In other words, do you write code like this:
 
 ```php
 /** @var <hljs type>\App\Models\Foo[]</hljs> */
