@@ -59,7 +59,7 @@ Programmers often take pride in their rational thinking. We look at problems fro
 
 I don't mind that people aren't consistent in how they write types in or out of doc blocks. But I _am_ always surprised with how difficult it is to defend that opinion, once you start asking deeper questions, once people are forced to think about it a little more.
 
-It makes me wonder, could it be that there are more such opinions that we think we're sure of; but that, in reality, we haven't actually thought trough all that well? Tabs or spaces, light or dark colour schemes, active record or entity mapper, dependency injection or service location, … 
+It makes me wonder, could it be that there are more such opinions that we think we're sure of; but that, in reality, we haven't actually thought through all that well? Tabs or spaces, light or dark colour schemes, active record or entity mapper, dependency injection or service location, … 
 
 How many "rational opinions" do we have that turn out to be irrational after all? Opinions that are habit-driven; that we think of as "the best option" — not because they are, but because they've worked in the past and we're comfortable using them.
 
@@ -75,7 +75,7 @@ So the only _real_ argument against importing doc block types, turns out to be n
 
 ---
 
-How sure are we of our opinions? How fiercely and emotionally do we defend those opinions, even when haven't thought them through all that well? And can we admit it when we're wrong, maybe apologise and move on?
+How sure are we of our opinions? How fiercely and emotionally do we defend those opinions, even when we haven't thought them through all that well? And can we admit it when we're wrong, maybe apologise and move on?
 
 I don't want to start a fight over tabs or spaces, importing types or not; but I do want to encourage you to critically look at your own opinions. Wonder whether you thought them through well enough; and if you'd be willing to change them, if they turn out to be more biased than you thought.
 
