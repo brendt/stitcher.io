@@ -4,7 +4,7 @@ If you're eligible to vote, or know someone who can: I want to ask you to take f
 
 Here's why from the point of view of a userland developer, both for client projects _and_ [open source](*https://spatie.be/open-source).
 
-{{ ad:carbon }}
+{{ cta:dynamic }}
 
 ## As an OSS maintainer
 
