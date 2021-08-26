@@ -88,7 +88,7 @@ $user = <hljs type>User</hljs>::<hljs prop>create</hljs>([
 
 I know which one of these two approaches I prefer. Disclaimer: it's the one that has better syntax highlighting and is shorter to write.
 
-Here's the kicker: **there isn't any possibility for breaking changes, because there aren't any hard coded variable names to begin with!** 
+Here's the kicker: **there isn't any possibility for breaking changes, because there aren't any hard coded argument names to begin with!** 
 
 ---
 
