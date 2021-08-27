@@ -39,7 +39,7 @@ Here's the thing: **no framework or package can prevent users from using named a
 - ask users not to use named arguments; or
 - let users deal with those breaking changes themselves, and don't worry about it.
 
-Being an open source maintainer myself: I choose option three. First of all: argument name changes only rarely happen; and second: I trust my users to be professional developers and know the consequences of using named arguments. They are smart grown ups, it's their responsablity.
+Being an open source maintainer myself: I choose option three. First of all: argument name changes only rarely happen; and second: I trust my users to be professional developers and know the consequences of using named arguments. They are smart grown ups, it's their responsibility.
 
 So in summary for this first part: there's nothing the framework can do to prevent this kind of backwards compatibility issues besides making a note in the README on how they deal with argument name changes. Be consistent with whatever policy you choose, and you're fine.
 
