@@ -188,18 +188,43 @@ p > em {
 }
 
 blockquote {
-    font-family: $font-subtitle;
-    font-weight: 400;
-    font-size: 1.25em;
-    color: $color-primary;
+    background: $color-primary-pastel;
+    padding: 1rem;
+    border-left: 4px solid $color-primary;
+    color: $color-black;
     line-height: 2em;
+    position: relative;
 
     margin: 0 0 1rem 0;
-    padding: 0 1rem;
 
     p {
         color: inherit;
         line-height:inherit;
+    }
+
+    @media (max-width: $width-mobile) {
+        border: 1px solid $color-primary;
+    }
+
+    &:before {
+        position: absolute;
+        content: '"';
+        display: block;
+        font-size: 4em;
+        font-family: "Times New Roman", serif;
+        color: $color-primary;
+        font-weight: bold;
+        top: -2px;
+        left: 0;
+
+
+        @media (min-width: $width-mobile) {
+            -webkit-text-stroke-width: 2px;
+            top: -4px;
+            left: -3px;
+            -webkit-text-stroke-color: $color-primary-pastel;
+        }
+
     }
 }
 

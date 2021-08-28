@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if (overviewTitle ?? null) == 'programming' %}
+    {% if (overviewTitle ?? null) == 'programming' and (post.hideBanner ?? false) != true %}
         {% include '_partials/ad_scout.twig' %}
     {% endif %}
 
