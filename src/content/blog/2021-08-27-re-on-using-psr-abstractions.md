@@ -17,7 +17,7 @@ I think it's fair to say that most professional developers are using at least so
 
 > Next up were the PSRs that aimed for the big goal: framework interoperability. […] The idea […] was that frameworks could provide implementation packages for the proposed interfaces. So you could eventually use the Symfony router, the Zend container, a Laravel security component, and so on.
 
-While framework interoperability is useful to some extent, it's unrealistic trying to make everything work together: you'd end up with a single framework in the end. There's only so many ways to implement a router or container, if there's one common set of interfaces shared among different frameworks then there'll be very little differences to the users of those frameworks. Sure there might be some implementation differences — but the goal of a framework is for users not to care about those, and to be able to focus on building applications instead. 
+While framework interoperability is useful to some extent, it's unrealistic trying to make everything work together: you'd end up with a single framework in the end. There are only so many ways to implement a router or container, if there's one common set of interfaces shared among different frameworks then there'll be very little differences to the users of those frameworks. Sure there might be some implementation differences — but the goal of a framework is for users not to care about those, and to be able to focus on building applications instead. 
 
 Matthias shares this concern: 
 
@@ -125,8 +125,33 @@ I'd phrase it like this: "we should use **abstractions** whenever it makes sense
 
 Yes, we should use abstractions; but no, we shouldn't use irrelevant and outdated abstractions. It's not because an abstraction carries the name "PSR" that it's suddenly better than others. 
 
----
-
 I figure there's a chance of some people getting angry by this post. You're allowed to, I’m open for that feedback.  Please reach out to me via [mail](mailto:brendt@stitcher.io) to tell me your thoughts. I don't question the sincerity and efforts of the FIG. I just genuinely believe they are trying to solve a problem that doesn't exist.
 
 Let me end with how I started: the FIG has had a great impact on the PHP community, I'm very thankful for the early work they did as pioneers. The whole community needs to acknowledge that. I also think the FIG has reached its goal, and the project should be called complete.
+
+---
+
+As an addendum, I want to address one more point. I shared Matthias' original post on [/r/php](https://www.reddit.com/r/PHP/comments/pcituv/on_using_psr_abstractions_matthias_noback/) before publishing this one. There were some insightful discussions about it, and Matthieu Napoli, the author of PSR-11, [pitched in](https://www.reddit.com/r/PHP/comments/pcituv/on_using_psr_abstractions_matthias_noback/hajasv6/).
+
+I want to address one of the things he said, because I reckon it might be a counterargument that people bring up after reading this post as well. He said:
+
+> PSR-11 is great for libraries that want to interoperate with containers, for example:
+> - Phinx to allow loading seed classes from your framework's container
+> - Behat for doing dependency injection in feature contexts
+> - Tactician command bus: load from your container (https://tactician.thephpleague.com/plugins/container/)
+> - Faker for dealing with extensions
+> - schmittjoh/serializer for lazy loading handlers from your container
+
+In other words: I mainly look at PSRs from a framework's perspective, frameworks like Symfony or Laravel, while Matthieu is thinking about smaller, standalone, packages.
+
+Here's one of the examples Matthieu gave in practice. Phinx optionally supports to set a container instance, which it'll use to [resolve seed classes](*https://github.com/cakephp/phinx/blob/master/src/Phinx/Migration/Manager.php#L888-L889).
+
+```php
+if ($this-><hljs prop>container</hljs> !== null) {
+    $seed = $this-><hljs prop>container</hljs>-><hljs prop>get</hljs>($class);
+}
+```
+
+And, fair enough: there seems to be some adoption at least in small, standalone packages. But what about the broader context? Are those features actually used by end users? Would it be worse if those package provided an adapter layer instead of relying on a third-party abstraction? There are a lot of _ifs_ here, and I'd like to [hear](mailto:brendt@stitcher.io) from users who actually have real-life experience with using these kinds of packages.
+
+I mainly look at the FIG from a framework's point of view, I think that's relevant since it's the PHP **framework** interoperability group. I'm not entirely dismissing the merits of proper abstractions, I hope that was clear throughout this post.
