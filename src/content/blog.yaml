@@ -1,3 +1,8 @@
+my-ikea-clock:
+    date: 2021-09-01
+    title: My IKEA clock, and software design
+    content: src/content/blog/2021-09-01-my-ikea-clock.md
+
 re-on-using-psr-abstractions:
     date: 2021-08-31
     title: "re: On using PSR abstractions"
