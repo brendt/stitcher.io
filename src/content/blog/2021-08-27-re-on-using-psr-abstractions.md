@@ -97,7 +97,7 @@ The benefit of using PSRs in comparison to running your own implementation, is t
 
 So why spend time and money on creating another abstraction while we already have one?
 
-Well, have you considered the fact that… maybe the FIG doesn't always come up with the best abstractions? That maybe the process that takes months of discussion of a small group of developers, to finally come up with an interface that contains a few methods, might not actually solve the problems that developers are dealing with in real life?
+Well, have you considered the fact that… maybe the FIG doesn't always come up with the best abstractions? That maybe the process that takes months of discussion by a small group of developers, to finally come up with an interface that contains a few methods, might not actually solve the problems that developers are dealing with in real life?
 
 Sure the question of creating HTTP requests and responses has been answered by the FIG. It's _a_ answer. Symfony and Laravel both have their own answer as well, simpler answers if you ask me. Better answers for my use cases. 
 
