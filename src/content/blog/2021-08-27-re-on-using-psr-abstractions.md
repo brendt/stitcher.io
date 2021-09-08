@@ -99,7 +99,7 @@ So why spend time and money on creating another abstraction while we already hav
 
 Well, have you considered the fact that… maybe the FIG doesn't always come up with the best abstractions? That maybe the process that takes months of discussion by a small group of developers, to finally come up with an interface that contains a few methods, might not actually solve the problems that developers are dealing with in real life?
 
-Sure the question of creating HTTP requests and responses has been answered by the FIG. It's _an_ answer. Symfony and Laravel both have their own answer as well which are simpler if you ask me. Better answers for my use cases. 
+Sure the question of creating HTTP requests and responses has been answered by the FIG. It's _an_ answer. Symfony and Laravel both have their own answer as well which are simpler if you ask me. Moreover, possibly better answers for my use cases. 
 
 We've been talking about HTTP abstractions, but Matthias gives another example: the container interface. He agrees that the FIG doesn't always come up with an abstraction that's relevant to the community's needs:
 
