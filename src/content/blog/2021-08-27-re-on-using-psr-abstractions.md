@@ -127,7 +127,7 @@ Yes, we should use abstractions; but no, we shouldn't use irrelevant and outdate
 
 I figure there's a chance of some people getting angry by this post. You're allowed to, I’m open for that feedback.  Please reach out to me via [mail](mailto:brendt@stitcher.io) to tell me your thoughts. I don't question the sincerity and efforts of the FIG. I just genuinely believe they are trying to solve a problem that doesn't exist.
 
-Let me end with how I started: the FIG has had a great impact on the PHP community, I'm very thankful for the early work they did as pioneers. The whole community needs to acknowledge that. I also think the FIG has reached its goal, and the project should be called complete.
+Let me end with how I started: the FIG has had a great impact on the PHP community, I'm very thankful for the early work they did as pioneers and the whole community needs to acknowledge that. I also think the FIG has reached its goal, and the project should be called complete.
 
 ---
 
