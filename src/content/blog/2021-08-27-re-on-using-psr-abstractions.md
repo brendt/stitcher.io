@@ -95,7 +95,7 @@ The benefit of using PSRs in comparison to running your own implementation, is t
 > - What if we want to add query parameters to a POST request?
 > - How can we deal with failure? Do we always get a string? What kind of exceptions do these methods throw?
 
-So why spending time and money on creating another abstraction while we already have one?
+So why spend time and money on creating another abstraction while we already have one?
 
 Well, have you considered the fact that… maybe the FIG doesn't always come up with the best abstractions? That maybe the process that takes months of discussion of a small group of developers, to finally come up with an interface that contains a few methods, might not actually solve the problems that developers are dealing with in real life?
 
