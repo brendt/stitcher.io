@@ -1,3 +1,12 @@
+birth-and-death-of-a-framework:
+    date: 2021-09-03
+    title: The birth and death a framework
+    content: src/content/blog/2021-09-03-birth-and-death-of-frameworks.md
+    hideBanner: true
+    footnotes:
+        - { link: /blog/opinion-driven-design, title: Opinion-driven design }
+        - { link: /blog/rational-thinking, title: Rational thinking }
+
 my-ikea-clock:
     date: 2021-09-01
     title: My IKEA clock, and software design
