@@ -6,6 +6,7 @@ birth-and-death-of-a-framework:
     footnotes:
         - { link: /blog/opinion-driven-design, title: Opinion-driven design }
         - { link: /blog/rational-thinking, title: Rational thinking }
+        - { link: https://www.youtube.com/watch?v=T29WzvaPNc8, title: Eric's talk about rethinking time }
 
 my-ikea-clock:
     date: 2021-09-01
