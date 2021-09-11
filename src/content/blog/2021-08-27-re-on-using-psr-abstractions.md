@@ -95,11 +95,11 @@ The benefit of using PSRs in comparison to running your own implementation, is t
 > - What if we want to add query parameters to a POST request?
 > - How can we deal with failure? Do we always get a string? What kind of exceptions do these methods throw?
 
-So why spending time and money on creating another abstraction while we already have one?
+So why spend time and money on creating another abstraction while we already have one?
 
-Well, have you considered the fact that… maybe the FIG doesn't always come up with the best abstractions? That maybe the process that takes months of discussion of a small group of developers, to finally come up with an interface that contains a few methods, might not actually solve the problems that developers are dealing with in real life?
+Well, have you considered the fact that… maybe the FIG doesn't always come up with the best abstractions? That maybe the process that takes months of discussion by a small group of developers, to finally come up with an interface that contains a few methods, might not actually solve the problems that developers are dealing with in real life?
 
-Sure the question of creating HTTP requests and responses has been answered by the FIG. It's _a_ answer. Symfony and Laravel both have their own answer as well, simpler answers if you ask me. Better answers for my use cases. 
+Sure the question of creating HTTP requests and responses has been answered by the FIG. It's _an_ answer. Symfony and Laravel both have their own answer as well which are simpler if you ask me. Moreover, possibly better answers for my use cases. 
 
 We've been talking about HTTP abstractions, but Matthias gives another example: the container interface. He agrees that the FIG doesn't always come up with an abstraction that's relevant to the community's needs:
 
@@ -107,7 +107,7 @@ We've been talking about HTTP abstractions, but Matthias gives another example: 
 
 Matthias carefully uses the word "outdated" here, though I want to say it's a plain irrelevant abstraction. The same way PSR-7 is irrelevant for most of the work I — and many others — are doing in Laravel or Symfony projects. I'm more than happy to ditch "interoperability" — what does that even mean when you're building a project closely tied to a framework and never intend to change it — and just use a simpler, straight forward, opinionated solution. It's also an abstraction, a good one, just not one that has an "official" name backed by the FIG.
 
-Now some people tell me "you can't predict the future, maybe you _do_ want interoperability somewhere in the next years". I don't know about others but we actually outline the scope of projects in contracts with clients. They pay us to make an application specifically in one framework. There's no need for this level of interoperability.
+Now some people tell me "you can't predict the future, maybe you _do_ want interoperability somewhere in the next few years". I don't know about others but we actually outline the scope of projects in contracts with clients. They pay us to make an application specifically in one framework. There's no need for this level of interoperability.
 
 Take a look, for example at both the container interface implementations of [Symfony](https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/DependencyInjection/ContainerInterface.php) and [Laravel](https://github.com/laravel/framework/blob/8.x/src/Illuminate/Contracts/Container/Container.php), both implement `<hljs type>\Psr\Container\ContainerInterface</hljs>`, and yet both add so many more methods. Implementing PSR-11 is merely a gimmick here for frameworks to be able to say "yes, we're PSR compliant"; because there's **no real interoperability between these two**.
 
@@ -127,7 +127,7 @@ Yes, we should use abstractions; but no, we shouldn't use irrelevant and outdate
 
 I figure there's a chance of some people getting angry by this post. You're allowed to, I’m open for that feedback.  Please reach out to me via [mail](mailto:brendt@stitcher.io) to tell me your thoughts. I don't question the sincerity and efforts of the FIG. I just genuinely believe they are trying to solve a problem that doesn't exist.
 
-Let me end with how I started: the FIG has had a great impact on the PHP community, I'm very thankful for the early work they did as pioneers. The whole community needs to acknowledge that. I also think the FIG has reached its goal, and the project should be called complete.
+Let me end with how I started: the FIG has had a great impact on the PHP community, I'm very thankful for the early work they did as pioneers and the whole community needs to acknowledge that. I also think the FIG has reached its goal, and the project should be called complete.
 
 ---
 

@@ -1,5 +1,5 @@
 birth-and-death-of-a-framework:
-    date: 2021-09-03
+    date: 2021-09-19
     title: The birth and death a framework
     content: src/content/blog/2021-09-03-birth-and-death-of-frameworks.md
     hideBanner: true
@@ -9,6 +9,16 @@ birth-and-death-of-a-framework:
         - { link: https://www.youtube.com/watch?v=T29WzvaPNc8, title: Eric's talk about rethinking time }
         - { link: https://www.jetbrains.com/lp/devecosystem-2021/methodology, title: JetBrains' Survey methodology }
         - { link: https://insights.stackoverflow.com/survey/2021#methodology, title: StackOverflow's Survey methodology }
+
+php-81-readonly-properties:
+    date: 2021-09-11
+    title: "PHP 8.1: readonly properties"
+    content: src/content/blog/2021-09-11-readonly-properties.md
+    footnotes:
+        - { link: https://wiki.php.net/rfc/readonly_properties_v2, title: "The readonly properties RFC" }
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+        - { link: /blog/evolution-of-a-php-object, title: "Evolution of objects in PHP over the years" }
+        - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning readonly properties" }
 
 my-ikea-clock:
     date: 2021-09-01
@@ -102,7 +112,7 @@ an-event-driven-mindset:
 
 cloning-readonly-properties-in-php-81:
     date: 2021-07-06
-    title: Cloning and changing readonly properties in PHP 8.1
+    title: "PHP 8.1: cloning and changing readonly properties"
     content: src/content/blog/2021-07-06-cloning-readonly-properties-in-php-81.md
     smallTitle: true
     meta:
@@ -122,11 +132,13 @@ new-in-php-81:
     meta:
         description: "What we can expect to come in PHP 8.1"
     footnotes:
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
+        - { link: /blog/php-81-readonly-properties, title: "Readonly properties in depth" }
         - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning and changing readonly properties" }
         - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
+        - { link: /blog/php-81-before-and-after, title: "PHP 8.1: before and after" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/new-in-php-73, title: "What's new in PHP 7.3" }
 
 what-about-request-classes:
     date: 2021-06-29
@@ -276,8 +288,8 @@ dont-write-your-own-framework:
 
 php-enums:
     date: 2021-02-17
-    title: Enums in PHP 8.1
-    content: src/content/blog/2021-02-17-php-enums.md
+    title: "PHP 8.1: Enums"
+    content: src/content/blog/2021-02-17-php-81-enums.md
     next: new-in-php-81
     meta:
         description: "Enums in PHP 8.1"
