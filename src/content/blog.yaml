@@ -106,6 +106,7 @@ cloning-readonly-properties-in-php-81:
     meta:
         description: "Readonly properties in PHP 8.1 can't be changed — or can they?"
     footnotes:
+        - { link: /blog/php-81-readonly-properties, title: "An in-depth look at readonly properties" }
         - { link: https://github.com/spatie/php-cloneable, title: "spatie/php-cloneable" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
         - { link: https://wiki.php.net/rfc/readonly_properties_v2, title: "The readonly properties RFC" }
