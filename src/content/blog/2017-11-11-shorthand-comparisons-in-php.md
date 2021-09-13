@@ -154,10 +154,10 @@ It will either trigger an error or return a boolean, instead of the real lefthan
 $output = isset($input['key']) ?: 'fallback' 
 
 // The following will trigger an 'undefined index' notice 
-// when $output is no array or has no 'key'.
+// when $input is no array or has no 'key'.
 //
 // It will trigger an 'undefined variable' notice 
-// when $output doesn't exist.
+// when $input doesn't exist.
 $output = $input['key'] ?: 'fallback';
 ```
 
