@@ -14,8 +14,19 @@
 {
     <hljs keyword>public <hljs comment>/-readonly</hljs></hljs> <hljs type>string</hljs> <hljs prop>$prop</hljs>;
     
-    <hljs comment>/-public function fromInterface(int $i): int {
+    <hljs comment>/--public function fromInterface(int $i): int {
         return $i + 1;
     }</hljs>
 }
+```
+
+```txt
+<hljs comment>/--final class Foo implements Bar
+{
+    public readonly string $prop;
+    
+    public function fromInterface(int $i): int {
+        return $i + 1;
+    }
+}</hljs>
 ```

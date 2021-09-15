@@ -1,7 +1,7 @@
-slashdot-comments:
+slashdash-comments:
     date: 2021-09-14
-    title: Slashdot comments
-    content: src/content/blog/2021-09-14-slashdot-comments.md
+    title: Slashdash comments
+    content: src/content/blog/2021-09-14-slashdash-comments.md
 
 php-81-readonly-properties:
     date: 2021-09-11
