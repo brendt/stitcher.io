@@ -1,6 +1,4 @@
-In [PHP 8.1](/blog/new-in-php-81), readonly properties aren't allowed to be overridden as soon as they are initialized. That also means that cloning an object and changing one of its readonly properties isn't allowed. It's likely that PHP will get some kind of `<hljs keyword>clone with</hljs>` functionality in the future, but for now we'll have to work around the issue.
-
-{{ ad:carbon }}
+In [PHP 8.1](/blog/new-in-php-81), [readonly properties](/blog/php-81-readonly-properties) aren't allowed to be overridden as soon as they are initialized. That also means that cloning an object and changing one of its readonly properties isn't allowed. It's likely that PHP will get some kind of `<hljs keyword>clone with</hljs>` functionality in the future, but for now we'll have to work around the issue.
 
 Let's imagine a simple DTO class with readonly properties:
 
@@ -31,7 +29,7 @@ It's very likely PHP will add some kind of mechanism to clone objects and overri
 
 So, at least for PHP 8.1, we'll need a way around this issue. Which is exactly what I did, and why I created a package that you can use as well: [https://github.com/spatie/php-cloneable](*https://github.com/spatie/php-cloneable).
 
-{{ cta:mail }}
+{{ cta:dynamic }}
 
 Here's how it works. First you download the package using composer, and next use the `<hljs type>Spatie\Cloneable\Cloneable</hljs>` trait in all classes you want to be cloneable:
 
@@ -66,3 +64,7 @@ There are of course a few caveats:
 I imagine this package being useful for simple data-transfer and value objects; which are exactly the types of objects that readonly properties were designed for to start with.
 
 For my use cases, this implementation will suffice. And since I believe in [opinion-driven design](/blog/opinion-driven-design), I'm also not interested in added more functionality to it: this package solves one specific problem, and that's good enough.
+
+{{ cta:like }}
+
+{{ cta:mail }}
