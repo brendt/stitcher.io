@@ -1,3 +1,8 @@
+static-mails:
+    date: 2021-09-22
+    title: Static mails
+    content: src/content/blog/static-mails.md
+
 birth-and-death-of-a-framework:
     date: 2021-09-16
     title: The birth and death of a framework

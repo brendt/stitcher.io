@@ -185,3 +185,25 @@
 /favicon:
     template: favicon.twig
 
+
+/mails:
+    template: blog/overview.twig
+    variables:
+        title: Mails
+        posts: src/content/mails.yaml
+        detailUrl: '/mails'
+    config:
+        order:
+            variable: posts
+            field: date
+            direction: desc
+
+/mails/{id}:
+    template: mails/detail.twig
+    variables:
+        post: src/content/mails.yaml
+
+    config:
+        collection:
+            variable: post
+            parameter: id
