@@ -8,10 +8,20 @@ static-analysis-02:
     title: Different Kinds of Analysers
     content: src/content/mails/static-analysis-02.md
 
+static-analysis-03:
+    date: 2021-09-22
+    title: What Static Analysis Can Do
+    content: src/content/mails/static-analysis-03.md
+
+static-analysis-04:
+    date: 2021-09-22
+    title: Establishing a Baseline
+    content: src/content/mails/static-analysis-04.md
+
 ## Some examples
-## Establishing a baseline
-## SA in CI
 ## Generics!?!
 ## Class-string
+## Taint Analysis
+## Static analysis in CI
 ## Phan
-## The others: linting and coding standards
+## Linting and coding standards
