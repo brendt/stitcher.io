@@ -53,3 +53,5 @@ Anyway, that's entirely up to you, feel free to wait a couple of days to see whe
 **One more thing I'd like to ask**: if you enjoy this series, I'd very much appreciate it if you shared it with your friends, colleagues, your follower base, on Reddit, HackerNews, or any other place you can think of. Sharing my content really helps me out.
 
 Finally: don't hesitate to hit "reply" and share your thoughts during this series. **I love getting replies**! I always try my best to answer as soon as possible, though it might sometimes take a few days. I'm looking forward to hearing from you!
+
+Brent

@@ -226,6 +226,28 @@
         text-align: left;
     }
 
+    h5 {
+        color: #333;
+        margin-top: -10px;
+        font-weight: normal;
+        font-style: italic;
+        text-align: center;
+    }
+
+    hr {
+        position: relative;
+        border: none;
+        text-align: center;
+        margin: 3rem auto;
+    }
+
+    hr::before {
+        display: inline-block;
+        border-bottom: solid #333 1px;
+        content: ' ';
+        width: 30%;
+    }
+
     li,
     p {
         color: rgb(61, 25, 29);
@@ -539,6 +561,10 @@
                             <!-- Body content -->
                             <tr>
                                 <td class="content-cell">
+                                    <p>
+                                        Hi, ::subscriber.first_name::
+                                    </p>
+
                                     {{ post.content|raw }}
                                 </td>
                             </tr>
