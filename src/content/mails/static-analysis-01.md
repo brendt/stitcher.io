@@ -22,15 +22,17 @@ Imagine we'd call this function but accidentally pass it a string instead of an 
 <hljs prop>foo</hljs>('wrong input');
 ```
 
-Of course, this function would throw a `<hljs type>TypeError</hljs>` when running it, though just by _looking_ at it, we could already tell it was wrong: a function that accepts an `<hljs type>array</hljs>`, will not accept an `<hljs type>int</hljs>`.
+Of course, this function would throw a `<hljs type>TypeError</hljs>` when running it, though just by _looking_ at it, we could already tell it was wrong: a function that accepts an `<hljs type>array</hljs>`, will not accept a `<hljs type>string</hljs>`.
 
-This is the core of any static analyser: looking at type definitions and function calls; and determine whether those operations are valid or not.
+This is the core of any static analyser: looking at type definitions and function calls; and determining whether those operations are valid or not.
 
-It might seem like a simple thing to do, but if you automate this process and scan _all_ your source code, static analysis can actually detect quite a lot of edge cases that you might have missed otherwise. 
+It might seem like a simple thing to do, but if you automate this process and scan _all_ your source code; static analysers can actually detect quite a lot of edge cases that you might have missed otherwise. 
 
-You'll have to pay a small price to enjoy all the benefits of static analysers: you'll have to use properly PHP's type system. In fact, most static analysers won't only take PHP's built-in types into account, but will also look at doc blocks. The more information available, the better.
+You do need to pay a small price to enjoy all the benefits that come with static analysis: you'll have to use properly PHP's type system. In fact, most static analysers won't only take PHP's built-in types into account, but will also look at doc blocks. The more information available, the better.
 
-Doesn't that become tedious? Wouldn't it be faster to run your code an see whether it works? On a small scale the answer would be yes, maybe? I hope that you'll be convinced otherwise by the end of this series though. It's also important to mention that static analysers will try their absolute best to ensure you don't have to write unnecessary code just to make them happy. These are smart programs, and you'll be surprised by what they can do!
+Doesn't that become tedious? Wouldn't it be faster to run your code an see whether it works? On a small scale the answer would be yes, maybe? I hope that you'll be convinced otherwise by the end of this series though. 
+
+It's also important to mention that static analysers will try their absolute best to ensure you don't have to write unnecessary code just to make them happy. These are smart programs, and you'll be surprised by what they can do!
 
 So, for the sake of completeness, let's mark our previous example as an error — the same way any static analyser would do:
 
@@ -38,15 +40,17 @@ So, for the sake of completeness, let's mark our previous example as an error �
 <hljs prop>foo</hljs>(<hljs striped>'wrong input'</hljs>);
 ```
 
+##### Error: Argument 1 of foo expects array, "wrong input" provided
+
 And let's continue tomorrow, where we'll look at how to actually get started with static analysers.
 
-See you tomorrow!
+See you then!
 
 ## A couple of practical things
 
 If you're new to these kinds of [newsletter series](https://road-to-php.com/), I want to get you up to date on a few things: you've subscribed to a separate list that's only used for this series. After the series has ended, you'll be automatically unsubscribed, and will not receive any more emails, ever.
 
-_However_, if you enjoy my content, you can [subscribe to my main newsletter](https://stitcher.io/mail) to receive more updates. I occasionally about blog posts, personal updates, newsletter series likes these, … 
+_However_, if you enjoy my content, you can [subscribe to my main newsletter](https://stitcher.io/mail) to receive more updates. I occasionally write about blog posts, personal updates, newsletter series likes these, etc.
 
 Anyway, that's entirely up to you, feel free to wait a couple of days to see whether you find this series helpful.
 

@@ -8,7 +8,7 @@ function foo(<hljs type>array</hljs> $input): void {}
 <hljs prop>foo</hljs>(<hljs striped>'wrong input'</hljs>);
 ```
 
-##### Error: Argument 1 of foo expects array<array-key, mixed>, "wrong input" provided
+##### Error: Argument 1 of foo expects array, "wrong input" provided
 
 Not only that, but Psalm, for example, also tells you that `$input` in the function is actually _never_ used:
 
