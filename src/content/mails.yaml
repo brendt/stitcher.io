@@ -25,6 +25,14 @@ static-analysis-05:
 
 ## Taint Analysis
 ## Class-string
-## Static analysis in CI
+
+static-analysis-08:
+    date: 2021-09-22
+    title: Static Analysis and CI
+    content: src/content/mails/static-analysis-08.md
+
 ## Phan
+    # https://github.com/phan/phan/wiki/Tutorial-for-Analyzing-a-Large-Sloppy-Code-Base:
+    # https://github.com/nikic/php-ast#installation:
+
 ## Linting and coding standards
