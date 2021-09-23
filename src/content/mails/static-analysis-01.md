@@ -28,7 +28,7 @@ This is the core of any static analyser: looking at type definitions and functio
 
 It might seem like a simple thing to do, but if you automate this process and scan _all_ your source code; static analysers can actually detect quite a lot of edge cases that you might have missed otherwise. 
 
-You do need to pay a small price to enjoy all the benefits that come with static analysis: you'll have to use properly PHP's type system. In fact, most static analysers won't only take PHP's built-in types into account, but will also look at doc blocks. The more information available, the better.
+You do need to pay a small price to enjoy all the benefits that come with static analysis: you'll have to use properly PHP's type system. In fact, most static analysers won't only take PHP's built-in types into account, but will also look at docblocks. The more information available, the better.
 
 Doesn't that become tedious? Wouldn't it be faster to run your code an see whether it works? On a small scale the answer would be yes, maybe? I hope that you'll be convinced otherwise by the end of this series though. 
 

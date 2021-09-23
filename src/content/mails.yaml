@@ -18,10 +18,13 @@ static-analysis-04:
     title: Establishing a Baseline
     content: src/content/mails/static-analysis-04.md
 
-## Some examples
-## Generics!?!
-## Class-string
+static-analysis-05:
+    date: 2021-09-22
+    title: Generics!?!
+    content: src/content/mails/static-analysis-05.md
+
 ## Taint Analysis
+## Class-string
 ## Static analysis in CI
 ## Phan
 ## Linting and coding standards
