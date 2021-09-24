@@ -186,23 +186,44 @@
     template: favicon.twig
 
 
-/mails:
+/mails-static:
     template: blog/overview.twig
     variables:
         title: Mails
-        posts: src/content/mails.yaml
-        detailUrl: '/mails'
+        posts: src/content/mails-static.yaml
+        detailUrl: '/mails-static'
     config:
         order:
             variable: posts
             field: date
             direction: desc
 
-/mails/{id}:
-    template: mails/detail.twig
+/mails-static/{id}:
+    template: mails/static.twig
     variables:
-        post: src/content/mails.yaml
+        post: src/content/mails-static.yaml
+    config:
+        collection:
+            variable: post
+            parameter: id
 
+
+/mails-road-81:
+    template: blog/overview.twig
+    variables:
+        title: Mails
+        posts: src/content/mails-road-81.yaml
+        detailUrl: '/mails-road-81'
+    config:
+        order:
+            variable: posts
+            field: date
+            direction: desc
+
+/mails-road-81/{id}:
+    template: mails/road-81.twig
+    variables:
+        post: src/content/mails-road-81.yaml
     config:
         collection:
             variable: post
