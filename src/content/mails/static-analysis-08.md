@@ -1,4 +1,4 @@
-A week ago, at the beginning of these series, I made a distinction between running static analysers in realtime while coding, and running as standalone programs. While the boundaries are a little troubled — PhpStorm can run Psalm and PHPStan in "realtime", and PhpStorm's inspections can also be run standalone — the simplest way of thinking about this is that your IDE will perform realtime analysis, while tools like Psalm and PHPStan will most likely be run separately.
+A week ago, at the beginning of these series, I made a distinction between running static analysers in realtime while coding, and running them as standalone programs. While the boundaries are a little troubled — PhpStorm can run Psalm and PHPStan in "realtime", and PhpStorm's inspections can also be run standalone — the simplest way of thinking about this is that your IDE will perform realtime analysis, while tools like Psalm and PHPStan will most likely be run separately.
 
 In the latter case, there's an opportunity to run them in some kind of continuous integration (CI) flow. Running static analysers locally can be helpful, though they take a while, and it's most important that the integrity of your code is ensured before deploying.
 
@@ -43,11 +43,11 @@ Let's take a look at a simplified GitHub action YAML to run Psalm in a Laravel p
           <hljs prop>extensions</hljs>: ${{ env.extensions }}
           <hljs prop>coverage</hljs>: none
 
-      - <hljs keyword>name</hljs>: Create sqlite database
-        <hljs keyword>run</hljs>: touch db.sqlite
-
       - <hljs keyword>name</hljs>: Run composer install
         <hljs keyword>run</hljs>: composer install -n --prefer-dist
+
+      - <hljs keyword>name</hljs>: Create sqlite database
+        <hljs keyword>run</hljs>: touch db.sqlite
 
       - <hljs keyword>name</hljs>: Prepare Laravel Application
         <hljs keyword>run</hljs>: |
@@ -62,9 +62,9 @@ Let's take a look at a simplified GitHub action YAML to run Psalm in a Laravel p
         <hljs keyword>run</hljs>: ./vendor/bin/psalm --threads=1 --no-diff
 ```
 
-The first part of this action is the basic setup: installing PHP and its extensions, setting up an SQLite database and installing the composer dependencies; I actually removed the caching steps to keep it smaller for the purpose of this mail. 
+The first part of this action is the basic setup: installing PHP and its extensions and installing the composer dependencies; I actually removed the caching steps to keep it smaller for the purpose of this mail. 
 
-The next two steps are about setting up specifically Laravel. The IDE helper files are needed in order for Psalm to better understand Laravel's magic.
+The next steps are about setting up specifically Laravel. The SQLite database are needed to generate the IDE helper files, which in turn are needed by Psalm in order to better understand Laravel's magic.
 
 And finally, we simply run Psalm. If it fails, GitHub will let us know.
 
@@ -72,7 +72,7 @@ The important lesson here is that you shouldn't bother running Psalm or PHPStan 
 
 Whatever your preference, the power of these tools is that they can run in the background, while you're concerned with other things. They are doing part of the work for you.
 
-Now, both Psalm and PHPStan have options to improve their performance, however I don't find them particularly useful. Even when running them in "realtime" via PhpStorm, the are still noticeably slower. This is why I personally don't bother with trying to run them as fast as possible, I'm sure my GitHub Action will tell me when something's wrong.
+Now, both Psalm and PHPStan have options to improve their performance, however I don't find them particularly useful. Even when running them in "realtime" via PhpStorm, they are still noticeably slower. This is why I personally don't bother with trying to run them as fast as possible, I'm sure my GitHub Action will tell me when something's wrong.
 
 What's your favourite way of running static analysers? Let me know by hitting the reply button. 
 

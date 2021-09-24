@@ -1,6 +1,6 @@
 Ok so, we can do quite a lot with static analysis, it all seems nice _in theory_. But here I have a project that's 4 years old and when I add Psalm or PHPStan, I get over 3000 issues reported. Now what?
 
-Trying to fix all such issues at once is a daunting task — a counterproductive one if you ask me: the project has been in production for years and, ok, there might be issues, but it still works. It's actually quite scary fixing code that's broken according to your static analyser when you're not sure about that side effects that might have.
+Trying to fix all such issues at once is a daunting task — a counterproductive one if you ask me: the project has been in production for years and — ok — there might be issues, but it still works. It's actually quite scary fixing code that's broken according to your static analyser when you're not sure about the side effects that might have.
 
 Don't panic. There are several strategies to go about improving your project's static analysis results, without pulling out the big guns.
 
@@ -12,7 +12,7 @@ First of all, both Psalm and PHPStan allow you to configure a so-called "error l
 ./vendor/bin/psalm --init
 ```
 
-This command will initialize the `psalm.xml` config file, but will also scan your codebase, and determine what the best error level is to get started with. In Psalm, the lower the lever, the more strict it is. It goes from [level 1 to level 8](https://psalm.dev/docs/running_psalm/error_levels/), with 8 being the most lenient.
+This command will initialize the `psalm.xml` config file, but will also scan your codebase, and determine what the best error level is to get started with. In Psalm, the lower the lever, the more strict it is. It goes from [level 1 to level 8](https://psalm.dev/docs/running_psalm/error_levels/), with 1 being the strictest.
 
 Inspecting `psalm.xml` after initialization, you can see how the error level is stored in the XML. Feel free to change it if you want to try out other levels:
 
@@ -43,7 +43,7 @@ And of course, it's also saved in the config file:
 
 ## Ignore Errors
 
-Sometimes, you simply want to ignore an error. You want to tell the static analyzer that, yes, you know this is an errors; but it's ok for now. There are several ways to do this. 
+Sometimes, you simply want to ignore an error. You want to tell the static analyzer that — yes — you know this is an error; but it's ok for now. There are several ways to do this. 
 
 First of all, you can use docblocks to tell Psalm or PHPStan to specifically ignore a line:
 
@@ -91,7 +91,7 @@ There's of course more to say about configuring these error levels, you can read
 
 ## The Baseline
 
-The last option available — this _is_ the big gun — is the "baseline". Whenever you run Psalm or PHPStan, you can tell it to generate a baseline file. A baseline is a large file containing all current errors, and telling Psalm or PHPStan to simply ignore them.
+The last option available — this is _the big gun_ — is the "baseline". Whenever you run Psalm or PHPStan, you can tell it to generate a baseline file. A baseline is a large file containing all current errors, and telling Psalm or PHPStan to simply ignore them.
 
 This allows you to start from a clean slate, even in large projects, so that you can use static analysis in _new_ parts of the codebase, while not having to touch the older parts. Maybe you can refactor those old parts incrementally over time, or maybe you leave some of them alone — that's up to you and the project requirements.
 

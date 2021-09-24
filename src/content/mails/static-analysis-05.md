@@ -138,7 +138,18 @@ $collectionOfTags = new <hljs type>Collection</hljs>(
 );
 ```
 
-That's pretty neat! So what happens if you pass two different kind of objects into the same collection? Well, static analysers are smart enough to detect that as well:
+Now you can use those static insights:
+
+```php
+$collectionOfPosts[] = new <hljs type>Post</hljs>;
+
+$collectionOfPosts[] = <hljs striped>new <hljs type>Tag</hljs></hljs>;
+
+$collectionOfTags[0]->… 
+// Static analysers know this is a Tag object
+```
+
+That's pretty neat! So what happens if you pass two different kind of objects into the same collection when constructing it? Well, static analysers are smart enough to detect that as well:
 
 ```php
 $collectionOfPosts = new <hljs type>Collection</hljs>(
@@ -150,7 +161,7 @@ $collectionOfPosts = new <hljs type>Collection</hljs>(
 
 ##### Error: Parameter #2 ...$items of class Collection constructor expects Post, Tag given.
 
-There's one important note to make still. While it's awesome that tools like Psalm and PHPStan are smart enough to support generics, it's also important to have realtime feedback _while_ coding. PhpStorm recently [added basic support](https://blog.jetbrains.com/phpstorm/2021/07/phpstorm-2021-2-beta/) for generics, and I'm happy to say that most of the above example, _including_ generic type inference works in PhpStorm! The only thing that PhpStorm doesn't report, is if you're passing mixed types into the constructor, a good reason to rely on external tools alongside our IDE.
+There's one important note to make still. While it's awesome that tools like Psalm and PHPStan are smart enough to support generics, it's also important to have realtime feedback _while_ coding. PhpStorm recently [added basic support](https://blog.jetbrains.com/phpstorm/2021/07/phpstorm-2021-2-beta/) for generics, and I'm happy to say that most of the above examples, including generic type, inference works in PhpStorm! The only thing that PhpStorm doesn't report, is if you're passing mixed types into the constructor, a good reason to rely on external tools alongside our IDE.
 
 I think adding realtime support in PhpStorm was the final missing piece of the puzzle for generics to actually become usable in our projects, because that realtime feedback is so valuable. Go ahead and play around with them, both [PHPStan](https://psalm.dev/docs/annotating_code/templated_annotations/) and [Psalm](https://psalm.dev/docs/annotating_code/templated_annotations/) have dedicated pages explaining generics in depth.
 
