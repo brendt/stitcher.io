@@ -1,16 +1,21 @@
-'01':
+'00':
     date: 2021-09-22
     title: Welcome
+    content: src/content/mails/road-81-00.md
+
+'01':
+    date: 2021-09-22
+    title: Enums
     content: src/content/mails/road-81-01.md
 
 '02':
     date: 2021-09-22
-    title: Enums
+    title: First-Class Callables
     content: src/content/mails/road-81-02.md
 
 '03':
     date: 2021-09-22
-    title: First-Class Callables
+    title: Array Unpacking
     content: src/content/mails/road-81-03.md
 
 '04':
