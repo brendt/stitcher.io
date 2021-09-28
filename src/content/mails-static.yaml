@@ -48,6 +48,13 @@
     title: Static Analysis and CI
     content: src/content/mails/static-analysis-08.md
 
+'09':
+    date: 2021-09-22
+    title: Phan
+    content: src/content/mails/static-analysis-09.md
+
+
+
 ## Phan
     # https://github.com/phan/phan/wiki/Tutorial-for-Analyzing-a-Large-Sloppy-Code-Base:
     # https://github.com/nikic/php-ast#installation:
