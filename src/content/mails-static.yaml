@@ -33,8 +33,10 @@
     title: Psalm's Taint Analysis
     content: src/content/mails/static-analysis-06.md
 
-## Taint Analysis
-## Class-string
+'07':
+    date: 2021-09-22
+    title: Extended Docblocks
+    content: src/content/mails/static-analysis-07.md
 
 '08':
     date: 2021-09-22
