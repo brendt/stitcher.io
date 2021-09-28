@@ -28,6 +28,11 @@
     title: Generics!?!
     content: src/content/mails/static-analysis-05.md
 
+'06':
+    date: 2021-09-22
+    title: Psalm's Taint Analysis
+    content: src/content/mails/static-analysis-06.md
+
 ## Taint Analysis
 ## Class-string
 
