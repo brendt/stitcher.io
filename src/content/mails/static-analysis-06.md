@@ -4,7 +4,10 @@ That's a difficult task to get right though: a "taint source" — the origin of 
 
 On the other hand, security vulnerabilities can often be much more dangerous than type errors: type errors most likely result in a crash somewhere, while a security issue is often much more subtle. Matthew Brown, the creator of Psalm, [phrased it](https://psalm.dev/articles/detect-security-vulnerabilities-with-psalm) like this:
 
-> While a null-pointer error can make itself known very quickly, you can execute code for a decade without noticing it has a serious [security] vulnerability.
+<div class="quote">
+
+While a null-pointer error can make itself known very quickly, you can execute code for a decade without noticing it has a serious [security] vulnerability.
+</div>
 
 Taint analysis to the rescue: if we're already scanning our code for type errors, why not scan it for these kinds of issues as well. There is of course a performance cost to doing this, which is why running the taint analyser is a separate option in Psalm:
 

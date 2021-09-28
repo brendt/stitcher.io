@@ -51,9 +51,12 @@ On top of that, Psalm and PHPStan extend PHP's type system, in order to allow fo
 
 We're going to look at many of those features in later emails, no worries!
 
-> On **the matter of docblock types**, I wrote an [in-depth blog post](https://stitcher.io/blog/we-dont-need-runtime-type-checks) on my point of view about PHP's type system. 
-> 
-> I really like that static analysers extend PHP's type system using docblocks; though ideally, I'd want built-in syntax in PHP that can be used by static analysers and are ignored at runtime. Definitely read [the post](https://stitcher.io/blog/we-dont-need-runtime-type-checks) if you want to know more!
+<div class="quote">
+
+On **the matter of docblock types**, I wrote an [in-depth blog post](https://stitcher.io/blog/we-dont-need-runtime-type-checks) on my point of view about PHP's type system. 
+
+I really like that static analysers extend PHP's type system using docblocks; though ideally, I'd want built-in syntax in PHP that can be used by static analysers and are ignored at runtime. Definitely read [the post](https://stitcher.io/blog/we-dont-need-runtime-type-checks) if you want to know more!
+</div>
 
 What's unfortunate about sending a newsletter, is that it's impossible to appreciate the power of static analysis within a larger context, a real project. Projects that are worked on for years with several developers truly benefit from as much automation as possible, and I'd say that static analysis cannot be missed in those cases.
 

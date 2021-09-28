@@ -85,9 +85,12 @@ You can see how Psalm uses XML entries to specifically disable issues, while PHP
 
 There's of course more to say about configuring these error levels, you can read all about them in the [Psalm](https://psalm.dev/docs/running_psalm/dealing_with_code_issues/) and [PHPStan](https://phpstan.org/user-guide/ignoring-errors) docs.
 
-> Can I quickly pitch in before moving on to the last section of this mail? I just wanted to remind you how much I appreciate it you're reading these mails. If you made it here, I think it's safe to assume you like the series? If there's anything that can be improved, if you have any questions or interesting thoughts, don't hesitate to hit reply!
-> 
-> Also, if you want to, can I ask you to [share](https://road-to-php.com/static) the series website with your friends and followers? Word of mouth really is the best way to get more people excited about static analysis, and you're playing an important role. Let's get everyone excited about modern PHP! 
+<div class="quote">
+
+Can I quickly pitch in before moving on to the last section of this mail? I just wanted to remind you how much I appreciate it you're reading these mails. If you made it here, I think it's safe to assume you like the series? If there's anything that can be improved, if you have any questions or interesting thoughts, don't hesitate to hit reply!
+
+Also, if you want to, can I ask you to [share](https://road-to-php.com/static) the series website with your friends and followers? Word of mouth really is the best way to get more people excited about static analysis, and you're playing an important role. Let's get everyone excited about modern PHP! 
+</div>
 
 ## The Baseline
 

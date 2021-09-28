@@ -8,7 +8,10 @@ The payoff when using static analysis?
 
 So, first things first, what _is_ static analysis about? I'll try to come up with the most basic definition possible:
 
-> **Static analysis** is about letting a program analyse your code for bugs, without actually running that code.
+<div class="quote">
+
+**Static analysis** is about letting a program analyse your code for bugs, without actually running that code.
+</div>
 
 How's that possible? Let's pretend we're a static analyser for a moment, and look at this function:
 

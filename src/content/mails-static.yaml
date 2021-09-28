@@ -1,3 +1,8 @@
+'template':
+    date: 2021-09-22
+    title: Welcome
+    content: src/content/mails/static-analysis-template.md
+
 '00':
     date: 2021-09-22
     title: Welcome

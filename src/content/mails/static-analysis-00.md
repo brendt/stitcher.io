@@ -43,8 +43,11 @@ My thinking was that adding support for generic syntax shouldn't be all that har
 
 Of course there could still be _some_ type information exposed at runtime via reflection, but we can't deny that having types ignored at runtime is a major paradigm shift that most PHP developers aren't used to. Here's [Sara's response](*https://www.reddit.com/r/PHP/comments/iuhtgd/ive_proposed_an_approach_to_generics_on_internals/g5pgkbn/) on my runtime-ignored generics idea (which Hack already does) and how it requires a mind-shift:
 
-> Oh, I agree that there's real value in HackLang's approach. It's just that there is a mountain of inertia around "The PHP Way" and it's going to take an equal and opposite mountain to alter course.
-> Entirely possible, even probable, but we won't see that level of shift in the next five years.
+<div class="quote">
+
+Oh, I agree that there's real value in HackLang's approach. It's just that there is a mountain of inertia around "The PHP Way" and it's going to take an equal and opposite mountain to alter course.
+Entirely possible, even probable, but we won't see that level of shift in the next five years.
+</div>
 
 It'll take a few more years, but it's probably the way PHP _will_ evolve anyway, according to Sara.
 
@@ -56,12 +59,18 @@ If there was an official spec supported by internals, static analysis vendors wo
 
 The idea of a centralised static analyser isn't new, by the way, but you can imagine it's a massive undertaking to get right. Here's [Rasmus](*https://externals.io/message/101477#101592) on the matter a few years ago:
 
-> Now if the RFC was a plan for baking a compile-time static analysis engine
-> into PHP itself, that would be interesting. But that is a massive project.
+<div class="quote">
+
+Now if the RFC was a plan for baking a compile-time static analysis engine
+into PHP itself, that would be interesting. But that is a massive project.
+</div>
 
 When I asked Nikita about the idea of runtime-ignored types and generics, he described the main problem with generics that _have_ a runtime implementation [like so](*https://www.reddit.com/r/PHP/comments/j65968/ama_with_the_phpstorm_team_from_jetbrains_on/g7zg9mt/):
 
-> Complexity is a pretty big problem for us, and I think severely underestimated by non-contributors. Feature additions that seem simple on the surface tend to interact with other existing features in ways that balloon the complexity.
+<div class="quote">
+
+Complexity is a pretty big problem for us, and I think severely underestimated by non-contributors. Feature additions that seem simple on the surface tend to interact with other existing features in ways that balloon the complexity.
+</div>
 
 He also called runtime-erased generics "the cowards way out". The reason Nikita says that is because, if runtime-erased generics were supported, it would mean there's a huge inconsistency within PHP's type system where some parts are checked at runtime, and other parts are checked statically.
 
@@ -69,7 +78,10 @@ So to be clear: I don't think runtime-erased or runtime-ignored generics are whe
 
 I asked Nikita if he thought such a version of PHP would have merit, he [said this](*https://www.reddit.com/r/PHP/comments/j65968/ama_with_the_phpstorm_team_from_jetbrains_on/g83vvav/):
 
-> I think that would be a good thing... but then again, lots of things would be different in PHP if we'd do a clean-slate redesign now. We have to work within the constraints we have, somehow.
+<div class="quote">
+
+I think that would be a good thing... but then again, lots of things would be different in PHP if we'd do a clean-slate redesign now. We have to work within the constraints we have, somehow.
+</div>
 
 From a userland-developer point of view, I think we _can_ work with the given constraints, as long as there's a large enough user base supporting these ideas.
 
