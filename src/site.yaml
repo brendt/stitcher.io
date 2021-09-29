@@ -237,3 +237,12 @@
         collection:
             variable: post
             parameter: id
+
+/mails-front-line/{id}:
+    template: mails/front-line.twig
+    variables:
+        post: src/content/mails-front-line.yaml
+    config:
+        collection:
+            variable: post
+            parameter: id
