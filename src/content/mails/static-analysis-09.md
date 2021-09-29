@@ -9,13 +9,13 @@ Phan prefers to avoid false-positives and attempts to prove incorrectness rather
 
 But what does that mean?
 
-Well, it's important to realise why Phan was created in the first place: Rasmus Lerdorf — the creator of PHP — created this tool specifically for their enormous codebase at Etsy. As we've seen in a previous email, using a static analyser in an existing code base differs a lot from using it from day 1. There are ways to cope with existing project errors by ignoring them and setting a baseline, but still Phan wanted to shift its focus more to just finding actual bugs.
+Well, it's important to realise why Phan was created in the first place: Rasmus Lerdorf — the creator of PHP — created this tool specifically for their enormous codebase at Etsy. As we've seen in a previous email, using a static analyser in an existing codebase differs a lot from using it from day 1. There are ways to cope with existing project errors by ignoring them and setting a baseline, but still Phan wanted to shift its focus more to just finding actual bugs.
 
-Does that make it less useful? Definitely not. It's maybe even easier to start using Phan in existing projects because of this characteristic. On top of that, there's Phan's speed. It's ideally used in combination with the [php-ast extension](https://github.com/nikic/php-ast#installation). Note that there's also the [PHP-Parser package](https://github.com/nikic/PHP-Parser), which is a similar implementation written in plain PHP. In fact, both Psalm and PHPStan use the latter; while Phan recommends using the extension.
+Does that make it less useful? Definitely not. It's maybe even easier to start using Phan in existing projects because of this characteristic. On top of that, there's Phan's speed. Phan is significantly faster than Psalm or PHPStan, because it uses a PHP extension to scan your codebase.
 
-All it requires is a `pecl install php-ast` by the way, there's nothing really complex to it, _but_ it does offer the benefit of making Phan x-times faster than Psalm or PHPStan. This can be beneficial for large code bases.
+Technically, it can run without the [php-ast extension](https://github.com/nikic/php-ast#installation), but Phan recommends installing it because of the performance gains. All it requires is a `pecl install ast` by the way, there's nothing really complex to it. Note that there's also the [PHP-Parser package](https://github.com/nikic/PHP-Parser), which is a similar implementation written in plain PHP. In fact, both Psalm and PHPStan use the latter; which is why Phan is so much faster.
 
-From my limited experience with Phan, I find that its major downside though is the lack of tooling. Where Psalm and PHPStan offer a proper CLI integration, Phan basically tells you to use UNIX commands to build a report for yourself:
+From my limited experience with Phan though, I find that one of its downsides is the lack of tooling. Where Psalm and PHPStan offer a proper CLI integration, Phan basically tells you to use UNIX commands to build a report for yourself:
 
 ```txt
 phan --progress-bar -o analysis.txt
@@ -31,7 +31,7 @@ cat analysis.txt \
 
 I must admit that being used to Psalm and PHPStan, this bare-bones approach was a little off-putting.
 
-There are some proponents of Phan though, claiming it has better integration with PHP extensions and doesn't bother developers with false positives — I can see merit in those.
+On the other hand, proponents of Phan say it has better integration with PHP extensions and doesn't bother developers with false positives — I can see merit in those.
 
 Yet, what I think is lacking the most is a proper community: there's no Twitter account for Phan or dedicated website. It kind of lives on its own in its GitHub repository, while Psalm and PHPStan are much more _out there_. That doesn't say anything about the tool itself, though a small community often is a limiting factor in its growth.
 
