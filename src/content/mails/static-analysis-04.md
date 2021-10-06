@@ -26,7 +26,7 @@ Inspecting `psalm.xml` after initialization, you can see how the error level is 
 
 ##### psalm.xml
 
-PHPStan [turns things around](https://phpstan.org/user-guide/rule-levels): level 0 is the most lenient, while level 9 the most strict. You can use the `-l` flag to override the level when analyzing your codebase:
+PHPStan [turns things around](https://phpstan.org/user-guide/rule-levels): level 0 is the most lenient, while level 8 the most strict. You can use the `-l` flag to override the level when analyzing your codebase:
 
 ```
 ./vendor/bin/phpstan analyse -l 6 src tests
