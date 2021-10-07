@@ -43,21 +43,35 @@ A cool feature of PHPStan is that you can define type aliases in its config file
 
 ##### phpstan.neon
 
+As well as [inline in docblocks](https://phpstan.org/writing-php-code/phpdoc-types#local-type-aliases):
+
 ```php
 /**
- * @param <hljs type>TagOrCategory</hljs> $input
+ * @<hljs text>phpstan-type</hljs> 
+ *      <hljs type>UserAddress</hljs> <hljs type>array</hljs>{
+ *          <hljs prop>street</hljs>: <hljs type>string</hljs>, 
+ *          <hljs prop>city</hljs>: <hljs type>string</hljs>, 
+ *          <hljs prop>zip</hljs>: <hljs type>string</hljs>
+ *      }
  */
-function tagOrCategory($input) 
+class User {}
+```
+
+Aliasing a union type might not be as useful, but aliasing complex array structures could be very beneficial in many places:
+
+```php
+/**
+ * @param <hljs type>UserAddress</hljs> $address
+ */
+function setAddress(<hljs type>array</hljs> $address) 
 {
     // …
 }
 ```
 
-Aliasing a union might not be as useful, but for more complex type definitions that are often used and can't be written in PHP, it could offer some benefits.
-
 ## Callable Types
 
-One such complex definition would be a callable type. Both [Psalm](https://psalm.dev/docs/annotating_code/type_syntax/callable_types/) and [PHPStan](https://phpstan.org/config-reference#vague-typehints) also support a callable type annotation:
+Another complex type definition is the callable type. Both [Psalm](https://psalm.dev/docs/annotating_code/type_syntax/callable_types/) and [PHPStan](https://phpstan.org/config-reference#vague-typehints) also support a callable type annotation:
 
 ```php
 /**

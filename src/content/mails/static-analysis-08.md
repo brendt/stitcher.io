@@ -72,7 +72,13 @@ The important lesson here is that you shouldn't bother running Psalm or PHPStan 
 
 Whatever your preference, the power of these tools is that they can run in the background, while you're concerned with other things. They are doing part of the work for you.
 
-Now, both Psalm and PHPStan have options to improve their performance, however I don't find them particularly useful. Even when running them in "realtime" via PhpStorm, they are still noticeably slower. This is why I personally don't bother with trying to run them as fast as possible, I'm sure my GitHub Action will tell me when something's wrong.
+Now, both Psalm and PHPStan have significantly improved their performance over time. Still, when running them in "realtime" via PhpStorm, there is a noticeable delay. This is why I personally don't bother with trying to run them as fast as possible, I'm sure my GitHub Action will tell me when something's wrong.
+
+---
+
+I do want to mention that this is just my personal preference. I talked with Ondřej Mirtes about this topic, and he described an opposite workflow to mine. He called it "type-driven refactoring": when doing a refactor, he starts by deliberately breaking type definitions and sees what code PHPStan reports is breaking, so that he knows which places are affected. 
+
+It's definitely an interesting approach, and one that I'll experiment with in the near future!
 
 What's your favourite way of running static analysers? Let me know by hitting the reply button. 
 

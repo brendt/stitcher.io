@@ -25,7 +25,7 @@ Embrace these three pillars, you'll be better off in the long run.
 
 ---
 
-And so, this concludes the second edition of The Road to PHP. If you missed the first one by any chance, you can check it out [here](https://road-to-php.com/) (it's about PHP 8.1).
+And so, this concludes the second edition of The Road to PHP. If you missed the first one by any chance, you can check it out [here](https://road-to-php.com/) (it's about PHP 8.1). Special thanks goes to Matt, Ondřej, Nuno and Christoph for reviewing this series!
 
 There's one very important note to make: you'll be automatically unsubscribed from this list (in fact, you already are when you're reading this mail). That means you won't receive any more followups from me. If you want to receive updates about my content though, you can subscribe to my [main newsletter](https://stitcher.io/mail). I'll definitely work on a third edition of the Road to PHP in the future, so if you want to be kept in the loop about that one, my main newsletter is the place to be!
 
