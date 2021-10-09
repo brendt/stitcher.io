@@ -1,7 +1,14 @@
-static-mails:
-    date: 2021-09-22
-    title: Static mails
-    content: src/content/blog/static-mails.md
+php-81-new-in-inititalizers:
+    date: 2021-10-09
+    title: "PHP 8.1: new in initializers"
+    content: src/content/blog/2021-10-09-new-in-initializers.md
+    footnotes:
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
+        - { link: https://wiki.php.net/rfc/new_in_initializers, title: "The new in initializers RFC" }
+        - { link: /blog/php-81-readonly-properties, title: "Readonly properties in PHP 8.1" }
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+        - { link: /blog/evolution-of-a-php-object, title: "Evolution of objects in PHP over the years" }
+        - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning readonly properties" }
 
 birth-and-death-of-a-framework:
     date: 2021-09-16
@@ -20,7 +27,9 @@ php-81-readonly-properties:
     title: "PHP 8.1: readonly properties"
     content: src/content/blog/2021-09-11-readonly-properties.md
     footnotes:
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
         - { link: https://wiki.php.net/rfc/readonly_properties_v2, title: "The readonly properties RFC" }
+        - { link: /blog/php-81-new-in-inititalizers, title: "PHP 8.1: new in initializers" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
         - { link: /blog/evolution-of-a-php-object, title: "Evolution of objects in PHP over the years" }
         - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning readonly properties" }
@@ -139,6 +148,7 @@ new-in-php-81:
         description: "What we can expect to come in PHP 8.1"
     footnotes:
         - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
+        - { link: /blog/php-81-new-in-inititalizers, title: "PHP 8.1: new in initializers" }
         - { link: /blog/php-81-readonly-properties, title: "Readonly properties in depth" }
         - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning and changing readonly properties" }
         - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
