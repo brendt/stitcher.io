@@ -54,7 +54,7 @@ From a userland-developer point of view, I think we _can_ work with the given co
 
 ---
 
-So what if internals doesn't think of it as achievable to optionally step away from runtime type checks? Or what if such a mind shift won't happen within the next decade?
+So what if internals don't think of it as achievable to optionally step away from runtime type checks? Or what if such a mind shift won't happen within the next decade?
 
 Well, there _is_ another approach, one that actually has been tried and proven before in another language: TypeScript. The power and immense popularity of TypeScript comes from its static type checker. Sure, there's an extra compilation step to transform TypeScript code to regular JavaScript, but developers seem to manage that just fine — because they know how much they gain from proper static analysis.
 
