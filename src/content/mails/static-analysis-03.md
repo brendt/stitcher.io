@@ -36,7 +36,7 @@ These are isolated examples, but keep in mind that Psalm and PHPStan evaluate yo
 
 And that's where static analysis truly shines: where the human mind isn't able to keep an overview anymore, because there simply is too much code.
 
-I already mentioned that static analysers heavily rely on PHP's type system in order to gain as much insights in your code as possible. They will even tell you want type information is missing:
+I already mentioned that static analysers heavily rely on PHP's type system in order to gain as much insights in your code as possible. They will even tell you what type information is missing:
 
 ```
 class Post
