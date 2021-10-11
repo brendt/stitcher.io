@@ -1,5 +1,5 @@
 Yesterday, I read Matthias Noback's excellent blog post on [PSR abstractions](*https://matthiasnoback.nl/2021/08/on-using-psr-abstractions/), and I'd like to share some thoughts on the topic as well.
-I'm going to quote the parts I want to answer, but make sure the read the full post if you want more information about Matthias' point of view.
+I'm going to quote the parts I want to answer, but make sure to read the full post if you want more information about Matthias' point of view.
 
 I want to make clear up front that I mean no disrespect to any individual and I've tried very hard to convey that in this post. If something however still comes across as disrespectful or hurtful, please [reach out to me](mailto:brendt@stitcher.io) to let me know and I'm happy to revisit it.
 
