@@ -58,7 +58,7 @@ So what if internals don't think of it as achievable to optionally step away fro
 
 Well, there _is_ another approach, one that actually has been tried and proven before in another language: TypeScript. The power and immense popularity of TypeScript comes from its static type checker. Sure, there's an extra compilation step to transform TypeScript code to regular JavaScript, but developers seem to manage that just fine — because they know how much they gain from proper static analysis.
 
-The same has been tried in PHP before, by the way: there was Hack that at one point _did_ compile to PHP, and there was [preprocess](*https://preprocess.io/#/), a project by [Christopher Pitt](*https://twitter.com/assertchris). Unfortunately, Hack took another direction, and preprocess halted; not because of implementation problems, but because of lack of support in IDEs and the wider community. 
+The same has been tried in PHP before, by the way: there was Hack that at one point _did_ compile to PHP, and there was [preprocess](*https://web.archive.org/web/20190828000023/https://preprocess.io/#/), a project by [Christopher Pitt](*https://twitter.com/assertchris). Unfortunately, Hack took another direction, and preprocess halted; not because of implementation problems, but because of lack of support in IDEs and the wider community. 
 
 _If_ transpiling PHP gains more traction again, it'll definitely need proper IDE support if we ever want a chance for it to succeed. That's the benefit of an internals-backed implementation: when it's in PHP core, IDEs and other external tooling can't do anything but to follow along. A community-driven transpiler wouldn't have that benefit.
 
