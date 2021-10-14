@@ -61,7 +61,7 @@ Let's take a look at some important details worth mentioning.
 
 ### Only constructed when needed
 
-These kind of "new values" will only be constructed when actually needed. That means that, in our first example, PHP will only create a new object of `<hljs type>InitialState</hljs>` is no argument is given:
+These kinds of "new values" will only be constructed when actually needed. That means that, in our first example, PHP will only create a new object of `<hljs type>InitialState</hljs>` if no argument is given:
 
 ```php
 class MyStateMachine
