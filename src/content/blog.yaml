@@ -1,3 +1,11 @@
+route-attributes:
+    date: 2021-10-22
+    title: "The case for route attributes"
+    content: src/content/blog/2021-10-22-route-attributes.md
+    footnotes:
+        - { link: /blog/rational-thinking, title: "Rational thinking" }
+        - { link: /blog/opinion-driven-design, title: "Opinion-driven design" }
+
 php-81-new-in-inititalizers:
     date: 2021-10-09
     title: "PHP 8.1: new in initializers"
