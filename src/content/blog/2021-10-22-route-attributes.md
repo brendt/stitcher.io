@@ -105,6 +105,8 @@ class PostController
 
 This last approach is definitely my favourite, but feel free to differ in that opinion. The main point here is: **excessive duplication doesn't have to be a problem with route attributes**.
 
+{{ cta:dynamic }}
+
 ### Discoverability
 
 The second-biggest argument against route attributes comes from people who say that they prefer to keep their routes in a single file, so that they can easily search them, instead of spreading them across potentially hundreds of controller files.
@@ -213,10 +215,10 @@ In fact, the concept of "a route cache" is already present in both Symfony and L
 
 So no, **performance isn't a concern when using route attributes**.
 
----
+{{ cta:mail }}
 
 So, what's left? The only argument I've heard that I didn't address here is that "people just don't like attributes".
 
 There's very little to say against that. I think it mostly means that "people don't like change" in general. I've been guilty of this attitude myself. My only advice I can give you if you're in that situation is to try it out. Get out of your comfort zone, I find that liberating.
 
-Now, maybe you want to tell me I'm wrong, or share your own 
+Now, maybe you want to tell me I'm wrong, or share your own thoughts on the matter. I'd love for my opinion to be challenged, so feel free to reply [via email](mailto:brendt@stitcher.io) or [on Twitter](*https://twitter.com/brendt_gd)!
