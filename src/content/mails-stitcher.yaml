@@ -12,3 +12,8 @@
     date: 2021-10-09
     title: "October Update"
     content: src/content/mails/stitcher-40.md
+
+'41':
+    date: 2021-10-22
+    title: "The Case for Route Attributes"
+    content: src/content/mails/stitcher-41.md
