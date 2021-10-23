@@ -5,6 +5,7 @@ route-attributes:
     footnotes:
         - { link: /blog/rational-thinking, title: "Rational thinking" }
         - { link: /blog/opinion-driven-design, title: "Opinion-driven design" }
+        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8.0" }
 
 php-81-new-in-inititalizers:
     date: 2021-10-09
