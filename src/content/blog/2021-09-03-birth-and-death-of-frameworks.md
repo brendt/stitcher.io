@@ -1,5 +1,5 @@
 <div class="sidenote">
-    <p>This post was first released on <a href="https://stitcher.io/mail">my newsletter</a>. Feel free to <a href="https://stitcher.io/mail">subscribe</a> if you want to be the first these kinds of posts, and want to talk about about them with me directly via email.</p>
+    <p>This post was first released on <a href="https://stitcher.io/mail">my newsletter</a>. Feel free to <a href="https://stitcher.io/mail">subscribe</a> if you want to be the first to see these kinds of posts, and want to talk about about them with me directly via email.</p>
 </div>
 
 <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2674_RC03/embed_loader.js"></script> 
