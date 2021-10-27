@@ -204,6 +204,43 @@ If you're already working with controller methods as the "entry point" into your
 
 So yes, **route attributes do add value compared to route files: they reduce cognitive load while programming**.
 
+### Route collisions
+
+One of the only arguments against route attributes that I kind of agree with, is how we deal with collisions. You've probably dealt with a situation like this one, where two route definitions collide with each other:
+
+```php
+<hljs type>Route</hljs>::<hljs prop>get</hljs>('/contacts/{id}', …);
+<hljs type>Route</hljs>::<hljs prop>get</hljs>('/contacts/list', …);
+```
+
+Here we have a classic collision: when visiting `/contacts/list`, your router could detect it as matching `/contacts/{id}`, and in turn runs the wrong action for that route.
+
+Such problems occur rarely, but I've had to deal with them myself on the odd occasion. The solution, when using a single route file, is to simply switch their order:
+
+```php
+<hljs type>Route</hljs>::<hljs prop>get</hljs>('/contacts/list', …);
+<hljs type>Route</hljs>::<hljs prop>get</hljs>('/contacts/{id}', …);
+```
+
+This makes it so that `/contacts/list` is the first hit, and thus prevents the route collision. However, you don't have any control over the route order when using attributes since they are directly coupled to controller methods and not grouped together; so what then?
+
+First of all, there are a couple of ways to circumvent route collisions, using route files or attributes, all the same; that don't require you to rely on route ordering:
+
+- You could change your URI scheme, so that there are no potential collisions:  `/contacts/show/{id}` or `/contacts/{id}/show`; or
+- you could use regex validation to only match numeric ids: `/contacts/{id:\d+}`.
+
+However, there still might be some edge cases where collisions are unavoidable. How to handle those? The most obvious solution is to simply allow some kind of "order" key on route attributes, so that you can carefully control their order yourself:
+
+```php
+#[<hljs type>Get</hljs>(<hljs text>'/contacts/list'</hljs>, <hljs prop>order</hljs>: <hljs text>'contacts-1'</hljs>)]
+public function index() {}
+
+#[<hljs type>Get</hljs>(<hljs text>'/contacts/{id}'</hljs>, <hljs prop>order</hljs>: <hljs text>'contacts-2'</hljs>)]
+public function show(<hljs type>Contact</hljs> $contact) {}
+```
+
+I agree that this approach isn't ideal, but I'd say that solving route collisions never is. On top of that, **these kinds of collisions only rarely happen, so I only consider it a very minor problem that _can_ be solved when needed**.
+
 ### Performance
 
 Finally a short one, but one that needs mentioning: some people are afraid of attributes because of performance issues.
