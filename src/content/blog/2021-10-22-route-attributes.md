@@ -2,7 +2,7 @@ I've been thinking about route attributes lately. By doing so, I came to realise
 
 Lately, I've done quite a lot of thinking about a specific use case for them. I've talked with a bunch of people about it and I've tried to approach the question as rationally as possible: are attributes used for routing, a good or bad idea?
 
-After months of thoughts and discussions, I've come to (what I think to be as objectively as possible) a conclusion: they are worth giving a try, albeit with some side notes attached. In this email, I'll share my thought process, as well as address all counterarguments I've heard against route attributes over these past years.
+After months of thoughts and discussions, I've come to (what I think to be as objectively as possible) a conclusion: they are worth giving a try, albeit with some side notes attached. In this post, I'll share my thought process, as well as address all counterarguments I've heard against route attributes over these past years.
 
 Let's get started.
 
