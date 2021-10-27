@@ -229,7 +229,7 @@ class Bar extends Foo
 }
 ```
 
-This rule goes in both directions: you're not allowed to add or remove the `<hljs keyword>readonly</hljs>` flag. during inheritance.
+This rule goes in both directions: you're not allowed to add or remove the `<hljs keyword>readonly</hljs>` flag during inheritance.
 
 ### Unset is not allowed
 
