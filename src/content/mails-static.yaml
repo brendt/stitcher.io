@@ -1,0 +1,61 @@
+'template':
+    date: 2021-09-22
+    title: Welcome
+    content: src/content/mails/static-analysis-template.md
+
+'00':
+    date: 2021-09-22
+    title: Welcome
+    content: src/content/mails/static-analysis-00.md
+
+'01':
+    date: 2021-09-22
+    title: Static What?
+    content: src/content/mails/static-analysis-01.md
+
+'02':
+    date: 2021-09-22
+    title: Different Kinds of Analysers
+    content: src/content/mails/static-analysis-02.md
+
+'03':
+    date: 2021-09-22
+    title: What Static Analysis Can Do
+    content: src/content/mails/static-analysis-03.md
+
+'04':
+    date: 2021-09-22
+    title: Establishing a Baseline
+    content: src/content/mails/static-analysis-04.md
+
+'05':
+    date: 2021-09-22
+    title: Generics!?!
+    content: src/content/mails/static-analysis-05.md
+
+'06':
+    date: 2021-09-22
+    title: Psalm's Taint Analysis
+    content: src/content/mails/static-analysis-06.md
+
+'07':
+    date: 2021-09-22
+    title: Extended Docblocks
+    content: src/content/mails/static-analysis-07.md
+
+'08':
+    date: 2021-09-22
+    title: Static Analysis and CI
+    content: src/content/mails/static-analysis-08.md
+
+'09':
+    date: 2021-09-22
+    title: Phan
+    content: src/content/mails/static-analysis-09.md
+
+'10':
+    date: 2021-09-22
+    title: The Three Pillars
+    content: src/content/mails/static-analysis-10.md
+
+## Linting and coding standards

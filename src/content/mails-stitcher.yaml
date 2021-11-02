@@ -1,0 +1,19 @@
+'00':
+    date: 2021-09-27
+    title: "Welcome!"
+    content: src/content/mails/stitcher-00.md
+
+'39':
+    date: 2021-09-27
+    title: "The Road to PHP: Static Analysis"
+    content: src/content/mails/stitcher-39.md
+
+'40':
+    date: 2021-10-09
+    title: "October Update"
+    content: src/content/mails/stitcher-40.md
+
+'41':
+    date: 2021-10-22
+    title: "The Case for Route Attributes"
+    content: src/content/mails/stitcher-41.md

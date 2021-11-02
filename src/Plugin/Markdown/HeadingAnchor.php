@@ -16,11 +16,17 @@ class HeadingAnchor implements BlockRendererInterface
             throw new \InvalidArgumentException('Incompatible block type: ' . \get_class($block));
         }
 
-        $tag = 'h' . $block->getLevel();
+        $level = $block->getLevel();
+
+        $tag = 'h' . $level;
 
         $attrs = $block->getData('attributes', []);
 
         $block = new HtmlElement($tag, $attrs, $htmlRenderer->renderInlines($block->children()));
+
+        if ($level > 4) {
+            return $block;
+        }
 
         $slug = $this->slug($block->getContents());
 
