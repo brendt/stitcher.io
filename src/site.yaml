@@ -12,6 +12,12 @@
             field: date
             direction: desc
 
+/screenshots:
+    template: screenshots.twig
+    variables:
+        title: Screenshots
+        content: src/content/screenshots.md
+
 /books:
     template: books.twig
     variables:
