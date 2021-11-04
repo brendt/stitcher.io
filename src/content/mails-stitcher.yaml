@@ -1,3 +1,8 @@
+'42':
+    date: 2021-11-04
+    title: "Generics in PHP"
+    content: src/content/mails/stitcher-42.md
+
 '00':
     date: 2021-09-27
     title: "Welcome!"
@@ -17,3 +22,4 @@
     date: 2021-10-22
     title: "The Case for Route Attributes"
     content: src/content/mails/stitcher-41.md
+
