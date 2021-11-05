@@ -12,12 +12,12 @@ $routeAttributes = <hljs type>Attributes</hljs>::<hljs prop>new</hljs>(<hljs typ
 
 ```php
 /**
- * @template <hljs generic yellow>AttributeType</hljs>
+ * @template <hljs generic>AttributeType</hljs>
  */
 class Attributes
 {
     /**
-     * @return <hljs generic yellow>AttributeType</hljs>
+     * @return <hljs generic>AttributeType</hljs>
      */
     public function first(): mixed
     { /* … */ }
@@ -29,7 +29,7 @@ class Attributes
 
 ```php
 /**
- * @template <hljs generic yellow>AttributeType</hljs>
+ * @template <hljs generic>AttributeType</hljs>
  */
 class Attributes
 {
@@ -38,7 +38,7 @@ class Attributes
      *
      * @param <hljs type>class-string<</hljs><hljs generic>InstanceOfType</hljs><hljs type>></hljs> $className
      *
-     * @return <hljs type>self<</hljs><hljs generic yellow>InstanceOfType</hljs><hljs type>></hljs>
+     * @return <hljs type>self<</hljs><hljs generic>InstanceOfType</hljs><hljs type>></hljs>
      */
     public function instanceOf(<hljs type>string</hljs> $className): self
     { /* … */ }
