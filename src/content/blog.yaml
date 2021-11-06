@@ -1,3 +1,16 @@
+generics-in-php-video:
+    date: 2021-11-06
+    title: Generics in PHP (video)
+    content: src/content/blog/2021-11-06-generics-in-php-video.md
+    meta:
+        description: "Some thoughts on generics in PHP docblocks, PhpStorm's support for them, and naming conventions"
+    footnotes:
+        - { link: "/blog/php-generics-and-why-we-need-them", title: "PHP generics and why we need them" }
+        - { link: "/blog/we-dont-need-runtime-type-checks", title: "We don't need runtime type checks" }
+        - { link: "/blog/the-case-for-transpiled-generics", title: "The case for transpiled generics" }
+        - { link: "/blog/new-in-php-81", title: "New in PHP 8.1" }
+        - { link: "https://youtrack.jetbrains.com/issue/WI-63801", title: "The PhpStorm issue to allow dedicated generic type styling" }
+
 new-in-php-81:
     date: 2021-11-05
     title: "What's new in PHP 8.1"
@@ -114,6 +127,7 @@ we-dont-need-runtime-type-checks:
     meta:
         description: Making the case for static analysis
     footnotes:
+        - { link: "https://www.youtube.com/watch?v=FiQdmnnIpEY", title: "Generics in PHP" }
         - { link: /blog/tests-and-types, title: "The difference between tests and types" }
         - { link: /blog/liskov-and-type-safety, title: "Liskov and type safety" }
         - { link: /blog/the-case-for-transpiled-generics, title: "Transpiling generics" }
@@ -1733,6 +1747,7 @@ php-generics-and-why-we-need-them:
             PHP has some problems with arrays. Generics can fix those problems.
             In this blog post, we'll be exploring the possibilities if this RFC were to be added.
     footnotes:
+        - { link: "https://www.youtube.com/watch?v=FiQdmnnIpEY", title: "Generics in PHP" }
         - { link: /blog/the-case-for-transpiled-generics, title: "The case for transpiled generics" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/php-reimagined, title: "My vision on how PHP could evolve" }
