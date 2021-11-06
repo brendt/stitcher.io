@@ -42,6 +42,7 @@ $redirects = [
     '/signup' => '/newsletter/subscribe',
 
     '/laravel-beyond-crud' => '/blog/laravel-beyond-crud',
+    '/blog/php-81-new-in-inititalizers' => '/blog/php-81-new-in-initializers'
 ];
 
 $router = App::router();

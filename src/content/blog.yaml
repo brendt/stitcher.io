@@ -1,3 +1,18 @@
+php-81-in-8-code-blocks:
+    date: 2021-11-07
+    title: PHP 8.1 in 8 code blocks
+    content: src/content/blog/2021-11-06-php-81-in-8-code-blocks.md
+    meta:
+        description: "The best features of PHP 8.1"
+        template: blog/meta/php-81-in-8-codeblocks.twig
+    footnotes:
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
+        - { link: "/blog/new-in-php-81", title: "New in PHP 8.1", description: " — A comprehensive list of all things new in PHP 8.1" }
+        - { link: "/blog/php-enums", title: "Enums in PHP 8.1" }
+        - { link: "/blog/php-81-readonly-properties", title: "Readonly properties in PHP 8.1" }
+        - { link: "/blog/php-81-new-in-initializers", title: "New in initializers in PHP 8.1" }
+        - { link: "/blog/fibers-with-a-grain-of-salt", title: "Fibers with a grain of salt" }
+
 generics-in-php-video:
     date: 2021-11-06
     title: Generics in PHP (video)
@@ -20,7 +35,8 @@ new-in-php-81:
         description: "What we can expect to come in PHP 8.1"
     footnotes:
         - { link: "https://road-to-php.com", title: "The Road to PHP 8.1" }
-        - { link: /blog/php-81-new-in-inititalizers, title: "PHP 8.1: new in initializers" }
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
+        - { link: /blog/php-81-new-in-initializers, title: "PHP 8.1: new in initializers" }
         - { link: /blog/php-81-readonly-properties, title: "Readonly properties in depth" }
         - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning and changing readonly properties" }
         - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
@@ -37,12 +53,13 @@ route-attributes:
         - { link: /blog/opinion-driven-design, title: "Opinion-driven design" }
         - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8.0" }
 
-php-81-new-in-inititalizers:
+php-81-new-in-initializers:
     date: 2021-10-09
     title: "PHP 8.1: new in initializers"
     content: src/content/blog/2021-10-09-new-in-initializers.md
     footnotes:
         - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: https://wiki.php.net/rfc/new_in_initializers, title: "The new in initializers RFC" }
         - { link: /blog/php-81-readonly-properties, title: "Readonly properties in PHP 8.1" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
@@ -67,8 +84,9 @@ php-81-readonly-properties:
     content: src/content/blog/2021-09-11-readonly-properties.md
     footnotes:
         - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: https://wiki.php.net/rfc/readonly_properties_v2, title: "The readonly properties RFC" }
-        - { link: /blog/php-81-new-in-inititalizers, title: "PHP 8.1: new in initializers" }
+        - { link: /blog/php-81-new-in-initializers, title: "PHP 8.1: new in initializers" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
         - { link: /blog/evolution-of-a-php-object, title: "Evolution of objects in PHP over the years" }
         - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning readonly properties" }
@@ -146,6 +164,7 @@ php-81-before-and-after:
     meta:
         description: The impact of PHP 8.1 on my code
     footnotes:
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: /blog/php-enums, title: "Enums in PHP 8.1" }
         - { link: /blog/cloning-readonly-properties-in-php-81, title: "Cloning readonly properties in PHP 8.1" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
@@ -198,6 +217,7 @@ php-version-stats-july-2021:
         description: Insights in PHP's version usage
         template: blog/meta/version-stats.twig
     footnotes:
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { title: "Live version data on Packagist", link: "https://packagist.org/php-statistics" }
         - { title: "PHP in 2021", link: "/blog/php-in-2021" }
         - { title: "What's new in PHP 8.1", link: "/blog/new-in-php-81" }
@@ -262,6 +282,7 @@ php-in-2021:
     meta:
         description: A look back and forward on PHP
     footnotes:
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: /blog/php-in-2020, title: "PHP in 2020" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
@@ -276,6 +297,7 @@ fibers-with-a-grain-of-salt:
         description: Thoughts on Fibers in PHP 8.1
         template: blog/meta/fibers.twig
     footnotes:
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: "https://wiki.php.net/rfc/fibers", title: "The Fibers RFC"}
         - { link: "/blog/new-in-php-81", title: "What's new in PHP 8.1"}
         - { link: "https://amphp.org", title: "Amp, an async framework for PHP"}
@@ -333,6 +355,7 @@ php-enums:
     meta:
         description: "Enums in PHP 8.1"
     footnotes:
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: https://github.com/sponsors/iluuu1994, title: "Ilija Tovilo's sponsor page (he did all the programming)" }
         - { link: /blog/new-in-php-81, title: "New in PHP 8.1" }
         - { link: https://wiki.php.net/rfc/enumerations, title: "The enums RFC" }

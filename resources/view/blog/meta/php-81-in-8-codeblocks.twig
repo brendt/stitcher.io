@@ -1,0 +1,12 @@
+{% extends 'blog/meta.twig' %}
+
+{% block meta_container %}
+    <style>
+        h1 {
+            width: 45%;
+        }
+    </style>
+    {{  parent() }}
+
+    <img src="{{ source('blog/meta/img/leaves.txt') }}">
+{% endblock %}
