@@ -17,7 +17,7 @@ class LikeRepository
         }
 
         return new self(
-            json_decode(file_get_contents(self::PATH) ?? '{}', true) ?? []
+            json_decode(file_get_contents(self::PATH), true)
         );
     }
 
