@@ -42,7 +42,7 @@ class PostData
 class PostStateMachine
 {
     public function __construct(
-        <hljs keyword>private</hljs> <hljs type>string</hljs> <hljs prop>$state</hljs> = <hljs keyword>new</hljs> <hljs type>Draft</hljs>(),
+        <hljs keyword>private</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs> = <hljs keyword>new</hljs> <hljs type>InitialState</hljs>(),
     ) {
     }
 }
