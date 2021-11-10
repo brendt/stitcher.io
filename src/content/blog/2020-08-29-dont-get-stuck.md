@@ -6,8 +6,6 @@ I didn't want to chit-chat much longer, so I nodded, apologised (I'm not sure wh
 
 I received a mail from the other manager over the weekend, the one who didn't say much during our conversation. He wrote he was perplexed, didn't see this coming, and regretted the decision tremendously. He told me if there was anything he could do to change my mind, I should tell him.
 
-{{ ad:carbon }}
-
 My decision to leave was final though. 
 
 Mind you, it wasn't a financial one; in fact I was just about to get a significant raise and more responsibilities. It also wasn't a relational one, I really appreciated all of my colleagues back then; I'd even call some of them good friends.
@@ -22,7 +20,7 @@ I've since realised that this manager was wrong: it's not normal to switch jobs 
 
 No, these kinds of things are only "normal" when your company fails to invest in people the way it should. And that, it turns out, is very common indeed.
 
----
+{{ cta:mail }}
 
 I don't regret having worked for that company: I did learn valuable lessons there. It's ok to be at a place where there's little or no room for growth, as long as it's not too long. You've got to watch out, and critically assess your situation from time to time; you might get stuck without even knowing it.
 
