@@ -2,7 +2,7 @@ Do you want to make a guess about when I last encountered a `<hljs type>TypeErro
 
 I'm fairly certain that I could disable PHP's runtime type checking altogether — if that was a thing — and have a perfectly working codebase. 
 
-Because, here's the thing about runtime type checks: they are a debugging device, not so much a safety net. Runtime type errors make it easier to detect and fix bugs, but the reality is that whenever a type error is trigged, our code still crashed at runtime. When type errors occur in production, the end result is the program crashing, nothing you can do about it.
+Because, here's the thing about runtime type checks: they are a debugging device, not so much a safety net. Runtime type errors make it easier to detect and fix bugs, but the reality is that whenever a type error is triggered, our code still crashed at runtime. When type errors occur in production, the end result is the program crashing, nothing you can do about it.
 
 Now, I've written about type systems before, you'll find some references at the end of this post; so if you want more background information about them be sure to do some followup reading. Today, I want to discuss how static analysis has the power to revolutionize the way we write PHP code much more than it already does today, and how it can open doors to many new possibilities.
 
