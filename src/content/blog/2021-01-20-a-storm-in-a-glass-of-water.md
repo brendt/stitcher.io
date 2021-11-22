@@ -18,7 +18,7 @@ Instead of shifting the blame on the perfectly healthy and stable release cycle 
 
 If you're still here and wanting to ride along, let's discuss a few things that _you_ can do to prevent ending up in legacy land.
 
-First: learn and use the proper **tools**. A [craftsman is nothing without proper knowledge of his tools](/blog/craftsmen-know-their-tools). These tools include [static analysers](*https://psalm.dev/), [code formatters](*https://github.com/FriendsOfPHP/PHP-CS-Fixer), [IDEs](*https://www.jetbrains.com/phpstorm/), [test frameworks](*https://phpunit.de/) and [automatic updaters](*https://github.com/rectorphp/rector). Most problems you face during upgrades are actually solved automatically if only you'd use the proper tools. 
+First: learn and use the proper **tools**. A [craftsperson is nothing without proper knowledge of their tools](/blog/craftsmen-know-their-tools). These tools include [static analysers](*https://psalm.dev/), [code formatters](*https://github.com/FriendsOfPHP/PHP-CS-Fixer), [IDEs](*https://www.jetbrains.com/phpstorm/), [test frameworks](*https://phpunit.de/) and [automatic updaters](*https://github.com/rectorphp/rector). Most problems you face during upgrades are actually solved automatically if only you'd use the proper tools. 
 
 While you're at it, consider buying the people maintaining those projects a drink, they are going to save you hours upon hours of manual and boring labour; they are worth a few bucks. We recently upgraded a large project to PHP 8. It took a few hours of preparation and research, and only 2 hours to do the actual upgrade; it's doable. 
 
