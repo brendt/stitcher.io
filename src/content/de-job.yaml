@@ -2,6 +2,14 @@ de-job-01:
   date: 2021-11-23
   title: "01. De Zoektocht"
   link: 'https://feeds.soundcloud.com/stream/1165111384-brent-roose-826312539-de-job-01-de-zoektocht.mp3'
-  description: "De zoektocht naar mijn eerste job gaat van start."
+  description: "'Wat wil je later worden' — da’s een vraag die we als kind toch allemaal wel eens kregen?"
   season: 1
   episode: 1
+
+de-job-02:
+  date: 2021-11-23
+  title: "02. Haat-Liefde"
+  link: 'https://feeds.soundcloud.com/stream/1165191223-brent-roose-826312539-de-job-02-haat-liefde.mp3'
+  description: "'Liefde maakt blind' dat zeggen ze wel eens. Achteraf bekeken had ik de signalen misschien eerder kunnen opvangen."
+  season: 1
+  episode: 2
