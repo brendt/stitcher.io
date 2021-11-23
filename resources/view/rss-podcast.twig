@@ -7,14 +7,14 @@
         xml:base="https://stitcher.io"
 >
     <channel>
-        <title>Rant With Brent</title>
+        <title>{{ podcastTitle ?? 'Rant With Brent' }}</title>
         <link>https://stitcher.io</link>
-        <description>A no nonsense, straight to the point podcast about programming.</description>
+        <description>{{ podcastDescription ?? 'A no nonsense, straight to the point podcast about programming.' }}</description>
         <language>en</language>
         <copyright>Copyright {{ date()|date('Y') }} stitcher.io</copyright>
 
         <itunes:author>Brent</itunes:author>
-        <itunes:subtitle>A no nonsense, straight to the point podcast about programming.</itunes:subtitle>
+        <itunes:subtitle>{{ podcastDescription ?? 'A no nonsense, straight to the point podcast about programming.' }}</itunes:subtitle>
         <itunes:owner>
             <itunes:email>brent.roose@gmail.com</itunes:email>
         </itunes:owner>

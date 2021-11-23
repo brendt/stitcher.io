@@ -33,7 +33,12 @@ class DeJobRssHandler
 
         $rss = $this->renderer->renderTemplate(
             'rss-podcast.twig',
-            ['items' => $items, 'image' => 'https://stitcher.io/resources/img/de-job/logo.png']
+            [
+                'items' => $items,
+                'image' => 'https://stitcher.io/resources/img/de-job/logo.png',
+                'podcastTitle' => 'De Job',
+                'podcastDescription' => 'Het waargebeurde verhaal over mijn eerste jaren in het echte werkleven',
+            ]
         );
 
         return new Response(200, ['Content-Type' => 'application/xml;charset=UTF-8'], $rss);
