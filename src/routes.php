@@ -3,6 +3,7 @@
 use Brendt\Stitcher\Handler\AddLikeHandler;
 use Brendt\Stitcher\Handler\AllLikesHandler;
 use Brendt\Stitcher\Handler\BlogsForDevsRssHandler;
+use Brendt\Stitcher\Handler\DeJobRssHandler;
 use Brendt\Stitcher\Handler\GamesRssHandler;
 use Brendt\Stitcher\Handler\GetLikesHandler;
 use Brendt\Stitcher\Handler\MetaImageHandler;
@@ -76,6 +77,7 @@ $router->get('/games/rss', GamesRssHandler::class);
 $router->get('/podcasts/rss', PodcastsRssHandler::class);
 $router->get('/blogs-for-devs/rss', BlogsForDevsRssHandler::class);
 $router->get('/rss/rant-with-brent', RantWithBrentRssHandler::class);
+$router->get('/rss/de-job', DeJobRssHandler::class);
 $router->get('/likes.json', AllLikesHandler::class);
 $router->post('/likes/delete/{slug}/{likeId}', RemoveLikeHandler::class);
 $router->post('/likes/{slug}/{likeId}', AddLikeHandler::class);
