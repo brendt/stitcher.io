@@ -7,8 +7,9 @@ Ik werd gemotiveerd om deze podcast te maken toen ik soortgelijke verhalen hoord
 
 Ik ben benieuwd wat jij er van vindt!
 
-Momenteel ben ik nog druk in de weer om de podcast verder uit te werken, maar ik heb al wel een [eerste demo](https://drive.google.com/file/d/1d2L4OBVPyUl-TVc3oHwVnmGlGfAVnOlv/view?usp=sharing) klaar voor jou.
-Zoals je ziet heb ik nog geen feed opgezet, dit is echt het prille begin. Al je feedback is welkom, aarzel niet om op deze mail te reply'en, dan komt jouw antwoord bij mij terecht!
+Momenteel ben ik nog druk in de weer om de podcast verder uit te werken, maar ik heb al wel een  klaar voor jou.
+
+Je kan deze demo beluisteren via [Spotify](https://open.spotify.com/show/6rsHpBPovlF3R4KCUD14MU), [Apple Podcasts](https://podcasts.apple.com/us/podcast/de-job/id1596891759), of door hem [rechtstreeks te downloaden](https://drive.google.com/file/d/1d2L4OBVPyUl-TVc3oHwVnmGlGfAVnOlv/view?usp=sharing).
 
 Tot snel!
 

@@ -274,6 +274,13 @@
         meta:
             description: "De Job: een waargebeurde podcast"
 
+/de-job/subscribe:
+    template: de-job/index.twig
+    variables:
+        title: De Job
+        meta:
+            description: "De Job: een waargebeurde podcast"
+
 
 /mails-de-job/{id}:
     template: mails/de-job.twig
