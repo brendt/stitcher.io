@@ -1,0 +1,33 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/overview.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+
+    <article>
+        <h1>
+            <span>
+                De Job
+            </span>
+        </h1>
+
+        <p>"De Job" is een Nederlandstalige podcast die het waargebeurde verhaal vertelt over mijn eerste jaren in het echte werkleven. Schrijf je in op de nieuwsbrief om als eerste een nieuwe episode te beluisteren!</p>
+
+        <form action="https://mail.stitcher.io/subscribe/e570c097-a3db-4b36-a142-536e4a9ff655" method="post">
+            <div>
+                <label for="email">Email</label>
+                <input name="email" style="margin-left:.5em;"/>
+            </div>
+
+            <div style="margin-left:1em;">
+                <button type="submit" class="cta cta-small">Inschrijven</button>
+            </div>
+        </form>
+    </article>
+
+{% endblock %}

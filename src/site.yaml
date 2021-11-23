@@ -252,3 +252,34 @@
         collection:
             variable: post
             parameter: id
+
+/de-job/success:
+    template: de-job/success.twig
+    variables:
+        title: De Job
+        meta:
+            description: "De Job: een waargebeurde podcast"
+
+/de-job/unsub:
+    template: de-job/unsub.twig
+    variables:
+        title: De Job
+        meta:
+            description: "De Job: een waargebeurde podcast"
+
+/de-job:
+    template: de-job/index.twig
+    variables:
+        title: De Job
+        meta:
+            description: "De Job: een waargebeurde podcast"
+
+
+/mails-de-job/{id}:
+    template: mails/de-job.twig
+    variables:
+        post: src/content/mails-de-job.yaml
+    config:
+        collection:
+            variable: post
+            parameter: id

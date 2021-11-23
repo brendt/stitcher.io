@@ -1,3 +1,8 @@
+'de-job-0':
+    date: 2021-11-23
+    title: "De Job"
+    content: src/content/mails/stitcher-de-job-0.md
+
 '44':
     date: 2021-11-25
     title: "Hello, PHP 8.1!"
