@@ -36,6 +36,7 @@ class DeJobRssHandler
             [
                 'items' => $items,
                 'image' => 'https://stitcher.io/resources/img/de-job/logo.png',
+                'language' => 'nl',
                 'podcastTitle' => 'De Job',
                 'podcastDescription' => 'Het waargebeurde verhaal over mijn eerste jaren in het echte werkleven',
             ]
