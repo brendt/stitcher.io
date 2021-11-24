@@ -58,6 +58,15 @@ Suffice to say, I am excited to start using PHP 8.1 in my projects. I'll probabl
 
 So what about you? What features are you most excited about? When will you be able to start using PHP 8.1? Let me know by replying to this mail!
 
-Until next time!
+<div class="quote">
+
+## In other news
+
+Just in case you're interested in what else I'm working on, there's something I want to share with my **Dutch subscribers**: I've been working on a Dutch podcast about the my first years after graduating: the search for the perfect job, the euphoria when I thought I found it, and then the disappointment, stress and anger when it didn't turn out the way I hoped.
+
+It's a Dutch podcast for now, just because I'm most comfortable telling this story in my own language, but maybe I'll make an English version as well one day. If you're not Dutch then I'm sorry for bothering you with it in this newsletter, but if you are I would _highly_ appreciate you giving it a listen. You can subscribe for updates [here](https://stitcher.io/de-job), or directly listen to it via [Spotify](https://open.spotify.com/show/6rsHpBPovlF3R4KCUD14MU), [Apple Podcasts](https://podcasts.apple.com/us/podcast/de-job/id1596891759) or [Stitcher](https://www.stitcher.com/show/de-job). Thanks!
+</div>
+
+With all of that being said, I hope you'll enjoy PHP 8.1 as much as I; until next time!
 
 Brent

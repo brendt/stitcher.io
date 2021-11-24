@@ -7,7 +7,7 @@ Ik werd gemotiveerd om deze podcast te maken toen ik soortgelijke verhalen hoord
 
 Ik ben benieuwd wat jij er van vindt!
 
-Momenteel ben ik nog druk in de weer om de laatste episodes te maken, maar je kan alvast de eerste twee beluisteren via [Spotify](https://open.spotify.com/show/6rsHpBPovlF3R4KCUD14MU), [Apple Podcasts](https://podcasts.apple.com/us/podcast/de-job/id1596891759), [Stitcher](https://www.stitcher.com/show/de-job ), of door hem [rechtstreeks te downloaden](https://drive.google.com/file/d/1d2L4OBVPyUl-TVc3oHwVnmGlGfAVnOlv/view?usp=sharing).
+Momenteel ben ik nog druk in de weer om de laatste episodes te maken, maar je kan alvast de eerste twee beluisteren via [Spotify](https://open.spotify.com/show/6rsHpBPovlF3R4KCUD14MU), [Apple Podcasts](https://podcasts.apple.com/us/podcast/de-job/id1596891759), [Stitcher](https://www.stitcher.com/show/de-job), of door hem [rechtstreeks te downloaden](https://drive.google.com/file/d/1d2L4OBVPyUl-TVc3oHwVnmGlGfAVnOlv/view?usp=sharing).
 
 Tot snel, en geef zeker je feedback!
 
