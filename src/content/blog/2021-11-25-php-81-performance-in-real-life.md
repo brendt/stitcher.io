@@ -17,8 +17,8 @@ These benchmarks were taken on my local machine, and only meant to measure the r
 
 <tr>
     <td>Time per request (ms)</td>
-    <td>28.777</td>
     <td>31.232</td>
+    <td>28.777</td>
 </tr>
 </table>
 
