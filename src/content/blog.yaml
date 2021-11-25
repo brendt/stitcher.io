@@ -1,3 +1,15 @@
+php-81-performance-in-real-life:
+    date: 2021-11-25
+    title: "PHP 8.1: real-life performance benchmarks"
+    content: src/content/blog/2021-11-25-php-81-performance-in-real-life.md
+    footnotes:
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
+        - { link: "/blog/new-in-php-81", title: "New in PHP 8.1", description: " — A comprehensive list of all things new in PHP 8.1" }
+        - { link: "/blog/php-enums", title: "Enums in PHP 8.1" }
+        - { link: "/blog/php-81-readonly-properties", title: "Readonly properties in PHP 8.1" }
+        - { link: "/blog/php-81-new-in-initializers", title: "New in initializers in PHP 8.1" }
+        - { link: "/blog/fibers-with-a-grain-of-salt", title: "Fibers with a grain of salt" }
+
 php-81-in-8-code-blocks:
     date: 2021-11-07
     title: PHP 8.1 in 8 code blocks
@@ -35,6 +47,7 @@ new-in-php-81:
         description: "What we can expect to come in PHP 8.1"
     footnotes:
         - { link: "https://road-to-php.com", title: "The Road to PHP 8.1" }
+        - { link: "/blog/php-81-performance-in-real-life", title: "PHP 8.1's performance" }
         - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: /blog/php-81-new-in-initializers, title: "PHP 8.1: new in initializers" }
         - { link: /blog/php-81-readonly-properties, title: "Readonly properties in depth" }
