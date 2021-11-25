@@ -1,4 +1,8 @@
-It's finally here: PHP 8.1 was released today!
+Today is the day: PHP 8.1 is finally here! 
+
+Now, depending on when you read this mail, it might still be a few hours before you can actually download and install it: first the release managers must actually _release_ the [tagged version](https://github.com/php/php-src/tree/php-8.1.0), and then package managers like Brew and Apt must update their dependencies as well. 
+
+I've already tried the release candidates on one of my real-life client projects (a Laravel 8 project), and am happy to report that out of 1.600 tests, only two failures were reported. That's of course thanks to the massive work of open source maintainers all around the world, who have already made their code PHP 8.1 compatible. You might need to look out for [a couple of deprecations](https://stitcher.io/blog/new-in-php-81#breaking-changes), but nothing that can't easily be fixed.
 
 Just like previous years, this release is feature-packed and contains a couple of nifty performance improvements as well. If I had to pick my favourite top-three, I think I'd look something like this.
 
