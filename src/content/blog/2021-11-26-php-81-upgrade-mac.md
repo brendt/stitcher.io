@@ -138,7 +138,7 @@ If extensions aren't properly loaded, there are two easy fixes.
 
 First, make sure the extensions are added in the correct ini file. You can run `php --ini` to know which file is loaded:
 
-```
+```txt
 Configuration File (php.ini) Path: <hljs blue>/opt/homebrew/etc/php/8.1</hljs>
 Loaded Configuration File:         /opt/homebrew/etc/php/8.1/php.ini
 Scan for additional .ini files in: /opt/homebrew/etc/php/8.1/conf.d
