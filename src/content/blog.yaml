@@ -1,3 +1,19 @@
+php-81-upgrade-mac:
+    date: 2021-11-26
+    title: Upgrade to PHP 8.1 with Homebrew on Mac
+    content: src/content/blog/2021-11-26-php-81-upgrade-mac.md
+    next: new-in-php-81
+    meta:
+        description: "How to upgrade to PHP 8.1 on a Mac with Homebrew"
+    footnotes:
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
+        - { link: "/blog/new-in-php-81", title: "New in PHP 8.1", description: " — A comprehensive list of all things new in PHP 8.1" }
+        - { link: "/blog/php-81-performance-in-real-life", title: "PHP 8.1 benchmarks" }
+        - { link: "/blog/php-enums", title: "Enums in PHP 8.1" }
+        - { link: "/blog/php-81-readonly-properties", title: "Readonly properties in PHP 8.1" }
+        - { link: "/blog/php-81-new-in-initializers", title: "New in initializers in PHP 8.1" }
+        - { link: "/blog/fibers-with-a-grain-of-salt", title: "Fibers with a grain of salt" }
+
 php-81-performance-in-real-life:
     date: 2021-11-25
     title: "PHP 8.1: real-life performance benchmarks"
