@@ -62,6 +62,7 @@ new-in-php-81:
     meta:
         description: "What we can expect to come in PHP 8.1"
     footnotes:
+        - { link: "/blog/php-81-upgrade-mac", title: "Upgrade to PHP 8.1 with Homebrew on Mac" }
         - { link: "https://road-to-php.com", title: "The Road to PHP 8.1" }
         - { link: "/blog/php-81-performance-in-real-life", title: "PHP 8.1's performance" }
         - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
