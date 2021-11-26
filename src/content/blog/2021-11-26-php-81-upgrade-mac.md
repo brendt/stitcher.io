@@ -59,7 +59,7 @@ And make sure that your local web server also uses PHP 8.1 by visiting this scri
 
 <em class="small center">The version should show `8.1.x`.</em>
 
-{{ ad:carbon }}
+{{ cta:mail }}
 
 ## Valet
 
