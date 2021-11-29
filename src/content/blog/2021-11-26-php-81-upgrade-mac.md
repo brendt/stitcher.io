@@ -1,7 +1,3 @@
-<div class="footnote author">
-At the moment, the brew formula still needs updating. You won't be able to properly install PHP 8.1 using brew before <a href="https://github.com/Homebrew/homebrew-core/pull/89973">this PR</a> is merged.
-</div>
-
 {{ cta:dynamic }}
 
 ## Upgrading with Homebrew
