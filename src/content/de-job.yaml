@@ -13,3 +13,11 @@ de-job-02:
   description: "'Liefde maakt blind' dat zeggen ze wel eens. Achteraf bekeken had ik de signalen misschien eerder kunnen opvangen."
   season: 1
   episode: 2
+
+de-job-03:
+  date: 2021-11-30
+  title: "03. De Fout"
+  link: 'https://feeds.soundcloud.com/stream/1169112637-brent-roose-826312539-de-job-03-de-fout.mp3'
+  description: "Ik wandel die dag alleen naar het station, en dat is heel bewust. Ik moet alleen zijn."
+  season: 1
+  episode: 3
