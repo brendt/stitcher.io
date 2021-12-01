@@ -35,6 +35,7 @@ class DeJobRssHandler
             'rss-podcast.twig',
             [
                 'items' => $items,
+                'link' => 'https://stitcher.io/de-job',
                 'image' => 'https://stitcher.io/resources/img/de-job/logo.png',
                 'language' => 'nl',
                 'podcastTitle' => 'De Job',

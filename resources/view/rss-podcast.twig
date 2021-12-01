@@ -8,7 +8,7 @@
 >
     <channel>
         <title>{{ podcastTitle ?? 'Rant With Brent' }}</title>
-        <link>https://stitcher.io</link>
+        <link>{{ link ?? 'https://stitcher.io' }} </link>
         <description>{{ podcastDescription ?? 'A no nonsense, straight to the point podcast about programming.' }}</description>
         <language>{{ language ?? 'en' }}</language>
         <copyright>Copyright {{ date()|date('Y') }} stitcher.io</copyright>
