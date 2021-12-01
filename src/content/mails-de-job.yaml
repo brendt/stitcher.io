@@ -2,3 +2,8 @@
     date: 2021-11-23
     title: "Welkom"
     content: src/content/mails/de-job-0.md
+
+'03':
+    date: 2021-11-03
+    title: "03 — De Fout"
+    content: src/content/mails/de-job-03.md
