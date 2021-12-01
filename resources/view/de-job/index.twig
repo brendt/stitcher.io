@@ -1,38 +1,262 @@
-{% extends '_partials/index.twig' %}
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{% block head %}
-    {{ parent() }}
+    <meta name="twitter:card" content="article">
+    <meta name="title" content="De Job">
+    <meta name="twitter:title" content="De Job">
+    <meta name="description" content="een podcast die het verhaal vertelt over de eerste jaren op de arbeidsmarkt: de zoektocht naar je droomjob, de euforie wanneer je denkt hem gevonden te hebben, en dan de angst, teleurstelling en stress.">
+    <meta name="twitter:description" content="een podcast die het verhaal vertelt over de eerste jaren op de arbeidsmarkt: de zoektocht naar je droomjob, de euforie wanneer je denkt hem gevonden te hebben, en dan de angst, teleurstelling en stress.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="De Job">
+    <meta property="og:description" content="een podcast die het verhaal vertelt over de eerste jaren op de arbeidsmarkt: de zoektocht naar je droomjob, de euforie wanneer je denkt hem gevonden te hebben, en dan de angst, teleurstelling en stress.">
+    <meta itemprop="name" content="De Job">
+    <meta itemprop="description" content="een podcast die het verhaal vertelt over de eerste jaren op de arbeidsmarkt: de zoektocht naar je droomjob, de euforie wanneer je denkt hem gevonden te hebben, en dan de angst, teleurstelling en stress.">
+    <meta name="twitter:card" content="summary"/>
+    <meta property="twitter:image" content="https://stitcher.io/resources/img/meta_small.png"/>
+    <meta name="twitter:creator" content="@brendt_gd"/>
 
-    {{ css.inline('resources/css/blog.scss')|raw }}
-    {{ css.inline('resources/css/overview.scss')|raw }}
-{% endblock %}
 
-{% block content %}
+    <link rel="apple-touch-icon" sizes="180x180" href="/resources/img/de-job-favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/resources/img/de-job-favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/resources/img/de-job-favicon/favicon-16x16.png">
+    <link rel="manifest" href="/resources/img/de-job-favicon/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 
-    <article>
-        <h1>
-            <span>
-                De Job
-            </span>
-        </h1>
+    <title>De Job</title>
 
-        <p>"De Job" is een Nederlandstalige podcast die het waargebeurde verhaal vertelt over mijn eerste jaren in het echte werkleven. Schrijf je in op de nieuwsbrief om als eerste een nieuwe episode te beluisteren!</p>
+    <style>
+        p {
+            font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
+            font-size: 22px;
+            line-height: 1.4em;
+            padding: 0 5px;
+        }
 
-        <form action="https://mail.stitcher.io/subscribe/e570c097-a3db-4b36-a142-536e4a9ff655" method="post">
-            <div>
-                <label for="email">Email</label>
-                <input name="email" style="margin-left:.5em;"/>
-            </div>
+        p + p {
+            margin-top: 1em;
+        }
 
-            <div style="margin-left:1em;">
-                <button type="submit" class="cta cta-small">Inschrijven</button>
-            </div>
-        </form>
+        .container {
+            width: 500px;
+            margin: 0 auto;
+        }
 
-        <br>
+        header {
+            font-size: 16px;
+            box-sizing: border-box;
+            --dim: 500px;
+            display: grid;
+            place-items: end;
+            border: 5px solid #000;
+            border-radius: 2px;
+            box-shadow: 5px 10px 10px -5px rgba(0,0,0,0.5);
+            position: relative;
+            width: var(--dim);
+            height: var(--dim);
+            margin: 3em auto 1em;
+        }
+
+        h2, h3 {
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        h2 {
+            margin-top: 2em;
+        }
+
+        h1 {
+            background-color: #fff;
+            color: #000;
+            font-size: 10em;
+            text-align: right;
+            line-height: 1em;
+            font-family: 'Rajdhani', sans-serif;
+            position: relative;
+            margin: 0 10px 0 0;
+        }
+
+        .author {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0.5em;
+            font-size: 2.5em;
+            font-family: 'Comforter Brush', cursive;
+        }
+
+        a {
+            font-weight: bold;
+            color:#000;
+            text-decoration: underline;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        .spotify:hover {
+            color: #1ed760;
+        }
+
+        .apple:hover {
+            color: #a345d9;
+        }
+
+        .stitcher:hover {
+            color: #ff9b1c;
+        }
+
+        .episode {
+            border: 2px solid #000;
+            box-shadow: 5px 5px 5px -5px rgba(0,0,0,0.5);
+            border-radius: 2px;
+            padding: 3em 2em 2em;
+        }
+
+        .episode + .episode {
+            margin-top: 2em;
+        }
+
+        .episode h3 {
+            margin-top: 0;
+        }
+
+        .links a {
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .links a + a {
+            margin-left: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                 width: 100%;
+            }
+
+            p {
+                font-size: 20px;
+                padding: 0 10px;
+            }
+
+            .author {
+                font-size: 2em;
+            }
+
+            header {
+                width: 100%;
+                height: 300px;
+                border: 5px solid #000;
+                box-shadow: none;
+                margin-top: 0;
+                display: grid;
+            }
+
+            header h1 {
+                margin: 0;
+                font-size: 5em;
+                margin-right: 10px;
+            }
+
+            .links {
+                display: grid;
+                font-size: 1.1em;
+            }
+
+            .links a+a {
+                margin-left: 0;
+                margin-top: 3px;
+            }
+
+            .episode p {
+                padding-left: 0;
+            }
+        }
+
+        footer {
+            margin-top: 2em;
+            text-align: center;
+            color: #333;
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 2em;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <header>
+        <h1>De <br>Job</h1>
+        <span class="author">Brent Roose</span>
+    </header>
+
+    <p>
+        "De Job" is een podcast die het verhaal vertelt over de eerste jaren op de arbeidsmarkt: de zoektocht naar je droomjob, de euforie wanneer je denkt hem gevonden te hebben, en dan de angst, teleurstelling en stress wanneer het toch geen droomjob blijkt te zijn.
+    </p>
+
+    <p>
+        Een podcast die open en eerlijk praat over het echte werkleven, gebaseerd op mijn eigen waargebeurd verhaal. Luister nu en subscribe via
+        <a class="spotify" href="https://open.spotify.com/show/6rsHpBPovlF3R4KCUD14MU">Spotify</a>,
+        <a class="apple" href="https://podcasts.apple.com/us/podcast/de-job/id1596891759">Apple Podcasts</a> en
+        <a class="stitcher" href="https://www.stitcher.com/show/de-job">Stitcher</a>!
+    </p>
+
+    <h2>Alle episodes:</h2>
+
+    <div class="episode">
+        <h3>03 — De Fout</h3>
+
         <p>
-            Kort na je inschrijving ontvang je een mail met een link naar de eerste episode!
+            Ik wandel die dag alleen naar het station, en dat is heel bewust. Ik moet alleen zijn.
         </p>
-    </article>
 
-{% endblock %}
+        <div class="links">
+            <a href="https://open.spotify.com/episode/7t4TkbR3RjD3vgY3ivrrIz" class="spotify">Spotify</a>
+            <a href="https://podcasts.apple.com/us/podcast/03-de-fout/id1596891759?i=1000543465011" class="apple">Apple Podcasts</a>
+            <a href="https://www.stitcher.com/show/de-job/episode/03-de-fout-88648553" class="stitcher">Stitcher</a>
+        </div>
+    </div>
+
+    <div class="episode">
+        <h3>02 — Haat-Liefde</h3>
+
+        <p>
+            'Liefde maakt blind' dat zeggen ze wel eens. Achteraf bekeken had ik de signalen misschien eerder kunnen opvangen.
+        </p>
+
+        <div class="links">
+            <a href="https://open.spotify.com/episode/5KAQvD1jgmhEaPe3HMbCVY" class="spotify">Spotify</a>
+            <a href="https://podcasts.apple.com/us/podcast/02-haat-liefde/id1596891759?i=1000542826518" class="apple">Apple Podcasts</a>
+            <a href="https://www.stitcher.com/show/de-job/episode/02-haat-liefde-88511032" class="stitcher">Stitcher</a>
+        </div>
+    </div>
+
+    <div class="episode">
+        <h3>01 — De Zoektocht</h3>
+
+        <p>
+            'Wat wil je later worden' — da’s een vraag die we als kind toch allemaal wel eens kregen?
+        </p>
+
+        <div class="links">
+            <a href="https://open.spotify.com/episode/1A52lj1pGivmElUGcT73US" class="spotify">Spotify</a>
+            <a href="https://podcasts.apple.com/us/podcast/01-de-zoektocht/id1596891759?i=1000542811421" class="apple">Apple Podcasts</a>
+            <a href="https://www.stitcher.com/show/de-job/episode/01-de-zoektocht-88511031" class="stitcher">Stitcher</a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; stitcher.io 2021
+    </footer>
+</div>
+
+</body>
+</html>

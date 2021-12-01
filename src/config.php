@@ -22,6 +22,7 @@ return [
     'staticFiles' => [
         'resources/img/static/',
         'resources/img/favicon/',
+        'resources/img/de-job-favicon/',
         'resources/img/meta.png',
         'resources/img/meta_small.png',
         'resources/img/rant-with-brent/logo.png',
