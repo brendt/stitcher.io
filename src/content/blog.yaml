@@ -478,7 +478,7 @@ php-8-upgrade-mac:
 
 new-in-php-8:
     date: 2020-11-26
-    title: "What's new in PHP 8: the latest PHP version"
+    title: "What's new in PHP 8"
     content: src/content/blog/2020-01-16-new-in-php-8.md
     next: new-in-php-81
     highlight: true
