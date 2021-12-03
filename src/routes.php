@@ -23,6 +23,7 @@ $redirects = [
     '/blogs-for-devs' => '/blogs-for-devs/01-intro',
     '/feed' => '/rss',
     '/games' => '/games/all',
+    '/dejob' => '/de-job',
     '/podcasts' => '/podcasts/all',
     '/blog/laravel-domains' => '/blog/organise-by-domain',
     '/blog/rethinking-with-events' => '/blog/an-event-driven-mindset',
