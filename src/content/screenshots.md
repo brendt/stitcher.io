@@ -1,4 +1,161 @@
 
+
+
+<div class="screenshot">
+</div>
+
+<div class="screenshot">
+
+```php
+class PostAdminController
+{
+    #[<hljs type>Get</hljs>(<hljs text>'/posts/{post}'</hljs>)]
+    public function show(<hljs type>Post</hljs> $post) {}
+    
+    // …
+    
+    #[<hljs type>Post</hljs>(<hljs text>'/posts/{post}'</hljs>)]
+    public function store(<hljs type>Post</hljs> $post) {}
+}
+```
+</div>
+
+<div class="screenshot">
+
+```ini
+[preloading]
+<hljs keyword>opcache.preload</hljs>=/path/to/project/preload.php
+```
+</div>
+
+<div class="screenshot">
+
+```ini
+[JIT]
+<hljs keyword>opcache.jit</hljs>=1225
+```
+</div>
+
+<div class="screenshot">
+
+```php
+$array1 = ["a" => 1];
+
+$array2 = ["b" => 2];
+
+$array = ["a" => 0, ...$array1, ...$array2];
+```
+</div>
+
+<div class="screenshot">
+
+```php
+$undefined <hljs keyword>??</hljs> 'fallback';
+$input['nested']['undefined'] <hljs keyword>??</hljs> 'fallback';
+$input['undefined'] <hljs keyword>??</hljs> $input['key'] <hljs keyword>??</hljs> 'fallback';
+$parameters['property'] <hljs keyword>??=</hljs> 'default';
+```
+</div>
+
+<div class="screenshot">
+
+```php
+$fiber = new <hljs type>Fiber</hljs>(function (): <hljs type>void</hljs> {
+    $valueAfterResuming = <hljs type>Fiber</hljs>::<hljs prop>suspend</hljs>('after suspending');
+    
+    // … 
+});
+ 
+$valueAfterSuspending = $fiber-><hljs prop>start</hljs>();
+ 
+$fiber-><hljs prop>resume</hljs>('after resuming');
+```
+</div>
+
+<div class="screenshot">
+
+```php
+class Money 
+{
+    public function __construct(
+        <hljs keyword>public</hljs> <hljs type>Currency</hljs> $currency,
+        <hljs keyword>public</hljs> <hljs type>int</hljs> $amount,
+    ) {}
+}
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+$ffi = <hljs type>FFI</hljs>::<hljs prop>cdef</hljs>(
+    <<<EOH
+    <hljs keyword>const</hljs> <hljs type>char</hljs> *<hljs prop>cssfilter</hljs>(<hljs keyword>const</hljs> <hljs type>char</hljs> *html, <hljs keyword>const</hljs> <hljs type>char</hljs> *filter);
+    EOH, 
+    <hljs prop>__DIR__</hljs> . '/../libcssfilter.so'
+);
+
+$value = $ffi-><hljs prop>cssfilter</hljs>($html, $selector);
+```
+</div>
+
+<div class="screenshot">
+
+```php
+class Post
+{
+    <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    
+    <hljs keyword>public readonly</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs>;
+    
+    <hljs keyword>public readonly</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>;
+}
+```
+</div>
+
+
+<div class="screenshot">
+
+```php
+function foo(
+    <hljs type>string</hljs> $a, 
+    <hljs type>string</hljs> $b, 
+    ?<hljs type>string</hljs> $c = null, 
+    ?<hljs type>string</hljs> $d = null
+) { /* … */ }
+
+<hljs prop>foo</hljs>(
+    <hljs prop>b</hljs>: 'value b', 
+    <hljs prop>a</hljs>: 'value a', 
+    <hljs prop>d</hljs>: 'value d',
+);
+```
+</div>
+
+<div class="screenshot">
+
+```php
+$result = <hljs keyword>match</hljs>($input) {
+    0 => "hello",
+    '1', '2', '3' => "world",
+};
+```
+</div>
+
+
+<div class="screenshot">
+
+```php
+<hljs keyword>enum</hljs> <hljs type>Status</hljs> {
+  <hljs keyword>case</hljs> <hljs prop>Pending</hljs>;
+  <hljs keyword>case</hljs> <hljs prop>Active</hljs>;
+  <hljs keyword>case</hljs> <hljs prop>Archived</hljs>;
+}
+```
+</div>
+
+
+
 <div class="screenshot">
 
 ```php
