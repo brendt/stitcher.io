@@ -1,3 +1,8 @@
+'45':
+    date: 2021-11-25
+    title: "December Update"
+    content: src/content/mails/stitcher-45.md
+
 '44':
     date: 2021-11-25
     title: "Hello, PHP 8.1!"
