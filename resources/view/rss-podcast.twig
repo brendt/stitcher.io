@@ -25,7 +25,7 @@
         {% for item in items %}
             <item>
                 <title>{{ item.title }}</title>
-                <link>{{  item.link }}</link>
+                <link>{{ link ?? 'https://stitcher.io' }}</link>
                 <description>{{ item.description }}</description>
                 <pubDate>{{ item.date|date('c') }}</pubDate>
                 <guid isPermaLink="false">s{{ item.season }}-e{{ item.episode }}</guid>
