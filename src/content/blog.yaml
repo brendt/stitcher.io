@@ -1,3 +1,18 @@
+php-version-stats-january-2022:
+    date: 2022-01-10
+    title: "PHP version stats: January, 2022"
+    content: src/content/blog/2022-01-10-php-version-stats-january-2022.md
+    versionStatsDate: 2022-01-10
+    meta:
+        description: Insights in PHP's version usage
+        template: blog/meta/version-stats.twig
+    footnotes:
+        - { link: "https://packagist.org/php-statistics", title: "Raw data from packagist" }
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
+        - { title: "PHP version stats: July, 2021", link: "/blog/php-version-stats-july-2021" }
+        - { title: "PHP in 2021", link: "/blog/php-in-2021" }
+        - { title: "What's new in PHP 8.1", link: "/blog/new-in-php-81" }
+
 php-81-upgrade-mac:
     date: 2021-11-26
     title: Upgrade to PHP 8.1 with Homebrew on Mac
