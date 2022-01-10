@@ -82,7 +82,7 @@ Moving on the the all-time overview chart, here you can see the evolution of ver
 
 <em class="center small">[All time evolution](/resources/img/blog/version-stats/2022-jan-02.svg)</em>
 
-Despite PHP 7.4 starting its downward trajectory, it's clear that it's still has a way to go. Let's hope we'll see a steeper decline in six months.
+Despite PHP 7.4 starting its downward trajectory, it's clear that it still has a way to go. Let's hope we'll see a steeper decline in six months.
 
 ## Required versions
 
