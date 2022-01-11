@@ -1,3 +1,8 @@
+php-in-2022:
+    date: 2022-01-11
+    title: PHP in 2022
+    content: src/content/blog/2022-01-15-php-in-2022.md
+
 php-version-stats-january-2022:
     date: 2022-01-10
     title: "PHP version stats: January, 2022"
