@@ -2,6 +2,146 @@
 
 
 <div class="screenshot">
+
+```txt
+<hljs keyword><h1></hljs>
+    {{ $post-><hljs prop>title</hljs> }}
+<hljs keyword></h1></hljs>
+
+<hljs keyword><div></hljs>
+    {!! $post-><hljs prop>body</hljs> !!}
+<hljs keyword></div></hljs>
+```
+
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs keyword><h1></hljs>
+    <?php <hljs keyword>echo</hljs> $post-><hljs prop>title</hljs>; ?>
+<hljs keyword></h1></hljs>
+
+<hljs keyword><div></hljs>
+    <?php <hljs keyword>echo</hljs> $post-><hljs prop>body</hljs>; ?>
+<hljs keyword></div></hljs>
+```
+
+</div>
+
+<div class="screenshot">
+
+```php
+class BlogData
+{
+    public function __construct(
+        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        <hljs keyword>public readonly</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs>,
+        <hljs keyword>public readonly</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+    ) {}
+}
+```
+
+</div>
+
+<div class="screenshot">
+
+
+```php
+class BlogData
+{
+    /** @var <hljs type>string</hljs> */
+    private <hljs prop>$title</hljs>;
+    
+    /** @var <hljs type>State</hljs> */
+    private <hljs prop>$state</hljs>;
+    
+    /** @var <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> */
+    private <hljs prop>$publishedAt</hljs>;
+   
+   /**
+    * @param <hljs type>string</hljs> $title 
+    * @param <hljs type>State</hljs> $state 
+    * @param <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> $publishedAt 
+    */
+    public function __construct(
+        $title,
+        $state,
+        $publishedAt = <hljs keyword>null</hljs>
+    ) {
+        $this-><hljs prop>title</hljs> = $title;
+        $this-><hljs prop>state</hljs> = $state;
+        $this-><hljs prop>publishedAt</hljs> = $publishedAt;
+    }
+    
+    /**
+     * @return <hljs type>string</hljs> 
+     */
+    public function getTitle()
+    {
+        return $this-><hljs prop>title</hljs>;    
+    }
+    
+    /**
+     * @return <hljs type>State</hljs> 
+     */
+    public function getState() 
+    {
+        return $this-><hljs prop>state</hljs>;    
+    }
+    
+    /**
+     * @return <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> 
+     */
+    public function getPublishedAt() 
+    {
+        return $this-><hljs prop>publishedAt</hljs>;    
+    }
+}
+```
+
+</div>
+
+<div class="screenshot">
+
+```php
+trait <hljs type>HasSlug</hljs>
+{
+    public function getSlug(): string
+    {
+        // …
+    }
+    
+    abstract public function getTitle(): string;
+}
+```
+
+</div>
+
+
+<div class="screenshot">
+
+```php
+class Foo implements Bar {}
+```
+
+</div>
+
+<div class="screenshot">
+
+```php
+function <hljs prop>read</hljs>(<hljs type>string</hljs> $fileName): <hljs type>Generator</hljs> 
+{
+    $handle = <hljs prop>fopen</hljs>($fileName, 'r');
+
+    while (! <hljs prop>feof</hljs>($handle)) {
+        yield <hljs prop>fgets</hljs>($handle);
+    }
+
+    <hljs prop>fclose</hljs>($handle);
+}
+```
+
 </div>
 
 <div class="screenshot">

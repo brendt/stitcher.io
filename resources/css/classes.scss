@@ -397,3 +397,19 @@ h1 > .subtitle {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
 }
+
+.spotlight h3 {
+    margin-top: 1rem;
+}
+
+.spotlight h3 + p {
+    margin-top: 1em;
+}
+
+.spotlight p {
+    font-size: 1.2rem;
+}
+
+.spotlight p + iframe {
+    margin-top: -1rem;
+}

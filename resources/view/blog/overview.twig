@@ -20,9 +20,22 @@
                 stitcher.io
             </span>
         </h1>
+
+        <div class="author spotlight">
+            <h3>
+                PHP in 7 minutes
+            </h3>
+
+            <p>
+                I've just released a new video over <a href="https://www.youtube.com/watch?v=IfcFQxYPTxo">on youtube</a>: a short and to-the-point introduction of what PHP is about. Check it out, don't forget to like and share it!
+            </p>
+
+            <iframe width="560" height="420" src="https://www.youtube.com/embed/IfcFQxYPTxo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
     </article>
 
     <div class="wrapper">
+
         <nav>
             {% for post in posts %}
                 {% if post.hidden is not defined or post.hidden == false %}
