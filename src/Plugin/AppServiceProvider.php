@@ -15,6 +15,7 @@ use Brendt\Stitcher\Plugin\Markdown\ImageRenderer;
 use Brendt\Stitcher\Plugin\Markdown\LinkRenderer;
 use Brendt\Stitcher\Plugin\Markdown\NumberParser;
 use Brendt\Stitcher\Plugin\Twig\ImageExtension;
+use Brendt\Stitcher\Plugin\Twig\Production;
 use League\CommonMark\Block\Element\FencedCode;
 use League\CommonMark\Block\Element\Heading;
 use League\CommonMark\Block\Element\IndentedCode;
@@ -63,7 +64,7 @@ class AppServiceProvider implements Plugin
 //        /** @var \Stitcher\Renderer\RendererFactory $rendererFactory */
 //        $rendererFactory = App::get(RendererFactory::class);
 //
-//        $rendererFactory->addExtension(new ImageExtension());
+//        $rendererFactory->addExtension(new Production());
 
         /** @var AdapterFactory $adapterFactory */
         $adapterFactory = App::get(AdapterFactory::class);
