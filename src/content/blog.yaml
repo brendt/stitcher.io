@@ -1,3 +1,11 @@
+how-i-plan:
+    date: 2022-01-13
+    title: How I plan
+    content: src/content/blog/2022-01-13-how-i-plan.md
+    meta:
+        desription: How I manage my long-term goals
+        template: blog/meta/how-i-plan.twig
+
 php-in-2022:
     date: 2022-01-11
     title: PHP in 2022
