@@ -21,6 +21,7 @@ return [
 
     'staticFiles' => [
         'resources/img/static/',
+        'resources/img/static/php-in-7-minutes-thumb.jpg',
         'resources/img/favicon/',
         'resources/img/de-job-favicon/',
         'resources/img/meta.png',

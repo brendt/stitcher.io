@@ -4,34 +4,44 @@
     {{ parent() }}
 
     {{ css.inline('resources/css/blog.scss')|raw }}
-    {{ css.inline('resources/css/overview.scss')|raw }}
+{{ css.inline('resources/css/overview.scss')|raw }}
 {% endblock %}
 
 {% block content %}
-    {% if (overviewTitle ?? null) == 'programming' %}
-        {% include '_partials/ad_scout.twig' %}
-    {% endif %}
+{#    {% if (overviewTitle ?? null) == 'programming' %}#}
+{#        {% include '_partials/ad_scout.twig' %}#}
+{#    {% endif %}#}
+
+    <div class="hero">
+        <div class="wrapper">
+            <h1>
+                <span>
+                    stitcher.io
+                </span>
+            </h1>
+
+
+
+            <div class="author spotlight">
+                <h3>
+                    PHP in 7 minutes
+                </h3>
+
+                <p>
+                    I've just released a new video over <a href="https://www.youtube.com/watch?v=IfcFQxYPTxo">on youtube</a>: a short and to-the-point introduction of what PHP is about. Check it out, don't forget to like and share it!
+                </p>
+
+                <a href="https://www.youtube.com/watch?v=IfcFQxYPTxo" target="_blank" rel="noopener noreferrer">
+                    <img src="/resources/img/static/php-in-7-minutes-thumb.jpg" alt="PHP in 7 Minutes">
+                    <p><em class="center small">PHP in 7 Minutes</em></p>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <article class="blog">
-        {% include '_partials/header_links.twig' %}
+{#        {% include '_partials/header_links.twig' %}#}
 
-        <h1>
-            <span>
-                stitcher.io
-            </span>
-        </h1>
-
-        <div class="author spotlight">
-            <h3>
-                PHP in 7 minutes
-            </h3>
-
-            <p>
-                I've just released a new video over <a href="https://www.youtube.com/watch?v=IfcFQxYPTxo">on youtube</a>: a short and to-the-point introduction of what PHP is about. Check it out, don't forget to like and share it!
-            </p>
-
-            <iframe width="560" height="420" src="https://www.youtube.com/embed/IfcFQxYPTxo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
     </article>
 
     <div class="wrapper">

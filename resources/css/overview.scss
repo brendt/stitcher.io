@@ -129,3 +129,18 @@ nav.overview *.search-container {
     padding-left: 24px;
     margin: 0 auto;
 }
+
+.hero {
+    background-color: $color-primary-pastel;
+    font-family: $font-body;
+    padding:2rem 0;
+}
+
+.hero h1 {
+    font-family: $font-title;
+    margin: 0;
+}
+
+.hero *:last-child {
+    margin-bottom: 0;
+}
