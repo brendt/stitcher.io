@@ -18,9 +18,7 @@ And just to be clear, I'm not mad at any of those people; most of them actually 
 
 It turns out [their algorithm is rather picky](https://medium.com/technically-social/study-suggests-twitters-timeline-algorithm-buries-external-links-92cb5841082f), especially when it comes to tweeting external sources:
 
-<div class="quote">
-
-On average, 51% of tweets in chronological timelines contained an external link, compared to just 18% in the algorithmic timelines</div>
+> On average, 51% of tweets in chronological timelines contained an external link, compared to just 18% in the algorithmic timelines
 
 Unfortunately for me, I find external sources (blog posts, news articles, etc) often the most relevant and insightful; and Twitter deliberately filters them out when discovering new people.
 
