@@ -14,7 +14,7 @@ After two months, I now only see tweets of:
 - people going out of their way trying to spread "positive vibes" to the point that it becomes a little cringey;
 - people who use threads, which I don't find a very efficient way of communicating longer and coherent thoughts.
 
-And just to be clear, I'm not mad at any of them; most of those people actually tweet interesting stuff as well, but Twitter simply didn't show their more interesting tweets in my Home feed.
+And just to be clear, I'm not mad at any of those people; most of them actually tweet interesting stuff as well; but Twitter simply didn't show those more interesting tweets in my Home feed.
 
 It turns out [their algorithm is rather picky](https://medium.com/technically-social/study-suggests-twitters-timeline-algorithm-buries-external-links-92cb5841082f), especially when it comes to tweeting external sources:
 
