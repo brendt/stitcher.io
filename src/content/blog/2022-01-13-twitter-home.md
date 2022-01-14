@@ -12,7 +12,7 @@ After two months, I now only see tweets of:
 - people trying to sell me their latest products;
 - people showing off their new MacBook pro;
 - people going out of their way trying to spread "positive vibes" to the point that it becomes a little cringey;
-- people who think threads are an efficient way of communicating coherent thoughts and opinions.
+- people who use threads, which I don't find a very efficient way of communicating longer and coherent thoughts.
 
 And just to be clear, I'm not mad at any of them; most of those people actually tweet interesting stuff as well, but Twitter simply didn't show their more interesting tweets in my Home feed.
 
