@@ -24,9 +24,13 @@ Now, this strategy seems to work fine in client projects, but what about open so
 
 It's been a productive week, coming back from holiday I really felt energised and inspired to write some posts. Here's what I've worked on this week:
 
-- [How I plan](https://stitcher.io/blog/how-i-plan)
-- [PHP version stats: January 2022](https://stitcher.io/blog/php-version-stats-january-2022)
-- [PHP in 2022](https://stitcher.io/blog/php-in-2022)
+[How I plan](https://stitcher.io/blog/how-i-plan) — I got asked a question via email about how I deal with long-term planning so I wrote down some thoughts. Spoiler: I don't.
+
+[PHP version stats: January 2022](https://stitcher.io/blog/php-version-stats-january-2022) – Only 30% of all composer PHP installs are using an actively maintained PHP version. That's the main reason I wanted to write this newsletter and talk about updating dependencies.
+
+[PHP in 2022](https://stitcher.io/blog/php-in-2022) — My yearly PHP in 20XX roundup post, it's been well received on social media, so you might have seen it already. What are you excited about for PHP in 2022?
+
+[Twitter home made me miserable](https://stitcher.io/blog/twitter-home-made-me-miserable) — I sent this post originally as a newsletter a while back, but I'm still looking for good ideas on how to solve my problem.
 
 Also, I made a new video! It's focussed on people who haven't heard of PHP or know little about it, to give them a quick rundown of the language. If you're a PHP developer, you probably won't learn anything new, although it might be helpful to teach some people you know that PHP isn't the same crappy language it used to be 15 years ago.
 
