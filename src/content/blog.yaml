@@ -1,3 +1,11 @@
+dealing-with-dependencies:
+    date: 2022-01-19
+    title: "Dealing with dependencies"
+    content: src/content/blog/2022-01-19-dealing-with-dependencies.md
+    footnotes:
+        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
+        - { link: "/blog/php-version-stats-july-2021", title: "PHP version stats: July, 2021" }
+
 its-your-fault:
     date: 2022-01-15
     title: "\"It's your fault\""
@@ -21,6 +29,7 @@ php-in-2022:
     title: PHP in 2022
     content: src/content/blog/2022-01-15-php-in-2022.md
     footnotes:
+        - { link: "/blog/dealing-with-dependencies", title: "Dealing with dependencies" }
         - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { title: "PHP version stats: July, 2021", link: "/blog/php-version-stats-july-2021" }
         - { title: "PHP in 2021", link: "/blog/php-in-2021" }
