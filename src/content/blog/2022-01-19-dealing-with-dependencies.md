@@ -6,7 +6,7 @@ I don't want to leave you with empty words though, so I want to share some actio
 
 Here's what I do in such cases.
 
-First off, I **don't wait** for the official PHP release to start testing my code. This goes for client and private projects, as wel as open source projects. You can safely start testing once PHP's release candidates arrive. You might even discover a bug or two in PHP's core, helping them along the way.
+First off, I **don't wait** for the official PHP release to start testing my code. This goes for client and private projects, as well as open source projects. You can safely start testing once PHP's release candidates arrive. You might even discover a bug or two in PHP's core, helping them along the way.
 
 Next, if you encounter an external dependency that doesn't support the latest PHP version yet, try and **send a pull request** to fix it yourself. Open source maintainers will often be very thankful for your contribution. It might be best to check the open issues, pull requests and discussions though, maybe it's already being worked on.
 
