@@ -10,7 +10,7 @@ Or, how I like to phrase it: some of the most crappy software design possible.
 
 There was a whole debate in the [comment section](https://web.archive.org/web/20100222121715/http://blogs.msdn.com/oldnewthing/archive/2008/09/25/8965129.aspx) on whether Microsoft or the developers — the users of Microsoft's code — messed up. After all: the docs explicitly told their users they needed to call that function, so if they didn't follow the rules, they were on their own.
 
-There were a couple of commenters calling out Microsoft though:
+There were a couple of commentators calling out Microsoft though:
 
 > Why not instead design the API such that the programmer cannot fail to use it correctly and still have their program compile?
 
