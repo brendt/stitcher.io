@@ -32,7 +32,7 @@ And:
 
 In my opinion, these are some sensible arguments. Users in general can't be trusted to, one, read the docs and two, follow rules that don't seem to make sense at that point in time. That's just not how to world works.
 
-But ok, this was 2008, we've learned to do better now, don't we? Well… it's actually still very common to write code that's going to be used by others, and _assume_ those users will know how to use that code responsibly. I personally know plenty of people who follow this mindset. I respect them very much, and they also know I disagree with them on this opinion.
+But ok, this was 2008 and we've learned to do better now, haven't we? Well… it's actually still very common to write code that's going to be used by others, and _assume_ those users will know how to use that code responsibly. I personally know plenty of people who follow this mindset. I respect them very much, and they also know I disagree with them on this opinion.
 
 Looking at it from the user perspective though, this mindset is suboptimal as well: if the code _itself_ isn't clear on how it should be used, there's a level of uncertainty introduced in the user's mind. "Am I missing something here?" "Should I read every docs page available before actually using this code?"
 
