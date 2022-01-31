@@ -45,7 +45,7 @@ In my opinion, that means:
 - Not allowing state to be writeable from the outside, unless it's by design, `<hljs keyword>readonly</hljs>` by default
 - Only adding methods to your public API that _actually_ should be publicly accessible, `<hljs keyword>private</hljs>` by default
 - Using explicit, clear names everywhere
-- Programing to an interface instead of an implementation
+- Programming to an interface instead of an implementation
 
 > It's better software design, for vendors and users alike, to make our code as explicit and robust as possible, with as little room for interpretation and uncertainty as possible.
 
