@@ -40,7 +40,7 @@ I think it's better software design, for vendors and users alike, to make our co
 
 In my opinion, that means:
 
-- Using a proper type system, as strict as possible
+- Using a proper type system (as strict as possible)
 - Not allowing classes to be extended, unless it's by design, `<hljs keyword>final</hljs>` by default
 - Not allowing state to be writeable from the outside, unless it's by design, `<hljs keyword>readonly</hljs>` by default
 - Only adding methods to your public API that _actually_ should be publicly accessible, `<hljs keyword>private</hljs>` by default
