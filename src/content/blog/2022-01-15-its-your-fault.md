@@ -47,7 +47,7 @@ In my opinion, that means:
 - Using explicit, clear names everywhere
 - Programming to an interface instead of an implementation
 
-> It's better software design, for vendors and users alike, to make our code as explicit and robust as possible, with as little room for interpretation and uncertainty as possible.
+> It's better software design, for vendors and users alike, to make our code as explicit and robust as possible, with as little room for interpretation and uncertainty.
 
 To me, it's not a matter of distrust, it's about writing code that's clear about what it does, without having to dig through a set of rules written in the docs somewhere far away from your IDE. 
 
