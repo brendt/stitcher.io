@@ -30,7 +30,7 @@ And:
     <a href="https://web.archive.org/web/20100222121715/http://blogs.msdn.com/oldnewthing/archive/2008/09/25/8965129.aspx#8966943">Source</a>
 </em>
 
-In my opinion, these are some sensible arguments. Users in general can't be trusted to, one, read the docs; and two, follow rules that don't seem to make sense at that point in time. That's just not how to world works.
+In my opinion, these are some sensible arguments. Users in general can't be trusted to, one, read the docs and two, follow rules that don't seem to make sense at that point in time. That's just not how to world works.
 
 But ok, this was 2008, we've learned to do better now, don't we? Well… it's actually still very common to write code that's going to be used by others, and _assume_ those users will know how to use that code responsibly. I personally know plenty of people who follow this mindset. I respect them very much, and they also know I disagree with them on this opinion.
 
