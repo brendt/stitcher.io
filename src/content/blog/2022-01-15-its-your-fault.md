@@ -2,7 +2,7 @@ I read an intriguing blog post yesterday. It's on old one dating back to 2008, t
 
 There used to be a function in Windows Kernel that didn't do anything. Yet, the docs told programmers that this function _had_ to be called after calling another one: _if_ you called `<hljs prop>GetEnvironmentStrings</hljs>`, you _also_ needed to call `<hljs prop>FreeEnvironmentStrings</hljs>`. However, many programmers didn't bother to do so because it was pointless: `<hljs prop>FreeEnvironmentStrings</hljs>` didn't do anything, it was literally an empty function. A couple of years later, that function actually got an implementation, and many applications started to break because their programmers never bothered to call it in the first place.
 
-The article summarizes it as follows:
+The article summarises it as follows:
 
 > If the documentation says that you have to call a function, then you have to call it. It may be that the function doesn’t do anything, but that doesn’t prevent it from doing something in the future.
 
