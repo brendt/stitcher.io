@@ -95,7 +95,7 @@ But the downside of this approach: you would have to call the function with an u
 
 ## Performance
 
-You can imagine it's better to know beforehand whether an array contains only elements of a certain type, rather then
+You can imagine it's better to know beforehand whether an array contains only elements of a certain type, rather than
  manually checking the types within a loop, every, single, time.
  
 We can't do benchmarks on generics, because they don't exist yet, so it's only guessing as to how they would impact performance.
