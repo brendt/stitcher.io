@@ -612,6 +612,7 @@ why-light-themes-are-better-according-to-science:
         - { title: "The Pulfrich effect on Wikipedia", link: "https://en.wikipedia.org/wiki/Pulfrich_effect" }
         - { title: "Astigmatism on Wikipedia", link: "https://en.wikipedia.org/wiki/Astigmatism" }
         - { title: "The Dark Side of Dark Mode", link: "https://tidbits.com/2019/05/31/the-dark-side-of-dark-mode/" }
+        - { title: "An in-depth study on colour schemes", link: "http://tecfa.unige.ch/tecfa/maltt/cosys-2/textes/hall04.pdf" }
 
 the-case-for-transpiled-generics:
     date: 2020-09-17
