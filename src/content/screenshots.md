@@ -1,5 +1,184 @@
+<div class="screenshot">
+
+```txt
+<hljs comment>PHP</hljs>
+<?php <hljs keyword>echo</hljs> <hljs prop>strtoupper</hljs>('welcome'); ?>
+
+<hljs comment>Blade</hljs>
+{{ <hljs prop>strtoupper</hljs>('welcome') }}
+
+<hljs comment>Twig</hljs>
+{{ 'welcome'|<hljs prop>upper</hljs> }}
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs comment>PHP</hljs>
+<?php <hljs keyword>echo</hljs> 'http://' . $app-><hljs prop>request</hljs>-><hljs prop>host</hljs>; ?> 
+
+<hljs comment>Blade</hljs>
+{{ 'http://' . $app-><hljs prop>request</hljs>-><hljs prop>host</hljs> }} 
+
+<hljs comment>Twig</hljs>
+{{ 'http://' ~ app.<hljs prop>request</hljs>.<hljs prop>host</hljs> }}
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs comment>PHP</hljs>
+<?php <hljs keyword>echo</hljs> 'http://' . $app-><hljs prop>request</hljs>-><hljs prop>host</hljs>; ?> 
+
+<hljs comment>Blade</hljs>
+{{ 'http://' . $app-><hljs prop>request</hljs>-><hljs prop>host</hljs> }} 
+
+<hljs comment>Twig</hljs>
+{{ 'http://' ~ app.<hljs prop>request</hljs>.<hljs prop>host</hljs> }}
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs comment>PHP</hljs>
+<hljs keyword>foreach</hljs> ($users <hljs keyword>as</hljs> $user) {
+
+<hljs comment>Blade</hljs>
+@<hljs keyword>foreach</hljs> ($users <hljs keyword>as</hljs> $user)
+
+<hljs comment>Twig</hljs>
+{% <hljs keyword>for</hljs> user <hljs keyword>in</hljs> users %}
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs comment>PHP</hljs>
+<hljs keyword>if</hljs> (! $user-><hljs prop>subscribed</hljs>) {
+
+<hljs comment>Blade</hljs>
+@<hljs keyword>if</hljs>(! $user-><hljs prop>subscribed</hljs>)
+
+<hljs comment>Twig</hljs>
+{% <hljs keyword>if not</hljs> user.<hljs prop>subscribed</hljs> %}
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs comment>PHP</hljs>
+<?php echo $title ?>
+
+<hljs comment>Blade</hljs>
+{{ $title }}
+
+<hljs comment>Twig</hljs>
+{{ title }}
+```
+</div>
 
 
+
+
+
+<div class="screenshot">
+
+```txt
+<hljs keyword>function</hljs> <hljs prop>greet</hljs>(person) {
+  <hljs keyword>return</hljs> "Hello " + person.<hljs prop>name</hljs>;
+}
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs keyword>interface</hljs> <hljs type>Person</hljs> {
+  <hljs prop>name</hljs>: <hljs type>string</hljs>;
+  <hljs prop>age</hljs>: <hljs type>number</hljs>;
+}
+ 
+<hljs keyword>function</hljs> <hljs prop>greet</hljs>(person: <hljs type>Person</hljs>) {
+  <hljs keyword>return</hljs> "Hello " + person.<hljs prop>name</hljs>;
+}
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs keyword>type</hljs> <hljs type>Result</hljs> = "pass" | "fail"
+ 
+<hljs keyword>function</hljs> <hljs prop>verify</hljs>(result: <hljs type>Result</hljs>) {
+    <hljs comment>// …</hljs>
+}
+
+<hljs prop>verify</hljs>(<hljs striped>'wrong'</hljs>)
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs keyword>interface</hljs> <hljs type>Account</hljs> {
+  <hljs prop>id</hljs>: <hljs type>number</hljs>
+  <hljs prop>displayName</hljs>: <hljs type>string</hljs>
+  <hljs prop>version</hljs>: 1
+}
+ 
+<hljs keyword>function</hljs> <hljs prop>welcome</hljs>(user: <hljs type>Account</hljs>) {
+    <hljs comment>// …</hljs>
+}
+```
+</div>
+
+<div class="screenshot">
+
+```js
+[] + {}
+// '[object Object]'
+
+{} + []
+// 0
+```
+</div>
+
+<div class="screenshot">
+
+```txt
+<hljs keyword>class</hljs> <hljs type>Foo</hljs> {
+    <hljs prop>#id</hljs>;
+    
+    <hljs prop>constructor</hljs>(id) {
+        <hljs keyword>this.</hljs><hljs prop>#id</hljs> = id;
+    }
+    
+    <hljs keyword>get</hljs> <hljs prop>id</hljs>() {
+        <hljs keyword>return</hljs> <hljs keyword>this</hljs>.<hljs prop>#id</hljs>;
+    }
+}
+```
+</div>
+
+
+<div class="screenshot">
+
+```txt
+<hljs keyword>let</hljs> <hljs type>Foo</hljs> = {
+    <hljs prop>init</hljs>(id) {
+        <hljs keyword>this</hljs>.<hljs prop>setId</hljs>(id);
+    },
+  
+    <hljs prop>setId</hljs>(id) { <hljs keyword>this</hljs>.id = id; },
+    <hljs prop>getId</hljs>() { <hljs keyword>return</hljs> <hljs keyword>this</hljs>.id; },
+};
+```
+</div>
 
 <div class="screenshot">
 
