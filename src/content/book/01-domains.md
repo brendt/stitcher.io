@@ -1,10 +1,4 @@
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 > Humans think in categories, our code should be a reflection of that.
 
@@ -113,13 +107,6 @@ If you want to separate the root namespaces though, you can do so by making a sl
 
 Note that I also have a `\Support` root namespace, which for now you can think of as the dumping ground for all little helpers that don't belong anywhere.
 
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
-
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 --- 
 

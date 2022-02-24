@@ -1,10 +1,5 @@
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
+
 
 >> Now that we can work with data in a type-safe and transparent way, we need to start doing something with it.
 
@@ -187,13 +182,8 @@ For the scope of our projects, splitting actions into commands and handlers was 
 
 The second alternative worth mentioning is event driven systems. If you ever worked in an event driven system, you might think that actions are too directly coupled to the places where they are actually used. Again the same argument applies: event driven systems offer more flexibility, yet for our projects it would have been overkill to use them. Furthermore event driven systems add a layer of indirectness that makes the code more complex to reason about. While this indirectness does offer benefits, they wouldn't outweigh the cost of maintenance for us. 
 
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
+
 
 ---
 

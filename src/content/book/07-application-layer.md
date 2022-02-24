@@ -1,10 +1,4 @@
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 Back in chapter 1, I stated that one of the characteristics of domain oriented Laravel projects is the following:
 
@@ -617,12 +611,6 @@ Does this mean modules should be one-to-one mapped on the domain? Definitely not
 
 Another question that might arise looking at this structure, is what to do with general purpose classes. Stuff like a base request class, middleware that's used everywhere,… Remember the `Support` namespace back in chapter one? That's what it is for! `Support` holds all code that should be globally accessible but it could just as well have been part of the framework.
 
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 Now that you have a general overview of how we can structure applications, it's time to look at some of the patterns we use over there to make our lives easier. We'll start with that next time, when we talk about view models.

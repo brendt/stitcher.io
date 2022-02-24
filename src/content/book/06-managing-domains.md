@@ -1,10 +1,4 @@
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 In the previous chapters we looked at the three core building blocks of our domains: DTOs, actions and models. Today we take a breather from the low level technical stuff, and focus on the philosophical side: how do you start using domains, how to identify them, and how to manage them in the long run?
 
@@ -58,13 +52,7 @@ So that's the approach I would take if you want to start using this domain orien
 
 And because our domain code has very little dependencies, it's very flexible, it doesn't cost much to move stuff around or refactor your code.
 
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 Are you enjoying this series this far? Got any questions or feedback? Feel free to let me know via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io). 
 

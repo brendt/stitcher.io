@@ -1,10 +1,4 @@
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 In the previous chapters, I've talked about two of the three core building blocks of every application: DTOs and actions — data and functionality. In this chapter we will look at the last piece that I consider part of this core: exposing data that's persisted in a data store; in other words: models.
 
@@ -173,13 +167,7 @@ $invoice
 
 Try to keep your models clean and data-oriented, instead of having them provide business logic. There are better places to handle it.
 
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 ## Empty bags of nothingness
 

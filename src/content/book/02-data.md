@@ -1,10 +1,4 @@
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 At the core of every project, you find data. Almost every application's task can be summarized like so:  provide, interpret and manipulate data in whatever way the business wants.
 
@@ -299,13 +293,7 @@ By default though, docblocks don't give any guarantees that the data is of the t
 
 The solution provided by this package can be thought of as an extension of PHPs type system. While there's only so much one can do in userland and at runtime, still it adds value. If you're unable to use PHP 7.4 and want a little more certainty that your docblock types are actually respected, this package has you covered.
 
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
 
 ---
 

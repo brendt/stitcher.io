@@ -1,10 +1,5 @@
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
+
 
 >> The state pattern is one of the best ways to add state-specific behaviour to models, while still keeping them clean.
 
@@ -318,13 +313,8 @@ class PendingInvoiceState extends InvoiceState
 
 Reducing if/else statements in our code allows that code to be more linear, which in turn is easier to reason about. I would highly recommend to take a look at [Sandi Metz's talk](*https://www.youtube.com/watch?v=29MAL8pJImQ) about this exact topic.
 
-<div class="author footnotes">
-<p>I'm working on a brand new version of this series, it will contain a video course, ebook and a project built from the ground up with these principles!
-</p>
-<br>
 
-<a class="cta cta-small cta-bold" target="_blank" rel="noopener noreferrer" href="https://laravel-beyond-crud.com/">Read more</a>
-</div>
+
 
 The state pattern is, in my opinion, awesome. You're never stuck again writing huge if/else statements — in real life there are often more than two invoice states — and it allows for clean and testable code.
 
