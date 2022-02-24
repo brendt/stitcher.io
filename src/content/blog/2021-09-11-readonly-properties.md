@@ -276,4 +276,3 @@ So, that's all there is to say about readonly properties. I think they are a gre
 
 I'm looking forward to using them, what about you? Let me know on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io)! 
 
-Oh, by the way, I've written a book about modern day PHP development, and I'm currently working on a PHP 8.1 update. If you've bought the book in the past, you'll get the update for free. Check it out: [Front Line PHP](*https://front-line-php.com/).
