@@ -1,3 +1,8 @@
+'48':
+    date: 2022-03-07
+    title: "Generics in PHP"
+    content: src/content/mails/stitcher-48.md
+
 '47':
     date: 2022-01-15
     title: "Dealing with Dependencies"

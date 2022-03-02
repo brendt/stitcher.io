@@ -22,6 +22,10 @@ return [
     'staticFiles' => [
         'resources/img/static/',
         'resources/img/static/php-in-7-minutes-thumb.jpg',
+        'resources/img/static/generics-thumb-1.png',
+        'resources/img/static/generics-thumb-2.png',
+        'resources/img/static/generics-thumb-3.png',
+        'resources/img/static/generics-thumb-4.png',
         'resources/img/favicon/',
         'resources/img/de-job-favicon/',
         'resources/img/meta.png',
