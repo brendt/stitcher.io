@@ -6,7 +6,7 @@ In this series, we'll look at generics in PHP, why they aren't "a thing" yet, an
     <p>
         <img src="https://stitcher.io/resources/img/static/generics-thumb-1.png" alt="Generics in PHP: The Basics">
     </p>
-    <p class="center"><em class="small">Generics in PHP: The Basics</em></p>
+    <p class="center"><em class="small">Generics in PHP: The basics</em></p>
 </a>
 
 If you're not the video-type-of-person, you'll be happy to hear that you can also [listen to this series](TODO) in my Rant with Brent podcast, or you can just wait a couple of weeks, I'll post the transcripts on my blog as well.
