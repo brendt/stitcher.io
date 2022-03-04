@@ -1,3 +1,11 @@
+rant-with-brent-08:
+  date: 2022-03-04
+  title: "08 Generics in PHP: The basics"
+  link: https://feeds.soundcloud.com/stream/1226100388-brent-roose-826312539-08-generics-in-php-the-basics.mp3
+  description: src/content/podcasts/rant-08-description.md
+  season: 1
+  episode: 8
+
 rant-with-brent-07:
   date: 2021-04-12
   title: "07: Fibers with a Grain of Salt"
