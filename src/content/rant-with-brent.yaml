@@ -1,3 +1,11 @@
+rant-with-brent-09:
+  date: 2022-03-07
+  title: "09 Generics in PHP: In depth"
+  link: https://feeds.soundcloud.com/stream/1227785530-brent-roose-826312539-09-php-generics-in-depth.mp3
+  description: src/content/podcasts/rant-09-description.md
+  season: 1
+  episode: 9
+
 rant-with-brent-08:
   date: 2022-03-04
   title: "08 Generics in PHP: The basics"
