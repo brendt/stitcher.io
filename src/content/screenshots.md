@@ -1,5 +1,48 @@
 <div class="screenshot">
 
+```php
+#[<hljs type>Template</hljs>('<hljs text>Type</hljs>')]
+#[<hljs type>Return</hljs>('<hljs text>Type</hljs>')]
+function app(#[<hljs type>ClassString</hljs>('<hljs text>Type</hljs>')] $className)
+{ /* … */ }
+```
+</div>
+
+<div class="screenshot">
+
+```php
+function app(<hljs type>class-string</hljs><<hljs generic>Type</hljs>> $className): <hljs generic>Type</hljs>
+{ /* … */ }
+```
+</div>
+
+<div class="screenshot">
+
+```php
+#[<hljs type>Template</hljs>(<hljs generic>Type</hljs>)]
+#[<hljs type>Return</hljs>(<hljs generic>Type</hljs>)]
+function app(#[<hljs type>ClassString</hljs>(<hljs generic>Type</hljs>)] $className)
+{ /* … */ }
+```
+</div>
+
+<div class="screenshot">
+
+```php
+/**
+ * @template <hljs generic>Type</hljs>
+ * @param <hljs type>class-string</hljs><<hljs generic>Type</hljs>> $className
+ * @return <hljs generic>Type</hljs>
+ */
+function app($className)
+{ /* … */ }
+```
+</div>
+
+
+
+<div class="screenshot">
+
 ```txt
 <hljs comment>PHP</hljs>
 <?php <hljs keyword>echo</hljs> <hljs prop>strtoupper</hljs>('welcome'); ?>

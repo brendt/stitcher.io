@@ -28,11 +28,10 @@
             border: 1px solid rgba(200, 200, 200, 1);
             border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 50px;
             width: 450px;
             display: inline-block;
 
-            margin-left: 50px;
+
             /*margin-top: 375px;*/
         }
 
@@ -71,7 +70,7 @@
                     return (node.tagName !== 'i');
                 }
 
-                htmlToImage.toPng(node,  {canvasWidth: 1920, width: 1920})
+                htmlToImage.toPng(node,  {canvasWidth: 500, width: 500})
                     .then(function (dataUrl) {
                         download(dataUrl, 'code-screenshot.png');
                     });
