@@ -1,0 +1,1 @@
+Watch this episode on YouTube: [https://www.youtube.com/watch?v=c8hQ1fWU_mQ&ab_channel=BrentRoose](https://www.youtube.com/watch?v=BN0L2MBkhNg&list=PL0bgkxUS9EaKyOugEDffRzsvupBE2YEoD&index=3&ab_channel=BrentRoose)

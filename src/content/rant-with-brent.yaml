@@ -1,3 +1,11 @@
+rant-with-brent-10:
+  date: 2022-03-11
+  title: "10 Generics in PHP: Why we can't have them"
+  link: https://feeds.soundcloud.com/stream/1230445960-brent-roose-826312539-03-rant-php-generics-and-why-we-cant-have-them.mp3
+  description: src/content/podcasts/rant-10-description.md
+  season: 1
+  episode: 10
+
 rant-with-brent-09:
   date: 2022-03-07
   title: "09 Generics in PHP: In depth"
