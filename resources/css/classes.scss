@@ -417,5 +417,9 @@ h1 > .subtitle {
 img.small {
     margin-left: auto;
     margin-right: auto;
-    width: 55%;
+    width: 100%;
+
+    @media (min-width: 500px) {
+        width: 55%;
+    }
 }
