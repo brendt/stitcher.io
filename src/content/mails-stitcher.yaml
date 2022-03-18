@@ -1,3 +1,8 @@
+'50':
+    date: 2022-03-25
+    title: "A New Era"
+    content: src/content/mails/stitcher-50.md
+
 '49':
     date: 2022-03-07
     title: "Generics in PHP: The End"
