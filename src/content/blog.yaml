@@ -1,7 +1,12 @@
-# generics-in-php-4:
-#    date: 2022-03-25
-#    title: "The case for PHP generics"
-#     content: src/content/blog/2022-03-25-generics-in-php-4.md
+goodbye:
+    date: "2022-03-25 16:00:00"
+    title: Goodbye
+    content: src/content/blog/2022-03-25-goodbye.md
+
+generics-in-php-4:
+    date: 2022-03-25
+    title: "The case for PHP generics"
+    content: src/content/blog/2022-03-25-generics-in-php-4.md
 #
 # generics-in-php-3:
 #    date: 2022-03-24
