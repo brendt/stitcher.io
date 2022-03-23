@@ -1,4 +1,4 @@
-I showed a very boring example of generics in the previous video, we’re going to do better in this one.
+I showed a very boring example of generics in the [previous post](/blog/generics-in-php-1), we’re going to do better in this one.
 
 ```php
 $users = new <hljs type>Collection</hljs><<hljs generic>User</hljs>>();

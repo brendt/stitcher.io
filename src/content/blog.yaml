@@ -8,15 +8,16 @@
 #    title: "Why we can't have generics in PHP"
 #     content: src/content/blog/2022-03-24-generics-in-php-3.md
 #
-# generics-in-php-2:
-#    date: 2022-03-23
-#    title: "Generics in depth"
-#     content: src/content/blog/2022-03-23-generics-in-php-2.md
+generics-in-php-2:
+    date: 2022-03-23
+    title: "Generics in depth"
+    content: src/content/blog/2022-03-23-generics-in-php-2.md
 
 generics-in-php-1:
     date: 2022-03-22
     title: "Generics in PHP: The basics"
     content: src/content/blog/2022-03-17-generics-in-php-1.md
+    next: generics-in-php-2
 
 php-in-2021-video:
     date: 2022-01-24
