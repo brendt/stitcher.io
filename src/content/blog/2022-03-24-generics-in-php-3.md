@@ -76,7 +76,7 @@ $slugs[] = 1; // 1 won't be cast to '1'
 
 The second, and more important problem with type erasure — maybe you’re already yelling it at your screen by now — is that the types are gone. Why would we add generic types, if they are erased at runtime?
 
-It makes sense in Java and Pyton, because all type definitions are checked before running the code using a static analyser. Java for example runs a built-in static analyser when compiling code; something that PHP simply doesn’t do: there is no compilation step, and there certainly isn’t a built-in static type checker.
+It makes sense in Java and Python, because all type definitions are checked before running the code using a static analyser. Java for example runs a built-in static analyser when compiling code; something that PHP simply doesn’t do: there is no compilation step, and there certainly isn’t a built-in static type checker.
 
 On the other hand… all the advantages of type checking, the ones we discussed in the previous posts; they don’t come from PHP’s built-in runtime typechecker. By the time PHP’s type checker tells us something is wrong, we’re already running the code. A type error essentially crashes our program.
 
