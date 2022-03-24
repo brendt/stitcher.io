@@ -40,7 +40,7 @@ $users = new <hljs type>Collection</hljs><<hljs generic>User</hljs>>();
 // Collection_User
 
 $slugs = new <hljs type>Collection</hljs><<hljs generic>string</hljs>>();
-// Collection_strin
+// Collection_string
 ```
 
 Monomorphized generics are a totally valid approach. Rust, for example, uses them. One advantage is that there are a bunch of performance gains, because there are no more generic type checks at runtime, it’s all split apart before running the code.

@@ -91,7 +91,7 @@ class Attributes
     /**
      * @return <hljs generic>AttributeType</hljs> 
      */   
-    public function instanceOf(): mixed
+    public function newInstance(): mixed
     { /* … */ }
     
     // …
@@ -112,6 +112,6 @@ And finally: without a proper specification, all three major static analysers ha
 
 These are the main reasons why I believe that it’s worth investing time in a more permanent and sustainable solution. So why doesn’t PHP have proper generics yet? Why do we rely on doc blocks without a clear specification?
 
-That’s for the next post!
+That’s for the [next post](/blog/generics-in-php-3)!
 
 {{ cta:mail }}
