@@ -1,6 +1,20 @@
+
+
 <div class="screenshot">
 
 ```php
+// This is the ideal situation
+
+function app(<hljs type>class-string</hljs><<hljs generic>Type</hljs>> $className): <hljs generic>Type</hljs>
+{ /* … */ }
+```
+</div>
+
+<div class="screenshot">
+
+```php
+// You'd need to write strings instead
+
 #[<hljs type>Template</hljs>('<hljs text>Type</hljs>')]
 #[<hljs type>Return</hljs>('<hljs text>Type</hljs>')]
 function app(#[<hljs type>ClassString</hljs>('<hljs text>Type</hljs>')] $className)
@@ -11,14 +25,9 @@ function app(#[<hljs type>ClassString</hljs>('<hljs text>Type</hljs>')] $classNa
 <div class="screenshot">
 
 ```php
-function app(<hljs type>class-string</hljs><<hljs generic>Type</hljs>> $className): <hljs generic>Type</hljs>
-{ /* … */ }
-```
-</div>
+// The attribute alternative
+// although this wouldn't work
 
-<div class="screenshot">
-
-```php
 #[<hljs type>Template</hljs>(<hljs generic>Type</hljs>)]
 #[<hljs type>Return</hljs>(<hljs generic>Type</hljs>)]
 function app(#[<hljs type>ClassString</hljs>(<hljs generic>Type</hljs>)] $className)
@@ -29,6 +38,8 @@ function app(#[<hljs type>ClassString</hljs>(<hljs generic>Type</hljs>)] $classN
 <div class="screenshot">
 
 ```php
+// Generics right now 
+
 /**
  * @template <hljs generic>Type</hljs>
  * @param <hljs type>class-string</hljs><<hljs generic>Type</hljs>> $className
