@@ -1,4 +1,4 @@
-I started this series by saying it’s not just about teaching you, it’s also about making my case for what I think is the most viable and the most logical path to adding generics in PHP.
+I started [this series](https://stitcher.io/blog/generics-in-php-1) by saying it’s not just about teaching you, it’s also about making my case for what I think is the most viable and the most logical path to adding generics in PHP.
 
 It’s up to you to decide after this video whether you agree or not. So, your honor, I’d like to start my closing statements.
 
