@@ -1,5 +1,10 @@
+strategies:
+    date: 2022-04-06
+    title: Dynamic Strategies
+    content: src/content/blog/2022-03-27-strategies.md
+
 goodbye:
-    date: "2022-03-25 16:00:00"
+    date: 2022-03-25
     title: Goodbye
     content: src/content/blog/2022-03-25-goodbye.md
 
