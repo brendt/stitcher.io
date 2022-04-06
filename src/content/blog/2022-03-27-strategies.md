@@ -309,7 +309,7 @@ final class Parser
 
 Of course, now we're opening up the rabbit hole of "what an exception is" and whether we're allowed to use exceptions to control our program flow in this way. My personal opinion is "yes, definitely"; because passing a string to a method that can only work with a `<hljs type>Request</hljs>` object is in fact, an _exception_ to the rule. At least, that's my definition.
 
-Some people might opt for returning `<hljs keyword>null</hljs>` instead of throwing an exception, although that feels more wrong to me: `<hljs keyword>null</hljs>` doesn't community that this particular method wasn't able to handle the input. In fact, `<hljs keyword>null</hljs>` could very well be a valid result from this parser, depending on its requirements. So no, no `<hljs keyword>null</hljs>` for me.
+Some people might opt for returning `<hljs keyword>null</hljs>` instead of throwing an exception, although that feels more wrong to me: `<hljs keyword>null</hljs>` doesn't communicate that this particular method wasn't able to handle the input. In fact, `<hljs keyword>null</hljs>` could very well be a valid result from this parser, depending on its requirements. So no, no `<hljs keyword>null</hljs>` for me.
 
 However, I share the opinion that probably a couple of people have when reading this: either returning `<hljs keyword>null</hljs>` or throwing an exception doesn't feel like the cleanest solution. If we're embarking on this journey for the sole purpose of fixing a detail that only a handful of developers might be bothered about, we might explore other options as well, and dive even deeper into the rabbit hole. 
 
