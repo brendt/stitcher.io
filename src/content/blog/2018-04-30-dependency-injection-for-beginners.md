@@ -205,7 +205,7 @@ It's a misuse of what the container is meant to do.
 ### Inject everything
 
 As it goes in real-life projects, you'll notice that dependency injection
-in not *always* the solution for your problem.
+is not *always* the solution for your problem.
 
 It's important to realise that there are limits to the benefits of everything.
 You should always be alert that you're not taking this to the extreme,
