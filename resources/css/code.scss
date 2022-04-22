@@ -206,4 +206,11 @@ $color-purple: #9d3af6;
         background: none;
         border-bottom: dotted 3px red;
     }
+
+    &.error.full {
+        & .hljs-keyword,
+        & .hljs-comment {
+            color: #000;
+        }
+    }
 }
