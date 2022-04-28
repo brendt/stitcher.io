@@ -1,4 +1,37 @@
 
+<div class="screenshot">
+
+```php
+class PostData
+{
+    public function __construct(
+        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        <hljs keyword>public readonly</hljs> <hljs type>Author</hljs> <hljs prop>$author</hljs>,
+        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$body</hljs>,
+        <hljs keyword>public readonly</hljs> <hljs type>DateTimeImmutable</hljs> <hljs prop>$createdAt</hljs>,
+        <hljs keyword>public readonly</hljs> <hljs type>PostState</hljs> <hljs prop>$state</hljs>,
+    ) {}
+}
+```
+
+</div>
+
+<div class="screenshot">
+
+```php
+<hljs keyword>readonly</hljs> class PostData
+{
+    public function __construct(
+        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        <hljs keyword>public</hljs> <hljs type>Author</hljs> <hljs prop>$author</hljs>,
+        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$body</hljs>,
+        <hljs keyword>public</hljs> <hljs type>DateTimeImmutable</hljs> <hljs prop>$createdAt</hljs>,
+        <hljs keyword>public</hljs> <hljs type>PostState</hljs> <hljs prop>$state</hljs>,
+    ) {}
+}
+```
+
+</div>
 
 <div class="screenshot">
 
