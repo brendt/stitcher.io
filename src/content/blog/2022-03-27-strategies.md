@@ -422,7 +422,7 @@ public function addParser(<hljs type>callable</hljs> $parser): self
 
 `<hljs type>callable</hljs>` is a _special_ type in PHP, because it doesn't only cover functions and closures, but also invokable objects. The only real thing missing here is that we can't tell — with certainty — from our code what our callables should look like.
 
-We've established a rule saying saying that it should accept any kind of input that it can work with, but there's no way we can tell developers extending our code that, without providing an additional docblock. This is definitely a downside of this approach, and might be reason enough for you not to go with it.
+We've established a rule saying that it should accept any kind of input that it can work with, but there's no way we can tell developers extending our code that, without providing an additional docblock. This is definitely a downside of this approach, and might be reason enough for you not to go with it.
 
 I personally don't mind, I think the code duplication we had in the beginning and manual type validation annoys me more than having to read a docblock:
 
