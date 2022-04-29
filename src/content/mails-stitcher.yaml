@@ -1,4 +1,9 @@
 
+'00':
+    date: 2022-04-17
+    title: "Welcome"
+    content: src/content/mails/stitcher-welcome.md
+
 '51':
     date: 2022-04-17
     title: "April update"
@@ -48,11 +53,6 @@
     date: 2021-11-04
     title: "Generics in PHP"
     content: src/content/mails/stitcher-42.md
-
-'00':
-    date: 2021-09-27
-    title: "Welcome!"
-    content: src/content/mails/stitcher-00.md
 
 '39':
     date: 2021-09-27
