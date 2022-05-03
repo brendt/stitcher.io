@@ -1,6 +1,62 @@
 
 <div class="screenshot">
 
+```txt
+$x = 1;
+
+<hljs comment>// No explicit use needed</hljs>
+<hljs keyword>fn</hljs> ($a) => $a ** $x; 
+
+<hljs comment>// Explicit use needed to access outer scope</hljs>
+<hljs keyword>function</hljs> (<hljs type>int</hljs> $a) <hljs keyword>use</hljs> ($x) => $a ** $x;
+```
+
+</div>
+
+
+<div class="screenshot">
+
+```php
+<hljs keyword>fn</hljs> () => 'hello'; // Single line, no return needed
+
+<hljs keyword>fn</hljs> (<hljs type>int</hljs> $a, <hljs type>int</hljs> $b) {
+    $x = $a + $b
+    
+    return $x ** 2;
+}; // Multi line, explicit return needed
+```
+
+</div>
+
+
+<div class="screenshot">
+
+```php
+$result = <hljs prop>array_map</hljs>(
+    <hljs keyword>fn</hljs> (<hljs keyword>string</hljs> $part) => <hljs prop>strtoupper</hljs>($part), 
+    <hljs prop>str_split</hljs>(
+        <hljs prop>htmlentities</hljs>("Hello World")
+    ),
+)
+```
+</div>
+
+<div class="screenshot">
+
+```php
+$result = "Hello World"
+    |> <hljs prop>htmlentities</hljs>(...)
+    |> <hljs prop>str_split</hljs>(...)
+    |> <hljs prop>array_map</hljs>(
+          <hljs keyword>fn</hljs> (<hljs keyword>string</hljs> $part) => <hljs prop>strtoupper</hljs>($part), 
+          ...
+       );
+```
+
+</div>
+
+<div class="screenshot">
+
 ```php
 class PostData
 {
