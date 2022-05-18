@@ -102,7 +102,7 @@ final class XmlParser implements ParserInterface
 
 Full disclosure: these are very naive implementations. The strategy detection in the `<hljs prop>canParse</hljs>` method simply looks at the first and last character of the input string, and probably isn't fool-proof. Also: the XML decoding doesn't properly work; but it's good enough for the sake of this example.
 
-The next step is to provide a class that developers can use as the public API, this one will use our different strategies underneath. It's configured by adding a set of strategy implementations, and exposes one `<hljs prop>parse</hljs>` method to te outside:
+The next step is to provide a class that developers can use as the public API, this one will use our different strategies underneath. It's configured by adding a set of strategy implementations, and exposes one `<hljs prop>parse</hljs>` method to the outside:
 
 ```php
 final class Parser
