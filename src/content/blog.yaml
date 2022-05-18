@@ -173,10 +173,11 @@ new-in-php-81:
     date: 2021-11-25
     title: "What's new in PHP 8.1"
     content: src/content/blog/2021-01-29-new-in-php-81.md
-    next: new-in-php-8
+    next: new-in-php-82
     meta:
         description: "All new features, performance upgrades, and deprecations in PHP 8.1"
     footnotes:
+        - { link: "/blog/new-in-php-82", title: "What's new in PHP 8.2" }
         - { link: "/blog/php-81-upgrade-mac", title: "Upgrade to PHP 8.1 with Homebrew on Mac" }
         - { link: "https://road-to-php.com", title: "The Road to PHP 8.1" }
         - { link: "/blog/php-81-performance-in-real-life", title: "PHP 8.1's performance" }
@@ -602,6 +603,7 @@ new-in-php-8:
         template: 'blog/meta/new-in-php-8.twig'
     tag: src/content/tags/php-8.yaml
     footnotes:
+        - { link: "/blog/new-in-php-82", title: "What's new in PHP 8.2" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
         - { link: /blog/php-8-upgrade-mac, title: "Upgrading to PHP 8 using Homebrew on a Mac" }
         - { link: /blog/php-8-nullsafe-operator, title: "The nullsafe operator" }
