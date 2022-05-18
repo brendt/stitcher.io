@@ -9,6 +9,10 @@ Deprecation notices 🤢
 
 Despite them being annoying and frustrating to many developers, they actually serve a purpose. I would even say you will appreciate them once you understand their goal, and how to deal with them. Let's take a look!
 
+Oh, by the way: you can watch this blog post as a vlog if you prefer that:
+
+<iframe width="560" height="435" src="https://www.youtube.com/embed/9Kox9HQnLUg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## 1. Deprecations are helpful
 
 It's a common complaint: "why do my PHP scripts break with minor version updates??". And quite right: PHP has a tendency to add deprecation notices in minor releases, which tend to be audibly present when upgrading a project. Take for example [PHP 8.1](/blog/new-in-php-81#interal-method-return-types-rfc), where suddenly logs were filled with these kinds of warnings:
@@ -34,12 +38,12 @@ And luckily we have a mechanic like deprecation notices: they tell us that somet
 
 Second, PHP internals go to great lengths to help userland developers in dealing with deprecations. Thanks to the addition of [attributes in PHP 8.0](/blog/attributes-in-php-8), we now have a much better and standardized way of communication between our code and PHP's interpreter.
 
-For example: you can tag userland code with the `<hljs type>ReturnTypeWillChange</hljs>` attribute in order to prevent deprecation warnings being thrown.
+For example: you can tag userland code with the `<hljs type>ReturnTypeWillChange</hljs>` attribute in order to prevent deprecation notices being shown.
 
 ```php
 final class MyIterator implements \IteratorAggregate
 {
-    #[\<hljs type>ReturnTypeWillChange</hljs>]
+    #[<hljs type>\ReturnTypeWillChange</hljs>]
     public function getIterator()
     {
         // …
@@ -50,7 +54,7 @@ final class MyIterator implements \IteratorAggregate
 Of course, this code will break in PHP 9.0, so while silencing deprecation notices is a short-term solution; you will need to fix them if you ever want to upgrade to the next major version:
 
 ```php
-final class MyIterator implements \IteratorAggregate
+final class MyIterator implements<hljs type> \</hljs>IteratorAggregate
 {
     public function getIterator(): \Traversable
     {
@@ -62,7 +66,7 @@ final class MyIterator implements \IteratorAggregate
 One more example maybe? With [dynamic properties being deprecated in PHP 8.2](/blog/new-in-php-82#deprecate-dynamic-properties-rfc), you can mark classes with the `<hljs type>AllowDynamicProperties</hljs>` attribute, making it so that they allow dynamic properties again and suppress the deprecation notice:
 
 ```php
-#[<hljs type>AllowDynamicProperties</hljs>]
+#[<hljs type>\AllowDynamicProperties</hljs>]
 class Post
 {
 }

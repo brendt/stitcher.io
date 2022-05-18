@@ -1,9 +1,9 @@
-#dealing-with-deprecations:
-#    date: 2022-05-18
-#    title: Dealing with deprecations
-#    content: src/content/blog/2022-05-18-dealing-with-deprecations.md
-#    meta:
-#        description: How to handle deprecations in minor PHP updates
+dealing-with-deprecations:
+    date: 2022-05-18
+    title: Dealing with deprecations
+    content: src/content/blog/2022-05-18-dealing-with-deprecations.md
+    meta:
+        description: How to handle deprecations in minor PHP updates
 
 new-in-php-82:
     date: 2022-05-18

@@ -1,6 +1,56 @@
 
 <div class="screenshot">
 
+```php
+final class MyIterator implements \IteratorAggregate
+{
+    #[<hljs type>\ReturnTypeWillChange</hljs>]
+    public function getIterator()
+    {
+        // …
+    }
+}
+```
+
+</div>
+
+<div class="screenshot">
+
+```php
+final class MyIterator implements \IteratorAggregate
+{
+    public function getIterator(): \Traversable
+    {
+
+    }
+}
+```
+
+</div>
+
+<div class="screenshot">
+
+```php
+#[<hljs type>\AllowDynamicProperties</hljs>]
+class Post { /* … */ }
+
+// …
+
+$post-><hljs prop>title</hljs> = 'Name';
+```
+</div>
+
+<div class="screenshot">
+
+```php
+<hljs prop>error_reporting</hljs>(<hljs prop>E_ALL</hljs> ^ <hljs prop>E_DEPRECATED</hljs>);
+```
+</div>
+
+
+
+<div class="screenshot">
+
 ```txt
 $x = 1;
 
