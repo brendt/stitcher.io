@@ -28,6 +28,7 @@ return [
         'resources/img/static/generics-thumb-4.png',
         'resources/img/static/aggregate-timelapse.png',
         'resources/img/static/jb-thumb.png',
+        'resources/img/static/deprecation-thumb.png',
         'resources/img/favicon/',
         'resources/img/de-job-favicon/',
         'resources/img/meta.png',
