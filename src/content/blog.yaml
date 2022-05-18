@@ -6,7 +6,7 @@
 #        description: How to handle deprecations in minor PHP updates
 
 new-in-php-82:
-    date: 2022-04-22
+    date: 2022-05-18
     title: "What's new in PHP 8.2"
     content: src/content/blog/2022-04-22-new-in-php-82.md
     next: new-in-php-81
