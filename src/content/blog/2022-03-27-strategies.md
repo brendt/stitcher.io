@@ -4,7 +4,7 @@ _Just a note up front: I wrote this post as a thought exercise, not as an absolu
 
 You've probably used the strategy pattern before: [a behavioral pattern that enables selecting an algorithm at runtime](*https://en.wikipedia.org/wiki/Strategy_pattern).
 
-Let's consider a classic example: the user provides some input either in the form of XML, JSON or an array; and we want that input to be parsed to a pretty JSON string. 
+Let's consider a classic example: the user provides some input either in the form of XML, JSON or an array; and we want that input to be parsed to a pretty JSON string.
 
 So all these inputs:
 
@@ -387,7 +387,7 @@ interface ParserInterface
 
 We can't narrow down parameter types, we can only widen them; that's called [contravariance](/blog/liskov-and-type-safety).
 
-So on the one hand we have an interface that says that our strategies can take _any_ type of input (`<hljs type>mixed</hljs>`); but on the other hand we have our strategy classes that tell us they can only work with a _specific_ type op input.
+So on the one hand we have an interface that says that our strategies can take _any_ type of input (`<hljs type>mixed</hljs>`); but on the other hand we have our strategy classes that tell us they can only work with a _specific_ type of input.
 
 _If_ we want to go further into the rabbit hole, then there's no other conclusion to make than that our interface isn't actually telling the truth: we're not making strategies that work with _any_ kind of input, and so it doesn't make sense to have an interface tell us that we do. This interface is essentially telling a lie, and there's no reason to keep it.
 
@@ -407,7 +407,7 @@ final class Parser
 }
 ```
 
-It's clear to them that they'll need to implement `<hljs type>ParserInterface</hljs>` for their custom strategies to work. So I'd say that getting rid of this interface might do more harm than good, because without it, developers are operating in the dark. 
+It's clear to them that they'll need to implement `<hljs type>ParserInterface</hljs>` for their custom strategies to work. So I'd say that getting rid of this interface might do more harm than good, because without it, developers are operating in the dark.
 
 There is _one_ solution that I can think of that can counter this problem: accepting callables.
 
