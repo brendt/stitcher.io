@@ -1,3 +1,10 @@
+attribute-usage-in-top-php-packages:
+    date: 2022-05-20
+    title: Attribute usage in top-1000 PHP packages
+    content: src/content/blog/2022-05-20-attribute-usage-in-top-php-packages.md
+    meta:
+        description: I analysed the top-1000 most popular PHP packages to see how they use attributes
+
 dealing-with-deprecations:
     date: 2022-05-18
     title: Dealing with deprecations
