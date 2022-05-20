@@ -63,7 +63,7 @@ It makes sense that vendors opt for the single-line notation, since it's compati
 ## Conclusions
 
 - Only **20%** of the top-1000 most popular packages use attributes
-- Only **23%** of the top-1000 most popular package have PHP 8.0 or higher as their minimum required version
+- Only **23%** of the top-1000 most popular packages have PHP 8.0 or higher as their minimum required version
 - The `<hljs type>ReturnTypeWillChange</hljs>` attribute is by far the most used one
 - **Symfony clearly is the frontrunner**, embracing attributes thanks to experience with docblock annotations in the past
 - **Laravel provides no custom attributes** for their users, although they use some internally, mostly the `<hljs type>AsCommand</hljs>` attribute, which is provided by Symfony
