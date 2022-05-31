@@ -18,9 +18,11 @@ You must use uppercase notation for enum cases:
 
 Enums are very close to "constant values". Even though [the RFC](https://wiki.php.net/rfc/enumerations) showed them using PascalCase (inspired by other languages), it doesn't give a good reason for doing so. 
 
-Some people argue to use PascalCase for enums specifically to distinguish between constants and enums. I don't believe that relying on naming conventions to distinguish between concepts is a good idea. It's better to rely on your IDE's or editor's insights to know what something is, instead of holding onto a naming convention.
+Some people argue to use PascalCase for enums specifically to visually distinguish between constants and enums. I don't believe that relying on naming conventions to distinguish between concepts is a good idea. It's better to rely on your IDE's or editor's insights to know what something is, instead of holding onto a naming convention.
 
-Nevertheless, I've tried using the PascalCase convention, but it always felt unnatural to me: I wrote my enum cases uppercase automatically, only to notice it afterwards, meaning I had to go back and refactor them. I decided not to fight my instincts and just go with uppercase notation which feels the most natural to me, because of how constant values have been written for years, and how close enums are to constants anyway.
+Ironically, uppercase constants exist because of the same reason: to distinguish them from normal variables. I want to acknowledge that fact, however there's little we can do to change decades of programming history. I think it's fair to say that the majority of PHP projects use uppercase constants, and so I would like to keep following that convention for closely related concepts, despite how the convention originated.
+
+Nevertheless, I have tried using PascalCase for enums, but it always felt unnatural to me: I wrote my enum cases uppercase automatically, only to notice I did afterwards; meaning I had to go back and refactor them. I decided not to fight my instincts and just go with uppercase notation which feels the most natural to me, because of how constant values have been written for years, and how close enums are to constants anyway.
 
 ## 2. Don't overuse backed enums
 
