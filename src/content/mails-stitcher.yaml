@@ -1,4 +1,9 @@
 
+'53':
+    date: 2022-06-08
+    title: "June update"
+    content: src/content/mails/stitcher-53.md
+
 '52':
     date: 2022-05-13
     title: "New in PHP 8.2"
