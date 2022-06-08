@@ -29,6 +29,8 @@ return [
         'resources/img/static/aggregate-timelapse.png',
         'resources/img/static/jb-thumb.png',
         'resources/img/static/deprecation-thumb.png',
+        'resources/img/static/clean-phpstorm.png',
+        'resources/img/static/clean-phpstorm/',
         'resources/img/favicon/',
         'resources/img/de-job-favicon/',
         'resources/img/meta.png',

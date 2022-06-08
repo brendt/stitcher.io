@@ -1,3 +1,11 @@
+clean-and-minimalistic-phpstorm:
+    date: 2022-06-05
+    title: Clean and minimalistic PhpStorm
+    content: src/content/blog/2022-06-04-clean-and-minimalistic-phpstorm.md
+    meta:
+        description: How to set up PhpStorm in a clean and minimalistic way
+        template: blog/meta/clean-phpstorm.twig
+
 php-enum-style-guide:
     date: 2022-05-30
     title: My PHP enum style guide
@@ -96,7 +104,7 @@ how-i-plan:
     title: How I plan
     content: src/content/blog/2022-01-13-how-i-plan.md
     meta:
-        desription: How I manage my long-term goals
+        description: How I manage my long-term goals
         template: blog/meta/how-i-plan.twig
 
 php-in-2022:
