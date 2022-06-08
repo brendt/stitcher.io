@@ -419,7 +419,7 @@ img.small {
     margin-right: auto;
     width: 100%;
 
-    @media (min-width: 500px) {
+    @media (min-width: $width-container-mobile-lrg) {
         width: 55%;
     }
 }
