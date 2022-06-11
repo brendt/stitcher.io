@@ -19,19 +19,20 @@ You can read the full post about them here: [https://stitcher.io/blog/dealing-wi
 
 ## PhpStorm
 
-As you know, I started working at JetBrains in the PhpStorm team a couple of months ago. One of the things we've been talking about is how to improve the PhpStorm experience for newcomers. Maybe you just started using PhpStorm, or maybe you've used it in the past and left? We're looking for a people who want to do a one-on-one video call and talk about their experience, so that we can learn and improve. 
+As you know, I started working at JetBrains in the PhpStorm team a couple of months ago. One of the things we've been talking about is how to improve the PhpStorm experience for all developers, and how we can learn from the community. 
 
-> The PhpStorm team is currently looking for PHP developers to participate in user experience interviews.
-> 
-> Please fill out [this form](https://surveys.jetbrains.com/s3/php-developers-b), and if your profile matches our study criteria you will be redirected to our Calendly sign up page, where you will be offered to pick a convenient time slot for an interview. During the video call we will ask some questions about your development practices, thoughts, and opinions in a moderated, non-intrusive way. The anonymized interview results will greatly help us to improve PhpStorm. As a token of appreciation, we will provide you with a small gift from JetBrains.
+Maybe you just started using PhpStorm, or maybe you've used it in the past and left? We're looking for developers who want to do a one-on-one video call tp talk about their experiences, so that we can learn and improve. By the way: JetBrains will provide you with a nice gift afterwards!
 
+Do you have some thoughts you want to share? You can click this link and fill out our short survey to apply: [https://surveys.jetbrains.com/s3/php-developers-b](https://surveys.jetbrains.com/s3/php-developers-b).
 
+## Blog and Vlog
 
-Do you have some thoughts you want to share? You can click this link and fill out our small survey to apply: [https://surveys.jetbrains.com/s3/php-developers-b](https://surveys.jetbrains.com/s3/php-developers-b).
+Speaking of PhpStorm, I've just released another vlog! This one is about how I set up PhpStorm in my opinionated way to be clean and minimalistic — the way I prefer to write code. As always, I'm eager to hear your opinion; both on the topic itself, as well as the video editing and quality: [https://www.youtube.com/watch?v=jVTk-F3g9XM](https://www.youtube.com/watch?v=jVTk-F3g9XM&).
 
-## On the vlog
+I've also published two more blog posts:
 
-Speaking of PhpStorm, I've just released another vlog! This one is about how I set up PhpStorm in my opinionated way to be clean and minimalistic — the way I prefer to write code. I'd appreciate you giving it a look, and maybe also an upvote if you've got the chance? Here you go: [https://www.youtube.com/watch?v=jVTk-F3g9XM](https://www.youtube.com/watch?v=jVTk-F3g9XM&).
+- My personal enum styleguide: [https://stitcher.io/blog/php-enum-style-guide](https://stitcher.io/blog/php-enum-style-guide)
+- I analysed the usages of attributes in the top-1000 PHP packages: [https://stitcher.io/blog/attribute-usage-in-top-php-packages](https://stitcher.io/blog/attribute-usage-in-top-php-packages)
 
 ---
 
