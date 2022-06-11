@@ -300,6 +300,7 @@ pre > code {
 
 video {
     @include outOfBox();
+    max-width: 100%;
 }
 
 img {
