@@ -1395,7 +1395,7 @@ a-project-at-spatie:
         description: "An in-depth look into one of our client projects"
 
 a-programmers-cognitive-load:
-    date: 2019-05-29
+    date: 2017-06-25
     type: blog
     title: A programmer's cognitive load
     content: src/content/blog/2017-06-25-a-programmers-cognitive-load.md
