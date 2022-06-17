@@ -102,6 +102,10 @@ h2, h3 {
         position:relative;
         top:-4px;
 
+        &.breaking {
+            background-color: $color-breaking;
+        }
+
         a:visited,
         a {
             color: inherit;

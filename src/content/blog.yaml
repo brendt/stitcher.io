@@ -1,3 +1,15 @@
+new-in-php-82:
+    date: 2022-06-17
+    title: "What's new in PHP 8.2"
+    content: src/content/blog/2022-04-22-new-in-php-82.md
+    next: new-in-php-81
+    meta:
+        description: "All new features, performance upgrades, and deprecations in PHP 8.2"
+    footnotes:
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+
 stitcher-turns-5:
     date: 2022-06-16
     title: Stitcher turns 5 🎉
@@ -29,18 +41,6 @@ dealing-with-deprecations:
     content: src/content/blog/2022-05-18-dealing-with-deprecations.md
     meta:
         description: How to handle deprecations in minor PHP updates
-
-new-in-php-82:
-    date: 2022-05-18
-    title: "What's new in PHP 8.2"
-    content: src/content/blog/2022-04-22-new-in-php-82.md
-    next: new-in-php-81
-    meta:
-        description: "All new features, performance upgrades, and deprecations in PHP 8.2"
-    footnotes:
-        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
-        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 
 strategies:
     date: 2022-04-06
