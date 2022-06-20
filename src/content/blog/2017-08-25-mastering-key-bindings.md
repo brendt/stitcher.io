@@ -11,7 +11,7 @@ I can't point to some psychological study to back this claim, just my own experi
  You're not moving your hands around to grab the mouse, which saves time. 
  Also you don't have to make the mental switch between using a keyboard and a mouse as input device.
  
-I believe these small things have to power to improve our skills as professional programmers significantly.
+I believe these small things have the power to improve our skills as professional programmers significantly.
  I've experienced a lot of gain by taking the time to learn to use the keyboard as often as I can.
  While I'm still searching the optimal setup, I can already share some thoughts and techniques.
  The most important thing to know is that key bindings are a matter of personal taste. 
