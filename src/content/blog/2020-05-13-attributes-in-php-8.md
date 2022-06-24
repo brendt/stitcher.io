@@ -299,7 +299,7 @@ class Child1 extends Parent
 
 class Child2 extends Parent
 {
-    // This overidden method does NOT have the UsefulAttribute!
+    // This overridden method does NOT have the UsefulAttribute!
     public function greet(): string
     {
         return 'wassup';
