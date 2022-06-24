@@ -278,6 +278,60 @@ class ClassAttribute
 
 Note that all these flags are only validated when calling `$attribute-><hljs prop>newInstance</hljs>()`, not earlier.
 
+## Attribute Inheritance
+
+Attributes will be inherited, but only if the parent instance doesn't get overridden.
+
+```php
+class Parent
+{
+    #[<hljs type>UsefulAttribute</hljs>()]
+    public function greet(): string
+    {
+        return 'hello world';
+    }
+}
+
+class Child1 extends Parent
+{
+    // the inherited greet method still has UsefulAttribute!
+}
+
+class Child2 extends Parent
+{
+    // This overidden method does NOT have the UsefulAttribute!
+    public function greet(): string
+    {
+        return 'wassup';
+    }
+}
+```
+
+Similarly, attributes do not cross over from interfaces or abstract classes.
+
+```php
+interface GreeterContract
+{
+    #[<hljs type>UsefulAttribute</hljs>()]
+    public function greet(): string;
+}
+
+abstract Class AbstractGreeter
+{
+    // This method does NOT have the UsefulAttribute!
+    #[<hljs type>AnotherUsefulAttribute</hljs>()]
+    abstract public function greet(): string;
+}
+
+class GenericGreeter extends Parent
+{
+    // This method has neither UsefulAttribute nor AnotherUsefulAttribute!
+    public function greet(): string
+    {
+        return 'hello world';
+    }
+}
+```
 
 ## Built-in attributes
 
