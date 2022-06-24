@@ -316,7 +316,7 @@ interface GreeterContract
     public function greet(): string;
 }
 
-abstract Class AbstractGreeter
+abstract Class AbstractGreeter implements GreeterContract
 {
     // This method does NOT have the UsefulAttribute!
     #[<hljs type>AnotherUsefulAttribute</hljs>()]
