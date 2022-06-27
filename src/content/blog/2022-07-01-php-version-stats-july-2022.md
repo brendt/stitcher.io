@@ -67,11 +67,9 @@ Note that I've omitted all versions that don't have more than 1% usage. Visualiz
 
 <em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2022-july-01.svg)</em>
 
-As expected during a year with a minor release instead of a major one: PHP 8.1 is growing, and PHP 8.0's usage is already declining. A good sign that developers are updating!
+As expected during a year with a minor release instead of a major one: PHP 8.1 is growing, and PHP 8.0's usage is already declining. A good sign that developers are updating! Keep in mind that PHP 8.0 is still actively [supported for another four months](*https://www.php.net/supported-versions.php). So if you kept off on updating to PHP 8.1, now is a good time.
 
-Keep in mind that PHP 8.0 is still actively [supported for another four months](*https://www.php.net/supported-versions.php). So if you kept off on updating to PHP 8.1, now is a good time.
-
-Some less good news — although to be expected: more than 50% of developers are still on PHP 7.4 or lower. That's not an insignificant number, considering that PHP 7.4 only receives security updates for 5 more months, and all older versions simply aren't supported anymore.
+Less good news — although not unexpected: more than 50% of developers are still on PHP 7.4 or lower. That's not an insignificant number, considering that PHP 7.4 only receives security updates for 5 more months, and all older versions simply aren't supported anymore.
 
 I did hope to see PHP 8.X adoption to be climbing more rapidly, I've shared some of my thoughts about it [here](/blog/a-storm-in-a-glass-of-water), if you want some more reading.
 
@@ -85,9 +83,9 @@ Moving on the the all-time overview chart, here you can see the evolution of ver
 
 <em class="center small">[All time evolution](/resources/img/blog/version-stats/2022-july-02.svg)</em>
 
-It's interesting to compare the 5.5 peak in 2014 to the 7.4 peak last year. 5.5 and subsequent versions saw a much faster decline as soon as PHP 7.0 released, compared to PHP 7.4's decline when PHP 8.0 was released. I'm a little worried that PHP 8.0 wasn't _as_ exciting as PHP 7.0 back in the day. 
+It's interesting to compare the 5.5 peak in 2014 to the 7.4 peak two years ago. PHP 5.5 and subsequent versions saw a much faster decline as soon as PHP 7.0 became available, compared to PHP 7.4's decline when PHP 8.0 was released. I'm a little worried that PHP 8.0 wasn't _as_ exciting as PHP 7.0 back in the day.  
 
-Fear for upgrading shouldn't be a blocker these days compared to seven years ago: we now have mature tools like [Rector](https://github.com/rectorphp/rector) and [PHP CS](https://github.com/squizlabs/PHP_CodeSniffer) that take care of almost the whole upgrade path for you. 
+Fear for upgrading shouldn't be a blocker these days compared to eight years ago: we now have mature tools like [Rector](https://github.com/rectorphp/rector) and [PHP CS](https://github.com/squizlabs/PHP_CodeSniffer) that take care of almost the whole upgrade path for you. 
 
 So why aren't people upgrading to PHP 8.0? Why are more people staying with PHP 7.4 compared to the 5.5 and 5.6 days? I don't have a definitive answer.
 
@@ -95,7 +93,7 @@ So why aren't people upgrading to PHP 8.0? Why are more people staying with PHP 
 
 Part of the answer though (I think) lies with the open source community: what are packages requiring as their minimal version? Are they encouraging their users to update, or not?
 
-I use Nikita's [popular package analyzer](*https://github.com/nikic/popular-package-analysis) to download the 1000 most popular composer packages. Next, I have a little script to get the lowest version they support from their `composer.json`. Here are the results:
+I used Nikita's [popular package analyzer](*https://github.com/nikic/popular-package-analysis) to download the 1000 most popular composer packages. Next, I used a little script to get the lowest version each package supports from their `composer.json` file. Here are the results:
 
 <table>
 
@@ -203,7 +201,7 @@ I have mixed feelings about this data. On the one hand it's good to see PHP 8.1 
 
 Oh, as a side note: there only are 926 packages because some of the 1000 most popular packages don't specifically require a PHP version. 
 
-Let's plot that data into a chart:
+Let's plot this data into a chart:
 
 <div class="image-noborder image-wide"></div>
 
@@ -211,7 +209,7 @@ Let's plot that data into a chart:
 
 <em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2022-july-03.svg)</em>
 
-I won't say that the open source community is the only responsible factor here, but I do want to encourage you to think carefully about your responsibilities if you are an open source maintainer. We're not just talking about new and shiny PHP features here: we're talking about performance, software security for the most popular programming language on the web, and even about the impact of old PHP versions on electricity usage and server requirements, in Rasmus' words we're helping in [saving the planet](https://youtu.be/fYTKm2oUzAg?t=617).
+I won't say that the open source community is the only responsible factor here, but I do want to encourage you to think carefully about your responsibilities if you are an open source maintainer. We're not just talking about new and shiny PHP features here: we're talking about performance, software security for the most popular programming language on the web, and even about the impact of old PHP versions on electricity usage and server requirements, in Rasmus' words we can help [save the planet](https://youtu.be/fYTKm2oUzAg?t=617).
 
 ---
 
