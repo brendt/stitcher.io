@@ -10,9 +10,9 @@ Let's start with the percentage of PHP versions being used today, and compare it
 
 <tr class="table-head">
     <td>Version</td>
-    <td>July, 2022 (%)</td>
-    <td>January, 2022 (%)</td>
     <td>July, 2021 (%)</td>
+    <td>January, 2022 (%)</td>
+    <td>July, 2022 (%)</td>
 </tr>
 
 <tr>
