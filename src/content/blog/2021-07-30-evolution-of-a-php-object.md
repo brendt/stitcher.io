@@ -231,7 +231,7 @@ class BlogData
 
 ## November 2021: PHP 8.1
 
-And finally, we arrive at [PHP 8.1](/blog/new-in-php-81) — not released yet. Readonly properties are a thing, and allow us to write our DTO like so:
+Next, we arrive at [PHP 8.1](/blog/new-in-php-81). Readonly properties are a thing, and allow us to write our DTO like so:
 
 
 ```php
@@ -245,9 +245,25 @@ class BlogData
 }
 ```
 
+## November 2022: PHP 8.2
+
+And finally, we arrive at [PHP 8.2](/blog/new-in-php-82) — not released yet. 
+Whenever a class only has readonly properties, the class itself can be marked as readonly, instead of every individual property:
+
+```php
+<hljs keyword>readonly</hljs> class BlogData
+{
+    public function __construct(
+        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        <hljs keyword>public</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs>,
+        <hljs keyword>public</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+    ) {}
+}
+```
+
 That's quite the difference, don't you think?
 
-It's interesting to see how the language has evolved over the course of almost a decade. If you had proposed the 8.1 syntax 10 years ago, you'd probably be called a madman. The same is true [today](/blog/we-dont-need-runtime-type-checks), and I'm sure we'll look back at this point, ten years from now and wonder "how did we ever put up with that?".
+It's interesting to see how the language has evolved over the course of almost a decade. If you had proposed the 8.2 syntax 10 years ago, you'd probably be called a madman. The same is true [today](/blog/we-dont-need-runtime-type-checks), and I'm sure we'll look back at this point, ten years from now and wonder "how did we ever put up with that?".
 
 {{ cta:like }}
 

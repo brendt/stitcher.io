@@ -3,6 +3,38 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+#uncertainty-doubt-and-static-analysis:
+#    date: 2022-07-15
+#    title: "Uncertainty, doubt, and static analysis"
+#    content: src/content/blog/2022-07-15-uncertainty-doubt-and-static-analysis.md
+#    footnotes:
+#        - {
+#            link: "https://youtu.be/e0tstsbD4Ro",
+#            title: "The problem with null",
+#            description: "— Uncertainty and doubt in practice."
+#        }
+#        - {
+#            link: "https://road-to-php.com/static",
+#            title: "The Road to PHP: Static Analysis",
+#            description: "— A mini-series about getting started with static analysis in PHP."
+#        }
+#        - {
+#            link: "/blog/we-dont-need-runtime-type-checks",
+#            title: "We don't need runtime type checks",
+#            description: "— About the strengths of a static type checker."
+#        }
+#        - {
+#            link: "https://laravel.com/docs/9.x/releases#improved-collections-ide-support",
+#            title: "Laravel embracing generics",
+#        }
+
+evolution-of-a-php-object:
+    date: 2022-07-15
+    title: The evolution of a PHP object throughout the years
+    meta:
+        template: blog/meta/evolution-of-php-object.twig
+    content: src/content/blog/2021-07-30-evolution-of-a-php-object.md
+
 php-version-stats-july-2022:
     date: 2022-06-27
     title: "PHP version stats: July, 2022"
@@ -320,13 +352,6 @@ the-road-to-php:
     meta:
         description: A popup newsletter about what's coming in PHP 8.1
     content: src/content/blog/2021-08-06-the-road-to-php.md
-
-evolution-of-a-php-object:
-    date: 2021-07-29
-    title: The evolution of a PHP object throughout the years
-    meta:
-        template: blog/meta/evolution-of-php-object.twig
-    content: src/content/blog/2021-07-30-evolution-of-a-php-object.md
 
 we-dont-need-runtime-type-checks:
     date: 2021-07-26

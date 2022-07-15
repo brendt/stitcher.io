@@ -235,6 +235,28 @@
             variable: post
             parameter: id
 
+
+/mails-road-82:
+    template: blog/overview.twig
+    variables:
+        title: Mails
+        posts: src/content/mails-road-82.yaml
+        detailUrl: '/mails-road-82'
+    config:
+        order:
+            variable: posts
+            field: date
+            direction: desc
+
+/mails-road-82/{id}:
+    template: mails/road-82.twig
+    variables:
+        post: src/content/mails-road-82.yaml
+    config:
+        collection:
+            variable: post
+            parameter: id
+
 /mails-stitcher/{id}:
     template: mails/stitcher.twig
     variables:
