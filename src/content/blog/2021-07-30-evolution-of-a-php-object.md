@@ -1,5 +1,9 @@
 This is just a fun little post I wrote because I wanted to visualise how my [data transfer objects](/blog/structuring-unstructured-data) have evolved over the years.
 
+If you prefer, you can watch my 2-minute as well:
+
+<iframe width="560" height="422" src="https://www.youtube.com/embed/x9bSUo6TGgY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## August 2014: PHP 5.6
 
 Let's start with PHP 5.6, this is what most people without modern-day PHP knowledge probably think PHP code still looks like. I'll just give you the code, and I'll mention what changes in future versions.
