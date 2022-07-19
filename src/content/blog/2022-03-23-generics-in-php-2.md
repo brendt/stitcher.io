@@ -53,7 +53,7 @@ function app(<hljs type>string</hljs> $className): mixed
 { /* … */ }
 ```
 
-Granted: it’s not the most pretty syntax, and all static analysers are relying on a simple agreement that this is the syntax — there’s no official specification; but nevertheless: it works. Both PhpStorm, Psalm and PhpStan — those are the three largest static analysers in the PHP world — understand this syntax to some degree.
+Granted: it’s not the most pretty syntax, and all static analysers are relying on a simple agreement that this is the syntax — there’s no official specification; but nevertheless: it works. PhpStorm, Psalm and PhpStan — those are the three largest static analysers in the PHP world — understand this syntax to some degree.
 
 IDEs like PhpStorm use it to give the programmer feedback when they are writing code, and tools like Psalm and PhpStan use it to analyse your codebase in bulk and detect potential bugs, mostly based on type definitions.
 
