@@ -39,6 +39,7 @@ return [
         'resources/img/de-job/logo.png',
         'resources/fonts/Bangers',
         'resources/pwa',
+        'resources/img/static/php-evolution-thumb.png',
     ],
 
     'errorPages' => [
