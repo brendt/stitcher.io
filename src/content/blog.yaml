@@ -51,7 +51,7 @@ php-version-stats-july-2022:
         - { title: "PHP in 2022", link: "/blog/php-in-2022" }
 
 new-in-php-82:
-    date: 2022-06-17
+    date: 2022-07-19
     title: "What's new in PHP 8.2"
     content: src/content/blog/2022-04-22-new-in-php-82.md
     next: new-in-php-81
