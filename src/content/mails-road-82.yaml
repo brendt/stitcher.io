@@ -5,7 +5,7 @@
 
 '02':
     date: 2022-07-15
-    title: Standalone null and false
+    title: Standalone null, true, and false
     content: src/content/mails/road-82-02.md
 
 '03':
