@@ -10,7 +10,7 @@
 #    content: src/content/blog/2022-06-18-elephpants.md
 
 road-to-php-82:
-    date: 2022-07-21
+    date: 2022-07-21 10:00
     title: The Road to PHP 8.2
     meta:
         description: A 6 day newsletter series about PHP 8.2
