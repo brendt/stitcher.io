@@ -9,6 +9,13 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+road-to-php-82:
+    date: 2022-07-21
+    title: The Road to PHP 8.2
+    meta:
+        description: A 6 day newsletter series about PHP 8.2
+    content: src/content/blog/2022-07-21-road-to-php-82.md
+
 new-in-php-82:
     date: 2022-07-21
     title: "What's new in PHP 8.2"
