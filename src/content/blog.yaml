@@ -9,6 +9,18 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+new-in-php-82:
+    date: 2022-07-21
+    title: "What's new in PHP 8.2"
+    content: src/content/blog/2022-04-22-new-in-php-82.md
+    next: new-in-php-81
+    meta:
+        description: "All new features, performance upgrades, and deprecations in PHP 8.2"
+    footnotes:
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+
 uncertainty-doubt-and-static-analysis:
     date: 2022-07-16
     title: "Uncertainty, doubt, and static analysis"
@@ -55,18 +67,6 @@ php-version-stats-july-2022:
         - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { title: "PHP version stats: January, 2022", link: "/blog/php-version-stats-january-2022" }
         - { title: "PHP in 2022", link: "/blog/php-in-2022" }
-
-new-in-php-82:
-    date: 2022-07-19
-    title: "What's new in PHP 8.2"
-    content: src/content/blog/2022-04-22-new-in-php-82.md
-    next: new-in-php-81
-    meta:
-        description: "All new features, performance upgrades, and deprecations in PHP 8.2"
-    footnotes:
-        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
-        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 
 stitcher-turns-5:
     date: 2022-06-16
