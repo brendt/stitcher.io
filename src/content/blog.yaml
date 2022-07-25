@@ -1,5 +1,3 @@
-# php-performance-across-versions
-# road-to-php-82
 # readonly-classes-in-php-82
 # deprecations-and-breaking-changes-in-php-82
 # deprecated-dynamic-properties-in-php-82
@@ -9,8 +7,13 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+php-performance-across-versions:
+    date: 2022-07-25
+    title: PHP performance across versions
+    content: src/content/blog/2022-07-23-php-performance-across-versions.md
+
 road-to-php-82:
-    date: 2022-07-21 10:00
+    date: 2022-07-21
     title: The Road to PHP 8.2
     meta:
         description: A 6 day newsletter series about PHP 8.2
