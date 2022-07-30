@@ -7,6 +7,11 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+light-colour-schemes-are-better:
+    date: 2022-07-30
+    title: Light colour schemes are better
+    content: src/content/blog/2022-07-30-light-colour-schemes-are-better.md
+
 php-performance-across-versions:
     date: 2022-07-25
     title: PHP performance across versions

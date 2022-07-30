@@ -30,6 +30,7 @@ return [
         'resources/img/static/jb-thumb.png',
         'resources/img/static/deprecation-thumb.png',
         'resources/img/static/clean-phpstorm.png',
+        'resources/img/static/light-colours-thumb.png',
         'resources/img/static/clean-phpstorm/',
         'resources/img/favicon/',
         'resources/img/de-job-favicon/',
