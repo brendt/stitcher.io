@@ -14,6 +14,7 @@ use Brendt\Stitcher\Handler\RemoveLikeHandler;
 use Stitcher\App;
 
 $redirects = [
+    '/light' => 'https://www.youtube.com/watch?v=mu0HJ0_kprc',
     '/mail' => 'https://stitcher.io/newsletter/subscribe',
     '/repot' => 'https://youtu.be/Swu2M1LL33c',
     '/the-road-to-php-81/subscribe' => 'https://road-to-php.com',
