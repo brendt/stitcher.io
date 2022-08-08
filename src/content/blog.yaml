@@ -7,6 +7,16 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+deprecated-dynamic-properties-in-php-82:
+    date: 2022-08-08
+    title: Deprecated dynamic properties in PHP 8.2
+    content: src/content/blog/2022-08-08-deprecated-dynamic-properties-in-php-82.md
+    footnotes:
+        - { link: /blog/new-in-php-82, title: "What's new in PHP 8.2" }
+        - { link: /blog/uncertainty-doubt-and-static-analysis, title: "Uncertainty, doubt, and static analysis" }
+        - { link: "https://road-to-php.com/", title: "The Road to PHP 8.2" }
+        - { link: "/blog/dealing-with-deprecations", title: "Dealing with deprecations" }
+
 light-colour-schemes-are-better:
     date: 2022-07-30
     title: Light colour schemes are better
