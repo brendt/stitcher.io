@@ -8,7 +8,7 @@ You can see this trend all throughout the community:
 
 While I think this is a good evolution, I also realise there is a large group within the PHP community that don't want to use a stricter type system or rely on static analysis.
 
-I've had several discussions with that group over the years, and it seems that cannot get we on the same page. I lay out my arguments in favour of stricter type systems and static analysis and as a response I get something like this: _sure, but it's way too verbose to write all those types, it makes my code too strict to my liking, and I don't get enough benefit from it._
+I've had several discussions with that group over the years, and it seems that we cannot get on the same page. I lay out my arguments in favour of stricter type systems and static analysis and as a response I get something like this: _sure, but it's way too verbose to write all those types, it makes my code too strict to my liking, and I don't get enough benefit from it._
 
 So when working on my latest video about [the problem with null](https://youtu.be/e0tstsbD4Ro), I came up with yet another way to phrase the argument, in hopes to convince some people to at least consider the possibility that types and static analysis — despite their overhead — can still benefit them.
 
@@ -22,7 +22,7 @@ My main struggle with writing and maintaining code isn't with what patterns to u
 - _What kind of data is in this array?_
 - _I don't understand what this function does without reading external documentation._
 
-It are those kinds of questions and doubts that I'm bothered by, and it are those kinds of questions that a static analyser answers for me — most of the time.
+It is those kinds of questions and doubts that I'm bothered by, and it is those kinds of questions that a static analyser answers for me — most of the time.
 
 So no, using a stricter type system and relying on static analysis doesn't slow you down. It increases productivity tenfold, it takes away so much uncertainty and doubt, it's liberating, and I cannot code without it anymore. 
 
