@@ -7,6 +7,18 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+
+php-reimagined-part-2:
+    date: 2022-08-17
+    title: What I would change about PHP
+    content: src/content/blog/2022-08-17-php-reimagined-part-2.md
+    next: new-in-php-82
+    meta:
+        description: "Things I'd change about PHP"
+        template: blog/meta/php-reimagined.twig
+#    footnotes:
+#        - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8", description: " — A close look at attributes, also known as annotations" }
+
 deprecated-dynamic-properties-in-php-82:
     date: 2022-08-08
     title: Deprecated dynamic properties in PHP 8.2
@@ -630,7 +642,7 @@ a-storm-in-a-glass-of-water:
 
 php-reimagined:
     date: 2021-01-13
-    title: If it were up to me
+    title: PHP reimagined
     content: src/content/blog/2019-03-21-a-new-php.md
     next: new-in-php-8
     meta:
