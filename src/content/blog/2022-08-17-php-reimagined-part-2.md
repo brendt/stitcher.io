@@ -65,7 +65,7 @@ $attributes = $reflection-><hljs prop>getAttributes</hljs>(
 It's not that high up on my list since there are userland implementations available, although it would be nice if scalar objects could have proper names. So `<hljs type>String</hljs>` instead of `<hljs type>StringHelper</hljs>` (which is how Laravel solves the problem of `<hljs type>String</hljs>` being a reserved word).
 
 ```php
-$string = new <hljs type>String</hljs>('hello world')-><hljs prop>explode</hljs>(',')-><hljs prop>trim</hljs>();
+$string = new <hljs type>String</hljs>(' hello, world ')-><hljs prop>trim</hljs>()-><hljs prop>explode</hljs>(',');
 ```
 
 {{ cta:dynamic }}
