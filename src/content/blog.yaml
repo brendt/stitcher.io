@@ -53,6 +53,9 @@ new-in-php-82:
     meta:
         description: "All new features, performance upgrades, and deprecations in PHP 8.2"
     footnotes:
+        - { link: /blog/dealing-with-deprecations, title: "Dealing with deprecations" }
+        - { link: "https://www.youtube.com/watch?v=x9bSUo6TGgY", title: "The evolution of PHP" }
+        - { link: /blog/deprecated-dynamic-properties-in-php-82, title: "Deprecated dynamic properties in PHP 8.2" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
