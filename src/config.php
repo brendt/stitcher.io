@@ -4,7 +4,7 @@ use Stitcher\File;
 
 return [
     'environment' => env('ENVIRONMENT'),
-    'siteUrl' => 'https://www.stitcher.io',
+    'siteUrl' => 'https://stitcher.io',
 
     'plugins' => [
         \Brendt\Stitcher\Plugin\AppServiceProvider::class,
