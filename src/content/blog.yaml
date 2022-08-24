@@ -1024,18 +1024,18 @@ type-system-in-php-survey:
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/the-latest-php-version, title: "The latest PHP version" }
 
-the-latest-php-version:
-    date: 2020-06-02
-    title: What's the latest PHP version?
-    content: src/content/blog/2020-06-02-the-latest-php-version.md
-    next: new-in-php-8
-    meta:
-        description: "How modern PHP versions are managed"
-    footnotes:
-        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-        - { link: /blog/php-in-2020, title: "PHP in 2020" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-        - { link: /blog/php-74-upgrade-mac, title: "How to upgrade to PHP 7.4 on a Mac" }
+#the-latest-php-version:
+#    date: 2020-06-02
+#    title: What's the latest PHP version?
+#    content: src/content/blog/2020-06-02-the-latest-php-version.md
+#    next: new-in-php-8
+#    meta:
+#        description: "How modern PHP versions are managed"
+#    footnotes:
+#        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+#        - { link: /blog/php-in-2020, title: "PHP in 2020" }
+#        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+#        - { link: /blog/php-74-upgrade-mac, title: "How to upgrade to PHP 7.4 on a Mac" }
 
 improvements-on-laravel-nova:
     date: 2020-05-26
