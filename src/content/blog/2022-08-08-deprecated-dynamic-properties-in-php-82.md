@@ -28,6 +28,8 @@ $post-><hljs striped>name</hljs> = 'Name';
 
 You'll see this message: `Deprecated: Creation of dynamic property Post::$name is deprecated`.
 
+{{ ad:carbon }}
+
 ## Implementing `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>` still works!
 
 You might be panicking at this point, because dynamic properties are a big part of meta programming in PHP — many frameworks rely on it!

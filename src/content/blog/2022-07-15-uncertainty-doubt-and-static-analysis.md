@@ -6,6 +6,8 @@ You can see this trend all throughout the community:
 - the rise of external static analysis tools like PHPStan, PhpStorm and Psalm; and
 - frameworks are more and more relying on stricter types and even embracing third-party static analysis syntax like generics in Laravel.
 
+{{ ad:carbon }}
+
 While I think this is a good evolution, I also realise there is a large group within the PHP community that don't want to use a stricter type system or rely on static analysis.
 
 I've had several discussions with that group over the years, and it seems that cannot get we on the same page. I lay out my arguments in favour of stricter type systems and static analysis and as a response I get something like this: _sure, but it's way too verbose to write all those types, it makes my code too strict to my liking, and I don't get enough benefit from it._

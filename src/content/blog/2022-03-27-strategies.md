@@ -1,6 +1,6 @@
 _Just a note up front: I wrote this post as a thought exercise, not as an absolute source of truth. I'd love to hear people disagree and tell me why, so don't hesitate to reply wherever you want._
 
----
+{{ ad:carbon }}
 
 You've probably used the strategy pattern before: [a behavioral pattern that enables selecting an algorithm at runtime](*https://en.wikipedia.org/wiki/Strategy_pattern).
 

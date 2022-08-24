@@ -1,4 +1,4 @@
-{{ cta:dynamic }}
+{{ ad:carbon }}
 
 ## Upgrading with Homebrew
 

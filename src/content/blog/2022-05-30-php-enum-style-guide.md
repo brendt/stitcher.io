@@ -24,6 +24,8 @@ Ironically, uppercase constants exist because of the same reason: to distinguish
 
 Nevertheless, I have tried using PascalCase for enums, but it always felt unnatural to me: I wrote my enum cases uppercase automatically, only to notice I did afterwards; meaning I had to go back and refactor them. I decided not to fight my instincts and just go with uppercase notation which feels the most natural to me, because of how constant values have been written for years, and how close enums are to constants anyway.
 
+{{ ad:carbon }}
+
 ## 2. Don't overuse backed enums
 
 You should only use backed enums when you actually have a need for them. A common use case is serialization. If an enum is only going to be used within code, you shouldn't make it a backed enum. 

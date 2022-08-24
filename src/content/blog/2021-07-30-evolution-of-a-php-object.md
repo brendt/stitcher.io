@@ -1,3 +1,5 @@
+{{ ad:carbon }}
+
 This is just a fun little post I wrote because I wanted to visualise how my [data transfer objects](/blog/structuring-unstructured-data) have evolved over the years.
 
 If you prefer, you can watch my 2-minute as well:

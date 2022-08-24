@@ -1,3 +1,5 @@
+{{ ad:carbon }}
+
 Writing data transfer objects and value objects in PHP has become significantly easier over the years. Take for example a look at a DTO in PHP 5.6:
 
 

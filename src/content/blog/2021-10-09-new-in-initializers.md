@@ -11,6 +11,8 @@ class MyStateMachine
 }
 ```
 
+{{ ad:carbon }}
+
 In this state machine example, we'd like to construct our class in two ways: _with_ and _without_ an initial state. If we construct it _without_ an initial state, we want a default one to be set. PHP of course supports setting initial values directly in the parameter list, but only for primitive types. For example, if our state machine used strings instead of objects internally, we'd be able to write its constructor like so:
 
 ```php

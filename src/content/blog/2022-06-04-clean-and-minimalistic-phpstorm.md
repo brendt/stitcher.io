@@ -2,6 +2,8 @@ This is a list of things I do when setting up PhpStorm from scratch. I prefer a 
 
 <iframe width="560" height="420" src="https://www.youtube.com/embed/jVTk-F3g9XM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+{{ ad:carbon }}
+
 ## Hide all toolbars
 
 I only use keyboard shortcuts and the actions menu, so I hide all toolbars.

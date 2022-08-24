@@ -4,6 +4,8 @@ I like thinking about these topics. Not because I believe all of these things ne
 
 I'll keep this list short and to the point, but I'll always link to more in-depth content where relevant. Let's take a look!
 
+{{ ad:carbon }}
+
 ## Generics 🥺
 
 The obvious one first. If I'd have to order my wishlist in descending priority, generics are on places one to five, and the rest follows afterwards.

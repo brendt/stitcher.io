@@ -2,6 +2,8 @@ It's that time again: my biyearly summary of which PHP versions are used across 
 
 As always, it's important to note that I'm working with the data available to us. That means that these charts are no 100% accurate representation of the PHP community as a whole, but they _are_ an accurate representation of one of the most prominent parts of PHP: the [packagist ecosystem](https://packagist.org/php-statistics).
 
+{{ ad:carbon }}
+
 ## Usage Statistics
 
 Let's start with the percentage of PHP versions being used today, and compare it to the previous two editions:

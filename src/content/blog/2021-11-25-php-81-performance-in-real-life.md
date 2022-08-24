@@ -1,5 +1,7 @@
 I did a very quick performance test because I wanted to know the impact of PHP 8.1 on my real-life projects.
 
+{{ ad:carbon }}
+
 These benchmarks were taken on my local machine, and only meant to measure the relative difference between PHP 8.0 and 8.1. I benchmarked a page that showed lots of data, with lots of classes loaded, as I expected that [inheritance cache](/blog/new-in-php-81#performance-improvements-pr) would have the largest performance impact.
 
 <table>

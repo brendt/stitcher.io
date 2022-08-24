@@ -4,6 +4,8 @@ However: they didn't share their raw data or absolute numbers, and they also did
 
 I think we can do better. So let's take a closer look at how attributes are used in the PHP open source community.
 
+{{ ad:carbon }}
+
 ## Setup
 
 I used Nikita's [Popular Package Analyser](https://github.com/nikic/popular-package-analysis): it downloads the top-1000 packages from Packagist, and allows you to run analysis on them by writing simple PHP scripts. 
