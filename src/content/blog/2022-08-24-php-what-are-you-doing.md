@@ -66,7 +66,7 @@ It's clear that this RFC and its successors have the potential to replace readon
 
 Despite it being a great proposal, I must admit I'm afraid of what PHP will become if we're adding features only to make them irrelevant three years later. I think we should be very careful and deliberate about how we're changing PHP, and not dismiss features that have only been in the language for a couple of years.
 
-Now to be clear: I'm very well aware that asymmetric visibility and readonly properties aren't the same thing. Asymmetric visibility can do so much more. However: Nikita already coined a [very similar idea to asymmetric visibility](https://wiki.php.net/rfc/property_accessors) last year, which was denied in favour of readonly properties. Furthermore, I totally agree with [Marco's sentiment](https://externals.io/message/118353#118382) on the matter:
+Now to be clear: I'm very well aware that asymmetric visibility and readonly properties aren't the same thing. Asymmetric visibility can do so much more. However: Nikita already coined a [very similar idea to asymmetric visibility](https://wiki.php.net/rfc/property_accessors) last year, which wasn't pursued in favour of readonly properties. Furthermore, I totally agree with [Marco's sentiment](https://externals.io/message/118353#118382) on the matter:
 
 > I use readonly properties aggressively, and I try to make the state as immutable as possible.
 >
@@ -76,7 +76,7 @@ Now to be clear: I'm very well aware that asymmetric visibility and readonly pro
 > 
 > In fact, I'm writing so few getters and setters these days, that I don't see why I'd need getter and setter semantics to creep into the language, especially mutable ones, not even with the reflection improvements.
 
-I would hate to see PHP become a language that throws out core features every couple of years, just for the sake of a little more flexibility. If we wanted more flexibility in this case, we should have decided on that two years ago when readonly properties were discussed in dept; now — in my opinion — is too late.
+I would be sad to see PHP become a language that throws out core features every couple of years, just for the sake of a little more flexibility. If we wanted more flexibility in this case, we should have decided on that two years ago when readonly properties were discussed in dept; now — in my opinion — is too late.
 
 On a final note, if you are worried about cloning objects with new values (a problem this RFC would solve and readonly properties don't): people are already working on some kind of syntax to allow rewriting readonly properties while cloning. I'd say it's better to focus our efforts in that area, instead of coming up with an entirely different approach.
 
