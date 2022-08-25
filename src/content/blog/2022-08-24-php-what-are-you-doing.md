@@ -1,9 +1,9 @@
-There's a new RFC in town called [asymmetric visibility](https://wiki.php.net/rfc/asymmetric-visibility), its aim is to define properties which can be _set_ from a protected or private scope, but which from the outside (the public scope) can only be _read_.
+There's a new RFC in town called [asymmetric visibility](https://wiki.php.net/rfc/asymmetric-visibility), its aim is to define properties which can be _written to_ from a protected or private scope, but which from the outside — the public scope — can only be _read_.
 
 It looks something like this:
 
 ```php
-class Post
+final class Post
 {
     public function __construct(
         <hljs keyword>public private</hljs>(<hljs keyword>set</hljs>) <hljs type>string</hljs> <hljs prop>$title</hljs>,
@@ -13,13 +13,13 @@ class Post
 
 There are a couple of things going on here:
 
-- we're using a [promoted property](/blog/constructor-promotion-in-php-8) to define the title, and
-- we're explicitly saying that `<hljs prop>$title</hljs>` can be set (and thus overwritten) within the `<hljs keyword>private</hljs>` scope of `<hljs type>Post</hljs>`.
+- we're using a [promoted property](/blog/constructor-promotion-in-php-8) to define the title; and
+- we're explicitly saying that `<hljs prop>$title</hljs>` can only be set (and thus overwritten) within the `<hljs keyword>private</hljs>` scope of `<hljs type>Post</hljs>`.
 
 In other words, this is allowed:
 
 ```php
-class Post
+final class Post
 {
     public function __construct(
         <hljs keyword>public private</hljs>(<hljs keyword>set</hljs>) <hljs type>string</hljs> <hljs prop>$title</hljs>,
@@ -64,9 +64,13 @@ Here we have an RFC which scope overlaps with readonly properties (albeit not en
 
 It's clear that this RFC and its successors have the potential to replace readonly properties entirely. [Readonly properties](/blog/php-81-readonly-properties) — a feature that only has been added one year ago in PHP 8.1, not to mention readonly classes, which are [coming to PHP 8.2](/blog/new-in-php-82) later this year.
 
-Despite it being a great proposal, I must admit I'm afraid of what PHP will become if we're adding features only to make them irrelevant three years later. I think we should be very careful and deliberate about how we're changing PHP, and not dismiss features that have only been in the language for a couple of years.
+Despite asymmetric visibility being a great proposal, I'm afraid of what PHP will become if we're adding features only to make them irrelevant three or four years later, as could potentially happen here with readonly properties. We should be very careful and deliberate about how we're changing PHP, and not dismiss existing features too quickly.
 
-Now to be clear: I'm very well aware that asymmetric visibility and readonly properties aren't the same thing. Asymmetric visibility can do so much more. However: Nikita already coined a [very similar idea to asymmetric visibility](https://wiki.php.net/rfc/property_accessors) last year, which wasn't pursued in favour of readonly properties. Furthermore, I totally agree with [Marco's sentiment](https://externals.io/message/118353#118382) on the matter:
+If we did, we'd contribute to a lot of uncertainty and instability within the community. Imagine someone adopting readonly properties today, only to hear a year later that by PHP 9.0, they'll probably be deprecated in favor of asymmetric visibility. 
+
+Even if readonly properties would stay and coexist with asymmetric visibility, there would be so much room for confusion: when could you use readonly properties? Should you always use asymmetric visibility instead? I would say it's bad language design if a language allows room for these kinds of questions and doubts. 
+
+Furthermore, I totally agree with [Marco's sentiment](https://externals.io/message/118353#118382) on the matter:
 
 > I use readonly properties aggressively, and I try to make the state as immutable as possible.
 >
@@ -76,11 +80,68 @@ Now to be clear: I'm very well aware that asymmetric visibility and readonly pro
 > 
 > In fact, I'm writing so few getters and setters these days, that I don't see why I'd need getter and setter semantics to creep into the language, especially mutable ones, not even with the reflection improvements.
 
-I would be sad to see PHP become a language that throws out core features every couple of years, just for the sake of a little more flexibility. If we wanted more flexibility in this case, we should have decided on that two years ago when readonly properties were discussed in dept; now — in my opinion — is too late.
+Now to be clear: I'm very well aware that asymmetric visibility and readonly properties aren't the same thing. Asymmetric visibility covers a much larger scope and offers much more flexibility. However: Nikita already coined a [very similar idea to asymmetric visibility](https://wiki.php.net/rfc/property_accessors) last year, which wasn't pursued in favour of readonly properties. The discussion about whether we want _more flexibility_ has already been had, and the conclusion back then was: no; readonly properties cover 95% of the use cases, and that's good enough.
+
+I would be sad to see PHP become a language that throws out core features every couple of years, for the sake of a little more flexibility. If we wanted more flexibility in this case, we should have decided on that two years ago when readonly properties were discussed in depth; now — in my opinion — is too late.
+
+---
 
 On a final note, if you are worried about cloning objects with new values (a problem this RFC would solve and readonly properties don't): people are already working on some kind of syntax to allow rewriting readonly properties while cloning. I'd say it's better to focus our efforts in that area, instead of coming up with an entirely different approach.
 
-In summary: I think asymmetric visibility is a great feature for _some_ use cases, but I don't think it's worth adding it now that we have readonly properties. We decided on readonly properties, we'll have to stick with them for the sake of our users. I think **a unified vision and direction for PHP are lacking these days**, and this RFC — great as it is on its own — is a good example of that lacking in practice. I hope that we (PHP internals, that is) can come up with a solution, maybe the [PHP Foundation](https://opencollective.com/phpfoundation) has an important future role to play in all of this? 
+Even more: the original example I showed with asymmetric visibility allowing for more functionality (internally guarding business rules) wasn't entirely correct. The same _is_ possible with readonly properties, given that we have a way to overwrite readonly values when cloning them:
+
+```php
+final class Post
+{
+    public function __construct(
+        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+    ) {}
+    
+    public function changeTitle(<hljs type>string</hljs> $title): self
+    {
+        // Do a bunch of checks
+        if (<hljs prop>strlen</hljs>($title) < 30) {
+            throw new <hljs type>InvalidTitle</hljs>('Title length should be at least 30');
+        }
+        
+        return clone $this <hljs keyword>with</hljs> {
+            <hljs prop>title</hljs>: $title,
+        }
+    }
+}
+```
+
+Oh and while the above syntax isn't available yet, it's already possible to overwrite readonly properties while cloning today with some [additional userland code](https://github.com/spatie/php-cloneable):
+
+
+```php
+final class Post
+{
+    use <hljs type>Cloneable</hljs>;
+    
+    public function __construct(
+        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+    ) {}
+    
+    public function changeTitle(<hljs type>string</hljs> $title): self
+    {
+        // Do a bunch of checks
+        if (<hljs prop>strlen</hljs>($title) < 30) {
+            throw new <hljs type>InvalidTitle</hljs>('Title length should be at least 30');
+        }
+        
+        return $this-><hljs prop>with</hljs>(
+            <hljs prop>title</hljs>: $title,
+        );
+    }
+}
+```
+
+---
+
+In summary: I think asymmetric visibility is a great feature for _some_ use cases, although there are alternatives as well. All in all, I don't think it's worth adding asymmetric visibility now that we have readonly properties. We decided on readonly properties, we'll have to stick with them for the sake of our users and to prevent ambiguous features from making a mess. 
+
+I think **a unified vision and direction for PHP is lacking these days**, and this RFC — great as it is on its own — is a good example of that lacking in practice. I hope that we (PHP internals, that is) can come up with a solution, maybe the [PHP Foundation](https://opencollective.com/phpfoundation) has an important role to play in all of this, in the future?
 
 {{ cta:like }}
 
