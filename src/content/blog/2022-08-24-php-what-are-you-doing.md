@@ -55,7 +55,7 @@ Right?
 
 Well, I have a problem with it. Actually, not with the RFC _itself_ — I think it's a very good proposal. No, my concern is not with this RFC on its own, but rather with how it's closely related to readonly properties.
 
-Here we have an RFC which scope overlaps with readonly properties (albeit not entirely the same), with as a future possibility to replace readonly properties altogether. Here's a quote from the RFC:
+Here we have an RFC which scope overlaps with readonly properties (albeit not entirely the same), with a future possibility to replace readonly properties altogether. Here's a quote from the RFC:
 
 > At this time, there are only two possible operations to scope: read and write. In concept, additional operations could be added with their own visibility controls. Possible examples include:
 >
