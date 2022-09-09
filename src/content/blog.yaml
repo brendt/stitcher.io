@@ -7,6 +7,13 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+uses:
+    date: 2022-09-09
+    title: Uses
+    meta:
+        description: My setup
+    content: src/content/blog/2022-09-09-uses.md
+
 thoughts-on-asymmetric-visibility:
     date: 2022-08-25
     title: Asymmetric visions
