@@ -423,3 +423,9 @@ img.small {
         width: 55%;
     }
 }
+
+.hover-outline:active,
+.hover-outline:focus,
+.hover-outline:hover {
+    box-shadow: 0 0 0 7px $color-primary;
+}

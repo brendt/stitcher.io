@@ -26,6 +26,7 @@ return [
         'resources/img/static/generics-thumb-2.png',
         'resources/img/static/generics-thumb-3.png',
         'resources/img/static/generics-thumb-4.png',
+        'resources/img/static/php-1-minute.png',
         'resources/img/static/aggregate-timelapse.png',
         'resources/img/static/jb-thumb.png',
         'resources/img/static/deprecation-thumb.png',
