@@ -7,6 +7,22 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+
+new-in-php-82:
+    date: 2022-09-19
+    title: "What's new in PHP 8.2"
+    content: src/content/blog/2022-04-22-new-in-php-82.md
+    next: new-in-php-81
+    meta:
+        description: "All new features, performance upgrades, and deprecations in PHP 8.2"
+    footnotes:
+        - { link: /blog/dealing-with-deprecations, title: "Dealing with deprecations" }
+        - { link: "https://www.youtube.com/watch?v=x9bSUo6TGgY", title: "The evolution of PHP" }
+        - { link: /blog/deprecated-dynamic-properties-in-php-82, title: "Deprecated dynamic properties in PHP 8.2" }
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+        -
 uses:
     date: 2022-09-09
     title: Uses
@@ -57,21 +73,6 @@ road-to-php-82:
     meta:
         description: A 6 day newsletter series about PHP 8.2
     content: src/content/blog/2022-07-21-road-to-php-82.md
-
-new-in-php-82:
-    date: 2022-07-21
-    title: "What's new in PHP 8.2"
-    content: src/content/blog/2022-04-22-new-in-php-82.md
-    next: new-in-php-81
-    meta:
-        description: "All new features, performance upgrades, and deprecations in PHP 8.2"
-    footnotes:
-        - { link: /blog/dealing-with-deprecations, title: "Dealing with deprecations" }
-        - { link: "https://www.youtube.com/watch?v=x9bSUo6TGgY", title: "The evolution of PHP" }
-        - { link: /blog/deprecated-dynamic-properties-in-php-82, title: "Deprecated dynamic properties in PHP 8.2" }
-        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
-        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 
 uncertainty-doubt-and-static-analysis:
     date: 2022-07-16
