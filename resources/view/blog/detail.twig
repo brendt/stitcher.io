@@ -53,6 +53,10 @@
             </div>
         {% endif %}
 
+        {% if 'carbonads' not in post.content %}
+            {% include '_partials/ad_carbon.twig' %}
+        {% endif %}
+
         {{ post.content|raw }}
 
         {% if 'like-container' not in post.content %}
