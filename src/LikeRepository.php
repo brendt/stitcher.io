@@ -23,7 +23,7 @@ class LikeRepository
 
     public function persist(): self
     {
-        file_put_contents(self::PATH, json_encode($this->likes, JSON_PRETTY_PRINT));
+        file_put_contents(self::PATH, json_encode($this->likes));
 
         return $this;
     }

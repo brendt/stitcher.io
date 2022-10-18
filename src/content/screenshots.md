@@ -2,6 +2,37 @@
 <div class="screenshot">
 
 ```php
+<hljs prop>json_validate</hljs>(
+    <hljs type>string</hljs> $json, 
+    <hljs type>int</hljs> $depth = 512, 
+    <hljs type>int</hljs> $flags = 0
+): <hljs type>bool</hljs>
+```
+
+</div>
+<div class="screenshot">
+
+```php
+Callables that are not accepted by the $callable() syntax (but are accepted
+    by call_user_func) are deprecated.
+```
+
+</div>
+<div class="screenshot">
+
+```php
+$ffi = <hljs type>FFI</hljs>::<hljs prop>cdef</hljs>(
+    "int printf(const char *format, ...);",
+    "libc.so.6");
+    
+$ffi-><hljs prop>printf</hljs>("Hello %s!\n", "world");
+```
+
+</div>
+
+<div class="screenshot">
+
+```php
 final class MyIterator implements \IteratorAggregate
 {
     #[<hljs type>\ReturnTypeWillChange</hljs>]
