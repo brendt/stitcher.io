@@ -1,4 +1,16 @@
 
+
+
+<div class="screenshot">
+
+```php
+$input = "key=value";
+
+[$key, $val ?? <hljs keyword>null</hljs>] = <hljs prop>explode</hljs>('=', $input, 2);
+```
+
+</div>
+
 <div class="screenshot">
 
 ```php
