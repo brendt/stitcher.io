@@ -8,11 +8,11 @@
 #    content: src/content/blog/2022-06-18-elephpants.md
 
 
-#php-82-in-8-code-blocks:
-#    date: 2022-10-24
-#    title: "PHP 8.2 in 8 code blocks"
-#    content: src/content/blog/2022-10-24-php-82-in-8-code-blocks.md
-#    next: new-in-php-82
+php-82-in-8-code-blocks:
+    date: 2022-10-24
+    title: "PHP 8.2 in 8 code blocks"
+    content: src/content/blog/2022-10-24-php-82-in-8-code-blocks.md
+    next: new-in-php-82
 
 new-in-php-82:
     date: 2022-09-19
