@@ -1,5 +1,7 @@
 {{ ad:carbon }}
 
+**Important note: PHP 8.2 adds a way of making whole classes readonly at once: [readonly classes](/blog/readonly-classes-in-php-82).**
+
 Writing data transfer objects and value objects in PHP has become significantly easier over the years. Take for example a look at a DTO in PHP 5.6:
 
 
@@ -271,6 +273,21 @@ $dataB = $dataA-><hljs prop>with</hljs>(<hljs prop>title</hljs>: 'Another title'
 ```
 
 I actually wrote a dedicated blogpost explaining the mechanics behind all of this, you can read it [here](/blog/cloning-readonly-properties-in-php-81).
+
+### Readonly classes
+
+Finally, I should also mention the addition of [readonly classes in PHP 8.2](/blog/readonly-classes-in-php-82). In cases where all properties of you class are readonly (which often happens with DTOs or VOs), you can mark the class itself as readonly. This means you won't have to declare every individual property as readonly — a nice shorthand!
+
+```php
+<hljs keyword>readonly</hljs> class BlogData
+{
+    public function __construct(
+        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        <hljs keyword>public</hljs> <hljs type>Status</hljs> <hljs prop>$status</hljs>,
+        <hljs keyword>public</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+    ) {}
+}
+```
 
 {{ cta:mail }}
 

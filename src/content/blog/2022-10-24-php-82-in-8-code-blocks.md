@@ -14,7 +14,7 @@
 }
 ```
 
-<em class="small center">[Readonly classes](/blog/new-in-php-82#readonly-classes-rfc)</em>
+<em class="small center">[Readonly classes](/blog/readonly-classes-in-php-82)</em>
 
 ---
 

@@ -7,6 +7,11 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+readonly-classes-in-php-82:
+    date: 2022-10-25
+    title: Readonly classes in PHP 8.2
+    content: src/content/blog/2022-10-25-readonly-classes-in-php-82.md
+    next: new-in-php-82
 
 php-82-in-8-code-blocks:
     date: 2022-10-24
@@ -22,6 +27,7 @@ new-in-php-82:
     meta:
         description: "All new features, performance upgrades, and deprecations in PHP 8.2"
     footnotes:
+        - { link: /blog/readonly-classes-in-php-82, title: "Readonly classes in PHP 8.2" }
         - { link: /blog/dealing-with-deprecations, title: "Dealing with deprecations" }
         - { link: "https://www.youtube.com/watch?v=x9bSUo6TGgY", title: "The evolution of PHP" }
         - { link: /blog/deprecated-dynamic-properties-in-php-82, title: "Deprecated dynamic properties in PHP 8.2" }
@@ -372,6 +378,7 @@ php-81-readonly-properties:
     title: "PHP 8.1: readonly properties"
     content: src/content/blog/2021-09-11-readonly-properties.md
     footnotes:
+        - { link: /blog/readonly-classes-in-php-82, title: "Readonly classes in PHP 8.2" }
         - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
         - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: https://wiki.php.net/rfc/readonly_properties_v2, title: "The readonly properties RFC" }

@@ -185,3 +185,9 @@ article p em {
     color: #000;
     border-color: #000;
 }
+
+strong {
+    background-color: $color-primary-pastel;
+    font-weight: 600;
+    padding: 2px;
+}
