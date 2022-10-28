@@ -34,17 +34,76 @@ I've written about readonly properties before, so let's quickly summarise first:
 - the `<hljs keyword>readonly</hljs>` flag cannot be changed during inheritance; and finally
 - you cannot unset readonly properties.
 
-Since readonly classes are merely syntactic sugar for making all properties of that class readonly, it means that the same rules apply to readonly classes as well:
+Since readonly classes are merely syntactic sugar for making all properties of that class readonly, it means that the same rules apply to readonly classes as well.
 
-- all properties of a readonly class can **only be written once**, and **can not be unset**;
-- a readonly class can **only have typed properties**;
-- properties of a readonly class **can not have a default value** unless you're using promoted properties; and
-- you **cannot change the `<hljs keyword>readonly</hljs>` class flag during inheritance**.
+### Write once
 
-On top of that, readonly classes also **don't allow dynamic properties**. This won't have a big impact since [dynamic properties are deprecated](/blog/deprecated-dynamic-properties-in-php-82) in PHP 8.2 anyway, but means that you **cannot add the `#[<hljs type>AllowDynamicProperties</hljs>]` attribute to readonly classes**.
+All properties of a readonly class can only be written once, and can not be unset:
 
-Finally, there's a **new reflection method** to determine whether a class is readonly: `<hljs type>ReflectionClass</hljs>::<hljs prop>isReadOnly</hljs>()`. You can also use `<hljs type>ReflectionClass</hljs>::<hljs prop>getModifiers</hljs>()`, which will include the `<hljs type>ReflectionClass</hljs>::<hljs prop>IS_READONLY</hljs>` flag.
+```php
+<hljs keyword>readonly</hljs> class BlogData { /* … */ }
+
+$blogData = new <hljs type>BlogData</hljs>(/* … */);
+
+<hljs striped>$blogData-><hljs prop>title</hljs> = 'other';</hljs>
+```
+
+### Only typed properties
+
+A readonly class can only have typed properties:
+
+```php
+<hljs keyword>readonly</hljs> class BlogData
+{
+    public <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    
+    <hljs striped>public <hljs prop>$mixed</hljs></hljs>;
+}
+```
+
+### No default values
+
+Properties of a readonly class can not have a default value unless you're using promoted properties.
+
+```php
+<hljs keyword>readonly</hljs> class BlogData
+{
+    public <hljs type>string</hljs> <hljs prop>$title</hljs><hljs striped> = 'default'</hljs>;
+}
+```
+
+```php
+<hljs keyword>readonly</hljs> class BlogData
+{
+    public function __construct(
+        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs> = 'default', <hljs comment>// This works</hljs>
+   ) {}
+}
+```
+
+### No changes during inheritance
+
+You cannot change the `<hljs keyword>readonly</hljs>` class flag during inheritance.
+
+```php
+<hljs keyword>readonly</hljs> class BlogData { /* … */ }
+
+class NewsItemData <hljs striped>extends <hljs type>BlogData</hljs></hljs> { /* … */ }
+```
+
+### No dynamic properties
+
+Readonly classes also don't allow dynamic properties. This won't have a big impact since [dynamic properties are deprecated](/blog/deprecated-dynamic-properties-in-php-82) in PHP 8.2 anyway, but means that you cannot add the `#[<hljs type>AllowDynamicProperties</hljs>]` attribute to readonly classes.
+
+```php
+<hljs striped>#[<hljs type>AllowDynamicProperties</hljs>]</hljs>
+<hljs keyword>readonly</hljs> class BlogData { /* … */ }
+```
+
+### Reflection
+
+Finally, there's a new reflection method to determine whether a class is readonly: `<hljs type>ReflectionClass</hljs>::<hljs prop>isReadOnly</hljs>()`. You can also use `<hljs type>ReflectionClass</hljs>::<hljs prop>getModifiers</hljs>()`, which will include the `<hljs type>ReflectionClass</hljs>::<hljs prop>IS_READONLY</hljs>` flag.
 
 ---
 
-That's about all there is 
+{{ cta:dynamic }}
