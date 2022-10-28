@@ -45,7 +45,9 @@ All properties of a readonly class can only be written once, and can not be unse
 
 $blogData = new <hljs type>BlogData</hljs>(/* … */);
 
-<hljs striped>$blogData-><hljs prop>title</hljs> = 'other';</hljs>
+<hljs striped>$blogData-><hljs prop>title</hljs> = 'other'</hljs>;
+
+<hljs striped>unset($blogData-><hljs prop>title<hljs text>)</hljs></hljs></hljs>;
 ```
 
 ### Only typed properties
@@ -63,7 +65,7 @@ A readonly class can only have typed properties:
 
 ### No default values
 
-Properties of a readonly class can not have a default value unless you're using promoted properties.
+Properties of a readonly class can not have a default value unless you're using promoted properties:
 
 ```php
 <hljs keyword>readonly</hljs> class BlogData
@@ -83,7 +85,7 @@ Properties of a readonly class can not have a default value unless you're using 
 
 ### No changes during inheritance
 
-You cannot change the `<hljs keyword>readonly</hljs>` class flag during inheritance.
+You cannot change the `<hljs keyword>readonly</hljs>` class flag during inheritance:
 
 ```php
 <hljs keyword>readonly</hljs> class BlogData { /* … */ }
@@ -93,7 +95,7 @@ class NewsItemData <hljs striped>extends <hljs type>BlogData</hljs></hljs> { /* 
 
 ### No dynamic properties
 
-Readonly classes also don't allow dynamic properties. This won't have a big impact since [dynamic properties are deprecated](/blog/deprecated-dynamic-properties-in-php-82) in PHP 8.2 anyway, but means that you cannot add the `#[<hljs type>AllowDynamicProperties</hljs>]` attribute to readonly classes.
+Readonly classes also don't allow dynamic properties. This won't have a big impact since [dynamic properties are deprecated](/blog/deprecated-dynamic-properties-in-php-82) in PHP 8.2 anyway, but means that you cannot add the `#[<hljs type>AllowDynamicProperties</hljs>]` attribute to readonly classes:
 
 ```php
 <hljs striped>#[<hljs type>AllowDynamicProperties</hljs>]</hljs>
