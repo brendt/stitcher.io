@@ -63,6 +63,17 @@ A readonly class can only have typed properties:
 }
 ```
 
+### No static properties
+
+Since readonly properties cannot be static, readonly classes cannot have any static properties:
+
+```php
+<hljs keyword>readonly</hljs> class BlogData
+{
+    public <hljs striped>static</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>;
+}
+```
+
 ### No default values
 
 Properties of a readonly class can not have a default value unless you're using promoted properties:
