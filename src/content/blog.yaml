@@ -7,17 +7,43 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+php-82-upgrade-mac:
+    date: 2022-11-01
+    title: Upgrade to PHP 8.2 with Homebrew on Mac
+    content: src/content/blog/2022-11-01-php-82-upgrade-mac.md
+    next: new-in-php-82
+    meta:
+        description: "How to upgrade to PHP 8.2 on a Mac with Homebrew"
+    footnotes:
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.2" }
+        - { link: "/blog/new-in-php-82", title: "New in PHP 8.2", description: " — A comprehensive list of all things new in PHP 8.2" }
+        - { link: "/blog/readonly-classes-in-php-82", title: "Readonly classes in PHP 8.2" }
+        - { link: "/blog/deprecated-dynamic-properties-in-php-82", title: "Deprecated dynamic properties in PHP 8.2" }
+        - { link: "/blog/php-82-in-8-code-blocks", title: "PHP 8.2 in 8 code blocks" }
+
 readonly-classes-in-php-82:
     date: 2022-10-25
     title: Readonly classes in PHP 8.2
     content: src/content/blog/2022-10-25-readonly-classes-in-php-82.md
     next: new-in-php-82
+    footnotes:
+        - { link: "/blog/php-82-upgrade-mac", title: "How to upgrade to PHP 8.2 on Mac" }
+        - { link: "/blog/new-in-php-82", title: "New in PHP 8.2", description: " — A comprehensive list of all things new in PHP 8.2" }
+        - { link: "/blog/deprecated-dynamic-properties-in-php-82", title: "Deprecated dynamic properties in PHP 8.2" }
+        - { link: "/blog/php-82-in-8-code-blocks", title: "PHP 8.2 in 8 code blocks" }
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.2" }
 
 php-82-in-8-code-blocks:
     date: 2022-10-24
     title: "PHP 8.2 in 8 code blocks"
     content: src/content/blog/2022-10-24-php-82-in-8-code-blocks.md
     next: new-in-php-82
+    footnotes:
+        - { link: "/blog/new-in-php-82", title: "New in PHP 8.2", description: " — A comprehensive list of all things new in PHP 8.2" }
+        - { link: "/blog/php-82-upgrade-mac", title: "How to upgrade to PHP 8.2 on Mac" }
+        - { link: "/blog/readonly-classes-in-php-82", title: "Readonly classes in PHP 8.2" }
+        - { link: "/blog/deprecated-dynamic-properties-in-php-82", title: "Deprecated dynamic properties in PHP 8.2" }
+        - { link: https://road-to-php.com/, title: "The Road to PHP 8.2" }
 
 new-in-php-82:
     date: 2022-09-19
@@ -27,6 +53,7 @@ new-in-php-82:
     meta:
         description: "All new features, performance upgrades, and deprecations in PHP 8.2"
     footnotes:
+        - { link: "/blog/php-82-upgrade-mac", title: "How to upgrade to PHP 8.2 on Mac" }
         - { link: /blog/readonly-classes-in-php-82, title: "Readonly classes in PHP 8.2" }
         - { link: /blog/dealing-with-deprecations, title: "Dealing with deprecations" }
         - { link: "https://www.youtube.com/watch?v=x9bSUo6TGgY", title: "The evolution of PHP" }
@@ -34,7 +61,6 @@ new-in-php-82:
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
         - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
-
 
 uses:
     date: 2022-09-09
@@ -66,9 +92,12 @@ deprecated-dynamic-properties-in-php-82:
     content: src/content/blog/2022-08-08-deprecated-dynamic-properties-in-php-82.md
     footnotes:
         - { link: /blog/new-in-php-82, title: "What's new in PHP 8.2" }
+        - { link: "/blog/php-82-upgrade-mac", title: "How to upgrade to PHP 8.2 on Mac" }
+        - { link: "/blog/deprecated-dynamic-properties-in-php-82", title: "Deprecated dynamic properties in PHP 8.2" }
+        - { link: "/blog/readonly-classes-in-php-82", title: "Readonly classes in PHP 8.2" }
+        - { link: "/blog/php-82-in-8-code-blocks", title: "PHP 8.2 in 8 code blocks" }
         - { link: /blog/uncertainty-doubt-and-static-analysis, title: "Uncertainty, doubt, and static analysis" }
         - { link: "https://road-to-php.com/", title: "The Road to PHP 8.2" }
-        - { link: "/blog/dealing-with-deprecations", title: "Dealing with deprecations" }
 
 light-colour-schemes-are-better:
     date: 2022-07-30
