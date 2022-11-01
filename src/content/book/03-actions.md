@@ -160,7 +160,7 @@ public function execute(
 
     $amount = $invoiceLineData->item_amount;
     
-    $invoiceLine = new <hljs type>InvoiceLine</hljs>([
+    return new <hljs type>InvoiceLine</hljs>([
         'item_price' => $item-><hljs prop>getPrice</hljs>(),
         'total_price' => $amount * $priceIncVat,
         'total_price_excluding_vat' => $amount * $priceExclVat,
