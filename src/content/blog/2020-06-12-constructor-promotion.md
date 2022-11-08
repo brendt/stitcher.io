@@ -57,7 +57,9 @@ class MyDTO
 {
     public function __construct(
         <hljs keyword blue>public</hljs> <hljs type red>string</hljs> <hljs prop green>$name</hljs> = <hljs yellow>'Brent'</hljs>,
-    ) {}
+    ) {
+        // Other constructor code
+    }
 }
 ```
 
@@ -72,6 +74,8 @@ class MyDTO
         <hljs type red>string</hljs> <hljs green>$name</hljs> = <hljs yellow>'Brent'</hljs>
     ) {
         $this-><hljs prop green>name</hljs> = <hljs green>$name</hljs>;
+
+        // Other constructor code
     }
 }
 ```
@@ -163,13 +167,17 @@ I'd say: be careful mixing the syntaxes, if it makes the code less clear, consid
 
 ### Access promoted properties from the constructor body
 
-You're allowed to read the promoted properties in the constructor body. This can be useful if you want to do extra validation checks. You can use both the local variable and the instance variable, both work fine.
+You're allowed to read the promoted properties in the constructor body. This can be useful if you want to do extra validation checks. You can use both the local variable and the instance variable, both work fine. 
 
 ```php
 public function __construct(
     <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$a</hljs>,
     <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$b</hljs>,
 ) {
+    // The 'magic' property assignment happens here, before your own code
+    // $this->a = $a;
+    // $this->b = $b;
+    
     <hljs type>assert</hljs>($this-><hljs prop>a</hljs> >= 100);
 
     if ($b >= 0) {
