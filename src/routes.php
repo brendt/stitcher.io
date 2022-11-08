@@ -49,8 +49,8 @@ $redirects = [
     '/laravel-beyond-crud' => '/blog/laravel-beyond-crud',
     '/blog/php-81-new-in-inititalizers' => '/blog/php-81-new-in-initializers',
 
-    '/youtube' => 'https://www.youtube.com/user/BrenDtRoose',
-    '/yt' => 'https://www.youtube.com/user/BrenDtRoose',
+    '/youtube' => 'https://www.youtube.com/@phpannotated',
+    '/yt' => 'https://www.youtube.com/@phpannotated',
 ];
 
 $router = App::router();
