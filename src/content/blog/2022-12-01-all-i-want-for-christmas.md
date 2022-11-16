@@ -26,16 +26,18 @@ And everyone marvelled at JavaScript: it grew from a small frontend scripting la
 
 ---
 
-Let's talk about PHP. I've been writing it for more than a decade now. I love the PHP community, I love the ecosystem, I love how the language has managed to evolve over the years. 
+Let's talk about PHP. I've been writing it for more than a decade now. I love the PHP community, I love the ecosystem, I love how the language has managed to evolve over the years. At the same time I believe there's room for PHP to grow — lots of room. And so I dream. 
 
-But let's be honest: PHP isn't the most sexy language out there. It's not the best performer, it weird and quirky in places, it's average at best. And that's ok: we manage to create amazing things with it because the language itself rarely is the bottleneck.
+I dream of a world where PHP follows in JavaScript footsteps. Where it becomes more than just PHP. I dream of a TypeScript for PHP: a language that's still 100% compatible with all PHP code out there, but one that adds generics and proper static type checking — without having to worry about runtime performance costs. I dream of a language that has all (or most) modern-day language features, that are compiled to plain, old, boring — but working — PHP.
 
-And yet… I dream. I dream of a world where PHP follows in JavaScript footsteps. Where it becomes more than just PHP. I dream of a TypeScript for PHP: a language that's still 100% compatible with all PHP code out there, but one that adds syntax like generics and the pipe operator, without having to worry about runtime performance costs. A language that has all (or most) modern-day language features, that are compiled to plain, old, boring — but working — PHP.
+But dreams seldom come true. 
 
-I dream, but I know how unlikely it is to happen. A wise man once said: "For JavaScript to become as popular as it is today, there had to be two things: it had to suck, and it had to be the only viable option available".
+Someone once said: "For JavaScript to become as popular as it is today, there had to be two things: it had to suck, and it had to be the only viable option available". And here's the thing: unlike JavaScript, PHP isn't the _only_ option available for backend programming. I also dare to say that it's way better than JavaScript back in the day. These two main components that were needed for JavaScript to grow into something more than itself, aren't equally present in PHP. 
 
-And here's the thing: unlike JavaScript, PHP isn't the _only_ option available for backend programming. I also dare to say that it sucks less than JavaScript back in the day. These two main components that were needed for JavaScript to grow into something more than itself, aren't equally present in PHP. 
+And that's ok. It means my dream is probably unrealistic, but it also means something much more important.
 
-Unfortunately for me, PHP is good enough. People are building amazing things with it. The language itself is evolving in a good way. Maybe I don't agree with everything internals decide, but it _is_ evolving. PHP has a great ecosystem, it's performant enough these days, and you can run it serverless or on asynchronous servers if you need to.
+My realisation recently is that PHP is already awesome. People are already building great things with it. Sure, maybe PHP is boring compared to the latest and greatest programming languages, and sure you might need to use another language if you're building something for those 0.1% of edge cases that need insane performance. My dream of a superset of PHP might be one of many approaches, but it sure isn't the only viable path forward.
 
-For most projects, good enough is good enough. And yet, I dream.
+Even without that dream of mine: PHP is doing great. It's not because of how its designed, it's not because of its syntax. It's not because of its top-notch performance and it's not because of its incredible type system. It's because people like _you_ are building amazing things with it. Whether you're using PHP 8.2 or not; whether your running it serverless or asynchronous or not; whether you're writing OOP, FP, DDD, ES, CQRS, Serverless or whatever term you want to throw at it — _you_ are building awesome things. It turns out a language is rarely the bottleneck, because it's merely a tool. But "PHP" is so much more than just a language, it's so much more than just a tool. That's because of _you_.
+
+Thank you for being part of what makes PHP great. Happy holidays.
