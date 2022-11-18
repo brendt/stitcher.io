@@ -1,5 +1,10 @@
+'60':
+    date: 2022-11-18
+    title: "10 years from now"
+    content: src/content/mails/stitcher-60.md
+
 '59':
-    date: 2022-09-18
+    date: 2022-11-10
     title: "PHP Annotated, 8.2 and Twitter"
     content: src/content/mails/stitcher-59.md
 
