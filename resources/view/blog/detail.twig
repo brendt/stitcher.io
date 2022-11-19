@@ -55,7 +55,9 @@
         {% endif %}
 
         {% if 'carbonads' not in post.content %}
-            {% include '_partials/ad_carbon.twig' %}
+            {% if post.disableAds is not defined %}
+                {% include '_partials/ad_carbon.twig' %}
+            {% endif %}
         {% endif %}
 
         {{ post.content|raw }}

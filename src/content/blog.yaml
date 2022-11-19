@@ -16,6 +16,7 @@ you-cannot-find-me-on-mastodon:
     date: 2022-11-19
     title: You cannot find me on Mastodon
     content: src/content/blog/2022-11-19-you-cannot-find-me-on-mastodon.md
+    disableAds: true
 
 new-in-php-82:
     date: 2022-11-12
