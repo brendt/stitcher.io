@@ -6,6 +6,7 @@ use Brendt\Stitcher\Handler\BlogsForDevsRssHandler;
 use Brendt\Stitcher\Handler\DeJobRssHandler;
 use Brendt\Stitcher\Handler\GamesRssHandler;
 use Brendt\Stitcher\Handler\GetLikesHandler;
+use Brendt\Stitcher\Handler\LosanHandler;
 use Brendt\Stitcher\Handler\MetaImageHandler;
 use Brendt\Stitcher\Handler\PodcastsRssHandler;
 use Brendt\Stitcher\Handler\RantWithBrentRssHandler;
@@ -77,6 +78,7 @@ foreach ($newsLetters as $i => $newsLetter) {
 
 $router->get('/img/meta/{slug}.png', MetaImageHandler::class);
 $router->get('/blog/{slug}/meta', MetaImageHandler::class);
+$router->get('/losan/{name}', LosanHandler::class);
 $router->get('/blogs-for-devs/{slug}/meta', MetaImageHandler::class);
 $router->get('/img/meta/{slug}.png/nocache', MetaImageHandler::class);
 $router->get('/rss', BlogRssHandler::class);

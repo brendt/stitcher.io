@@ -5,6 +5,7 @@ use Stitcher\File;
 return [
     'environment' => env('ENVIRONMENT'),
     'siteUrl' => 'https://stitcher.io',
+    'losan' => env('LOSAN', ''),
 
     'plugins' => [
         \Brendt\Stitcher\Plugin\AppServiceProvider::class,
