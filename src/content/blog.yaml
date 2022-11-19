@@ -12,6 +12,11 @@
 #    title: All I want for Christmas…
 #    content: src/content/blog/2022-12-01-all-i-want-for-christmas.md
 
+you-cannot-find-me-on-mastodon:
+    date: 2022-11-19
+    title: You cannot find me on Mastodon
+    content: src/content/blog/2022-11-19-you-cannot-find-me-on-mastodon.md
+
 new-in-php-82:
     date: 2022-11-12
     title: "What's new in PHP 8.2"
