@@ -430,3 +430,13 @@ img.small {
 .hover-outline:hover {
     box-shadow: 0 0 0 7px $color-primary;
 }
+
+.datadog img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.datadog {
+    margin-bottom: 2em;
+}
