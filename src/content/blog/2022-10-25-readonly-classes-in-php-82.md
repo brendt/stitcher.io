@@ -1,5 +1,7 @@
 PHP 8.2 adds a new way of declaring classes: you can make them readonly. In practice, it means that all properties of that class will be readonly. This is especially useful when you're using [data transfer objects](/blog/structuring-unstructured-data) or value objects, where a class only has public [readonly properties](/blog/php-81-readonly-properties).
 
+<iframe width="560" height="422" src="https://www.youtube.com/embed/2cyJq08q6xE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 In other words, instead of writing this:
 
 ```php
