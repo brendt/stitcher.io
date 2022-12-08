@@ -19,7 +19,7 @@ you-cannot-find-me-on-mastodon:
     disableAds: true
 
 new-in-php-82:
-    date: 2022-11-12
+    date: 2022-12-08
     title: "What's new in PHP 8.2"
     content: src/content/blog/2022-04-22-new-in-php-82.md
     next: new-in-php-81
