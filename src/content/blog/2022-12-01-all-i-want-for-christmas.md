@@ -1,3 +1,5 @@
+_Note: this post was first published as part of PHP's "[24 Days in December](https://24daysindecember.net/2022/12/01/all-i-want-for-christmas/)" Advent event._
+
 Let's set aside all practical concerns for a moment — it's Christmas, after all. If you could choose — freely choose: what would you change about PHP? 
 
 Would you want generics or the pipe operator? Maybe you'd like to see consistent function signatures or get rid of the dollar sign. Type aliases, scalar objects, autoloading for namespaced functions, improved performance, less breaking changes, more breaking changes — the list goes on.

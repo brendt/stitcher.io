@@ -7,10 +7,28 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
-#all-i-want-for-christmas:
-#    date: 2022-12-01
-#    title: All I want for Christmas…
-#    content: src/content/blog/2022-12-01-all-i-want-for-christmas.md
+#php-version-stats-january-2023:
+#    date: 2023-01-03
+#    title: "PHP version stats: January, 2023"
+#    content: src/content/blog/2023-01-03-php-version-stats-january-2023.md
+#    versionStatsDate: 2023-01-01
+#    meta:
+#        description: Insights in PHP's version usage
+#        template: blog/meta/version-stats.twig
+#    footnotes:
+#        - { link: "/blog/new-in-php-82", title: "What's new in PHP 8.2" }
+#        - { link: "https://packagist.org/php-statistics", title: "Raw data from packagist" }
+#        - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
+#        - { title: "PHP version stats: January, 2022", link: "/blog/php-version-stats-january-2022" }
+#        - { title: "PHP in 2022", link: "/blog/php-in-2022" }
+
+
+all-i-want-for-christmas:
+    date: 2023-01-03
+    title: All I want for Christmas…
+    content: src/content/blog/2022-12-01-all-i-want-for-christmas.md
+    meta:
+        canonical: https://24daysindecember.net/2022/12/01/all-i-want-for-christmas/
 
 you-cannot-find-me-on-mastodon:
     date: 2022-11-19
