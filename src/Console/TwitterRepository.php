@@ -23,7 +23,6 @@ class TwitterRepository
     }
 
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return \Illuminate\Support\Collection|\Brendt\Stitcher\Console\DTO\Tweet[]

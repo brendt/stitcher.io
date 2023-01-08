@@ -21,5 +21,7 @@ class TwitterSyncCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->repository->sync($output);
+
+        return 0;
     }
 }

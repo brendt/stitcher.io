@@ -50,7 +50,7 @@ class AdRenderer implements InlineRendererInterface
 
         foreach ($this->ctas as $key => $cta) {
             while (Str::contains($content, $key)) {
-                $stampedCta = str_replace('{{ stamp }}', $this->stamp, $cta);
+                $stampedCta = str_replace('{{ stamp }}', (string)$this->stamp, $cta);
 
                 $content = Str::replaceFirst($key, $stampedCta, $content);
 

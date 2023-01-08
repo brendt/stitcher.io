@@ -16,17 +16,4 @@ class LosanHandler
 
         exit;
     }
-
-    private function response(string $path): Response
-    {
-        return new Response(
-            200,
-            [
-                'Content-Type' => 'image/png',
-                'Content-Length' => filesize($path),
-                'Cache-Control' => 'max-age=3600',
-            ],
-            file_get_contents($path)
-        );
-    }
 }

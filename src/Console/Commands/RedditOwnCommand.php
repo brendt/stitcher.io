@@ -104,6 +104,8 @@ class RedditOwnCommand extends Command
         $table->render();
 
         $output->writeln("Total {$count}");
+
+        return 0;
     }
 
     private function getPosts(): Collection

@@ -124,5 +124,7 @@ class TwitterOwnCommand extends Command
         $table->render();
 
         $output->writeln("Total {$count}");
+
+        return 0;
     }
 }

@@ -16,6 +16,6 @@ class RemoveLikeHandler
             ->remove($slug, $likeId)
             ->persist();
 
-        return new Response(200, [], $likes->count($slug));
+        return new Response(200, [], (string)$likes->count($slug));
     }
 }

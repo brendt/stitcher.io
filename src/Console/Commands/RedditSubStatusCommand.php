@@ -64,5 +64,7 @@ class RedditSubStatusCommand extends Command
         $table->setRows($rows);
 
         $table->render();
+
+        return 0;
     }
 }

@@ -14,7 +14,7 @@ class App extends Application
 {
     public function __construct()
     {
-        parent::__construct('Console', 1);
+        parent::__construct('Console', '1');
 
         $redditDataRepository = new RedditRepository();
 
