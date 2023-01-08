@@ -1,0 +1,6 @@
+[codespell]
+skip=./.git,./resources/js/*.min.js,./resources/view/blog/meta/img,./src/Console/Data,./src/content/de-job.*,./src/content/mails/de-job*,./resources/view/de-job
+check-hidden=
+check-filenames=
+builtin=clear,rare,informal,usage,code,names
+ignore-words-list=master,focussed,dependant,tpyo
