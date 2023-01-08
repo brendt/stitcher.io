@@ -84,7 +84,7 @@ $post-><hljs prop>name</hljs> = 'Name'; // Works in PHP 8.2
 
 If you _really_ want to use dynamic properties without implementing `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>`, there is a much better alternative than to extend from `<hljs type>stdClass</hljs>`. 
 
-The PHP core team has provided a built-in [attribute](/blog/attributes-in-php-8) called `<hljs type>AllowDynamicProperties</hljs>`.As its name suggests, it allows dynamic properties on classes, without having to rely on sketchy extends:
+The PHP core team has provided a built-in [attribute](/blog/attributes-in-php-8) called `<hljs type>AllowDynamicProperties</hljs>`. As its name suggests, it allows dynamic properties on classes, without having to rely on sketchy extends:
 
 ```php
 #[<hljs type>AllowDynamicProperties</hljs>]
