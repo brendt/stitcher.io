@@ -1,6 +1,23 @@
 
 
 
+<div class="screenshot screenshot-hidden">
+
+```php
+function <hljs prop>createPost</hljs>(
+    <hljs type>PostData</hljs> <hljs text>$data,</hljs>    
+    <hljs type>PostData</hljs> <hljs text>$data,</hljs>    
+    <hljs type>PostData</hljs> <hljs text>$data,</hljs>    
+<hljs text>) {</hljs>
+    <hljs text>$post =</hljs> <hljs type>Post</hljs><hljs text>::</hljs><hljs prop>create</hljs><hljs text>($data);</hljs>
+
+    return <hljs type>$post;</hljs>
+<hljs text>}</hljs>
+```
+
+</div>
+
+
 <div class="screenshot">
 
 ```php

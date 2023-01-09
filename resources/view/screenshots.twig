@@ -53,6 +53,28 @@
         .blog {
             margin: 0 auto;
         }
+
+        .screenshot-hidden span {
+            border-radius: 6px;
+            color: rgba(0,0,0,0) !important;
+            background: var(--screenshot-color, none) !important;
+        }
+
+        .screenshot-hidden span.hljs-keyword {
+            --screenshot-color: #4285f4;
+        }
+
+        .screenshot-hidden span.prop {
+            --screenshot-color: #34a853;
+        }
+
+        .screenshot-hidden span.type {
+            --screenshot-color: #ea4334;
+        }
+
+        .screenshot-hidden span.text {
+            --screenshot-color: #000;
+        }
     </style>
 {% endblock %}
 
