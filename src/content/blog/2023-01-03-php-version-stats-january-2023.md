@@ -243,6 +243,10 @@ You can see there's a _slight_ increase in PHP 7.* requirements. It's a good evo
 
 In my opinion, package authors should push more to require only supported PHP versions. I think it's the only way for PHP to keep moving forward at a decent rate, and for the community to keep up. On top of that: yearly upgrades are much easier to do than to stay on, for example, PHP 7.4 and try to make the jump directly to PHP 8.2.
 
+<p>
+<iframe width="560" height="422" src="https://www.youtube.com/embed/z0Tzb6SVwr4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
 ---
 
 In closing, if you take one thing away from this post, I hope it's that it's time to upgrade to at least PHP 8.1, preferably PHP 8.2. It's not as difficult as you might think, and it's [definitely worth your time](/blog/a-storm-in-a-glass-of-water).
