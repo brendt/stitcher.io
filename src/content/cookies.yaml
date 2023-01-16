@@ -1,3 +1,5 @@
 id: cookies
 title: Cookies & Privacy
 content: src/content/cookies.md
+meta:
+    canonical: https://stitcher.io/cookies
