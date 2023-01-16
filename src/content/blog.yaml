@@ -7,6 +7,17 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+php-in-2023:
+    date: 2023-01-16
+    title: PHP in 2023
+    content: src/content/blog/2023-01-16-php-in-2023.md
+    footnotes:
+        - { link: "https://www.youtube.com/@phpannotated", title: "PHP Annotated, my YouTube channel" }
+        - { link: "/blog/php-82-in-8-code-blocks", title: "PHP 8.2 in 8 code blocks" }
+        - { title: "PHP version stats: January, 2023", link: "/blog/php-version-stats-january-2023" }
+        - { title: "PHP in 2022", link: "/blog/php-in-2022" }
+        - { title: "What's new in PHP 8.2", link: "/blog/new-in-php-82" }
+
 php-version-stats-january-2023:
     date: 2023-01-11
     title: "PHP version stats: January, 2023"
