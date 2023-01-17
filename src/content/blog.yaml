@@ -8,7 +8,7 @@
 #    content: src/content/blog/2022-06-18-elephpants.md
 
 php-in-2023:
-    date: 2023-01-16
+    date: 2023-01-17
     title: PHP in 2023
     content: src/content/blog/2023-01-16-php-in-2023.md
     footnotes:
