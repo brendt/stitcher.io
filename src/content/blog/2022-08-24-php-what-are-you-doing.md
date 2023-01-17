@@ -86,7 +86,7 @@ I would be sad to see PHP become a language that throws out core features every 
 
 ---
 
-On a final note, if you are worried about cloning objects with new values (a problem this RFC would solve and readonly properties don't): people are already working on some kind of syntax to allow rewriting readonly properties while cloning. I'd say it's better to focus our efforts in that area, instead of coming up with an entirely different approach.
+On a final note, if you are worried about cloning objects with new values (a problem this RFC would solve and readonly properties don't): people are already working on [an RFC to allow rewriting readonly properties while cloning](https://wiki.php.net/rfc/readonly_amendments). I'd say it's better to focus our efforts in that area, instead of coming up with an entirely different approach.
 
 Even more: the original example I showed with asymmetric visibility allowing for more functionality (internally guarding business rules) wasn't entirely correct. The same _is_ possible with readonly properties, given that we have a way to overwrite readonly values when cloning them:
 
@@ -111,7 +111,7 @@ final class Post
 }
 ```
 
-Oh and while the above syntax isn't available yet, it's already possible to overwrite readonly properties while cloning today with some [additional userland code](https://github.com/spatie/php-cloneable):
+Oh, and while the above syntax isn't available yet, it's already possible to overwrite readonly properties while cloning today with some [additional userland code](https://github.com/spatie/php-cloneable):
 
 
 ```php
