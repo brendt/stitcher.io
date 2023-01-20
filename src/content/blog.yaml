@@ -7,6 +7,12 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+tabs-are-better:
+    date: 2023-01-20
+    title: Tabs are better
+    content: src/content/blog/2023-01-20-tabs-are-better.md
+    disableAds: true
+
 php-in-2023:
     date: 2023-01-17
     title: PHP in 2023
