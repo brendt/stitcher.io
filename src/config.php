@@ -29,6 +29,7 @@ return [
         'resources/img/static/generics-thumb-4.png',
         'resources/img/static/php-1-minute.png',
         'resources/img/static/aggregate-82-thumb.png',
+        'resources/img/static/sparkline-thumb.png',
         'resources/img/static/new-in-php-82-thumb.png',
         'resources/img/static/aggregate-timelapse.png',
         'resources/img/static/datadog.png',
