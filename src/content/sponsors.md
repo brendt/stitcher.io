@@ -1,5 +1,6 @@
 This page will list my [GitHub sponsors](https://github.com/sponsors/brendt/), thanks a lot everyone!
 
+- [Readable](https://readable.com/)
 - [Codecourse](https://codecourse.com/)
 - [Fathom Analytics](https://usefathom.com/)
 
