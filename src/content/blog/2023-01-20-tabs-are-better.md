@@ -21,3 +21,5 @@ But let’s not jump to early conclusions and look at the rational arguments for
 A huge part of the programming community — including myself — has gotten used to spaces. Not because there are any good arguments for them, but because it has grown into a habit — a habit so big that popular code styles force users to write spaces, without any good reason.
 
 So maybe we should rethink that habit? I would say that accessibility and writing more inclusive code is a very good argument. But unfortunately, as we all know: breaking habits is hard.
+
+<p><iframe width="560" height="422" src="https://www.youtube.com/embed/w5sPf2fhnxE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
