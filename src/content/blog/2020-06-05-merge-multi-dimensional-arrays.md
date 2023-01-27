@@ -27,7 +27,7 @@ Using `array_merge_recursive` will result in the following:
 // ]
 ```
 
-Instead over overriding the original `key` value, `array_merge_recursive` created an array, with the original and new value both in it.
+Instead of overriding the original `key` value, `array_merge_recursive` created an array, with the original and new value both in it.
 
 While that looks strange in this simple example, it's actually more useful in cases where one of the values already is an array, and you want to merge another item in that array, instead of overriding it.
 
