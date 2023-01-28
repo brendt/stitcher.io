@@ -321,7 +321,7 @@ class Bar extends Foo
 
 ## There's more!
 
-Like a said at the start of this post, typed properties are a _major_ addition to ((PHP)). 
+Like I said at the start of this post, typed properties are a _major_ addition to ((PHP)). 
 There's lots more to say about them. I'd suggest you reading through the [((RFC))](*https://wiki.php.net/rfc/typed_properties_v2) to know all the neat little details.
 
 If you're new to ((PHP 7.4)), you probably want to read the [full list](/blog/new-in-php-74) of changes made and features added. To be honest, it's one of the best releases in a long time, and worth your time!
