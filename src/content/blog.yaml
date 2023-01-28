@@ -7,6 +7,11 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+fonts-matter:
+    date: 2023-01-28
+    title: Fonts matter
+    content: src/content/blog/2023-01-28-fonts-matter.md
+
 my-10-favourite-php-functions:
     date: 2023-01-27
     title: My top-10 favourite functions in PHP
