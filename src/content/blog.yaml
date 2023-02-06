@@ -1,11 +1,12 @@
-# readonly-classes-in-php-82
-# deprecations-and-breaking-changes-in-php-82
-# deprecated-dynamic-properties-in-php-82
-
 #elephpants:
 #    date: 2022-06-18
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
+
+code-folding:
+    date: 2023-02-06
+    title: I'm a code folder
+    content: src/content/blog/2023-02-06-code-folding.md
 
 acronyms:
     date: 2023-01-29
