@@ -8,6 +8,8 @@ As always, it's important to note that I'm working with the data available to us
 
 Let's start with the percentage of PHP versions being used today, and compare it to the previous three editions, note that I've omitted all versions that don't have more than 1% usage:
 
+
+<div class="table-container">
 <table>
 
 <tr class="table-head">
@@ -75,6 +77,7 @@ Let's start with the percentage of PHP versions being used today, and compare it
 </tr>
 
 </table>
+</div>
 
 Visualizing this data looks like this:
 
@@ -108,6 +111,7 @@ I feel like I'm repeating myself every year, but I really hope that people upgra
 
 Next, I used Nikita's [popular package analyzer](*https://github.com/nikic/popular-package-analysis) to download the 1000 most popular composer packages. I used a little script to get their minimum required version. Here are the results:
 
+<div class="table-container">
 <table>
 
 <tr class="table-head">
@@ -223,6 +227,7 @@ Next, I used Nikita's [popular package analyzer](*https://github.com/nikic/popul
 </tr>
 
 </table>
+</div>
 
 There are two important notes to make here.
 
@@ -247,7 +252,7 @@ In my opinion, package authors should push more to require only supported PHP ve
 <iframe width="560" height="422" src="https://www.youtube.com/embed/z0Tzb6SVwr4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 
----
+{{ cta:packagist }}
 
 In closing, if you take one thing away from this post, I hope it's that it's time to upgrade to at least PHP 8.1, preferably PHP 8.2. It's not as difficult as you might think, and it's [definitely worth your time](/blog/a-storm-in-a-glass-of-water).
 

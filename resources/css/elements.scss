@@ -415,6 +415,10 @@ span.number {
     white-space: nowrap;
 }
 
+.table-container {
+    overflow-x: auto;
+}
+
 table {
     font-size: 1.3rem;
     width: 100%;
