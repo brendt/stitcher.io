@@ -6,4 +6,9 @@ You'll notice I'll share the odd "old" post from time to time in my roundups, I 
 
 ## Roundup
 
-- **[I'm a code folder](https://aggregate.stitcher.io/post/522257a3-913f-48e8-9457-76c5786679e1)** —   
+- **[I'm a code folder](https://aggregate.stitcher.io/post/522257a3-913f-48e8-9457-76c5786679e1)** — This is my latest blog-post-to-video that I published a couple of days ago. It takes less than two minutes to watch, and I'd love to hear your thoughts and feedback.
+- **[Prompting for missing input in Artisan commands](https://aggregate.stitcher.io/post/ddb8a9da-26ea-4596-bbe8-9a760f271d77)** — Luke writes about a very nice addition in Laravel where Artisan will ask about missing input arguments.
+- **[Building APIs in Laravel](https://aggregate.stitcher.io/post/53df60fc-594a-4d31-8302-f884aa41548b)** — Steve has been writing some great in-depth tutorials over at Laravel News lately. This post fits in nicely. 
+- **[Kickstarting TikTok: 55,500 Followers & 7m views in 6 Weeks](https://aggregate.stitcher.io/post/9ba1de47-f327-4598-acf2-01109066f772)** — TikTok is so weird, and yet it seems to be so popular. This is an interesting post about how someone grew their TikTok audience. I wonder how it would translate to technical content. Are you on TikTok? How do you like it?
+- **[My favourite way of testing validation rules](https://aggregate.stitcher.io/post/e31c928d-a9a6-43c8-b2e0-8537fc97feb5)** — Another post by Luke about how he tests validation rules with Pest. I'm still on the PHPUnit side, but I have to admit: Pest does some really nice things!
+- **[The evolution of null](https://aggregate.stitcher.io/post/3543dc2b-11ed-46ea-97ac-d5d1bdad7200)** — I made a video on the PHP Annotated channel about how PHP itself has evolved in dealing with null. I like all the rich syntax we have today!

@@ -26,6 +26,7 @@ class AdRenderer implements InlineRendererInterface
         '{{ cta:blogs_index }}' => __DIR__ . '/../../../resources/view/_partials/cta_blogs_index.twig',
         '{{ cta:81 }}' => __DIR__ . '/../../../resources/view/_partials/cta_81.twig',
         '{{ cta:like }}' => __DIR__ . '/../../../resources/view/_partials/cta_like.twig',
+        '{{ cta:packagist }}' => __DIR__ . '/../../../resources/view/_partials/ad_packagist.twig',
     ];
 
     private int $stamp = 0;

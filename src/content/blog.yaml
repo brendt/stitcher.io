@@ -58,6 +58,7 @@ php-version-stats-january-2023:
     title: "PHP version stats: January, 2023"
     content: src/content/blog/2023-01-03-php-version-stats-january-2023.md
     versionStatsDate: 2023-01-01
+    disableAds: true
     meta:
         description: Insights in PHP's version usage
         template: blog/meta/version-stats.twig
