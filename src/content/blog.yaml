@@ -3,10 +3,31 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+light-colour-schemes:
+    date: 2023-02-10
+    title: I'm a light schemer
+    content: src/content/blog/2023-02-10-light-colour-schemes.md
+    disableAds: true,
+    footnotes:
+        - { link: "/blog/code-folding", title: "I'm a code folder" }
+        - { link: "/blog/fonts-matter", title: "Fonts matter" }
+        - { link: "/blog/why-curly-brackets-go-on-new-lines", title: "Why curly brackets go on new lines" }
+        - { link: "/blog/tabs-are-better", title: "Tabs are better" }
+        - { link: "https://tidbits.com/2019/05/31/the-dark-side-of-dark-mode/", title: "The Dark Side of Dark Mode" }
+        - { link: "https://tidbits.com/2018/03/15/better-than-the-printed-page-reading-on-an-ipad/", title: "Better than the Printed Page" }
+        - { link: "https://pubmed.ncbi.nlm.nih.gov/25141597/", title: "Positive display polarity is particularly advantageous for small character sizes" }
+        - { link: "http://tecfa.unige.ch/tecfa/maltt/cosys-2/textes/hall04.pdf", title: "The impact of web page text-background colour combinations on readability" }
+
 code-folding:
     date: 2023-02-06
     title: I'm a code folder
     content: src/content/blog/2023-02-06-code-folding.md
+    disableAds: true
+    footnotes:
+        - { link: "/blog/fonts-matter", title: "Fonts matter" }
+        - { link: "/blog/why-curly-brackets-go-on-new-lines", title: "Why curly brackets go on new lines" }
+        - { link: "/blog/tabs-are-better", title: "Tabs are better" }
+        - { link: "/blog/light-colour-schemes", title: "I'm a light schemer" }
 
 acronyms:
     date: 2023-01-29
@@ -17,6 +38,12 @@ fonts-matter:
     date: 2023-01-28
     title: Fonts matter
     content: src/content/blog/2023-01-28-fonts-matter.md
+    disableAds: true
+    footnotes:
+        - { link: "/blog/code-folding", title: "I'm a code folder" }
+        - { link: "/blog/why-curly-brackets-go-on-new-lines", title: "Why curly brackets go on new lines" }
+        - { link: "/blog/tabs-are-better", title: "Tabs are better" }
+        - { link: "/blog/light-colour-schemes", title: "I'm a light schemer" }
 
 my-10-favourite-php-functions:
     date: 2023-01-27
@@ -28,6 +55,11 @@ why-curly-brackets-go-on-new-lines:
     title: Why curly brackets go on new lines
     content: src/content/blog/2023-01-24-why-curly-brackets-go-on-new-lines.md
     disableAds: true
+    footnotes:
+        - { link: "/blog/code-folding", title: "I'm a code folder" }
+        - { link: "/blog/fonts-matter", title: "Fonts matter" }
+        - { link: "/blog/tabs-are-better", title: "Tabs are better" }
+        - { link: "/blog/light-colour-schemes", title: "I'm a light schemer" }
 
 sponsors:
     date: 2023-01-21
@@ -40,6 +72,11 @@ tabs-are-better:
     title: Tabs are better
     content: src/content/blog/2023-01-20-tabs-are-better.md
     disableAds: true
+    footnotes:
+        - { link: "/blog/code-folding", title: "I'm a code folder" }
+        - { link: "/blog/fonts-matter", title: "Fonts matter" }
+        - { link: "/blog/why-curly-brackets-go-on-new-lines", title: "Why curly brackets go on new lines" }
+        - { link: "/blog/light-colour-schemes", title: "I'm a light schemer" }
 
 php-in-2023:
     date: 2023-01-17
