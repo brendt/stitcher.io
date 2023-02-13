@@ -36,6 +36,8 @@ return [
         'resources/img/static/aggregate-timelapse.png',
         'resources/img/static/datadog.png',
         'resources/img/static/jb-thumb.png',
+        'resources/img/static/ytai-thumb.png',
+        'resources/img/static/light-schemer-thumb.png',
         'resources/img/static/deprecation-thumb.png',
         'resources/img/static/clean-phpstorm.png',
         'resources/img/static/light-colours-thumb.png',
