@@ -26,3 +26,5 @@ It's just a small thing, but when I saw it, it immediately clicked. Especially i
     }</hljs>
 }
 ```
+
+{{ cta:dynamic }}
