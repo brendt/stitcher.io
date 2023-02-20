@@ -1,3 +1,8 @@
+'70':
+    date: 2023-02-20
+    title: "Don't get stuck"
+    content: src/content/mails/stitcher-70.md
+
 '69':
     date: 2023-02-06
     title: "Markdown to Video in PHP"
