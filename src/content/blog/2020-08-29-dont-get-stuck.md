@@ -1,6 +1,8 @@
 *Note: this post is about a previous job, not my current one.*
 
+<p>
 <iframe width="560" height="422" src="https://www.youtube.com/embed/s_Q1BmNSujk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
 
 Both managers were looking at me in disbelief, they seemed to be stunned for a few seconds. I just told them I had decided to resign. One of them quickly recovered, smiled, and said he regretted my decision; though he also realised it's expected in our line of work: people usually don't spend more than a few years at the same company.
 
