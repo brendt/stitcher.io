@@ -35,6 +35,7 @@ return [
         'resources/img/static/new-in-php-82-thumb.png',
         'resources/img/static/aggregate-timelapse.png',
         'resources/img/static/datadog.png',
+        'resources/img/static/stuck-thumb.png',
         'resources/img/static/jb-thumb.png',
         'resources/img/static/ytai-thumb.png',
         'resources/img/static/light-schemer-thumb.png',

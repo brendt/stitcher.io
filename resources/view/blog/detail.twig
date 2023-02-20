@@ -56,8 +56,10 @@
         {% endif %}
 
         {% if 'carbonads' not in post.content %}
-            {% if post.disableAds is not defined %}
-                {% include '_partials/ad_carbon.twig' %}
+            {% if 'githubsponsor' not in post.content %}
+                {% if post.disableAds is not defined %}
+                    {% include '_partials/ad_carbon.twig' %}
+                {% endif %}
             {% endif %}
         {% endif %}
 
