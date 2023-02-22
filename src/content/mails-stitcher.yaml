@@ -1,6 +1,7 @@
 '70':
     date: 2023-02-20
     title: "Don't get stuck"
+    pretext: "Both managers were looking at me in disbelief. I told them I had decided to quit."
     content: src/content/mails/stitcher-70.md
 
 '69':
@@ -95,7 +96,8 @@
 
 '00':
     date: 2022-04-17
-    title: "Welcome"
+    title: "Almost ready…"
+    pretext: Make sure to confirm your subscription!
     content: src/content/mails/stitcher-welcome.md
 
 '51':
