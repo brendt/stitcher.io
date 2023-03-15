@@ -3,6 +3,12 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+thank-you-kinsta:
+    date: 2023-03-15
+    title: Thank you, Kinsta
+    content: src/content/blog/2023-03-15-kinsta.md
+    disableAds: true
+
 slashdash:
     date: 2023-02-20
     title: Slashdash

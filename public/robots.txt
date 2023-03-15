@@ -1,3 +1,4 @@
 User-Agent: *
 Disallow: /mails-*
+Disallow: /mails*
 Disallow: /favicon
