@@ -1,4 +1,8 @@
 
+<p>
+<iframe width="560" height="422" src="https://www.youtube.com/embed/yBLVBwiAfrM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
 I once worked at a company that wrote and maintained an in-house framework. Over the course of ten years, they probably
 made around 250 websites and applications with it. Despite many shortcomings, the company kept using their framework for
 a simple reason: they were in control.
@@ -32,6 +36,10 @@ I'm not the only one benefiting by the way. When users of my open source code on
 don't have to be worried about micro-decisions that wouldn't affect the end result. And that, for me, is good software
 design: allowing programmers to focus on decisions that really matter and offer value to their projects and clients;
 instead of wasting time on unnecessary details.
+
+<p>
+<iframe width="560" height="422" src="https://www.youtube.com/embed/yBLVBwiAfrM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
 
 {{ cta:like }}
 
