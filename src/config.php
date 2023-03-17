@@ -38,6 +38,7 @@ return [
         'resources/img/static/stuck-thumb.png',
         'resources/img/static/jb-thumb.png',
         'resources/img/static/ytai-thumb.png',
+        'resources/img/static/opinion-driven-thumb.png',
         'resources/img/static/light-schemer-thumb.png',
         'resources/img/static/deprecation-thumb.png',
         'resources/img/static/clean-phpstorm.png',
