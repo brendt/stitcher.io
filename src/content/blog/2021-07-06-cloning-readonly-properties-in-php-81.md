@@ -1,3 +1,5 @@
+**Note: PHP 8.3 adds a built-in way of cloning readonly properties, although it's rather limited in its possibilities. [Read more](/blog/cloning-readonly-properties-in-php-83).**
+
 In [PHP 8.1](/blog/new-in-php-81), [readonly properties](/blog/php-81-readonly-properties) aren't allowed to be overridden as soon as they are initialized. That also means that cloning an object and changing one of its readonly properties isn't allowed. It's likely that PHP will get some kind of `<hljs keyword>clone with</hljs>` functionality in the future, but for now we'll have to work around the issue.
 
 Let's imagine a simple DTO class with readonly properties:

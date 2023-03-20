@@ -1,3 +1,9 @@
+'71':
+    date: 2023-03-20
+    title: "Cloning readonly properties"
+    pretext: "Our first look at PHP 8.3"
+    content: src/content/mails/stitcher-71.md
+
 '70':
     date: 2023-02-20
     title: "Don't get stuck"

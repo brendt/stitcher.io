@@ -3,6 +3,33 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+#new-in-php-83:
+#    date: 2023-03-20
+#    title: "What's new in PHP 8.3"
+#    content: src/content/blog/2023-03-17-new-in-php-83.md
+#    next: new-in-php-82
+#    meta:
+#        description: "All new features, performance upgrades, and deprecations in PHP 8.3"
+#    footnotes:
+#        - { link: /blog/cloning-readonly-properties-in-php-83, title: "Cloning readonly properties in PHP 8.3" }
+#        - { link: /blog/new-in-php-82, title: "What's new in PHP 8.2" }
+#        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+#        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+#        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+
+cloning-readonly-properties-in-php-83:
+    date: 2023-03-20
+    title: "Cloning readonly properties in PHP 8.3"
+    content: src/content/blog/2023-03-18-cloning-readonly-properties-in-php-83.md
+#    next: new-in-php-83
+    meta:
+        description: "PHP 8.3 adds a way of overwriting readonly property values when cloning an object"
+    footnotes:
+        - { link: "/blog/cloning-readonly-properties-in-php-81", title: "Cloning readonly properties in PHP 8.1" }
+        - { link: "/blog/php-81-readonly-properties", title: "Readonly properties in PHP 8.1" }
+        - { link: "/blog/readonly-classes-in-php-82", title: "Readonly classes in PHP 8.2" }
+        - { link: "https://wiki.php.net/rfc/readonly_amendments", title: "The readonly amendments RFC" }
+
 thank-you-kinsta:
     date: 2023-03-15
     title: Thank you, Kinsta
@@ -184,6 +211,7 @@ readonly-classes-in-php-82:
     content: src/content/blog/2022-10-25-readonly-classes-in-php-82.md
     next: new-in-php-82
     footnotes:
+        - { link: /blog/cloning-readonly-properties-in-php-83, title: "Cloning readonly properties in PHP 8.3" }
         - { link: "/blog/php-82-upgrade-mac", title: "How to upgrade to PHP 8.2 on Mac" }
         - { link: "/blog/new-in-php-82", title: "New in PHP 8.2", description: " — A comprehensive list of all things new in PHP 8.2" }
         - { link: "/blog/deprecated-dynamic-properties-in-php-82", title: "Deprecated dynamic properties in PHP 8.2" }
@@ -547,6 +575,7 @@ php-81-readonly-properties:
     title: "PHP 8.1: readonly properties"
     content: src/content/blog/2021-09-11-readonly-properties.md
     footnotes:
+        - { link: /blog/cloning-readonly-properties-in-php-83, title: "Cloning readonly properties in PHP 8.3" }
         - { link: /blog/readonly-classes-in-php-82, title: "Readonly classes in PHP 8.2" }
         - { link: https://road-to-php.com/, title: "The Road to PHP 8.1" }
         - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
@@ -649,6 +678,7 @@ cloning-readonly-properties-in-php-81:
     meta:
         description: "Readonly properties in PHP 8.1 can't be changed — or can they?"
     footnotes:
+        - { link: /blog/cloning-readonly-properties-in-php-83, title: "Cloning readonly properties in PHP 8.3" }
         - { link: /blog/php-81-readonly-properties, title: "An in-depth look at readonly properties" }
         - { link: https://github.com/spatie/php-cloneable, title: "spatie/php-cloneable" }
         - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
