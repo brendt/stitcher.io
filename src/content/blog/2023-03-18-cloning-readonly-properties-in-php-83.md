@@ -39,7 +39,8 @@ Reading the title of the current [RFC](https://wiki.php.net/rfc/readonly_amendme
         <hljs keyword>public</hljs> <hljs type>DateTime</hljs> <hljs prop>$createdAt</hljs>,
     ) {}
     
-    public function __clone(){
+    public function __clone()
+    {
         $this-><hljs prop>createdAt</hljs> = new <hljs type>DateTime</hljs>(); 
         // This is allowed,
         // even though `createdAt` is a readonly property.
@@ -52,7 +53,8 @@ Is this useful? It is! Say you want to clone objects with nested objects — a.k
 ```php
 <hljs keyword>readonly</hljs> class Post
 {
-    public function __clone(){
+    public function __clone()
+    {
         $this-><hljs prop>createdAt</hljs> = clone $this-><hljs prop>createdAt</hljs>; 
         // Creates a new DateTime object,
         // instead of reusing the reference
