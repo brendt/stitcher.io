@@ -37,7 +37,7 @@ Maybe you are skeptical of the idea? Well, don't take my word for it, there are 
 - Vue.js
 - [And more](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life)
 
-I think it's fair to say that all of these projects are a huge success. I believe much of that has to do because there's one person in charge, leading the way. They still listen to their audience, and they often allow for voting on features. But, in the end, there's one person having the ownership. There's one leader to look up to. 
+I think it's fair to say that all of these projects are a huge success. I believe much of their success comes from that one person in charge, leading the way, having a clear vision. These leaders still listen to their audience, and they often allow for voting on features. But, in the end, there's one person carrying the ownership. There's one leader to look up to. 
 
 {{ ad:carbon }}
 
