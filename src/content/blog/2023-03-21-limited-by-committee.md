@@ -41,6 +41,6 @@ I think it's fair to say that all of these projects are a huge success. I believ
 
 {{ ad:carbon }}
 
-When people trust a benevolent dictator, much more becomes possible than when people settle with a committee.
+When people trust a benevolent dictator, much more becomes possible than when they settle with a committee.
 
 PHP will never change its leadership model; the committee would have to give up its power which, of course, they don't want to. I think this is one of the reasons I'm excited about the idea of a superset for PHP: it could be an independent project, led by one person or a company, regardless of what the committee wants. If that person or company gained my trust, I would be fine with them make the decisions to move the language forward, rather than settling with average.
