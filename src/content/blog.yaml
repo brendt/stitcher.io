@@ -17,6 +17,14 @@
 #        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
 #        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 
+limited-by-committee:
+    date: 2023-03-22
+    title: "Limited by committee"
+    content: src/content/blog/2023-03-21-limited-by-committee.md
+    meta:
+        description: "Thoughts about design by committee"
+        template: blog/meta/committee.twig
+
 cloning-readonly-properties-in-php-83:
     date: 2023-03-20
     title: "Cloning readonly properties in PHP 8.3"
