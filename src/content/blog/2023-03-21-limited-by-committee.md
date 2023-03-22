@@ -20,7 +20,7 @@ This phenomenon — designing a language with such a large group — is called "
 
 Say you want to add a feature in PHP that benefits you — a prominent framework developer. Then you'll have to convince enough people to vote for it. First, you request Internals to share their comments on your idea — an RFC. Naturally, you'll make compromises, trying to get as many people on your side as possible before voting starts. On top of that: people can lobby others to influence their vote and, in the end, the result. Suddenly you're playing a game of politics, instead of proper software design. 
 
-And so, design by committee often leads to average results at best; or (in many cases) no result, because people couldn't find consensus. Camel were probably designed by a committee as well. Sure, it works, but it's far from excellence and full of compromise.
+And so, design by committee often leads to average results at best; or (in many cases) no result, because people couldn't find consensus. Camels were probably designed by a committee as well. Sure, they work, but they are far from excellence and full of compromise.
 
 ![](/resources/img/blog/committee/camel5.jpg)
 
