@@ -6,9 +6,7 @@ It looks like someone combined a horse with a giraffe, and kept adding stuff unt
 
 ![](/resources/img/blog/committee/camel4.jpg)
 
-PHP is like a camel: there's little to say when it comes to beauty or elegance, but it does seem to survive many harsh conditions. So, who am I to judge? Coincidentally, PHP was originally inspired by PERL, whose logo is a camel; so maybe there _is_ a deeper connection even still? 
-
-But let's not go too deep down the <span style="text-decoration:line-through">camel</span>&thinsp;rabbit hole; instead, let's talk about how programming languages are designed.
+PHP is like a camel: there's little to say when it comes to beauty or elegance, but it does seem to survive many harsh conditions. So, who am I to judge? Coincidentally, PHP was originally inspired by PERL, whose logo is a camel; so maybe there _is_ a deeper connection still? But let's not go too deep down the <span style="text-decoration:line-through">camel</span>&thinsp;rabbit hole; instead, let's talk about how programming languages are designed.
 
 PHP is one of those programming languages that's not backed by a big company or a group of people whose job it is to work on it. PHP is mostly driven by a group of volunteers. A year ago, we got the [PHP Foundation](https://thephp.foundation/) which employs a handful of developers to work on the language, but it's not like they have any ownership. They have to submit their ideas, and are at the mercy of "PHP Internals" to decide what goes in the language, and what not.
 
