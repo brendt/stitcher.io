@@ -2,7 +2,7 @@ Camels are weird. Granted, they _do_ manage to survive in some of the harshest e
 
 ![](/resources/img/blog/committee/camel3.jpg)
 
-It looks like someone combined a horse with a giraffe, and kept adding stuff until they met the requirements of "being able to survive in the desert". Who came up with that?  Don't get me wrong: camels _do_ work, so something _must_ be right. But honestly, the finishing touches are far from ideal:
+It looks like someone combined a horse with a giraffe, and kept adding stuff until they met the requirement of "being able to survive in the desert". Who came up with that?  Don't get me wrong: camels _do_ work, so they must have gotten something right. But honestly, the finishing touches are far from ideal:
 
 ![](/resources/img/blog/committee/camel4.jpg)
 
