@@ -1,3 +1,9 @@
+'72':
+    date: 2023-03-20
+    title: "Limited by committee"
+    pretext: "I've got some worries to share"
+    content: src/content/mails/stitcher-72.md
+
 '71':
     date: 2023-03-20
     title: "Cloning readonly properties"
