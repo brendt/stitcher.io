@@ -3,19 +3,20 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
-#new-in-php-83:
-#    date: 2023-03-23
-#    title: "What's new in PHP 8.3"
-#    content: src/content/blog/2023-03-17-new-in-php-83.md
-#    next: new-in-php-82
-#    meta:
-#        description: "All new features, performance upgrades, and deprecations in PHP 8.3"
-#    footnotes:
-#        - { link: /blog/cloning-readonly-properties-in-php-83, title: "Cloning readonly properties in PHP 8.3" }
-#        - { link: /blog/new-in-php-82, title: "What's new in PHP 8.2" }
-#        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
-#        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
-#        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
+new-in-php-83:
+    date: 2023-04-06
+    title: "What's new in PHP 8.3"
+    content: src/content/blog/2023-03-17-new-in-php-83.md
+    next: new-in-php-82
+    meta:
+        description: "All new features, performance upgrades, and deprecations in PHP 8.3"
+        template: 'blog/meta/new-in-php-83.twig'
+    footnotes:
+        - { link: /blog/cloning-readonly-properties-in-php-83, title: "Cloning readonly properties in PHP 8.3" }
+        - { link: /blog/new-in-php-82, title: "What's new in PHP 8.2" }
+        - { link: /blog/new-in-php-81, title: "What's new in PHP 8.1" }
+        - { link: /blog/new-in-php-8, title: "What's new in PHP 8" }
+        - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
 
 limited-by-committee:
     date: 2023-03-22
