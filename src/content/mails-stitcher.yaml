@@ -1,7 +1,7 @@
 '73':
     date: 2023-03-20
-    title: "Limited by committee"
-    pretext: "I've got some worries to share"
+    title: "Gaming in PHP"
+    pretext: "I used Livewire and 0 lines of JavaScript to build a game"
     content: src/content/mails/stitcher-73.md
 
 '72':

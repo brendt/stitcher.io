@@ -42,6 +42,7 @@ return [
         'resources/img/static/light-schemer-thumb.png',
         'resources/img/static/deprecation-thumb.png',
         'resources/img/static/clean-phpstorm.png',
+        'resources/img/static/game1-thumb.png',
         'resources/img/static/light-colours-thumb.png',
         'resources/img/static/clean-phpstorm/',
         'resources/img/favicon/',
