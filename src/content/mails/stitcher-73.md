@@ -1,9 +1,8 @@
-Ok, so, I had lots of fun working on this project: I built a little game in PHP with Livewire, so I didn't have to write any JavaScript for it to work. My goal was to explore LiveWire a bit, and building a little game seemed like a nice project.
-
+Ok, so, I had lots of fun working on this project: I built a little game in PHP with Livewire, and I didn't to write a single line of JavaScript for it to work. My goal was to explore LiveWire, so building a little game seemed like a nice project.
 
 <p>
 <a href="https://aggregate.stitcher.io/post/ad70c5b9-c554-4cc6-9f6c-f13475cb5930">
-<img src="https://stitcher.io/resources/img/static/game1-thumb" alt="Video Thumbnail" />
+<img src="https://stitcher.io/resources/img/static/game1-thumb.png" alt="Video Thumbnail" />
 </a>
 </p>
 
@@ -11,10 +10,8 @@ Ok, so, I had lots of fun working on this project: I built a little game in PHP 
 <a href="https://aggregate.stitcher.io/post/ad70c5b9-c554-4cc6-9f6c-f13475cb5930">Click to watch</a>
 </p>
 
+I'm definitely not done yet. I know I've only scratched the surface of what LiveWire can do, so there'll be at least one more followup video. I also want to further explore the limitations of this approach — of course there are limitations as well.
 
-Limited by Committee: https://stitcher.io/blog/limited-by-committee
-Type systems: https://www.youtube.com/watch?v=ofuDrMkVX0M
+<img src="https://stitcher.io/resources/img/static/game-map.png" alt="Map Game" />
 
-[a proposal for a new autoloading mechanism](https://aggregate.stitcher.io/post/2774808a-6376-448b-9b31-263e3997f491)
-
-PHP Annotated?
+Speaking of limitations, I also wanted to share a blog post I wrote last month. It's titled "[Limited by committee](https://aggregate.stitcher.io/post/40a6de1d-8390-4914-b539-b169acb519d6)". In it, I share some ideas about how PHP is designed, and how I think it has some major flaws. Will you let me know your thoughts?
