@@ -1,7 +1,13 @@
-'72':
+'73':
     date: 2023-03-20
     title: "Limited by committee"
     pretext: "I've got some worries to share"
+    content: src/content/mails/stitcher-73.md
+
+'72':
+    date: 2023-03-20
+    title: "What's new"
+    pretext: "It's PHP 8.3 time!"
     content: src/content/mails/stitcher-72.md
 
 '71':
