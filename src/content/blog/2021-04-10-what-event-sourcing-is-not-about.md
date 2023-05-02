@@ -113,8 +113,6 @@ Greg Young, the one who came up with the term "event sourcing" more than 10 year
 
 ---
 
-If you've made it this far, I assume you're intrigued by what I wrote — or very angry because of it, that's fine too. In any case, I'd like to ask you to take a look at a course I'm creating, targeted towards the PHP community. In it I teach event sourcing from the ground up, starting with the very basics, but also covering complex patterns for large projects. It's called [Event Sourcing in Laravel](*https://event-sourcing-laravel.com/) and will teach a very practical approach to event sourcing in all kinds of projects, not just the gigantic ones.
-
-Also, if you want to stay up-to-date about my content, consider subscribing to [my newsletter](*/newsletter/subscribe), I occasionally send a mail about stuff I'm working on. 
+If you've made it this far, I assume you're intrigued by what I wrote — or very angry because of it, that's fine too. If you want to stay up-to-date about my content, consider subscribing to [my newsletter](*/newsletter/subscribe), I occasionally send a mail about stuff I'm working on. 
 
 Finally, if you're interested in more, you can check out the footnotes!
