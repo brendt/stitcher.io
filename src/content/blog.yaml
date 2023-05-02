@@ -7,6 +7,7 @@ things-considered-harmful:
     date: 2023-05-02
     title: Things considered harmful
     content: src/content/blog/2023-05-02-things-considered-harmful.md
+    disableAds: true
     footnotes:
         - { link: "https://survey.stackoverflow.co/2022/#most-popular-technologies-webframe-prof", title: "StackOverflow's Developer Survey", description: "with Laravel clearly being the most popular PHP framework" }
         - { link: "https://www.jetbrains.com/lp/devecosystem-2022/php/#which-php-frameworks-and-platforms-do-you-regularly-use-if-any-", title: "JetBrains' Developer Ecosystem survey", description: "with Laravel being the clear lead" }
