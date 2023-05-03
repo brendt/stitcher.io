@@ -12,7 +12,7 @@ things-considered-harmful:
         - { link: "https://survey.stackoverflow.co/2022/#most-popular-technologies-webframe-prof", title: "StackOverflow's Developer Survey", description: "with Laravel clearly being the most popular PHP framework" }
         - { link: "https://www.jetbrains.com/lp/devecosystem-2022/php/#which-php-frameworks-and-platforms-do-you-regularly-use-if-any-", title: "JetBrains' Developer Ecosystem survey", description: "with Laravel being the clear lead" }
         - { link: "https://packagist.org/packages/laravel/framework/stats", title: "Packagist's download stats for Laravel", description: "it has 250 million downloads to date" }
-        - { link: "https://trends.builtwith.com/websitelist/symfony", title: "Top websites using Laravel" }
+        - { link: "https://trends.builtwith.com/websitelist/Laravel", title: "Top websites using Laravel" }
         - { link: "https://usefathom.com/blog/does-laravel-scale", title: "Laravel at scale" }
         - { link: "https://news.ycombinator.com/item?id=19917655", title: "Laravel being praised in the comments on HackerNews" }
 
