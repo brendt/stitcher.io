@@ -9,7 +9,7 @@ procedurally-generated-game-in-php:
     content: src/content/blog/2023-07-01-game.md
     disableAds: true
     meta:
-        description: "All new features, performance upgrades, and deprecations in PHP 8.3"
+        description: "I wrote a procedurally generated game from scratch"
         template: 'blog/meta/mapgame.twig'
 
 
