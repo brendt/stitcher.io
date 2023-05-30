@@ -3,6 +3,16 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+procedurally-generated-game-in-php:
+    date: 2023-07-01
+    title: Building a procedurally generated game with PHP
+    content: src/content/blog/2023-07-01-game.md
+    disableAds: true
+    meta:
+        description: "All new features, performance upgrades, and deprecations in PHP 8.3"
+        template: 'blog/meta/mapgame.twig'
+
+
 things-considered-harmful:
     date: 2023-05-02
     title: Things considered harmful
