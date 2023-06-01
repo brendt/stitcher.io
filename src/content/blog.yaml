@@ -12,7 +12,6 @@ procedurally-generated-game-in-php:
         description: "I wrote a procedurally generated game from scratch"
         template: 'blog/meta/mapgame.twig'
 
-
 things-considered-harmful:
     date: 2023-05-02
     title: Things considered harmful

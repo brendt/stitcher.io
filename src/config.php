@@ -44,6 +44,7 @@ return [
         'resources/img/static/clean-phpstorm.png',
         'resources/img/static/game1-thumb.png',
         'resources/img/static/game-map.png',
+        'resources/img/static/php-2023-thumb.png',
         'resources/img/static/light-colours-thumb.png',
         'resources/img/static/clean-phpstorm/',
         'resources/img/favicon/',
