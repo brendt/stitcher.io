@@ -3,6 +3,14 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+dont-be-clever:
+    date: 2023-06-02
+    title: Don't be clever
+    content: src/content/blog/2023-06-02-dont-be-clever.md
+    meta:
+        description: "The story of the CRUDController"
+        template: 'blog/meta/crudcontroller.twig'
+
 procedurally-generated-game-in-php:
     date: 2023-05-30
     title: Building a procedurally generated game with PHP
