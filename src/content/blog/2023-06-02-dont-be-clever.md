@@ -16,7 +16,7 @@ class TimesheetController extends CRUDController
 
 Such a blast!
 
-Expect, of course: exceptions started to emerge. Not the programming kind, but the business kind. _Some_ controllers had to do _some_ things a little differently. It were small things at first: different URL schemes, different kinds of validation; but soon, things grew more and more complex: support for nested entities or complex filtering, to name a few.
+Except, of course: exceptions started to emerge. Not the programming kind, but the business kind. _Some_ controllers had to do _some_ things a little differently. It was small things at first: different URL schemes, different kinds of validation; but soon, things grew more and more complex: support for nested entities or complex filtering, to name a few.
 
 And young me? I just kept going. Adding the proverbial knobs and pulls to my abstract class (which was growing into a _set_ of classes by now). 
 
