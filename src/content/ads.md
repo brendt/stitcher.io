@@ -24,7 +24,7 @@ Every blog post has a top-banner displaying a 1 – 2 sentence sponsor message. 
 
 ### Site-wide Message
 
-An above-the-fold image ad on all blog posts, expect the ones that already have a permanent sponsor.
+An above-the-fold image ad on all blog posts, expect the ones that already have a permanent sponsor. **€&thinsp;200 per week**.
 
 ![](/resources/img/blog/sponsors/03.png)
 
