@@ -77,6 +77,11 @@
     variables:
         post: src/content/cookies.yaml
 
+/ads:
+    template: blog/detail.twig
+    variables:
+        post: src/content/ads.yaml
+
 /podcasts/all:
     template: blog/overview.twig
     variables:
