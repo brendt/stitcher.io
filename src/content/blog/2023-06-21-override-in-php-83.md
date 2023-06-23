@@ -16,7 +16,7 @@ abstract class Parent
 final class Child extends Parent
 {
     #[<hljs type>Override</hljs>]
-    public function methodWithDefaultImplementation(): void
+    public function methodWithDefaultImplementation(): int
     {
         return 2; // The overridden method
     }
