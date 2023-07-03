@@ -1,3 +1,9 @@
+'75':
+    date: 2023-03-20
+    title: "Multi inheritance in PHP?"
+    pretext: "There's a new RFC in town"
+    content: src/content/mails/stitcher-75.md
+
 '74':
     date: 2023-03-20
     title: "Don't be clever"

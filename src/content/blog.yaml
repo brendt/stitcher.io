@@ -3,6 +3,20 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+#php-version-stats-july-2023:
+#    date: 2023-07-01
+#    title: "PHP version stats: July, 2023"
+#    content: src/content/blog/2023-06-01-php-version-stats-july-2023.md
+#    versionStatsDate: 2023-07-01
+#    disableAds: true
+#    meta:
+#        description: Insights in PHP's version usage
+#        template: blog/meta/version-stats.twig
+#    footnotes:
+#        - { link: "/blog/new-in-php-83", title: "What's new in PHP 8.3" }
+#        - { link: "https://packagist.org/php-statistics", title: "Raw data from packagist" }
+#        - { title: "PHP version stats: January, 2023", link: "/blog/php-version-stats-january-2023" }
+#        - { title: "PHP in 2023", link: "/blog/php-in-2023" }
 
 new-in-php-83:
     date: 2023-06-21
