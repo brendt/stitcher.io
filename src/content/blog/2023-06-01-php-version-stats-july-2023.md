@@ -1,4 +1,4 @@
-It's that time again: my biyearly summary of which PHP versions are used across the community. You can read the previous edition [here](/blog/php-version-stats-january-2023).
+Once again, I'm writing my summary of which PHP versions are used across the community. You can read the previous edition [here](/blog/php-version-stats-january-2023), but I'll also include historic data in this post.
 
 As always, it's important to note that I'm working with the data available to us. That means that these charts are not a 100% accurate representation of the PHP community as a whole, but they _are_ an accurate representation of one of the most prominent parts of PHP: the [packagist ecosystem](https://packagist.org/php-statistics).
 
@@ -7,7 +7,6 @@ As always, it's important to note that I'm working with the data available to us
 ## Usage Statistics
 
 Let's start with the percentage of PHP versions being used today, and compare it to the previous three editions, note that I've omitted all versions that don't have more than 1% usage:
-
 
 <div class="table-container">
 <table>
@@ -88,6 +87,10 @@ Visualizing this data looks like this:
 
 <em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2023-jul-01.svg)</em>
 
+It's important to know which PHP versions are currently still supported: PHP 8.2 and PHP 8.1 are still receiving updates. PHP 8.0 is still getting security updates until the end of November, this year. That means that PHP 7.4 and below don't receive any updates more, and should be considered end of life.
+
+In total, **that's around 30% of packagist downloads by outdated and insecure version of PHP**. At the beginning of this year, that number was closer to 40%, meaning we see a steady decline — a good thing!
+
 {{ cta:dynamic }}
 
 Moving on to the all-time overview chart, here you can see the evolution of version usage across time:
@@ -98,9 +101,14 @@ Moving on to the all-time overview chart, here you can see the evolution of vers
 
 <em class="center small">[All time evolution](/resources/img/blog/version-stats/2023-jul-02.svg)</em>
 
+It seems that **PHP 8.1 saw the biggest growth over time since PHP 7.4 and PHP 5.5**. PHP 8.2, in comparison, seems to make a slower start. It's also interesting to note a relative high percentage of PHP 8.1 two years in a row. Granted, PHP 8.1 was a pretty solid release with [features like enums and readonly properties](/blog/new-in-php-81). It'll be interesting to see how this graph evolves next year, when PHP 8.1 moves in security fixes only mode.  
+
+
+{{ cta:packagist }}
+
 ## Required versions
 
-Next, I used Nikita's [popular package analyzer](*https://github.com/nikic/popular-package-analysis) to download the 1000 most popular composer packages. I used a little script to get their minimum required version. Here are the results:
+Next, I used Nikita's [popular package analyzer](*https://github.com/nikic/popular-package-analysis) to download the 1000 most popular composer packages. I wrote a script that scans these packages to determine their minimum required version. Here are the results:
 
 <div class="table-container">
 <table>
@@ -222,7 +230,7 @@ Next, I used Nikita's [popular package analyzer](*https://github.com/nikic/popul
 
 There are two important notes to make here.
 
-1. This tables shows the **minimum required version**.
+1. This tables shows the **minimum required version**. That means that packages with a minimal version of, for example, 8.0, could also support PHP 8.1 or and PHP 8.2.
 2. If you count the numbers, you'll notice there are some differences between each year. Not every package lists a valid version string.
 
 <br>
@@ -235,9 +243,11 @@ Instead of comparing absolute numbers, it's best to plot this data into a chart 
 
 <em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2023-jul-03.svg)</em>
 
+There seems to be a pretty big leap in PHP 8.0 and PHP 8.1 being the minimal versions — a good thing. After all, the open source community plays a big part in pushing the community forward by increasing their minimal required version.
 
-{{ cta:packagist }}
+---
 
+That's all data I have to share for this edition of PHP's version stats. You can always reach me via [email](mailto:brendt@stitcher.io) if you want to share your thoughts or have questions. You can also [subscribe to my newsletter](/mail) if you want to receive updates about this blog in the future.
 
 {{ cta:like }}
 

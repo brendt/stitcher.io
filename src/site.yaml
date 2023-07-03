@@ -322,3 +322,9 @@
     template: blog/detail.twig
     variables:
         post: src/content/sponsors.yaml
+
+/novel:
+    template: novel.twig
+    variables:
+        title: Novel
+        chapters: src/content/novel/novel.yaml

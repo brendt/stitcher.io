@@ -1,0 +1,64 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  //font-family: Georgia,Times,Times New Roman,serif;
+  font-family: Lucida Bright, Georgia, serif;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  display: block;
+  width: 100%;
+  padding: 0.1em 0;
+}
+
+article {
+  display: block;
+  line-height: 1.6em;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+  margin-bottom: 1em;
+}
+
+h1 a {
+  color: #444;
+  font-size: .7em;
+  text-decoration: none;
+  display: none;
+}
+
+article img {
+  width: 600px;
+  max-width: 100%;
+}
+
+hr {
+  max-width: 50%;
+  display: block;
+  margin: 2em auto;
+}
+
+@media (min-width: 850px) {
+  article img {
+    width: 800px;
+    max-width: none;
+    margin-left: -60px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    box-shadow: 5px 5px 10px -5px #00000088;
+  }
+
+  hr {
+    margin: 4em auto;
+    max-width: 33%;
+  }
+}

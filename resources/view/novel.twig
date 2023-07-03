@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <title>Novel - stitcher.io</title>
+
+        {% block meta %}
+            {% if _meta is defined %}
+                {{ _meta.render({
+                    'title': {
+                        'suffix': ' - stitcher.io',
+                    },
+                })|raw }}
+            {% endif %}
+
+            {% if post.meta.image.src is defined %}
+                <meta property="og:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+                <meta property="twitter:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+                <meta name="image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+            {% elseif post is defined %}
+                <meta property="og:image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
+                <meta property="twitter:image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
+                <meta name="image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+            {% elseif meta.image.src is defined %}
+                <meta property="og:image" content="https://stitcher.io{{ meta.image.src }}"/>
+                <meta property="twitter:image" content="https://stitcher.io{{ meta.image.src }}"/>
+                <meta name="image" content="https://stitcher.io{{ meta.image.src }}"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+            {% else %}
+                <meta name="twitter:card" content="summary"/>
+                <meta property="twitter:image" content="https://stitcher.io/resources/img/meta_small.png"/>
+            {% endif %}
+
+            <meta name="twitter:creator" content="@brendt_gd"/>
+        {% endblock %}
+    {% endblock %}
+
+    {{ css.inline('resources/css/novel.scss')|raw }}
+</head>
+<body>
+
+{% for chapter in chapters %}
+    <article>
+        <div class="header">
+            <div class="container">
+                <h1>
+                    Chapter {{ chapter.id }}
+                </h1>
+            </div>
+        </div>
+
+        <div class="container">
+            {{ chapter.content|raw }}
+        </div>
+    </article>
+{% endfor %}
+
+</body>
+</html>
