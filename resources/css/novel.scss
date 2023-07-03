@@ -5,6 +5,11 @@ html, body {
   font-family: Lucida Bright, Georgia, serif;
 }
 
+body {
+  font-size: 20px;
+  line-height: 1.6em;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -16,11 +21,6 @@ html, body {
 .container {
   max-width: 600px;
   margin: 0 auto;
-}
-
-body {
-  font-size: 18px;
-  line-height: 1.6em;
 }
 
 article {
@@ -67,6 +67,10 @@ hr {
 }
 
 @media (min-width: 1000px) {
+  body {
+    font-size: 18px;
+  }
+
   article p > img {
     width: calc(100% + 12rem);
     max-width: calc(100% + 12rem);
