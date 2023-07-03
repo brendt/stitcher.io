@@ -41,21 +41,27 @@
 </head>
 <body>
 
-{% for chapter in chapters %}
-    <article>
-        <div class="header">
-            <div class="container">
-                <h1>
-                    Chapter {{ chapter.id }}
-                </h1>
-            </div>
-        </div>
+<div class="book">
 
-        <div class="container">
-            {{ chapter.content|raw }}
-        </div>
-    </article>
-{% endfor %}
+    {% for chapter in chapters %}
+        <article class="chapter">
+            <div class="header">
+                <div class="container">
+                    <h1 id="chapter-{{ chapter.id }}">
+                        <a href="#chapter-{{ chapter.id }}">
+                            Chapter {{ chapter.id }}
+                        </a>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="container">
+                {{ chapter.content|raw }}
+            </div>
+        </article>
+    {% endfor %}
+
+</div>
 
 </body>
 </html>
