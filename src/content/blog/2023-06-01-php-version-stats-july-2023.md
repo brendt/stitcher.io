@@ -243,7 +243,7 @@ Instead of comparing absolute numbers, it's best to plot this data into a chart 
 
 <em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2023-jul-03.svg)</em>
 
-There seems to be a pretty big leap in PHP 8.0 and PHP 8.1 being the minimal versions — a good thing. After all, the open source community plays a big part in pushing the community forward by increasing their minimal required version.
+There seems to be **a pretty big leap in PHP 8.0 and PHP 8.1 being the minimal versions**  — a good thing. After all, the open source community plays a big part in pushing the community forward by increasing their minimal required version.
 
 ---
 
