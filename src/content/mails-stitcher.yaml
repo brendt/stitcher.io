@@ -1,3 +1,9 @@
+'76':
+    date: 2023-03-20
+    title: "PHP Version Stats"
+    pretext: "The next edition of the PHP Version Stats are here"
+    content: src/content/mails/stitcher-76.md
+
 '75':
     date: 2023-03-20
     title: "Multi inheritance in PHP?"
