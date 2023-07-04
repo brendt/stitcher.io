@@ -15,7 +15,7 @@ body {
 }
 
 .book {
-  padding: 4rem 0 ;
+  padding: 4rem 0;
 }
 
 .container {
@@ -41,7 +41,7 @@ article h1 {
   font-family: Tahoma, Verdana, Segoe, sans-serif;
   margin: 0;
   font-size: 1.5rem;
-  padding-left: 1rem;
+  padding: 0 1rem;
 }
 
 h1 a {
@@ -64,6 +64,17 @@ hr {
   max-width: 50%;
   display: block;
   margin: 2em auto;
+}
+
+.chapter-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chapter-title .back {
+  font-size: 0.5em;
+  padding: 0.25em 0;
 }
 
 @media (min-width: 1000px) {

@@ -41,16 +41,37 @@
 </head>
 <body>
 
-<div class="book">
+<div class="book"  id="toc">
+
+
+    <article class="chapter" >
+        <div class="header">
+            <div class="container">
+                <h1>Table of Contents</h1>
+            </div>
+        </div>
+
+        <div class="container">
+            <ul>
+                {% for chapter in chapters %}
+                    <li>
+                        <a href="#chapter-{{ chapter.id }}">Chapter {{ chapter.id }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </article>
 
     {% for chapter in chapters %}
         <article class="chapter">
             <div class="header">
                 <div class="container">
-                    <h1 id="chapter-{{ chapter.id }}">
+                    <h1 id="chapter-{{ chapter.id }}" class="chapter-title">
                         <a href="#chapter-{{ chapter.id }}">
                             Chapter {{ chapter.id }}
                         </a>
+
+                        <a class="back" href="#toc">back</a>
                     </h1>
                 </div>
             </div>
