@@ -14,6 +14,10 @@ body {
   box-sizing: border-box;
 }
 
+.book {
+
+}
+
 .cover {
   height: 100vh;
 }
@@ -31,6 +35,22 @@ body {
 .container {
   max-width: 600px;
   margin: 0 auto;
+}
+
+.toc li {
+  padding: .2em 0;
+  font-weight: 600;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+
+}
+
+.toc a {
+  color: inherit;
+  padding: .2em 0;
+}
+
+.toc a:hover {
+  text-decoration: none;
 }
 
 article {
@@ -85,6 +105,11 @@ hr {
 .chapter-title .back {
   font-size: 0.5em;
   padding: 0.25em 0;
+  text-decoration: underline;
+}
+
+.chapter-title .back:hover {
+  text-decoration: none;
 }
 
 @media (min-width: 1000px) {

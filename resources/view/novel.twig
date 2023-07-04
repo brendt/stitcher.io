@@ -49,12 +49,12 @@
 </head>
 <body>
 
-<div class="book"  id="toc">
+<div class="book">
     <div class="cover container">
         {{ image.render('/resources/img/novel/00-00.png')|raw }}
     </div>
 
-    <article class="chapter" >
+    <article class="chapter" id="toc" >
         <div class="header">
             <div class="container">
                 <h1>Table of Contents</h1>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="container">
-            <ul>
+            <ul class="toc">
                 {% for chapter in chapters %}
                     <li>
                         <a href="#chapter-{{ chapter.id }}">Chapter {{ chapter.id }}</a>
@@ -73,10 +73,10 @@
     </article>
 
     {% for chapter in chapters %}
-        <article class="chapter">
+        <article class="chapter" id="chapter-{{ chapter.id }}" >
             <div class="header">
                 <div class="container">
-                    <h1 id="chapter-{{ chapter.id }}" class="chapter-title">
+                    <h1 class="chapter-title">
                         <a href="#chapter-{{ chapter.id }}">
                             Chapter {{ chapter.id }}
                         </a>
