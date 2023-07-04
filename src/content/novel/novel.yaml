@@ -9,3 +9,9 @@
 
 '04':
   content: src/content/novel/04.md
+
+'05':
+  content: src/content/novel/05.md
+
+#'06':
+#  content: src/content/novel/06.md
