@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <title>Novel - stitcher.io</title>
+
+        {% block meta %}
+            {% if _meta is defined %}
+                {{ _meta.render({
+                    'title': {
+                        'suffix': ' - stitcher.io',
+                    },
+                })|raw }}
+            {% endif %}
+
+            {% if post.meta.image.src is defined %}
+                <meta property="og:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+                <meta property="twitter:image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+                <meta name="image" content="https://stitcher.io{{ post.meta.image.src }}"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+            {% elseif post is defined %}
+                <meta property="og:image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
+                <meta property="twitter:image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
+                <meta name="image" content="https://stitcher.io/img/meta/{{ post.id }}.png"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+            {% elseif meta.image.src is defined %}
+                <meta property="og:image" content="https://stitcher.io{{ meta.image.src }}"/>
+                <meta property="twitter:image" content="https://stitcher.io{{ meta.image.src }}"/>
+                <meta name="image" content="https://stitcher.io{{ meta.image.src }}"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+            {% else %}
+                <meta name="twitter:card" content="summary"/>
+                <meta property="twitter:image" content="https://stitcher.io/resources/img/meta_small.png"/>
+            {% endif %}
+
+            <meta name="twitter:creator" content="@brendt_gd"/>
+        {% endblock %}
+    {% endblock %}
+
+    {{ css.inline('resources/css/novel.scss')|raw }}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/novel-favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/novel-favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/novel-favicon/favicon-16x16.png">
+    <link rel="manifest" href="/novel-favicon/site.webmanifest">
+    <link rel="mask-icon" href="/novel-favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+<div class="book">
+    <div class="cover container">
+        {{ image.render('/resources/img/novel/00-00.png')|raw }}
+    </div>
+
+    <article class="chapter" id="toc" >
+        <div class="header">
+            <div class="container">
+                <h1>Table of Contents</h1>
+            </div>
+        </div>
+
+        <div class="container">
+            <ul class="toc">
+                {% for chapter in chapters %}
+                    <li>
+                        <a href="#chapter-{{ chapter.id }}">Chapter {{ chapter.id }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </article>
+
+    {% for chapter in chapters %}
+        <article class="chapter" id="chapter-{{ chapter.id }}" >
+            <div class="header">
+                <div class="container">
+                    <h1 class="chapter-title">
+                        <a href="#chapter-{{ chapter.id }}">
+                            Chapter {{ chapter.id }}
+                        </a>
+
+                        <a class="back" href="#toc">back</a>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="container">
+                {{ chapter.content|raw }}
+            </div>
+        </article>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

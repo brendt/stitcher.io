@@ -1,6 +1,14 @@
 
 
 
+<div class="screenshot">
+
+```php
+class Tile extends Clickable, HasMenu, CanUpgrade
+{ /* … */ }
+```
+</div>
+
 <div class="screenshot screenshot-hidden">
 
 ```php

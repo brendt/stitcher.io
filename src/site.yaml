@@ -77,6 +77,11 @@
     variables:
         post: src/content/cookies.yaml
 
+/ads:
+    template: blog/detail.twig
+    variables:
+        post: src/content/ads.yaml
+
 /podcasts/all:
     template: blog/overview.twig
     variables:
@@ -317,3 +322,9 @@
     template: blog/detail.twig
     variables:
         post: src/content/sponsors.yaml
+
+/novel:
+    template: novel.twig
+    variables:
+        title: Novel
+        chapters: src/content/novel/novel.yaml

@@ -62,7 +62,8 @@ class AppServiceProvider implements Plugin
         });
 
 //        /** @var \Stitcher\Renderer\RendererFactory $rendererFactory */
-//        $rendererFactory = App::get(RendererFactory::class);
+        App::get(RendererFactory::class)
+            ->addExtension(new ImageExtension(App::get(ImageFactory::class)));
 //
 //        $rendererFactory->addExtension(new Production());
 

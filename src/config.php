@@ -46,6 +46,8 @@ return [
         'resources/img/static/game-map.png',
         'resources/img/static/php-2023-thumb.png',
         'resources/img/static/light-colours-thumb.png',
+        'resources/img/static/multi-inheritance.png',
+        'resources/img/static/version-stats-july.png',
         'resources/img/static/clean-phpstorm/',
         'resources/img/favicon/',
         'resources/img/de-job-favicon/',
