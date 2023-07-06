@@ -3,6 +3,12 @@
 #    title: "Fantastic elephpants and where to find them"
 #    content: src/content/blog/2022-06-18-elephpants.md
 
+is-a-or-acts-as:
+    date: 2023-07-06
+    title: '"Is A" or "Acts As"'
+    content: src/content/blog/2023-07-06-is-a-or-acts-as.md
+    disableAds: true
+
 php-version-stats-july-2023:
     date: 2023-07-01
     title: "PHP version stats: July, 2023"
