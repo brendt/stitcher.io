@@ -1,3 +1,9 @@
+'77':
+    date: 2023-07-18
+    title: "It's called Tempest"
+    pretext: "I've started working on something"
+    content: src/content/mails/stitcher-77.md
+
 '76':
     date: 2023-03-20
     title: "PHP Version Stats"
