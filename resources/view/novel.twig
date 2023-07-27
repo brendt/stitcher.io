@@ -50,9 +50,10 @@
 <body>
 
 <div class="book">
-    <div class="cover container">
-        {{ image.render('/resources/img/novel/00-00.png')|raw }}
-    </div>
+
+{#    <div class="cover container">#}
+{#        {{ image.render('/resources/img/novel/00-00.png')|raw }}#}
+{#    </div>#}
 
     <article class="chapter" id="toc" >
         <div class="header">
@@ -65,7 +66,7 @@
             <ul class="toc">
                 {% for chapter in chapters %}
                     <li>
-                        <a href="#chapter-{{ chapter.id }}">Chapter {{ chapter.id }}</a>
+                        <a href="#chapter-{{ chapter.id }}">{% if chapter.title is defined %}{{ chapter.id}} — {{ chapter.title }}{% else %}Chapter {{ chapter.id }}{% endif %}</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -78,7 +79,11 @@
                 <div class="container">
                     <h1 class="chapter-title">
                         <a href="#chapter-{{ chapter.id }}">
-                            Chapter {{ chapter.id }}
+                            {% if chapter.title is defined %}
+                                {{ chapter.title }}
+                            {% else %}
+                                Chapter {{ chapter.id }}
+                            {% endif %}
                         </a>
 
                         <a class="back" href="#toc">back</a>
