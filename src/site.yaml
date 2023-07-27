@@ -328,3 +328,10 @@
     variables:
         title: Novel
         chapters: src/content/novel/novel.yaml
+        cover: /resources/img/novel/00-00.png
+
+/one-day:
+    template: novel.twig
+    variables:
+        title: One Day
+        chapters: src/content/one-day/one-day.yaml
