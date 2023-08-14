@@ -1,7 +1,5 @@
-#elephpants:
-#    date: 2022-06-18
-#    title: "Fantastic elephpants and where to find them"
-#    content: src/content/blog/2022-06-18-elephpants.md
+
+# TODO: stack overflow detection in PHP 8.3
 
 new-in-php-83:
     date: 2023-08-14
