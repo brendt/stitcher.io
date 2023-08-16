@@ -1,6 +1,12 @@
 
 # TODO: stack overflow detection in PHP 8.3
 
+rfc-vote:
+    date: 2023-08-15
+    title: The RFC Vote project
+    content: src/content/blog/2023-08-15-rfc-vote.md
+    disableAds: true
+
 new-in-php-83:
     date: 2023-08-14
     title: "What's new in PHP 8.3"
