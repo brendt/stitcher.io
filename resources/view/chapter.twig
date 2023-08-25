@@ -51,31 +51,7 @@
 
 <div class="book">
 
-{#    <div class="cover container">#}
-{#        {{ image.render('/resources/img/novel/00-00.png')|raw }}#}
-{#    </div>#}
-
-    <article class="chapter" id="toc" >
-        <div class="header">
-            <div class="container">
-                <h1>Table of Contents</h1>
-            </div>
-        </div>
-
-        <div class="container">
-            <ul class="toc">
-                {% for chapter in chapters %}
-                    <li>
-                        <a href="/novel/{{ chapter.id }}">{% if chapter.title is defined %}{{ chapter.id}} — {{ chapter.title }}{% else %}Chapter {{ chapter.id }}{% endif %}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </article>
-
-    {% for chapter in chapters %}
-        {% include('_partials/chapter.twig') %}
-    {% endfor %}
+{% include('_partials/chapter.twig') %}
 
 </div>
 
