@@ -13,8 +13,12 @@
     {{ js.link('resources/js/download.min.js')|raw }}
 
     <style>
+        article.blog {
+            margin:0 !important;
+        }
+
         body {
-            font-size: 14px;
+            font-size: 30pt;
             /*background-image: url('resources/img/back.png');*/
             /*background-size: cover;*/
             /*background-repeat: no-repeat;*/
@@ -22,20 +26,25 @@
 
         pre {
             font-family: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
-            line-height: 1.8em;
-            padding: 20px 20px;
-            background-color: rgba(246, 246, 246, 1);
+            line-height: 2.2em;
+            padding: 0;
+            /*background-color: rgba(246, 246, 246, 1);*/
+            background-color: white;
             border: 1px solid rgba(200, 200, 200, 1);
-            border-radius: 5px;
-            cursor: pointer;
-            width: 450px;
-            display: inline-block;
-
+            width: 1920pt;
+            height: 1080pt;
+            display: flex;
+            align-items: center;
 
             /*margin-top: 375px;*/
         }
 
         pre > code {
+            display: block;
+            height: auto;
+            padding: 1em;
+            padding-left: 2em;
+            width: 100%;
             font-family: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
         }
 
@@ -84,19 +93,19 @@
     </article>
 
     <script>
-        const nodes = document.querySelectorAll('.screenshot');
-
-        for (let node of nodes) {
-            node.addEventListener('click', () => {
-                function filter (node) {
-                    return (node.tagName !== 'i');
-                }
-
-                htmlToImage.toPng(node,  {canvasWidth: 500, width: 500})
-                    .then(function (dataUrl) {
-                        download(dataUrl, 'code-screenshot.png');
-                    });
-            });
-        }
+        // const nodes = document.querySelectorAll('.screenshot');
+        //
+        // for (let node of nodes) {
+        //     node.addEventListener('click', () => {
+        //         function filter (node) {
+        //             return (node.tagName !== 'i');
+        //         }
+        //
+        //         htmlToImage.toPng(node,  {canvasWidth: 500, width: 500})
+        //             .then(function (dataUrl) {
+        //                 download(dataUrl, 'code-screenshot.png');
+        //             });
+        //     });
+        // }
     </script>
 {% endblock %}

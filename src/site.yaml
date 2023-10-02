@@ -345,3 +345,9 @@
     variables:
         title: One Day
         chapters: src/content/one-day/one-day.yaml
+
+/present:
+    template: slides.twig
+    variables:
+        title: Present
+        slides: /src/content/present/slides.md

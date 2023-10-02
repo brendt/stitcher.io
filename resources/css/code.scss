@@ -76,6 +76,12 @@ $color-purple: #9d3af6;
     background: none;
 }
 
+.blur span,
+.blur {
+    color: #888 !important;
+    filter: blur(0.04em);
+}
+
 .generic,
 .generic > .hljs-title,
 {

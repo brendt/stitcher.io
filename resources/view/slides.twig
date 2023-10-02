@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="/public/reveal/reset.css">
+    <link rel="stylesheet" href="/public/reveal/reveal.css">
+    <link rel="stylesheet" href="/public/reveal/theme/white.css">
+
+    <!-- Theme used for syntax highlighted code -->
+
+    {{ css.inline('resources/css/code.scss')|raw }}
+
+    <style>
+        .reveal pre {
+            background-color: #fafafa;
+            padding: 1em;
+            line-height: 1.6em;
+        }
+
+        .reveal code {
+            font-family: "JetBrains Mono", Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
+        }
+
+        .reveal pre code {
+            max-height: 100%;
+        }
+
+        h1.generics-title {
+            font-family:  "JetBrains Mono", Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
+            color: #9d3af6;
+            text-transform: none;
+        }
+
+        .reveal h2 {
+            text-transform: none;
+        }
+
+        h1.generics-title:before {
+            content: "<"
+        }
+
+        h1.generics-title:after {
+            content: ">"
+        }
+
+        .heading-anchor {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        {% set slides = slides|split('<hr />') %}
+
+        {% for slide in slides %}
+            <section>
+                {{ slide|raw }}
+            </section>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="/public/reveal/reveal.js"></script>
+<script src="/public/reveal/plugin/notes/notes.js"></script>
+<script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
+    Reveal.initialize({
+        hash: true,
+        transition: "none",
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealNotes ]
+    });
+</script>
+</body>
+</html>
