@@ -291,6 +291,12 @@ final <hljs keyword>readonly</hljs> class Post
 
 ---
 
+## Poll 📊
+
+Do you use types in PHP?
+
+---
+
 ## Entry point
 
 ---
@@ -366,6 +372,13 @@ $validated = $request-><hljs prop>validate</hljs>([
 ---
 
 ## They don't run it
+
+
+---
+
+## Poll 📊
+
+Do you use static analysis tools?
 
 ---
 
@@ -754,6 +767,12 @@ function resolve(<hljs type>string</hljs> $className): <hljs type>object</hljs>
     // …
 }
 ```
+
+---
+
+## Poll 📊
+
+Do you use generics?
 
 ---
 
