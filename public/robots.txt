@@ -3,5 +3,5 @@ Disallow: /mails-*
 Disallow: /mails*
 Disallow: /favicon
 Disallow: /public/reveal/*
-Disallow: /present
-Disallow: /novel
+Disallow: /present*
+Disallow: /novel*
