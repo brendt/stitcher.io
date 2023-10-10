@@ -250,7 +250,7 @@ new-in-php-82:
     content: src/content/blog/2022-04-22-new-in-php-82.md
     next: new-in-php-81
     meta:
-        description: "All new features, performance upgrades, and deprecations in PHP 8.2"
+        description: "PHP 8.2 has a new randomizer engine, readonly classes, disjunctive normal form types, redacted parameters, performance improvements, and more."
     footnotes:
         - { link: "/blog/php-82-upgrade-mac", title: "How to upgrade to PHP 8.2 on Mac" }
         - { link: /blog/readonly-classes-in-php-82, title: "Readonly classes in PHP 8.2" }
@@ -601,7 +601,7 @@ new-in-php-81:
     content: src/content/blog/2021-01-29-new-in-php-81.md
     next: new-in-php-82
     meta:
-        description: "All new features, performance upgrades, and deprecations in PHP 8.1"
+        description: "PHP 8.1 adds support for PHP enums, as well as readonly properties, Fibers, performance improvements, new in initializers, and more."
     footnotes:
         - { link: "/blog/new-in-php-82", title: "What's new in PHP 8.2" }
         - { link: "/blog/php-81-upgrade-mac", title: "Upgrade to PHP 8.1 with Homebrew on Mac" }
@@ -921,7 +921,7 @@ php-enums:
     content: src/content/blog/2021-02-17-php-81-enums.md
     next: new-in-php-81
     meta:
-        description: "Enums in PHP 8.1"
+        description: "PHP 8.1 adds built-in support for enums, let's take a look at all the details."
     footnotes:
         - { link: "/blog/php-81-in-8-code-blocks", title: "PHP 8.1 in 8 code blocks" }
         - { link: https://github.com/sponsors/iluuu1994, title: "Ilija Tovilo's sponsor page (he did all the programming)" }
@@ -1021,7 +1021,7 @@ new-in-php-8:
     next: new-in-php-81
     highlight: true
     meta:
-        description: "PHP 8 is available now!"
+        description: "PHP 8.0 brings features like attributes, union types, and the JIT compiler. It has some important breaking changes, and improved performance."
         template: 'blog/meta/new-in-php-8.twig'
     tag: src/content/tags/php-8.yaml
     footnotes:

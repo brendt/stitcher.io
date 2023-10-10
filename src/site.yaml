@@ -5,7 +5,7 @@
         overviewTitle: programming
         posts: src/content/blog.yaml
         meta:
-            description: "My personal thoughts on the web and programming."
+            description: "A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well."
     config:
         order:
             variable: posts
@@ -31,7 +31,7 @@
         overviewTitle: programming
         posts: src/content/blog.yaml
         meta:
-            description: "My personal thoughts on the web and programming."
+            description: "A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well."
     config:
         pagination:
             variable: posts
@@ -48,7 +48,7 @@
         overviewTitle: programming
         post: src/content/blog.yaml
         meta:
-            description: "My personal thoughts on the web and programming."
+            description: "A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well."
     config:
         collection:
             variable: post
