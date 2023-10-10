@@ -5,3 +5,4 @@ Disallow: /favicon
 Disallow: /public/reveal/*
 Disallow: /present*
 Disallow: /novel*
+Disallow: /one-day*
