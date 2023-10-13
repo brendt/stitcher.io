@@ -1,3 +1,9 @@
+'80':
+    date: 2023-10-13
+    title: "Conference Time"
+    pretext: "I'm giving an online talk in a couple of hours"
+    content: src/content/mails/stitcher-80.md
+
 '79':
     date: 2023-08-16
     title: "In love with a boring language"
