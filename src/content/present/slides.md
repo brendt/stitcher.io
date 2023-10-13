@@ -12,16 +12,13 @@
 
 ![](/resources/img/slides/PhpStorm_icon.svg)
 
----
+</section>
+<section data-background-image="/resources/img/slides/php-annotated-wallpaper.png">
 
-![](/resources/img/slides/annotated-logo.png)
-
----
-
-![](/resources/img/slides/stitcher-logo-small.png)
+</section>
+<section data-background-image="/resources/img/slides/stitcher-wallpaper.png">
 
 ---
-
 
 <h1 class="generics-title">generics</h1>
 
@@ -43,7 +40,7 @@
 
 ---
 
-## Types
+## Type checking
 
 ---
 
@@ -350,7 +347,7 @@ $validated = $request-><hljs prop>validate</hljs>([
 
 ---
 
-## Others = Bulk analysis
+## Others = bulk analysis
 
 ---
 
@@ -543,7 +540,7 @@ function resolve(<hljs type>class-string</hljs><<hljs generic>Type</hljs>> $clas
 
 ---
 
-## Monomorphic Generics
+## Monomorphic generics
 
 ---
 
@@ -594,19 +591,19 @@ $collection = <hljs keyword>new</hljs> <hljs type>Collection_Like</hljs>;
 
 ---
 
-## Reified Generics
+## Reified generics
 
 ---
 
-## Runtime Generics
+## Runtime generics
 
 ---
 
-## Refactor Required 🥵
+## Refactor required 🥵
 
 ---
 
-## Increased Complexity 🥵
+## Increased complexity 🥵
 
 ---
 
@@ -624,7 +621,7 @@ $collection = <hljs keyword>new</hljs> <hljs type>Collection_Like</hljs>;
 
 ---
 
-## Type Erasure
+## Type erasure
 
 ---
 
