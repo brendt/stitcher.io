@@ -13,3 +13,7 @@ Finally, I wanted to mention a weekend project of mine: I've been building a gam
 <img src="https://stitcher.io/resources/img/static/dungeon.png"/>
 </a>
 </p>
+
+That's about all I wanted to share with you today, have a great week!
+
+Brent
