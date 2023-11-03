@@ -17,7 +17,7 @@ Oh, by the way: you can watch this blog post as a vlog if you prefer that:
 
 ## 1. Deprecations are helpful
 
-It's a common complaint: "why do my PHP scripts break with minor version updates??". And quite right: PHP has a tendency to add deprecation notices in minor releases, which tend to be audibly present when upgrading a project. Take for example [PHP 8.1](/blog/new-in-php-81#interal-method-return-types-rfc), where suddenly logs were filled with these kinds of warnings:
+It's a common complaint: "why do my PHP scripts break with minor version updates??". And quite right: PHP has a tendency to add deprecation notices in minor releases, which tend to be audibly present when upgrading a project. Take for example [PHP 8.1](/blog/new-in-php-81#internal-method-return-types-rfc), where suddenly logs were filled with these kinds of warnings:
 
 ```txt
 <hljs red full>Return type should either be compatible with 

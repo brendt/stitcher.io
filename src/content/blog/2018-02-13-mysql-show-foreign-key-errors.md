@@ -11,7 +11,7 @@ show engine innodb status;
 LATEST FOREIGN KEY ERROR
 ------------------------
 2018-02-13 11:12:26 0x70000b776000 Error in foreign key constraint of table table/#sql-7fa_247a:
- foreign key (`my_foreing_key`) references `table` (`id`)
+ foreign key (`my_foreign_key`) references `table` (`id`)
    on delete cascade:
 Cannot resolve table name close to:
  (`id`)

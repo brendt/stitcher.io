@@ -31,7 +31,7 @@ entries:
 # site.yml
 
 variables:
-    enries: data/collection.yml
+    entries: data/collection.yml
 ```
 
 A file for one entry:

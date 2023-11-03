@@ -23,7 +23,7 @@ simply weren't supported by compilers back in the 50s and early 60s.
 Both Lisp and COBOL allowed for hyphens to split words.
 Lisp's parser was smart enough to detect whether a hyphen was between two words, 
 or whether it should be used as the subtraction operator. 
-COBOL only has full words as operators, eliminating the problem alltogether. 
+COBOL only has full words as operators, eliminating the problem altogether. 
 Here's a subtraction in COBOL:
 
 ```txt

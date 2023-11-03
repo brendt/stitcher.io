@@ -25,7 +25,7 @@ This is the graph plotting a much faster result.
 
 ![](/resources/img/blog/binary-uuid/binary_uuid.png)
 
-That's an avarage of 0.00008832061291 seconds per query, 
+That's an average of 0.00008832061291 seconds per query, 
 in comparison to ~~1.5~~ 0.0001493031979 seconds for the **indexed** textual UUID.
 
 ## It becomes even better!

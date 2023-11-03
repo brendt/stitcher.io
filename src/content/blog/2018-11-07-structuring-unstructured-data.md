@@ -186,7 +186,7 @@ where you're working in the same code base with multiple developers, over a long
 ## Reflecting types
 
 So, how can we assure that our properties are of the correct type? 
-Simple: read the `@var` docblock declartion, validate the value against that type, 
+Simple: read the `@var` docblock declaration, validate the value against that type, 
 and only then set it. 
 If the value is of a wrong type, we simply throw a `TypeError`.
 

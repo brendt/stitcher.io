@@ -2306,7 +2306,7 @@ performance-101-building-the-better-web:
             client- and server side optimisations.
 
 
-aray-objects-with-fixed-types:
+array-objects-with-fixed-types:
     date: 2017-05-25
     type: piece of code
     title: Array objects
@@ -2375,7 +2375,7 @@ static_sites_vs_caching:
     teaserTitle: Static sites
     content: src/content/blog/2017-03-02-static_sites_vs_caching.md
     next: the-web-in-2045
-    description: What is caching and what's the difference between a cached website and a staticly generated website?
+    description: What is caching and what's the difference between a cached website and a statically generated website?
 
 image_optimizers:
     date: 2017-02-26

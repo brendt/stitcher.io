@@ -29,7 +29,7 @@ The only requirement for a package to be "a plugin" is a class implementing the 
 
 ### Plugin interface
 
-The `Plugin` interface requires you to only implement three methods. These methods tell Stitcher where the `services.yml` and `config.yml` files are located and how to intialise the plugin. Any other binding with Stitcher is done via the service container.
+The `Plugin` interface requires you to only implement three methods. These methods tell Stitcher where the `services.yml` and `config.yml` files are located and how to initialise the plugin. Any other binding with Stitcher is done via the service container.
 
 ```php
 namespace My;

@@ -39,7 +39,7 @@ PHPStorm is a powerful IDE, with lots of functionality built in by default. Whil
 these options to their full extent, there are some things that are never used. 
 
 Disabling unused plugins can be a start, but disabling inspections has a much bigger impact. 
-Take a look at the list and decide for yourself which onces you don't need: `Settings > Editor > Inspections`.
+Take a look at the list and decide for yourself which ones you don't need: `Settings > Editor > Inspections`.
 
 ## Language injection
 

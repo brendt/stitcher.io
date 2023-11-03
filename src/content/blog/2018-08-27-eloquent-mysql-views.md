@@ -92,7 +92,7 @@ It's probably a string somewhere in PHP, or –slightly better– a separate sql
 
 ### Projecting the changes
 
-We could make a separte model called `MeterReadingReport`, 
+We could make a separate model called `MeterReadingReport`, 
 and use event hooks on `MeterReading` to manage these reports.
 
 Every time a reading is added, we can get or create a report for that unit, day and user; 

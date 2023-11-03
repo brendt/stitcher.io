@@ -79,7 +79,7 @@ So yeah, these are the kinds of details I'm thinking about, because I feel like 
 
 So, what I would like to know: what's your opinion?
 
-I made [a poll on Twitter](https://twitter.com/brendt_gd/status/1455760170752036867), and was surprised that so many people — more than 50% — prefered the single letter approach. That's terrible for code readability — especially if you're working with multiple generic types within the same context.
+I made [a poll on Twitter](https://twitter.com/brendt_gd/status/1455760170752036867), and was surprised that so many people — more than 50% — preferred the single letter approach. That's terrible for code readability — especially if you're working with multiple generic types within the same context.
 
 Anyway; I'll probably stick with what feels best for me and what I think is the most readably; but do share your opinions in the comments or on reddit or twitter wherever you're watching this; maybe someone is able to change my mind; or maybe I just changed yours?
 

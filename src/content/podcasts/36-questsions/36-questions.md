@@ -11,7 +11,7 @@ To my surprise, there were a handful, but most of them were rather strange, not 
 
 Since there are only three episodes, I was finished with it after a day, and I probably re-listened it afterwards 4 or 5 times. It's that good! 
 
-The story is unique enough, not some cliche romance, the music is awesome and the voice actors are great. One of the lead characters is portrayed by Jonathan Groff, who also voiced Olaf in Frozen, as wel as King George in Hamilton — what a coincidence!
+The story is unique enough, not some cliche romance, the music is awesome and the voice actors are great. One of the lead characters is portrayed by Jonathan Groff, who also voiced Olaf in Frozen, as well as King George in Hamilton — what a coincidence!
 
 {{ ad:google }}
 
