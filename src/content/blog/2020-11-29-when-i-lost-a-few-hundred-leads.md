@@ -55,10 +55,10 @@ The bug, simple as it may sound, was a simple typo:
 
 ```txt
 $formSubmission-><hljs prop>more_feedback_required</hljs> = 
-    $form-><hljs prop>get</hljs>('more_feedback_required');
+    $form-><hljs prop>get</hljs>('more_feedback_requierd');
 ```
 
-Can you spot the `required` when calling `$form-><hljs prop>get</hljs>()`?
+Can you spot the `requierd` when calling `$form-><hljs prop>get</hljs>()`?
 
 As it turns out, our form library — written by us for our in-house framework — wouldn't give an error when you're trying to get an unknown property, it simply returns `null`. 
 
