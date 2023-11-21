@@ -1,3 +1,9 @@
+'82':
+    date: 2023-11-07
+    title: "It's a date!"
+    pretext: "PHP 8.3 will be here very soon!"
+    content: src/content/mails/stitcher-82.md
+
 '81':
     date: 2023-10-23
     title: "Generics aren't coming"
