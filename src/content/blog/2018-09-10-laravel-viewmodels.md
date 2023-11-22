@@ -284,7 +284,7 @@ You can read it [here](/blog/laravel-view-models-vs-view-composers).
 
 ---
 
-In summary, view models can be a viable alternative to working with the data directely in a controller.
+In summary, view models can be a viable alternative to working with the data directly in a controller.
 They allow for better reusability and encapsulate logic that doesn't belong in the controller. 
 
 You're also not confined to forms when using them. 

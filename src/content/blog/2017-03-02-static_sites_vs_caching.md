@@ -14,7 +14,7 @@ Evidently, caching is way more than what I just described. My try at a general d
 
 Caching is a very powerful tool which **wraps around** your system, enabling it to be much more performant.
 
-Stitcher, and all static site generators, are the opposite. These tools don't *wrap around* a system. Rather, their core **is** the HTML ouput. All other things needed by developers to smoothly build websites, are **plugged in** into that core. What's the downside? You'll have to re-render parts of your website before they are visible to the visitor. A tedious task. Luckily computers are good at performing the same tedious tasks over and over again. Re-rendering your website isn't really a bother when you have the right tools available.
+Stitcher, and all static site generators, are the opposite. These tools don't *wrap around* a system. Rather, their core **is** the HTML output. All other things needed by developers to smoothly build websites, are **plugged in** into that core. What's the downside? You'll have to re-render parts of your website before they are visible to the visitor. A tedious task. Luckily computers are good at performing the same tedious tasks over and over again. Re-rendering your website isn't really a bother when you have the right tools available.
 
 Another "downside" of static websites? It requires a bit more thought of the developer. But when could that a bad thing?
 

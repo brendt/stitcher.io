@@ -84,7 +84,7 @@ $result = $firstCondition
 The reason because is that the ternary operator in PHP is left-associative, and thus parsed in a very strange way.
 The above example would always evaluate the `$elseCondition` part first, so even when `$firstCondition` would be `true`, you'd never see its output.
 
-I believe the right thing to do is to avoid nested ternary operators alltogether.
+I believe the right thing to do is to avoid nested ternary operators altogether.
 You can read more about this strange behaviour 
 in this [Stack Overflow answer](*https://stackoverflow.com/questions/20559150/ternary-operator-left-associativity/38231137#38231137).
 
@@ -122,7 +122,7 @@ It will take two operands, and decide which of those to use based on the value o
 ### Null coalescing on arrays
 
 This operator is especially useful in combination with arrays, because of its acts like `isset`.
-This means you can quickly check for the existance of keys, even nested keys, without writing verbose expressions. 
+This means you can quickly check for the existence of keys, even nested keys, without writing verbose expressions. 
 
 ```php
 $input = [
@@ -146,7 +146,7 @@ The first example could also be written using a ternary operator:
 $output = isset($input['key']) ? $input['key'] : 'fallback';
 ```
 
-Note that it's impossible to use the shorthand ternary operator when checking the existance of array keys. 
+Note that it's impossible to use the shorthand ternary operator when checking the existence of array keys. 
 It will either trigger an error or return a boolean, instead of the real lefthand operand's value.
 
 ```php

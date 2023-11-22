@@ -32,7 +32,7 @@ Scaled resolutions not so much…
 
 ## Font antialiasing
 
-In your settings, under `Editor > Appearance & Bahaviour > Appearance`, 
+In your settings, under `Editor > Appearance & Behaviour > Appearance`, 
 you'll find the editor font antialiasing options.
 
 By default, antialiasing is set to `subpixel`, to render very smooth fonts.

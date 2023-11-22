@@ -276,7 +276,7 @@ I actually wrote a dedicated blogpost explaining the mechanics behind all of thi
 
 ### Readonly classes
 
-Finally, I should also mention the addition of [readonly classes in PHP 8.2](/blog/readonly-classes-in-php-82). In cases where all properties of you class are readonly (which often happens with DTOs or VOs), you can mark the class itself as readonly. This means you won't have to declare every individual property as readonly — a nice shorthand!
+Finally, I should also mention the addition of [readonly classes in PHP 8.2](/blog/readonly-classes-in-php-82). In cases where all properties of your class are readonly (which often happens with DTOs or VOs), you can mark the class itself as readonly. This means you won't have to declare every individual property as readonly — a nice shorthand!
 
 ```php
 <hljs keyword>readonly</hljs> class BlogData
