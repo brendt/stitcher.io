@@ -1114,14 +1114,6 @@ annotations:
     meta:
         image: /resources/img/comics/annotations.png
 
-laravel-beyond-crud-is-here:
-    date: 2020-08-26
-    title: Laravel Beyond CRUD is here!
-    content: src/content/blog/2020-08-26-lbc-launch.md
-    meta:
-        description: Laravel Beyond CRUD is a book and video course on designing and managing large Laravel applications
-    next: new-in-php-8
-
 differences:
     date: 2020-08-21
     title: Differences
@@ -1481,19 +1473,6 @@ enums-without-enums:
         - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
         - { link: /blog/shorthand-comparisons-in-php, title: "Shorthand comparisons in PHP" }
 
-laravel-beyond-crud-09-test-factories:
-    date: 2020-01-29
-    title: "09. Test factories"
-    content: src/content/book/09-test-factories.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud
-    meta:
-        description: "A blog series about managing larger Laravel projects"
-    footnotes:
-        - { link: "https://laravel.com/docs/6.x/database-testing", title: "Laravel's documentation about database testing" }
-        - { link: "https://tighten.co/blog/tidy-up-your-tests-with-class-based-model-factories", title: "Tighten also uses a similar approach to model factories" }
-
 php-in-2020:
     date: 2020-01-17
     title: PHP in 2020
@@ -1521,16 +1500,6 @@ php-preload-benchmarks:
         - { link: /blog/new-in-php-74, title: "What's new in PHP 7.4" }
         - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
         - { link: /blog/typed-properties-in-php-74, title: "Typed properties in PHP 7.4" }
-
-laravel-beyond-crud-08-view-models:
-    date: 2019-12-07
-    title: "08. View models"
-    content: src/content/book/08-view-models.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud-09-test-factories
-    meta:
-        description: "A blog series about managing larger Laravel projects"
 
 php-74-upgrade-mac:
     date: 2019-11-28
@@ -1605,45 +1574,6 @@ typed-properties-in-php-74:
         - { link: /blog/short-closures-in-php, title: "Short closures in PHP 7.4" }
         - { link: /blog/preloading-in-php-74, title: "Preloading in PHP 7.4" }
 
-laravel-beyond-crud-07-entering-the-application-layer:
-    date: 2019-11-22
-    title: "07. Entering the application layer"
-    content: src/content/book/07-application-layer.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud-08-view-models
-    meta:
-        description: "A blog series about managing larger Laravel projects"
-
-laravel-beyond-crud-06-managing-domains:
-    date: 2019-11-17
-    title: "06. Managing domains"
-    content: src/content/book/06-managing-domains.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud-07-entering-the-application-layer
-    meta:
-        description: "A blog series about managing larger Laravel projects"
-    footnotes:
-        - { link: "https://freek.dev/1486-getting-started-with-domain-oriented-laravel", title: "Freek gets started with domain oriented Laravel" }
-        - { link: "https://schlein.net/blog/stick-to-the-default", title: "Sebastian Schlein voices his concerns about the architecture I discuss in this blog series" }
-        - { link: "https://basecamp.com/shapeup/0.3-chapter-01", title: "An online book about Basecamp's approach to product management" }
-
-laravel-beyond-crud-05-states:
-    date: 2019-11-16
-    title: "05. States"
-    content: src/content/book/05-states.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud-06-managing-domains
-    meta:
-        description: "A blog series about managing larger Laravel projects"
-    footnotes:
-        - { link: "https://www.youtube.com/watch?v=N12L5D78MAA", title: "Christopher Okhravi explains state machines in depth" }
-        - { link: "https://docs.spatie.be/laravel-model-states/v1/01-introduction/", title: "My package to handle model states in Laravel" }
-        - { link: "https://symfony.com/doc/current/workflow/workflow-and-state-machine.html", title: "Symfony's workflow package to build complex state machines" }
-        - { link: "https://www.youtube.com/watch?v=29MAL8pJImQ", title: "Sandi Metz on getting rid of if statements" }
-
 laravel-custom-relation-classes:
     date: 2019-11-09
     title: Relationship issues
@@ -1674,58 +1604,6 @@ can-i-translate-your-blog:
     meta:
         description: House keeping rules about translating my blog posts
 
-laravel-beyond-crud-04-models:
-    date: 2019-11-03
-    title: "04. Models"
-    content: src/content/book/04-models.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud-05-states
-    footnotes:
-        - { link: "https://timacdonald.me/dedicated-eloquent-model-query-builders/", title: "Custom query builders in Laravel" }
-        - { link: "https://timacdonald.me/giving-collections-a-voice/", title: "Custom Eloquent collections" }
-        - { link: "https://martinfowler.com/bliki/AnemicDomainModel.html", title: "Martin Fowler on anemic domain models" }
-        - { link: "https://www.youtube.com/watch?time_continue=2265&v=oKg1hTOQXoY", title: "Alan Kay about his vision of OOP" }
-    meta:
-        description: "A blog series about managing larger Laravel projects"
-
-laravel-beyond-crud-03-actions:
-    date: 2019-10-27
-    title: "03. Actions"
-    content: src/content/book/03-actions.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud-04-models
-    meta:
-        description: "A blog series about managing larger Laravel projects"
-    footnotes:
-        - { link: "https://martinfowler.com/eaaCatalog/transactionScript.html", title: "Martin Fowler on transaction scripts" }
-        - { link: "https://stitcher.io/blog/laravel-queueable-actions", title: "Queueable actions in Laravel" }
-        - { link: "https://freek.dev/1371-refactoring-to-actions", title: "Refactoring to actions" }
-
-laravel-beyond-crud-02-working-with-data:
-    date: 2019-10-18
-    title: "02. Working with data"
-    content: src/content/book/02-data.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud-03-actions
-    meta:
-        description: "A blog series about managing larger Laravel projects"
-    footnotes:
-        - { link: "https://www.destroyallsoftware.com/talks/ideology", title: "Gary Bernhardt's thoughts on type systems" }
-        - { link: "https://github.com/spatie/data-transfer-object", title: "Spatie's DataTransferObject package" }
-        - { link: "https://github.com/spatie/data-transfer-object/issues/17", title: "Matthias Noback on the difference between value objects and DTOs" }
-
-laravel-beyond-crud-01-domain-oriented-laravel:
-    date: 2019-10-17
-    title: "01. Domain oriented Laravel"
-    content: src/content/book/01-domains.md
-    book: true
-    tag: src/content/tags/lbc.yaml
-    next: laravel-beyond-crud-02-working-with-data
-    meta:
-        description: "A blog series about managing larger Laravel projects"
 
 guest-posts:
     date: 2019-09-16
