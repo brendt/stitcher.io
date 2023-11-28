@@ -1197,14 +1197,6 @@ why-we-need-named-params-in-php:
         - { link: /blog/attributes-in-php-8, title: "Attributes in PHP 8" }
         - { link: /blog/constructor-promotion-in-php-8, title: "Constructor property promotion in PHP 8" }
 
-laravel-beyond-crud:
-    date: 2020-07-09
-    title: "Laravel beyond CRUD: the next chapter"
-    content: src/content/blog/2020-07-09-laravel-beyond-crud-the-next-chapter.md
-    next: new-in-php-8
-    meta:
-        description: "I'm making a video course and an ebook, based on the series"
-
 php-8-match-or-switch:
     date: 2020-07-08
     title: "PHP 8: match or switch?"
