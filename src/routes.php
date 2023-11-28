@@ -34,6 +34,21 @@ $redirects = [
     '/podcasts' => '/podcasts/all',
     '/blog/laravel-domains' => '/blog/organise-by-domain',
     '/blog/rethinking-with-events' => '/blog/an-event-driven-mindset',
+
+    '/laravel-beyond-crud' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-is-here' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-01-domain-oriented-laravel' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-02-working-with-data' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-03-actions' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-04-models' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-05-states' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-06-managing-domains' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-07-entering-the-application-layer' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-08-view-models' => 'https://beyond-crud.stitcher.io',
+    '/blog/laravel-beyond-crud-09-test-factories' => 'https://beyond-crud.stitcher.io',
+
+
     '/blog' => '/blog/page-1',
     '/presentations' => 'https://github.com/brendt/presentations',
     '/slides' => 'https://github.com/brendt/presentations',
@@ -51,19 +66,6 @@ $redirects = [
     '/signup' => '/newsletter/subscribe',
 
     '/blog/php-81-new-in-inititalizers' => '/blog/php-81-new-in-initializers',
-
-    '/laravel-beyond-crud' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-is-here' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-01-domain-oriented-laravel' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-02-working-with-data' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-03-actions' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-04-models' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-05-states' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-06-managing-domains' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-07-entering-the-application-layer' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-08-view-models' => 'https://beyond-crud.stitcher.io',
-    '/blog/laravel-beyond-crud-09-test-factories' => 'https://beyond-crud.stitcher.io',
 
     '/youtube' => 'https://www.youtube.com/@phpannotated',
     '/yt' => 'https://www.youtube.com/@phpannotated',
