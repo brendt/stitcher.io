@@ -19,6 +19,7 @@ $redirects = [
     '/blog/the-latest-php-version' => '/blog/new-in-php-81',
     '/light' => 'https://www.youtube.com/watch?v=mu0HJ0_kprc',
     '/mail' => 'https://stitcher.io/newsletter/subscribe',
+    '/test' => 'https://stitcher.io/newsletter/subscribe',
     '/twitter' => 'https://twitter.com/brendt_gd',
     '/repot' => 'https://youtu.be/Swu2M1LL33c',
     '/the-road-to-php-81/subscribe' => 'https://road-to-php.com',
