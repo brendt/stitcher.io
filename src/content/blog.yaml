@@ -1421,7 +1421,6 @@ combining-event-sourcing-and-stateful-systems:
     date: 2020-04-14
     title: Combining event sourcing and stateful systems
     content: src/content/blog/2020-04-14-event-sourced.md
-    next: laravel-beyond-crud
     meta:
         description: "Bridging the gap between stateful and event sourced sub-systems"
     footnotes:
@@ -1578,7 +1577,6 @@ laravel-custom-relation-classes:
     date: 2019-11-09
     title: Relationship issues
     content: src/content/blog/2019-11-08-laravel-custom-relation-classes.md
-    next: laravel-beyond-crud
     meta:
         description: Making custom relation classes in Laravel
     footnotes:
@@ -1590,7 +1588,6 @@ laravel-has-many-through:
     date: 2019-11-08
     title: Laravel's HasManyThrough cheatsheet
     content: src/content/blog/2019-11-08-laravel-has-many-through.md
-    next: laravel-beyond-crud
     meta:
         description: How to use Laravel's HasManyTrough
     footnotes:
@@ -1600,7 +1597,6 @@ can-i-translate-your-blog:
     date: 2019-11-07
     title: Can I translate your blog?
     content: src/content/blog/2019-11-07-can-i-translate-your-blog.md
-    next: laravel-beyond-crud
     meta:
         description: House keeping rules about translating my blog posts
 
