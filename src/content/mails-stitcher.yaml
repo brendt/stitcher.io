@@ -1,3 +1,9 @@
+'84':
+    date: 2023-11-28
+    title: "Beyond CRUD"
+    pretext: "I'm writing a new book"
+    content: src/content/mails/stitcher-84.md
+
 '83':
     date: 2023-11-22
     title: "Big things"
