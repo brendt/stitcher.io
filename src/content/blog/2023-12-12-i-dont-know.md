@@ -14,4 +14,6 @@ Maybe we should say that more often: "I don't know", especially when it comes to
 
 What are your thoughts? Have you had the same experience? Maybe completely the opposite? <a href="mailto:brendt@stitcher.io">Let me know</a>!
 
+PS: there were also a bunch of nice people at both SymfonyCon and Laracon, maybe that's good to mention as well 😁
+
 {{ cta:mail }}
