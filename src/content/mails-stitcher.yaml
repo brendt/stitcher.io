@@ -1,3 +1,9 @@
+'86':
+    date: 2023-12-12
+    title: "I don't know"
+    pretext: "Maybe you know?"
+    content: src/content/mails/stitcher-86.md
+
 '85':
     date: 2023-11-28
     title: "The problem with dates"

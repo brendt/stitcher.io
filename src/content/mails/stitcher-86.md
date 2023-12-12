@@ -1,3 +1,5 @@
+Hi ::subscriber.first_name::
+
 Being online, I've gotten the impression that two groups of PHP developers are seriously divided: there are Symfony devs saying that Laravel is a hacky framework that leads to disaster, and there are Laravel devs saying that Symfony is a bloated framework that takes huge amounts of time to get things done.
 
 I've always assumed this mentality existed mostly thanks to "being online", and that when it came to face-to-face interactions, people would be more forgiving towards each other.
@@ -12,6 +14,8 @@ I don't know.
 
 Maybe we should say that more often: "I don't know", especially when it comes to the other side, and give them the benefit of the doubt.
 
-What are your thoughts? Have you had the same experience? Maybe completely the opposite? <a href="mailto:brendt@stitcher.io">Let me know</a>!
+What are your thoughts? Have you had the same experience? Maybe completely the opposite? Let me know!
 
-{{ cta:mail }}
+Until next time
+
+Brent
