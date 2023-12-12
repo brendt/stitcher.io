@@ -1,3 +1,15 @@
+'85':
+    date: 2023-11-28
+    title: "The problem with dates"
+    pretext: "Also: SymfonyCon, AI, and book update"
+    content: src/content/mails/stitcher-85.md
+
+book-01:
+    date: 2023-12-05
+    title: "Book Update #1"
+    pretext: "I could use your input"
+    content: src/content/mails/book-01.md
+
 '84':
     date: 2023-11-28
     title: "Beyond CRUD"
