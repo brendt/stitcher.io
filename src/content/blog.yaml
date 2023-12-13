@@ -1,6 +1,12 @@
 
 # TODO: stack overflow detection in PHP 8.3
 
+passion-projects:
+    date: 2023-12-13
+    title: Passion projects
+    content: src/content/blog/2023-12-13-passion-projects.md
+    disableAds: true
+
 i-dont-know:
     date: 2023-12-12
     title: I don't know
