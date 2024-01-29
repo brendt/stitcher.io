@@ -6,7 +6,7 @@
 #    content: src/content/blog/2024-01-25-coaching-devs.md
 
 #php-in-2024:
-#    date: 2024-01-26
+#    date: 2024-01-31
 #    title: PHP in 2024
 #    content: src/content/blog/2024-01-26-php-in-2024.md
 #    disableAds: true
@@ -14,7 +14,7 @@
 #        template: blog/meta/php-2024.twig
 
 php-version-stats-january-2024:
-    date: 2024-01-26
+    date: 2024-01-29
     title: "PHP version stats: January, 2024"
     content: src/content/blog/2024-01-26-php-version-stats-january-2024.md
     versionStatsDate: 2024-01-01
