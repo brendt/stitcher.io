@@ -1,5 +1,31 @@
 
-# TODO: stack overflow detection in PHP 8.3
+
+#coaching-devs:
+#    date: 2024-01-25
+#    title: Coaching Devs
+#    content: src/content/blog/2024-01-25-coaching-devs.md
+
+#php-in-2024:
+#    date: 2024-01-26
+#    title: PHP in 2024
+#    content: src/content/blog/2024-01-26-php-in-2024.md
+#    disableAds: true
+#    meta:
+#        template: blog/meta/php-2024.twig
+
+php-version-stats-january-2024:
+    date: 2024-01-26
+    title: "PHP version stats: January, 2024"
+    content: src/content/blog/2024-01-26-php-version-stats-january-2024.md
+    versionStatsDate: 2024-01-01
+    disableAds: true
+    meta:
+        description: PHP usage in 2024
+        template: blog/meta/version-stats.twig
+    footnotes:
+        - { link: "/blog/new-in-php-83", title: "What's new in PHP 8.3" }
+        - { link: "https://packagist.org/php-statistics", title: "Raw data from packagist" }
+        - { title: "PHP version stats: July, 2023", link: "/blog/php-version-stats-july-2023" }
 
 passion-projects:
     date: 2023-12-13
