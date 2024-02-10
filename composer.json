@@ -13,11 +13,16 @@
         }
     ],
     "require-dev": {
-        "larapack/dd": "^1.1"
+        "larapack/dd": "^1.1",
+        "laravel/envoy": "^2.9"
     },
     "autoload": {
         "psr-4": {
             "Brendt\\Stitcher\\": "src/"
         }
+    },
+    "scripts": {
+        "deploy": "vendor/bin/envoy run deploy",
+        "deploy-code": "vendor/bin/envoy run deploy-code"
     }
 }
