@@ -678,6 +678,7 @@ php-81-new-in-initializers:
 
 birth-and-death-of-a-framework:
     date: 2021-09-16
+    disableAds: true
     title: The birth and death of a framework
     content: src/content/blog/2021-09-03-birth-and-death-of-frameworks.md
     hideBanner: true

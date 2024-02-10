@@ -2,8 +2,6 @@
     <p>This post was first released on <a href="https://stitcher.io/mail">my newsletter</a>. Feel free to <a href="https://stitcher.io/mail">subscribe</a> if you want to be the first to see these kinds of posts, and want to talk about about them with me directly via email.</p>
 </div>
 
-<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2674_RC03/embed_loader.js"></script> 
-
 Every once in a while, maybe every couple of years, someone has an idea that revolutionises the tech industry. All popular frameworks that we use day by day once started out as such a small and insignificant idea: React, TypeScript, Tailwind, Electron, Laravel.
 
 It's hard to imagine a world without those frameworks. And yet: if you told me 15 years ago that the JavaScript ecosystem would be where it is today, I'd have a hard time believing you. 
