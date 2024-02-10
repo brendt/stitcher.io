@@ -16,17 +16,13 @@ What if we'd start from a blank slate, Eric wondered?
 
 I think that's exactly the spot where potential revolutionary ideas are born. What if we don't take our current solutions for granted but start from scratch instead?
 
-I find Laravel to be a good example. You could easily say that, 10 years ago, the problem of "MVC frameworks for PHP" had already been solved by several frameworks; why would we need another one? And yet, Laravel managed to outgrow every other framework in just a few years time. There's quite a few data sources confirming that. For example, here's Laravel compared to other major PHP frameworks over the years on Google Trends:
-
-<script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"zend framework","geo":"","time":"all"},{"keyword":"/m/09t3sp","geo":"","time":"all"},{"keyword":"Laravel","geo":"","time":"all"},{"keyword":"/m/02qgdkj","geo":"","time":"all"},{"keyword":"/m/09cjcl","geo":"","time":"all"}],"category":5,"property":""}, {"exploreQuery":"cat=5&date=all&q=zend%20framework,%2Fm%2F09t3sp,Laravel,%2Fm%2F02qgdkj,%2Fm%2F09cjcl","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
-
-I've got some more sources for you to look at, all confirming that same trend:
+I find Laravel to be a good example. You could easily say that, 10 years ago, the problem of "MVC frameworks for PHP" had already been solved by several frameworks; why would we need another one? And yet, Laravel managed to outgrow every other framework in just a few years time. There's quite a few data sources confirming that:
 
 - [JetBrains' Developer Ecosystem Survey](*https://www.jetbrains.com/lp/devecosystem-2021/php/#PHP_which-php-frameworks-and-platforms-do-you-regularly-use-if-any)
 - [StackOverflow's Developer Survey](*https://insights.stackoverflow.com/survey/2021#most-popular-technologies-webframe-prof)
 - Packagist stats, comparing the relative growth of [Laravel](*https://packagist.org/packages/laravel/laravel/stats) and [Symfony](*https://packagist.org/packages/symfony/symfony/stats)
 
-It's true that there's no single data set with a 100% accurate representation of the real world, though I think these sources are the most accurate available and they all confirm the same: the massive growth of a framework that didn't really solve any new problems compared to its competitors, and yet skyrocketed in popularity.
+It's true that there's no single data set with a 100% accurate representation of the real world, though I think these sources are the most accurate available, and they all confirm the same: the massive growth of a framework that didn't really solve any new problems compared to its competitors, and yet skyrocketed in popularity.
 
 Ironically though, it's that same popularity, that will most likely mean its end in the long run.
 
