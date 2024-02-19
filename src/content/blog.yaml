@@ -13,6 +13,14 @@
 #    meta:
 #        template: blog/meta/php-2024.twig
 
+the-framework-that-gets-out-of-your-way:
+    date: 2024-02-19
+    title: "The framework that gets out of your way"
+    content: src/content/blog/2024-02-19-the-framework-that-gets-out-of-your-way.md
+    disableAds: true
+    meta:
+        template: blog/meta/tempest.twig
+
 php-version-stats-january-2024:
     date: 2024-01-29
     title: "PHP version stats: January, 2024"
