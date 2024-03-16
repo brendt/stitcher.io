@@ -6,7 +6,7 @@ He was talking about code blocks for the upcoming [Tempest docs](https://tempest
 
 I wrote code blocks like so:
 
-<pre><code>public function store(&lt;hljs type&gt;BookRequest&lt;/hljs&gt; $request)</code></pre>
+<pre>public function store(&lt;hljs type&gt;BookRequest&lt;/hljs&gt; $request)</pre>
 
 That's right, I manually add and parse special "highlight" tokens in them. Take a look at, for example, the source of my latest [what new in PHP 8.3](https://github.com/brendt/stitcher.io/blob/master/src/content/blog/2023-03-17-new-in-php-83.md) post. Lots of `hljs` tags everywhere.
 
