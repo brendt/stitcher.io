@@ -13,6 +13,12 @@
 #    meta:
 #        template: blog/meta/php-2024.twig
 
+building-a-custom-language-in-tempest-highlight:
+    date: 2024-03-16
+    title: Building a custom language in tempest/highlight
+    content: src/content/blog/2024-03-16-building-a-custom-language-in-tempest-highlight.md
+    disableAds: true
+
 a-syntax-highlighter-that-doesnt-suck:
     date: 2024-03-15
     title: A syntax highlighter that doesn't suck

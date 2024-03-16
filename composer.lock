@@ -3892,12 +3892,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/highlight.git",
-                "reference": "3019a0bd5a121722ee3101443aa1b4bcfc436c75"
+                "reference": "4c3639b77701bad19790cdcaecc1afec445f993e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/3019a0bd5a121722ee3101443aa1b4bcfc436c75",
-                "reference": "3019a0bd5a121722ee3101443aa1b4bcfc436c75",
+                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/4c3639b77701bad19790cdcaecc1afec445f993e",
+                "reference": "4c3639b77701bad19790cdcaecc1afec445f993e",
                 "shasum": ""
             },
             "require": {
@@ -3932,7 +3932,7 @@
                 "issues": "https://github.com/tempestphp/highlight/issues",
                 "source": "https://github.com/tempestphp/highlight/tree/main"
             },
-            "time": "2024-03-15T13:47:48+00:00"
+            "time": "2024-03-16T06:29:49+00:00"
         },
         {
             "name": "twig/twig",

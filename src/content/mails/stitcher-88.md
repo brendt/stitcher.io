@@ -2,11 +2,11 @@ It all started with Aidan sending me this message:
 
 > Huh. Isn't there a better way to do syntax highlighting for that?
 
-He was talking about code blocks for the upcoming [Tempest docs](https://tempest.stitcher.io/) site. I must say I wasn't surprised by his question, although I had hoped he wouldn't ask it. 
+He was talking about code blocks for the upcoming [Tempest docs](https://tempest.stitcher.io/) site. I must say I wasn't surprised by his question, although I had hoped he wouldn't ask it.
 
 I wrote code blocks like so:
 
-<pre>public function store(&lt;hljs type&gt;BookRequest&lt;/hljs&gt; $request)</pre>
+<pre>function store(&lt;hljs type&gt;BookRequest&lt;/hljs&gt; $request)</pre>
 
 That's right, I manually add and parse special "highlight" tokens in them. Take a look at, for example, the source of my latest [what new in PHP 8.3](https://github.com/brendt/stitcher.io/blob/master/src/content/blog/2023-03-17-new-in-php-83.md) post. Lots of `hljs` tags everywhere.
 
@@ -16,7 +16,7 @@ The major benefit of server-side rendering, was that I was able to add a small p
 
 Maybe it's just me, but I really cannot stand wrongly highlighted code blocks, so I was willing to do whatever it takes to get it right. Even if it meant manual work for every single code block I'd write. It's one of these things I got used to over time though, and I didn't really question it anymore. Shortly after adding my custom syntax, I added keyboard shortcuts to wrap selected text in `hljs` tokens, so it wasn't even that much a bother — to me, at least.
 
-However, when I started drafting the Tempest docs, I knew deep down that this solution wouldn't work long-term. Tempest — and that includes its documentation — is an open source project. If one of the goals is for people to contribute, then I can't expect them to learn a quirky syntax I came up with a couple of years ago. 
+However, when I started drafting the Tempest docs, I knew deep down that this solution wouldn't work long-term. Tempest — and that includes its documentation — is an open source project. If one of the goals is for people to contribute, then I can't expect them to learn a quirky syntax I came up with a couple of years ago.
 
 So, yes, Aidan's right to ask this question.
 
@@ -28,7 +28,7 @@ Right?
 
 First, I looked at highlight.js again. It was still rendering PHP code as if it was PHP 7.4. Stuff like attributes, function names, and some types weren't highlighted at all. Unacceptable.
 
-Next, I looked at [Torchlight](https://torchlight.dev/). As far as I knew, it's a "highlighter as a service" (it's also a game I used to play, but that's irrelevant). Torchlight was created a year or two ago, and I heard pretty good things of it. I believe the Laravel docs uses it. 
+Next, I looked at [Torchlight](https://torchlight.dev/). As far as I knew, it's a "highlighter as a service" (it's also a game I used to play, but that's irrelevant). Torchlight was created a year or two ago, and I heard pretty good things of it. I believe the Laravel docs uses it.
 
 I had high hopes for Torchlight. They had a free plan for open source projects, so let's go!!
 
@@ -38,7 +38,7 @@ Next on my list was [Shiki](https://github.com/shikijs/shiki), which has a [PHP 
 
 Remember what I said about performance though? Yeah… Shiki is slow. Like, super slow. It took more than 10 seconds to render the [Controllers docs page](https://tempest.stitcher.io/02-controllers), which only includes a handful of code blocks.
 
-Sure, one "solution" to that is caching, but when I'm writing, I want things to appear instantly. Even with caching, you'd still look at 1-2 second page refreshes when you're making changes to code blocks, which — to me — is unacceptable. 
+Sure, one "solution" to that is caching, but when I'm writing, I want things to appear instantly. Even with caching, you'd still look at 1-2 second page refreshes when you're making changes to code blocks, which — to me — is unacceptable.
 
 At this point I was becoming frustrated. Surely it can't be that there is no proper solution to syntax highlighting that satisfies these three requirements??
 
@@ -46,13 +46,13 @@ At this point I was becoming frustrated. Surely it can't be that there is no pro
 - Server-side rendered, it's just text after all; why would you bother all clients to do more work while the server could do it once?
 - Support proper PHP syntax, or at least provide an easy way to add new syntax outside the package's core, so that new PHP syntax (or other languages) will have support immediately when people need it.
 
-"HOW HARD CAN IT BE?" — I asked Aidan in frustration, ready to give up. "We'll stick with my quirky syntax, and I'll manually add `hljs` tags afterward whenever people send PRs. Good enough." 
+"HOW HARD CAN IT BE?" — I asked Aidan in frustration, ready to give up. "We'll stick with my quirky syntax, and I'll manually add `hljs` tags afterward whenever people send PRs. Good enough."
 
 But Aidan wasn't ready to let go:
 
 > I’m very determined to find a solution to this syntax highlighting problem though.
 
-With these words of "encouragement", I decided to consider one final option. Let's write something myself. It's just syntax highlighting — "how hard can it be?" If I wasn't able to get something working in a couple of hours, I could still abandon the idea. 
+With these words of "encouragement", I decided to consider one final option. Let's write something myself. It's just syntax highlighting — "how hard can it be?" If I wasn't able to get something working in a couple of hours, I could still abandon the idea.
 
 "Working on it", I told Aidan.
 
@@ -63,7 +63,7 @@ It took a couple of iterations, some dreaming about it during the night — I te
 This is what I sent Aidan at 6:57 AM:
 
 > Ok Aidan, I need you to keep calm. Ok?
-> 
+>
 > EVERYTHING WORKS 😱😱😱😱😱😱😱😱
 
 Ok, not _everything_ worked, but all important things _did_:
@@ -74,29 +74,14 @@ Ok, not _everything_ worked, but all important things _did_:
 - An easy API to add new languages
 - Language injection support, so that you can combine multiple languages within one codeblock (it's actually pretty neat)
 
-And so… I'd like to present, a code highlighter that doesn't suck: [tempest/highlight](https://github.com/tempestphp/highlight). 
+And so… I'd like to present, a code highlighter that doesn't suck: [tempest/highlight](https://github.com/tempestphp/highlight).
 
-Ok, it still sucks a bit, because I still need to add more languages, and there will probably be some inaccuracies within the languages I already added (PHP, HTML, CSS, and Blade). But: the foundation is there, and it works. I'm actually already using it on the Tempest docs site, because why not?
-
-I'm now going to switch this blog over as well, though I will keep the backwards compatibility option for now, because I don't want to be bothered with updating hundreds of past blog posts. 
-
+Ok, it still sucks a bit, because I still need to add more languages, and there will probably be some inaccuracies within the languages I already added (PHP, HTML, CSS, and Blade). But: the foundation is there, and it works. I'm actually already using it on the Tempest docs site and my blog, because why not?
 
 So, if you're in need for a code highlighter that doesn't suck, feel free to check out [tempest/highlight](https://github.com/tempestphp/highlight)! Also, if you're looking for an open source project to contribute to: I more than welcome PRs! (The README gives you more info on how to get started.)
 
 PS: give it a star as well while you're there 😉
 
-PPS: here's a code block rendered with the new highlighter:
+Until next time
 
-```php
-final readonly class BookController
-{
-    #[Get(uri: '/books/{book}')]
-    public function show(Book $book, User $user): View
-    {
-        return view('Front/books/detail.view.php',
-            book: $book,
-            user: $user,
-        );
-    }
-}
-```
+Brent

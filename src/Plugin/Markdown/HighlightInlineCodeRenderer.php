@@ -16,7 +16,7 @@ class HighlightInlineCodeRenderer implements NodeRendererInterface
             throw new InvalidArgumentException('Block must be instance of ' . Code::class);
         }
 
-        $content = $node->getLiteral();
+        $content = htmlentities($node->getLiteral());
 
         if (! strpos($content, 'hljs')) {
             return '<code>' . $content . '</code>';
