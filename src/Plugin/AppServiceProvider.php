@@ -6,8 +6,6 @@ use Brendt\Stitcher\Plugin\Adapter\MetaAdapter;
 use Brendt\Stitcher\Plugin\Adapter\NextAdapter;
 use Brendt\Stitcher\Plugin\Markdown\AbbrParser;
 use Brendt\Stitcher\Plugin\Markdown\AdRenderer;
-use Brendt\Stitcher\Plugin\Adapter\GuideAdapter;
-use Brendt\Stitcher\Plugin\Markdown\CodeRenderer;
 use Brendt\Stitcher\Plugin\Markdown\HeadingAnchor;
 use Brendt\Stitcher\Plugin\Markdown\HighlightCodeBlockRenderer;
 use Brendt\Stitcher\Plugin\Markdown\HighlightInlineCodeRenderer;
@@ -15,18 +13,17 @@ use Brendt\Stitcher\Plugin\Markdown\ImageRenderer;
 use Brendt\Stitcher\Plugin\Markdown\LinkRenderer;
 use Brendt\Stitcher\Plugin\Markdown\NumberParser;
 use Brendt\Stitcher\Plugin\Twig\ImageExtension;
-use Brendt\Stitcher\Plugin\Twig\Production;
-use League\CommonMark\Block\Element\FencedCode;
-use League\CommonMark\Block\Element\Heading;
-use League\CommonMark\Block\Element\IndentedCode;
-use League\CommonMark\Environment;
-use League\CommonMark\Inline\Element\Code;
-use League\CommonMark\Inline\Element\Image;
-use League\CommonMark\Inline\Element\Link;
-use League\CommonMark\Inline\Element\Text;
+use League\CommonMark\Environment\Environment;
+use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
+use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
+use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
+use League\CommonMark\Extension\CommonMark\Renderer\Block\IndentedCodeRenderer;
+use League\CommonMark\Node\Inline\Text;
 use Pageon\Html\Image\ImageFactory;
 use Pageon\Lib\Markdown\MarkdownParser;
-use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
 use Stitcher\App;
 use Stitcher\Page\Adapter\AdapterFactory;
 use Stitcher\Plugin;
@@ -50,15 +47,13 @@ class AppServiceProvider implements Plugin
             $imageFactory = App::get(ImageFactory::class);
 
             return $environment
-                ->addInlineRenderer(Link::class, new LinkRenderer())
-                ->addInlineRenderer(Text::class, new AdRenderer())
-                ->addInlineRenderer(Code::class, new HighlightInlineCodeRenderer())
-                ->addInlineRenderer(Image::class, new ImageRenderer($imageFactory))
-                ->addInlineParser(new AbbrParser())
-                ->addInlineParser(new NumberParser())
-                ->addBlockRenderer(Heading::class, new HeadingAnchor())
-                ->addBlockRenderer(FencedCode::class, new HighlightCodeBlockRenderer())
-                ->addBlockRenderer(IndentedCode::class, new IndentedCodeRenderer());
+                ->addRenderer(Link::class, new LinkRenderer())
+                ->addRenderer(Text::class, new AdRenderer())
+                ->addRenderer(Code::class, new HighlightInlineCodeRenderer())
+                ->addRenderer(Image::class, new ImageRenderer($imageFactory))
+                ->addRenderer(Heading::class, new HeadingAnchor())
+                ->addRenderer(FencedCode::class, new HighlightCodeBlockRenderer())
+                ->addRenderer(IndentedCode::class, new IndentedCodeRenderer());
         });
 
 //        /** @var \Stitcher\Renderer\RendererFactory $rendererFactory */

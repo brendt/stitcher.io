@@ -6,6 +6,32 @@ $color-green: #34A853;
 $color-yellow: #FCBC05;
 $color-purple: #9d3af6;
 
+.hl-keyword {
+    color: $color-blue;
+}
+
+.hl-property {
+    color: $color-green;
+}
+
+.hl-attribute {
+    font-style: italic;
+}
+
+.hl-type {
+    color: $color-red;
+}
+
+.hl-generic {
+    color: $color-purple;
+}
+
+.hl-comment {
+    color: #888888;
+}
+
+
+
 .hljs {
     display: block;
     overflow-x: auto;

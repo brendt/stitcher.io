@@ -3,51 +3,40 @@
 namespace Brendt\Stitcher\Plugin\Markdown;
 
 use InvalidArgumentException;
-use League\CommonMark\Block\Element\AbstractBlock;
-use League\CommonMark\Block\Element\FencedCode;
-use League\CommonMark\ElementRendererInterface;
-use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
+use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
+use League\CommonMark\Node\Node;
+use League\CommonMark\Renderer\ChildNodeRendererInterface;
+use League\CommonMark\Extension\CommonMark\Renderer\Block\FencedCodeRenderer as BaseFencedCodeRenderer;
+use Tempest\Highlight\Highlighter;
+use League\CommonMark\Renderer\NodeRendererInterface;
 
-class HighlightCodeBlockRenderer extends FencedCodeRenderer
+class HighlightCodeBlockRenderer implements NodeRendererInterface
 {
-    public function render(AbstractBlock $block, ElementRendererInterface $htmlRenderer, $inTightList = false)
+    public function render(Node $node, ChildNodeRendererInterface $childRenderer)
     {
-        if (! $block instanceof FencedCode) {
+        if (! $node instanceof FencedCode) {
             throw new InvalidArgumentException('Block must be instance of ' . FencedCode::class);
         }
 
-        $element = parent::render($block, $htmlRenderer, $inTightList);
+        $renderer = new BaseFencedCodeRenderer();
 
-        $content = $element->getContents();
+        $language = $node->getInfoWords()[0] ?? 'txt';
 
-        $content = preg_replace_callback('/\&lt;[\w\s\<\"\=\-\>\/]+hljs[\w\s\<\"\=\-\>\/]+/', function ($match) {
-            $match = str_replace('<span class="hljs-title">', '', $match[0] ?? '');
+        $highlight = new Highlighter();
 
-            $match = str_replace('</span>', '', $match);
+        /** @var \League\CommonMark\Util\HtmlElement $codeBlock */
+        $codeBlock = $renderer->render($node, $childRenderer);
 
-            return $match;
-        }, $content);
+        /** @var string $codeText */
+        $codeText = $codeBlock->getContents(false)->getContents();
 
-        $content = str_replace('&lt;/hljs&gt;', '</span>', $content);
+        // Remove hljs tags
+        $codeText = preg_replace(['/&lt;hljs(.*?)*&gt;/', '/&lt;\/hljs&gt;/'], '', $codeText);
 
-        $lines = explode(PHP_EOL, $content);
+        $codeBlock->setContents($highlight->parse($codeText, $language));
 
-        $regex = '/\&lt\;hljs([\w\s]+)&gt;/';
+        $codeBlock->setContents($codeBlock->getContents());
 
-        foreach ($lines as $index => $line) {
-            $line = preg_replace_callback($regex, function ($matches) {
-                $class = $matches[1] ?? '';
-
-                return "<span class=\"hljs-highlight {$class}\">";
-            }, $line);
-
-            $lines[$index] = $line;
-        }
-
-        unset($lines[array_key_last($lines)]);
-
-        $element->setContents(implode(PHP_EOL, $lines) . '</code>');
-
-        return $element;
+        return $codeBlock;
     }
 }

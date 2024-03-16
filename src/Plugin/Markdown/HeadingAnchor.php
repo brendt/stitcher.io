@@ -2,27 +2,29 @@
 
 namespace Brendt\Stitcher\Plugin\Markdown;
 
-use League\CommonMark\Block\Element\AbstractBlock;
-use League\CommonMark\Block\Element\Heading;
-use League\CommonMark\Block\Renderer\BlockRendererInterface;
-use League\CommonMark\ElementRendererInterface;
-use League\CommonMark\HtmlElement;
+use InvalidArgumentException;
+use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
+use League\CommonMark\Node\Node;
+use League\CommonMark\Renderer\ChildNodeRendererInterface;
+use League\CommonMark\Renderer\NodeRendererInterface;
+use League\CommonMark\Util\HtmlElement;
+use function get_class;
 
-class HeadingAnchor implements BlockRendererInterface
+class HeadingAnchor implements NodeRendererInterface
 {
-    public function render(AbstractBlock $block, ElementRendererInterface $htmlRenderer, $inTightList = false)
+    public function render(Node $node, ChildNodeRendererInterface $childRenderer)
     {
-        if (!($block instanceof Heading)) {
-            throw new \InvalidArgumentException('Incompatible block type: ' . \get_class($block));
+        if (!($node instanceof Heading)) {
+            throw new InvalidArgumentException('Incompatible block type: ' . get_class($node));
         }
 
-        $level = $block->getLevel();
+        $level = $node->getLevel();
 
         $tag = 'h' . $level;
 
-        $attrs = $block->getData('attributes', []);
+//        $attrs = $node->getData('attributes', []);
 
-        $block = new HtmlElement($tag, $attrs, $htmlRenderer->renderInlines($block->children()));
+        $block = new HtmlElement($tag, [], $childRenderer->renderNodes($node->children()));
 
         if ($level > 4) {
             return $block;

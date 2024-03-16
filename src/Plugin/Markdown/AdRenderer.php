@@ -4,13 +4,13 @@ namespace Brendt\Stitcher\Plugin\Markdown;
 
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use League\CommonMark\Block\Element\Paragraph;
-use League\CommonMark\ElementRendererInterface;
-use League\CommonMark\Inline\Element\AbstractInline;
-use League\CommonMark\Inline\Element\Text;
-use League\CommonMark\Inline\Renderer\InlineRendererInterface;
+use League\CommonMark\Node\Block\Paragraph;
+use League\CommonMark\Node\Inline\Text;
+use League\CommonMark\Node\Node;
+use League\CommonMark\Renderer\ChildNodeRendererInterface;
+use League\CommonMark\Renderer\NodeRendererInterface;
 
-class AdRenderer implements InlineRendererInterface
+class AdRenderer implements NodeRendererInterface
 {
     private $google;
 
@@ -41,13 +41,13 @@ class AdRenderer implements InlineRendererInterface
         }
     }
 
-    public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer, $inTightList = false)
+    public function render(Node $node, ChildNodeRendererInterface $childRenderer)
     {
-        if (! $inline instanceof Text) {
-            throw new InvalidArgumentException('Block must be instance of ' . Paragraph::class);
+        if (! $node instanceof Text) {
+            throw new InvalidArgumentException('Block must be instance of ' . Text::class);
         }
 
-        $content = $inline->getContent();
+        $content = $node->getLiteral();
 
         foreach ($this->ctas as $key => $cta) {
             while (Str::contains($content, $key)) {

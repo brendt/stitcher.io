@@ -3,20 +3,20 @@
 namespace Brendt\Stitcher\Plugin\Markdown;
 
 use InvalidArgumentException;
-use League\CommonMark\ElementRendererInterface;
-use League\CommonMark\Inline\Element\AbstractInline;
-use League\CommonMark\Inline\Element\Code;
-use League\CommonMark\Inline\Renderer\InlineRendererInterface;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use League\CommonMark\Node\Node;
+use League\CommonMark\Renderer\ChildNodeRendererInterface;
+use League\CommonMark\Renderer\NodeRendererInterface;
 
-class HighlightInlineCodeRenderer implements InlineRendererInterface
+class HighlightInlineCodeRenderer implements NodeRendererInterface
 {
-    public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer)
+    public function render(Node $node, ChildNodeRendererInterface $childRenderer)
     {
-        if (! $inline instanceof Code) {
+        if (! $node instanceof Code) {
             throw new InvalidArgumentException('Block must be instance of ' . Code::class);
         }
 
-        $content = $inline->getContent();
+        $content = $node->getLiteral();
 
         if (! strpos($content, 'hljs')) {
             return '<code>' . $content . '</code>';

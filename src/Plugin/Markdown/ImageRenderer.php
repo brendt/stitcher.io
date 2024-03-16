@@ -2,14 +2,14 @@
 
 namespace Brendt\Stitcher\Plugin\Markdown;
 
-use League\CommonMark\ElementRendererInterface;
-use League\CommonMark\Inline\Element\AbstractInline;
+use League\CommonMark\Node\Node;
+use League\CommonMark\Renderer\ChildNodeRendererInterface;
 
 class ImageRenderer extends \Pageon\Lib\Markdown\ImageRenderer
 {
-    public function render(AbstractInline $inline, ElementRendererInterface $htmlRenderer)
+    public function render(Node $node, ChildNodeRendererInterface $childRenderer)
     {
-        $htmlElement = parent::render($inline, $htmlRenderer);
+        $htmlElement = parent::render($node, $childRenderer);
 
         if (! $htmlElement->getContents()) {
               return $htmlElement;

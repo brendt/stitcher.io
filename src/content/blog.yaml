@@ -13,11 +13,11 @@
 #    meta:
 #        template: blog/meta/php-2024.twig
 
-#a-syntax-highlighter-that-doesnt-suck:
-#    date: 2024-03-15
-#    title: A syntax highlighter that doesn't suck
-#    content: src/content/blog/2024-03-15-a-syntax-highlighter-that-doesnt-suck.md
-#    disableAds: true
+a-syntax-highlighter-that-doesnt-suck:
+    date: 2024-03-15
+    title: A syntax highlighter that doesn't suck
+    content: src/content/blog/2024-03-15-a-syntax-highlighter-that-doesnt-suck.md
+    disableAds: true
 
 the-framework-that-gets-out-of-your-way:
     date: 2024-02-19
