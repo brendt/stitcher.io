@@ -1,6 +1,6 @@
 It all started with Aidan sending me this message:
 
-> Huh. Isn't there a better way to do syntax highlighting for that?
+_"Huh. Isn't there a better way to do syntax highlighting for that?"_
 
 He was talking about code blocks for the upcoming [Tempest docs](https://tempest.stitcher.io/) site. I must say I wasn't surprised by his question, although I had hoped he wouldn't ask it.
 
@@ -20,7 +20,7 @@ However, when I started drafting the Tempest docs, I knew deep down that this so
 
 So, yes, Aidan's right to ask this question.
 
-> Isn't there a better way to do syntax highlighting for that?
+_"Isn't there a better way to do syntax highlighting for that?"_
 
 "No problem", I told him, "I'll find a replacement!" Originally I had other plans that day, but I imagined it wouldn't be so hard to switch to another highlighter. It's a couple of years later, surely there will be a better solution now.
 
@@ -50,7 +50,7 @@ At this point I was becoming frustrated. Surely it can't be that there is no pro
 
 But Aidan wasn't ready to let go:
 
-> I’m very determined to find a solution to this syntax highlighting problem though.
+_"I’m very determined to find a solution to this syntax highlighting problem though."_
 
 With these words of "encouragement", I decided to consider one final option. Let's write something myself. It's just syntax highlighting — "how hard can it be?" If I wasn't able to get something working in a couple of hours, I could still abandon the idea.
 
@@ -62,9 +62,8 @@ It took a couple of iterations, some dreaming about it during the night — I te
 
 This is what I sent Aidan at 6:57 AM:
 
-> Ok Aidan, I need you to keep calm. Ok?
->
-> EVERYTHING WORKS 😱😱😱😱😱😱😱😱
+_"Ok Aidan, I need you to keep calm. Ok?
+EVERYTHING WORKS 😱😱😱😱😱😱😱😱"_
 
 Ok, not _everything_ worked, but all important things _did_:
 

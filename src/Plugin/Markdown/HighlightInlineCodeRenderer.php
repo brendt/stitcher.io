@@ -3,10 +3,14 @@
 namespace Brendt\Stitcher\Plugin\Markdown;
 
 use InvalidArgumentException;
+use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use League\CommonMark\Extension\CommonMark\Renderer\Block\FencedCodeRenderer as BaseFencedCodeRenderer;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
+use League\CommonMark\Util\HtmlElement;
+use Tempest\Highlight\Highlighter;
 
 class HighlightInlineCodeRenderer implements NodeRendererInterface
 {
@@ -16,22 +20,15 @@ class HighlightInlineCodeRenderer implements NodeRendererInterface
             throw new InvalidArgumentException('Block must be instance of ' . Code::class);
         }
 
-        $content = htmlentities($node->getLiteral());
+        preg_match('/^\{(?<match>[\w]+)\}(?<code>.*)/', $node->getLiteral(), $match);
 
-        if (! strpos($content, 'hljs')) {
-            return '<code>' . $content . '</code>';
-        }
+        $language = $match['match'] ?? 'txt';
+        $code = $match['code'] ?? $node->getLiteral();
+        $code = htmlentities($code);
+        $code = preg_replace(['/&lt;hljs(.*?)*&gt;/', '/&lt;\/hljs&gt;/'], '', $code);
 
-        $content = str_replace('</hljs>', '</span>', $content);
+        $highlighter = new Highlighter();
 
-        $regex = '/<hljs([\w\s]+)>/';
-
-        $content = preg_replace_callback($regex, function ($matches) {
-            $class = $matches[1] ?? '';
-
-            return "<span class=\"hljs-highlight {$class}\">";
-        }, $content);
-
-        return '<code>' . $content . '</code>';
+        return '<code>' . $highlighter->parse($code, $language) . '</code>';
     }
 }

@@ -51,9 +51,9 @@ Yes, you'll need some basic knowledge of regex. Head over to [https://regexr.com
 
 **In summary:**
 
-- Patterns provide a regex that matches parts of code
-- Those regexes should contain a group named `match`, which is written like so `(?<match>…)`
-- Finally, a pattern provides a `TokenType`, which is used to determine the highlight style for the specific match
+- Pattern classes provide a regex pattern that matches parts of code.
+- Those regexes should contain a group named `match`, which is written like so `(?<match>…)`, this group represents the code that will actually be highlighted.
+- Finally, a pattern provides a `{php}TokenType`, which is used to determine the highlight style for the specific match.
 
 ### 2. Injections
 
@@ -73,7 +73,7 @@ An _injection_ will tell the highlighter that it should treat a block of code as
 </div>
 ```
 
-Everything within `<style></style>` tags should be treated as CSS. That's done by this class:
+Everything within `{html}<style></style>` tags should be treated as CSS. That's done by injection classes:
 
 ```php
 use Tempest\Highlight\Highlighter;
@@ -100,33 +100,36 @@ Just like patterns, an _injection_ must provide a pattern. This pattern, for exa
 
 **Keep in mind that we're always dealing with escaped code!**
 
-The second step in providing an _injection_ is to parse the matched content into another language. That's what the `parseContent` method is for. In this case, we'll get all code between the style tags that was matched with the named `(?<match>…)` group, and parse that content as CSS instead of whatever language we're currently dealing with.
+The second step in providing an _injection_ is to parse the matched content into another language. That's what the `{php}parseContent()` method is for. In this case, we'll get all code between the style tags that was matched with the named `(?<match>…)` group, and parse that content as CSS instead of whatever language we're currently dealing with.
 
 **In summary:**
 
-- Injections provide a regex that matches a blob of code of language A, while in language B
-- Just like patterns, injection regexes should contain a group named `match`, which is written like so `(?<match>…)`
-- Finally, an injection will use the highlighter to parse its matched content into another language
+- Injections provide a regex that matches a blob of code of language A, while in language B.
+- Just like patterns, injection regexes should contain a group named `match`, which is written like so: `(?<match>…)`.
+- Finally, an injection will use the highlighter to parse its matched content into another language.
 
 ### 3. Languages
 
-The last concept to understand: _languages_ are classes that bring _patterns_ and _injections_ together. Take a look at the `HtmlLanguage`, for example:
+The last concept to understand: _languages_ are classes that bring _patterns_ and _injections_ together. Take a look at the `{php}HtmlLanguage`, for example:
 
 ```php
-class HtmlLanguage implements Language
+class HtmlLanguage extends BaseLanguage
 {
     public function getInjections(): array
     {
         return [
+            ...parent::getInjections(),
             new PhpInjection(),
             new PhpShortEchoInjection(),
             new CssInjection(),
+            new CssAttributeInjection(),
         ];
     }
 
     public function getPatterns(): array
     {
         return [
+            ...parent::getPatterns(),
             new OpenTagPattern(),
             new CloseTagPattern(),
             new TagAttributePattern(),
@@ -134,19 +137,22 @@ class HtmlLanguage implements Language
         ];
     }
 }
+
 ```
 
-This `HtmlLanguage` class specifies the following things:
+This `{php}HtmlLanguage` class specifies the following things:
 
 - PHP can be injected within HTML, both with the short echo tag `<?=` and longer `<?php` tags
 - CSS can be injected as well, JavaScript support is still work in progress
 - There are a bunch of patterns to highlight HTML tags properly
 
-So, let's bring everything together to explain how you can add your own languages.
+On top of that, it extends from `{php}BaseLanguage`. This is a language class that adds a bunch of cross-language injections, such as blurs and highlights. Your language doesn't _need_ to extend from `{php}BaseLanguage` and could implement `{php}Language` directly if you want to.
+
+With these three concepts in place, let's bring everything together to explain how you can add your own languages.
 
 ### Adding custom languages
 
-So we're adding [Blade](https://laravel.com/docs/11.x/blade) support. We could create a plain language file and start from there, but it'd probably be easier to extend an existing language, `HtmlLanguage` is probably the best. Let create a new `BladeLanguage` class that extends from `HtmlLanguage`:
+So we're adding [Blade](https://laravel.com/docs/11.x/blade) support. We could create a new language class and start from scratch, but it'd probably be easier to extend an existing language, `{php}HtmlLanguage` is probably the best. Let create a new `{php}BladeLanguage` class that extends from `{php}HtmlLanguage`:
 
 ```php
 class BladeLanguage extends HtmlLanguage
@@ -186,7 +192,7 @@ final readonly class BladeKeywordPattern implements Pattern
 }
 ```
 
-And register it in our `BladeLanguage` class:
+And register it in our `{php}BladeLanguage` class:
 
 ```php
     public function getPatterns(): array
@@ -198,7 +204,7 @@ And register it in our `BladeLanguage` class:
     }
 ```
 
-Next, there are a couple of places within Blade where you can write PHP code: within the `@php` keyword, as well as within keyword brackets: `@if (count(…))`. Let's write two injections for that:
+Next, there are a couple of places within Blade where you can write PHP code: within the `{blade}@php` keyword, as well as within keyword brackets: `{blade}@if (count(…))`. Let's write two injections for that:
 
 ```php
 final readonly class BladePhpInjection implements Injection
@@ -234,7 +240,7 @@ final readonly class BladeKeywordInjection implements Injection
 }
 ```
 
-Let's add these to our `BladeLanguage` class as well:
+Let's add these to our `{php}BladeLanguage` class as well:
 
 ```php
     public function getInjections(): array
@@ -294,3 +300,5 @@ $highlighter->addLanguage('blade', new BladeLanguage());
 And we're done! Blade support with just a handful of patterns and injections!
 
 I think that the ability to extend from other languages and language injections are both really powerful to be able to quickly build new languages. Of course, **you're free to [send pull requests](https://github.com/tempestphp/highlight) with support for additional languages as well! Take a look at the [package's tests](https://github.com/tempestphp/highlight/tree/main/tests/Languages) to learn how to write tests for patterns and injections.**
+
+{{ cta:mail }}
