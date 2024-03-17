@@ -4,8 +4,6 @@ Let's explain how `tempest/highlight` works by implementing a new language — [
 
 ```blade
 @if(! empty($items))
-    {{-- a comment --}}
-    
     <div class="container">
         Items: {{ count($items) }}.
     </div>
