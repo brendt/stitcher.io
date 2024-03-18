@@ -18,13 +18,15 @@ $color-purple: #9d3af6;
     font-style: italic;
 }
 
+.hl-generic .hl-type,
+.hl-generic {
+    color: $color-purple;
+}
+
 .hl-type {
     color: $color-red;
 }
 
-.hl-generic {
-    color: $color-purple;
-}
 
 .hl-comment {
     color: #888888;

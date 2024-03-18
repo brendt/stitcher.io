@@ -84,7 +84,7 @@ final readonly class CssInjection implements Injection
 
     public function getPattern(): string
     {
-        return '&lt;style&gt;(?<match>(.|\n)*)&lt;\/style&gt;';
+        return '<style>(?<match>(.|\n)*)<\/style>';
     }
 
     public function parseContent(string $content, Highlighter $highlighter): string
@@ -94,9 +94,7 @@ final readonly class CssInjection implements Injection
 }
 ```
 
-Just like patterns, an _injection_ must provide a pattern. This pattern, for example, will match anything between style tags: `&lt;style&gt;(?<match>(.|\n)*)&lt;\/style&gt;`.
-
-**Keep in mind that we're always dealing with escaped code!**
+Just like patterns, an _injection_ must provide a pattern. This pattern, for example, will match anything between style tags: `{html}<style>(?<match>(.|\n)*)<\/style>`.
 
 The second step in providing an _injection_ is to parse the matched content into another language. That's what the `{php}parseContent()` method is for. In this case, we'll get all code between the style tags that was matched with the named `(?<match>…)` group, and parse that content as CSS instead of whatever language we're currently dealing with.
 

@@ -69,7 +69,7 @@ function add(<hljs type>int</hljs> $a, <hljs type>int</hljs> $b): int
 If PHP ignored the generic type of this “string” collection, and we’d accidentally add an integer to it, it wouldn’t be able to warn us about that, if the generic type was erased:
 
 ```php
-$slugs = new <hljs type>Collection</hljs><<hljs generic>string</hljs>>();
+$slugs = new <hljs type>Collection</hljs><{:hl-generic:string:}>();
 
 $slugs[] = 1; // 1 won't be cast to '1'
 ```

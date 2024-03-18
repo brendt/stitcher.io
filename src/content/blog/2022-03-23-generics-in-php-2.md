@@ -1,9 +1,9 @@
 I showed a very boring example of generics in the [previous post](/blog/generics-in-php-1), we’re going to do better in this one.
 
 ```php
-$users = new <hljs type>Collection</hljs><<hljs generic>User</hljs>>();
+$users = new <hljs type>Collection</hljs><{:hl-generic:User:}>();
 
-$slugs = new <hljs type>Collection</hljs><<hljs generic>string</hljs>>();
+$slugs = new <hljs type>Collection</hljs><{:hl-generic:string:}>();
 ```
 
 Collections; they are probably the easiest way to explain what generics are about, but they also are the example that everyone talks about when discussing generics. It’s actually not uncommon for people to think that “generics” and “collections with a type” are the same thing. That’s definitely not the case.
@@ -45,9 +45,9 @@ And I guess this is a good time to mention that I’ve been keeping a secret, ki
 
 ```php
 /**
- * @template <hljs generic>Type</hljs>
- * @param <hljs type>class-string</hljs><<hljs generic>Type</hljs>> $className
- * @return <hljs generic>Type</hljs>
+ * @template {:hl-generic:Type:}
+ * @param <hljs type>class-string</hljs><{:hl-generic:Type:}> $className
+ * @return {:hl-generic:Type:}
  */
 function app(<hljs type>string</hljs> $className): mixed
 { /* … */ }
@@ -77,19 +77,19 @@ When we use the `<hljs prop>filter</hljs>` method, we give it an attribute’s c
 You guessed it: generics allow us to do that:
 
 ```php
-/** @template <hljs generic>AttributeType</hljs> */
+/** @template {:hl-generic:AttributeType:} */
 class Attributes
 {
     /**
-     * @template <hljs generic>InputType</hljs>
-     * @param <hljs type>class-string</hljs><<hljs generic>InputType</hljs>> $className
-     * @return <hljs type>self</hljs><<hljs generic>InputType</hljs>>
+     * @template {:hl-generic:InputType:}
+     * @param <hljs type>class-string</hljs><{:hl-generic:InputType:}> $className
+     * @return <hljs type>self</hljs><{:hl-generic:InputType:}>
      */
     public function filter(<hljs type>string</hljs> $className): self
     { /* … */ }
  
     /**
-     * @return <hljs generic>AttributeType</hljs> 
+     * @return {:hl-generic:AttributeType:} 
      */   
     public function newInstance(): mixed
     { /* … */ }
