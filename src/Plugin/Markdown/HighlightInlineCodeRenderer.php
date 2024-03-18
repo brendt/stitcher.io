@@ -24,7 +24,7 @@ class HighlightInlineCodeRenderer implements NodeRendererInterface
 
         $language = $match['match'] ?? 'txt';
         $code = $match['code'] ?? $node->getLiteral();
-        $code = preg_replace(['/&lt;hljs(.*?)*&gt;/', '/&lt;\/hljs&gt;/'], '', $code);
+        $code = preg_replace(['/<hljs(.*?)*>/', '/<\/hljs>/'], '', $code);
 
         $highlighter = new Highlighter();
 
