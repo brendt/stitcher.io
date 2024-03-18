@@ -71,7 +71,7 @@ Ok, not _everything_ worked, but all important things _did_:
 - Server-side rendered highlights
 - Fast enough to handle stuff without any caching
 - Accurate syntax highlighting
-- An easy API to add new languages
+- [An easy API to add new languages](/blog/building-a-custom-language-in-tempest-highlight)
 - Language injection support, so that you can combine multiple languages within one codeblock (it's actually pretty neat)
 
 And so… I'd like to present, a code highlighter that doesn't suck: [tempest/highlight](https://github.com/tempestphp/highlight). 
