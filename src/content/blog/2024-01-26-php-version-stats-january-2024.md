@@ -255,7 +255,7 @@ Instead of comparing absolute numbers, it's best to plot this data into a chart 
 
 <em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2024-jan-03.svg)</em>
 
-Talking about progression, I'd like to remind open source maintainers about the power and responsibility they hold. Image if all modern open source packages only supported PHP versions that were actively worked on. My suspicion is that many more projects would be encouraged to update faster; eventually leading to a healthier, more performant, and more secure ecosystem. Open source maintainers yield quite a lot of power in this regard.
+Talking about progression, I'd like to remind open source maintainers about the power and responsibility they hold. Imagine if all modern open source packages only supported PHP versions that were actively worked on. My suspicion is that many more projects would be encouraged to update faster; eventually leading to a healthier, more performant, and more secure ecosystem. Open source maintainers yield quite a lot of power in this regard.
 
 Also keep in mind that forcing a new minimal PHP requirement doesn't automatically block older projects from using your code: outdated projects can still download older versions of your packages, so there's really no good argument not to do it from a package maintainer's point of view.
 
