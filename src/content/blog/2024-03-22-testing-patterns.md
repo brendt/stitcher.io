@@ -1,6 +1,6 @@
-While building [tempest/highlight](/blog/a-syntax-highlighter-that-doesnt-suck), I came across an interesting design problem. One of the core components of my highlighter package are so-called "Patterns": classes that match a very specific part of code-to-be-highlighted using regexes. Part of my test suite is to test each of these patterns individually, to make sure they match the correct tokens, and don't match the incorrect ones.
+While building [tempest/highlight](/blog/a-syntax-highlighter-that-doesnt-suck), I came across an interesting design problem. One of its core components is a concept called "patterns"; these are classes that match a very specific part of code-to-be-highlighted using regex. Part of my test suite's responsibility is to test each of these patterns individually, to make sure they match the correct tokens, and don't match any incorrect ones.
 
-Right now, tempest/highlight counts 109 pattern classes, a handful of them representing a collection of patterns such as keywords or operators. The rest represent a specific pattern to match. Take, for example, the `{php}NewObjectPattern` that matches PHP class names when they are used to create new object with:
+Right now, tempest/highlight counts 109 pattern classes, a handful of them representing a collection of patterns such as keywords or operators. Take, for example, the `{php}NewObjectPattern` that matches PHP class names when they are used to create a new object:
 
 ```php
 final readonly class NewObjectPattern implements Pattern
@@ -20,9 +20,7 @@ final readonly class NewObjectPattern implements Pattern
 
 ```
 
-In case you're curious, I wrote about this pattern in depth in [this previous post](/blog/building-a-custom-language-in-tempest-highlight).
-
-With 109 pattern classes (that number's still growing), the question arises: how to test them? You could write individual tests for all of them, which is what I started out with. I created a trait called `{php}TestsPatterns` which has one method:
+With 109 patterns (and that number is still growing), the question arises: how to test them? I could write individual tests for all of them, which is what I started out with. That grew into a mess pretty quickly though, so I created a trait called `{php}TestsPatterns` which has this method:
 
 ```php
 public function assertMatches(
@@ -90,11 +88,11 @@ class NewObjectPatternTest extends TestCase
 }
 ```
 
-This trait significantly reduces the amount of code we need to write: it takes a `{php}Pattern` object, and checks whether a given input returns a matching output.
+This trait significantly reduced the amount of code I had to write: it takes a `{php}Pattern` object, and checks whether a given input returns a matching output.
 
 Good enough? Well, not so fast. Writing tests this way for 109 patterns actually gets pretty boring, pretty fast. I believe that to write a thorough test suite, writing tests need to be as frictionless as possible, otherwise people (me) will just skip writing tests in the long run.
 
-So, I wondered: "can I reduce friction even more?"
+So, I wondered: "can I reduce this friction even more?"
 
 [Data providers](https://blog.martinhujer.cz/how-to-use-data-providers-in-phpunit/) came to mind: what if I made one class that contained all my test cases, and only needed to provide the data?
 
@@ -130,13 +128,13 @@ final class PatternsTest extends TestCase
 }
 ```
 
-Now there is even less duplicated setup code to write! However, there is a glaring problem: this approach scales poorly. Can you imagine having all pattern tests in one test file? Luckily, PhpStorm allows to run a single data provider entry, and is able to tell you which specific data provider entry failed:
+Now there is even less duplicated setup code to write! However, there is a glaring problem: this approach scales poorly. Can you imagine having all pattern tests in one test file? Luckily, PhpStorm allows to run a single data provider entry, and is able to tell you which specific data provider entry failed, so there is some fine-grained control:
 
 ![](/resources/img/blog/pattern-test/phpstorm.png)
 
 But still… hundreds, potentially thousands, of tests in the same file doesn't seem like an approach that would work in the long run.
 
-Thanks to data providers though, I had another idea. What if there's one "main test" that's responsible for testing all patterns, but what if its data provider entries were aggregated from separate files? 
+Data providers gave me another idea though. What if there's one "main test" that's responsible for testing all patterns, but what if its data provider entries were aggregated from separate files? 
 
 What if… 
 
@@ -192,12 +190,39 @@ public static function patterns(): Generator
 }
 ```
 
-This data provider now:
+Let me quickly run you through what happens. First, the data provider scans all classes in the right directories:
 
-- Scans all classes in the right directories
-- Checks each class for one of more `{php}PatternTest` attributes
-- Uses each of those attributes to generate a test
+```php
+$patternFiles = glob(__DIR__ . '/../src/Languages/*/Patterns/**.php');
+```
 
-And… that's it! In this case, I find this approach to be very handy. There's also no need to worry about performance overhead: the whole testsuite for `tempest/highlight` runs in 50ms.
+Next, it gathers one of more `{php}PatternTest` attributes from these classes:
+
+```php
+$reflectionClass = new ReflectionClass($className);
+
+$attributes = $reflectionClass->getAttributes(PatternTest::class);
+```
+
+Finally, each of those attributes is used to generate a test:
+
+```php
+foreach ($attributes as $attribute) {
+    /** @var PatternTest $patternTest */
+    $patternTest = $attribute->newInstance();
+
+    yield [$reflectionClass->newInstance(), $patternTest];
+}
+```
+
+And… that's it! In this case, I find this approach to be very handy: whenever I create a new pattern class, the first thing I do is add a couple of pattern tests to it so that I have an example to look at. There's also no need to worry about performance overhead: the whole testsuite for `tempest/highlight` runs in 50ms.
 
 The only downside to this approach is that you cannot run a _specific_ pattern test on its own, without having first run the whole testsuite. PhpStorm is able to run data provider entries individually when they are listed within the data provider method, but filling that array dynamically of course prevents PhpStorm from detecting that. 
+
+You can rerun specific pattern tests when they failed, and I find that adding a good error message helps you to quickly find the problem:
+
+![](/resources/img/blog/pattern-test/phpstorm-2.png)
+
+I'll acknowledge that this is indeed a minor downside to this approach. However, I find that for this specific use case, I'm saving lots of time, and I've removed the majority of friction while testing `tempest/highlight`. In the end, for me, it's a win.
+
+{{ cta:mail }}

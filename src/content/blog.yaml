@@ -13,11 +13,11 @@
 #    meta:
 #        template: blog/meta/php-2024.twig
 
-#testing-patterns:
-#    date: 2024-03-22
-#    title: Testing Patterns
-#    content: src/content/blog/2024-03-22-testing-patterns.md
-#    disableAds: true
+testing-patterns:
+    date: 2024-03-22
+    title: Testing Patterns
+    content: src/content/blog/2024-03-22-testing-patterns.md
+    disableAds: true
 
 building-a-custom-language-in-tempest-highlight:
     date: 2024-03-16

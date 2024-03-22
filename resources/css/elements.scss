@@ -138,7 +138,7 @@ p {
     font-size: 1.3em;
     line-height: 1.55em;
 
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 
     & > small {
         font-size: 1rem;
@@ -241,7 +241,7 @@ h1 + blockquote {
 }
 
 p+blockquote {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     margin-bottom: 2rem;
 }
 
@@ -273,8 +273,8 @@ p code, ul code {
 }
 
 pre {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
 
     overflow-x: auto;
     display: block;
@@ -327,8 +327,8 @@ img {
 }
 
 p > img {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 footer {
