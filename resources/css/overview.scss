@@ -35,7 +35,10 @@ nav {
 }
 
 nav > a {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
     font-size: 1.1em;
     font-family: $font-body;
     margin: .3em;
@@ -44,6 +47,11 @@ nav > a {
 
     > * + * {
         margin-left: .3em;
+    }
+
+    .post-date {
+        display: block;
+        min-width: 10ch;
     }
 
     .post-title {
@@ -60,6 +68,7 @@ nav > a {
     }
 
     @media(max-width: $width-container-mobile-lrg) {
+        display: block;
         text-align: center;
 
         .post-title {

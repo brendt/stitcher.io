@@ -55,7 +55,7 @@
                 {% if post.hidden is not defined or post.hidden == false %}
                     <a href="{{ detailUrl ?? '/blog' }}/{{ post.id }}" {% if post.highlight is defined and post.highlight %}class="highlight"{% endif %}>
                         {% if post.date is defined %}
-                            <span>
+                            <span class="post-date">
                                 {{ post.date|date("Y-m-d") }}
                             </span>
                         {% endif %}
