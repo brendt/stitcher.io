@@ -1,7 +1,7 @@
 @import "css/variables";
 
 body {
-    font-size: 16px;
+    font-size: 14px;
     background-color: #fefefe;
     margin: 0;
     padding: 0;
@@ -9,13 +9,12 @@ body {
 
     @include fontWeight();
 
-    @media (max-width: $width-container-mobile-lrg) {
-        font-size: 16px;
-    }
+    //@media (max-width: $width-container-mobile-lrg) {
+    //    font-size: 16px;
+    //}
 
     @media (max-width: $width-container-mobile) {
-        font-size: 14px;
-        font-weight: 400;
+        font-size: 13px;
     }
 }
 
