@@ -1,5 +1,7 @@
 Yesterday, I wrote about the _why_ of [making a new syntax highlighter](/blog/a-syntax-highlighter-that-doesnt-suck). Today I want to write about the _how_.
 
+<iframe width="560" height="345" src="https://www.youtube.com/embed/cZugbAR8Fyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Let's explain how `tempest/highlight` works by implementing a new language — [Blade](https://laravel.com/docs/11.x/blade) is a good candidate. It looks something like this:
 
 ```blade

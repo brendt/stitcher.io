@@ -100,3 +100,7 @@ final readonly class BookController
     }
 }
 ```
+
+PPPS: here's a vlog showing the initial implementation of this package:
+
+<iframe width="560" height="345" src="https://www.youtube.com/embed/cZugbAR8Fyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
