@@ -5,13 +5,13 @@
 #    title: Coaching Devs
 #    content: src/content/blog/2024-01-25-coaching-devs.md
 
-#php-in-2024:
-#    date: 2024-03-23
-#    title: PHP in 2024
-#    content: src/content/blog/2024-01-26-php-in-2024.md
-#    disableAds: true
-#    meta:
-#        template: blog/meta/php-2024.twig
+php-in-2024:
+    date: 2024-03-23
+    title: PHP in 2024
+    content: src/content/blog/2024-01-26-php-in-2024.md
+    disableAds: true
+    meta:
+        template: blog/meta/php-2024.twig
 
 testing-patterns:
     date: 2024-03-22
