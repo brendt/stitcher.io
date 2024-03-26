@@ -1,3 +1,10 @@
+'89':
+    date: 2024-03-16
+    title: "PHP in 2024"
+    pretext: "I'm excited about PHP — can you believe it?!?"
+    content: src/content/mails/stitcher-89.md
+
+
 '88':
     date: 2023-03-16
     title: "A syntax highlighter that doesn't suck"
