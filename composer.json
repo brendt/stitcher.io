@@ -4,7 +4,7 @@
         "pageon/stitcher-core": "dev-master",
         "spatie/browsershot": "^3.40",
         "symfony/console": "^4.0",
-        "tempest/highlight": "dev-main",
+        "tempest/highlight": "^2.0",
         "league/commonmark": "^2.4"
     },
     "repositories" : [
