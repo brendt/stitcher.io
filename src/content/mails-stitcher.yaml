@@ -1,3 +1,9 @@
+'91':
+    date: 2024-04-29
+    title: "Livestream with Larry Garfield"
+    pretext: "I'm going to have a chat with the co-author of property hooks!"
+    content: src/content/mails/stitcher-91.md
+
 '90':
     date: 2024-04-23
     title: "Property hooks are coming!"

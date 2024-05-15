@@ -5,6 +5,20 @@
 #    title: Coaching Devs
 #    content: src/content/blog/2024-01-25-coaching-devs.md
 
+new-in-php-84:
+    date: 2024-05-15
+    title: What's new in PHP 8.4
+    content: src/content/blog/2024-05-15-new-in-php-84.md
+    disableAds: true
+    meta:
+        description: "Features, performance upgrades, and deprecations in PHP 8.4"
+        template: 'blog/meta/new-in-php-84.twig'
+    footnotes:
+        - { link: /blog/new-in-php-83, title: What's new in PHP 8.3 }
+        - { link: /blog/new-in-php-82, title: What's new in PHP 8.2 }
+        - { link: https://wiki.php.net/rfc/property-hooks, title: The property hooks RFC }
+        - { link: https://wiki.php.net/rfc/new_without_parentheses, title: The "new without parentheses" RFC }
+
 php-in-2024:
     date: 2024-03-23
     title: PHP in 2024

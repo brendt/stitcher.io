@@ -1,0 +1,46 @@
+{% extends '_partials/index.twig' %}
+
+{% block meta %}
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/meta.scss')|raw }}
+    {{ css.inline('resources/css/code.scss')|raw }}
+
+    <style>
+        h1 small {
+            font-size: .5em;
+            margin-top: -10px;
+            display: block;
+        }
+
+        h1 span,
+        .meta-footer > span {
+            background-color: #000;
+            color:#fff;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3em;
+        }
+
+        img  {
+            position: absolute;
+            top: auto;
+            bottom: -20px;
+        }
+    </style>
+{% endblock %}
+
+{% block cookies %}
+{% endblock %}
+
+{% block content %}
+    <div class="meta-container">
+        <img src="{{ source('blog/meta/img/php-84.txt') }}"/>
+    </div>
+{% endblock %}
