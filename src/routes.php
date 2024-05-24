@@ -15,6 +15,7 @@ use Brendt\Stitcher\Handler\RemoveLikeHandler;
 use Stitcher\App;
 
 $redirects = [
+    '/discord' => 'https://discord.gg/pPhpTGUMPQ',
     '/uses' => '/blog/uses',
     '/blog/the-latest-php-version' => '/blog/new-in-php-81',
     '/light' => 'https://www.youtube.com/watch?v=mu0HJ0_kprc',

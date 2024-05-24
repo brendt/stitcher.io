@@ -5,6 +5,11 @@
 #    title: Coaching Devs
 #    content: src/content/blog/2024-01-25-coaching-devs.md
 
+tagged-singletons:
+    date: 2024-05-24
+    title: Tagged Singletons
+    content: src/content/blog/2024-05-24-tagged-singletons.md
+
 new-in-php-84:
     date: 2024-05-15
     title: What's new in PHP 8.4
