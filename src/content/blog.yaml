@@ -1,9 +1,6 @@
 
 
-#coaching-devs:
-#    date: 2024-01-25
-#    title: Coaching Devs
-#    content: src/content/blog/2024-01-25-coaching-devs.md
+# Finally using fibers
 
 tagged-singletons:
     date: 2024-05-24
