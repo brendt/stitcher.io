@@ -431,4 +431,4 @@ The reality is, sometimes we _need_ a very specific thing. Adding layers of abst
 
 ## In closing
 
-I had a lot of fun writing this post, and I hope you enjoyed reading it, even if you disagreed with some parts. I'd love to further talk about it, so feel free to come say hi on the [Tempest Discord](/discord), and subscribe to my [mailing list](/mail) to be kept into the loop about future content. 
+I had a lot of fun writing this post, and I hope you enjoyed reading it, even if you disagreed with some parts. I'd love to further talk about it, so feel free to come say hi on the [Tempest Discord](https://discord.com/channels/1236153076688359495/1244626907580989450), and subscribe to my [mailing list](/mail) to be kept into the loop about future content. 
