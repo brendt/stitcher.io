@@ -1,9 +1,12 @@
 
 
-#coaching-devs:
-#    date: 2024-01-25
-#    title: Coaching Devs
-#    content: src/content/blog/2024-01-25-coaching-devs.md
+# Finally using fibers
+
+twitter-exit:
+    date: 2024-07-01
+    title: Leaving Twitter
+    content: src/content/blog/2024-07-01-twitter-exit.md
+    disableAds: true
 
 tagged-singletons:
     date: 2024-05-24
