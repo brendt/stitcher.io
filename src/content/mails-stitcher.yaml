@@ -1,14 +1,14 @@
-'92':
-    date: 2024-04-29
-    title: "Celebrations!"
-    pretext: "Let's talk about PHP's birthday, as well as PHP 8.4"
-    content: src/content/mails/stitcher-92.md
-
 '93':
     date: 2024-06-25
     title: "Leaving Twitter"
     pretext: "I wanna share some thoughts about Twitter and why I'm leaving it"
     content: src/content/mails/stitcher-93.md
+
+'92':
+    date: 2024-04-29
+    title: "Celebrations!"
+    pretext: "Let's talk about PHP's birthday, as well as PHP 8.4"
+    content: src/content/mails/stitcher-92.md
 
 '91':
     date: 2024-04-29
