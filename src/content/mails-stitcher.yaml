@@ -1,3 +1,9 @@
+'92':
+    date: 2024-04-29
+    title: "Celebrations!"
+    pretext: "Let's talk about PHP's birthday, as well as PHP 8.4"
+    content: src/content/mails/stitcher-92.md
+
 '91':
     date: 2024-04-29
     title: "Livestream with Larry Garfield"
