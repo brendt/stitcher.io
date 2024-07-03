@@ -2,8 +2,14 @@
 
 # Finally using fibers
 
+a-vocal-minority:
+    date: 2024-07-03
+    title: A vocal minority
+    content: src/content/blog/2024-06-29-vocal-minority.md
+    disableAds: true
+
 twitter-exit:
-    date: 2024-07-01
+    date: 2024-06-26
     title: Leaving Twitter
     content: src/content/blog/2024-07-01-twitter-exit.md
     disableAds: true
