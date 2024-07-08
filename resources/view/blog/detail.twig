@@ -66,6 +66,8 @@
 
         {{ post.content|raw }}
 
+        <div id="commento"></div>
+
         {% if 'like-container' not in post.content %}
             {% include '_partials/cta_like.twig' %}
         {% endif %}
@@ -117,6 +119,7 @@
 {% block footer %}{% endblock %}
 
 {% block scripts %}
+    <script defer src="https://cdn.commento.io/js/commento.js"></script>
     <script>
         const currentUrl = window.location.href.split('/');
         const slug = currentUrl[currentUrl.length - 1];

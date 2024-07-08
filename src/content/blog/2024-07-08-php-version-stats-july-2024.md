@@ -302,7 +302,7 @@ Instead of comparing absolute numbers, it's best to plot this data into a chart 
 
 We see the first four packages requiring PHP 8.3 as their minimal version this month, however there is a huge difference compared to PHP 8.2 and PHP 8.1, which had 94 and 125 packages using them as their minimum version respectively. Granted, PHP 8.3 has been a rather boring release, with quite a lot of deprecations as well, but I didn't expect the difference to be so big. We'll see how and if this trend continues in the next year with PHP 8.4.
 
-Once again, I'd like to remind open source authors about the responsibility we collectively hold to move the PHP ecosystem forward. Bumping minimum requirements is a good thing to do, and should — in my opinion — but done more and faster. Feel free to disagree and share your thoughts via [email](mailto:brendt@stitcher.io).
+Once again, I'd like to remind open source authors about the responsibility we collectively hold to move the PHP ecosystem forward. Bumping minimum requirements is a good thing to do, and should — in my opinion — but done more and faster. Feel free to disagree and share your thoughts via [email](mailto:brendt@stitcher.io) or in the comments below this post.
 
 {{ cta:like }}
 
