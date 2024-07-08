@@ -1,6 +1,18 @@
-
-
 # Finally using fibers
+
+php-version-stats-july-2024:
+    date: 2024-07-08
+    title: "PHP version stats: July, 2024"
+    content: src/content/blog/2024-07-08-php-version-stats-july-2024.md
+    versionStatsDate: 2024-07-01
+    disableAds: true
+    meta:
+        description: PHP usage in July, 2024
+        template: blog/meta/version-stats.twig
+    footnotes:
+        - { link: "/blog/new-in-php-84", title: "What's new in PHP 8.4" }
+        - { link: "https://packagist.org/php-statistics", title: "Raw data from packagist" }
+        - { title: "PHP version stats: January, 2024", link: "/blog/php-version-stats-january-2024" }
 
 a-vocal-minority:
     date: 2024-07-03
