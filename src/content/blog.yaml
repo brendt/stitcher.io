@@ -1,5 +1,11 @@
 # Finally using fibers
 
+just-write-it:
+    date: 2024-07-09
+    title: Just write it
+    content: src/content/blog/2024-07-09-get-it-out-there.md
+    disableAds: true
+
 php-version-stats-july-2024:
     date: 2024-07-08
     title: "PHP version stats: July, 2024"
