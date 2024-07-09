@@ -16,7 +16,7 @@ I woke up the next morning, finding an email from Freek in my inbox: "We really 
 
 I kept in touch with Roman, and one day we started talking about an open position for a DA at JetBrains. He had been following my blog and YouTube content and thought I'd be a good fit. And so, here were are.
 
-Had it not been for that one video about Visual Debt, I doubt I'd be where I'd be today. So, in a way, all of this is thanks to Jeffrey Way, the creator of that video. By the way, besides that one video about Visual Debt, I agree with almost everything Jeffrey does at Laracasts, so you definitely should [check him out](https://laracasts.com/) if you haven't heard of him.
+Had it not been for that one video about Visual Debt, I doubt I'd be where I am today. So, in a way, all of this is thanks to Jeffrey Way, the creator of that video. By the way, besides that one video about Visual Debt, I agree with almost everything Jeffrey does at Laracasts, so you definitely should [check him out](https://laracasts.com/) if you haven't heard of him.
 
 Of course, I also have to thank myself for writing — I guess? I simply wrote whatever I wanted to write back then, I didn't have a content plan, I didn't have a strategy. I kept writing, and apparently it worked out pretty well. 
 
