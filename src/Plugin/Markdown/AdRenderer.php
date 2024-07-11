@@ -27,6 +27,7 @@ class AdRenderer implements NodeRendererInterface
         '{{ cta:81 }}' => __DIR__ . '/../../../resources/view/_partials/cta_81.twig',
         '{{ cta:like }}' => __DIR__ . '/../../../resources/view/_partials/cta_like.twig',
         '{{ cta:packagist }}' => __DIR__ . '/../../../resources/view/_partials/ad_packagist.twig',
+        '{{ cta:taxi }}' => __DIR__ . '/../../../resources/view/_partials/cta_taxi.twig',
     ];
 
     private int $stamp = 0;

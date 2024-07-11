@@ -46,6 +46,14 @@
     line-height: 1.7em;
 
     @include outOfBox;
+
+    & p {
+        font-size: 1em;
+    }
+
+    & p:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .footnotes {

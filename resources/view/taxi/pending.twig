@@ -1,0 +1,22 @@
+{% extends '_partials/index.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {{ css.inline('resources/css/blog.scss')|raw }}
+    {{ css.inline('resources/css/overview.scss')|raw }}
+{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>
+            <span>
+                Timeline Taxi
+            </span>
+        </h1>
+
+        <p>Thank you for subscribing. <strong>Please make sure to confirm your email address!</strong> A mail with a link should arrive shortly in your mailbox. If nothing arrives, please mail
+            <a href="mailto:brendt@stitcher.io">brendt@stitcher.io</a> to let me know.</p>
+    </article>
+
+{% endblock %}

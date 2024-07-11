@@ -1,5 +1,11 @@
 # Finally using fibers
 
+timeline-taxi-chapter-01:
+    date: 2024-07-12
+    title: "Timeline Taxi: chapter 1"
+    content: src/content/taxi/taxi-01.md
+    disableAds: true
+
 new-with-parentheses-php-84:
     date: 2024-07-11
     title: New without parentheses in PHP 8.4
