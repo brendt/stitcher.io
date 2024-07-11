@@ -121,3 +121,9 @@ audio {
 .commento-root img {
     margin-left: 0px;
 }
+
+.commento-root .commento-body p {
+    font-size: 1.1em;
+    color: $color-black;
+    font-family: $font-body;
+}
