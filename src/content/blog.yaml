@@ -1,5 +1,17 @@
 # Finally using fibers
 
+new-with-parentheses-php-84:
+    date: 2024-07-11
+    title: New without parentheses in PHP 8.4
+    content: src/content/blog/2024-07-11-new-with-parenthesis-php-84.md
+    meta:
+        description: PHP 8.4 adds a super convenient way to chain methods on newly created objects
+    disableAds: true
+    footnotes:
+        - { link: "/blog/new-in-php-84", title: "What's new in PHP 8.4" }
+        - { link: "https://www.youtube.com/watch?v=3t4BxdkVL8M", title: "Read with me through the RFC" }
+        - { link: "https://wiki.php.net/rfc/new_without_parentheses", title: "Read the full RFC" }
+
 you-should:
     date: 2024-07-09
     title: You should
@@ -46,6 +58,7 @@ new-in-php-84:
         description: "Features, performance upgrades, and deprecations in PHP 8.4"
         template: 'blog/meta/new-in-php-84.twig'
     footnotes:
+        - { link: /blog/new-with-parenthesis-php-84, title: New without parenthesis in PHP 8.4 }
         - { link: /blog/new-in-php-83, title: What's new in PHP 8.3 }
         - { link: /blog/new-in-php-82, title: What's new in PHP 8.2 }
         - { link: https://wiki.php.net/rfc/property-hooks, title: The property hooks RFC }

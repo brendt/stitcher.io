@@ -1,3 +1,9 @@
+'96':
+    date: 2024-07-09
+    title: "You should"
+    pretext: "I wanna share a personal story with you"
+    content: src/content/mails/stitcher-96.md
+
 '95':
     date: 2024-07-08
     title: "PHP version stats, July 2024"

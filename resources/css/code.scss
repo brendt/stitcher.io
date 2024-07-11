@@ -6,6 +6,16 @@ $color-green: #34A853;
 $color-yellow: #FCBC05;
 $color-purple: #9d3af6;
 
+.hl-deletion {
+    background-color: $color-red;
+    color: #fff;
+}
+
+.hl-striped {
+    background: none;
+    border-bottom: dotted 3px $color-red;
+}
+
 .hl-keyword {
     color: $color-blue;
 }
