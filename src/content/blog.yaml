@@ -1,5 +1,17 @@
 # Finally using fibers
 
+html-5-in-php-84:
+    date: 2024-07-16
+    title: HTML 5 support in PHP 8.4
+    content: src/content/blog/2024-07-16-html-5-in-php-84.md
+    meta:
+        description: PHP 8.4 adds a new HTML-5 compliant parser
+    disableAds: true
+    footnotes:
+        - { link: "/blog/new-in-php-84", title: "What's new in PHP 8.4" }
+        - { link: "https://www.youtube.com/watch?v=cjHRWio-c3M", title: "Read with me through the RFC" }
+        - { link: "https://wiki.php.net/rfc/domdocument_html5_parser", title: "Read the full RFC" }
+
 timeline-taxi-chapter-01:
     date: 2024-07-12
     title: "Timeline Taxi: chapter 1"
@@ -65,10 +77,8 @@ new-in-php-84:
         template: 'blog/meta/new-in-php-84.twig'
     footnotes:
         - { link: /blog/new-with-parenthesis-php-84, title: New without parenthesis in PHP 8.4 }
+        - { link: /blog/html-5-in-php-84, title: HTML 5 support in PHP 8.4 }
         - { link: /blog/new-in-php-83, title: What's new in PHP 8.3 }
-        - { link: /blog/new-in-php-82, title: What's new in PHP 8.2 }
-        - { link: https://wiki.php.net/rfc/property-hooks, title: The property hooks RFC }
-        - { link: https://wiki.php.net/rfc/new_without_parentheses, title: The "new without parentheses" RFC }
 
 php-in-2024:
     date: 2024-03-23
