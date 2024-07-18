@@ -1,3 +1,9 @@
+'97':
+    date: 2024-07-16
+    title: "Reading RFCs"
+    pretext: "Let's talk about some new features in PHP 8.4"
+    content: src/content/mails/stitcher-97.md
+
 '96':
     date: 2024-07-09
     title: "You should"
