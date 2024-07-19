@@ -1,5 +1,12 @@
 # Finally using fibers
 
+timeline-taxi-chapter-02:
+    date: 2024-07-19
+    title: "Timeline Taxi: chapter 2"
+    content: src/content/taxi/taxi-02.md
+    next: timeline-taxi-chapter-01
+    disableAds: true
+
 array-find-in-php-84:
     date: 2024-07-18
     title: array_find in PHP 8.4
@@ -39,6 +46,7 @@ timeline-taxi-chapter-01:
     date: 2024-07-12
     title: "Timeline Taxi: chapter 1"
     content: src/content/taxi/taxi-01.md
+    next: timeline-taxi-chapter-02
     disableAds: true
 
 new-with-parentheses-php-84:
