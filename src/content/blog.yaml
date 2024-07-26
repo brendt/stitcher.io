@@ -1,10 +1,17 @@
 # Finally using fibers
 
+timeline-taxi-chapter-03:
+    date: 2024-07-26
+    title: "Timeline Taxi: chapter 3"
+    content: src/content/taxi/taxi-03.md
+    next: timeline-taxi-chapter-01
+    disableAds: true
+
 timeline-taxi-chapter-02:
     date: 2024-07-19
     title: "Timeline Taxi: chapter 2"
     content: src/content/taxi/taxi-02.md
-    next: timeline-taxi-chapter-01
+    next: timeline-taxi-chapter-03
     disableAds: true
 
 array-find-in-php-84:
