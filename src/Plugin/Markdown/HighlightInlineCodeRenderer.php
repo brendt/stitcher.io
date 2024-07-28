@@ -2,6 +2,7 @@
 
 namespace Brendt\Stitcher\Plugin\Markdown;
 
+use Brendt\Stitcher\Plugin\Highlight\TempestViewLanguage;
 use InvalidArgumentException;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
@@ -27,6 +28,8 @@ class HighlightInlineCodeRenderer implements NodeRendererInterface
         $code = preg_replace(['/<hljs(.*?)*>/', '/<\/hljs>/'], '', $code);
 
         $highlighter = new Highlighter();
+
+        $highlighter->addLanguage(new TempestViewLanguage());
 
         return '<code>' . $highlighter->parse($code, $language) . '</code>';
     }

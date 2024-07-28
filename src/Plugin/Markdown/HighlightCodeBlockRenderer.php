@@ -2,6 +2,7 @@
 
 namespace Brendt\Stitcher\Plugin\Markdown;
 
+use Brendt\Stitcher\Plugin\Highlight\TempestViewLanguage;
 use InvalidArgumentException;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Node\Node;
@@ -20,7 +21,8 @@ class HighlightCodeBlockRenderer implements NodeRendererInterface
             throw new InvalidArgumentException('Block must be instance of ' . FencedCode::class);
         }
 
-        $highlight = new Highlighter();
+        $highlighter = new Highlighter();
+        $highlighter->addLanguage(new TempestViewLanguage());
         $code = $node->getLiteral();
         // Remove hljs tags
         $code = preg_replace(['/<hljs(.*?)*>/', '/<\/hljs>/'], '', $code);
@@ -29,7 +31,7 @@ class HighlightCodeBlockRenderer implements NodeRendererInterface
         return new HtmlElement(
             'pre',
             [],
-            $highlight->parse($code, $language)
+            $highlighter->parse($code, $language)
         );
     }
 }
