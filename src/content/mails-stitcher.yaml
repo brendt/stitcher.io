@@ -1,3 +1,9 @@
+'98':
+    date: 2024-07-26
+    title: "It's all just text"
+    pretext: "In the end, most programming tasks come down to this."
+    content: src/content/mails/stitcher-98.md
+
 '97':
     date: 2024-07-16
     title: "Reading RFCs"
