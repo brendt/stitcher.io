@@ -5,6 +5,7 @@ improved-lazy-loading:
   title: Improved lazy loading
   content: src/content/blog/2024-07-29-fixing-lazy-loading.md
   disableAds: true
+  next: timeline-taxi-chapter-01
 
 its-all-just-text:
     date: 2024-07-26
