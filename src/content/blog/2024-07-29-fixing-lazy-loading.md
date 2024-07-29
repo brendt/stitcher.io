@@ -4,7 +4,7 @@ Whether you plan on using Tempest or not, whether you plan on writing your own f
 
 ## Setting the scene
 
-First, let's talk about some core characteristics of this ORM. It's important to understand the later challenges I ran into. First, I find static analysis important — really important. That's why I want typed properties to be the core of Tempest's design. 
+First, let's talk about the core characteristics of this ORM. It's important to understand the challenges I ran into later on. First, I find static analysis important — really important. That's why I want typed properties to be the core of Tempest's design. 
 
 I prefer to start with the end goal — the user-facing code — in mind, so I drafted something like this as a Tempest model class:
 
