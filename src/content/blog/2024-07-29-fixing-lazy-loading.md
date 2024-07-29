@@ -135,9 +135,9 @@ Book {
 
 The interesting parts here are the `unitialized` properties: typed properties that haven't been initialized yet. We didn't load relations, so we didn't initialize those properties. Don't worry if you don't know how to do that in PHP — we'll come back to it. 
 
-Now, because of how PHP works, uninitialized properties don't throw any errors after constructing an object. In other words, you can perfectly construct an object with uninitialized properties. PHP will only check and throw errors on uninitialized properties when you try to _read_ them. It's perfectly fine to build an object via reflection without calling its constructor (we'll come back to that), and thus having two uninitialized relation properties instead of those properties needed to be null or something else.
+Now, because of how PHP works, uninitialized properties don't throw any errors after constructing an object. In other words, you can perfectly construct an object with uninitialized properties. PHP will only check and throw errors on uninitialized properties when you try to _read_ them. It's perfectly fine to build an object via reflection without calling its constructor (we'll come back to that).
 
-This means we can keep the relation's type itself clean. We don't need to make it nullable or provide another kind of "special value" for relations. _If_ PHP didn't have an uninitialized property state, we'd have to resort to doing something like this to mark relations as optional:
+This means we can keep the relation's type itself clean (remember that core requirement?) We don't need to make its type nullable or provide another kind of "special value" for relations. _If_ PHP didn't have an uninitialized property state, we'd have to resort to doing something like this to mark relations as optional:
 
 ```php
 class Book implements Model
