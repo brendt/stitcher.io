@@ -92,7 +92,7 @@ I'm not here to dis Laravel by the way; I love Laravel, and I totally understand
 #[Lazy] public Author $author,
 ```
 
-Personally, I like these defaults better: nothing is lazily loaded, unless you specifically say so. It does require a programmer to micromanage which relations are loaded up front — true — but let me tell you, the same happens in Laravel as soon as you have an app whose model scheme is somewhat larger than two or three `belongs to` relations. I just did a quick search in the codebase of [RFC Vote](https://github.com/brendt/rfc-vote), which uses Laravel. It's not even a big app, and we're already manually loading relations in ten different places to prevent n+1 issues.
+Personally, I like these defaults better: nothing is lazily loaded, unless you specifically say so. It does require a programmer to micromanage which relations are loaded up front — true — but let me tell you, the same happens in Laravel as soon as you have an app whose model scheme is somewhat larger than two or three `belongs to` relations. I just did a quick search in the codebase of [RFC Vote](https://github.com/brendt/rfc-vote), built with Laravel. It's not even a big app, and we're already manually loading relations in ten different places to prevent n+1 issues.
 
 ```php
 return Rfc::query()
