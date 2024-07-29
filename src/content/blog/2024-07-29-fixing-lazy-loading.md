@@ -155,7 +155,9 @@ class Book implements Model
 }
 ```
 
-Now I don't know about you, but I like to write as little code as possible, especially if the framework can do the work for me. Sidenote about that: once again I wish we had generics in PHP, in which case we could probably do something like this:
+Now I don't know about you, but I like to write as little code as possible, especially if the framework can do the work for me. On top of that, I like to keep my type definitions clean, and not make them unions or nullable just because of a technical requirement. That's why I like embracing the uninitialized state. 
+
+Sidenote about that: once again I wish we had generics in PHP, in which case we could probably do something like this:
 
 ```php
 public function __construct(
