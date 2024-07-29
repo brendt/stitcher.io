@@ -64,7 +64,7 @@ By default, it won't load relations like `$author` and `$chapters`. Think about 
 $book = Book::query()->with('author')->find($id);
 ```
 
-This is no different from what Laravel does by the way: it also doesn't load relations up front unless you specifically tell the framework to do so (this mechanism is called "eager loading"). However, Tempest goes one step further. If you happen to access a relation that's not loaded, Tempest won't load it for you bahind the scenes. Instead, it will throw an error:
+This is no different from what Laravel does by the way: it also doesn't load relations up front unless you specifically tell the framework to do so (this mechanism is called "eager loading"). However, Tempest goes one step further. If you happen to access a relation that's not loaded, Tempest won't load it for you behind the scenes. Instead, it will throw an error:
 
 ```php
 $book = Book::find($id);
