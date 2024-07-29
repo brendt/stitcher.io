@@ -272,4 +272,8 @@ Beautiful, isn't it? Of course, it would be much easier if there was a magic met
 
 That's about all I wanted to share today. Next up my list is supporting eager loads — basically _always_ loading a relation, even if you didn't specify it manually. Shouldn't be difficult though.
 
+By the way, I just read through the lazy objects RFC, which might make all of this much easier in PHP 8.4!
+
+<iframe width="560" height="345" src="https://www.youtube.com/embed/rwp8_eWLDv8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Leave your thoughts in the comments down below! Oh and, if you're wondering about that book title I used in the examples, you can read about it here: [https://stitcher.io/blog/timeline-taxi-chapter-01](https://stitcher.io/blog/timeline-taxi-chapter-01).
