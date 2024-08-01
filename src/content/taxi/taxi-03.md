@@ -1,5 +1,7 @@
 {{ cta:taxi }}
 
+[Read the previous chapter.](/blog/timeline-taxi-chapter-02)
+
 “Jonathan Russel speaking,” the voice on the other end of the phone says.
 
 “Is your offer still standing?” I ask him directly. He doesn’t need any other explanation.

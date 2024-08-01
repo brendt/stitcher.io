@@ -1,5 +1,7 @@
 {{ cta:taxi }}
 
+[Read the previous chapter.](/blog/timeline-taxi-chapter-01)
+
 Doctor Jonathan Russel from the Sheffield Institute of Space Travel stands out indeed, dressed in a typical brown English raincoat, a hat, a small bag in one hand, and an umbrella — an umbrella of all things — in the other.
 
 “Where did you think you’d travel to?” I ask him with a sarcastic smile.
