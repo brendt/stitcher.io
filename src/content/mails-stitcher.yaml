@@ -1,3 +1,9 @@
+'99':
+    date: 2024-08-02
+    title: "public private(set)"
+    pretext: "Asymmetric visibility is here again!"
+    content: src/content/mails/stitcher-99.md
+
 '98':
     date: 2024-07-26
     title: "It's all just text"
