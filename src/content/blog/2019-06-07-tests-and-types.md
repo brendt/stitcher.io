@@ -158,7 +158,7 @@ By using the `RgbValue` type, most of our tests become redundant.
 ```
 
 We can now have one test to test the business logic: "given three ((RGB))-valid colors, 
-does this function return the correct ((HEX)) value?" — a great improvement!
+does this function return the correct HEX value?" — a great improvement!
 
 ## Caveats
 
@@ -239,8 +239,8 @@ _if_ the infrastructure supports it.
 So am I suggesting you should ditch your whole stack, or that you're a bad programmer for using a weakly typed language?
 Definitely not! 
 
-I myself program in ((PHP)) every day, it's [not as bad as it used to be](/blog/php-in-2019).
-((PHP)) introduced an opt-in type system, so it's possible to write fairly strongly typed code, 
+I myself program in PHP every day, it's [not as bad as it used to be](/blog/php-in-2019).
+PHP introduced an opt-in type system, so it's possible to write fairly strongly typed code, 
 even though the language wasn't originally built for it.
 Another example coming to mind is JavaScript with TypeScript.
 

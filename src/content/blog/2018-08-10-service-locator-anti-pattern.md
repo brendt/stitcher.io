@@ -48,14 +48,14 @@ I'll assume that you don't like a situation where a client tells you a productio
 and the issue can only be reproduced by taking several steps.
 
 As the name says, runtime errors can only be discovered by running the program.
-Truth be told: ((PHP)), being an interpreted language; highly leans towards these kind of errors.
-You cannot know if a ((PHP)) program will work before running it.
+Truth be told: PHP, being an interpreted language; highly leans towards these kind of errors.
+You cannot know if a PHP program will work before running it.
 
 There's nothing wrong with that, but my argument here is that every place we can
 avoid these errors, we should. 
 
 Compile time errors are errors that can be detected without running the code. 
-For example: in your ((IDE)) or using a static analysis tool.
+For example: in your IDE or using a static analysis tool.
 The benefit is that you know a piece of code will absolutely work, 
 even without testing it.
 
