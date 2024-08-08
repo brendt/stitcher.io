@@ -120,18 +120,6 @@ Like I said before: I'm a firm proponent of clean code.
 When you're working with several people in the same codebase, 
 it's a must to keep your code clean and clear, to secure its future. 
 
-## In closing
-
-Finally, I'd like to show the GIT history of the project visualised with [Gource](*https://gource.io/).
-We've been working on this project with, in total, 7 contributors, and now have more than 4,000 commits listed.
-
-<p>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/KkgAnOklQ7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</p>
-
-You can clearly see the different "branches" I talked about earlier: application- and domain code; 
-but this overview also includes Blade, JavaScript and CSS files.
-
 ---
 
 So what about your projects? Are you able to share your own stats? 
