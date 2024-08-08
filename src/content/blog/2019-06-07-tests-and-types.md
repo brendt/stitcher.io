@@ -1,5 +1,5 @@
 Imagine a simple function: `rgbToHex`. 
-It takes three arguments, integers between ((#0#)) and ((#255#)); and converts it to a hexadecimal string.
+It takes three arguments, integers between 0 and 255; and converts it to a hexadecimal string.
 
 Here's what this function's definition might look like in a dynamic, weakly typed language:
 
@@ -22,7 +22,7 @@ We don't want any bugs, so we write tests.
 
 Because of our tests, we can be sure our implementation works as expected. Right? 
 
-Well… We're actually only testing three out of the ((#16,777,216#)) possible colour combinations. 
+Well… We're actually only testing three out of the 16,777,216 possible colour combinations. 
 But human reasoning tells us that if these three cases work, all probably do.
 
 What happens though if we pass doubles instead of integers? 
@@ -88,7 +88,7 @@ Let's take a look at the tests that aren't necessary anymore thanks to the `Int`
 - Whether the input isn't null
 
 To be honest, we can do better than this: 
-we still need to check whether the input number is between ((#0#)) and ((#255#)).
+we still need to check whether the input number is between 0 and 255.
 
 Unfortunately at this point, we run against the limitations of many type systems. 
 Sure we can use `Int`, though in many cases (as with ours) 
