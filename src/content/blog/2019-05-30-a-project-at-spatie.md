@@ -10,25 +10,25 @@ In the future we'll be exposing several of these features to the outside via an 
 its main goal to power a mobile app for clients of the platform.
 The admin panel is already in use in production.
 
-The project is built in Laravel, a ((PHP)) framework.
+The project is built in Laravel, a PHP framework.
 We use Blade as a templating engine in combination with many VueJS components.
-Tailwind is the ((CSS)) framework used.
+Tailwind is the CSS framework used.
 
 ## Some numbers
 
 So, how much code have we written the past year? Here's a summary, 
 gathered with the [phploc](*https://github.com/sebastianbergmann/phploc) package:
 
-- ((#2,062#)) files
-- ((#126,736#)) lines of code
-- ((#97,423#)) logical lines of code
+- 2,062 files
+- 126,736 lines of code
+- 97,423 logical lines of code
 
 Let's zoom into statistics about the backend code, my area:
 
-- ((#1,086#)) classes; ((#32#)) interfaces; ((#28#)) traits
-- Average ((LLOC)) per class: ((#8#))
-- Maximum ((LLOC)) per class: ((#139#))
-- ((#3,245#)) public methods
+- 1,086 classes; 32 interfaces; 28 traits
+- Average LLOC per class: 8
+- Maximum LLOC per class: 139
+- 3,245 public methods
 
 The amount of lines split per file type looks like this:
 
@@ -54,18 +54,18 @@ Application code makes use of this core and looks very much like your average La
  
  The bulk of our domain code consists of three types of classes:
  
- - Models — ((#80#)) classes
- - Actions — ((#205#)) classes
- - ((DTO))s — ((#63#)) classes
+ - Models — 80 classes
+ - Actions — 205 classes
+ - DTOs — 63 classes
  
  While the application layer mostly consists of:
 
-- Controllers — ((#130#)) classes and ((#309#)) routes
-- ViewModels — ((#82#)) classes
-- Blade views — ((#313#)) files; these are not included in the chart above
+- Controllers — 130 classes and 309 routes
+- ViewModels — 82 classes
+- Blade views — 313 files; these are not included in the chart above
 
 Because of the lifecycle of the project, there's room for improvement. 
-For example, we're not using [((DTO))s](*https://stitcher.io/blog/structuring-unstructured-data) everywhere, 
+For example, we're not using [DTOs](*https://stitcher.io/blog/structuring-unstructured-data) everywhere, 
 as they were added at a later time.
 
 As with all things: we learn as we go. 
@@ -76,7 +76,7 @@ A big advantage of moving code into domains is testability.
 While our domain code is heavily unit tested, our application code is mostly only integration tested. 
 In our experience, it's a workable balance between highly tested code and being able to meet deadlines. 
 
-At the moment we have ((#840#)) tests doing ((#1,728#)) assertions. 
+At the moment we have 840 tests doing 1,728 assertions. 
 Our test suite could always be improved, 
 but I am very confident deploying new features and refactors without the fear of breaking stuff — thanks to our test suite.
 
@@ -111,26 +111,14 @@ something we strive for.
 
 We ensure these short classes and consistent code by using a few tools and methods:
 
-- Internal ((PR))s and code reviews; despite what you might think, this saves time
+- Internal PRs and code reviews; despite what you might think, this saves time
 - We use static analysis, more specifically [PhpStan](*https://github.com/phpstan/phpstan); 
 to prevent subtle bugs 
-- We use [((PHP CS)) fixer](*https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure consistent code style
+- We use [PHP CS fixer](*https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure consistent code style
 
 Like I said before: I'm a firm proponent of clean code. 
 When you're working with several people in the same codebase, 
 it's a must to keep your code clean and clear, to secure its future. 
-
-## In closing
-
-Finally, I'd like to show the ((GIT)) history of the project visualised with [Gource](*https://gource.io/).
-We've been working on this project with, in total, ((#7#)) contributors, and now have more than ((#4,000#)) commits listed.
-
-<p>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/KkgAnOklQ7w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</p>
-
-You can clearly see the different "branches" I talked about earlier: application- and domain code; 
-but this overview also includes Blade, JavaScript and ((CSS)) files.
 
 ---
 

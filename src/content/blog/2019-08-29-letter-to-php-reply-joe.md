@@ -10,7 +10,7 @@ I just wanted to make clear that I already had many thoughts on the topic before
 
 > You can tell by looking at the history of RFCs that these factions do not in fact exist
 
-Whether we call it factions or not, if you take a look at recent ((RFC))s, they have almost always gone off topic for to discuss the future of ((PHP)) on a broader scale. Sure there might only a few people, but loud voices are heard nevertheless.
+Whether we call it factions or not, if you take a look at recent RFCs, they have almost always gone off topic for to discuss the future of PHP on a broader scale. Sure there might only a few people, but loud voices are heard nevertheless.
 
 A few examples:
 
@@ -25,11 +25,11 @@ This is how most of these discussion go:
 - Nikita tries to move the language forward
 - Zeev and/or Stas advocate for backwards compatibility, resulting in the same long conversation over and over again
 - Sara tries to keep the middle ground
-- Dmitry is working on ((PHP 8)) somewhere in the background, and steers away from these discussions
+- Dmitry is working on PHP 8 somewhere in the background, and steers away from these discussions
 
 > The rules were written many years ago - arguably for a totally different, pre social coding world - we mostly do a good job of following the rules as they are written.
 
-I think you addressed the essence of the problem: the way ((PHP)) internals work is outdated and inefficient in these modern times. 
+I think you addressed the essence of the problem: the way PHP internals work is outdated and inefficient in these modern times. 
 
 > It's important to point out that the rules are not exhaustive, a lot of how we behave is determined by convention. You can argue against this and say that we should try to exhaustively enumerate every possible action
 
@@ -37,7 +37,7 @@ I'd argue we need a sensible and modern day rule set, which can be flexible.
 
 > Recently an RFC was conducted to deprecate and remove short PHP tag syntax
 
-While I do have my opinions on maintaining backwards compatibility — which I addressed in the first part of my letter — I think the most important thing to take away from the short syntax ((RFC)) is that the process is clearly broken, and needs fixing.
+While I do have my opinions on maintaining backwards compatibility — which I addressed in the first part of my letter — I think the most important thing to take away from the short syntax RFC is that the process is clearly broken, and needs fixing.
 
 > What we have here is a failing of our processes and nothing more. I and likely others are considering how we might avoid this very same failure in the future. It seems desirable at this time to introduce a formal deprecation policy, this both achieves the goal of avoiding this very same failure, and can potentially increase confidence when it comes to adopting new versions of PHP.
   
@@ -45,11 +45,11 @@ While I do have my opinions on maintaining backwards compatibility — which I a
 
 > First, for the sake of clarity. You must be careful how you determine something to be controversial. Loud, is not the same as controversial
 
-That's true, though a few loud voices can impact the development of ((PHP)) significantly. There aren't many core contributors, and they have to spend a lot of time reading and replying through the same discussions. I try to keep up-to-date with the internals list myself, so I know this is an exhaustive task.
+That's true, though a few loud voices can impact the development of PHP significantly. There aren't many core contributors, and they have to spend a lot of time reading and replying through the same discussions. I try to keep up-to-date with the internals list myself, so I know this is an exhaustive task.
 
 > The time and effort it takes to change our processes is considerable, and only becomes a priority when it's obvious that our processes are failing, or have the potential to fail and do damage.
 
-I think ((PHP)) is only slowly evolving because there's so much needless discussions happening over and over again, I'd call that a failing process.
+I think PHP is only slowly evolving because there's so much needless discussions happening over and over again, I'd call that a failing process.
 
 > I'm sure that you have a sample of data that shows you this, or you surely wouldn't have made this claim.
 
@@ -68,7 +68,7 @@ True, though the channels you list still don't seem to bridge the gap between co
 
 There are two groups here:
 
-- People who are very much invested in ((PHP)), but don't want anything to do with the internal discussions, because of offtopic and exhausting conversations
+- People who are very much invested in PHP, but don't want anything to do with the internal discussions, because of offtopic and exhausting conversations
 - People who would actually want to contribute in the form of votes and input, but don't know how.
 
 The wiki isn't very clear on this:
@@ -79,7 +79,7 @@ The wiki isn't very clear on this:
 > Lead developers of PHP based projects (frameworks, cms, tools, etc.)
 > regular participant of internals discussions
 
-Personally, I think of myself in this second group, though it's unclear to me whether my perception is correct. And I can think of several other developers who would be an accurate representation of the ((PHP)) community. 
+Personally, I think of myself in this second group, though it's unclear to me whether my perception is correct. And I can think of several other developers who would be an accurate representation of the PHP community. 
 
 Should I ask? As a matter of fact, I did ask a core member personally, but didn't get a reply. Should I ask this question on the internals list? I'm unsure.
 
