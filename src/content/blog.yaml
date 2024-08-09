@@ -1,5 +1,12 @@
 # Finally using fibers
 
+timeline-taxi-chapter-05:
+  date: 2024-08-09
+  title: "Timeline Taxi: chapter 5"
+  content: src/content/taxi/taxi-05.md
+  next: timeline-taxi-chapter-01
+  disableAds: true
+
 i-dont-code-the-way-i-used-to:
   date: 2024-08-07
   title: I don't write code the way I used to
@@ -10,7 +17,7 @@ timeline-taxi-chapter-04:
   date: 2024-08-01
   title: "Timeline Taxi: chapter 4"
   content: src/content/taxi/taxi-04.md
-  next: timeline-taxi-chapter-01
+  next: timeline-taxi-chapter-05
   disableAds: true
 
 improved-lazy-loading:
