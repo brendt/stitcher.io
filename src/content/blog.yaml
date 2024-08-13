@@ -1,5 +1,11 @@
 # Finally using fibers
 
+php-84-at-least:
+  date: 2024-08-12
+  title: PHP 8.4 at least
+  content: src/content/blog/2024-08-12-php-84-at-least.md
+  disableAds: true
+
 timeline-taxi-chapter-05:
   date: 2024-08-09
   title: "Timeline Taxi: chapter 5"
