@@ -459,3 +459,33 @@ img.small {
         margin-right: 1em;
     }
 }
+
+.tempest {
+    background-color: #4f96d1;
+    color: #fff;
+    font-weight: bold;
+    font-family: $font-body;
+    display: flex;
+    padding: 1em;
+
+    & .wrapper {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 6px;
+    }
+
+    & img {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-left: 0;
+        margin-bottom: 0;
+        box-shadow: none;
+    }
+
+    & a, & a:visited {
+        color: inherit;
+        text-decoration-color: #fff;
+    }
+}
