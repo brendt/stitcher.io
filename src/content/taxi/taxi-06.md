@@ -134,7 +134,7 @@ The four technicians are floating in front of the ship, making haste to get back
 
 “I know, we’ve got 14 out of 20 injections. I’m afraid your trip has been canceled.”
 
-“No that can’t be!” The doctor exclaims, for the first time seemling to lose his calm.
+“No that can’t be!” The doctor exclaims, for the first time seeming to lose his calm.
 
 “Look, we can’t make the trip you wanted to, but we can still skip a century. Let’s hope the UN will have lost interest in us by then.”
 
