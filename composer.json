@@ -3,9 +3,10 @@
         "php": "^8.3",
         "pageon/stitcher-core": "dev-master",
         "spatie/browsershot": "^3.40",
-        "symfony/console": "^4.0",
+        "symfony/console": "^4.0|^5.0|^6.0|^7.0",
         "tempest/highlight": "^2.0",
-        "league/commonmark": "^2.4"
+        "league/commonmark": "^2.4",
+        "tempest/framework": "dev-main"
     },
     "repositories" : [
         {
@@ -19,11 +20,17 @@
     },
     "autoload": {
         "psr-4": {
-            "Brendt\\Stitcher\\": "src/"
+            "Brendt\\Stitcher\\": "src/",
+            "App\\": "app/"
         }
     },
     "scripts": {
         "deploy": "vendor/bin/envoy run deploy",
         "deploy-code": "vendor/bin/envoy run deploy-code"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }
