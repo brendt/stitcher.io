@@ -14,3 +14,4 @@ src/Console/submissions.json
 /public/rss.xml
 src/likes.json
 app/database.sqlite
+app/stitcher.json

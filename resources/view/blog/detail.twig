@@ -71,11 +71,11 @@
 
         {{ post.content|raw }}
 
-{#        <div id="commento"></div>#}
-
         {% if 'like-container' not in post.content %}
             {% include '_partials/cta_like.twig' %}
         {% endif %}
+
+        <div id="comments" class="comments"></div>
 
         {% if post.footnotes is defined %}
             <nav class="footnotes">
@@ -124,7 +124,7 @@
 {% block footer %}{% endblock %}
 
 {% block scripts %}
-    <script defer src="https://cdn.commento.io/js/commento.js"></script>
+{#    <script defer src="https://cdn.commento.io/js/commento.js"></script>#}
     <script>
         const currentUrl = window.location.href.split('/');
         const slug = currentUrl[currentUrl.length - 1];
@@ -247,10 +247,30 @@
             request.send();
         };
 
+        const loadComments = function() {
+            const comments = document.getElementById('comments');
+            const url = '/app/comments/{{ post.id }}';
+
+            let request = new XMLHttpRequest();
+
+            request.open('GET', url, true);
+
+            request.onload = function () {
+                if (this.status < 200 || this.status >= 400) {
+                    return;
+                }
+
+                comments.innerHTML = this.response;
+            };
+
+            request.send();
+        }
+
         like.addEventListener('click', addLike);
         liked.addEventListener('click', removeLike);
 
         document.addEventListener('DOMContentLoaded', initLikes)
+        document.addEventListener('DOMContentLoaded', loadComments)
     </script>
 
     {{ parent() }}

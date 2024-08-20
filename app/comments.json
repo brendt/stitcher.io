@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "postId": "php-84-at-least",
+            "comment": "Hello world",
+            "createdAt": "2024-01-01 00:00:00"
+        },
+        {
+            "postId": "php-84-at-least",
+            "comment": "Foo",
+            "createdAt": "2024-01-02 00:00:00"
+        },
+        {
+            "postId": "php-84-at-least",
+            "comment": "Bar",
+            "createdAt": "2024-01-03 00:00:00"
+        },
+        {
+            "postId": "other",
+            "comment": "Bar",
+            "createdAt": "2024-01-03 00:00:00"
+        }
+    ]
+}

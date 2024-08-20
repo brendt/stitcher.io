@@ -126,12 +126,25 @@ audio {
     }
 }
 
-.commento-root img {
-    margin-left: 0px;
+.comments {
+    display: grid;
+    gap: 1.6em;
+    margin-bottom: 1.6em;
 }
 
-.commento-root .commento-body p {
-    font-size: 1.1em;
-    color: $color-black;
-    font-family: $font-body;
+
+.comment {
+    background-color: $color-primary-pastel;
+    padding: 1em;
+    display: grid;
+    gap: .2em;
+}
+
+.comment p {
+    margin-bottom: 0;
+}
+
+.comment .credits {
+    font-weight: bold;
+    margin-top: 1em;
 }

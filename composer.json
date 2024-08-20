@@ -6,7 +6,8 @@
         "symfony/console": "^4.0|^5.0|^6.0|^7.0",
         "tempest/highlight": "^2.0",
         "league/commonmark": "^2.4",
-        "tempest/framework": "dev-main"
+        "tempest/framework": "dev-main",
+        "google/apiclient": "^2.15.0"
     },
     "repositories" : [
         {

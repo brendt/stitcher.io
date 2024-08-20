@@ -2,19 +2,19 @@
 
 namespace App\Comments;
 
+use App\Auth\User;
 use DateTimeImmutable;
-use Tempest\Database\IsModel;
-use Tempest\Database\Model;
+use Tempest\Database\DatabaseModel;
+use Tempest\Database\IsDatabaseModel;
 
-final class Comment implements Model
+final class Comment implements DatabaseModel
 {
-    use IsModel;
+    use IsDatabaseModel;
 
     public function __construct(
+        public User $user,
         public string $postId,
-        public string $email,
         public string $comment,
         public DateTimeImmutable $createdAt,
-        public string $ip,
     ) {}
 }
