@@ -13,3 +13,4 @@ Envoy*
 src/Console/submissions.json
 /public/rss.xml
 src/likes.json
+/app/stitcher.json
