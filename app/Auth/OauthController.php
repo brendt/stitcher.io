@@ -7,18 +7,18 @@ use Google\Service\Oauth2;
 use Tempest\Http\Get;
 use Tempest\Http\Request;
 use Tempest\Http\Responses\Redirect;
+use Tempest\Http\Session\Session;
 
 final readonly class OauthController
 {
     public function __construct(private Authenticator $authenticator) {}
 
     #[Get('/app/oauth')]
-    public function __invoke(Request $request): Redirect
+    public function __invoke(Request $request, Session $session): Redirect
     {
         $client = new Client();
         $client->setAuthConfig(__DIR__ . '/../stitcher.json');
-        $back = $request->get('back') ?? '/';
-        $client->setRedirectUri("https://redirectmeto.com/http://stitcher.io.test/app/oauth?back={$back}");
+        $client->setRedirectUri("https://redirectmeto.com/http://stitcher.io.test/app/oauth");
         $client->setScopes([
             Oauth2::USERINFO_EMAIL,
             Oauth2::USERINFO_PROFILE,
@@ -27,6 +27,7 @@ final readonly class OauthController
         $code = $request->get('code');
 
         if ($code === null) {
+            $session->set('back', $request->get('back'));
             return new Redirect($client->createAuthUrl());
         }
 
@@ -45,7 +46,7 @@ final readonly class OauthController
 
         $this->authenticator->login($user);
 
-        return new Redirect('/');
+        return new Redirect($session->consume('back', '/'));
     }
 
 }

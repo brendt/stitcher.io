@@ -5,11 +5,12 @@ use function Tempest\uri; ?>
 
 <?php foreach ($this->comments as $comment): ?>
 
-<div :if="$this->user">
-    Hello
-</div>
-<div>
-    <a href="<?= uri(OauthController::class) . "?back={$this->back}" ?>">Log in with google</a>
+<x-form :if="$this->user">
+    <x-input type="textarea" name="comment"></x-input>
+    <x-submit />
+</x-form>
+<div :else>
+    <a href="<?= uri(OauthController::class) . "?back={$this->back}#comments" ?>">Log in with google</a>
 </div>
 
 <div class="comment">

@@ -148,3 +148,16 @@ audio {
     font-weight: bold;
     margin-top: 1em;
 }
+
+.comments form {
+    display: grid;
+    gap: .5em;
+}
+
+.comments form textarea {
+    width: 100%;
+    padding: .3em;
+    font-size: 1.3em;
+    line-height: 1.55em;
+    font-weight: 300;
+}
