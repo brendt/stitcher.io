@@ -1,0 +1,10 @@
+I'm probably part of a small group that actually cares about this: the difference between extending an abstract class and implementing an interface (ideally with a trait to provide part of the default implementation). I don't expect that many people to follow my reasoning, but hey, it's my blog, I can write whatever thoughts are coming to my mind 😅 
+
+I've been wrestling with code that _abuses inheritance_ for a couple of years now. Granted: I don't really like the word _abuse_ because it sounds very heavy, and code that _abuses_ inheritance can still work perfectly well. But I also struggle to find a better word for it. Maybe "code that doesn't fit _my_ expectations of what inheritance should be used for". 
+
+I'm frustrated with myself because I can't seem to put into words exactly _why_ I dislike code that's intentionally designed to be extended. It happens a lot in Laravel, but I'm sure it happens in Symfony and other places as well. "Extend from a base class", "override a method" — all in the name of "flexibility" and "configurability". It's a common pattern, but it feels so… icky to me. The practice is so common that a whole community of developers is vocally against using `final`, because it blocks them from accessing that flexibility they gain by extending whatever they want from.
+
+All the while, I'm thinking "this isn't the way inheritance was meant to be used…"
+
+Like I said, it's difficult to put into words, but I think the problem for me started when I watched [Alan Kay's talk about his vision for OOP](https://youtu.be/oKg1hTOQXoY?si=wAIxjBuzmwWiR6Ml&t=811). He describes how you can build a dog house using only a hammer, nails, planks, and just a little bit of skill. Once you've built it you've earned the skills and know-how, you can apply that knowledge to other projects. Next, you want to build a cathedral, using the same approach with your hammer, nails, and planks. It's a 100 times larger, but you've done this before — right? It'll only take a little longer.
+

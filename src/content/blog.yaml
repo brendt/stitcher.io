@@ -1,5 +1,11 @@
 # Finally using fibers
 
+extends-vs-implements:
+  date: 2024-08-18
+  title: Extend or implement
+  content: src/content/blog/2024-08-18-extends-vs-implements.md
+  disableAds: true
+
 timeline-taxi-chapter-06:
   date: 2024-08-16
   title: "Timeline Taxi: chapter 6"
