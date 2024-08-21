@@ -1,7 +1,7 @@
 # Finally using fibers
 
 extends-vs-implements:
-  date: 2024-08-18
+  date: 2024-08-21
   title: Extend or implement
   content: src/content/blog/2024-08-18-extends-vs-implements.md
   disableAds: true
