@@ -1,5 +1,13 @@
 # Finally using fibers
 
+
+timeline-taxi-chapter-07:
+  date: 2024-08-24
+  title: "Timeline Taxi: chapter 7"
+  content: src/content/taxi/taxi-07.md
+  next: timeline-taxi-chapter-01
+  disableAds: true
+
 extends-vs-implements:
   date: 2024-08-18
   title: Extend or implement
@@ -10,7 +18,7 @@ timeline-taxi-chapter-06:
   date: 2024-08-16
   title: "Timeline Taxi: chapter 6"
   content: src/content/taxi/taxi-06.md
-  next: timeline-taxi-chapter-01
+  next: timeline-taxi-chapter-07
   disableAds: true
 
 php-84-at-least:
