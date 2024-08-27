@@ -1,5 +1,11 @@
 I'm probably part of a small group that actually cares about this: the difference between extending an abstract class and implementing an interface (ideally with a trait to provide part of the default implementation). I don't expect many people to follow my reasoning, but hey, it's my blog, I can write whatever thoughts are coming to my mind 😅 
 
+I also made a video about it, by the way:
+
+<iframe width="560" height="345" src="https://www.youtube.com/embed/HK9W5A-Doxc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
 I've been wrestling with code that _abuses inheritance_ for a couple of years now. Granted: I don't really like the word _abuse_ because it sounds very heavy, and code that _abuses_ inheritance can still work perfectly well. But I also struggle to find a better word for it. Maybe "code that doesn't fit _my_ expectations of what inheritance should be used for". I'm frustrated with myself because I can't seem to put into words exactly _why_ I dislike code that's intentionally designed to be extended. It happens a lot in Laravel, but I'm sure it happens in Symfony and other places as well. 
 
 "Extend from a base class", "override a method" — all in the name of "flexibility" and "configurability". It's a common pattern, but it feels so… icky to me. The practice is so common that a whole community of developers is vocally against using `{php}final`, because it blocks them from accessing that flexibility inheritance is giving them.
