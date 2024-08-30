@@ -1,3 +1,9 @@
+'100':
+    date: 2024-08-27
+    title: "Number 100!"
+    pretext: "I'm probably going to create an RFC"
+    content: src/content/mails/stitcher-100.md
+
 '99':
     date: 2024-08-02
     title: "public private(set)"

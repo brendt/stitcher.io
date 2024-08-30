@@ -1,5 +1,10 @@
 # Finally using fibers
 
+a-simple-approach-to-static-generation:
+  date: 2024-08-30
+  title: A simple approach to static site generation
+  content: src/content/blog/2024-08-30-a-simple-approach-to-static-generation.md
+  disableAds: true
 
 timeline-taxi-chapter-07:
   date: 2024-08-24
@@ -37,7 +42,7 @@ timeline-taxi-chapter-05:
 i-dont-code-the-way-i-used-to:
   date: 2024-08-07
   title: I don't write code the way I used to
-  content: src/content/blog/204-08-07-i-dont-code-the-way-i-used-to.md
+  content: src/content/blog/2024-08-07-i-dont-code-the-way-i-used-to.md
   disableAds: true
 
 timeline-taxi-chapter-04:
