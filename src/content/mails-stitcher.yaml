@@ -1,3 +1,9 @@
+'101':
+    date: 2024-09-12
+    title: Getting Started
+    pretext: "Also a stream announcement"
+    content: src/content/mails/stitcher-101.md
+
 '100':
     date: 2024-08-27
     title: "Number 100!"

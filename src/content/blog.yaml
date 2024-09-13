@@ -1,5 +1,17 @@
 # Finally using fibers
 
+#the-road-to-static-analysis:
+#  date: 2024-09-10
+#  title: The road to static analysis
+#  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
+#  disableAds: true
+
+building-a-framework:
+  date: 2024-09-16
+  title: Building a framework
+  content: src/content/blog/2024-09-16-building-a-framework.md
+  disableAds: true
+
 a-simple-approach-to-static-generation:
   date: 2024-08-30
   title: A simple approach to static site generation
