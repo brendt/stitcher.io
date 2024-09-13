@@ -30,7 +30,7 @@ So, a couple of weeks ago I decided to make a proper roadmap: what is needed for
 
 For me, both outcomes are fine, but I do want to know which way we're heading. 
 
-So: next week I'm tagging the first alpha release of Tempest — that's the name, by the way, I really it. My hope — no it's not "a hope", I just want to figure out if people are interested Tempest or not, and at what scale? And, like I said: both outcomes are fine.
+So: next week I'm tagging the first alpha release of Tempest — that's the name, by the way, I really like it. My hope — no it's not "a hope", I just want to figure out if people are interested Tempest or not, and at what scale? And, like I said: both outcomes are fine.
 
 So, there's that. If you want to check it out, the links are:
 
