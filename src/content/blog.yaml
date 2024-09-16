@@ -6,6 +6,12 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+tagging-tempest-livestream:
+  date: 2024-09-16
+  title: Tagging Tempest Livestream!
+  content: src/content/blog/2024-09-16-tagging-tempest-livestream.md
+  disableAds: true
+
 building-a-framework:
   date: 2024-09-13
   title: Building a framework
