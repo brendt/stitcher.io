@@ -61,7 +61,7 @@ Three years ago, I realised that this approach was doing more harm than good, an
 
 I actually got pretty far twice, but gave up on it twice as well. It was never a high-stakes project since the original still worked, and I guess other things got in the way.
 
-However, yesterday, I was working on the [Tempest docs website](https://tempest.stitcher.io), and realised it could use a static version as well. Why would I need to boot the framework everytime when all I need is an HTML page? So I did some hacking and… well. I got it working within an hour 😅
+However, yesterday, I was working on the [Tempest docs website](https://tempestphp.com), and realised it could use a static version as well. Why would I need to boot the framework everytime when all I need is an HTML page? So I did some hacking and… well. I got it working within an hour 😅
 
 Granted, Tempest does most of the heavy lifting, but I dare to say that my experience writing a static generator from scratch three times might have helped as well. Here's what I did.
 
