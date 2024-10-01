@@ -2,7 +2,7 @@ It all started with Aidan sending me this message:
 
 > Huh. Isn't there a better way to do syntax highlighting for that?
 
-He was talking about code blocks for the upcoming [Tempest docs](https://tempest.stitcher.io/) site. I must say I wasn't surprised by his question, although I had hoped he wouldn't ask it. 
+He was talking about code blocks for the upcoming [Tempest docs](https://tempestphp.com/) site. I must say I wasn't surprised by his question, although I had hoped he wouldn't ask it. 
 
 I wrote code blocks like so:
 
@@ -36,7 +36,7 @@ Unfortunately, one small issue: it only works in Laravel projects. Torchlight re
 
 Next on my list was [Shiki](https://github.com/shikijs/shiki), which has a [PHP wrapper](https://github.com/spatie/shiki-php). Shiki supports TextMate grammar, which is used for syntax highlighting in many editors. In general, it's  much more accurate than something like highlight.js, _and_ you can run it server-side. Nice!
 
-Remember what I said about performance though? Yeah… Shiki is slow. Like, super slow. It took more than 10 seconds to render the [Controllers docs page](https://tempest.stitcher.io/02-controllers), which only includes a handful of code blocks.
+Remember what I said about performance though? Yeah… Shiki is slow. Like, super slow. It took more than 10 seconds to render the [Controllers docs page](https://tempestphp.com/docs/framework/03-controllers), which only includes a handful of code blocks.
 
 Sure, one "solution" to that is caching, but when I'm writing, I want things to appear instantly. Even with caching, you'd still look at 1-2 second page refreshes when you're making changes to code blocks, which — to me — is unacceptable. 
 

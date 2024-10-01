@@ -92,7 +92,7 @@ final readonly class HomeController
 }
 ```
 
-Now, Tempest has a concept called [discovery](https://tempest.stitcher.io/internals/02-discovery), so finding the actions that should be compiled into static pages isn't all that difficult:
+Now, Tempest has a concept called [discovery](https://tempestphp.com/docs/internals/02-discovery), so finding the actions that should be compiled into static pages isn't all that difficult:
 
 ```php
 final readonly class StaticPageDiscovery implements Discovery
