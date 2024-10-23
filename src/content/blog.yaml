@@ -6,6 +6,19 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+new-in-php-84:
+  date: 2024-10-23
+  title: What's new in PHP 8.4
+  content: src/content/blog/2024-05-15-new-in-php-84.md
+  disableAds: true
+  meta:
+    description: "Features, performance upgrades, and deprecations in PHP 8.4"
+    template: 'blog/meta/new-in-php-84.twig'
+  footnotes:
+    - { link: /blog/new-with-parenthesis-php-84, title: New without parenthesis in PHP 8.4 }
+    - { link: /blog/html-5-in-php-84, title: HTML 5 support in PHP 8.4 }
+    - { link: /blog/new-in-php-83, title: What's new in PHP 8.3 }
+
 tagging-tempest-livestream:
   date: 2024-09-16
   title: Tagging Tempest Livestream!
@@ -105,19 +118,6 @@ array-find-in-php-84:
         - { link: "/blog/new-in-php-84", title: "What's new in PHP 8.4" }
         - { link: "https://www.youtube.com/watch?v=yuCTnlEUJ4c", title: "Read with me through the RFC" }
         - { link: "https://wiki.php.net/rfc/array_find", title: "Read the full RFC" }
-
-new-in-php-84:
-    date: 2024-07-16
-    title: What's new in PHP 8.4
-    content: src/content/blog/2024-05-15-new-in-php-84.md
-    disableAds: true
-    meta:
-        description: "Features, performance upgrades, and deprecations in PHP 8.4"
-        template: 'blog/meta/new-in-php-84.twig'
-    footnotes:
-        - { link: /blog/new-with-parenthesis-php-84, title: New without parenthesis in PHP 8.4 }
-        - { link: /blog/html-5-in-php-84, title: HTML 5 support in PHP 8.4 }
-        - { link: /blog/new-in-php-83, title: What's new in PHP 8.3 }
 
 html-5-in-php-84:
     date: 2024-07-16
