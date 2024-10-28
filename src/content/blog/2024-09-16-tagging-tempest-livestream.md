@@ -1,0 +1,3 @@
+Hey! I wanted to write a short blog post to let you know about something that's special to me: we're going to tag the very first alpha release of Tempest very soon after this post was published. I'd love for you to join the livestream, it's always fun to connect with people!
+
+You can join on [YouTube](https://www.youtube.com/watch?v=zKwXyEbnyoI) or [Twitch](https://www.twitch.tv/brendt_gd), I hope to see you there in ten minutes!

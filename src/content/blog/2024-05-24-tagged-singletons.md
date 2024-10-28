@@ -1,4 +1,4 @@
-I've added a pretty interesting feature to [Tempest](https://tempest.stitcher.io): tagged singletons. Let me give you the tl;dr: Tempest allows you to attach a tag to a singleton definition, which means you can have multiple singletons of the same class, as long as their tags differ.
+I've added a pretty interesting feature to [Tempest](https://tempestphp.com): tagged singletons. Let me give you the tl;dr: Tempest allows you to attach a tag to a singleton definition, which means you can have multiple singletons of the same class, as long as their tags differ.
 
 They can be registered manually like so:
 

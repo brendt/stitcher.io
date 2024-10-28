@@ -1,23 +1,19 @@
 Hi ::subscriber.first_name::
 
-It's been a while, I know! I haven't been silent on this mailing list out of laziness though: September and October have been two super productive months, and I was so busy focused on two big projects, alongside my daytime job, that I didn't take the time to sit down and write to you. So at last, here I am!
+Monday was a pretty big day: I released the first alpha version of Tempest into the wild. I didn't know what to expect, but I was pleasantly surprised by all the positive feedback — I didn't expect it to go _that_ well. The thread on [Reddit](https://www.reddit.com/r/PHP/comments/1fi2dny/introducing_tempest_the_framework_that_gets_out/) did _really_ well, and the [livestream](https://www.youtube.com/watch?v=zKwXyEbnyoI) was super nice; around 50 new people joined the [Tempest Discord](https://discord.gg/pPhpTGUMPQ), and some new people made their first contribution to the [GitHub repository](https://github.com/tempestphp/tempest-framework).
 
-First, I want to talk about **Tempest**: as you're reading this, we're very close to tagging the third alpha release: it's scheduled for October 31. In my previous email, we hadn't even tagged the first alpha release, so I realize it's a big jump forward 😅
+Yeah, it was a good day, but now it's time to gather some real feedback. I want to pitch the **perfect weekend project** for you: play around with Tempest. It won't take much time to set up, and I hope you'll be as pleasantly surprised by it as many others. [The docs are here to get you started](https://tempestphp.com/docs/framework/01-getting-started).
 
-However, I'm so excited about it! We've worked all throughout October: 13 people contributed to this release, and we merged over 60 pull requests. All that works results in features like package installers, a defer helper, a proper cache layer, code generator, improvements to the container, eventbus, router, and so much more. Working on Tempest has been a blast: I never expected so much enthusiasm so early on in the project, and I'm grateful seeing this framework grow into something real.
+Next on our roadmap are a lot of small things, but also some pretty big features. In my mind, there are still three important features missing before we can tag 1.0:
 
-When I tagged alpha 1, my goal was to figure out if Tempest can be _a thing_. By now, it's pretty clear that it is and will be, and I'm excited for the months to come as we're working towards a stable 1.0 release. 
+- A simple way to handle async tasks in the background
+- Mail support
+- Authentication support
 
-If Tempest has peaked your interest, I would say: take a look at the [Tempest website](https://tempestphp.com/)! And, of course, feel free to reply to this email if you have any questions!
+And, of course, we're waiting for PHP 8.4 before 1.0 anyway.
 
-But I said I had _two_ big things to be excited about, right? The second thing might even be bigger news: I mentioned in previous newsletter how I was writing a sci-fi novel. Well as of today, that book, **[Timeline Taxi, has been published](https://timeline-taxi.com/)**!
+Well, I hope you give it a try over the weekend, and let me know your thoughts, you can always contact me on Discord, open on issue on GitHub, or simply hit reply to this email.
 
-I realize not all of you are here to read about my sci-fi novel writing, but I'm really proud of it, and I hope at least some of you will enjoy it. So take a look at [the website](https://timeline-taxi.com/) if you're interested, and let me know your thoughts by replying to this email.
-
-Those were my two big things of October, and I'm really proud of both, thanks for allowing me to share them with you! Have a great and productive week, maybe Tempest and/or Timeline Taxi can be a part of it!
-
-Until next time
+Have a nice weekend!
 
 Brent
-
-PS: I've made the Timeline Taxi website in Tempest, and used event sourcing for it, just because I could 😅 I did a livestream on it a couple of days ago, which you might enjoy as well! [https://www.youtube.com/watch?v=Sr339AKcxT0](https://www.youtube.com/watch?v=Sr339AKcxT0)

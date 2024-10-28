@@ -80,7 +80,7 @@ This is different from Laravel, and a very deliberate decision. In Laravel, Eloq
 </div>
 ```
 
-Sidenote: the syntax you're seeing here is part of my work in progress [view engine for Tempest](https://tempest.stitcher.io/framework/03-views) — yes, I'm also writing a view engine besides an ORM. 
+Sidenote: the syntax you're seeing here is part of my work in progress [view engine for Tempest](https://tempestphp.com/docs/framework/04-views/) — yes, I'm also writing a view engine besides an ORM. 
 
 Back to the problem with lazy loading: if we didn't load `$author` up front, lazy loading would perform a _separate_ query for _every_ book in the array. This is the infamous n+1 problem, and it's one of the most common performance issues in Laravel. I can't remember how many hours I spent chasing and fixing n+1 issues in Laravel applications. It often had impact production app performance by seconds, and often required hours of debugging and fixing. Remember that, in real life, model schemes are much more complex than a simple `belongs to` relation, which means that solving n+1 issues is often more complex than to "eagerly load everything", which would lead to serious memory issues in some cases. It really is a time sink.
 

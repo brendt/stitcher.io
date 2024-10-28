@@ -34,7 +34,7 @@ So: next week I'm tagging the first alpha release of Tempest — that's the name
 
 So, there's that. If you want to check it out, the links are:
 
-- [https://tempest.stitcher.io](https://tempest.stitcher.io/) for the docs;
+- [https://tempestphp.com](https://tempestphp.com/) for the docs;
 - or [https://github.com/tempestphp/tempest-framework](https://github.com/tempestphp/tempest-framework) for the code.
 
 Let me know your thoughts! The best way is to [join the Tempest Discord](https://discord.gg/pPhpTGUMPQ), or to [send me an email](mailto:brendt@stitcher.io).
