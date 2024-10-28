@@ -460,6 +460,35 @@ img.small {
     }
 }
 
+.taxi-book-cta {
+    & img {
+        box-shadow: 2px 2px 15px -5px black;
+        width: 40%;
+    }
+
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+
+    @media(max-width: $width-container-mobile-lrg) {
+        display: grid;
+        justify-items: center;
+        text-align: center;
+
+        & img {
+            box-shadow: 2px 2px 15px -5px black;
+            width: 80%;
+        }
+    }
+}
+
+div.taxi {
+    background-color: #0a0f12;
+    background: radial-gradient(circle, #1a2b30 40%, #000000 80%);
+}
+
+.taxi,
 .tempest {
     background-color: #4f96d1;
     color: #fff;
