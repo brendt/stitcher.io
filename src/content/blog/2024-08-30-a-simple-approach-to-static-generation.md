@@ -262,7 +262,7 @@ public function __invoke(): void
 }
 ```
 
-And we're done! Now we have one controller action that generates a dynamic amount of pages, all with just a couple of lines of code. I added some null checks and prevented some edge cases — you can check out the [full code here](https://github.com/tempestphp/tempest-framework/blob/main/src/Tempest/Http/Static/StaticGenerateCommand.php) if you want to. 
+And we're done! Now we have one controller action that generates a dynamic amount of pages, all with just a couple of lines of code. I added some null checks and prevented some edge cases — you can check out the [full code here](https://github.com/tempestphp/tempest-framework/blob/main/src/Tempest/Http/src/Static/StaticGenerateCommand.php) if you want to. 
 
 ---
 
