@@ -336,9 +336,6 @@
         title: Present
         slides: /src/content/present/slides.md
 
-/timeline-taxi:
-    template: taxi/index.twig
-
 /timeline-taxi/pending:
     template: taxi/pending.twig
 
