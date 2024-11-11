@@ -30,7 +30,7 @@ That _clean slate_ is an unfair advantage. Of course, it means nothing if you ca
 
 The second part of Tempest's unfair advantage is the courage to question and rethink the things we have gotten used to. One of the best examples to illustrate this is `symfony/console`: the de-facto standard for console applications in PHP for over a decade. It's used everywhere, and it has the absolute monopoly when it comes to building console applications in PHP.
 
-So I thought… what if I had to build a console framework today from scratch? What would that look like? Wel, here's what a console command looks like in Symfony today:
+So I thought… what if I had to build a console framework today from scratch? What would that look like? Well, here's what a console command looks like in Symfony today:
 
 ```php
 #[AsCommand(name: 'make:user')]
