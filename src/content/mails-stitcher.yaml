@@ -1,3 +1,9 @@
+'104':
+    date: 2024-11-20
+    title: Let's get ready
+    pretext: "PHP 8.4 releases tomorrow!"
+    content: src/content/mails/stitcher-104.md
+
 '103':
     date: 2024-10-28
     title: Two Big Things
