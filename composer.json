@@ -15,7 +15,7 @@
     ],
     "require-dev": {
         "larapack/dd": "^1.1",
-        "laravel/envoy": "^2.9"
+        "laravel/envoy": "^2.10"
     },
     "autoload": {
         "psr-4": {
