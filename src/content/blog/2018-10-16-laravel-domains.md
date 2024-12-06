@@ -182,7 +182,7 @@ For example, in Laravel applications you'll get an array of form data or an arra
 the rest is up to you.
 
 Value objects are a representation of that user data, in a structured way.
-Because we want don't want to concern our actions with input validation,
+Because we don't want to concern our actions with input validation,
 we pass them a value object. 
 There's one rule applied to value objects: if they exist, they are valid.
 
