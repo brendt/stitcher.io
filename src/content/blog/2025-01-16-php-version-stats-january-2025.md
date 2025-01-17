@@ -294,7 +294,7 @@ It's easiest to visualize this data into a chart for a relative comparison, so t
 
 It seems that adoption rate of newer versions have slowed down, though remember that this isn't necessarily a bad thing: packages that require `php: ^8.0` will automatically support PHP 8.4 as well. 
 
-On the other hand (I've made this argument many times before): I believe the PHP community would benefit overall if open source maintainers pushed more towards keeping up-to-date with the newest PHP versions. We're at a time when upgrades have never been easier thanks to automation tools like Rector and PHP CS Fixer; and keeping projects up-to-date with the latest PHP version only has benefits (security, performance, and newer features).
+On the other hand (I've made this argument many times before): I believe the PHP community would benefit overall if open source maintainers pushed more towards keeping up-to-date with the newest PHP versions. We're at a time when upgrades have never been easier thanks to automation tools like Rector; and keeping projects up-to-date with the latest PHP version only has benefits (security, performance, and newer features).
 
 I, for one, am very excited about PHP 8.4. It's one of the most [impactful releases in recent PHP history](/blog/new-in-php-84), and I really enjoy using it! 
 
