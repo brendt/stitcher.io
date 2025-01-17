@@ -1,6 +1,6 @@
 Every six months, I do an update on which PHP versions are used across the community. You can read the previous edition [here](/blog/php-version-stats-january-2024), I'll also include historic data in this post.
 
-Keep in mind note that I'm working with the data available. That means that these charts are not a 100% accurate representation of the PHP community as a whole, but they _are_ an accurate representation of one of the most prominent parts of PHP: the [packagist ecosystem](https://packagist.org/php-statistics).
+Note that I'm working with the data available. That means that these charts are not a 100% accurate representation of the PHP community as a whole, but they _are_ an accurate representation of one of the most prominent parts of PHP: the [packagist ecosystem](https://packagist.org/php-statistics).
 
 {{ cta:packagist }}
 
