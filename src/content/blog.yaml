@@ -7,7 +7,7 @@
 #  disableAds: true
 
 php-version-stats-january-2025:
-  date: 2025-01-16
+  date: 2025-01-17
   title: "PHP version stats: January, 2025"
   content: src/content/blog/2025-01-16-php-version-stats-january-2025.md
   versionStatsDate: 2025-01-01
