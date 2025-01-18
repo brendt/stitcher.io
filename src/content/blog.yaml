@@ -6,6 +6,11 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+theoretical-engineers:
+  date: 2025-01-18
+  title: Theoretical engineers
+  content: src/content/blog/2025-01-18-the-theoretical-engineer.md
+
 php-version-stats-january-2025:
   date: 2025-01-17
   title: "PHP version stats: January, 2025"
