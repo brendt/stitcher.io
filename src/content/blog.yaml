@@ -6,6 +6,15 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+static-websites-with-tempest:
+  date: 2025-03-14
+  title: Static websites with Tempest
+  content: src/content/blog/2025-03-14-static-websites-with-tempest.md
+  disableAds: true
+  meta:
+    description: Tempest makes it super convenient to convert any controller action in statically generated pages
+    canonical: https://tempestphp.com/blog/static-websites-with-tempest/
+
 theoretical-engineers:
   date: 2025-01-18
   title: Theoretical engineers

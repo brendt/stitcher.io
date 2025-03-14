@@ -6,6 +6,30 @@ $color-green: #34A853;
 $color-yellow: #FCBC05;
 $color-purple: #9d3af6;
 
+:root {
+
+    --code-background: #f3f3f3;
+    --code-foreground: #000000;
+    --code-keyword: #4f95d1;
+    --code-property: #4cb966;
+    --code-type: #d14f57;
+    --code-generic: #9d3af6;
+    --code-value: #515248;
+    --code-comment: #888888;
+    --code-highlight: #22dddd33;
+    --code-addition: #00ff0022;
+    --code-deletion: #ff000011;
+    --code-gutter: #555555;
+    --code-gutter-addition: #34a853;
+    --code-gutter-deletion: #ea4334;
+    --code-moderate: #fef9c3;
+    --code-complex: #fee2e2;
+    --code-adverb: #e0f2fe;
+    --code-passive: #dcfce7;
+    --code-complex-phrase: #f3e8ff;
+    --code-qualified: #f1f5f9;
+}
+
 .hl-deletion {
     background-color: $color-red;
     color: #fff;
@@ -263,4 +287,52 @@ $color-purple: #9d3af6;
             color: #000;
         }
     }
+}
+
+
+.hl-console-underline {
+    text-decoration: underline;
+}
+.hl-console-strong {
+    font-weight: bold;
+}
+.hl-console-comment {
+    color: var(--code-comment);
+}
+.hl-console-em {
+    color: var(--code-keyword);
+    font-weight: bold;
+}
+.hl-console-dim {
+    color: var(--code-comment);
+}
+
+.hl-console-question,
+.hl-console-error,
+.hl-console-success,
+.hl-console-h1,
+.hl-console-h2 {
+    color: #fff;
+    display: inline-block;
+    line-height: 1.9em;
+    padding: 0 5px;
+}
+
+.hl-console-question {
+    background-color: var(--code-keyword);
+}
+.hl-console-error {
+    background-color: var(--code-type);
+}
+.hl-console-success {
+    background-color: var(--code-property);
+}
+.hl-console-h1 {
+    background-color: #4ab1d1;
+    font-weight: bold;
+    line-height: 2em;
+}
+.hl-console-h2 {
+    background-color: var(--code-keyword);
+    line-height: 1.8em;
 }

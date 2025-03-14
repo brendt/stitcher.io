@@ -2,6 +2,7 @@
 
 namespace Brendt\Stitcher\Plugin\Markdown;
 
+use Brendt\Stitcher\Plugin\Highlight\TempestConsoleWebLanguage;
 use Brendt\Stitcher\Plugin\Highlight\TempestViewLanguage;
 use InvalidArgumentException;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -30,6 +31,7 @@ class HighlightInlineCodeRenderer implements NodeRendererInterface
         $highlighter = new Highlighter();
 
         $highlighter->addLanguage(new TempestViewLanguage());
+        $highlighter->addLanguage(new TempestConsoleWebLanguage());
 
         return '<code>' . $highlighter->parse($code, $language) . '</code>';
     }
