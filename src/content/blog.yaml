@@ -6,6 +6,16 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+
+request-objects-in-tempest:
+  date: 2025-03-17
+  title: Request objects in Tempest
+  content: src/content/blog/2025-03-17-request-objects-in-tempest.md
+  disableAds: true
+  meta:
+    description: Why Tempest requests are super intuitive
+    canonical: https://tempestphp.com/blog/request-objects-in-tempest/
+
 static-websites-with-tempest:
   date: 2025-03-14
   title: Static websites with Tempest
