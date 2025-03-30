@@ -1,3 +1,5 @@
+**Note**: I've written an updated version of this post here: [https://tempestphp.com/blog/about-route-attributes](https://tempestphp.com/blog/about-route-attributes). 
+
 I've been thinking about route attributes lately. By doing so, I came to realise that I've got a somewhat strange relation with [annotations a.k.a. attributes](/blog/attributes-in-php-8). Over the years, I've gone from loving them to hating them, to loving them again, to somewhere in between. I've seen them abused, both inside and outside of PHP and I've heard both advocates and opponents making compelling arguments for and against them.
 
 Lately, I've done quite a lot of thinking about a specific use case for them. I've talked with a bunch of people about it and I've tried to approach the question as rationally as possible: are attributes used for routing, a good or bad idea?
