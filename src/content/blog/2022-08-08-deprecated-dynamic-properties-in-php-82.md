@@ -34,18 +34,18 @@ You'll see this message: `Deprecated: Creation of dynamic property Post::$name i
 
 You might be panicking at this point, because dynamic properties are a big part of meta programming in PHP — many frameworks rely on it!
 
-Not to worry: this new deprecation won't affect any class that implements `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>`. Classes that implement these magic functions will keep working as intended:
+Not to worry: this new deprecation won't affect any class that implements `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>`. Classes that implement these magic methods will keep working as intended:
 
 ```php
 class Post
 {
     private <hljs type>array</hljs> <hljs prop>$properties</hljs> = [];
-    
+
     public function __set(<hljs type>string</hljs> $name, <hljs type>mixed</hljs> $value): void
     {
         $this-><hljs prop>properties</hljs>[$name] = $value;
     }
-    
+
     // …
 }
 
@@ -82,7 +82,7 @@ $post-><hljs prop>name</hljs> = 'Name'; // Works in PHP 8.2
 
 ## A better alternative
 
-If you _really_ want to use dynamic properties without implementing `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>`, there is a much better alternative than to extend from `<hljs type>stdClass</hljs>`. 
+If you _really_ want to use dynamic properties without implementing `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>`, there is a much better alternative than to extend from `<hljs type>stdClass</hljs>`.
 
 The PHP core team has provided a built-in [attribute](/blog/attributes-in-php-8) called `<hljs type>AllowDynamicProperties</hljs>`. As its name suggests, it allows dynamic properties on classes, without having to rely on sketchy extends:
 
@@ -101,7 +101,7 @@ $post-><hljs prop>name</hljs> = 'Name'; // All fine
 
 PHP used to be a very dynamic language, but has been moving away from that mindset for a while now. Personally I think it's a good thing to embrace stricter rules and rely on static analysis wherever possible, as I find it leads to writing better code.
 
-I can imagine developers who relied on dynamic properties, who are less happy with this change. If you're in that group, you might find it useful to take a closer look into static analysis. You can check out my [Road to PHP: Static Analysis](https://road-to-php.com/static) series if you want to learn more! 
+I can imagine developers who relied on dynamic properties, who are less happy with this change. If you're in that group, you might find it useful to take a closer look into static analysis. You can check out my [Road to PHP: Static Analysis](https://road-to-php.com/static) series if you want to learn more!
 
 _If_ you're willing to invest some time in figuring out static analysis, I'm fairly certain that most of you won't ever want to return back to the mess that is a dynamic programming language. With PHP we're lucky that both options are available and that you can migrate gradually towards a stricter type system.
 

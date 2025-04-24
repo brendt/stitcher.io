@@ -926,6 +926,8 @@ route-attributes:
     date: 2021-10-27
     title: "The case for route attributes"
     content: src/content/blog/2021-10-22-route-attributes.md
+    meta:
+      canonical: https://tempestphp.com/blog/about-route-attributes
     footnotes:
         - { link: /blog/rational-thinking, title: "Rational thinking" }
         - { link: /blog/opinion-driven-design, title: "Opinion-driven design" }
