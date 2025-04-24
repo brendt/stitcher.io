@@ -6,6 +6,14 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+php-verse-2025:
+  date: 2025-04-24
+  title: PHPverse 2025
+  disableAds: true
+  content: src/content/blog/2025-04-24-php-verse-2025.md
+  meta:
+    description: Celebrating 30 years of PHP
+    image: /resources/img/phpverse.png
 
 request-objects-in-tempest:
   date: 2025-03-17
