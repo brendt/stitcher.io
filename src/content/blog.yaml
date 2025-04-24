@@ -13,7 +13,7 @@ php-verse-2025:
   content: src/content/blog/2025-04-24-php-verse-2025.md
   meta:
     description: Celebrating 30 years of PHP
-    image: /resources/img/phpverse.png
+    image: /resources/img/meta/phpverse.png
 
 request-objects-in-tempest:
   date: 2025-03-17
