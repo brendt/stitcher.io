@@ -6,6 +6,15 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+tempest-discovery-explained:
+  date: 2025-04-26
+  title: Tempest's discovery explained
+  content: src/content/blog/2025-04-26-tempest-discovery-explained.md
+  disableAds: true
+  meta:
+    description: A deep dive into the heart of Tempest.
+    canonical: https://tempestphp.com/blog/discovery-explained
+
 php-verse-2025:
   date: 2025-04-24
   title: PHPverse 2025
