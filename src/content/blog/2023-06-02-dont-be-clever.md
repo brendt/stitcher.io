@@ -24,6 +24,8 @@ In the end, I created a monster; and — ironically — it had taken more time t
 
 You might assume I understood, but let me be clear: I didn't really know how much of it worked anymore.
 
+** Could you please provide an example of the proper solution 'class generator'? I am facing a similar problem now and this would be very helpful **
+
 Yes, I had failed to see the proper solution: a class generator — so that I didn't have to manually copy code again. It actually existed back then, I simply didn't know about it, no one told me about it, and I wasn't smart enough to question myself once I started going down a certain path.
 
 It's such a classic example, many of you probably recognise it. I wouldn't say my coding skills were bad, by the way. No, I didn't question myself enough, I lacked self-reflection and wasn't able to critically look at my own ideas.
