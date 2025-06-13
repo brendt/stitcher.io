@@ -6,6 +6,20 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+php-version-stats-june-2025:
+  date: 2025-06-13
+  title: "PHP version stats: June, 2025"
+  content: src/content/blog/2025-06-13-php-version-stats-june-2025.md
+  versionStatsDate: 2025-06-01
+  disableAds: true
+  meta:
+    description: PHP usage in June, 2025
+    template: blog/meta/version-stats.twig
+  footnotes:
+    - { link: "/blog/new-in-php-84", title: "What's new in PHP 8.4" }
+    - { link: "https://packagist.org/php-statistics", title: "Raw data from packagist" }
+    - { title: "PHP version stats: January, 2025", link: "/blog/php-version-stats-january-2025" }
+
 tempest-discovery-explained:
   date: 2025-04-26
   title: Tempest's discovery explained
