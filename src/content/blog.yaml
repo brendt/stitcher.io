@@ -6,6 +6,14 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+pipe-operator-in-php-85:
+  date: 2025-07-03
+  title: The pipe operator in PHP 8.5
+  disableAds: true
+  content: src/content/blog/2025-07-03-pipe-operator-in-php-85.md
+  meta:
+    description: The pipe operator is a game changer for modern PHP!
+
 php-version-stats-june-2025:
   date: 2025-06-13
   title: "PHP version stats: June, 2025"

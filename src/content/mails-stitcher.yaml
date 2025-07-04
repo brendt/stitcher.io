@@ -1,3 +1,9 @@
+'108':
+    date: 2025-05-08
+    title: Tempest is stable!
+    pretext: "Also, some PHPverse news!"
+    content: src/content/mails/stitcher-108.md
+
 '107':
     date: 2025-05-08
     title: Tempest is Beta
