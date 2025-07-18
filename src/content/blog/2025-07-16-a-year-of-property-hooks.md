@@ -135,7 +135,7 @@ final class Ebook implements Book
     
     public function getChapters(): array
     {
-        return $this->chatpers;
+        return $this->chapters;
     }
     
     private function addChapter(Chapter $chapter): void
