@@ -6,6 +6,14 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+a-year-of-property-hooks:
+  date: 2025-07-18
+  title: A year with property hooks
+  disableAds: true
+  content: src/content/blog/2025-07-16-a-year-of-property-hooks.md
+  meta:
+    description: Property hooks were added in PHP a year ago
+
 pipe-operator-in-php-85:
   date: 2025-07-03
   title: The pipe operator in PHP 8.5
