@@ -6,6 +6,15 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+
+readonly-or-private-set:
+  date: 2025-08-03
+  title: Readonly or private(set)
+  disableAds: true
+  content: src/content/blog/2025-08-03-readonly-or-private-set.md
+  meta:
+    description: Which two should you choose when building struct-like objects in PHP?
+
 a-year-of-property-hooks:
   date: 2025-07-18
   title: A year with property hooks

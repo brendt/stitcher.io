@@ -1,3 +1,9 @@
+'109':
+    date: 2025-07-18
+    title: '"Clone with" is coming!'
+    pretext: "Also, a new blog post!"
+    content: src/content/mails/stitcher-109.md
+
 '108':
     date: 2025-05-08
     title: Tempest is stable!

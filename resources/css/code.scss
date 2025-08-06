@@ -289,6 +289,20 @@ $color-purple: #9d3af6;
     }
 }
 
+.hl-error {
+    background: none;
+    border-bottom: dotted 3px #ea4334;
+}
+
+.hl-error-message {
+    background-color: #ea4334;
+    padding: 2px 3px;
+    color: #fff;
+
+    & span {
+        color: inherit;
+    }
+}
 
 .hl-console-underline {
     text-decoration: underline;
