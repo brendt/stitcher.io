@@ -1,3 +1,9 @@
+'110':
+  date: 2025-09-05
+  title: 'Things I wish I knew when I started programming'
+  pretext: "I just published a new book!"
+  content: src/content/mails/stitcher-110.md
+
 '109':
     date: 2025-07-18
     title: '"Clone with" is coming!'
