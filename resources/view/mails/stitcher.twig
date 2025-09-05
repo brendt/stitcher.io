@@ -32,7 +32,6 @@
         }
     }
 
-
     pre, code {
         color: #000;
         background-color: #f3f3f3;
@@ -94,7 +93,6 @@
 
     .hl-gutter {
         display: inline-block;
-        font-size: 0.9em;
         color: #555;
         padding: 0 1ch;
         user-select: none;
@@ -293,16 +291,16 @@
 
     body,
     body > *:not(html):not(style):not(br):not(tr):not(code):not(pre) {
-        font-family: "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        font-family: "Avenir", "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "Segoe UI",
         Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";
         box-sizing: border-box;
     }
 
     body {
-        background-color: #fcf4f5;
         color: rgb(61, 25, 29);
         height: 100%;
+        font-size: 16px;
         line-height: 1.4;
         margin: 0;
         hyphens: none;
@@ -321,7 +319,6 @@
     ol,
     ul,
     blockquote {
-        line-height: 1.4;
         text-align: left;
     }
 
@@ -339,43 +336,6 @@
 
     /* Typography */
 
-    h1 {
-        color: rgb(61, 25, 29);
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 0;
-        text-align: left;
-        font-family: "Jost", -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol" !important;
-    }
-
-    h2 {
-        color: rgb(61, 25, 29);
-        font-size: 19px;
-        font-weight: bold;
-        margin-top: 21px;
-        text-align: left;
-        font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol" !important;
-    }
-
-    h3 {
-        color: rgb(61, 25, 29);
-        font-size: 14px;
-        font-weight: bold;
-        margin-top: 0;
-        text-align: left;
-    }
-
-    h5 {
-        color: #333;
-        margin-top: -10px;
-        font-weight: normal;
-        font-style: italic;
-        text-align: center;
-    }
 
     hr {
         position: relative;
@@ -394,7 +354,7 @@
     li,
     p {
         color: rgb(61, 25, 29);
-        font-size: 18px;
+        font-size: 1em;
         line-height: 1.4;
         margin-top: 0;
         text-align: left;
@@ -417,7 +377,6 @@
     /* Layout */
 
     .wrapper {
-        background-color: #fcf4f5;
         margin: 0;
         padding: 0;
         width: 100%;
@@ -436,33 +395,13 @@
     }
 
     /* Header */
-
-    .header {
-        padding: 25px 0;
-        text-align: center;
-    }
-
-    .header h1 {
-        text-align: center;
+    h1 {
+        color: #000;
         margin-bottom: 0.6em;
         margin-top: 1em;
-        font-size: 30px;
-        background-color: #fe2977;
-        color: #fff;
-        display: inline-block;
+        font-size: 2rem;
+        display: block;
         padding: 5px 10px;
-    }
-
-    .header .subtitle {
-        font-size: 18px;
-        color: #333;
-        font-weight: bold;
-    }
-
-    .header a {
-        color: rgb(61, 25, 29);
-        font-weight: 600;
-        text-decoration: none;
     }
 
     a:hover {
@@ -509,7 +448,6 @@
 
     .inner-body {
         background-color: #ffffff;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
         margin: 0 auto;
         padding: 0;
         width: 570px;
@@ -518,20 +456,7 @@
         -premailer-width: 570px;
     }
 
-    /* Subcopy */
-
-    .subcopy {
-        border-top: 2px solid #f8f7f6;
-        margin-top: 25px;
-        padding-top: 25px;
-    }
-
-    .subcopy p {
-        font-size: 12px;
-    }
-
     /* Footer */
-
     .footer {
         margin: 0 auto;
         padding: 0;
@@ -555,7 +480,7 @@
     /* Tables */
 
     .table table {
-        margin: 30px auto;
+        margin: 10px auto;
         width: 100%;
         -premailer-cellpadding: 0;
         -premailer-cellspacing: 0;
@@ -569,134 +494,42 @@
     }
 
     .table td {
-        font-size: 15px;
+        font-size: 14px;
         line-height: 18px;
         padding: 10px 0;
         margin: 0;
     }
 
     .content-cell {
-        padding: 35px;
+        padding: 15px;
     }
 
-    /* Buttons */
-
-    .action {
-        margin: 30px auto;
-        padding: 0;
-        text-align: center;
-        width: 100%;
-        -premailer-cellpadding: 0;
-        -premailer-cellspacing: 0;
-        -premailer-width: 100%;
-    }
-
-    /* Panels */
-
-
-    .panel-item p:last-of-type {
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
-
-    /* Tailwind helpers */
-
-    .text-4xl {
-        font-size: 2.25rem;
-    }
-
-    .text-2xl {
-        font-size: 1.5rem;
-    }
-
-    .text-sm {
-        font-size: 0.875rem;
-    }
-
-    .font-semibold {
-        font-weight: 600;
-    }
-
-    .font-normal {
-        font-weight: 400;
-    }
-
-    .text-gray-400 {
-        color: #918f8b;
-    }
-
-    .center {
-        text-align: center;
-    }
-
-    em.small {
-        font-size: 1rem;
-    }
-
-    /* Stats */
-
-    table.stats tr {
-        vertical-align: bottom;
-    }
-
-    table.stats td {
-        padding-right: 2rem;
-        padding-bottom: 2rem;
-    }
-
-    table.stats a {
-        color: #3d3c3b;
-    }
 
     code {
         display: inline-block;
-        font-family: monospace;
+        font-family: Menlo, Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
+        font-size: 0.8em;
+        padding: 0.25em 0.5em;
     }
 
     pre {
         font-family: Menlo, Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
+        font-size: 0.8em;
         overflow: hidden;
-        max-width: 150%;
-        margin-left: -35px;
-        margin-right: -35px;
-        padding: 20px 20px;
+        padding: 1em;
         background-color: #f7f7f7;
-        font-size: 17px;
+        border-radius: 5px;
     }
 
-    pre > code {
-        padding-bottom: 1px;
+    pre + * {
+        margin-top: 1.5em;
     }
 
-    pre > code {
-        overflow-x: hidden;
+    * + pre {
+        margin-top: 1.5em;
     }
-
-    .quote {
-        display: block;
-        background-color: #fcf4f5;
-        overflow: hidden;
-        max-width: 150%;
-        margin-left: -35px;
-        margin-right: -35px;
-        padding: 20px 35px;
-        font-size: 17px;
-        margin-bottom: 1em;
-    }
-
-
-    .quote p {
-        font-size: inherit;
-        color: inherit;
-    }
-
-    .quote p:last-child {
-        margin-bottom: 0;
-    }
-
 
     table.table {
-        font-size: 1.3rem;
         width: 100%;
         margin-bottom: 2rem;
         border-spacing: 0;
@@ -709,7 +542,6 @@
     }
 
     table.table tr {
-        background-color: #f9e8ea;
     }
 
     table.table td.right {
@@ -762,11 +594,9 @@
                         >
                             <tr>
                                 <td>
-                                    <div class="header">
                                         <h1>
                                             {{ post.title|raw }}
                                         </h1>
-                                    </div>
                                 </td>
                             </tr>
 
@@ -795,9 +625,8 @@
                             <tr>
                                 <td class="content-cell" align="center">
                                     <p>
-                                        &copy; 2024
+                                        &copy; 2025
                                         <a href="https://stitcher.io">stitcher.io</a> —
-                                        <a style="font-weight:bold;" href="https://aggregate.stitcher.io/links/27b1f2b4-2cde-4e8f-8857-491bd3bccee4">Sponsor me</a> —
                                         <a href="::unsubscribeUrl::">Unsubscribe</a>
                                     </p>
                                 </td>
