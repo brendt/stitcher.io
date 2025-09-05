@@ -24,6 +24,7 @@ return [
         'resources/img/static/',
         'resources/img/static/php-in-7-minutes-thumb.jpg',
         'resources/img/static/dungeon.png',
+        'resources/img/static/things-book.png',
         'resources/img/static/83-thumb.png',
         'resources/img/static/generics-thumb-1.png',
         'resources/img/static/generics-thumb-2.png',
