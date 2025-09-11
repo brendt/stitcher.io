@@ -208,6 +208,12 @@ div.center > p {
   max-width: 40%;
 }
 
+.image-center + p img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 .image-left + p img {
   margin-left: 0;
 }
@@ -539,7 +545,7 @@ div.taxi {
 }
 
 .inline-things-book {
-  margin-top: 1em;
+  margin-top: 2em;
   background: rgba(36, 88, 116, 0.11);
   position: relative;
   font-weight: bold;
