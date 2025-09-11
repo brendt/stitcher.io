@@ -20,7 +20,9 @@ So my next step was to write down these criteria or "metrics" that I found impor
 
 ![](/resources/img/blog/impact-chart/03.svg)
 
-Now it was a matter of rating every project for every impact category. I decided on a scale from 1 to 5: `--` meant the biggest or most negative impact; `-` a little less; `±` was neutral, and then there was `+`, and `++` as well for positive impact. I didn't have any strict rules on what each value meant, I figured I'd just start and see where I'd end up.
+Important to note here is that there is no fixed set of criteria. You choose whatever you feel is important enough. For this blog post, I simplified the example a bit. In my real one I also include "meaningful impact", for example.
+
+Moving on, now it was a matter of rating every project for every impact category. I decided on a scale from 1 to 5: `--` meant the biggest or most negative impact; `-` a little less; `±` was neutral, and then there was `+`, and `++` as well for positive impact. I didn't have any strict rules on what each value meant, I figured I'd just start and see where I'd end up.
 
 There was one issue, though: halfway through my ratings, I realized I wasn't completely honest. I was rating these projects based on what I _wanted_ them to be, rather than what they actually were. So I took a new paper and started again, this time forcing myself to be truly honest. That wasn't easy to do, but eventually I ended up with this:
 
@@ -51,3 +53,13 @@ After that sci-fi novel, by the way, I wrote a new book called "[Things I wish I
 <div class="image-noborder image-small image-center"></div>
 
 ![](/resources/img/blog/impact-chart/06.svg)
+
+## In summary
+
+1. Start by listing all your "things": work projects, hobbies, family obligations, whatever you feel fills your head.
+2. Next, make a list of impact metrics that matter to you. For me those are: financial, time, happiness, and meaningfulness; but it could also include stuff like "growth opportunity", "physical health", "creativity', …
+3. Rate each "thing" for each metric. Choose a simple system. Don't worry about trying to fit everything with a formula and follow your gut.
+4. Be brutally honest while rating. It might even help you to commit burning your chart afterwards, so that you don't have to be afraid anyone sees it.
+5. When everything's rated, do a second pass over each item and assign an average rating. You can choose to simply make it a sum of ratings, you could assign more weight to specific metrics, you could follow your gut. Up to you.
+6. Once your chart is done, evaluate it. What needs to change? Do you need to drop something? Do you need to add something? Take action.
+7. Repeat every couple of months. If you decide to not burn your charts, compare them over time.
