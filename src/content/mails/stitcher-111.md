@@ -1,6 +1,6 @@
 Hi ::subscriber.first_name::
 
-I don't have the habit of sending two mails per week (usually even less than one per month), but I've just published a blogpost that I really wanted to share with you. I hope it may help some people!
+I don't have the habit of sending two mails per week (usually even less than one per month), but I've just published a blogpost that I really wanted to share with you. In case you have a problem with images loading, you can also [check out the web version here](https://stitcher.io/blog/impact-charts). I hope it may help some people!
 
 A little over a year ago, I was sitting in the doctor's office when she told me I had to stop and take a break. I was close to burning out, and now was the time to make changes. One thing that played a role in getting to that point was the feeling of juggling too many things at once. Something I think many people can relate to.
 
