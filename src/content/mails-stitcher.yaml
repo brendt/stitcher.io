@@ -1,3 +1,9 @@
+'111':
+  date: 2025-09-11
+  title: 'Impact Charts'
+  pretext: "A technique that helped me through burnout"
+  content: src/content/mails/stitcher-111.md
+
 'book-1':
   date: 2025-09-05
   title: 'My new book is available!'

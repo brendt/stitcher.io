@@ -7,7 +7,7 @@
 <body>
 
 {% if post.pretext is defined %}
-<div style="display: none;font-size: 1px;color:#fff;line-height: 1px;max-height: 0;opacity: 0;overflow: hidden;">{{ post.pretext }}</div>
+    <div style="display: none;font-size: 1px;color:#fff;line-height: 1px;max-height: 0;opacity: 0;overflow: hidden;">{{ post.pretext }}</div>
 {% endif %}
 
 <style>
@@ -559,6 +559,11 @@
     table.table td {
         padding: .5em 1em;
     }
+
+    .content-cell img {
+        display: block;
+        margin: 2em auto;
+    }
 </style>
 
 <table
@@ -594,9 +599,9 @@
                         >
                             <tr>
                                 <td>
-                                        <h1>
-                                            {{ post.title|raw }}
-                                        </h1>
+                                    <h1>
+                                        {{ post.title|raw }}
+                                    </h1>
                                 </td>
                             </tr>
 
