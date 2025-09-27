@@ -1,3 +1,9 @@
+'112':
+  date: 2025-09-27
+  title: "What's your motivator?"
+  pretext: "For me, it meant rebuilding Aggregate from scratch."
+  content: src/content/mails/stitcher-112.md
+
 '111':
   date: 2025-09-11
   title: 'Impact Charts'
