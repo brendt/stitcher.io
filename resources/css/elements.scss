@@ -38,15 +38,15 @@ body {
 }
 
 h1 > span {
-    background-color: $color-primary;
-    padding: .5rem;
-    color: #fff;
+    //background-color: $color-primary;
+    //padding: .5rem;
+    //color: #fff;
     line-height: 1.6em;
 }
 
 
 h1 {
-    @include outOfBox;
+    //@include outOfBox;
     color: $color-primary;
     font-size: 3em;
 
