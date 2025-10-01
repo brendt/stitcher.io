@@ -1,4 +1,20 @@
-I've had the pleasure of creating several courses at [Spatie](*https://spatie.be/), and I'd like to keep track of them on my blog as well.
+Here you find an overview of all the books I've written before.
+
+## Things I wish I knew when I started programming
+
+This is my newest book aimed at programmers of any skill level. This book isn't about patterns, principles, or best practices; there's actually barely any code in it. It's about the many things I've learned along the way being a professional programmer, and about the many, many mistakes I made along that way as well.  It's what I wish someone would have told me years ago, and I hope it might inspire you.
+
+<a class="inline-things-book" href="https://things-i-wish-i-knew.com/">
+    <img src="/resources/img/static/things-book.png" alt="Things I wish I knew when I started programming" />
+    <p>Available now: my book "Things I wish I knew when I started programming". You can buy paperback or ebook versions today!</p>
+</a>
+
+## Things I wish to know: notebooks
+
+A hardcover, dot grid notebook that goes along the "Things I wish I knew when I started programming" book. Available in two sizes.
+
+- [Notebook, 6x9", 122 pages](https://www.amazon.com/Things-I-wish-know-Notebook/dp/B0FQJVRDNB)
+- [Notebook XL, 7x10", 256 pages](https://www.amazon.com/Things-wish-know-Notebook-XL/dp/B0FQPP6QHW)
 
 ## Event Sourcing in Laravel
 

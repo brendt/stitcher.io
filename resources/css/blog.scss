@@ -135,3 +135,16 @@ audio {
     color: $color-black;
     font-family: $font-body;
 }
+
+.blog-title {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.blog-title h1 {
+  margin: 0;
+}
+
+.blog-title .menu {
+  margin-bottom: 1rem;
+}

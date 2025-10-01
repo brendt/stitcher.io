@@ -4,18 +4,8 @@ h1, h2, h3, h4, h5 {
     font-family: $font-title;
     color: $color-primary;
 
-    margin-bottom: 1.2rem;
-
     font-weight: 600;
     font-kerning: normal;
-
-    @media(max-width: $width-container-mobile) {
-        text-align: center;
-    }
-}
-
-h1 {
-    margin-bottom: 1.3em;
 }
 
 h2 {

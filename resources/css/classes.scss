@@ -565,3 +565,19 @@ div.taxi {
     border-radius: 3px;
   }
 }
+
+.menu {
+  display: flex;
+  gap: 1em;
+
+
+  & > a {
+    background-color: $color-primary-pastel;
+    padding: .5em;
+    border-radius: 5px;
+  }
+}
+
+.blog .menu {
+  margin-top: 1em;
+}

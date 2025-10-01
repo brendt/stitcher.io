@@ -54,19 +54,12 @@ h1 {
         font-size: 2.5em;
     }
 
-    @media (max-width: $width-container-mobile-lrg) {
-        text-align: center;
-    }
-
     @media (max-width: $width-container-mobile) {
         font-size: 2.2em;
         line-height: 2em;
     }
 
     line-height: 1.2em;
-
-    margin-top: 1.5em;
-    margin-bottom: 3rem;
 
     @media (max-width: $width-base) {
         margin: .5em 20px;
