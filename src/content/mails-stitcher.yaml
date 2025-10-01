@@ -1,3 +1,9 @@
+'113':
+  date: 2025-09-28
+  title: "Vendor locked"
+  pretext: "I've been using Tailwind for a while now, I've become worse at CSS."
+  content: src/content/mails/stitcher-113.md
+
 '112':
   date: 2025-09-27
   title: "What's your motivator?"
