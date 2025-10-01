@@ -14,7 +14,7 @@ vendor-locked:
 
 whats-your-motivator:
   date: 2025-09-29
-  title: "What's your motivator?"
+  title: "What is your motivator?"
   content: src/content/blog/2025-09-29-whats-your-motivator.md
   disableAds: true
 
