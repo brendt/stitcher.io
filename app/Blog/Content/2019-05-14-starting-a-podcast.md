@@ -15,7 +15,7 @@ Ever since my wife and I bought our house, I've slowly been working on my amateu
 and I've come to the point where I feel comfortable recording in it.
 Here's my view when recording:
 
-![](/resources/img/blog/podcast/podcast.jpg)
+![](/img/blog/podcast/podcast.jpg)
 
 Anyway, I just wanted to let you know that I'm starting this thing. 
 Just like the newsletter it'll be sporadic. 

@@ -78,9 +78,9 @@ Note that I've excluded versions with less than 1% usage, in practice this means
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2021-july-01.svg)](/resources/img/blog/version-stats/2021-july-01.svg)
+[![](/img/blog/version-stats/2021-july-01.svg)](/img/blog/version-stats/2021-july-01.svg)
 
-<em class="center small">[Evolution of version usage, now and in May, 2020](/resources/img/blog/version-stats/2021-july-01.svg)</em>
+<em class="center small">[Evolution of version usage, now and in May, 2020](/img/blog/version-stats/2021-july-01.svg)</em>
 
 PHP 7.4 has seen significant growth compared to last year. In fact, it looks like many people went straight from older versions to 7.4. Let's hope we'll be able to observe the same trend next year for PHP 8. Major version updates tend to take a little longer though; I assume that's because developers are wary of the breaking changes associated with them. Good news though: the update from PHP 7.4 to PHP 8 is actually surprisingly easy, thanks to the deprecation work that has been done in the 7.x series. It might be worth considering updating soon, not only because active support for PHP 7.4 ends in [less than half a year](*https://www.php.net/supported-versions.php), but also because PHP 8 brings tons of [new and useful features](/blog/new-in-php-8). 
 
@@ -90,9 +90,9 @@ Next, let's take a look at the all-time evolution chart, which also clearly visu
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2021-july-02.svg)](/resources/img/blog/version-stats/2021-july-02.svg)
+[![](/img/blog/version-stats/2021-july-02.svg)](/img/blog/version-stats/2021-july-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2021-july-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2021-july-02.svg)</em>
 
 I want to emphasize once more that the update from PHP 7.4 to 8 isn't all that hard, and truly worth investing a little time in. There are tools like [Rector](*https://getrector.org/) and [PHP CS Fixer](*https://github.com/FriendsOfPHP/PHP-CS-Fixer) that can help make the upgrade even more smooth.
 

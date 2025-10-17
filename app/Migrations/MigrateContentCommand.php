@@ -40,6 +40,8 @@ final class MigrateContentCommand
 
             $frontMatter = "---\n" . Yaml::dump($post) . "---\n\n";
 
+            $content = str_replace('/resources/img/', '/img/', $content);
+
             file_put_contents($newPath, $frontMatter . $content);
 
             $this->success($newPath);

@@ -104,9 +104,9 @@ Visualizing this data looks like this:
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2024-jan-01.svg)](/resources/img/blog/version-stats/2024-jan-01.svg)
+[![](/img/blog/version-stats/2024-jan-01.svg)](/img/blog/version-stats/2024-jan-01.svg)
 
-<em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2024-jan-01.svg)</em>
+<em class="center small">[Evolution of version usage](/img/blog/version-stats/2024-jan-01.svg)</em>
 
 There seems to be a slightly faster adoption of PHP 8.3 compared to PHP 8.2: 6.4% of projects are using PHP 8.3 within the first two months of its release, for PHP 8.2 it  was 4.7%. 
 
@@ -117,9 +117,9 @@ Moving on to the all-time overview chart, here you can see the evolution of vers
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2024-jan-02.svg)](/resources/img/blog/version-stats/2024-jan-02.svg)
+[![](/img/blog/version-stats/2024-jan-02.svg)](/img/blog/version-stats/2024-jan-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2024-jan-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2024-jan-02.svg)</em>
 
 {{ cta:dynamic }}
 
@@ -264,9 +264,9 @@ Instead of comparing absolute numbers, it's best to plot this data into a chart 
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2024-jan-03.svg)](/resources/img/blog/version-stats/2024-jan-03.svg)
+[![](/img/blog/version-stats/2024-jan-03.svg)](/img/blog/version-stats/2024-jan-03.svg)
 
-<em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2024-jan-03.svg)</em>
+<em class="center small">[Minimal PHP requirement over time](/img/blog/version-stats/2024-jan-03.svg)</em>
 
 Talking about progression, I'd like to remind open source maintainers about the power and responsibility they hold. Imagine if all modern open source packages only supported PHP versions that were actively worked on. My suspicion is that many more projects would be encouraged to update faster; eventually leading to a healthier, more performant, and more secure ecosystem. Open source maintainers yield quite a lot of power in this regard.
 

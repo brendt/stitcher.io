@@ -135,7 +135,7 @@ final class PatternsTest extends TestCase
 
 Now there is even less duplicated setup code to write! However, there is a glaring problem: this approach scales poorly. Can you imagine having all pattern tests in one test file? Luckily, PhpStorm allows to run a single data provider entry, and is able to tell you which specific data provider entry failed, so there is some fine-grained control:
 
-![](/resources/img/blog/pattern-test/phpstorm.png)
+![](/img/blog/pattern-test/phpstorm.png)
 
 But still… hundreds, potentially thousands, of tests in the same file doesn't seem like an approach that would work in the long run.
 
@@ -226,7 +226,7 @@ The only downside to this approach is that you cannot run a _specific_ pattern t
 
 You can rerun specific pattern tests when they failed, and I find that adding a good error message helps you to quickly find the problem:
 
-![](/resources/img/blog/pattern-test/phpstorm-2.png)
+![](/img/blog/pattern-test/phpstorm-2.png)
 
 I'll acknowledge that this is indeed a minor downside to this approach. However, I find that for this specific use case, I'm saving lots of time, and I've removed the majority of friction while testing `tempest/highlight`. In the end, for me, it's a win.
 

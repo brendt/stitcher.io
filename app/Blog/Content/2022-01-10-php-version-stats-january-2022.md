@@ -78,9 +78,9 @@ Note that I've omitted all versions that didn't have more than 1% usage back in 
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2022-jan-01.svg)](/resources/img/blog/version-stats/2022-jan-01.svg)
+[![](/img/blog/version-stats/2022-jan-01.svg)](/img/blog/version-stats/2022-jan-01.svg)
 
-<em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2022-jan-01.svg)</em>
+<em class="center small">[Evolution of version usage](/img/blog/version-stats/2022-jan-01.svg)</em>
 
 It's good to see PHP 8.1 being used in almost 10% of all composer installs, only one month after its release. It makes sense that it's easier picked up on for projects already on PHP 8.0, since it's fairly easy to upgrade from PHP 8.0 to PHP 8.1.
 
@@ -94,9 +94,9 @@ Moving on the the all-time overview chart, here you can see the evolution of ver
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2022-jan-02.svg)](/resources/img/blog/version-stats/2022-jan-02.svg)
+[![](/img/blog/version-stats/2022-jan-02.svg)](/img/blog/version-stats/2022-jan-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2022-jan-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2022-jan-02.svg)</em>
 
 Despite PHP 7.4 starting its downward trajectory, it's clear that it still has a way to go. Let's hope we'll see a steeper decline in six months.
 
@@ -192,9 +192,9 @@ For visual learners, here's the same data visualised in a chart:
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2022-jan-03.svg)](/resources/img/blog/version-stats/2022-jan-03.svg)
+[![](/img/blog/version-stats/2022-jan-03.svg)](/img/blog/version-stats/2022-jan-03.svg)
 
-<em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2022-jan-03.svg)</em>
+<em class="center small">[Minimal PHP requirement over time](/img/blog/version-stats/2022-jan-03.svg)</em>
 
 You might be surprised not to see PHP 8.1 here yet, but keep in mind that this data shows the _minimum_ required version. It doesn't mean that no packages support PHP 8.1, it only means they also support PHP 8.0 or lower versions. That makes a lot of sense given that PHP 8.1 has only been released for a little more than a month.
 

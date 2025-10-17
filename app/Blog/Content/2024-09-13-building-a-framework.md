@@ -7,7 +7,7 @@ Ten years ago, I flew with my girlfriend-now-wife to Billund in Denmark to meet 
 
 This is us on the airport — albeit with terrible photo quality and equally terrible hair on my part:
 
-![](/resources/img/blog/airport/airport.jpg)
+![](/img/blog/airport/airport.jpg)
 
 We had a great time but after a couple of days, we had to return home. My wife's sister's husband (my future-brother-in-law, I hope it's not too confusing 😅) drove us back to the airport. We had some time to kill before checkin, and so he stayed with us until we had to leave. We talked about that upcoming job of mine, which I told him probably wasn't my dream job, but it was a start. He asked: "if you could choose, what would you really like to do?" I didn't have to think about it all that much: "write a framework," I said. He's in IT as well, so he knew exactly what that was about. 
 

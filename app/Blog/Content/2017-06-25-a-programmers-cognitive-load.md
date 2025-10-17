@@ -41,9 +41,9 @@ I encourage you to think about your current font choice, and how it influences t
 
 Here's a comparison between a not-so-good and better font configuration, in my experience.
 
-![](/resources/img/blog/cognitive-load/aestetics-1.png)
+![](/img/blog/cognitive-load/aestetics-1.png)
 
-![](/resources/img/blog/cognitive-load/aestetics-2.png)
+![](/img/blog/cognitive-load/aestetics-2.png)
 
 ## Folding
 
@@ -53,7 +53,7 @@ Folding your method bodies by default gives you a much clearer overview of the c
 It makes it easier to decide where you want to go to, instead of scrolling and searching. 
 Take a look at the following example.
 
-![](/resources/img/blog/cognitive-load/aestetics-3.png)
+![](/img/blog/cognitive-load/aestetics-3.png)
 
 IDEs like IntelliJ can fold code by default: `Settings > Editor > General > Code Folding`. 
 I was a bit hesitant to enable it by default, but I can assure you this is an amazing feature once you're used to it. 
@@ -124,7 +124,7 @@ I've challenged many programmers before, and most of them were actually convince
 
 It's up to you! Here's how my code looks like these days:
 
-![](/resources/img/blog/cognitive-load/aestetics-4.png)
+![](/img/blog/cognitive-load/aestetics-4.png)
 
 Be sure to let me know how the challenge went! 
 You can reach me on [Twitter](*https://twitter.com/brendt_gd) or via [e-mail](mailto:brendt@stitcher.io).

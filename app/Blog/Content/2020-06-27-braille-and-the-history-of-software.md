@@ -17,7 +17,7 @@ Besides managing the school, he was also a translator for the King of France, Lo
 
 In 1786, he printed his first book with raised letters: it was readable by touch and by sight, so both blind and seeing people could read it.
 
-![](/resources/img/blog/braille/hauy.jpg)
+![](/img/blog/braille/hauy.jpg)
 
 It was a revolutionary idea, but with its downsides: the fancy and curly fonts of that time made it very hard for blind people to distinguish between letters; furthermore, it was also rather expensive to print such books.
 
@@ -37,7 +37,7 @@ It shouldn't be a surprise: this technique grew rapidly in popularity among the 
 
 While Braille was still developing his system, an American named [Samuel Howe](*https://en.wikipedia.org/wiki/Samuel_Gridley_Howe) came to visit France. He was going to start the first school for blind children in the U.S. and wanted to do practical research. He took the original idea of Haüy's embossed letters, and made a new font for it; a font that would be less "artsy" and more "practical" to read. It was called Boston Line Type. 
 
-![](/resources/img/blog/braille/boston.jpg)
+![](/img/blog/braille/boston.jpg)
 
 By the time the system was introduced in the U.S., blind U.S. citizens also heard of braille. Upper management resisted though: it was a European invention, for sure Boston Line Type would be the superior system. It was still readable by both blind and seeing people, and was more clear than Haüy's method.
 
@@ -47,7 +47,7 @@ Still, schools in the U.S. couldn't live with using the European standard. So wh
 
 This went on until 1932, until braille finally became the accepted standard, probably what most blind people wanted all along. A period that took more than a century; it was later poetically called "The war of the Dots".
 
-![](/resources/img/blog/braille/braille.png)
+![](/img/blog/braille/braille.png)
 
 ---
 

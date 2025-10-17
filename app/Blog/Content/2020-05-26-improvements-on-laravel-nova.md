@@ -17,7 +17,7 @@ author:
 [Laravel Nova](*https://nova.laravel.com) was launched on 22nd August 2018, as
 the official administration panel for Laravel web applications.
 
-![](/resources/img/blog/improvements-on-laravel-nova/nova-1.jpg)
+![](/img/blog/improvements-on-laravel-nova/nova-1.jpg)
 
 That was [Taylor Otwell](*https://twitter.com/taylorotwell) making the presentation at
 the Laracon US 2018, and since then Nova has evolved a lot, offering a better a UI experience,
@@ -123,7 +123,7 @@ you some of the ones I consider the best additions:
 
 See it a Chart "on-the-fly" directly in your Resource index or detail contexts.
 
-![](/resources/img/blog/improvements-on-laravel-nova/sparkline-field.jpg)
+![](/img/blog/improvements-on-laravel-nova/sparkline-field.jpg)
 
 ```php
 <hljs type>Sparkline</hljs>::<hljs prop>make</hljs>('Total devices Per Week')
@@ -137,7 +137,7 @@ See it a Chart "on-the-fly" directly in your Resource index or detail contexts.
 Key-value fields are ways for you to interact with JSON data type columns, providing
 a way to manage Key-Value entries in a CRUD way.
 
-![](/resources/img/blog/improvements-on-laravel-nova/key-value-field.jpg)
+![](/img/blog/improvements-on-laravel-nova/key-value-field.jpg)
 
 ```php
 <hljs type>KeyValue</hljs>::<hljs prop>make</hljs>('Server Data', 'server_data')
@@ -170,7 +170,7 @@ These are the *newest kids on the block* since they allow you to upload files or
 images into your Laravel Vapor instance. They will generate a temporary upload
 URL for Amazon S3 and will immediately upload the file.
 
-![](/resources/img/blog/improvements-on-laravel-nova/vapor-fields.jpg)
+![](/img/blog/improvements-on-laravel-nova/vapor-fields.jpg)
 
 ```txt
 <hljs type>VaporFile</hljs>::<hljs prop>make</hljs>('Filename'),
@@ -181,7 +181,7 @@ URL for Amazon S3 and will immediately upload the file.
 
 On the latest Nova version 3.6.0 you can now have a Searchable Select field.
 
-![](/resources/img/blog/improvements-on-laravel-nova/select-searchable.jpg)
+![](/img/blog/improvements-on-laravel-nova/select-searchable.jpg)
 
 ```php
 <hljs type>Select</hljs>::<hljs prop>make</hljs>('Tags', 'tag_id')

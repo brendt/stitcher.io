@@ -24,7 +24,7 @@ When I discuss event sourcing, people often assume that it comes with significan
 
 Something like this:
 
-![](/resources/img/blog/event-sourcing-basics/01.png)
+![](/img/blog/event-sourcing-basics/01.png)
 
 And, of course, this is an oversimplification, but it visualizes the argument very well: we should only use event sourcing in projects where we're sure it'll be worth it.
 
@@ -32,7 +32,7 @@ The problem with this statement is that it doesn't talk about _just_ event sourc
 
 Which is why I'd say our graph should look something more like this:
 
-![](/resources/img/blog/event-sourcing-basics/02.png)
+![](/img/blog/event-sourcing-basics/02.png)
 
 But does it even make sense to use event sourcing without the patterns that build on top it? There's a good reason why those patterns exist. That are the questions I want to answer today.
 

@@ -181,7 +181,7 @@ Thanks to named arguments and their support for [variadic functions](/blog/php-8
 
 To me that's the most important value: your IDE tells you what you need to do, instead of having to read documentation — inline or external:
 
-![](/resources/img/blog/config/config-1.png)
+![](/img/blog/config/config-1.png)
 
 The only thing needed for this to work is some kind of interface that requires these config builders, as I like to call them, to implement a `<hljs prop>toArray</hljs>` method. You could go one step further and turn things around by always using config objects instead of arrays, which would allow you to also make use of their built-in documentation when reading config, and not only when initializing it. That's a bit more of a aggressive change though.
 

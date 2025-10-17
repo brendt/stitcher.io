@@ -97,9 +97,9 @@ Visualizing this data looks like this:
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2023-jul-01.svg)](/resources/img/blog/version-stats/2023-jul-01.svg)
+[![](/img/blog/version-stats/2023-jul-01.svg)](/img/blog/version-stats/2023-jul-01.svg)
 
-<em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2023-jul-01.svg)</em>
+<em class="center small">[Evolution of version usage](/img/blog/version-stats/2023-jul-01.svg)</em>
 
 It's important to know which PHP versions are currently still supported: PHP 8.2 and PHP 8.1 are still receiving updates. PHP 8.0 is still getting security updates until the end of November, this year. That means that PHP 7.4 and below don't receive any updates more, and should be considered end of life.
 
@@ -111,9 +111,9 @@ Moving on to the all-time overview chart, here you can see the evolution of vers
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2023-jul-02.svg)](/resources/img/blog/version-stats/2023-jul-02.svg)
+[![](/img/blog/version-stats/2023-jul-02.svg)](/img/blog/version-stats/2023-jul-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2023-jul-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2023-jul-02.svg)</em>
 
 It seems that **PHP 8.1 saw the biggest growth over time since PHP 7.4 and PHP 5.5**. PHP 8.2, in comparison, seems to make a slower start. It's also interesting to note a relative high percentage of PHP 8.1 two years in a row. Granted, PHP 8.1 was a pretty solid release with [features like enums and readonly properties](/blog/new-in-php-81). It'll be interesting to see how this graph evolves next year, when PHP 8.1 moves in security fixes only mode.  
 
@@ -253,9 +253,9 @@ Instead of comparing absolute numbers, it's best to plot this data into a chart 
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2023-jul-03.svg)](/resources/img/blog/version-stats/2023-jul-03.svg)
+[![](/img/blog/version-stats/2023-jul-03.svg)](/img/blog/version-stats/2023-jul-03.svg)
 
-<em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2023-jul-03.svg)</em>
+<em class="center small">[Minimal PHP requirement over time](/img/blog/version-stats/2023-jul-03.svg)</em>
 
 There seems to be **a pretty big leap in PHP 8.0 and PHP 8.1 being the minimal versions**  — a good thing. After all, the open source community plays a big part in pushing the community forward by increasing their minimal required version.
 

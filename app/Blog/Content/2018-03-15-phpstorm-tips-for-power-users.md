@@ -25,7 +25,7 @@ Working with non-pinned panes will allow for a much cleaner editor view.
 Binding certain panes to a key combination will show them at will.
 
 <p>
-    <img src="/resources/img/static/phpstorm-power-users/panes.gif"/>
+    <img src="/img/static/phpstorm-power-users/panes.gif"/>
 </p>
 
 ## Auto-imports
@@ -39,7 +39,7 @@ in `Settings > Editor > General > Auto Import`.
 You can change almost every template of auto-generated code in `Settings > Editor > File and Code Templates`
 For example: generate getters and setters without docblocks, generate test functions in another format and others.
 
-![-](/resources/img/blog/phpstorm-power-users/code-templates.png)
+![-](/img/blog/phpstorm-power-users/code-templates.png)
 
 ## String actions
 
@@ -48,7 +48,7 @@ Things like `replace quotes` to toggle between single- and double quotes,
 `split string` to split the string, and more.
 
 <p>
-    <img src="/resources/img/static/phpstorm-power-users/string-actions.gif"/>
+    <img src="/img/static/phpstorm-power-users/string-actions.gif"/>
 </p>
 
 ## Copy paths
@@ -68,7 +68,7 @@ there are a lot of toggles you can manage from the command palette.
 For example: show or hide the tabs bar.
 
 <p>
-    <img src="/resources/img/static/phpstorm-power-users/tab-placement.gif"/>
+    <img src="/img/static/phpstorm-power-users/tab-placement.gif"/>
 </p>
 
 You can open the command palette with `⌘ ⇧ A` on the default Mac keymap. 
@@ -88,7 +88,7 @@ Besides this "no clutter by default", your code will also align more centered, w
 The width of this centered code view is configured in `Settings > Editor > Code Style > Hard wrap at`.
 
 <p>
-    <img src="/resources/img/static/phpstorm-power-users/distraction-free.gif"/>
+    <img src="/img/static/phpstorm-power-users/distraction-free.gif"/>
 </p>
 
 
@@ -100,7 +100,7 @@ There's a command called `Jump to Colors and Fonts` which will allow you to edit
 the color of your current scheme, for that entry.
 
 <p>
-    <img src="/resources/img/static/phpstorm-power-users/colors-and-fonts.gif"/>
+    <img src="/img/static/phpstorm-power-users/colors-and-fonts.gif"/>
 </p>
 
 ## Any more suggestions?

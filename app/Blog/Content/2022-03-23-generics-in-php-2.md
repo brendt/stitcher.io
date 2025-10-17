@@ -18,7 +18,7 @@ So let’s take a look at two more examples.
 <div class="sidenote">
 <div class="center">
     <a href="https://www.youtube.com/watch?v=5CwOuHCp29I&list=PL0bgkxUS9EaKyOugEDffRzsvupBE2YEoD&index=2&ab_channel=BrentRoose" target="_blank" rel="noopener noreferrer">
-        <img class="small" src="/resources/img/static/generics-thumb-2.png">
+        <img class="small" src="/img/static/generics-thumb-2.png">
         <p><em class="center small">You can watch the video instead of reading a blog post — if you prefer that!</em></p>
     </a>
 </div>

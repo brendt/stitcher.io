@@ -25,17 +25,17 @@ One thing I realised pretty early was that writing fiction is something entirely
 
 Timeline Taxi's main plot revolves around time travel (although you probably only realise the extent of it at the very end of the book). One thing I did to understand the timeline, the loops, and to make sure all events lined up properly; was to draw it in some sort of diagram. I hung it up on my wall together with some other things that inspire me. Every morning I look at these papers, and am reminded of the things I'm working on.
 
-![](/resources/img/blog/taxi/outline.jpeg)
+![](/img/blog/taxi/outline.jpeg)
 
 Visualizing the timeline was a huge productivity boost for me. You should know that I'm a procrastinator, but having a simple paper on the wall helped me a lot. It was such an inspiration that I even included it in the cover of the book. 
 
 I also spent enough time verifying measurements — I'd hate to get the basic maths wrong. I actually had to rewrite parts of the story to make sure everything lined up. Part of the job! 
 
-![](/resources/img/blog/taxi/measures.png)
+![](/img/blog/taxi/measures.png)
 
 There's actually _another_ novel I'm writing, which I haven't talked about in public yet. It has a pretty complicated timeline as well (yes, I blurred it on purpose):
 
-![](/resources/img/blog/taxi/other-novel.png)
+![](/img/blog/taxi/other-novel.png)
 
 ## Publishing drafts
 
@@ -57,7 +57,7 @@ The feedback from that handful of beta readers was super valuable. I got to fix 
 
 The final review was done by myself. With pen and paper. I don't know why, but printing out the script and making corrections with a pen acted as a catalyst on its own. It felt… so much more tangible, all of a sudden. I reviewed the script in full over two days, and was really happy with the process. I actually longed for reading more during the day when I was working or taking care of the kids. A good sign.
 
-![](/resources/img/blog/taxi/paper.jpeg)
+![](/img/blog/taxi/paper.jpeg)
 
 ## Part 2
 

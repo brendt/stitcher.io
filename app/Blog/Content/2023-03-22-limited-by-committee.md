@@ -7,11 +7,11 @@ meta:
 
 Camels are weird. Granted, they _do_ manage to survive in some of the harshest environments on our planet, so, obviously, they are doing something right. But, I mean, look at them:
 
-![](/resources/img/blog/committee/camel3.jpg)
+![](/img/blog/committee/camel3.jpg)
 
 It looks like someone combined a horse with a giraffe, and kept adding stuff until they met the requirement of "being able to survive in the desert". Who came up with that?  Don't get me wrong: camels _do_ work, so they must have gotten something right. But honestly, the finishing touches are far from ideal:
 
-![](/resources/img/blog/committee/camel4.jpg)
+![](/img/blog/committee/camel4.jpg)
 
 PHP is like a camel: there's little to say when it comes to beauty or elegance, but it does seem to survive many harsh conditions. So, who am I to judge? Coincidentally, PHP was originally inspired by PERL, whose logo is a camel; so maybe there _is_ a deeper connection still? But let's not go too deep down the <span style="text-decoration:line-through">camel</span>&thinsp;rabbit hole; instead, let's talk about how programming languages are designed.
 
@@ -27,7 +27,7 @@ Say you want to add a feature in PHP that benefits you — a prominent framework
 
 And so, design by committee often leads to average results at best; or (in many cases) no result, because people couldn't find consensus. Camels were probably designed by a committee as well. Sure, they work, but they are far from excellence and full of compromise.
 
-![](/resources/img/blog/committee/camel5.jpg)
+![](/img/blog/committee/camel5.jpg)
 
 The alternative to design by committee is called "design by dictator" or having a "benevolent dictator for life". It might sound rather negative at first, but hear me out. A benevolent dictator (or group of benevolent dictators) don't want to push their own agenda; they want the best for their product. It's _their_ product — they have full ownership. And exactly because it is _their_ product, they _will_ listen to "the masses". Because, their product is nothing, without their people.
 

@@ -10,7 +10,7 @@ Let’s get started.
 <div class="sidenote">
 <div class="center">
     <a href="https://www.youtube.com/watch?v=BN0L2MBkhNg&list=PL0bgkxUS9EaKyOugEDffRzsvupBE2YEoD&index=3&ab_channel=BrentRoose" target="_blank" rel="noopener noreferrer">
-        <img class="small" src="/resources/img/static/generics-thumb-3.png">
+        <img class="small" src="/img/static/generics-thumb-3.png">
         <p><em class="center small">You can watch the video instead of reading a blog post — if you prefer that!</em></p>
     </a>
 </div>

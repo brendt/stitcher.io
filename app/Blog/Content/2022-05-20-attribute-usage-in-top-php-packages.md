@@ -30,7 +30,7 @@ A couple of remarks:
 
 The first metric that stood out is that `#[<hljs type>\ReturnTypeWillChange</hljs>]` outnumbers all others by far: out of **2786 attributes in total**, 1668 are either `#[<hljs type>\ReturnTypeWillChange</hljs>]` or `#[<hljs type>ReturnTypeWillChange</hljs>]`, that's **almost 60% being `<hljs type>ReturnTypeWillChange</hljs>` attributes**.
 
-[![](/resources/img/blog/attributes-stats/attributes.svg)](/resources/img/blog/attributes-stats/attributes.svg)
+[![](/img/blog/attributes-stats/attributes.svg)](/img/blog/attributes-stats/attributes.svg)
 
 This attribute is the first built-in attribute in PHP, introduced in PHP 8.1, and meant to [deal with a newly added deprecation notice](/blog/dealing-with-deprecations). It was a design goal of the original attribute RFC to use them for these kinds of cases where we want userland code to communicate information to PHP's interpreter. In this case: to suppress a deprecation notice.
 
@@ -42,7 +42,7 @@ Speaking of the two variants (with and without a leading `\`): some developers i
 
 Out of 997 packages, **only 200 packages are using attributes**. Out of those 200, Symfony, Drupal and Laravel have large pieces of the pie. Symfony is the leader here with **9.6%**: not unlikely caused by the fact that Symfony has been using docblock annotations for years.
 
-[![](/resources/img/blog/attributes-stats/attributes-per-package.svg)](/resources/img/blog/attributes-stats/attributes-per-package.svg)
+[![](/img/blog/attributes-stats/attributes-per-package.svg)](/img/blog/attributes-stats/attributes-per-package.svg)
 
 ## Custom attributes
 

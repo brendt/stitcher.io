@@ -11,32 +11,32 @@ Any JetBrains IDE has an amazing feature that can significantly improve your dev
 
 For example, this is what I'm talking about:
 
-![A tree view configured with coloured scopes](/resources/img/blog/phpstorm-coloured-scopes/tree-view.png)
+![A tree view configured with coloured scopes](/img/blog/phpstorm-coloured-scopes/tree-view.png)
 
 These colours allow you to easily recognise files,
 and that in turn allow you to think more freely about things that really matter when coding.
 First you'll want to configure one or more scopes. 
 A scope is a set of textual filters that are applied on your files, you can configure them by going to `Settings > Scopes`.
 
-![](/resources/img/blog/phpstorm-coloured-scopes/scope-configuration.png)
+![](/img/blog/phpstorm-coloured-scopes/scope-configuration.png)
 
 You can use the buttons to include and exclude folders and files, 
 or you can write the filters yourself.
 There's a special syntax to do that, you can read about it described [here](*https://www.jetbrains.com/help/phpstorm/scope-language-syntax-reference.html). Don't forget you can expand the text area for easier configuration:
 
-![](/resources/img/blog/phpstorm-coloured-scopes/scope-configuration-extended.png)
+![](/img/blog/phpstorm-coloured-scopes/scope-configuration-extended.png)
 
 ## File colours
 
 Every scope can be applied a specific colour. 
 This makes it easy to easily spot files. 
 
-![](/resources/img/blog/phpstorm-coloured-scopes/file-colours.png)
+![](/img/blog/phpstorm-coloured-scopes/file-colours.png)
 
 By applying colours to a scope, you'll see them in the tree view, 
 in file tabs and when using file navigation.
 
-![](/resources/img/blog/phpstorm-coloured-scopes/tab-colours.png)
+![](/img/blog/phpstorm-coloured-scopes/tab-colours.png)
 
 {{ cta:dynamic }}
 
@@ -44,11 +44,11 @@ in file tabs and when using file navigation.
 
 Besides colours, scopes also allow for easy filtering. For example, in the tree view:
 
-![File colours](/resources/img/blog/phpstorm-coloured-scopes/tree-filter.png)
+![File colours](/img/blog/phpstorm-coloured-scopes/tree-filter.png)
 
 But also in the finder:
 
-![File colours](/resources/img/blog/phpstorm-coloured-scopes/finder.png)
+![File colours](/img/blog/phpstorm-coloured-scopes/finder.png)
 
 ## Defaults
 

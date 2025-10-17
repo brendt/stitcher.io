@@ -35,13 +35,13 @@ Imagine you want to send three HTTP requests and process their combined result. 
 
 Let's represent such a program flow with as easy a chart as possible. You need to read this chart from the top down, and time progresses the further down you go. Each colour represents one HTTP request. The coloured pieces of each request represent PHP code actually running, where the CPU on your server is doing work, the transparent blocks represent waiting times: the request needs to be sent over the wire, the other server needs to process it and send it back. It's only when the response arrives that we can work again.
 
-![](/resources/img/blog/fiber/sync.png)
+![](/img/blog/fiber/sync.png)
 
 This is a synchronous execution flow: send, wait, process, repeat.
 
 In the world of parallel processing, we send the request but _don't_ wait. Then we send the next request, followed by another. Only _then_ do we wait for all requests. And while waiting we periodically check whether one of our requests is already finished. If that's the case we can process it immediately.
 
-![](/resources/img/blog/fiber/async.png)
+![](/img/blog/fiber/async.png)
 
 You can see how such an approach reduces execution time because we're using the waiting time more optimally.
 

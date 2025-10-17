@@ -4,7 +4,7 @@ title: 'My IKEA clock, and software design'
 
 This is my bedside clock:
 
-![](/resources/img/blog/clock/1.png)
+![](/img/blog/clock/1.png)
 
 I've had this IKEA clock for 14 years now — that's half my life. And it's one of those things I'll be really sad about the day it stops working.
 

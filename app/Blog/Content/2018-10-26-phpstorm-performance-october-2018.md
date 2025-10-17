@@ -27,13 +27,13 @@ All other resolutions can cause massive performance issues.
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/phpstorm-performance-october/resolution-default.png)
+![](/img/blog/phpstorm-performance-october/resolution-default.png)
 
 Default resolutions work fine.
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/phpstorm-performance-october/resolution-scaled.png)
+![](/img/blog/phpstorm-performance-october/resolution-scaled.png)
 
 Scaled resolutions not so much…
 
@@ -45,7 +45,7 @@ you'll find the editor font antialiasing options.
 By default, antialiasing is set to `subpixel`, to render very smooth fonts.
 Again, because of Java graphical issues, there can be a big performance hit. 
 
-![](/resources/img/blog/phpstorm-performance-october/font-settings.png)
+![](/img/blog/phpstorm-performance-october/font-settings.png)
 
 It's better to set the antialiasing setting to `greyscale`, or disable it altogether.
 
@@ -86,7 +86,7 @@ The last thing you can do is download a new Java JDK, another version, and use t
 
 You can configure the JDK PhpStorm is using by opening the command palette and search for `Switch Boot JDK…`.
 
-![Boot JDK](/resources/img/blog/phpstorm-performance-october/jdk.png)
+![Boot JDK](/img/blog/phpstorm-performance-october/jdk.png)
 
 It's important to note that IntelliJ products won't run on all JDKs! 
 At the time of writing, Java 10 won't work yet.

@@ -44,7 +44,7 @@ This isn’t a bad thing, but in this category, Visual Studio Code and Brackets 
 ---
 
 <p>
-    <img src="/resources/img/static/editors/1.png" class="editor-badge"/>
+    <img src="/img/static/editors/1.png" class="editor-badge"/>
 </p>
 
 ---
@@ -80,7 +80,7 @@ That should be no surprise, knowing that GitHub is creating this editor.
 ---
 
 <p>
-    <img src="/resources/img/static/editors/2.png" class="editor-badge"/>
+    <img src="/img/static/editors/2.png" class="editor-badge"/>
 </p>
 
 ---
@@ -120,7 +120,7 @@ but together with Atom’s GIT status you’ll get a good project overview by ju
 ---
 
 <p>
-    <img src="/resources/img/static/editors/3.png" class="editor-badge"/>
+    <img src="/img/static/editors/3.png" class="editor-badge"/>
 </p>
 
 ---
@@ -155,7 +155,7 @@ But without any doubt: Sublime shines in the field of performance.
 ---
 
 <p>
-    <img src="/resources/img/static/editors/4.png" class="editor-badge"/>
+    <img src="/img/static/editors/4.png" class="editor-badge"/>
 </p>
 
 ---
@@ -174,7 +174,7 @@ Furthermore, each package has its own configuration page with a lot of documenta
 ---
 
 <p>
-    <img src="/resources/img/static/editors/5.png" class="editor-badge"/>
+    <img src="/img/static/editors/5.png" class="editor-badge"/>
 </p>
 
 ---

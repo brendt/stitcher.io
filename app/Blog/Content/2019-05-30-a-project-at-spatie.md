@@ -39,7 +39,7 @@ Let's zoom into statistics about the backend code, my area:
 
 The amount of lines split per file type looks like this:
 
-![](/resources/img/blog/project-stats/loc.png) 
+![](/img/blog/project-stats/loc.png) 
 
 Let's further dive into how the backend code is structured, 
 by using Stefan's [laravel-stats](*https://github.com/stefanzweifel/laravel-stats) package.
@@ -53,7 +53,7 @@ If you want to dive further into this topic, you can read about it [here](/blog/
 
 The following graph shows how application and domain code relate to each other:
 
-![](/resources/img/blog/project-stats/domain-v-application.png)
+![](/img/blog/project-stats/domain-v-application.png)
  
 By splitting business and application code, 
 we're able to provide a flexible, maintainable and highly testable core.
@@ -110,7 +110,7 @@ We have done this in the past, and it works very well.
 
 Here's part of this image of a subdomain in our project:
 
-![](/resources/img/blog/project-stats/outline.png) 
+![](/img/blog/project-stats/outline.png) 
 
 The darker the image, the more code across all files in that position.
 You can see that while some files are longer, most of the code lives in the upper 50 lines, 

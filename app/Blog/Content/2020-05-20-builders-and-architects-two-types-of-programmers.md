@@ -28,7 +28,7 @@ Let's imagine two types of programmers: builders and architects.
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/builders-and-architects/builders-1.png)
+![](/img/blog/builders-and-architects/builders-1.png)
 
 If you ever had to work in teams — in school, as your job or in hobby projects — you're probably familiar with these two types of people.
 
@@ -38,7 +38,7 @@ On the other hand there are architects. They are concerned about sturdy and stru
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/builders-and-architects/builders-2.png)
+![](/img/blog/builders-and-architects/builders-2.png)
 
 These two types of programmers seem like opposites. They themselves look at the other group and often think exactly that. They have a different way of handling the same problems. The other group's solutions are so different, they can't possibly be right, or so it seems. 
 
@@ -48,25 +48,25 @@ This tension often leads to confrontations between the groups, at the office or 
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/builders-and-architects/builders-3.png)
+![](/img/blog/builders-and-architects/builders-3.png)
 
 What's fascinating about these situations though, is that people from both sides almost never realise there's strength in their differences.
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/builders-and-architects/builders-3b.png)
+![](/img/blog/builders-and-architects/builders-3b.png)
 
 Instead of focusing on what they disagree on, let's try another approach: let's, for a minute, try to support the other party. Mind you: not just agree with them for the sake of ending a discussion, but actually trying to help them solve their problem, with your skill set.
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/builders-and-architects/builders-4.png)
+![](/img/blog/builders-and-architects/builders-4.png)
 
 Here's how that looks: while architects enjoy abstract thinking, they often have difficulties putting their thoughts into practice: they run into problems they didn't anticipate, or the actual implementation is too complex and they lose their drive. On the other hand, builders enjoy working towards a clear goal, they find energy in a project taking shape. So let's sit them down, together, and combine their strengths.
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/builders-and-architects/builders-5.png)
+![](/img/blog/builders-and-architects/builders-5.png)
 
 ---
 
@@ -92,7 +92,7 @@ Having this knowledge about yourself and your co-workers allows for better team 
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/builders-and-architects/builders-6.png)
+![](/img/blog/builders-and-architects/builders-6.png)
 
 ---
 

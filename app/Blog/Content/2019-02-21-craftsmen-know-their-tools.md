@@ -17,7 +17,7 @@ Let's make a comparison.
 My younger brother is an apprentice wood worker,
 here's a picture of his shop:
 
-![](/resources/img/blog/craftsmen/3.jpeg)
+![](/img/blog/craftsmen/3.jpeg)
 
 To me this looks like chaos, 
 but my brother manages to find his way around.
@@ -29,15 +29,15 @@ I can imagine his skills will improve only more and more over time.
 
 For example, take a look at this display thingy he made:
 
-![](/resources/img/blog/craftsmen/6.jpeg)
+![](/img/blog/craftsmen/6.jpeg)
 
 Or this clock:
 
-![](/resources/img/blog/craftsmen/4.jpeg)
+![](/img/blog/craftsmen/4.jpeg)
 
 He also made me some nice sound absorbing panels for my podcast studio at home:
 
-![](/resources/img/blog/craftsmen/5.jpeg)
+![](/img/blog/craftsmen/5.jpeg)
 
 The same way my brother is crafting things with wood,
 we are building websites and programs with code.
@@ -47,11 +47,11 @@ See, he isn't building all this stuff with his bare hands.
 He's using the right tools for the job.
 Have a look at some of the machines he's working with:
 
-![](/resources/img/blog/craftsmen/2.jpeg)
+![](/img/blog/craftsmen/2.jpeg)
 
 Or this one:
 
-![](/resources/img/blog/craftsmen/1.jpeg)
+![](/img/blog/craftsmen/1.jpeg)
 
 I've got no clue what these monstrosities do 
 or how to use them&thinsp;—&thinsp;but my brother does.

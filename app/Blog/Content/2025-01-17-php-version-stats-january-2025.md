@@ -105,9 +105,9 @@ Visualizing this data looks like this:
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2025-jan-01.svg)](/resources/img/blog/version-stats/2025-jan-01.svg)
+[![](/img/blog/version-stats/2025-jan-01.svg)](/img/blog/version-stats/2025-jan-01.svg)
 
-<em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2025-jan-01.svg)</em>
+<em class="center small">[Evolution of version usage](/img/blog/version-stats/2025-jan-01.svg)</em>
 
 Ever since PHP 8.1, I've begun making these posts in January and July. I've deliberately chosen those months because by January, the newest PHP release has been around one month old, and I think it's interesting to how many early adopters there are. So let's compare first-month usage since PHP 8.1 as well:
 
@@ -148,9 +148,9 @@ Finally, let's bundle all data together in one big chart that starts with PHP 5.
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2025-jan-02.svg)](/resources/img/blog/version-stats/2025-jan-02.svg)
+[![](/img/blog/version-stats/2025-jan-02.svg)](/img/blog/version-stats/2025-jan-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2025-jan-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2025-jan-02.svg)</em>
 
 ## Required versions
 
@@ -301,9 +301,9 @@ It's easiest to visualize this data into a chart for a relative comparison, so t
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2025-jan-03.svg)](/resources/img/blog/version-stats/2025-jan-03.svg)
+[![](/img/blog/version-stats/2025-jan-03.svg)](/img/blog/version-stats/2025-jan-03.svg)
 
-<em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2025-jan-03.svg)</em>
+<em class="center small">[Minimal PHP requirement over time](/img/blog/version-stats/2025-jan-03.svg)</em>
 
 It seems that adoption rate of newer versions have slowed down, though remember that this isn't necessarily a bad thing: packages that require `php: ^8.0` will automatically support PHP 8.4 as well. 
 

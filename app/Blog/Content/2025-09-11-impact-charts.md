@@ -9,13 +9,13 @@ A little over a year ago, I was sitting in the doctor's office when she told me 
 
 <div class="image-noborder image-small image-center"></div>
 
-![](/resources/img/blog/impact-chart/01.svg)
+![](/img/blog/impact-chart/01.svg)
 
 The idea of so many things "going on" was a major stress factor, and I had to learn how to better deal with that. So I took a piece of paper and wrote down everything that kept me busy: projects at work, hobby projects, some community projects I was working on in my free time, family, etc. It was a long list of "things on my mind". Here's an example, although the real list was twice or three times as long:
 
 <div class="image-noborder image-small image-center"></div>
 
-![](/resources/img/blog/impact-chart/02.svg)
+![](/img/blog/impact-chart/02.svg)
 
 Writing this down already gave me some rest, but I felt like I needed more. Realistically, there was too much on this list, and I knew I had to make some choices. I had to learn to focus on a handful of things because this was simply too much.
 
@@ -25,7 +25,7 @@ So my next step was to write down these criteria or "metrics" that I found impor
 
 <div class="image-noborder image-center"></div>
 
-![](/resources/img/blog/impact-chart/03.svg)
+![](/img/blog/impact-chart/03.svg)
 
 Important to note here is that there is no fixed set of criteria. You choose whatever you feel is important enough. For this blog post, I simplified the example a bit. In my real one I also include "meaningful impact", for example.
 
@@ -35,7 +35,7 @@ There was one issue, though: halfway through my ratings, I realized I wasn't com
 
 <div class="image-noborder image-center"></div>
 
-![](/resources/img/blog/impact-chart/04.svg)
+![](/img/blog/impact-chart/04.svg)
 
 Now we were getting somewhere. For the first time in a long while, I felt like I got a proper overview of what was "going on", _and_ I now had a way to prioritize it.
 
@@ -43,7 +43,7 @@ I took one more step: I gave each item an "average", or "overall" score. This wa
 
 <div class="image-noborder image-center"></div>
 
-![](/resources/img/blog/impact-chart/05.svg)
+![](/img/blog/impact-chart/05.svg)
 
 With all data collected, I realized I didn't have any "personal projects" that had an overall positive impact. That's because all of them were still kind of connected to "work"; or at least to my role as a "known person in the PHP community" (I don't want to say "influencer" 😅)
 
@@ -59,7 +59,7 @@ After that sci-fi novel, by the way, I wrote a new book called "[Things I wish I
 
 <div class="image-noborder image-small image-center"></div>
 
-![](/resources/img/blog/impact-chart/06.svg)
+![](/img/blog/impact-chart/06.svg)
 
 ## In summary
 

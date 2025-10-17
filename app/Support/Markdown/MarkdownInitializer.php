@@ -7,6 +7,7 @@ use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\MarkdownConverter;
 use Tempest\Container\Container;
@@ -24,6 +25,7 @@ final readonly class MarkdownInitializer implements Initializer
         $environment = new Environment();
 
         $highlighter = $container->get(Highlighter::class);
+        $imageRenderer = $container->get(ImageRenderer::class);
 
         $environment
             ->addExtension(new CommonMarkCoreExtension())
@@ -31,6 +33,7 @@ final readonly class MarkdownInitializer implements Initializer
             ->addExtension(new AttributesExtension())
             ->addRenderer(FencedCode::class, new CodeBlockRenderer($highlighter))
             ->addRenderer(Code::class, new InlineCodeBlockRenderer($highlighter))
+            ->addRenderer(Image::class, $imageRenderer)
         ;
 
         return new MarkdownConverter($environment);

@@ -33,7 +33,7 @@ This "type profile" was determined by mapping the answers to relevant questions 
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/survey/1.png)
+![](/img/blog/survey/1.png)
 
 <em class="center small">Type profile of all participants</em>
 
@@ -51,7 +51,7 @@ This chart shows the average team size, and for each group the distribution of t
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/survey/2.png)
+![](/img/blog/survey/2.png)
 
 <em class="center small">Type profile distribution, grouped by team size</em>
 
@@ -59,7 +59,7 @@ We'd need to look at relative results to test whether there's a correlation or n
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/survey/3.png)
+![](/img/blog/survey/3.png)
 
 <em class="center small">Relative type profile distribution, grouped by team size</em>
 
@@ -69,7 +69,7 @@ Next I looked at project size. I asked participants to describe the size of an a
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/survey/4.png)
+![](/img/blog/survey/4.png)
 
 <em class="center small">Relative type profile distribution, grouped by project size</em>
 
@@ -77,7 +77,7 @@ This chart shows a growth of type `A` and `B`, related to the size of the projec
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/survey/5.png)
+![](/img/blog/survey/5.png)
 
 <em class="center small">Relative type profile distribution, grouped by project duration</em>
 

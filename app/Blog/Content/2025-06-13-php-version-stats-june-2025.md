@@ -105,9 +105,9 @@ Visualizing this data looks like this:
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2025-jun-01.svg)](/resources/img/blog/version-stats/2025-jun-01.svg)
+[![](/img/blog/version-stats/2025-jun-01.svg)](/img/blog/version-stats/2025-jun-01.svg)
 
-<em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2025-jun-01.svg)</em>
+<em class="center small">[Evolution of version usage](/img/blog/version-stats/2025-jun-01.svg)</em>
 
 What stands out is that PHP 8.4 has a slightly worse adoption rate compared to previous PHP releases: 13.6% after half a year:
 
@@ -155,9 +155,9 @@ Then, there are open source packages that might factor in as well, although we'l
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2025-jun-02.svg)](/resources/img/blog/version-stats/2025-jun-02.svg)
+[![](/img/blog/version-stats/2025-jun-02.svg)](/img/blog/version-stats/2025-jun-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2025-jun-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2025-jun-02.svg)</em>
 
 
 {{ cta:packagist }}
@@ -303,9 +303,9 @@ It's easiest to visualize this data into a chart for a relative comparison, so t
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2025-jun-03.svg)](/resources/img/blog/version-stats/2025-jun-03.svg)
+[![](/img/blog/version-stats/2025-jun-03.svg)](/img/blog/version-stats/2025-jun-03.svg)
 
-<em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2025-jun-03.svg)</em>
+<em class="center small">[Minimal PHP requirement over time](/img/blog/version-stats/2025-jun-03.svg)</em>
 
 My conclusions from this graph are still the same, though: more than 50% of top PHP packages support PHP versions that are completely outdated without security releases. I think the PHP community as a whole would really benefit if packages more aggressively pushed towards only using supported PHP versions. 
 

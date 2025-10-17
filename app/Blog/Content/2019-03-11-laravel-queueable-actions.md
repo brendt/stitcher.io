@@ -148,7 +148,7 @@ class CreateContractAction
 It's important to note that the above will still have auto completion of the `execute` method, 
 as well as DI support; just like normal actions:
 
-![](/resources/img/blog/queueable/autocompletion.png)
+![](/img/blog/queueable/autocompletion.png)
 
 ## What's the difference with Jobs?!?
 
@@ -170,7 +170,7 @@ you can put your mind at ease.
 `ActionJob` classes that are dispatched to for example, Horizon, 
 have their name changed to the action class they wrap:
 
-![](/resources/img/blog/queueable/horizon.png)  
+![](/img/blog/queueable/horizon.png)  
 
 The underlying details of making actions queueable are hidden to the developer using them,
 making it very easy to work with them, even in an asynchronous context.

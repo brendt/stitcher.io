@@ -79,9 +79,9 @@ Note that I've omitted all versions that don't have more than 1% usage. Visualiz
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2022-july-01.svg)](/resources/img/blog/version-stats/2022-july-01.svg)
+[![](/img/blog/version-stats/2022-july-01.svg)](/img/blog/version-stats/2022-july-01.svg)
 
-<em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2022-july-01.svg)</em>
+<em class="center small">[Evolution of version usage](/img/blog/version-stats/2022-july-01.svg)</em>
 
 As expected during a year with a minor release instead of a major one: PHP 8.1 is growing, and PHP 8.0's usage is already declining. A good sign that developers are updating! Keep in mind that PHP 8.0 is still actively [supported for another four months](*https://www.php.net/supported-versions.php). So if you kept off on updating to PHP 8.1, now is a good time.
 
@@ -95,9 +95,9 @@ Moving on the the all-time overview chart, here you can see the evolution of ver
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2022-july-02.svg)](/resources/img/blog/version-stats/2022-july-02.svg)
+[![](/img/blog/version-stats/2022-july-02.svg)](/img/blog/version-stats/2022-july-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2022-july-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2022-july-02.svg)</em>
 
 It's interesting to compare the 5.5 peak in 2014 to the 7.4 peak two years ago. PHP 5.5 and subsequent versions saw a much faster decline as soon as PHP 7.0 became available, compared to PHP 7.4's decline when PHP 8.0 was released. I'm a little worried that PHP 8.0 wasn't _as_ exciting as PHP 7.0 back in the day.  
 
@@ -221,9 +221,9 @@ Let's plot this data into a chart:
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2022-july-03.svg)](/resources/img/blog/version-stats/2022-july-03.svg)
+[![](/img/blog/version-stats/2022-july-03.svg)](/img/blog/version-stats/2022-july-03.svg)
 
-<em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2022-july-03.svg)</em>
+<em class="center small">[Minimal PHP requirement over time](/img/blog/version-stats/2022-july-03.svg)</em>
 
 I won't say that the open source community is the only responsible factor here, but I do want to encourage you to think carefully about your responsibilities if you are an open source maintainer. We're not just talking about new and shiny PHP features here: we're talking about performance, software security for the most popular programming language on the web, and even about the impact of old PHP versions on electricity usage and server requirements, in Rasmus' words we can help [save the planet](https://youtu.be/fYTKm2oUzAg?t=617).
 

@@ -95,9 +95,9 @@ Visualizing this data looks like this:
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2024-jul-01.svg)](/resources/img/blog/version-stats/2024-jul-01.svg)
+[![](/img/blog/version-stats/2024-jul-01.svg)](/img/blog/version-stats/2024-jul-01.svg)
 
-<em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2024-jul-01.svg)</em>
+<em class="center small">[Evolution of version usage](/img/blog/version-stats/2024-jul-01.svg)</em>
 
 An additional data point I wanted to look into this time, is to compare the growth of each PHP version the first half year after its release. 
 
@@ -164,9 +164,9 @@ Let's take one more look at version evolution across time, you can spot the slow
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2024-jul-02.svg)](/resources/img/blog/version-stats/2024-jul-02.svg)
+[![](/img/blog/version-stats/2024-jul-02.svg)](/img/blog/version-stats/2024-jul-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2024-jul-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2024-jul-02.svg)</em>
 
 ## Required versions
 
@@ -309,9 +309,9 @@ Instead of comparing absolute numbers, it's best to plot this data into a chart 
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2024-jul-03.svg)](/resources/img/blog/version-stats/2024-jul-03.svg)
+[![](/img/blog/version-stats/2024-jul-03.svg)](/img/blog/version-stats/2024-jul-03.svg)
 
-<em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2024-jul-03.svg)</em>
+<em class="center small">[Minimal PHP requirement over time](/img/blog/version-stats/2024-jul-03.svg)</em>
 
 We see the first four packages requiring PHP 8.3 as their minimal version this month, however there is a huge difference compared to PHP 8.2 and PHP 8.1, which had 94 and 125 packages using them as their minimum version respectively. Granted, PHP 8.3 has been a rather boring release, with quite a lot of deprecations as well, but I didn't expect the difference to be so big. We'll see how and if this trend continues in the next year with PHP 8.4.
 

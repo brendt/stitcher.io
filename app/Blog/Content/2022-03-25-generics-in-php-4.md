@@ -9,7 +9,7 @@ It’s up to you to decide after this video whether you agree or not. So, your h
 <div class="sidenote">
 <div class="center">
     <a href="https://www.youtube.com/watch?v=2o8A9AgccKs&list=PL0bgkxUS9EaKyOugEDffRzsvupBE2YEoD&index=4&ab_channel=BrentRoose" target="_blank" rel="noopener noreferrer">
-        <img class="small" src="/resources/img/static/generics-thumb-4.png">
+        <img class="small" src="/img/static/generics-thumb-4.png">
         <p><em class="center small">You can watch the video instead of reading a blog post — if you prefer that!</em></p>
     </a>
 </div>

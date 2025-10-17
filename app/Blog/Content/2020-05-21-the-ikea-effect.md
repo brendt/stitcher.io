@@ -36,7 +36,7 @@ I immediately came up with the name "The IKEA effect" and I congratulated myself
 
 <div class="image-noborder"></div>
 
-![](/resources/img/blog/ikea/1.png)
+![](/img/blog/ikea/1.png)
 
 ## The IKEA Effect revisited
 

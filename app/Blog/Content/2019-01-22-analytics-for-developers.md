@@ -27,14 +27,14 @@ people who steal your tracking code as a deliberate attack.
 Luckily this can easily be prevented with filters. 
 So take five minutes to set up some filters in the admin section:
 
-![](/resources/img/blog/analytics/filter-1.png)
+![](/img/blog/analytics/filter-1.png)
 
 With filters, you can build a whitelist of traffic you want to include.
 I usually make a separate view called "Filtered", and keep the "All Web Site Data" view as is, for testing.
 
 Here's an example of a filter I set up, to only include traffic from the "stitcher.io" domain:
 
-![](/resources/img/blog/analytics/filter-2.png)
+![](/img/blog/analytics/filter-2.png)
 
 You can also filter out local domains, whitelist IP addresses and more.
 If you want to be really safe, you could whitelist the IP address of your host, 
@@ -58,14 +58,14 @@ many of these people will return the next time you share a link on social media.
 
 Let's take a look at the traffic in November of 2018, on this blog.
 
-![](/resources/img/blog/analytics/bounce-rate-1.png)
+![](/img/blog/analytics/bounce-rate-1.png)
 
 That's a rather high bounce rate. 
 Though over the last year, I see a consistent 20-ish percent of returning visitors.
 These people also add to the bounce rate, 
 though they are the ones who visit this site over and over again, albeit only one page at a time.
 
-![](/resources/img/blog/analytics/bounce-rate-2.png)
+![](/img/blog/analytics/bounce-rate-2.png)
 
 You can see how relative this data is, 
 and how you cannot simply say "decrease the bounce rate".
@@ -89,7 +89,7 @@ So how do you analyse this?
 The "Content Drilldown" page is great to analyse per-page statistics.
 You can find it under `Behavior > Site Content`.
 
-![](/resources/img/blog/analytics/bounce-rate-3.png)
+![](/img/blog/analytics/bounce-rate-3.png)
 
 Also note how the "advanced filter" is applied to only show pages with lower bounce rates.
 We can use this data to learn what we're doing right, 
@@ -104,7 +104,7 @@ I've got some posts that show up high in Google, but more about that later.
 
 The "Referrals" page under `Acquisition > All Traffic` is an important one to know where your traffic is coming from.
 
-![](/resources/img/blog/analytics/referrals-1.png) 
+![](/img/blog/analytics/referrals-1.png) 
 
 You can see peaks in traffic during the day, by using the real time overview.
 I often check the referrals at these moments, to know where traffic is coming from.
@@ -125,12 +125,12 @@ Again, the "Content Drilldown" page gets us this data.
 By adding a simple regex filter `^\/[a-z\-]+$`, we filter out pages with query parameters.
 We're also not interested in pages with very low pageviews.
 
-![](/resources/img/blog/analytics/session-duration-1.png)
+![](/img/blog/analytics/session-duration-1.png)
 
 What we're actually interested in, are the pages with the lowest session duration,
 to see whether some things can be improved.
 
-![](/resources/img/blog/analytics/session-duration-2.png)
+![](/img/blog/analytics/session-duration-2.png)
 
 Some of these blog posts are very short ones, so nothing strange there. 
 Though it also shows what posts were less interesting to my audience.
@@ -143,7 +143,7 @@ that helps visualising how visitors browse your site.
 
 This is what it looks like.
 
-![](/resources/img/blog/analytics/flow-1.png)
+![](/img/blog/analytics/flow-1.png)
 
 As with the bounce rate optimisations, 
 this overview can help identifying pages that encourage people to click through,
@@ -173,7 +173,7 @@ You can however specify a "Secondary Dimension", on the "Landing Page".
 Now the overview will be grouped per page the visitor landed on, 
 which is exactly what we want to know!
 
-![](/resources/img/blog/analytics/channels-1.png)
+![](/img/blog/analytics/channels-1.png)
 
 Now we know what pages are good candidates to optimise, 
 but we still don't know what keywords people actually searched for.
@@ -183,7 +183,7 @@ On `Acquisition > Search Console > Queries`, you'll see an overview of these key
 
 Here's an example, for this past week in January, 2019:
 
-![](/resources/img/blog/analytics/channels-2.png)
+![](/img/blog/analytics/channels-2.png)
 
 ## Measuring site speed
 
@@ -194,7 +194,7 @@ Analytics also helps with that. Under `Behavior > Site Speed > Page Timings`,
 you can monitor the performance of individual pages.
 Take, for example, the most visited pages of November, 2018.
 
-![](/resources/img/blog/analytics/performance-1.png)
+![](/img/blog/analytics/performance-1.png)
 
 The red lines are the interesting ones: these pages load slower than the site's average.
 This can be because of many reasons: lots of visitors with a bad connection to the host,

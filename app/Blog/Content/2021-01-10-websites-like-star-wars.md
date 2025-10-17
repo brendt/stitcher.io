@@ -12,7 +12,7 @@ Here's what I mean with that: whenever a door slides open or a non-human charact
 Here's an example:
 
 <p>
-    <img src="/resources/img/static/star-wars/star-wars.gif"/>
+    <img src="/img/static/star-wars/star-wars.gif"/>
 </p>
 
 Baby Yoda feels like it's a hand played puppet, its movements don't seem natural at all. There is, of course, a good reason that Star Wars uses this approach: it's a style they continued to use ever since the oldest movies which, back in the day, had to deal with much more technical limitations and where the puppet-like feeling was unavoidable. They decided to continue to use the same style of movement, not because it was necessary, but because of the charm and nostalgia feeling.

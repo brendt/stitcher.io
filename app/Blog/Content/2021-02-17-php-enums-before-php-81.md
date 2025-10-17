@@ -113,7 +113,7 @@ and ensure the input is one of the three things defined by the "enum".
 Here's the problem with the `myclabs/php-enum` package though: 
 by relying on `__callStatic()`, we lose static analysis benefits like auto completion and refactoring:
 
-![](/resources/img/blog/enum/no-autocomplete.gif)
+![](/img/blog/enum/no-autocomplete.gif)
 
 As you can see in this case, your IDE is unaware of the `PostsStatus::DRAFT()` method.
 
@@ -138,7 +138,7 @@ $post->setStatus(PostStatus::DRAFT());
 But now we're in trouble when refactoring an enum's value. 
 Say we want to rename `DRAFT` to `NEW`:
 
-![](/resources/img/blog/enum/no-refactor.gif)
+![](/img/blog/enum/no-refactor.gif)
 
 Also we're maintaining duplicate code: there's the constant values, and the doc blocks.
 

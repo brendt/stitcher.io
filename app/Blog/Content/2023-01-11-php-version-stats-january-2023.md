@@ -98,9 +98,9 @@ Visualizing this data looks like this:
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2023-jan-01.svg)](/resources/img/blog/version-stats/2023-jan-01.svg)
+[![](/img/blog/version-stats/2023-jan-01.svg)](/img/blog/version-stats/2023-jan-01.svg)
 
-<em class="center small">[Evolution of version usage](/resources/img/blog/version-stats/2023-jan-01.svg)</em>
+<em class="center small">[Evolution of version usage](/img/blog/version-stats/2023-jan-01.svg)</em>
 
 We can see a decent growth for PHP 8.* versions, I think that's great news! It's also great to see PHP 8.0 usage already declining: PHP 8.0 went into [security fixes only mode](https://www.php.net/supported-versions.php) at the end of last year, and I hope to see its usage decline a lot more this year. Keep in mind that **PHP 8.0 will reach end of life on November 26, 2023**. So it's crucial that projects start preparing to upgrade in the coming months. 
 
@@ -114,9 +114,9 @@ Moving on to the all-time overview chart, here you can see the evolution of vers
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2023-jan-02.svg)](/resources/img/blog/version-stats/2023-jan-02.svg)
+[![](/img/blog/version-stats/2023-jan-02.svg)](/img/blog/version-stats/2023-jan-02.svg)
 
-<em class="center small">[All time evolution](/resources/img/blog/version-stats/2023-jan-02.svg)</em>
+<em class="center small">[All time evolution](/img/blog/version-stats/2023-jan-02.svg)</em>
 
 Like I said: the decline of 7.4 is going too slow to my liking. Compare it to the much steeper decline of PHP 5.5 back in 2015 when PHP 7.0 was released: I would have liked to see the same happen with PHP 7.4 and have people move to PHP 8.0, but unfortunately that's not the case.
 
@@ -255,9 +255,9 @@ Instead of comparing absolute numbers, it's best to plot this data into a chart 
 
 <div class="image-noborder image-wide"></div>
 
-[![](/resources/img/blog/version-stats/2023-jan-03.svg)](/resources/img/blog/version-stats/2023-jan-03.svg)
+[![](/img/blog/version-stats/2023-jan-03.svg)](/img/blog/version-stats/2023-jan-03.svg)
 
-<em class="center small">[Minimal PHP requirement over time](/resources/img/blog/version-stats/2023-jan-03.svg)</em>
+<em class="center small">[Minimal PHP requirement over time](/img/blog/version-stats/2023-jan-03.svg)</em>
 
 You can see there's a _slight_ increase in PHP 7.* requirements. It's a good evolution, but still very slow compared to how fast PHP is moving forward.
 

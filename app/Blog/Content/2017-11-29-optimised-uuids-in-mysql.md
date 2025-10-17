@@ -17,7 +17,7 @@ Take a look at the following graph, plotting the execution time of hundred queri
 
 {{ ad:carbon }}
 
-![](/resources/img/blog/binary-uuid/textual_uuid.png)
+![](/img/blog/binary-uuid/textual_uuid.png)
 
 _That's an average of more than 1.5 seconds when using textual UUIDs!_
 
@@ -33,7 +33,7 @@ Instead of saving UUIDs as `CHAR`, it's possible to store their actual binary da
 Storing them in this format, MySQL has a lot less trouble indexing this table. 
 This is the graph plotting a much faster result.
 
-![](/resources/img/blog/binary-uuid/binary_uuid.png)
+![](/img/blog/binary-uuid/binary_uuid.png)
 
 That's an average of 0.00008832061291 seconds per query, 
 in comparison to ~~1.5~~ 0.0001493031979 seconds for the **indexed** textual UUID.
@@ -51,7 +51,7 @@ There's one important thing to note: this time related bits are only available i
 
 Using this approach, we can see following result.
 
-![](/resources/img/blog/binary-uuid/comparison.png)
+![](/img/blog/binary-uuid/comparison.png)
 
 The optimised approach is actually slower for lookups in a small table, 
 but it outperforms the normal binary approach on larger datasets.
