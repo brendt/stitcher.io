@@ -1,0 +1,22 @@
+---
+title: 'You cannot find me on Mastodon'
+disableAds: true
+---
+
+I started this blog originally on Medium — did you know that? That was 7 years ago. I managed to build a small audience over there — it felt large at the time but numbers are of course relative. Medium changed a lot in that period though, and while I can't remember the final trigger, at one point I decided I wanted to take full control and ownership of my content. And so I created a static blog — nothing fancy, but it worked for me.
+
+I've never felt any regrets for that decision. On the contrary: I believe that if I stuck with Medium, I would have never been able to grow my blog to where it is today. It's because of my blog that I was able to join my current and previous job — it's safe to say this has been life defining for me and my family. Full control meant taking ownership and responsibility, I started caring for my content in another way and that paid off.
+
+It's been five years since I took ownership of my content, but I didn't do the same with my audience. My audience is spread across different places on the web (Reddit, RSS, other blogs, Twitter, HackerNews, …), with Twitter being the largest by far. 
+
+With all the Twitter drama these past weeks, I realised how dependent I am — once again — on a platform that's totally out of my control. 
+
+I've managed to build a following of 15k people on Twitter. That's small for many people but it's larger than what I imagined a couple of years ago. And while I have 15k followers (that's maybe 1k of real people actually seeing my tweets), if Twitter shuts down tomorrow, those people are gone. To me that would mean all the time and effort I put into my Twitter audience will simply be… gone. 
+
+Now, I'm not making any predictions about Twitter's future, and I don't believe anyone talking about it actually has a clue. But, I also won't move to the next platform anymore. At least not for building an audience like I did on Twitter. Instead, I've managed to build a decent [newsletter](https://stitcher.io/newsletter/subscribe) audience of 17k people by now. That are around 5k actual readers, despite double opt-in (email is weird 🙄). But at least it's in my control: my newsletter is [self hosted](https://mailcoach.app/) and I keep full control over my audience. No one can pull the plug but me.
+
+Now the Mastodon fans will tell me how Mastodon is decentralized and safe and how they are in full control, but that's simply not true. You're not owning your Mastodon servers — at least not the ones that are actually large enough to matter: [phpc.social](https://phpc.social/about) for example (that's where my audience is), is hosted on [masto.host](https://masto.host/). 
+
+Remember how WhatsApp was considered the "safe and encrypted messaging app" once? Remember how everyone and their mother encouraged you to migrate to Signal or Telegram a couple of years later, which also turned out to have [privacy](https://www.theverge.com/22249391/signal-app-abuse-messaging-employees-violence-misinformation) and [security](https://nordvpn.com/blog/is-telegram-safe/) flaws on their own? You're never in control. 
+
+I'm not saying I won't use any of those platforms — if Twitter goes down I probably will join the PHP community on Mastodon. But I won't build and rely on it like I did with Twitter. I'll take full control of my audience from this point forward, meaning you can either follow me via [my newsletter](https://stitcher.io/newsletter/subscribe) or via [RSS](https://stitcher.io/rss), whatever works best for you. 

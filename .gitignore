@@ -10,3 +10,6 @@ vendor/
 log/
 *.local.config.php
 *.dev.config.php
+
+vite-tempest
+public/build/

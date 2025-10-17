@@ -1,0 +1,17 @@
+---
+title: 'Front Line PHP'
+meta:
+    description: 'The book on modern PHP development and PHP 8'
+---
+
+I've been blogging for three years and a half: I've written about PHP, the web, programming in general, and here and there something completely off topic. When I started this project I never imagined it would be received so well by so many. But here we are: thousands of people visit my blog every month, with a total of over 2 million pageviews in the span of three years. I realise those numbers are dwarfed by many other websites, still to me it feels like a great achievement.
+
+The last year and a half I've been focussing on more specific topics: the "[What's new in PHP](/blog/new-in-php-8)" series has been really popular, and the [in](/blog/attributes-in-php-8)-[depth](/blog/jit-in-real-life-web-applications) [PHP](/blog/constructor-promotion-in-php-8) [feature](/blog/php-8-named-arguments) [posts](/blog/php-8-match-or-switch) have sparked many great discussions and conversations. With those PHP-related topics, I always envisioned them to be part of a greater whole and not separate posts. I've been trying to tell the story of modern PHP for a while now, and I'm trying to make it as focussed and of the highest quality as possible.
+
+So that's why I'm introducing the next chapter, or better said: a bundle of chapters. I'm working on a book that teaches you modern PHP, its best practices and the community surrounding it — it's called "[Front Line PHP](*https://front-line-php.com/)". Some parts of it will be based on what I've written throughout the years on this blog, but large parts will be brand new. I'll cover the language itself, patterns and principles, frameworks, and most importantly: the mindset of a professional web developer. I'm really looking forward being able to share everything I want as a unified whole.
+
+Like my [previous book](*https://laravel-beyond-crud.com/), I'm working together with [Spatie](*https://spatie.be/) — the company I work at — to ensure it'll be the greatest product possible. You can expect Front Line PHP to launch in December 2020, right around the time PHP 8 arrives. It'll be accompanied by a _free_ video series, teaching you all about PHP 8 in practice. 
+
+I'm really looking forward to sharing all of this with you, so make sure you [subscribe to the dedicated newsletter](*https://front-line-php.com/) to receive all relevant updates. If you want to know a little more, head over to the [Front Line PHP website](*https://front-line-php.com/), which will receive regular updates over the coming weeks. I hope you're as excited as I am. If you have any questions or remarks, you're of course free to reach out to me via [Twitter](*https://twitter.com/brendt_gd) or [e-mail](mailto:brendt@stitcher.io).
+
+Thanks!

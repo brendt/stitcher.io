@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "211ee11e6f49d35262ef995ca25d4e9f",
+    "content-hash": "f6e33b25f73b8d0d452ad7afcc70ab83",
     "packages": [
         {
             "name": "composer/semver",
@@ -2707,6 +2707,68 @@
                 }
             ],
             "time": "2025-10-11T21:50:23+00:00"
+        },
+        {
+            "name": "spatie/yaml-front-matter",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/yaml-front-matter.git",
+                "reference": "5d0009289dd19a23e5f6cbb72c959a9fc1881e32"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/yaml-front-matter/zipball/5d0009289dd19a23e5f6cbb72c959a9fc1881e32",
+                "reference": "5d0009289dd19a23e5f6cbb72c959a9fc1881e32",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0",
+                "symfony/yaml": "^6.0|^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\YamlFrontMatter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A to the point yaml front matter parser",
+            "homepage": "https://github.com/sebastiandedeyne/yaml-front-matter",
+            "keywords": [
+                "front matter",
+                "jekyll",
+                "spatie",
+                "yaml"
+            ],
+            "support": {
+                "source": "https://github.com/spatie/yaml-front-matter/tree/2.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-12-02T08:40:45+00:00"
         },
         {
             "name": "symfony/cache",

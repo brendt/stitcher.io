@@ -1,0 +1,182 @@
+:root {
+    --code-keyword: #4f95d1;
+    --code-property: #4cb966;
+    --code-type: #d14f57;
+    --code-generic: #9d3af6;
+    --code-value: #515248;
+    --code-comment: #888888;
+    --code-highlight: #22dddd33;
+    --code-addition: #00ff0022;
+    --code-deletion: #ff000011;
+    --code-gutter: #555555;
+    --code-gutter-addition: #34a853;
+    --code-gutter-deletion: #ea4334;
+    --code-moderate: #fef9c3;
+    --code-complex: #fee2e2;
+    --code-adverb: #e0f2fe;
+    --code-passive: #dcfce7;
+    --code-complex-phrase: #f3e8ff;
+    --code-qualified: #f1f5f9;
+}
+
+
+.hl-keyword {
+    color: var(--code-keyword);
+}
+
+.hl-property, .hl-property > .hl-keyword {
+    color: var(--code-property);
+}
+
+.hl-type {
+    color: var(--code-type);
+}
+
+.hl-generic {
+    color: var(--code-generic);
+}
+
+.hl-value {
+    color: var(--code-value);
+}
+
+.hl-comment {
+    color: var(--code-comment);
+    font-style: italic;
+}
+
+.hl-blur {
+    filter: blur(2px);
+}
+
+.hl-strong {
+    font-weight: bold;
+}
+
+.hl-em {
+    font-style: italic;
+}
+
+.hl-hl {
+    background-color: var(--code-highlight);
+    display: inline-block;
+    line-height: 1.9em;
+    padding: 0 5px;
+}
+
+.hl-console-underline {
+    text-decoration: underline;
+}
+
+.hl-console-strong {
+    font-weight: bold;
+}
+
+.hl-console-comment {
+    color: var(--code-comment);
+}
+
+.hl-console-em {
+    color: var(--code-keyword);
+    font-weight: bold;
+}
+
+.hl-console-dim {
+    color: var(--code-comment);
+}
+
+.hl-console-question,
+.hl-console-error,
+.hl-console-success,
+.hl-console-h1,
+.hl-console-h2 {
+    color: #fff;
+    display: inline-block;
+    line-height: 1.9em;
+    padding: 0 5px;
+}
+
+.hl-console-question {
+    background-color: var(--code-keyword);
+}
+
+.hl-console-error {
+    background-color: var(--code-type);
+}
+
+.hl-console-success {
+    background-color: var(--code-property);
+}
+
+.hl-console-h1 {
+    background-color: #4ab1d1;
+    font-weight: bold;
+    line-height: 2em;
+}
+
+.hl-console-h2 {
+    background-color: var(--code-keyword);
+    line-height: 1.8em;
+}
+
+.hl-a {
+    background-color: #ffff0077;
+}
+
+.hl-b {
+    background-color: #ff00ff33;
+}
+
+.hl-addition {
+    min-width: 100%;
+    background-color: var(--code-addition);
+}
+
+.hl-deletion {
+    min-width: 100%;
+    background-color: var(--code-deletion);
+}
+
+.hl-gutter {
+    display: inline-block;
+    font-size: 0.9em;
+    color: var(--code-gutter);
+    padding: 0 1ch;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.hl-gutter-addition {
+    background-color: var(--code-gutter-addition);
+    color: #fff;
+}
+
+.hl-gutter-deletion {
+    background-color: var(--code-gutter-deletion);
+    color: #fff;
+}
+
+.hl-moderate-sentence {
+    background-color: var(--code-moderate);
+}
+
+.hl-complex-sentence {
+    background-color: var(--code-complex);
+}
+
+.hl-adverb-phrase {
+    background-color: var(--code-adverb);
+}
+
+.hl-passive-phrase {
+    background-color: var(--code-passive);
+}
+
+.hl-complex-phrase {
+    background-color: var(--code-complex-phrase);
+}
+
+.hl-qualified-phrase {
+    background-color: var(--code-qualified);
+}

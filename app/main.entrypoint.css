@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "./code.css";
+
+@theme {
+    --color-primary: #fe2977;
+
+    --font-sans: "Avenir", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-serif: Menlo, Monaco, "Ubuntu Mono", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+pre {
+    background-color: var(--color-gray-100);
+    padding: 1em;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    border-radius: 0.1em;
+    line-height: 2em;
+}
+
+code {
+    font-size: 0.9em;
+    background-color: var(--color-gray-100);
+    padding: 3px 5px;
+    border-radius: 0.1em;
+}
+
+a {
+    text-decoration: underline;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+@media (min-width: 800px) {
+    article > *:not(pre):not(iframe) {
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+    }
+}
+
+article > * {
+    max-width: 100%;
+}
+
+article a  {
+    text-decoration-color: var(--color-primary);
+}
