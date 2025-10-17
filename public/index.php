@@ -1,21 +1,11 @@
 <?php
 
-use Pageon\Config;
-use Stitcher\App;
-use Stitcher\File;
+declare(strict_types=1);
+
+use Tempest\Router\HttpApplication;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-error_reporting(E_ALL ^ E_DEPRECATED);
+HttpApplication::boot(__DIR__ . '/../')->run();
 
-File::base(__DIR__ . '/../');
-
-App::init();
-
-if ('local' === Config::get('environment')) {
-    $server = App::developmentServer();
-} else {
-    $server = App::productionServer();
-}
-
-echo $server->run();
+exit();

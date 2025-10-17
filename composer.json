@@ -1,34 +1,49 @@
 {
+    "name": "tempest/app",
+    "type": "project",
     "require": {
-        "php": "^8.3",
-        "pageon/stitcher-core": "dev-master",
-        "spatie/browsershot": "^3.40",
-        "symfony/console": "^4.0",
-        "tempest/highlight": "^2.0",
-        "league/commonmark": "^2.4"
+        "tempest/framework": "^2.0"
     },
-    "repositories" : [
-        {
-            "type": "vcs",
-            "url" : "https://github.com/pageon/stitcher-core"
-        }
-    ],
     "require-dev": {
-        "larapack/dd": "^1.1",
-        "laravel/envoy": "^2.10"
+        "phpunit/phpunit": "^12.3.10",
+        "symfony/var-dumper": "^7.3.3",
+        "carthage-software/mago": "1.0.0-beta.13"
     },
     "autoload": {
         "psr-4": {
-            "Brendt\\Stitcher\\": "src/"
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "scripts": {
-        "deploy": "vendor/bin/envoy run deploy",
-        "deploy-code": "vendor/bin/envoy run deploy-code"
+        "post-create-project-cmd": [
+            "@php ./vendor/bin/tempest install framework -f",
+            "@php ./tempest discovery:generate --no-interaction",
+            "@php ./tempest key:generate"
+        ],
+        "post-autoload-dump": [
+            "@php ./vendor/bin/tempest discovery:generate --no-interaction"
+        ],
+        "phpunit": "vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices",
+        "fmt": "vendor/bin/mago fmt",
+        "lint": "vendor/bin/mago lint --fix --format-after-fix",
+        "qa": [
+            "composer fmt",
+            "composer phpunit",
+            "composer lint"
+        ]
     },
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "allow-plugins": {
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "carthage-software/mago": true
         }
     }
 }

@@ -1,3 +1,0 @@
-services:
-    nextAdapter:
-        class: Brendt\Stitcher\Plugin\Adapter\NextAdapter

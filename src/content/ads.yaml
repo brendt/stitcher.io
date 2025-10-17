@@ -1,6 +1,0 @@
-id: ads
-title: Ads
-content: src/content/ads.md
-disableAds: true
-meta:
-    canonical: https://stitcher.io/ads
