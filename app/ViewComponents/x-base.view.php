@@ -34,14 +34,14 @@ $isProduction = get(AppConfig::class)->environment->isProduction();
     <x-vite-tags />
 </head>
 <body class="antialiased relative">
-    <div class="bg-gray-100 m-2 md:m-0 p-0 md:p-4 rounded-md shadow-lg z-[10] mb-[30vh] md:mb-[10vh] relative">
+    <div class="bg-transparent md:bg-gray-100 m-2 md:m-0 p-0 md:p-4 rounded-md shadow-lg z-[10] mb-[30vh] md:mb-[10vh] relative">
         <x-slot/>
     </div>
 
     <div class="fixed bottom-0 z-[1] pb-[3vh] flex flex-wrap gap-8 items-center justify-center w-full  text-white font-bold font-sm">
         <a href="/">Home</a>
         <a href="/rss">RSS</a>
-        <a href="mailto:brendt@stitcher.io">Contact</a>
+        <a href="/mail">Newsletter</a>
         <a href="https://tempestphp.com/discord">Discord</a>
         <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
     </div>

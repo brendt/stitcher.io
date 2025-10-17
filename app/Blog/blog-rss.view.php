@@ -4,13 +4,13 @@ use Tempest\DateTime\FormatPattern;
 use function Tempest\Router\uri;
 ?>
 
+<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-US">
     <id>https://stitcher.io/rss</id>
     <link href="https://stitcher.io/rss" rel="self"/>
     <title>
         <![CDATA[ stitcher.io ]]>
     </title>
-    <subtitle>An aggregation of great content across the web</subtitle>
     <updated><?= date('c') ?></updated>
 
     <?php foreach ($posts as $post): ?>

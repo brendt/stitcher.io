@@ -4,6 +4,7 @@ namespace App\Blog;
 
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
+use Tempest\Http\Response;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
 use Tempest\Router\StaticPage;
@@ -34,11 +35,11 @@ final class BlogController
     #[Get('/rss')]
     #[Get('/feed')]
     #[Get('/atom')]
-    public function rss(ViewRenderer $viewRenderer, Cache $cache, BlogPostRepository $repository): View
+    public function rss(ViewRenderer $viewRenderer, Cache $cache, BlogPostRepository $repository): Response
     {
         $xml = $cache->resolve(
             key: 'rss',
-            callback: fn () => $viewRenderer->render(view('rss.view.php', posts: $repository->all())),
+            callback: fn () => $viewRenderer->render(view('blog-rss.view.php', posts: $repository->all())),
             expiration: DateTime::now()->plusHours(1),
         );
 
