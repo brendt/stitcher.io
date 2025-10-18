@@ -3,7 +3,6 @@
 namespace App\Support\Image;
 
 use function Tempest\root_path;
-use function Tempest\src_path;
 
 final class SrcSet
 {
