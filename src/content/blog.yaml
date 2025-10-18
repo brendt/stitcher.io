@@ -6,6 +6,12 @@
 #  content: src/content/blog/2024-09-10-the-road-to-static-analysis.md
 #  disableAds: true
 
+celebrating-one-year-of-timeline-taxi:
+  date: 2025-10-16
+  title: Celebrating one year
+  content: src/content/blog/2025-10-16-celebrating-one-year-of-timeline-taxi.md
+  disableAds: true
+
 vendor-locked:
   date: 2025-10-01
   title: Vendor locked

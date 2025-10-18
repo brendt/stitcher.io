@@ -1,0 +1,5 @@
+I'm celebrating! It's not _my_ birthday, rather it's the birthday of my sci-fi novel "Timeline Taxi". I began writing this book as a way to [deal with burnout](https://stitcher.io/blog/impact-charts), and it worked out really well for me. I know most readers of this blog are here for the programming-related content, but hey, it is something I'm really proud of and do want to share with "whomever it may concern" 😁
+
+To celebrate, I've published an extended version of Timeline Taxi with six brand-new chapters, and have a [50% coupon for you on Leanpub](https://leanpub.com/timeline-taxi/c/birthday) (valid until Oct 24th). On top of that, there's now also a hardcover version available; you can find all info on [timeline-taxi.com](https://timeline-taxi.com/). Finally, I'm also drafting a sequel, but that will take a bit longer to complete.
+
+Working on such a project made me wonder; if you have something you're proud of yourself outside of IT, I'm so eager to hear more about it! I think it can be really inspiring to learn from others, so [send me an email](mailto:brendt@stitcher.io) and let me know!

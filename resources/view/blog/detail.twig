@@ -19,10 +19,6 @@
 
     <link rel="webmention" href="https://webmention.io/stitcher.io/webmention"/>
     <link rel="pingback" href="https://webmention.io/stitcher.io/xmlrpc"/>
-
-    {% if 'Timeline Taxi' in post.title %}
-        {{ css.inline('resources/css/taxi.scss')|raw }}
-    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -95,9 +91,13 @@
                 {% endfor %}
             </nav>
         {% endif %}
-        <a class="inline-things-book" href="https://things-i-wish-i-knew.com/">
-            <img src="/resources/img/static/things-book.png" alt="Things I wish I knew when I started programming"/>
-            <p>Available now: my book "Things I wish I knew when I started programming". You can buy paperback or ebook versions today!</p>
+{#        <a class="inline-things-book" href="https://things-i-wish-i-knew.com/">#}
+{#            <img src="/resources/img/static/things-book.png" alt="Things I wish I knew when I started programming"/>#}
+{#            <p>Available now: my book "Things I wish I knew when I started programming". You can buy paperback or ebook versions today!</p>#}
+{#        </a>#}
+        <a class="inline-taxi-book" href="https://leanpub.com/timeline-taxi/c/birthday">
+            <img src="/resources/img/static/taxi-book.png" alt="Things I wish I knew when I started programming"/>
+            <p>To celebrate the new extended release of Timeline Taxi, you can now get a 50% discount on Leanpub!</p>
         </a>
     </article>
 

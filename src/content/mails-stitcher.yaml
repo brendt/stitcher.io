@@ -1,3 +1,9 @@
+'114':
+  date: 2025-10-15
+  title: "Birthday Updates"
+  pretext: "Some updates, some PHP news."
+  content: src/content/mails/stitcher-114.md
+
 '113':
   date: 2025-09-28
   title: "Vendor locked"

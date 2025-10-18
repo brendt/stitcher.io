@@ -538,15 +538,24 @@ div.taxi {
 }
 
 @media (max-width: 1000px) {
+  .inline-taxi-book,
   .inline-things-book {
     flex-direction: column;
     text-align: center;
   }
 }
 
+.inline-taxi-book {
+  background: rgba(41, 103, 111, 0.2);
+}
+
 .inline-things-book {
-  margin-top: 2em;
   background: rgba(36, 88, 116, 0.11);
+}
+
+  .inline-taxi-book,
+  .inline-things-book {
+  margin-top: 2em;
   position: relative;
   font-weight: bold;
   padding: 1em 1.3em;
