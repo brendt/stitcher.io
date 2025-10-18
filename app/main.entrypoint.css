@@ -1,8 +1,22 @@
 @import "tailwindcss";
 @import "./code.css";
 
+/*$color-black: #353535;*/
+/*$color-white: #ffffff;*/
+/*$color-orange: #fd5d1f;*/
+/*$color-orange-dark: #742100;*/
+/*$color-primary-pastel: #fcf4f5;*/
+/*$color-gray: #D3D3D3;*/
+/*$color-php: #8892bf;*/
+/*$color-breaking: #de5f5f;*/
+/*$color-primary: #fe2977;*/
+/*$color-secondary: #000;*/
+/*$color-body: #111;*/
+/*$color-primary-light: #FCF4F5;*/
+
 @theme {
     --color-primary: #fe2977;
+    --color-pastel: #fcf4f5;
 
     --font-sans: "Avenir", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-serif: Menlo, Monaco, "Ubuntu Mono", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
@@ -34,7 +48,7 @@ a {
 }
 
 @media (min-width: 800px) {
-    article > *:not(pre):not(iframe) {
+    article > *:not(pre):not(iframe):not(p:has(img)):not(.inset):not(.table-container) {
         padding-left: 1.5em;
         padding-right: 1.5em;
     }
@@ -46,4 +60,38 @@ article > * {
 
 article a  {
     text-decoration-color: var(--color-primary);
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h2, h3, h4 {
+    font-weight: bold;
+}
+
+table {
+    background-color: var(--color-pastel);
+    border-radius: .5em;
+    width: 100%;
+
+    & .table-head {
+        font-weight: bold;
+    }
+
+    & td {
+        padding: 0.5em
+    }
+
+    & tr td:first-child {
+        padding-left: 1em;
+    }
+
+    & tr:not(.table-head):hover {
+        background-color: var(--color-gray-200);
+    }
 }

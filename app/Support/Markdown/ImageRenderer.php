@@ -12,10 +12,10 @@ use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
 use function Tempest\Support\arr;
 
-final class ImageRenderer implements NodeRendererInterface
+final readonly class ImageRenderer implements NodeRendererInterface
 {
     public function __construct(
-        private ImageFactory $imageFactory
+        private ImageFactory $imageFactory,
     ) {
     }
 

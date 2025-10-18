@@ -9,7 +9,7 @@ use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 use Tempest\Highlight\Highlighter;
 
-class HighlightInlineCodeRenderer implements NodeRendererInterface
+final readonly class HighlightInlineCodeRenderer implements NodeRendererInterface
 {
     public function __construct(
         private Highlighter $highlighter,
