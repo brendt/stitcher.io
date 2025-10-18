@@ -13,8 +13,6 @@ use League\CommonMark\MarkdownConverter;
 use Tempest\Container\Container;
 use Tempest\Container\Initializer;
 use Tempest\Container\Singleton;
-use Tempest\Highlight\CommonMark\CodeBlockRenderer;
-use Tempest\Highlight\CommonMark\InlineCodeBlockRenderer;
 use Tempest\Highlight\Highlighter;
 
 final readonly class MarkdownInitializer implements Initializer
@@ -31,8 +29,8 @@ final readonly class MarkdownInitializer implements Initializer
             ->addExtension(new CommonMarkCoreExtension())
             ->addExtension(new FrontMatterExtension())
             ->addExtension(new AttributesExtension())
-            ->addRenderer(FencedCode::class, new CodeBlockRenderer($highlighter))
-            ->addRenderer(Code::class, new InlineCodeBlockRenderer($highlighter))
+            ->addRenderer(FencedCode::class, new HighlightCodeBlockRenderer($highlighter))
+            ->addRenderer(Code::class, new HighlightInlineCodeRenderer($highlighter))
             ->addRenderer(Image::class, $imageRenderer)
         ;
 
