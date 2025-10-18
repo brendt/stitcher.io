@@ -18,20 +18,7 @@ final readonly class BlogPostRepository
 
     public function find(string $slug): ?BlogPost
     {
-        $path = glob(__DIR__ . "/Content/*{$slug}.md")[0] ?? '';
-
-        $content = file_get_contents($path);
-
-        preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
-
-        $data = [
-            'slug' => $matches['slug'],
-            'date' => $this->parseDate($path),
-            'content' => $this->converter->convert($content)->getContent(),
-            ...YamlFrontMatter::parse($content)->matter(),
-        ];
-
-        return \Tempest\map($data)->to(BlogPost::class);
+        return $this->all()->first(fn (BlogPost $post) => $post->slug === $slug);
     }
 
     /**
@@ -39,7 +26,7 @@ final readonly class BlogPostRepository
      */
     public function all(): ImmutableArray
     {
-        return arr(glob(__DIR__ . "/Content/*.md"))
+        $posts = arr(glob(__DIR__ . "/Content/*.md"))
             ->map(function (string $path) {
                 $content = file_get_contents($path);
                 $cacheKey = crc32($content);
@@ -57,6 +44,18 @@ final readonly class BlogPostRepository
             })
             ->mapTo(BlogPost::class)
             ->sortByCallback(fn (BlogPost $a, BlogPost $b) => $b->date <=> $a->date);
+
+        foreach ($posts as $i => $post) {
+            $next = $posts[$i + 1] ?? null;
+
+            if (! $next) {
+                continue;
+            }
+
+            $post->next = $next;
+        }
+
+        return $posts;
     }
 
     private function parseDate(string $path): DateTime

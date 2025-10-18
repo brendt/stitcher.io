@@ -14,6 +14,7 @@ final class BlogPost implements Bindable
         public string $content,
         public DateTime $date,
         public Meta $meta,
+        public ?BlogPost $next = null,
     ) {}
 
     public string $uri {

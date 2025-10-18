@@ -1,5 +1,11 @@
 <x-container>
-    <div class="bg-white md:bg-transparent p-8 border-sm shadow-md md:shadow-none grid gap-4 rounded-xs">
+    <div class="
+        grid gap-4
+        p-4 sm:py-4 sm:px-0
+        bg-white sm:bg-transparent
+         shadow-md md:shadow-none
+         rounded-xs
+    ">
         <x-slot/>
     </div>
 </x-container>
