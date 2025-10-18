@@ -14,10 +14,17 @@ final readonly class BlogPostRepository
     public function __construct(
         private MarkdownConverter $converter,
         private Cache $cache,
-    ) {}
+    ) {
+    }
 
     public function find(string $slug): ?BlogPost
     {
+        $path = glob(__DIR__ . "/Content/*{$slug}.md")[0];
+        $content = file_get_contents($path);
+        $cacheKey = crc32($content);
+
+        $this->cache->remove($cacheKey);
+
         return $this->all()->first(fn (BlogPost $post) => $post->slug === $slug);
     }
 

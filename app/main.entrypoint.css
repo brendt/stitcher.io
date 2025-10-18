@@ -39,6 +39,10 @@ code {
     border-radius: 0.1em;
 }
 
+h1 > a {
+    text-decoration: none;
+}
+
 a {
     text-decoration: underline;
 
@@ -49,8 +53,8 @@ a {
 
 @media (min-width: 800px) {
     article > *:not(pre):not(iframe):not(p:has(img)):not(.inset):not(.table-container) {
-        padding-left: 1.5em;
-        padding-right: 1.5em;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
     }
 }
 
@@ -94,4 +98,10 @@ table {
     & tr:not(.table-head):hover {
         background-color: var(--color-gray-200);
     }
+}
+
+hr {
+    width: 50%;
+    margin: 2em auto;
+    border-color: var(--color-gray-400);
 }

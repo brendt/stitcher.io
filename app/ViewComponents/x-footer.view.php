@@ -6,6 +6,8 @@
          shadow-md md:shadow-none
          rounded-xs
     ">
-        <x-slot/>
+        <div class="flex flex-wrap justify-center gap-2 items-center sm:flex sm:justify-between">
+            <x-slot/>
+        </div>
     </div>
 </x-container>
