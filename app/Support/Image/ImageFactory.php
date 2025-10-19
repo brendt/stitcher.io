@@ -41,12 +41,14 @@ final readonly class ImageFactory
             foreach ($this->getVariations($image) as $srcset) {
                 $image->srcset[] = $srcset;
             }
-
-            command(new ScaleImage($image));
         }
 
         if (is_file($image->publicPath)) {
             return $image;
+        }
+
+        if ($image->isScalable) {
+            command(new ScaleImage($image));
         }
 
         $dir = pathinfo($image->publicPath, PATHINFO_DIRNAME);

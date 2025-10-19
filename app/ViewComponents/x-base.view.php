@@ -5,20 +5,49 @@
 
 use function Tempest\get;
 use Tempest\Core\AppConfig;
+use function Tempest\Router\uri;
 $isProduction = get(AppConfig::class)->environment->isProduction();
 ?>
 
 <!doctype html>
 <html lang="en" class="h-dvh flex flex-col md:p-4 bg-primary">
 <head>
+    <!-- General -->
     <title>{{ $title ?? 'stitcher.io' }}</title>
-
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <x-slot name="head"/>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
 
+    <!-- Socials -->
+    <x-template :if="$meta">
+        <meta property="og:image" :content="$meta->img"/>
+        <meta property="twitter:image" :content="$meta->img"/>
+        <meta name="image" :content="$meta->img"/>
+        <meta name="twitter:card" content="summary_large_image"/>
+    </x-template>
+    <x-template :else>
+        <meta name="twitter:card" content="summary"/>
+        <meta property="twitter:image" :content="uri('/meta/meta_small.png')"/>
+    </x-template>
+    <meta name="twitter:creator" content="@brendt_gd"/>
+
+    <!-- PWA -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="msapplication-TileColor" content="#fe2977">
+    <meta name="theme-color" content="#fe2977">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="Stitcher RSS" href="/rss"/>
+
+    <!-- Assets -->
     <x-vite-tags />
+    <x-slot name="head"/>
 </head>
 <body class="antialiased relative">
     <div class="bg-gray-100 m-2 sm:m-0 p-0 p-2 md:p-4 rounded-md shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
