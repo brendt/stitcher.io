@@ -105,3 +105,12 @@ hr {
     margin: 2em auto;
     border-color: var(--color-gray-400);
 }
+
+ul li {
+    list-style-type: disc;
+    margin-left: 1.5em;
+}
+
+ul li + li {
+    margin-top: .3em;
+}

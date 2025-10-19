@@ -1,0 +1,644 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+
+<div :if="$mail->pretext" style="display: none;font-size: 1px;color:#fff;line-height: 1px;max-height: 0;opacity: 0;overflow: hidden;">{{ $mail->pretext }}</div>
+
+<style>
+    @media only screen and (max-width: 600px) {
+        .inner-body {
+            width: 100% !important;
+        }
+
+        .footer {
+            width: 100% !important;
+        }
+
+        .responsive-img {
+            height: auto !important;
+            width: 100% !important;
+        }
+    }
+
+    @media only screen and (max-width: 500px) {
+        .button {
+            width: 100% !important;
+        }
+    }
+
+    pre, code {
+        color: #000;
+        background-color: #f3f3f3;
+    }
+
+    .hl-keyword {
+        color: #4285F4;
+    }
+
+    .hl-property {
+        color: #34A853;
+    }
+
+    .hl-attribute {
+        font-style: italic;
+    }
+
+    .hl-type {
+        color: #EA4334;
+    }
+
+    .hl-generic {
+        color: #9d3af6;
+    }
+
+    .hl-value {
+        color: #000;
+    }
+
+    .hl-variable {
+        color: #000;
+    }
+
+    .hl-comment {
+        color: #888888;
+    }
+
+    .hl-blur {
+        filter: blur(2px);
+    }
+
+    .hl-strong {
+        font-weight: bold;
+    }
+
+    .hl-em {
+        font-style: italic;
+    }
+
+    .hl-addition {
+        min-width: 100%;
+        background-color: #00FF0022;
+    }
+
+    .hl-deletion {
+        min-width: 100%;
+        background-color: #FF000011;
+    }
+
+    .hl-gutter {
+        display: inline-block;
+        color: #555;
+        padding: 0 1ch;
+        user-select: none;
+    }
+
+    .hl-gutter-addition {
+        background-color: #34A853;
+        color: #fff;
+    }
+
+    .hl-gutter-deletion {
+        background-color: #EA4334;
+        color: #fff;
+    }
+</style>
+
+<!-- Code blocks -->
+<style>
+    code {
+        font-family: Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
+    }
+
+    .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #000;
+    }
+
+    .hljs-comment, .hljs-quote {
+        color: #888;
+        font-style: italic;
+    }
+
+    .hljs-highlight.keyword, .language-html .hljs-name, .language-html .hljs-tag, .hljs-meta, .hljs-keyword, .hljs-selector-tag, .hljs-subst {
+        color: #4285f4;
+        background: none;
+    }
+
+    .hljs-highlight.numeric, .hljs-number {
+        color: #222;
+        background: none;
+    }
+
+    .hljs-literal, .hljs-variable, .hljs-template-variable, .hljs-tag .hljs-attr {
+        color: #ea4334;
+    }
+
+    .hljs-string, .hljs-doctag {
+        color: #222;
+    }
+
+    .language-html .hljs-string {
+        color: #34a853;
+    }
+
+    .hljs-highlight.property, .hljs-highlight.prop, .hljs-highlight.prop > .hljs-keyword, .hljs-title, .hljs-section, .hljs-selector-id {
+        color: #34a853;
+        background: none;
+    }
+
+    .hljs-subst {
+        font-weight: normal;
+    }
+
+    .hljs-highlight.type, .hljs-highlight.type span, .hljs-highlight.type .hljs-title, .hljs-type, .hljs-params + .hljs-title, .hljs-class .hljs-title {
+        color: #ea4334;
+        background: none;
+    }
+
+    .generic, .generic > .hljs-title {
+        color: #9d3af6;
+    }
+
+    .hljs-tag, .hljs-name, .hljs-attribute {
+        color: #222;
+        font-weight: normal;
+    }
+
+    .language-css .hljs-attribute, .hljs-regexp, .hljs-link {
+        color: #34a853;
+    }
+
+    .language-html .hljs-attr {
+        color: #34a853;
+    }
+
+    .hljs-symbol, .hljs-bullet {
+        color: #9d3af6;
+    }
+
+    .hljs-built_in, .hljs-builtin-name {
+        color: #ea4334;
+    }
+
+    .hljs-deletion {
+        background: #fdd;
+    }
+
+    .hljs-addition {
+        background: #dfd;
+    }
+
+    .hljs-emphasis {
+        font-style: italic;
+    }
+
+    .hljs-strong {
+        font-weight: bold;
+    }
+
+    .hljs-highlight {
+        display: inline;
+    }
+
+    .hljs-highlight.comment {
+        background: none;
+        color: #888;
+        font-style: italic;
+    }
+
+    .hljs-highlight.text {
+        color: #000;
+    }
+
+    .hljs-highlight.error {
+        background-color: #fdd;
+    }
+
+    .hljs-highlight.text span, .hljs-highlight.text {
+        color: #353535;
+        background: none;
+    }
+
+    .hljs-highlight.yellow {
+        background-color: #ffa;
+    }
+
+    .hljs-highlight.blue {
+        background-color: #aff;
+    }
+
+    .hljs-highlight.red {
+        background-color: #fdd;
+    }
+
+    .hljs-highlight.purple {
+        background-color: #fdf;
+    }
+
+    .hljs-highlight.cyan {
+        background-color: #aef4db;
+    }
+
+    .hljs-highlight.darkblue {
+        background-color: #ddf;
+    }
+
+    .hljs-highlight.green {
+        background-color: #dfd;
+    }
+
+    .hljs-highlight.grey {
+        background-color: #ddd;
+    }
+
+    .hljs-highlight.textgrey {
+        color: #aaa;
+        background: none;
+    }
+
+    .hljs-highlight.full, .hljs-highlight.line {
+        display: block;
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
+        width: calc(100% + (2 * 1.5rem));
+        padding-left: 1.5rem;
+    }
+
+    @media (max-width: 750px) {
+        .hljs-highlight.full, .hljs-highlight.line {
+            margin-left: -1rem;
+            margin-right: -1rem;
+            width: calc(100% + (2 * 1rem));
+            padding-left: 1rem;
+        }
+    }
+
+    .hljs-highlight.striped {
+        background: none;
+        border-bottom: dotted 3px red;
+    }
+</style>
+
+<style>
+    /* Base */
+
+    body,
+    body > *:not(html):not(style):not(br):not(tr):not(code):not(pre) {
+        font-family: "Avenir", "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol";
+        box-sizing: border-box;
+    }
+
+    body {
+        color: rgb(61, 25, 29);
+        height: 100%;
+        font-size: 16px;
+        line-height: 1.4;
+        margin: 0;
+        hyphens: none;
+        -moz-hyphens: none;
+        -webkit-hyphens: none;
+        width: 100% !important;
+        -webkit-text-size-adjust: none;
+        word-break: break-word;
+    }
+
+    .heading-anchor {
+        display: none;
+    }
+
+    p,
+    ol,
+    ul,
+    blockquote {
+        text-align: left;
+    }
+
+    ul li + li {
+        margin-top: .3em;
+    }
+
+    a {
+        color: #fe2977 !important;
+    }
+
+    a img {
+        border: none;
+    }
+
+    /* Typography */
+
+
+    hr {
+        position: relative;
+        border: none;
+        text-align: center;
+        margin: 3rem auto;
+    }
+
+    hr::before {
+        display: inline-block;
+        border-bottom: solid #333 1px;
+        content: ' ';
+        width: 30%;
+    }
+
+    li,
+    p {
+        color: rgb(61, 25, 29);
+        font-size: 16px;
+        line-height: 1.4;
+        margin-top: 0;
+        text-align: left;
+    }
+
+    p.sub {
+        font-size: 12px;
+    }
+
+    img {
+        max-width: 100%;
+        -ms-interpolation-mode: bicubic;
+        height: auto;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+
+    /* Layout */
+
+    .wrapper {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 100%;
+    }
+
+    .content {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 100%;
+    }
+
+    /* Header */
+    h1 {
+        color: #fe2977;
+        margin-bottom: 0.6em;
+        margin-top: 1em;
+        font-size: 32px;
+        display: block;
+        padding: 5px 10px;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    blockquote {
+        background-color: rgba(252, 244, 245, 0.52);
+        font-size: 18px;
+        overflow: hidden;
+        max-width: 150%;
+        margin-left: -35px;
+        margin-right: -35px;
+        padding: 20px 35px;
+    }
+
+    blockquote p {
+        font-size: inherit;
+        color: inherit;
+    }
+
+    blockquote p:last-child {
+        margin-bottom: 0;
+    }
+
+    .mailcoach-logo {
+        height: 1.25rem;
+        width: auto;
+        vertical-align: middle;
+        margin-left: 0.15rem;
+        opacity: 0.75;
+    }
+
+    /* Body */
+
+    .body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 100%;
+    }
+
+    .inner-body {
+        background-color: #ffffff;
+        margin: 0 auto;
+        padding: 0;
+        width: 570px;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 570px;
+    }
+
+    /* Footer */
+    .footer {
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+        width: 570px;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 570px;
+    }
+
+    .footer p {
+        color: #6b6a67;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .footer a {
+        color: #6b6a67 !important;
+    }
+
+    /* Tables */
+
+    .table table {
+        margin: 10px auto;
+        width: 100%;
+        -premailer-cellpadding: 0;
+        -premailer-cellspacing: 0;
+        -premailer-width: 100%;
+    }
+
+    .table th {
+        border-bottom: 1px solid #edeff2;
+        padding-bottom: 8px;
+        margin: 0;
+    }
+
+    .table td {
+        font-size: 14px;
+        line-height: 18px;
+        padding: 10px 0;
+        margin: 0;
+    }
+
+    .content-cell {
+        padding: 15px;
+    }
+
+
+    code {
+        display: inline-block;
+        font-family: Menlo, Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
+        font-size: 0.8em;
+        padding: 0.25em 0.5em;
+    }
+
+    pre {
+        font-family: Menlo, Menlo, Monaco, "Ubuntu Mono", "Courier New", monospace;
+        font-size: 0.8em;
+        overflow: hidden;
+        padding: 1em;
+        background-color: #f7f7f7;
+        border-radius: 5px;
+    }
+
+    pre + * {
+        margin-top: 1.5em;
+    }
+
+    * + pre {
+        margin-top: 1.5em;
+    }
+
+    table.table {
+        width: 100%;
+        margin-bottom: 2rem;
+        border-spacing: 0;
+    }
+
+    table.table tr.table-head {
+        background-color: #fff;
+        font-weight: bold;
+        color: #000 !important;
+    }
+
+    table.table tr {
+    }
+
+    table.table td.right {
+        text-align: right;
+    }
+
+    table.table tr:nth-child(2n) {
+        background-color: #fcf4f5;
+    }
+
+    table.table tr.highlight-text {
+        font-weight: bold;
+    }
+
+    table.table td {
+        padding: .5em 1em;
+    }
+
+    .content-cell img {
+        display: block;
+        margin: 2em auto;
+    }
+</style>
+
+<table
+    class="wrapper"
+    width="100%"
+    cellpadding="0"
+    cellspacing="0"
+    role="presentation"
+>
+    <tr>
+        <td align="center">
+            <table
+                class="content"
+                width="100%"
+                cellpadding="0"
+                cellspacing="0"
+                role="presentation"
+            >
+                <tr>
+                    <td class="header"></td>
+                </tr>
+
+                <!-- Email Body -->
+                <tr>
+                    <td class="body" width="100%" cellpadding="0" cellspacing="0">
+                        <table
+                            class="inner-body"
+                            align="center"
+                            width="570"
+                            cellpadding="0"
+                            cellspacing="0"
+                            role="presentation"
+                        >
+                            <tr>
+                                <td>
+                                    <h1>
+                                        {!! $mail->title !!}
+                                    </h1>
+                                </td>
+                            </tr>
+
+                            <!-- Body content -->
+                            <tr>
+                                <td class="content-cell">
+                                    {!! $mail->content !!}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <table
+                            class="footer"
+                            align="center"
+                            width="570"
+                            cellpadding="0"
+                            cellspacing="0"
+                            role="presentation"
+                        >
+                            <tr>
+                                <td class="content-cell" align="center">
+                                    <p>
+                                        &copy; {{ \Tempest\DateTime\DateTime::now()->format('Y') }}
+                                        <a href="https://stitcher.io">stitcher.io</a> —
+                                        <a href="::unsubscribeUrl::">Unsubscribe</a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

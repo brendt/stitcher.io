@@ -30,4 +30,12 @@ final class MailController
 
         return view('mail-show.view.php', mail: $mail);
     }
+
+    #[Get('/mail/export/{slug}')]
+    public function export(string $slug, MailRepository $repository): View
+    {
+        $mail = $repository->find($slug);
+
+        return view('mail-export.view.php', mail: $mail);
+    }
 }
