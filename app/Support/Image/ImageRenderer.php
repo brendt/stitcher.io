@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Support\Markdown;
+namespace App\Support\Image;
 
-use App\Support\Image\ImageFactory;
 use InvalidArgumentException;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
 use League\CommonMark\Node\Inline\Text;

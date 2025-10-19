@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Support\Markdown;
+namespace App\Support\Highlight;
 
-use Brendt\Stitcher\Plugin\Highlight\Injections\CommentInjection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\DimInjection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\EmphasizeInjection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\ErrorInjection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\H1Injection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\H2Injection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\QuestionInjection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\StrongInjection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\SuccessInjection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\UnderlineInjection;
+use App\Support\Highlight\Injections\CommentInjection;
+use App\Support\Highlight\Injections\DimInjection;
+use App\Support\Highlight\Injections\EmphasizeInjection;
+use App\Support\Highlight\Injections\ErrorInjection;
+use App\Support\Highlight\Injections\H1Injection;
+use App\Support\Highlight\Injections\H2Injection;
+use App\Support\Highlight\Injections\QuestionInjection;
+use App\Support\Highlight\Injections\StrongInjection;
+use App\Support\Highlight\Injections\SuccessInjection;
+use App\Support\Highlight\Injections\UnderlineInjection;
 use Tempest\Highlight\Language;
 
 final readonly class TempestConsoleWebLanguage implements Language

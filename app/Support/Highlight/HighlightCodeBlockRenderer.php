@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Support\Markdown;
+namespace App\Support\Highlight;
 
-use Brendt\Stitcher\Plugin\Highlight\TempestConsoleWebLanguage;
-use Brendt\Stitcher\Plugin\Highlight\TempestViewLanguage;
 use InvalidArgumentException;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
+use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
 use Tempest\Highlight\Highlighter;
-use League\CommonMark\Renderer\NodeRendererInterface;
 
 final readonly class HighlightCodeBlockRenderer implements NodeRendererInterface
 {

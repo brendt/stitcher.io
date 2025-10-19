@@ -2,12 +2,16 @@
 
 namespace App\Support\Markdown;
 
+use App\Support\Highlight\HighlightCodeBlockRenderer;
+use App\Support\Highlight\HighlightInlineCodeRenderer;
+use App\Support\Image\ImageRenderer;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Node\Block\Paragraph;
@@ -29,7 +33,9 @@ final readonly class MarkdownInitializer implements Initializer
             ->addRenderer(Paragraph::class, $container->get(SnippetRenderer::class))
             ->addRenderer(FencedCode::class, $container->get(HighlightCodeBlockRenderer::class))
             ->addRenderer(Code::class, $container->get(HighlightInlineCodeRenderer::class))
-            ->addRenderer(Image::class, $container->get(ImageRenderer::class));
+            ->addRenderer(Image::class, $container->get(ImageRenderer::class))
+            ->addRenderer(Link::class, $container->get(LinkRenderer::class))
+        ;
 
         return new MarkdownConverter($environment);
     }

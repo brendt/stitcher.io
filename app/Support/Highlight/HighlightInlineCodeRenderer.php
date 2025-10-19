@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Markdown;
+namespace App\Support\Highlight;
 
 use InvalidArgumentException;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;

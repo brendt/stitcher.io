@@ -13,6 +13,7 @@ $meta ??= new Meta();
 $meta->title ??= 'Stitcher.io';
 $meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
 $meta->image ??= uri('/meta/meta_small.png');
+$meta->canonical ??= null;
 ?>
 
 <!doctype html>

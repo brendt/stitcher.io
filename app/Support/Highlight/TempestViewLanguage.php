@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Support\Markdown;
+namespace App\Support\Highlight;
 
-use Brendt\Stitcher\Plugin\Highlight\Injections\TempestViewEchoInjection;
-use Brendt\Stitcher\Plugin\Highlight\Injections\TempestViewPhpInjection;
-use Brendt\Stitcher\Plugin\Highlight\Patterns\TempestViewDynamicAttributePattern;
+use App\Support\Highlight\Injections\TempestViewEchoInjection;
+use App\Support\Highlight\Injections\TempestViewPhpInjection;
+use App\Support\Highlight\Patterns\TempestViewDynamicAttributePattern;
 use Tempest\Highlight\Languages\Html\HtmlLanguage;
 
 final class TempestViewLanguage extends HtmlLanguage
