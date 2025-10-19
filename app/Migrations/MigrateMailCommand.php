@@ -21,7 +21,7 @@ final class MigrateMailCommand
         }
 
         foreach ($mails as $slug => $mail) {
-            $fileName = pathinfo($content['content'], PATHINFO_BASENAME);
+            $fileName = pathinfo($mail['content'], PATHINFO_BASENAME);
 
             $path = __DIR__ . '/Mail/' . $fileName;
 

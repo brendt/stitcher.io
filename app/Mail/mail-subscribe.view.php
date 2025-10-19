@@ -1,3 +1,8 @@
+<?php
+use function Tempest\Router\uri;
+use App\Mail\MailController;
+?>
+
 <x-base title="stitcher mail">
     <x-article title="Newsletter">
         <h1 class="text-4xl font-bold text-primary"><a href="/">Newsletter</a></h1>
@@ -13,5 +18,6 @@
     </x-article>
     <x-footer class="mt-4">
         <x-button href="/">Back</x-button>
+        <x-button :href="uri([MailController::class, 'overview'])">Read the archive</x-button>
     </x-footer>
 </x-base>
