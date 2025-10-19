@@ -37,8 +37,12 @@ final readonly class ImageFactory
             return null;
         }
 
-        foreach ($this->getVariations($image) as $srcset) {
-            $image->srcset[] = $srcset;
+        if ($image->isScalable) {
+            foreach ($this->getVariations($image) as $srcset) {
+                $image->srcset[] = $srcset;
+            }
+
+            command(new ScaleImage($image));
         }
 
         if (is_file($image->publicPath)) {
@@ -53,19 +57,11 @@ final readonly class ImageFactory
 
         copy($image->srcPath, $image->publicPath);
 
-        if ($image->isScalable) {
-            command(new ScaleImage($image));
-        }
-
         return $image;
     }
 
     private function getVariations(Image $image): array
     {
-        if (! $image->isScalable) {
-            return [];
-        }
-
         $fileSize = filesize($image->srcPath);
 
         $scalableImage = $this->imageManager->read($image->srcPath);
