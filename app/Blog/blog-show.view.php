@@ -4,7 +4,12 @@
             <h1 class="text-4xl font-bold text-primary"><a href="/">{{ $post->title }}</a></h1>
             <small class="pl-1">Written on {{ $post->date->format('YYYY-MM-dd') }}</small>
         </div>
+
         {!! $post->content !!}
+
+        <x-cta class="font-bold">
+            My new book <a href="https://things-i-wish-i-knew.com/">Things I wish I knew when I started programming</a> is now available in ebook and print!
+        </x-cta>
     </x-article>
 
     <x-footer class="mt-4">
