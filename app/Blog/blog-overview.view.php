@@ -4,8 +4,8 @@
             <h1 class="text-4xl font-bold text-primary text-center sm:text-left">stitcher.io</h1>
             <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
                 <x-button :small href="/rss">Feed</x-button>
-                <x-button :small href="/">Books</x-button>
                 <x-button :small href="/mail">Newsletter</x-button>
+                <x-button :small href="/">Books</x-button>
                 <x-button :small href="https://tempestphp.com">Tempest</x-button>
             </div>
         </div>
