@@ -13,4 +13,5 @@ log/
 
 vite-tempest
 public/build/
-public/img/
+public/img/*
+!public/img/static
