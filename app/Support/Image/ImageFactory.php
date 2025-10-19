@@ -4,6 +4,9 @@ namespace App\Support\Image;
 
 use Intervention\Image\ImageManager;
 use Intervention\Image\Image as ScalableImage;
+use Tempest\CommandBus\Async;
+use Tempest\CommandBus\CommandHandler;
+use function Tempest\command;
 use function Tempest\Support\path;
 
 final readonly class ImageFactory
@@ -11,6 +14,20 @@ final readonly class ImageFactory
     public function __construct(
         private ImageManager $imageManager,
     ) {}
+
+    #[CommandHandler]
+    public function onScaleImage(ScaleImage $command): void
+    {
+        $image = $command->image;
+
+        $scalableImage = $this->imageManager->read($image->srcPath);
+
+        foreach ($image->srcset as $srcset) {
+            $scalableImage = $scalableImage
+                ->resize($srcset->width, $srcset->height)
+                ->save($srcset->publicPath);
+        }
+    }
 
     public function create(string $src): ?Image
     {
@@ -36,12 +53,8 @@ final readonly class ImageFactory
 
         copy($image->srcPath, $image->publicPath);
 
-        $scalableImage = $this->imageManager->read($image->srcPath);
-
-        foreach ($image->srcset as $srcset) {
-            $scalableImage = $scalableImage
-                ->resize($srcset->width, $srcset->height)
-                ->save($srcset->publicPath);
+        if ($image->isScalable) {
+            command(new ScaleImage($image));
         }
 
         return $image;
