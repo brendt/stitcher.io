@@ -1,4 +1,4 @@
-<x-base>
+<x-base :meta="$post->meta ?? null">
     <x-article>
         <div>
             <h1 class="text-4xl font-bold text-primary"><a href="/">{{ $post->title }}</a></h1>

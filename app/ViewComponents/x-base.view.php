@@ -3,10 +3,16 @@
  * @var string|null $title The webpage's title
  */
 
+use App\Blog\Meta;
 use function Tempest\get;
 use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
+
 $isProduction = get(AppConfig::class)->environment->isProduction();
+$meta ??= new Meta();
+$meta->title ??= 'Stitcher.io';
+$meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
+$meta->image ??= uri('/meta/meta_small.png');
 ?>
 
 <!doctype html>
@@ -23,16 +29,20 @@ $isProduction = get(AppConfig::class)->environment->isProduction();
     <link rel="manifest" href="/favicon/site.webmanifest">
 
     <!-- Socials -->
-    <x-template :if="$meta">
-        <meta property="og:image" :content="$meta->img"/>
-        <meta property="twitter:image" :content="$meta->img"/>
-        <meta name="image" :content="$meta->img"/>
-        <meta name="twitter:card" content="summary_large_image"/>
-    </x-template>
-    <x-template :else>
-        <meta name="twitter:card" content="summary"/>
-        <meta property="twitter:image" :content="uri('/meta/meta_small.png')"/>
-    </x-template>
+    <meta property="og:title" :content="$meta->title"/>
+    <meta property="twitter:title" :content="$meta->title"/>
+
+    <meta property="og:description" :content="$meta->description"/>
+    <meta property="twitter:description" :content="$meta->description"/>
+
+    <meta property="og:image" :content="$meta->image"/>
+    <meta property="twitter:image" :content="$meta->image"/>
+    <meta name="image" :content="$meta->image"/>
+
+    <link :if="$meta->canonical" rel="canonical" :href="$meta->canonical"/>
+
+    <meta property="og:type" content="article"/>
+    <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:creator" content="@brendt_gd"/>
 
     <!-- PWA -->
@@ -46,29 +56,29 @@ $isProduction = get(AppConfig::class)->environment->isProduction();
     <link rel="alternate" type="application/rss+xml" title="Stitcher RSS" href="/rss"/>
 
     <!-- Assets -->
-    <x-vite-tags />
+    <x-vite-tags/>
     <x-slot name="head"/>
 </head>
 <body class="antialiased relative">
-    <div class="bg-gray-100 m-2 sm:m-0 p-0 p-2 md:p-4 rounded-md shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
-        <x-slot/>
-    </div>
+<div class="bg-gray-100 m-2 sm:m-0 p-0 p-2 md:p-4 rounded-md shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
+    <x-slot/>
+</div>
 
-    <div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-white font-bold font-sm grid gap-4">
-        <div class="flex justify-center">
+<div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-white font-bold font-sm grid gap-4">
+    <div class="flex justify-center">
             <span>
                 Noticed a tpyo? You can <a href="https://github.com/brendt/stitcher.io">submit a PR</a> to fix it.
             </span>
-        </div>
-        <div class="flex flex-wrap gap-8 items-center justify-center">
-            <a href="/">Home</a>
-            <a href="/rss">RSS</a>
-            <a href="/mail">Newsletter</a>
-            <a href="https://tempestphp.com/discord">Discord</a>
-            <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
-        </div>
     </div>
+    <div class="flex flex-wrap gap-8 items-center justify-center">
+        <a href="/">Home</a>
+        <a href="/rss">RSS</a>
+        <a href="/mail">Newsletter</a>
+        <a href="https://tempestphp.com/discord">Discord</a>
+        <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
+    </div>
+</div>
 
-    <x-slot name="scripts"/>
+<x-slot name="scripts"/>
 </body>
 </html>

@@ -7,7 +7,7 @@ use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\DateTime\DateTime;
 
-final class MigrateContentCommand
+final class MigrateBlogCommand
 {
     use HasConsole;
 
@@ -23,7 +23,7 @@ final class MigrateContentCommand
         foreach ($posts as $slug => $post) {
             $fileName = pathinfo($post['content'], PATHINFO_BASENAME);
 
-            $path = __DIR__ . '/Content/' . $fileName;
+            $path = __DIR__ . '/Blog/' . $fileName;
 
             $content = @file_get_contents($path);
 
