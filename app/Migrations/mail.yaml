@@ -1,0 +1,445 @@
+'114':
+  date: 2025-10-15
+  title: "Birthday Updates"
+  pretext: "Some updates, some PHP news."
+  content: src/content/mails/stitcher-114.md
+
+'113':
+  date: 2025-09-28
+  title: "Vendor locked"
+  pretext: "I've been using Tailwind for a while now, I've become worse at CSS."
+  content: src/content/mails/stitcher-113.md
+
+'112':
+  date: 2025-09-27
+  title: "What's your motivator?"
+  pretext: "For me, it meant rebuilding Aggregate from scratch."
+  content: src/content/mails/stitcher-112.md
+
+'111':
+  date: 2025-09-11
+  title: 'Impact Charts'
+  pretext: "A technique that helped me through burnout"
+  content: src/content/mails/stitcher-111.md
+
+'book-1':
+  date: 2025-09-05
+  title: 'My new book is available!'
+  pretext: "I published my new book today"
+  content: src/content/mails/stitcher-book-1.md
+
+'110':
+  date: 2025-09-05
+  title: 'Things I wish I knew when I started programming'
+  pretext: "I just published a new book!"
+  content: src/content/mails/stitcher-110.md
+
+'109':
+  date: 2025-07-18
+  title: '"Clone with" is coming!'
+  pretext: "Also, a new blog post!"
+  content: src/content/mails/stitcher-109.md
+
+'108':
+  date: 2025-05-08
+  title: Tempest is stable!
+  pretext: "Also, some PHPverse news!"
+  content: src/content/mails/stitcher-108.md
+
+'107':
+  date: 2025-05-08
+  title: Tempest is Beta
+  pretext: "It's been two years in the making!"
+  content: src/content/mails/stitcher-107.md
+
+
+'106':
+  date: 2025-04-24
+  title: Celebrating 30 years of PHP
+  pretext: "You're all invited!"
+  content: src/content/mails/stitcher-106.md
+
+'105':
+  date: 2025-01-17
+  title: Version Stats!
+  pretext: "As we always do at the start of the year…"
+  content: src/content/mails/stitcher-105.md
+
+'104':
+  date: 2024-11-20
+  title: Let's get ready
+  pretext: "PHP 8.4 releases tomorrow!"
+  content: src/content/mails/stitcher-104.md
+
+'103':
+  date: 2024-10-28
+  title: Two Big Things
+  pretext: "I've published a book!"
+  content: src/content/mails/stitcher-103.md
+
+'102':
+  date: 2024-09-20
+  title: The perfect weekend project
+  pretext: "We've released the first alpha version of Tempest"
+  content: src/content/mails/stitcher-102.md
+
+'101':
+  date: 2024-09-12
+  title: Getting Started
+  pretext: "Also a stream announcement"
+  content: src/content/mails/stitcher-101.md
+
+'100':
+  date: 2024-08-27
+  title: "Number 100!"
+  pretext: "I'm probably going to create an RFC"
+  content: src/content/mails/stitcher-100.md
+
+'99':
+  date: 2024-08-02
+  title: "public private(set)"
+  pretext: "Asymmetric visibility is here again!"
+  content: src/content/mails/stitcher-99.md
+
+'98':
+  date: 2024-07-26
+  title: "It's all just text"
+  pretext: "In the end, most programming tasks come down to this."
+  content: src/content/mails/stitcher-98.md
+
+'97':
+  date: 2024-07-16
+  title: "Reading RFCs"
+  pretext: "Let's talk about some new features in PHP 8.4"
+  content: src/content/mails/stitcher-97.md
+
+'96':
+  date: 2024-07-09
+  title: "You should"
+  pretext: "I wanna share a personal story with you"
+  content: src/content/mails/stitcher-96.md
+
+'95':
+  date: 2024-07-08
+  title: "PHP version stats, July 2024"
+  pretext: "I'm a bit surprised by PHP 8.3's low adoption rate…"
+  content: src/content/mails/stitcher-95.md
+
+'94':
+  date: 2024-07-03
+  title: "A vocal minority"
+  pretext: "I've done a week without Twitter"
+  content: src/content/mails/stitcher-94.md
+
+'93':
+  date: 2024-06-25
+  title: "Leaving Twitter"
+  pretext: "I wanna share some thoughts about Twitter and why I'm leaving it"
+  content: src/content/mails/stitcher-93.md
+
+'92':
+  date: 2024-04-29
+  title: "Celebrations!"
+  pretext: "Let's talk about PHP's birthday, as well as PHP 8.4"
+  content: src/content/mails/stitcher-92.md
+
+'91':
+  date: 2024-04-29
+  title: "Livestream with Larry Garfield"
+  pretext: "I'm going to have a chat with the co-author of property hooks!"
+  content: src/content/mails/stitcher-91.md
+
+'90':
+  date: 2024-04-23
+  title: "Property hooks are coming!"
+  pretext: "One of the most anticipated features in recent PHP history"
+  content: src/content/mails/stitcher-90.md
+
+'89':
+  date: 2024-03-16
+  title: "PHP in 2024"
+  pretext: "I'm excited about PHP — can you believe it?!?"
+  content: src/content/mails/stitcher-89.md
+
+'88':
+  date: 2023-03-16
+  title: "A syntax highlighter that doesn't suck"
+  pretext: "I went down the rabbit hole…"
+  content: src/content/mails/stitcher-88.md
+
+'87':
+  date: 2023-12-12
+  title: "The framework that <br>gets out of your way"
+  pretext: "Also some personal updates"
+  content: src/content/mails/stitcher-87.md
+
+'86':
+  date: 2023-12-12
+  title: "I don't know"
+  pretext: "Maybe you know?"
+  content: src/content/mails/stitcher-86.md
+
+'85':
+  date: 2023-11-28
+  title: "The problem with dates"
+  pretext: "Also: SymfonyCon, AI, and book update"
+  content: src/content/mails/stitcher-85.md
+
+book-01:
+  date: 2023-12-05
+  title: "Book Update #1"
+  pretext: "I could use your input"
+  content: src/content/mails/book-01.md
+
+'84':
+  date: 2023-11-28
+  title: "Beyond CRUD"
+  pretext: "I'm writing a new book"
+  content: src/content/mails/stitcher-84.md
+
+'83':
+  date: 2023-11-22
+  title: "Big things"
+  pretext: "Also: there will be a livestream tomorrow!"
+  content: src/content/mails/stitcher-83.md
+
+'82':
+  date: 2023-11-07
+  title: "It's a date!"
+  pretext: "PHP 8.3 will be here very soon!"
+  content: src/content/mails/stitcher-82.md
+
+'81':
+  date: 2023-10-23
+  title: "Generics aren't coming"
+  pretext: "Also: some personal updates"
+  content: src/content/mails/stitcher-81.md
+
+'80':
+  date: 2023-10-13
+  title: "Conference Time"
+  pretext: "I'm giving an online talk in a couple of hours"
+  content: src/content/mails/stitcher-80.md
+
+'79':
+  date: 2023-08-16
+  title: "In love with a boring language"
+  pretext: "Also, a livestream starting soon!"
+  content: src/content/mails/stitcher-79.md
+
+'78':
+  date: 2023-08-16
+  title: "Introducing RFC vote"
+  pretext: "Also, a livestream starting soon!"
+  content: src/content/mails/stitcher-78.md
+
+'77':
+  date: 2023-07-18
+  title: "It's called Tempest"
+  pretext: "I've started working on something"
+  content: src/content/mails/stitcher-77.md
+
+'76':
+  date: 2023-03-20
+  title: "PHP Version Stats"
+  pretext: "The next edition of the PHP Version Stats are here"
+  content: src/content/mails/stitcher-76.md
+
+'75':
+  date: 2023-03-20
+  title: "Multi inheritance in PHP?"
+  pretext: "There's a new RFC in town"
+  content: src/content/mails/stitcher-75.md
+
+'74':
+  date: 2023-03-20
+  title: "Don't be clever"
+  pretext: "The story of the CRUDController"
+  content: src/content/mails/stitcher-74.md
+
+
+'73':
+  date: 2023-03-20
+  title: "Gaming in PHP"
+  pretext: "I used Livewire and 0 lines of JavaScript to build a game"
+  content: src/content/mails/stitcher-73.md
+
+'72':
+  date: 2023-03-20
+  title: "What's new"
+  pretext: "It's PHP 8.3 time!"
+  content: src/content/mails/stitcher-72.md
+
+'71':
+  date: 2023-03-20
+  title: "Cloning readonly properties"
+  pretext: "I've got some baby news as well 👶"
+  content: src/content/mails/stitcher-71.md
+
+'70':
+  date: 2023-02-20
+  title: "Don't get stuck"
+  pretext: "Both managers were looking at me in disbelief. I told them I had decided to quit."
+  content: src/content/mails/stitcher-70.md
+
+'69':
+  date: 2023-02-06
+  title: "Markdown to Video in PHP"
+  content: src/content/mails/stitcher-69.md
+
+'68':
+  date: 2023-02-06
+  title: "February Roundup"
+  content: src/content/mails/stitcher-68.md
+
+'67':
+  date: 2023-01-30
+  title: "Favourite Functions"
+  content: src/content/mails/stitcher-67.md
+
+'66':
+  date: 2023-01-17
+  title: "Personal Update"
+  content: src/content/mails/stitcher-66.md
+
+'65':
+  date: 2023-01-17
+  title: "PHP in 2023"
+  content: src/content/mails/stitcher-65.md
+
+'64':
+  date: 2023-01-11
+  title: "PHP Version Stats"
+  content: src/content/mails/stitcher-64.md
+
+'63':
+  date: 2023-01-03
+  title: "Reflections"
+  content: src/content/mails/stitcher-63.md
+
+'62':
+  date: 2022-11-28
+  title: "Hello, 8.2"
+  content: src/content/mails/stitcher-62.md
+
+'61':
+  date: 2022-11-28
+  title: "Goodbye, 7.4"
+  content: src/content/mails/stitcher-61.md
+
+'60':
+  date: 2022-11-18
+  title: "10 years from now"
+  content: src/content/mails/stitcher-60.md
+
+'59':
+  date: 2022-11-10
+  title: "PHP Annotated, 8.2 and Twitter"
+  content: src/content/mails/stitcher-59.md
+
+'58':
+  date: 2022-09-18
+  title: "October roundup"
+  content: src/content/mails/stitcher-58.md
+
+'57':
+  date: 2022-09-02
+  title: "To break, or not to break"
+  content: src/content/mails/stitcher-57.md
+
+'56':
+  date: 2022-08-24
+  title: "Roundup"
+  content: src/content/mails/stitcher-56.md
+
+'55':
+  date: 2022-07-21
+  title: "July Update"
+  content: src/content/mails/stitcher-55.md
+
+'54':
+  date: 2022-06-13
+  title: "Stitcher turns 5"
+  content: src/content/mails/stitcher-54.md
+
+'53':
+  date: 2022-06-08
+  title: "June update"
+  content: src/content/mails/stitcher-53.md
+
+'52':
+  date: 2022-05-13
+  title: "New in PHP 8.2"
+  content: src/content/mails/stitcher-52.md
+
+'00':
+  date: 2022-04-17
+  title: "Almost ready…"
+  pretext: Make sure to confirm your subscription!
+  content: src/content/mails/stitcher-welcome.md
+
+'51':
+  date: 2022-04-17
+  title: "April update"
+  content: src/content/mails/stitcher-51.md
+
+'50':
+  date: 2022-03-25
+  title: "Goodbyes"
+  content: src/content/mails/stitcher-50.md
+
+'49':
+  date: 2022-03-07
+  title: "Generics in PHP: The End"
+  content: src/content/mails/stitcher-49.md
+
+'48':
+  date: 2022-03-07
+  title: "Generics in PHP"
+  content: src/content/mails/stitcher-48.md
+
+'47':
+  date: 2022-01-15
+  title: "Dealing with Dependencies"
+  content: src/content/mails/stitcher-47.md
+
+'46':
+  date: 2022-01-10
+  title: "PHP Version Stats"
+  content: src/content/mails/stitcher-46.md
+
+'45':
+  date: 2021-11-25
+  title: "December Update"
+  content: src/content/mails/stitcher-45.md
+
+'44':
+  date: 2021-11-25
+  title: "Hello, PHP 8.1!"
+  content: src/content/mails/stitcher-44.md
+
+'43':
+  date: 2021-11-20
+  title: "Twitter Home made me miserable"
+  content: src/content/mails/stitcher-43.md
+
+'42':
+  date: 2021-11-04
+  title: "Generics in PHP"
+  content: src/content/mails/stitcher-42.md
+
+'39':
+  date: 2021-09-27
+  title: "The Road to PHP: Static Analysis"
+  content: src/content/mails/stitcher-39.md
+
+'40':
+  date: 2021-10-09
+  title: "October Update"
+  content: src/content/mails/stitcher-40.md
+
+'41':
+  date: 2021-10-22
+  title: "The Case for Route Attributes"
+  content: src/content/mails/stitcher-41.md
+

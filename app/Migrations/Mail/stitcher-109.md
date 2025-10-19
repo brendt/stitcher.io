@@ -1,0 +1,36 @@
+Hi ::subscriber.first_name::
+
+Lots of cool things to talk about today! First, I only just realized that **[the "clone with" RFC has passed](https://wiki.php.net/rfc/clone_with_v2)**! I'm deliberately using quotes though, because the syntax isn't entirely what I had in mind for it:
+
+```php
+public function withStatus(string $code): Response 
+{
+    return clone($this, [
+        'code' => $code,
+    ]);
+}
+```
+
+`{php}clone` has now essentially become a language construct instead of a keyword, which makes it a lot more flexible to use. I'll have to read through the full RFC next week. Even though it's not entirely the syntax I was hoping for, I still think it's a neat feature to have in PHP, and I'm mostly happy that it'll be part of PHP 8.5!
+
+Speaking of new PHP features, I realized that I had been using property hooks for about a year now: first testing the RFC while it was still in draft, then including it into Tempest pretty soon after it got merged. I sat down and wrote a blog post about **[my first year with property hooks](https://stitcher.io/blog/a-year-of-property-hooks)** — I'm eager to hear your thoughts!
+
+I also wrote about an upcoming feature in PHP 8.5: the **[pipe operator](https://stitcher.io/blog/pipe-operator-in-php-85)**. This also seems like a solid addition to PHP, and I'm starting to get really impatient for PHP 8.5 to arrive!
+
+```php
+$output = $input 
+    |> trim(...)
+    |> fn (string $string) => 
+        str_replace(' ', '-', $string)
+    |> fn (string $string) => 
+        str_replace(['.', '/', '…'], '', $string)
+    |> strtolower(...);
+```
+
+Next, we released the new **[Mailing component for Tempest](https://tempestphp.com/blog/mail-component)**, which I'm super happy with as well. We're now working on a couple more features like Redis and oauth support, and I'm super excited for what the future brings!
+
+Finally, I wanted to mention the **[Tempest Discord](https://tempestphp.com/discord)** in case you hadn't heard of it before. It's a place where now more than 500 PHP developers have gathered to talk about Tempest and PHP in general. Feel free to join if you want to!
+
+That's it for this newsletter, thanks for reading!
+
+Brent
