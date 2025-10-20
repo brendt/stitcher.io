@@ -2,6 +2,7 @@
 
 namespace App\Blog;
 
+use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
 use Tempest\Http\Response;
@@ -25,11 +26,22 @@ final class BlogController
 
     #[Get('/blog/{slug}')]
     #[StaticPage(BlogPostDataProvider::class)]
-    public function show(string $slug, BlogPostRepository $repository): View
+    public function show(string $slug, BlogPostRepository $repository, Authenticator $authenticator): View
     {
         $post = $repository->find($slug);
 
-        return \Tempest\view('blog-show.view.php', post: $post);
+        $comments = Comment::select()
+            ->with('user')
+            ->where('for', $post->slug)
+            ->orderBy('createdAt DESC')
+            ->all();
+
+        return \Tempest\view(
+            'blog-show.view.php',
+            post: $post,
+            comments: $comments,
+            user: $authenticator->current(),
+        );
     }
 
     #[Get('/rss')]
