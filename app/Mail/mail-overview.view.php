@@ -1,16 +1,11 @@
-<x-base>
+<x-base title="Newsletter">
     <x-container>
         <div class="my-4 sm:my-8 grid gap-2">
             <h1 class="text-4xl font-bold text-primary text-center sm:text-left">stitcher.io - newsletter</h1>
-            <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
-                <x-button :small href="/">Blog</x-button>
-                <x-button :small href="/rss">Feed</x-button>
-                <x-button :small href="/">Books</x-button>
-                <x-button :small href="https://tempestphp.com">Tempest</x-button>
-            </div>
+            <x-menu />
         </div>
 
-        <div class="bg-white p-4 sm:p-8 border-sm shadow-md grid gap-4 rounded-xs">
+        <x-card>
             <p>
                 Join over 14k subscribers on my mailing list. I write about PHP news, share programming content from across the web, keep you up to date about what's happening on this blog, my work on Tempest, and more.
             </p>
@@ -19,7 +14,7 @@
                 You can subscribe by sending an email to
                 <a href="mailto:brendt@stitcher.io">brendt@stitcher.io</a>.
             </p>
-        </div>
+        </x-card>
 
 
         <nav class="grid gap-2 mt-4">

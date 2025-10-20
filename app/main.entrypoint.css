@@ -70,11 +70,13 @@ article a  {
 
 h1 {
     font-size: 2.5em;
+    line-height: 1.1em;
 }
 
 h2 {
     font-size: 1.5em;
     margin-top: 0.66em;
+    line-height: 1.1em;
 }
 
 h3 {

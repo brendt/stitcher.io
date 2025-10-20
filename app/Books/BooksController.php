@@ -11,6 +11,6 @@ final class BooksController
     #[Get('/books')]
     public function mail(): View
     {
-        return view('book.view.php');
+        return view('books-overview.view.php');
     }
 }

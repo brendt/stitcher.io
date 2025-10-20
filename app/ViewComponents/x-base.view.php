@@ -8,7 +8,7 @@ use function Tempest\get;
 use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
 
-$isProduction = get(AppConfig::class)->environment->isProduction();
+$title ??= null;
 $meta ??= new Meta();
 $meta->title ??= 'Stitcher.io';
 $meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
@@ -20,7 +20,8 @@ $meta->canonical ??= null;
 <html lang="en" class="h-dvh flex flex-col md:p-4 bg-primary">
 <head>
     <!-- General -->
-    <title>{{ $title ?? 'stitcher.io' }}</title>
+    <title :if="$title">{{ $title }} | Stitcher.io</title>
+    <title :else>Stitcher.io</title>
     <meta charset="UTF-8"/>
 
     <!-- Favicon -->
