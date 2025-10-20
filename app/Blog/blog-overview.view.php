@@ -6,7 +6,7 @@
         </div>
 
         <nav class="grid gap-2">
-            <a :href="$post->uri" :foreach="$posts as $post" class="p-3 px-4 bg-white shadow-md hover:shadow-lg rounded-sm grid hover:text-primary hover:underline">
+            <a :href="$post->uri" :foreach="$posts as $post" class="p-3 px-4 bg-white shadow-md hover:shadow-lg rounded-sm grid no-underline hover:text-primary hover:underline">
                 <span class="font-bold">
                     {{ $post->title }}
                 </span>

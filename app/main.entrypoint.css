@@ -45,11 +45,18 @@ h1 > a {
     word-break: break-word;
 }
 
-a {
+p a {
     text-decoration: underline;
+    text-decoration-color: var(--color-primary);
+    text-decoration-style: dotted;
+    text-decoration-thickness: 2px;
+    font-weight: bold;
+
 
     &:hover {
-        text-decoration: none;
+        text-decoration: underline;
+        text-decoration-color: var(--color-primary);
+        text-decoration-thickness: 3px;
     }
 }
 
@@ -62,10 +69,6 @@ a {
 
 article > * {
     max-width: 100%;
-}
-
-article a  {
-    text-decoration-color: var(--color-primary);
 }
 
 h1 {
