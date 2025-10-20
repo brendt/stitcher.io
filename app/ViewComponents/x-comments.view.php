@@ -11,23 +11,23 @@ $confirm ??= null;
 ?>
 
 <div id="comments" class="grid gap-4">
-    <div class="grid gap-2" :if="$user === null">
-        <div>
+    <div class="grid gap-2 bg-gray-200  justify-center p-4 rounded" :if="$user === null">
+        <div class="text-center">
             Login to comment
         </div>
-        <div class="flex justify-start gap-2">
-            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-200 rounded-xl">
+        <div class="flex justify-start gap-4">
+            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
                 <x-icon name="logos:google-icon" class="size-6"/>
             </a>
-            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-200 rounded-xl">
+            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
                 <x-icon name="logos:github-icon" class="size-6"/>
             </a>
-            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-200 rounded-xl">
+            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
                 <x-icon name="logos:discord-icon" class="size-6"/>
             </a>
         </div>
     </div>
-    <form :else :hx-post="uri([CommentsController::class, 'comment'], slug: $post->slug)" hx-target="#comments" class="grid gap-2">
+    <form :else :hx-post="uri([CommentsController::class, 'comment'], slug: $post->slug)" hx-target="#comments" class="grid gap-2 bg-gray-200 p-4 rounded">
         <x-input name="comment" label="Leave a comment:" type="textarea" required></x-input>
         <div :if="$commentError ?? null" class="text-red-500">
             {{ $commentError }}
