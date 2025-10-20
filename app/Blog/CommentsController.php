@@ -9,6 +9,7 @@ use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\View\View;
+use function Tempest\Support\str;
 
 final readonly class CommentsController
 {
@@ -31,17 +32,17 @@ final readonly class CommentsController
     {
         $post = $this->repository->find($slug);
 
-        if (strlen($request->comment) < 5) {
+        if (strlen($request->comment) < 5 || strlen($request->comment) > 1000) {
             return $this->render(
                 $post,
-                commentError: 'Your comment must be at least 5 characters long.',
+                commentError: 'Your comment must be between 5 and 1000 characters long.',
             );
         }
 
         Comment::create(
             user: $this->authenticator->current(),
             for: $post->slug,
-            content: $request->comment,
+            content: str($request->comment)->stripTags()->toString(),
             createdAt: DateTime::now(),
         );
 
