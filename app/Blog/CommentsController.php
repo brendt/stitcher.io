@@ -5,6 +5,7 @@ namespace App\Blog;
 use App\Authentication\AuthMiddleware;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\DateTime\DateTime;
+use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\View\View;
@@ -14,6 +15,7 @@ final readonly class CommentsController
     public function __construct(
         private BlogPostRepository $repository,
         private Authenticator $authenticator,
+        private Session $session,
     ) {}
 
     #[Get('/blog/{slug}/comments')]
@@ -42,6 +44,35 @@ final readonly class CommentsController
             content: $request->comment,
             createdAt: DateTime::now(),
         );
+
+        return $this->render($post);
+    }
+
+    #[Post('/blog/{slug}/comments/{id}/delete', middleware: [AuthMiddleware::class])]
+    public function delete(string $slug, int $id): View
+    {
+        $post = $this->repository->find($slug);
+
+        $comment = Comment::select()
+            ->where('id', $id)
+            ->where('for', $slug)
+            ->where('user_id = ?', $this->authenticator->current()->id->value)
+            ->first();
+
+        if (! $comment) {
+            return $this->render($post);
+        }
+
+        $deleting = $this->session->get('comment_deleting');
+
+        if ($deleting === null || $deleting !== $id) {
+            $this->session->set('comment_deleting', $comment->id->value);
+
+            return $this->render($post, deleting: $id);
+        }
+
+        $comment->delete();
+        $this->session->remove('comment_deleting');
 
         return $this->render($post);
     }
