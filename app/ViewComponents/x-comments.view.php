@@ -1,13 +1,17 @@
 <?php
 
+use Tempest\Http\Request;
+use function Tempest\get;
 use function Tempest\Router\uri;
 use App\Authentication\AuthController;
 use App\Blog\BlogController;
 use App\Blog\CommentsController;
+use function Tempest\Support\str;
 
 $user ??= null;
 $comments ??= [];
 $confirm ??= null;
+$back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
 ?>
 
 <div id="comments" class="grid gap-4">
@@ -16,13 +20,13 @@ $confirm ??= null;
             Login to comment
         </div>
         <div class="flex justify-start gap-4">
-            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
+            <a :href="uri([AuthController::class, 'auth'], type: 'google', back: $back)" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
                 <x-icon name="logos:google-icon" class="size-6"/>
             </a>
-            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
+            <a :href="uri([AuthController::class, 'auth'], type: 'github', back: $back)" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
                 <x-icon name="logos:github-icon" class="size-6"/>
             </a>
-            <a :href="uri([AuthController::class, 'google'])" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
+            <a :href="uri([AuthController::class, 'auth'], type: 'discord', back: $back)" class="p-2 bg-gray-100 hover:bg-gray-300 rounded-xl">
                 <x-icon name="logos:discord-icon" class="size-6"/>
             </a>
         </div>

@@ -7,6 +7,6 @@ use function Tempest\env;
 return new GoogleOAuthConfig(
     clientId: env('GOOGLE_CLIENT_ID'),
     clientSecret: env('GOOGLE_CLIENT_SECRET'),
-    redirectTo: [AuthController::class, 'google'],
+    redirectTo: '/auth/google',
     tag: 'google',
 );

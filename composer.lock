@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44c64da1828f4600b17dea978be7307b",
+    "content-hash": "6ddff059236d07d95a896a9d82b7599a",
     "packages": [
         {
             "name": "composer/semver",
@@ -4518,6 +4518,61 @@
                 }
             ],
             "time": "2025-08-27T11:34:33+00:00"
+        },
+        {
+            "name": "teampanfu/oauth2-discord",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/teampanfu/oauth2-discord.git",
+                "reference": "a4db005997d19a186860949af7db44b45b990484"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/teampanfu/oauth2-discord/zipball/a4db005997d19a186860949af7db44b45b990484",
+                "reference": "a4db005997d19a186860949af7db44b45b990484",
+                "shasum": ""
+            },
+            "require": {
+                "league/oauth2-client": "^2.0",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "mockery/mockery": "^1.5",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Panfu\\OAuth2\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin",
+                    "email": "robin@panfu.us"
+                }
+            ],
+            "description": "Discord OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+            "homepage": "https://github.com/teampanfu/oauth2-discord",
+            "keywords": [
+                "Authentication",
+                "authorization",
+                "client",
+                "discord",
+                "oauth",
+                "oauth2"
+            ],
+            "support": {
+                "issues": "https://github.com/teampanfu/oauth2-discord/issues",
+                "source": "https://github.com/teampanfu/oauth2-discord/tree/v1.0.3"
+            },
+            "time": "2023-10-17T23:17:31+00:00"
         },
         {
             "name": "tempest/framework",
