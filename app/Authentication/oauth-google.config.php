@@ -1,6 +1,5 @@
 <?php
 
-use App\Authentication\AuthController;
 use Tempest\Auth\OAuth\Config\GoogleOAuthConfig;
 use function Tempest\env;
 

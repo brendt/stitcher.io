@@ -7,8 +7,8 @@
         "spatie/yaml-front-matter": "^2.1",
         "intervention/image": "^3.11",
         "league/oauth2-google": "^4.0",
-        "teampanfu/oauth2-discord": "^1.0",
-        "league/oauth2-client": "^2.8"
+        "league/oauth2-github": "^3.0",
+        "wohali/oauth2-discord-new": "^1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.3.10",

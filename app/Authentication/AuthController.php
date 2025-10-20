@@ -59,9 +59,12 @@ final readonly class AuthController
             if (! $user) {
                 $user = User::create(
                     email: $oauthUser->email,
-                    name: $oauthUser->name,
+                    name: $oauthUser->name ?? $oauthUser->nickname,
                     role: Role::USER,
                 );
+            } else {
+                $user->name = $oauthUser->name ?? $oauthUser->nickname;
+                $user->save();
             }
 
             return $user;
