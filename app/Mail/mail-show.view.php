@@ -6,7 +6,7 @@ use App\Mail\MailController;
 ?>
 
 <x-base>
-    <x-container>
+    <x-container class="grid gap-4">
         <x-article>
             <div>
                 <h1 class="text-4xl font-bold text-primary">

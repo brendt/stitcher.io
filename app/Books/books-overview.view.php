@@ -1,9 +1,6 @@
 <x-base title="Books">
     <x-container>
-        <div class="my-4 sm:my-8 grid gap-2">
-            <h1 class="text-4xl font-bold text-primary text-center sm:text-left">stitcher.io - books</h1>
-            <x-menu/>
-        </div>
+        <x-menu/>
 
         <div class="grid gap-4">
             <x-book-card title="Things I wish I knew when I started programming" img="/img/static/books/things-cover.png" href="https://things-i-wish-i-knew.com/">

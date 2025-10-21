@@ -64,7 +64,7 @@ $meta->canonical ??= null;
     <x-slot name="head"/>
 </head>
 <body class="antialiased relative">
-<div class="bg-gray-100 m-2 sm:m-0 p-0 p-2 md:p-4 rounded-md shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
+<div class="bg-primary sm:bg-gray-100 m-2 sm:m-0 p-0 sm:p-2 md:p-4 rounded-md sm:shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
     <x-slot/>
 </div>
 
