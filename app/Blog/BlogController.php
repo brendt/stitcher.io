@@ -90,7 +90,7 @@ final class BlogController
         }
 
         $browser = new BrowserFactory()->createBrowser([
-            'windowSize' => [1200 * 2, 628 * 2],
+            'windowSize' => [1200, 767],
         ]);
 
         try {
