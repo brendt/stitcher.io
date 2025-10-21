@@ -3,5 +3,5 @@
     <x-button :small href="/mail/archive">Newsletter</x-button>
     <x-button :small href="/rss">Feed</x-button>
     <x-button :small href="/books">Books</x-button>
-    <x-button :small href="https://tempestphp.com">Tempest</x-button>
+    <x-button :small href="https://tempestphp.com" class="hidden sm:block">Tempest</x-button>
 </div>
