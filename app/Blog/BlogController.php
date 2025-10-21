@@ -89,12 +89,15 @@ final class BlogController
             mkdir(dirname($path), recursive: true);
         }
 
-        $browser = new BrowserFactory()->createBrowser([
-            'windowSize' => [1200, 767],
-        ]);
+        $browser = new BrowserFactory()->createBrowser();
 
         try {
             $page = $browser->createPage();
+
+            $page->setDeviceMetricsOverride([
+                'width' => 1200,
+                'height' => 628,
+            ]);
 
             $page->navigate(uri([self::class, 'meta'], slug: $slug, html: true))->waitForNavigation();
 
