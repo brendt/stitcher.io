@@ -92,17 +92,17 @@ final class BlogController
             mkdir(dirname($path), recursive: true);
         }
 
-        $browser = new BrowserFactory()->createBrowser();
+        $browser = new BrowserFactory()->createBrowser([
+            'windowSize' => [1200 * 2, 628 * 2],
+        ]);
 
         try {
             // creates a new page and navigate to an URL
             $page = $browser->createPage();
 
-            $page->setDeviceMetricsOverride([
-                'width' => 1200,
-                'height' => 628,
-                'deviceScaleFactor' => 2,
-            ]);
+//            $page->setDeviceMetricsOverride([
+//                'deviceScaleFactor' => 2,
+//            ]);
 
             $page->navigate(uri([self::class, 'meta'], slug: $slug, html: true))->waitForNavigation();
 
