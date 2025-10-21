@@ -2,15 +2,22 @@
 
 namespace App\Blog;
 
+use App\Web\Blog\BlogRepository;
+use Spatie\Browsershot\Browsershot;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
+use Tempest\Http\Request;
 use Tempest\Http\Response;
+use Tempest\Http\Responses\File;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
 use Tempest\View\ViewRenderer;
+use function Tempest\root_path;
+use function Tempest\Router\uri;
+use function Tempest\Support\path;
 use function Tempest\view;
 
 final class BlogController
@@ -57,5 +64,37 @@ final class BlogController
 
         return new Ok($xml)
             ->addHeader('Content-Type', 'application/xml;charset=UTF-8');
+    }
+
+    #[Get('/blog/{slug}/meta.png')]
+    public function meta(
+        string $slug,
+        Request $request,
+        BlogPostRepository $repository,
+        ViewRenderer $viewRenderer,
+        Browsershot $browsershot,
+    ): Response {
+        $post = $repository->find($slug);
+
+        if ($request->has('html')) {
+            $html = $viewRenderer->render(view('blog-meta.view.php', post: $post));
+
+            return new Ok($html);
+        }
+
+        $path = root_path('public/meta/meta-blog-' . $slug . '.png');
+
+        if (! is_dir(dirname($path))) {
+            mkdir(dirname($path), recursive: true);
+        }
+
+        if (! is_file($path) || $request->has('nocache')) {
+            $browsershot
+                ->windowSize(1200, 628)
+                ->setUrl(uri([self::class, 'meta'], slug: $slug, html: true))
+                ->save($path);
+        }
+
+        return new File($path);
     }
 }

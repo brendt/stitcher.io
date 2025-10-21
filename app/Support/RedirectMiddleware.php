@@ -17,6 +17,7 @@ final class RedirectMiddleware implements HttpMiddleware
         $redirects = [
             '/timeline-taxi' => 'https://timeline-taxi.com/',
             '/discord' => 'https://discord.gg/pPhpTGUMPQ',
+            '/blog' => '/',
             '/uses' => '/blog/uses',
             '/blog/the-latest-php-version' => '/blog/new-in-php-81',
             '/light' => 'https://www.youtube.com/watch?v=mu0HJ0_kprc',
@@ -49,8 +50,6 @@ final class RedirectMiddleware implements HttpMiddleware
             '/blog/laravel-beyond-crud-08-view-models' => 'https://beyond-crud.stitcher.io',
             '/blog/laravel-beyond-crud-09-test-factories' => 'https://beyond-crud.stitcher.io',
 
-
-            '/blog' => '/blog/page-1',
             '/presentations' => 'https://github.com/brendt/presentations',
             '/slides' => 'https://github.com/brendt/presentations',
             '/guide' => '/guide/setting-up',

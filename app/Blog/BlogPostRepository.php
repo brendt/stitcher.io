@@ -7,6 +7,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
 use Tempest\Support\Arr\ImmutableArray;
+use function Tempest\Router\uri;
 use function Tempest\Support\arr;
 
 final readonly class BlogPostRepository
@@ -14,8 +15,7 @@ final readonly class BlogPostRepository
     public function __construct(
         private MarkdownConverter $converter,
         private Cache $cache,
-    ) {
-    }
+    ) {}
 
     public function find(string $slug): ?BlogPost
     {
@@ -38,13 +38,16 @@ final readonly class BlogPostRepository
                 $content = file_get_contents($path);
                 $cacheKey = crc32($content);
 
-                return $this->cache->resolve($cacheKey, function () use ($path, $content){
+                return $this->cache->resolve($cacheKey, function () use ($path, $content) {
                     preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
 
                     return [
                         'slug' => $matches['slug'],
                         'date' => $this->parseDate($path),
                         'content' => $this->converter->convert($content)->getContent(),
+                        'meta' => [
+                            'image' => uri([BlogController::class, 'meta'], slug: $matches['slug']),
+                        ],
                         ...YamlFrontMatter::parse($content)->matter(),
                     ];
                 });
