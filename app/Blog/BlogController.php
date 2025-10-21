@@ -2,9 +2,7 @@
 
 namespace App\Blog;
 
-use App\Web\Blog\BlogRepository;
 use HeadlessChromium\BrowserFactory;
-use Spatie\Browsershot\Browsershot;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
@@ -18,7 +16,6 @@ use Tempest\View\View;
 use Tempest\View\ViewRenderer;
 use function Tempest\root_path;
 use function Tempest\Router\uri;
-use function Tempest\Support\path;
 use function Tempest\view;
 
 final class BlogController
@@ -66,7 +63,7 @@ final class BlogController
         return new Ok($xml)->addHeader('Content-Type', 'application/xml;charset=UTF-8');
     }
 
-    #[Get('/blog/{slug}/meta')]
+    #[Get('/blog/{slug}/meta.png')]
     public function meta(
         string $slug,
         Request $request,
