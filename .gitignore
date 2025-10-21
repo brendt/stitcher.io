@@ -15,4 +15,6 @@ vite-tempest
 public/build/
 public/img/*
 !public/img/static
+public/meta/*
+!public/meta/meta_small.png
 public/**/index.html
