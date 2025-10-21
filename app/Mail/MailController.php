@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use Tempest\Router\Get;
+use Tempest\Router\StaticPage;
 use Tempest\View\View;
 use function Tempest\view;
 
@@ -16,6 +17,7 @@ final class MailController
     }
 
     #[Get('/mail/archive')]
+    #[StaticPage]
     public function overview(MailRepository $repository): View
     {
         $mails = $repository->all();
@@ -24,6 +26,7 @@ final class MailController
     }
 
     #[Get('/mail/archive/{slug}')]
+    #[StaticPage(MailDataProvider::class)]
     public function show(string $slug, MailRepository $repository): View
     {
         $mail = $repository->find($slug);
