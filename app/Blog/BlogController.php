@@ -97,12 +97,7 @@ final class BlogController
         ]);
 
         try {
-            // creates a new page and navigate to an URL
             $page = $browser->createPage();
-
-//            $page->setDeviceMetricsOverride([
-//                'deviceScaleFactor' => 2,
-//            ]);
 
             $page->navigate(uri([self::class, 'meta'], slug: $slug, html: true))->waitForNavigation();
 
