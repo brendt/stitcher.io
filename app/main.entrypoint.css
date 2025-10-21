@@ -48,15 +48,14 @@ h1 > a {
 p a {
     text-decoration: underline;
     text-decoration-color: var(--color-primary);
-    text-decoration-style: dotted;
-    text-decoration-thickness: 2px;
-    font-weight: bold;
-
+    text-decoration-thickness: 3px;
+    font-weight: 500;
 
     &:hover {
         text-decoration: underline;
         text-decoration-color: var(--color-primary);
-        text-decoration-thickness: 3px;
+        text-decoration-style: dotted;
+        text-decoration-thickness: 2px;
     }
 }
 
