@@ -16,7 +16,7 @@
 
         <x-footer class="mt-4">
             <x-button href="/">Back</x-button>
-            <x-button :if="$post->next" :href="$post->next->uri">Up next: {{ $post->next->title }}</x-button>
+            <x-button :if="$post->next ?? null" :href="$post->next->uri">Up next: {{ $post->next->title }}</x-button>
         </x-footer>
 
         <x-card :post="$post">
