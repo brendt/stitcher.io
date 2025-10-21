@@ -3,6 +3,7 @@
 namespace App\Blog;
 
 use App\Web\Blog\BlogRepository;
+use HeadlessChromium\BrowserFactory;
 use Spatie\Browsershot\Browsershot;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Cache\Cache;
@@ -71,8 +72,8 @@ final class BlogController
         Request $request,
         BlogPostRepository $repository,
         ViewRenderer $viewRenderer,
-        Browsershot $browsershot,
-    ): Response {
+    ): Response
+    {
         $post = $repository->find($slug);
 
         if ($request->has('html')) {
@@ -83,15 +84,31 @@ final class BlogController
 
         $path = root_path('public/meta/meta-blog-' . $slug . '.png');
 
+        if (is_file($path) && ! $request->has('nocache')) {
+            return new File($path);
+        }
+
         if (! is_dir(dirname($path))) {
             mkdir(dirname($path), recursive: true);
         }
 
-        if (! is_file($path) || $request->has('nocache')) {
-            $browsershot
-                ->windowSize(1200, 628)
-                ->setUrl(uri([self::class, 'meta'], slug: $slug, html: true))
-                ->save($path);
+        $browser = new BrowserFactory()->createBrowser();
+
+        try {
+            // creates a new page and navigate to an URL
+            $page = $browser->createPage();
+
+            $page->setDeviceMetricsOverride([
+                'width' => 1200,
+                'height' => 628,
+                'deviceScaleFactor' => 2,
+            ]);
+
+            $page->navigate(uri([self::class, 'meta'], slug: $slug, html: true))->waitForNavigation();
+
+            $page->screenshot()->saveToFile($path);
+        } finally {
+            $browser->close();
         }
 
         return new File($path);
