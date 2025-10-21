@@ -12,7 +12,7 @@ final readonly class DeployCommand
     use HasConsole;
 
     #[ConsoleCommand('deploy')]
-    public function __invoke(): void
+    public function __invoke(bool $code = false): void
     {
         $this->info('Starting deploy');
 
@@ -20,8 +20,10 @@ final readonly class DeployCommand
         passthru("ssh forge@stitcher.io 'cd stitcher.io && git fetch origin && git reset --hard origin/main'");
         $this->success('Done');
 
-        $this->info('Running deploy script');
-        passthru("ssh forge@stitcher.io 'cd stitcher.io && bash deploy.sh'");
+        if ($code === false) {
+            $this->info('Running deploy script');
+            passthru("ssh forge@stitcher.io 'cd stitcher.io && bash deploy.sh'");
+        }
 
         $this->success('Deploy success');
     }
