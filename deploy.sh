@@ -11,7 +11,6 @@ php8.4 /usr/local/bin/composer install --no-dev
 php8.4 tempest cache:clear --force --internal --all
 php8.4 tempest discovery:generate
 php8.4 tempest migrate:up --force
-php8.4 tempest static:clean --force
 
 # Build front-end
 /home/forge/.bun/bin/bun run build
