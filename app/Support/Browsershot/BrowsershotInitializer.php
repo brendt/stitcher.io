@@ -19,7 +19,7 @@ final readonly class BrowsershotInitializer implements Initializer
             ->deviceScaleFactor(2);
 
         if ($includePath = env('BROWSERSHOT_PATH')) {
-            $browsershot->setIncludePath("{$includePath}:\$PAT:");
+            $browsershot->setIncludePath("{$includePath}:\$PATH:");
         }
 
         if ($nodePath = env('BROWSERSHOT_NODE_PATH')) {
