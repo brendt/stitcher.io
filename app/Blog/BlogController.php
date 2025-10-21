@@ -62,8 +62,7 @@ final class BlogController
             expiration: DateTime::now()->plusHours(1),
         );
 
-        return new Ok($xml)
-            ->addHeader('Content-Type', 'application/xml;charset=UTF-8');
+        return new Ok($xml)->addHeader('Content-Type', 'application/xml;charset=UTF-8');
     }
 
     #[Get('/blog/{slug}/meta.png')]
