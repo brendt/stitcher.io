@@ -5,6 +5,7 @@ namespace App\Blog;
 use App\Authentication\User;
 use Tempest\Database\IsDatabaseModel;
 use Tempest\DateTime\DateTime;
+use function Tempest\Router\uri;
 
 final class Comment
 {
@@ -16,4 +17,12 @@ final class Comment
         public string $content,
         public DateTime $createdAt,
     ) {}
+
+    public string $anchor {
+        get => 'comment-' . $this->id;
+    }
+
+    public string $uri {
+        get => uri([BlogController::class, 'show'], slug: $this->for) . '#' . $this->anchor;
+    }
 }

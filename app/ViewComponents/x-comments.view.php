@@ -45,7 +45,7 @@ $back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
     </form>
 
     <div class="grid gap-2">
-        <div :foreach="$comments as $comment" class="bg-gray-100 p-4 pb-3 rounded-sm overflow-auto">
+        <div :foreach="$comments as $comment" :id="$comment->anchor" class="bg-gray-100 p-4 pb-3 rounded-sm overflow-auto">
             <x-markdown class="grid gap-2" :content="$comment->content"/>
 
             <div class="text-sm flex justify-between flex-wrap border-t border-gray-200 pt-2 mt-2">
