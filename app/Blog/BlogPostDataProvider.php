@@ -15,7 +15,7 @@ final readonly class BlogPostDataProvider implements DataProvider
     {
         foreach (glob(__DIR__ . "/Content/*.md") as $path) {
             preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
-            ld($matches);
+
             yield [
                 'slug' => $matches['slug'],
             ];
