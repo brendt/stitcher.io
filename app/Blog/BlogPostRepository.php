@@ -11,6 +11,7 @@ use Tempest\Support\Arr\ImmutableArray;
 use function Tempest\event;
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
+use function Tempest\Support\str;
 
 final readonly class BlogPostRepository
 {
@@ -40,13 +41,28 @@ final readonly class BlogPostRepository
 
         $data = [
             'slug' => $slug,
+            'title' => str($slug)->replace('-', ' ')->upperFirst()->toString(),
             'date' => $this->parseDate($path),
             'content' => $this->converter->convert($content)->getContent(),
             'meta' => $meta,
             ...$frontMatter,
         ];
 
-        return \Tempest\map($data)->to(BlogPost::class);
+        $post = \Tempest\map($data)->to(BlogPost::class);
+
+        $allPosts = $this->all();
+        $currentIndex = null;
+
+        foreach ($allPosts as $i => $other) {
+            if ($other->slug === $slug) {
+                $currentIndex = $i;
+                break;
+            }
+        }
+
+        $post->next = $allPosts[$currentIndex + 1] ?? null;
+
+        return $post;
     }
 
     /**
@@ -59,27 +75,25 @@ final readonly class BlogPostRepository
         $posts = arr(glob(__DIR__ . "/Content/*.md"))
             ->map(function (string $path) {
                 $content = file_get_contents($path);
-                $cacheKey = crc32($content);
+                preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
+                $frontMatter = YamlFrontMatter::parse($content)->matter();
 
-                return $this->cache->resolve($cacheKey, function () use ($path, $content) {
-                    preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
-                    $frontMatter = YamlFrontMatter::parse($content)->matter();
+                $slug = $matches['slug'];
 
-                    $meta = [
-                        'image' => uri([BlogController::class, 'metaPng'], slug: $matches['slug']),
-                        ...($frontMatter['meta'] ?? []),
-                    ];
+                $meta = [
+                    'image' => uri([BlogController::class, 'metaPng'], slug: $slug),
+                    ...($frontMatter['meta'] ?? []),
+                ];
 
-                    unset($frontMatter['meta']);
+                unset($frontMatter['meta']);
 
-                    return [
-                        'slug' => $matches['slug'],
-                        'date' => $this->parseDate($path),
-                        'content' => $this->converter->convert($content)->getContent(),
-                        'meta' => $meta,
-                        ...$frontMatter,
-                    ];
-                });
+                return [
+                    'slug' => $slug,
+                    'title' => str($slug)->replace('-', ' ')->upperFirst()->toString(),
+                    'date' => $this->parseDate($path),
+                    'meta' => $meta,
+                    ...$frontMatter,
+                ];
             })
             ->mapTo(BlogPost::class)
             ->sortByCallback(fn (BlogPost $a, BlogPost $b) => $b->date <=> $a->date);
