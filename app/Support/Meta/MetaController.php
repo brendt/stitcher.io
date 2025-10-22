@@ -26,7 +26,7 @@ final class MetaController
         $path = __DIR__ . '/meta.png';
 
         $browser = new BrowserFactory()->createBrowser([
-//            'windowSize' => [1200, 628],
+            'windowSize' => [1200, 628],
         ]);
 
         try {
