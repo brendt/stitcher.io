@@ -26,6 +26,7 @@ final class MailController
     }
 
     #[Get('/mail/archive/{slug}')]
+    #[StaticPage(MailDataProvider::class)]
     public function show(string $slug, MailRepository $repository): View
     {
         $mail = $repository->find($slug);
