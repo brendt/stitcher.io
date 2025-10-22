@@ -8,8 +8,8 @@
         }
     </style>
 </head>
-<body>
-<div class="w-full h-[100vh] bg-white text-primary flex justify-center items-center relative p-8">
+<body class="bg-black">
+<div class="w-[1200px] h-[628px] bg-white text-primary flex justify-center items-center relative p-8">
     <x-slot/>
 
     <div class="absolute bottom-0 mb-6 text-xs bg-primary text-white p-1 px-3 font-bold rounded-full">stitcher.io</div>
