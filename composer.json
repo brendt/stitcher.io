@@ -2,7 +2,7 @@
     "name": "tempest/app",
     "type": "project",
     "require": {
-        "tempest/framework": "^2.0",
+        "tempest/framework": "^2.4",
         "symfony/yaml": "^7.3",
         "spatie/yaml-front-matter": "^2.1",
         "intervention/image": "^3.11",
