@@ -25,7 +25,6 @@ use function Tempest\Router\uri;
                     <![CDATA[ Brent ]]>
                 </name>
             </author>
-            <summary type="html"><![CDATA[ {!! $post->content !!} ]]></summary>
         </entry>
     <?php endforeach; ?>
 </feed>
