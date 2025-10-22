@@ -41,15 +41,17 @@ final readonly class BlogPostRepository
                 return $this->cache->resolve($cacheKey, function () use ($path, $content) {
                     preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
 
-                    return [
-                        'slug' => $matches['slug'],
-                        'date' => $this->parseDate($path),
-                        'content' => $this->converter->convert($content)->getContent(),
-                        'meta' => [
-                            'image' => uri([BlogController::class, 'meta'], slug: $matches['slug']),
+                    return array_merge_recursive(
+                        [
+                            'slug' => $matches['slug'],
+                            'date' => $this->parseDate($path),
+                            'content' => $this->converter->convert($content)->getContent(),
+                            'meta' => [
+                                'image' => uri([BlogController::class, 'meta'], slug: $matches['slug']),
+                            ]
                         ],
-                        ...YamlFrontMatter::parse($content)->matter(),
-                    ];
+                        YamlFrontMatter::parse($content)->matter(),
+                    );
                 });
             })
             ->mapTo(BlogPost::class)
