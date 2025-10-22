@@ -106,7 +106,9 @@ final class BlogController
             mkdir(dirname($path), recursive: true);
         }
 
-        $browser = new BrowserFactory()->createBrowser();
+        $browser = new BrowserFactory()->createBrowser([
+            'windowSize' => [1200, 628],
+        ]);
 
         try {
             $page = $browser->createPage();
