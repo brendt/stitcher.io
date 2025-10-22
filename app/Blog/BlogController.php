@@ -63,7 +63,7 @@ final class BlogController
         return new Ok($xml)->addHeader('Content-Type', 'application/xml;charset=UTF-8');
     }
 
-    #[Get('/blog/{slug}/meta.png')]
+    #[Get('/blog/{slug}/meta')]
     public function meta(
         string $slug,
         Request $request,
