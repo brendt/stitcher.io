@@ -13,9 +13,11 @@ final readonly class BlogPostDataProvider implements DataProvider
 
     public function provide(): Generator
     {
-        foreach ($this->repository->all() as $post) {
+        foreach (glob(__DIR__ . "/Content/*.md") as $path) {
+            preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
+            ld($matches);
             yield [
-                'slug' => $post->slug,
+                'slug' => $matches['slug'],
             ];
         }
     }

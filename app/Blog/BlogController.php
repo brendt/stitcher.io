@@ -9,6 +9,7 @@ use Tempest\DateTime\DateTime;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\File;
+use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
 use Tempest\Router\StaticPage;
@@ -31,9 +32,17 @@ final class BlogController
 
     #[Get('/blog/{slug}')]
     #[StaticPage(BlogPostDataProvider::class)]
-    public function show(string $slug, BlogPostRepository $repository, Authenticator $authenticator): View
+    public function show(
+        string $slug,
+        BlogPostRepository $repository,
+        Authenticator $authenticator,
+    ): Response|View
     {
         $post = $repository->find($slug);
+
+        if (! $post) {
+            return new NotFound();
+        }
 
         $comments = Comment::select()
             ->with('user')
@@ -52,7 +61,11 @@ final class BlogController
     #[Get('/rss')]
     #[Get('/feed')]
     #[Get('/atom')]
-    public function rss(ViewRenderer $viewRenderer, Cache $cache, BlogPostRepository $repository): Response
+    public function rss(
+        ViewRenderer $viewRenderer,
+        Cache $cache,
+        BlogPostRepository $repository,
+    ): Response
     {
         $xml = $cache->resolve(
             key: 'rss',
@@ -73,13 +86,17 @@ final class BlogController
     {
         $post = $repository->find($slug);
 
+        if (! $post) {
+            return new NotFound();
+        }
+
         if ($request->has('html')) {
             $html = $viewRenderer->render(view('blog-meta.view.php', post: $post));
 
             return new Ok($html);
         }
 
-        $path = root_path('public/meta/meta-blog-' . $slug . '.png');
+        $path = root_path('public/blog/' . $slug . '/meta.png');
 
         if (is_file($path) && ! $request->has('nocache')) {
             return new File($path);

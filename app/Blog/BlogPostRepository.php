@@ -19,7 +19,12 @@ final readonly class BlogPostRepository
 
     public function find(string $slug): ?BlogPost
     {
-        $path = glob(__DIR__ . "/Content/*{$slug}.md")[0];
+        $path = glob(__DIR__ . "/Content/*{$slug}.md")[0] ?? null;
+
+        if (! $path) {
+            return null;
+        }
+
         $content = file_get_contents($path);
         $cacheKey = crc32($content);
 
@@ -40,15 +45,21 @@ final readonly class BlogPostRepository
 
                 return $this->cache->resolve($cacheKey, function () use ($path, $content) {
                     preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
+                    $frontMatter = YamlFrontMatter::parse($content)->matter();
+
+                    $meta = [
+                        'image' => uri([BlogController::class, 'meta'], slug: $matches['slug']),
+                        ...($frontMatter['meta'] ?? []),
+                    ];
+
+                    unset($frontMatter['meta']);
 
                     return [
                         'slug' => $matches['slug'],
                         'date' => $this->parseDate($path),
                         'content' => $this->converter->convert($content)->getContent(),
-                        'meta' => [
-                            'image' => uri([BlogController::class, 'meta'], slug: $matches['slug']),
-                        ],
-                        ...YamlFrontMatter::parse($content)->matter(),
+                        'meta' => $meta,
+                        ...$frontMatter,
                     ];
                 });
             })
