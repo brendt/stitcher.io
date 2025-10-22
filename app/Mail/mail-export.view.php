@@ -500,7 +500,7 @@
     }
 
     .content-cell {
-        padding: 15px;
+        padding: 5px;
     }
 
 
@@ -596,14 +596,6 @@
                             cellspacing="0"
                             role="presentation"
                         >
-                            <tr>
-                                <td>
-                                    <h1>
-                                        {!! $mail->title !!}
-                                    </h1>
-                                </td>
-                            </tr>
-
                             <!-- Body content -->
                             <tr>
                                 <td class="content-cell">
