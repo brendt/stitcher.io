@@ -121,7 +121,12 @@ final class BlogController
 
             $page->navigate(uri([self::class, 'meta'], slug: $slug, html: true))->waitForNavigation();
 
-            $page->screenshot()->saveToFile($path);
+            $screenshot = $page->screenshot([
+                'captureBeyondViewport' => true,
+                'clip' => $page->getFullPageClip(),
+            ]);
+
+            $screenshot->saveToFile($path);
         } finally {
             $browser->close();
         }
