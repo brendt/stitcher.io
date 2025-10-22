@@ -2,22 +2,20 @@
 
 namespace App\Blog;
 
-use App\Blog\Events\AllBlogPostsRetrieved;
 use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
-use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
 use Tempest\Support\Arr\ImmutableArray;
-use function Tempest\event;
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
 use function Tempest\Support\str;
 
-final readonly class BlogPostRepository
+final  class BlogPostRepository
 {
+    private ?ImmutableArray $posts = null ;
+
     public function __construct(
-        private MarkdownConverter $converter,
-        private Cache $cache,
+        private readonly MarkdownConverter $converter,
     ) {}
 
     public function find(string $slug): ?BlogPost
@@ -70,7 +68,9 @@ final readonly class BlogPostRepository
      */
     public function all(): ImmutableArray
     {
-        event(new AllBlogPostsRetrieved());
+        if ($this->posts !== null) {
+            return $this->posts;
+        }
 
         $posts = arr(glob(__DIR__ . "/Content/*.md"))
             ->map(function (string $path) {
@@ -108,7 +108,9 @@ final readonly class BlogPostRepository
             $post->next = $next;
         }
 
-        return $posts;
+        $this->posts = $posts;
+
+        return $this->posts;
     }
 
     private function parseDate(string $path): DateTime
