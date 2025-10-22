@@ -128,7 +128,6 @@ final class BlogController
             $page->setDeviceMetricsOverride([
                 'width' => 1200,
                 'height' => 628,
-                'deviceScaleFactor' => 1,
             ]);
 
             $page->navigate(uri([self::class, 'meta'], slug: $slug, html: true))->waitForNavigation();

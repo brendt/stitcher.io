@@ -33,9 +33,9 @@ final class MetaController
             $page = $browser->createPage();
 
             $page->setDeviceMetricsOverride([
-//                'width' => 1200,
-//                'height' => 628,
-//                'deviceScaleFactor' => 1,
+                'width' => 1200,
+                'height' => 628,
+                'deviceScaleFactor' => 1,
             ]);
 
             $page->navigate(uri(self::class, html: true))->waitForNavigation();
