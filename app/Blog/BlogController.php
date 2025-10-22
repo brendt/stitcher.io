@@ -77,6 +77,17 @@ final class BlogController
     }
 
     #[Get('/blog/{slug}/meta.png')]
+    public function metaPng(
+        string $slug,
+        Request $request,
+        BlogPostRepository $repository,
+        ViewRenderer $viewRenderer,
+    ): Response
+    {
+        return $this->meta($slug, $request, $repository, $viewRenderer);
+    }
+
+
     #[Get('/blog/{slug}/meta')]
     public function meta(
         string $slug,

@@ -8,13 +8,11 @@
         }
     </style>
 </head>
-<body class="bg-[#333] flex justify-center items-center">
-<div class="w-full h-full flex justify-center items-center relative">
-    <div class="w-full h-full bg-white text-primary flex justify-around items-center relative shadow-lg px-8">
-        <x-slot/>
+<body>
+<div class="w-full h-[100vh] bg-white text-primary flex justify-center items-center relative p-8">
+    <x-slot/>
 
-        <div class="absolute bottom-0 mb-3 text-xs">stitcher.io</div>
-    </div>
+    <div class="absolute bottom-0 mb-6 text-xs bg-primary text-white p-1 px-3 font-bold rounded-full">stitcher.io</div>
 </div>
 </body>
 </html>
