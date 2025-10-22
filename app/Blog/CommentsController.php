@@ -22,6 +22,7 @@ final readonly class CommentsController
     #[Get('/blog/{slug}/comments')]
     public function index(string $slug): View
     {
+        sleep(1);
         $post = $this->repository->find($slug);
 
         return $this->render($post);

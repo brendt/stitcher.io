@@ -15,7 +15,14 @@ $back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
 ?>
 
 <div id="comments" class="grid gap-4">
-    <div class="grid gap-2 bg-gray-100  justify-center p-4 rounded" :if="$user === null">
+
+    <div :if="($initial ?? null)" class="grid gap-2 bg-gray-100  justify-center p-4 rounded">
+        <div class="text-center">
+            Loading…
+        </div>
+    </div>
+
+    <div :elseif="$user === null" class="grid gap-2 bg-gray-100  justify-center p-4 rounded">
         <div class="text-center">
             Login to comment
         </div>
@@ -31,6 +38,7 @@ $back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
             </a>
         </div>
     </div>
+
     <form :else :hx-post="uri([CommentsController::class, 'comment'], slug: $post->slug)" hx-target="#comments" class="grid gap-2 bg-gray-100 p-4 rounded">
         <x-input name="comment" label="Leave a comment:" type="textarea" required></x-input>
         <div :if="$commentError ?? null" class="text-red-500">
@@ -55,13 +63,15 @@ $back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
                         :hx-post="uri([CommentsController::class, 'delete'], slug: $post->slug, id: $comment->id)"
                         hx-target="#comments"
                         type="button"
-                        class="text-red-600 font-bold underline cursor-pointer hover:no-underline">Confirm delete</button>
+                        class="text-red-600 font-bold underline cursor-pointer hover:no-underline">Confirm delete
+                </button>
                 <button
                         :elseif="$user?->owns($comment)"
                         :hx-post="uri([CommentsController::class, 'delete'], slug: $post->slug, id: $comment->id)"
                         hx-target="#comments"
                         type="button"
-                        class=" underline cursor-pointer hover:no-underline">Delete</button>
+                        class=" underline cursor-pointer hover:no-underline">Delete
+                </button>
             </div>
         </div>
         <div :forelse class="flex justify-center font-bold">

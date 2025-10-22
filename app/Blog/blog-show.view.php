@@ -22,7 +22,7 @@
 
         <x-card :post="$post">
             <h2 hx-trigger="load" :hx-get="'/blog/' . $post->slug . '/comments'" hx-target="#comments">Comments</h2>
-            <x-comments :post="$post" :comments="$comments ?? []" :user="$user ?? null"/>
+            <x-comments :post="$post" :initial="true" />
         </x-card>
     </x-container>
 </x-base>
