@@ -48,7 +48,7 @@ final readonly class BlogPostRepository
                     $frontMatter = YamlFrontMatter::parse($content)->matter();
 
                     $meta = [
-                        'image' => uri([BlogController::class, 'meta'], slug: $matches['slug']),
+                        'image' => uri([BlogController::class, 'metaPng'], slug: $matches['slug']),
                         ...($frontMatter['meta'] ?? []),
                     ];
 
