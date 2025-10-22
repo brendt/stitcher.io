@@ -2,11 +2,13 @@
 
 namespace App\Blog;
 
+use App\Blog\Events\AllBlogPostsRetrieved;
 use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
 use Tempest\Support\Arr\ImmutableArray;
+use function Tempest\event;
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
 
@@ -26,11 +28,25 @@ final readonly class BlogPostRepository
         }
 
         $content = file_get_contents($path);
-        $cacheKey = crc32($content);
 
-        $this->cache->remove($cacheKey);
+        $frontMatter = YamlFrontMatter::parse($content)->matter();
 
-        return $this->all()->first(fn (BlogPost $post) => $post->slug === $slug);
+        $meta = [
+            'image' => uri([BlogController::class, 'metaPng'], slug: $slug),
+            ...($frontMatter['meta'] ?? []),
+        ];
+
+        unset($frontMatter['meta'], $frontMatter['next']);
+
+        $data = [
+            'slug' => $slug,
+            'date' => $this->parseDate($path),
+            'content' => $this->converter->convert($content)->getContent(),
+            'meta' => $meta,
+            ...$frontMatter,
+        ];
+
+        return \Tempest\map($data)->to(BlogPost::class);
     }
 
     /**
@@ -38,6 +54,8 @@ final readonly class BlogPostRepository
      */
     public function all(): ImmutableArray
     {
+        event(new AllBlogPostsRetrieved());
+
         $posts = arr(glob(__DIR__ . "/Content/*.md"))
             ->map(function (string $path) {
                 $content = file_get_contents($path);
