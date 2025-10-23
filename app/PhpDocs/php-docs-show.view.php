@@ -1,9 +1,7 @@
-<x-base>
-    <div id="command-palette"></div>
-
+<x-php-base>
     <x-container>
         <x-article>
             <x-markdown :content="$content" />
         </x-article>
     </x-container>
-</x-base>
+</x-php-base>`

@@ -3,6 +3,8 @@
 
 @theme {
     --color-primary: #fe2977;
+    --color-php: #4F5B93;
+    --color-php-light: #7A86B8;
     --color-pastel: #fcf4f5;
 
     --font-sans: "Avenir", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

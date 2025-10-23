@@ -23,7 +23,7 @@ final class PhpDocsIndexer implements Indexer
                     title: $slug,
                     type: Type::URI,
                     hierarchy: explode('/', $slug),
-                    uri: uri([PhpDocsController::class, 'page'], slug: $slug),
+                    uri: uri([PhpDocsController::class, 'show'], slug: $slug),
                     fields: [],
                 );
             });
