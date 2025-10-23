@@ -2,34 +2,31 @@
  
 ## Constructors and Destructors
  
-<!-- start sect2 -->
+ 
+## Constructor
+ 
+<!-- start methodsynopsis -->
 <!--
 
-   Constructor
-   
     void__construct
     mixedvalues""
    
-   
-    PHP allows developers to declare constructor methods for classes.
-    Classes which have a constructor method call this method on each
-    newly-created object, so it is suitable for any initialization that the
-    object may need before it is used.
-   
-   
-    
-     Parent constructors are not called implicitly if the child class defines
-     a constructor.  In order to run a parent constructor, a call to
-     parent::__construct within the child constructor is
-     required. If the child does not define a constructor then it may be inherited
-     from the parent class just like a normal class method (if it was not declared
-     as private).
-    
-   
-   
-    Constructors in inheritance
-    
+-->
+ 
+ PHP allows developers to declare constructor methods for classes. Classes which have a constructor method call this method on each newly-created object, so it is suitable for any initialization that the object may need before it is used. 
+ 
+<div class="note">
+     
+ Parent constructors are not called implicitly if the child class defines a constructor. In order to run a parent constructor, a call to parent::__construct within the child constructor is required. If the child does not define a constructor then it may be inherited from the parent class just like a normal class method (if it was not declared as private). 
+ 
+</div>
+ 
+<div class="example">
+     
+## Constructors in inheritance
+ 
 
+```php
 <?php
 class BaseClass {
     function __construct() {
@@ -57,26 +54,21 @@ $obj = new SubClass();
 
 // In BaseClass constructor
 $obj = new OtherSubClass();
-?> 
+?>
+```
+ 
+</div>
+ 
+ Unlike other methods, [__construct()](object.construct)] is exempt from the usual [signature compatibility rules](language.oop.lsp)] when being extended. 
+ 
+ Constructors are ordinary methods which are called during the instantiation of their corresponding object. As such, they may define an arbitrary number of arguments, which may be required, may have a type, and may have a default value. Constructor arguments are called by placing the arguments in parentheses after the class name. 
+ 
+<div class="example">
+     
+## Using constructor arguments
+ 
 
-    
-   
-   
-    Unlike other methods, __construct()
-    is exempt from the usual
-    signature compatibility rules
-    when being extended.
-   
-   
-    Constructors are ordinary methods which are called during the instantiation of their
-    corresponding object.  As such, they may define an arbitrary number of arguments, which
-    may be required, may have a type, and may have a default value. Constructor arguments
-    are called by placing the arguments in parentheses after the class name.
-   
-   
-    Using constructor arguments
-    
-
+```php
 <?php
 class Point {
     protected int $x;
@@ -95,14 +87,15 @@ $p2 = new Point(4);
 // With named parameters (as of PHP 8.0):
 $p3 = new Point(y: 5, x: 4);
 ?>
+```
+ 
+</div>
+ 
+ If a class has no constructor, or the constructor has no required arguments, the parentheses may be omitted. 
+ 
+<!-- start sect3 -->
+<!--
 
-    
-   
-   
-    If a class has no constructor, or the constructor has no required arguments, the parentheses
-    may be omitted.
-   
-   
     Old-style constructors
     
      Prior to PHP 8.0.0, classes in the global namespace will interpret a method named
@@ -118,7 +111,11 @@ $p3 = new Point(y: 5, x: 4);
     Always use __construct() in new code.
     
    
-   
+-->
+ 
+<!-- start sect3 -->
+<!--
+
     Constructor Promotion
     
      As of PHP 8.0.0, constructor parameters may also be promoted to correspond to an
@@ -177,8 +174,11 @@ class Point {
      
     
    
+-->
+ 
+<!-- start sect3 -->
+<!--
 
-   
     New in initializers
     
      As of PHP 8.1.0, objects can be used as default parameter values,
@@ -224,8 +224,11 @@ function test(
      
     
    
-   
-   
+-->
+ 
+<!-- start sect3 -->
+<!--
+
     Static creation methods
     
      PHP only supports a single constructor per class.  In some cases, however, it may be
@@ -301,27 +304,28 @@ var_dump($p1, $p2, $p3);
      In this case, Product.
     
    
-  
 -->
  
-<!-- start sect2 -->
+ 
+ 
+## Destructor
+ 
+<!-- start methodsynopsis -->
 <!--
 
-   Destructor
-   
     void__destruct
     
    
-   
-    PHP possesses a destructor concept similar to that of other
-    object-oriented languages, such as C++. The destructor method will be
-    called as soon as there are no other references to a particular object,
-    or in any order during the shutdown sequence.
-   
-   
-    Destructor Example
-    
+-->
+ 
+ PHP possesses a destructor concept similar to that of other object-oriented languages, such as C++. The destructor method will be called as soon as there are no other references to a particular object, or in any order during the shutdown sequence. 
+ 
+<div class="example">
+     
+## Destructor Example
+ 
 
+```php
 <?php
 
 class MyDestructableClass 
@@ -336,55 +340,28 @@ class MyDestructableClass
 }
 
 $obj = new MyDestructableClass();
+```
  
-
-    
-   
-   
-    Like constructors, parent destructors will not be called implicitly by
-    the engine. In order to run a parent destructor, one would have to
-    explicitly call parent::__destruct in the destructor
-    body. Also like constructors, a child class may inherit the parent's
-    destructor if it does not implement one itself.
-   
-   
-    The destructor will be called even if script execution is stopped using
-    exit. Calling exit in a destructor
-    will prevent the remaining shutdown routines from executing.
-   
-   
-    If a destructor creates new references to its object, it will not be called
-    a second time when the reference count reaches zero again or during the
-    shutdown sequence.
-   
-   
-    As of PHP 8.4.0, when
-    cycle collection
-    occurs during the execution of a
-    Fiber, the destructors of objects
-    scheduled for collection are executed in a separate Fiber, called the
-    gc_destructor_fiber.
-    If this Fiber is suspended, a new one will be created to execute any
-    remaining destructors.
-    The previous gc_destructor_fiber will no longer be
-    referenced by the garbage collector and may be collected if it is not
-    referenced elsewhere.
-    Objects whose destructor are suspended will not be collected until the
-    destructor returns or the Fiber itself is collected.
-   
-   
-    
-     Destructors called during the script shutdown have HTTP headers already
-     sent. The working directory in the script shutdown phase can be different
-     with some SAPIs (e.g. Apache).
-    
-   
-   
-    
-     Attempting to throw an exception from a destructor (called in the time of
-     script termination) causes a fatal error.
-    
-   
-  
--->
+</div>
+ 
+ Like constructors, parent destructors will not be called implicitly by the engine. In order to run a parent destructor, one would have to explicitly call `parent::__destruct` in the destructor body. Also like constructors, a child class may inherit the parent's destructor if it does not implement one itself. 
+ 
+ The destructor will be called even if script execution is stopped using `exit`. Calling `exit` in a destructor will prevent the remaining shutdown routines from executing. 
+ 
+ If a destructor creates new references to its object, it will not be called a second time when the reference count reaches zero again or during the shutdown sequence. 
+ 
+ As of PHP 8.4.0, when [cycle collection](features.gc.collecting-cycles)] occurs during the execution of a [Fiber](language.fibers)], the destructors of objects scheduled for collection are executed in a separate Fiber, called the `gc_destructor_fiber`. If this Fiber is suspended, a new one will be created to execute any remaining destructors. The previous `gc_destructor_fiber` will no longer be referenced by the garbage collector and may be collected if it is not referenced elsewhere. Objects whose destructor are suspended will not be collected until the destructor returns or the Fiber itself is collected. 
+ 
+<div class="note">
+     
+ Destructors called during the script shutdown have HTTP headers already sent. The working directory in the script shutdown phase can be different with some SAPIs (e.g. Apache). 
+ 
+</div>
+ 
+<div class="note">
+     
+ Attempting to throw an exception from a destructor (called in the time of script termination) causes a fatal error. 
+ 
+</div>
+ 
  

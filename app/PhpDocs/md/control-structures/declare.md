@@ -55,33 +55,27 @@ declare(ticks=1);
 ```
   
  
-<!-- start sect2 -->
+ 
+## Ticks
+ 
+A tick is an event that occurs for every <!-- start varname -->
 <!--
+N
+--> low-level tickable statements executed by the parser within the `declare` block. The value for <!-- start varname -->
+<!--
+N
+--> is specified using `ticks=N` within the `declare` block's `directive` section. 
+ 
+ Not all statements are tickable. Typically, condition expressions and argument expressions are not tickable. 
+ 
+ The event(s) that occur on each tick are specified using the `register_tick_function`. See the example below for more details. Note that more than one event can occur for each tick. 
+ 
+ <div class="example">
+     
+## Tick usage example
+ 
 
-  Ticks
-  A tick is an event that occurs for every
-  N low-level tickable statements executed
-  by the parser within the declare block.
-  The value for N is specified
-  using ticks=N
-  within the declare block's
-  directive section.
- 
- 
-  Not all statements are tickable. Typically, condition
-  expressions and argument expressions are not tickable.
- 
- 
-  The event(s) that occur on each tick are specified using the
-  register_tick_function. See the example
-  below for more details. Note that more than one event can occur
-  for each tick.
- 
- 
-  
-   Tick usage example
-   
-
+```php
 <?php
 
 declare(ticks=1);
@@ -102,37 +96,33 @@ if ($a > 0) {
 }
 
 ?>
+```
+ 
+</div> 
+ 
+ See also register_tick_function and unregister_tick_function. 
+ 
+ 
+ 
+## Encoding
+ 
+ A script's encoding can be specified per-script using the `encoding` directive. <div class="example">
+     
+## Declaring an encoding for the script
+ 
 
-   
-  
- 
- 
-  See also register_tick_function and
-  unregister_tick_function.
- 
- 
--->
- 
-<!-- start sect2 -->
-<!--
-
-  Encoding
-  
-    A script's encoding can be specified per-script using the encoding directive.
-  
-   Declaring an encoding for the script
-    
-
+```php
 <?php
 declare(encoding='ISO-8859-1');
 // code here
 ?>
+```
+ 
+</div> 
+ 
+<!-- start caution -->
+<!--
 
-    
-   
-  
-
-  
    
     When combined with namespaces, the only legal syntax for declare
     is declare(encoding='...'); where ...
@@ -140,9 +130,8 @@ declare(encoding='ISO-8859-1');
     will result in a parse error when combined with namespaces.
    
   
-  
-   See also zend.script_encoding.
-  
- 
 -->
+ 
+ See also [zend.script_encoding](ini.zend.script-encoding)]. 
+ 
 

@@ -52,7 +52,7 @@ endif;
 ```
  
  
- Whereas this is valid, as the trailing newline after the `switch` statement is considered part of the closing `?>` and hence nothing is output between the `switch` and `case`: 
+ Whereas this is valid, as the trailing newline after the `switch` statement is considered part of the closing `?{{ gt }}` and hence nothing is output between the `switch` and `case`: 
  
  
 

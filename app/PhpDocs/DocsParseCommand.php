@@ -16,7 +16,7 @@ final class DocsParseCommand
     ) {}
 
     #[ConsoleCommand]
-    public function __invoke(): void
+    public function __invoke(?string $filter = null): void
     {
         $outputBase = __DIR__ . '/md';
 
@@ -25,15 +25,19 @@ final class DocsParseCommand
         }
 
         $inputBase = __DIR__ . '/xml/language';
-        $files = glob($inputBase . '/**/*.xml');
+        if ($filter) {
+            $files = glob($inputBase . '/' . $filter);
+        } else {
+            $files = glob($inputBase . '/**/*.xml');
+        }
 
         $success = 0;
         $failed = 0;
 
         foreach ($files as $inputPath) {
-            $parsed = $this->parser->parse(file_get_contents($inputPath));
+            $parsed = $this->parser->parse($inputPath);
 
-            if (!$parsed) {
+            if (! $parsed) {
                 $this->error($inputPath);
                 $failed++;
                 continue;

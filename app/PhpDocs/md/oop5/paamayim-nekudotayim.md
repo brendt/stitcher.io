@@ -10,12 +10,12 @@
  
  Paamayim Nekudotayim would, at first, seem like a strange choice for naming a double-colon. However, while writing the Zend Engine 0.5 (which powers PHP 3), that's what the Zend team decided to call it. It actually does mean double-colon - in Hebrew! 
  
-<!-- start example -->
-<!--
+<div class="example">
+     
+## :: from outside the class definition
+ 
 
-  :: from outside the class definition
-  
-
+```php
 <?php
 class MyClass {
     const CONST_VALUE = 'A constant value';
@@ -26,10 +26,9 @@ echo $classname::CONST_VALUE;
 
 echo MyClass::CONST_VALUE;
 ?>
-
-  
+```
  
--->
+</div>
  
  Three special keywords <!-- start varname -->
 <!--
@@ -42,12 +41,12 @@ parent
 static
 --> are used to access properties or methods from inside the class definition. 
  
-<!-- start example -->
-<!--
+<div class="example">
+     
+## :: from inside the class definition
+ 
 
-  :: from inside the class definition
-  
-
+```php
 <?php
 class MyClass {
     const CONST_VALUE = 'A constant value';
@@ -68,19 +67,18 @@ $classname::doubleColon();
 
 OtherClass::doubleColon();
 ?>
-
-  
+```
  
--->
+</div>
  
  When an extending class overrides the parent's definition of a method, PHP will not call the parent's method. It's up to the extended class on whether or not the parent's method is called. This also applies to [Constructors and Destructors](language.oop5.decon)], [Overloading](language.oop5.overloading)], and [Magic](language.oop5.magic)] method definitions. 
  
-<!-- start example -->
-<!--
+<div class="example">
+     
+## Calling a parent's method
+ 
 
-  Calling a parent's method
-  
-
+```php
 <?php
 class MyClass
 {
@@ -103,10 +101,9 @@ class OtherClass extends MyClass
 $class = new OtherClass();
 $class->myFunc();
 ?>
-
-  
+```
  
--->
+</div>
  
  See also [some examples of
   static call trickery](language.oop5.basic.class.this)]. 

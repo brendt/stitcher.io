@@ -38,12 +38,12 @@ class B extends A {
  
 </div>
  
-<!-- start example -->
-<!--
+<div class="example">
+     
+## Inheritance Example
+ 
 
-  Inheritance Example
-  
-
+```php
 <?php
 
 class Foo
@@ -75,38 +75,25 @@ $bar->printItem('baz'); // Output: 'Bar: baz'
 $bar->printPHP();       // Output: 'PHP is great'
 
 ?>
+```
+ 
+</div>
+ 
+ 
+## Return Type Compatibility with Internal Classes
+ 
+ Prior to PHP 8.1, most internal classes or methods didn't declare their return types, and any return type was allowed when extending them. 
+ 
+ As of PHP 8.1.0, most internal methods started to "tentatively" declare their return type, in that case the return type of methods should be compatible with the parent being extended; otherwise, a deprecation notice is emitted. Note that lack of an explicit return declaration is also considered a signature mismatch, and thus results in the deprecation notice. 
+ 
+ If the return type cannot be declared for an overriding method due to PHP cross-version compatibility concerns, a `ReturnTypeWillChange` attribute can be added to silence the deprecation notice. 
+ 
+<div class="example">
+     
+## The overriding method does not declare any return type
+ 
 
-  
- 
--->
- 
-<!-- start sect2 -->
-<!--
-
-   Return Type Compatibility with Internal Classes
- 
-   
-    Prior to PHP 8.1, most internal classes or methods didn't declare their return types,
-    and any return type was allowed when extending them.
-   
- 
-   
-    As of PHP 8.1.0, most internal methods started to "tentatively" declare their return type,
-    in that case the return type of methods should be compatible with the parent being extended;
-    otherwise, a deprecation notice is emitted.
-    Note that lack of an explicit return declaration is also considered a signature mismatch,
-    and thus results in the deprecation notice.
-   
- 
-   
-    If the return type cannot be declared for an overriding method due to PHP cross-version compatibility concerns,
-    a ReturnTypeWillChange attribute can be added to silence the deprecation notice.
-   
- 
-   
-    The overriding method does not declare any return type
-    
-
+```php
 <?php
 class MyDateTime extends DateTime
 {
@@ -114,15 +101,17 @@ class MyDateTime extends DateTime
 }
  
 // "Deprecated: Return type of MyDateTime::modify(string $modifier) should either be compatible with DateTime::modify(string $modifier): DateTime|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice" as of PHP 8.1.0
-?> 
-
-    
-   
+?>
+```
  
-   
-    The overriding method declares a wrong return type
-    
+</div>
+ 
+<div class="example">
+     
+## The overriding method declares a wrong return type
+ 
 
+```php
 <?php
 class MyDateTime extends DateTime
 {
@@ -130,15 +119,17 @@ class MyDateTime extends DateTime
 }
  
 // "Deprecated: Return type of MyDateTime::modify(string $modifier): ?DateTime should either be compatible with DateTime::modify(string $modifier): DateTime|false, or the #[\ReturnTypeWillChange] attribute should be used to temporarily suppress the notice" as of PHP 8.1.0
-?> 
-
-    
-   
+?>
+```
  
-   
-    The overriding method declares a wrong return type without a deprecation notice
-    
+</div>
+ 
+<div class="example">
+     
+## The overriding method declares a wrong return type without a deprecation notice
+ 
 
+```php
 <?php
 class MyDateTime extends DateTime
 {
@@ -150,11 +141,9 @@ class MyDateTime extends DateTime
 }
  
 // No notice is triggered 
-?> 
-
-    
-   
+?>
+```
  
-  
--->
+</div>
+ 
  

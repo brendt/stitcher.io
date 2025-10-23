@@ -1,13 +1,7 @@
  
 ## Singleton types
  
- Singleton types are those which allow only one value. PHP has support for two singleton types: <!-- start type -->
-<!--
-false
---> as of PHP 8.0.0 and <!-- start type -->
-<!--
-true
---> as of PHP 8.2.0. 
+ Singleton types are those which allow only one value. PHP has support for two singleton types: `false` as of PHP 8.0.0 and `true` as of PHP 8.2.0. 
  
 <div class="warning">
      
