@@ -162,3 +162,10 @@ ul li + li {
 img + img {
     margin-top: 1em;
 }
+
+@media (min-width: 40rem) {
+    img[src$=".svg"] {
+        max-height: 50vh;
+        margin: 0 auto;
+    }
+}
