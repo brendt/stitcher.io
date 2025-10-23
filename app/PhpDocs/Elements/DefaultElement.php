@@ -18,10 +18,11 @@ final class DefaultElement implements Element, HasChildren
     {
 
         return sprintf(<<<'TXT'
-<!-- start %s -->
-<!--
+```txt
+UNPARSED: %s
+
 %s
--->
+```
 TXT,
             $this->name,
             $this->textContent ?? '',

@@ -8,11 +8,13 @@ final readonly class LinkElement implements Element
 {
     public function __construct(
         private string $text,
-        private string $href,
+        private ?string $href,
     ) {}
 
     public function render(): string
     {
-        return "[$this->text]($this->href)]";
+        $href = $this->href ?? '#';
+
+        return "[$this->text]($href)";
     }
 }

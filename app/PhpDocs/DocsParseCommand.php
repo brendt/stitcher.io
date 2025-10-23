@@ -18,17 +18,18 @@ final class DocsParseCommand
     #[ConsoleCommand]
     public function __invoke(?string $filter = null): void
     {
-        $outputBase = __DIR__ . '/md';
+        $outputBase = __DIR__ . '/md/';
 
         if (is_dir($outputBase)) {
             delete($outputBase);
         }
 
-        $inputBase = __DIR__ . '/xml/language';
+        $inputBase = __DIR__ . '/xml/';
+
         if ($filter) {
             $files = glob($inputBase . '/' . $filter);
         } else {
-            $files = glob($inputBase . '/**/*.xml');
+            $files = glob($inputBase . '{,*/,*/*/,*/*/*/}*.xml', GLOB_BRACE);
         }
 
         $success = 0;

@@ -13,6 +13,8 @@ final class TitleElement implements Element
 
     public function render(): string
     {
-        return "## {$this->title}";
+        $title = trim($this->title);
+
+        return "## {$title}";
     }
 }

@@ -19,7 +19,6 @@ use App\PhpDocs\Elements\WarningElement;
 use Dom\Node;
 use Dom\XMLDocument;
 use DOMException;
-use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
 
 final class DocBookParser
 {
@@ -96,13 +95,15 @@ final class DocBookParser
             'itemizedlist' => new ListElement(),
             'listitem' => new ListItemElement(),
             'code', 'literal', 'classname', 'function', 'type', 'constant' => new InlineCodeElement($node->textContent),
-            'programlisting' => new CodeElement(
+            'screen', 'programlisting' => new CodeElement(
                 $node->textContent,
                 $node instanceof \Dom\Element ? $node->getAttribute('role') : 'php',
             ),
-            'link' => new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href')),
-            'sect2', 'sect1', '#document', 'informalexample' => new NestedElement(),
-            '#comment', 'phpdoc' => new VoidElement(),
+            'link' => $node instanceof \Dom\Element
+                ? new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href'))
+                : new LinkElement($node->textContent, null),
+            'reference', 'sect2', 'sect1', '#document', 'informalexample', 'partintro', 'section' => new NestedElement(),
+            'titleabbrev', '#comment', 'phpdoc' => new VoidElement(),
             default => new DefaultElement($node->nodeName, $node->textContent),
         };
 
