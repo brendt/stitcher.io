@@ -24,6 +24,7 @@ final class PhpDocsParser
 {
     private array $entities;
     private string $path;
+    private int $titleLevel = 1;
 
     public function __construct()
     {
@@ -54,6 +55,7 @@ final class PhpDocsParser
 
     public function parse(string $path): ?string
     {
+        $this->titleLevel = 1;
         $this->path = $path;
         $contents = file_get_contents($path);
 
@@ -69,7 +71,7 @@ final class PhpDocsParser
             function (array $matches) {
                 return '{{ ' . $matches[1] . ' }}';
             },
-            $contents
+            $contents,
         );
 
         try {
@@ -88,7 +90,7 @@ final class PhpDocsParser
         $element = match ($node->nodeName) {
             'simpara', '#text' => new TextElement($node->textContent),
             'para' => new ParagraphElement(),
-            'title' => new TitleElement($node->textContent),
+            'title' => new TitleElement($node->textContent, $this->titleLevel),
             'note' => new NoteElement($node->textContent),
             'warning' => new WarningElement($node->textContent),
             'example' => new ExampleElement($node->textContent),
@@ -102,7 +104,7 @@ final class PhpDocsParser
             'link' => $node instanceof \Dom\Element
                 ? new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href'))
                 : new LinkElement($node->textContent, null),
-            'reference', 'sect2', 'sect1', '#document', 'informalexample', 'partintro', 'section' => new NestedElement(),
+            'chapter', 'reference', 'sect2', 'sect1', '#document', 'informalexample', 'partintro', 'section' => new NestedElement(),
             'titleabbrev', '#comment', 'phpdoc' => new VoidElement(),
             default => new DefaultElement($node->nodeName, $node->textContent),
         };
@@ -111,6 +113,10 @@ final class PhpDocsParser
             foreach ($node->childNodes as $child) {
                 $element->children[] = $this->parseNode($child);
             }
+        }
+
+        if ($element instanceof TitleElement && $this->titleLevel === 1) {
+            $this->titleLevel = 2;
         }
 
         return $element;

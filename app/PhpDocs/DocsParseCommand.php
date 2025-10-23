@@ -27,7 +27,7 @@ final class DocsParseCommand
         $inputBase = __DIR__ . '/xml/';
 
         if ($filter) {
-            $files = glob($inputBase . '/' . $filter);
+            $files = glob($inputBase . '/' . $filter . '*.xml');
         } else {
             $files = glob($inputBase . '{,*/,*/*/,*/*/*/}*.xml', GLOB_BRACE);
         }

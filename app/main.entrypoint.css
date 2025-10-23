@@ -175,3 +175,7 @@ img + img {
         margin: 0 auto;
     }
 }
+
+.example {
+    overflow: auto;
+}
