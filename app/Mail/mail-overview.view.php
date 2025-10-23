@@ -1,5 +1,5 @@
 <x-base title="Newsletter">
-    <x-container>
+    <x-container class="grid gap-4">
         <x-menu />
 
         <x-card>
@@ -13,7 +13,7 @@
             </p>
         </x-card>
 
-        <nav class="grid gap-2 mt-4">
+        <nav class="grid gap-2">
             <a :href="$mail->uri" :foreach="$mails as $mail" class="p-3 px-4 bg-white shadow-md hover:shadow-lg rounded-sm grid hover:text-primary hover:underline">
                 <span class="font-bold">
                     {{ $mail->title }}

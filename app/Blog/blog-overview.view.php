@@ -1,5 +1,5 @@
 <x-base title="Blog">
-    <x-container>
+    <x-container class="grid gap-4">
         <x-menu />
 
         <nav class="grid gap-2">

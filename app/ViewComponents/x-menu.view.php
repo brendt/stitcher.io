@@ -1,4 +1,4 @@
-<div class="my-4 sm:my-8 grid gap-2">
+<div class="mt-4 mb-2 sm:mt-8 sm:mb-4 grid gap-2">
     <h1 class="text-white text-4xl font-bold sm:text-primary text-center sm:text-left"><x-slot>stitcher.io</x-slot></h1>
 
     <div class="flex flex-wrap gap-2 justify-center sm:justify-start">

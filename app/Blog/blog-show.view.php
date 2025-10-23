@@ -1,5 +1,7 @@
 <x-base :meta="$post->meta ?? null">
     <x-container class="grid gap-4">
+        <x-menu />
+
         <x-article>
             <div>
                 <h1 class="text-4xl font-bold text-primary"><a href="/">{{ $post->title }}</a></h1>
