@@ -20,7 +20,7 @@ use Dom\Node;
 use Dom\XMLDocument;
 use DOMException;
 
-final class DocBookParser
+final class PhpDocsParser
 {
     private array $entities;
     private string $path;

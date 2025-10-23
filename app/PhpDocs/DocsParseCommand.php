@@ -12,7 +12,7 @@ final class DocsParseCommand
     use HasConsole;
 
     public function __construct(
-        private DocBookParser $parser,
+        private readonly PhpDocsParser $parser,
     ) {}
 
     #[ConsoleCommand]

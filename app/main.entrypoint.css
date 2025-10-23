@@ -8,6 +8,12 @@
     --font-sans: "Avenir", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-serif: Menlo, Monaco, "Ubuntu Mono", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+    --ui-bg: var(--color-white);
+    --ui-bg-muted: var(--color-slate-50);
+    --ui-bg-elevated: var(--color-neutral-50);
+    --ui-bg-accented: var(--color-neutral-200);
+    --ui-bg-inverted: var(--color-neutral-900);
 }
 
 pre {

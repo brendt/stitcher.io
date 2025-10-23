@@ -16,7 +16,7 @@ const open = defineModel<boolean>('open', { required: true })
 		/>
 		<dialog-content
 			:class="contentClass"
-			class="top-[50%] left-[50%] z-50 fixed bg-(--ui-bg) shadow-dialog-shadow shadow-xl p-0 border border-(--ui-border) sm:rounded-lg text-(--ui-text) translate-x-[-50%] translate-y-[-50%] data-[state=closed]:animate-dialog-close data-[state=open]:animate-dialog-open"
+			class="top-[50%] left-[50%] z-50 fixed bg-(--ui-bg) shadow-dialog-shadow shadow-xl p-0 border border-primary   sm:rounded-lg text-(--ui-text) translate-x-[-50%] translate-y-[-50%] data-[state=closed]:animate-dialog-close data-[state=open]:animate-dialog-open"
 		>
 			<dialog-title class="sr-only">
 				{{ title }}

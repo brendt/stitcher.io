@@ -6,7 +6,7 @@ use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Container\Container;
 
-final readonly class IndexCommandPaletteCommand
+final readonly class IndexCommand
 {
     use HasConsole;
 
@@ -16,9 +16,7 @@ final readonly class IndexCommandPaletteCommand
     ) {}
 
     #[ConsoleCommand(
-        name: 'command-palette:index',
         description: 'Exports available commands to a JSON index file that can be consumed by the front-end.',
-        aliases: ['index'],
     )]
     public function __invoke(): void
     {

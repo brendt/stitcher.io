@@ -42,7 +42,7 @@ registerPalette({ value: open })
 			/>
 			<!-- Results -->
 			<combobox-content
-				class="p-2 border-(--ui-border) border-t h-full sm:max-h-[40rem] overflow-y-auto"
+				class="p-2 border-gray-300 border-t h-full sm:max-h-[40rem] overflow-y-auto"
 				@escape-key-down="open = false"
 			>
 				<!-- No result -->
@@ -68,7 +68,7 @@ registerPalette({ value: open })
 						:as="item.type === 'uri' ? 'a' : 'button'"
 						:value="item"
 						:href="item.uri"
-						class="flex flex-col data-[highlighted]:bg-(--ui-primary)/10 dark:data-[highlighted]:bg-(--ui-bg-elevated)/60 px-4 py-2 pl-4 rounded-md w-full text-(--ui-text-highlighted) text-left transition-colors"
+						class="flex flex-col data-[highlighted]:bg-pastel data-[highlighted]:text-primary data-[highlighted]:font-bold  px-4 py-2 pl-4 rounded-md w-full text-left transition-colors"
 						@select="(e) => handleCommand(item, e)"
 					>
 						<div class="flex items-center gap-x-1 text-(--ui-text-dimmed)">
