@@ -4,7 +4,6 @@ namespace App\PhpDocs;
 
 use App\PhpDocs\Elements\CodeElement;
 use App\PhpDocs\Elements\DefaultElement;
-use App\PhpDocs\Elements\ExampleElement;
 use App\PhpDocs\Elements\InlineCodeElement;
 use App\PhpDocs\Elements\LinkElement;
 use App\PhpDocs\Elements\ListElement;
@@ -96,7 +95,6 @@ final class PhpDocsParser
             'title', 'refname' => new TitleElement($node->textContent, $this->titleLevel),
             'note' => new NoteElement($node->textContent),
             'warning' => new WarningElement($node->textContent),
-            'example' => new ExampleElement($node->textContent),
             'itemizedlist', 'simplelist' => new ListElement(),
             'listitem', 'member' => new ListItemElement(),
             'code', 'literal', 'classname', 'function', 'type', 'constant', 'parameter' => new InlineCodeElement($node->textContent),
@@ -112,7 +110,7 @@ final class PhpDocsParser
             'term' => new TermElement(),
             'refentry', 'chapter', 'reference', 'sect2', 'sect1', '#document',
             'informalexample', 'partintro', 'section', 'refsect1', 'refnamediv',
-            'variablelist' => new NestedElement(),
+            'variablelist', 'example' => new NestedElement(),
             'titleabbrev', '#comment', 'phpdoc' => new VoidElement(),
             default => new DefaultElement($node->nodeName, $node->textContent),
         };

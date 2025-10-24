@@ -178,6 +178,26 @@ img + img {
     }
 }
 
-.example {
-    overflow: auto;
+.php-var-list {
+    display: grid;
+    gap: .5em;
+}
+
+.php-var-list .php-term {
+    font-weight: bold;
+}
+
+.php-list-item {
+    display: grid;
+    gap: .5em;
+    margin-left: 1em;
+}
+
+ul .php-list-item {
+    display: list-item;
+    list-style-type: disc;
+
+    & + .php-list-item {
+        margin-top: .4em;
+    }
 }

@@ -14,7 +14,6 @@ final readonly class CodeElement implements Element
     public function render(): string
     {
         return sprintf(<<<'TXT'
-        
         ```%s
         %s
         ```

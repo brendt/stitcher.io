@@ -11,6 +11,6 @@ final class ListItemElement implements Element, HasChildren
 
     public function render(): string
     {
-        return '<li>' . implode('', array_map(fn (Element $element) => $element->render(), $this->children)) . '</li>';
+        return '<div class="php-list-item">' . implode(PHP_EOL, array_map(fn (Element $element) => $element->render(), $this->children)) . '</div>';
     }
 }

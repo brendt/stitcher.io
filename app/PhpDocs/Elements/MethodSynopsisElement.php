@@ -30,9 +30,13 @@ final readonly class MethodSynopsisElement implements Element
         }
 
         return sprintf(<<<'TXT'
+            
+            
             ```php
             {:hl-property:%s:}(%s): {:hl-type:%s:}
             ```
+            
+            
             TXT,
             $methodName,
             implode(', ', array_map(fn (MethodParamElement $methodParam) => $methodParam->render(), $methodParams)),

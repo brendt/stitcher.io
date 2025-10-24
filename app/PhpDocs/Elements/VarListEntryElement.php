@@ -12,9 +12,9 @@ final class VarListEntryElement implements Element, HasChildren
     public function render(): string
     {
         return sprintf(<<<'HTML'
-            <dl>
+            <div class="php-var-list">
                 %s
-            </dl>    
+            </div>    
             HTML,
             implode(PHP_EOL, array_map(fn (Element $element) => $element->render(), $this->children))
         );

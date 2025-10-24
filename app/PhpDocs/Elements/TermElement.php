@@ -12,9 +12,7 @@ final class TermElement implements Element, HasChildren
     public function render(): string
     {
         return sprintf(<<<'HTML'
-            <dt>
-                %s
-            </dt>    
+            <span class="php-term">%s</span>
             HTML,
             implode(PHP_EOL, array_map(fn (Element $element) => $element->render(), $this->children))
         );
