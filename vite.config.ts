@@ -7,6 +7,5 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		tempest(),
-		vue(),
 	],
 })

@@ -2,9 +2,11 @@
 
 namespace App\PhpDocs;
 
+use Tempest\Http\Request;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Router\Get;
+use Tempest\Router\Post;
 use Tempest\View\View;
 
 final class PhpDocsController
@@ -19,12 +21,24 @@ final class PhpDocsController
         return \Tempest\view('php-docs-index.view.php');
     }
 
-    #[Get('/php/search/{keyword}')]
-    public function search(string $keyword): Response
+    #[Post('/php/search')]
+    public function search(Request $request): View
     {
-        $matches = Index::select()->where('title LIKE ?', "%{$keyword}%")->paginate();
+        $keyword = $request->get('search');
 
-        ld($matches);
+        $matches = [];
+
+        if ($keyword) {
+            $matches = Index::select()
+                ->where('title LIKE ?', "%{$keyword}%")
+                ->orWhere('uri LIKE ?', "%{$keyword}%")
+                ->paginate()->data;
+        }
+
+        return \Tempest\view(
+            'x-php-search-results.view.php',
+            matches: $matches,
+        );
     }
 
     #[Get('/php/{slug:.*}')]

@@ -50,6 +50,11 @@ final class DocsParseCommand
                 mkdir(dirname($outputPath), recursive: true);
             }
 
+            $this->index(
+                $outputPath->replaceStart($outputBase, '/')->replaceEnd('.md', ''),
+                $parsed,
+            );
+
             file_put_contents($outputPath, $parsed);
 
             $success++;
@@ -57,5 +62,19 @@ final class DocsParseCommand
         }
 
         $this->info("Parsed {$success} files, {$failed} failed");
+    }
+
+    private function index(string $slug, string $parsed): void
+    {
+        $title = str($parsed)->afterFirst('#')->before(PHP_EOL)->trim()->toString();
+
+        Index::updateOrCreate(
+            [
+                'uri' => $slug,
+            ],
+            [
+                'title' => $title,
+            ],
+        );
     }
 }

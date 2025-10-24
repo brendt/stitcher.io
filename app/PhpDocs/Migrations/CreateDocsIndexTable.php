@@ -16,6 +16,6 @@ final class CreateDocsIndexTable implements MigratesUp
             ->primary()
             ->string('title')
             ->string('uri')
-            ->index('title');
+            ->unique('uri');
     }
 }
