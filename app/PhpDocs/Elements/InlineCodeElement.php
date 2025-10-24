@@ -12,6 +12,6 @@ final readonly class InlineCodeElement implements Element
 
     public function render(): string
     {
-        return "`{$this->code}`";
+        return "<code>{$this->code}</code>";
     }
 }

@@ -12,8 +12,11 @@ use App\PhpDocs\Elements\ListItemElement;
 use App\PhpDocs\Elements\NestedElement;
 use App\PhpDocs\Elements\NoteElement;
 use App\PhpDocs\Elements\ParagraphElement;
+use App\PhpDocs\Elements\MethodSynopsisElement;
+use App\PhpDocs\Elements\TermElement;
 use App\PhpDocs\Elements\TextElement;
 use App\PhpDocs\Elements\TitleElement;
+use App\PhpDocs\Elements\VarListEntryElement;
 use App\PhpDocs\Elements\VoidElement;
 use App\PhpDocs\Elements\WarningElement;
 use Dom\Node;
@@ -88,15 +91,16 @@ final class PhpDocsParser
     private function parseNode(Node $node): Element
     {
         $element = match ($node->nodeName) {
-            'simpara', '#text' => new TextElement($node->textContent),
+            'simpara', '#text', 'refpurpose' => new TextElement($node->textContent),
             'para' => new ParagraphElement(),
-            'title' => new TitleElement($node->textContent, $this->titleLevel),
+            'title', 'refname' => new TitleElement($node->textContent, $this->titleLevel),
             'note' => new NoteElement($node->textContent),
             'warning' => new WarningElement($node->textContent),
             'example' => new ExampleElement($node->textContent),
-            'itemizedlist' => new ListElement(),
-            'listitem' => new ListItemElement(),
-            'code', 'literal', 'classname', 'function', 'type', 'constant' => new InlineCodeElement($node->textContent),
+            'itemizedlist', 'simplelist' => new ListElement(),
+            'listitem', 'member' => new ListItemElement(),
+            'code', 'literal', 'classname', 'function', 'type', 'constant', 'parameter' => new InlineCodeElement($node->textContent),
+            'methodsynopsis' => new MethodSynopsisElement($node),
             'screen', 'programlisting' => new CodeElement(
                 $node->textContent,
                 $node instanceof \Dom\Element ? $node->getAttribute('role') : 'php',
@@ -104,7 +108,11 @@ final class PhpDocsParser
             'link' => $node instanceof \Dom\Element
                 ? new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href'))
                 : new LinkElement($node->textContent, null),
-            'chapter', 'reference', 'sect2', 'sect1', '#document', 'informalexample', 'partintro', 'section' => new NestedElement(),
+            'varlistentry' => new VarListEntryElement(),
+            'term' => new TermElement(),
+            'refentry', 'chapter', 'reference', 'sect2', 'sect1', '#document',
+            'informalexample', 'partintro', 'section', 'refsect1', 'refnamediv',
+            'variablelist' => new NestedElement(),
             'titleabbrev', '#comment', 'phpdoc' => new VoidElement(),
             default => new DefaultElement($node->nodeName, $node->textContent),
         };

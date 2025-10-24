@@ -18,9 +18,20 @@ final class PhpDocsController
 
 //        ld($categories);
 
-        return \Tempest\view('php-docs-index.view.php');
+        $keyword = 'array';
+        $matches = Index::select()
+            ->where(
+                'title LIKE ? OR uri LIKE ?',
+                "%{$keyword}%",
+                "%{$keyword}%",
+            )
+            ->where('title <> ""')
+            ->paginate(10)->data;
+
+        return \Tempest\view('php-docs-index.view.php', matches: $matches, keyword: $keyword);
     }
 
+    #[Get('/php/search')]
     #[Post('/php/search')]
     public function search(Request $request): View
     {
@@ -30,13 +41,18 @@ final class PhpDocsController
 
         if ($keyword) {
             $matches = Index::select()
-                ->where('title LIKE ?', "%{$keyword}%")
-                ->orWhere('uri LIKE ?', "%{$keyword}%")
-                ->paginate()->data;
+                ->where(
+                    'title LIKE ? OR uri LIKE ?',
+                    "%{$keyword}%",
+                    "%{$keyword}%",
+                )
+                ->where('title <> ""')
+                ->paginate(10)->data;
         }
 
         return \Tempest\view(
             'x-php-search-results.view.php',
+            keyword: $keyword,
             matches: $matches,
         );
     }

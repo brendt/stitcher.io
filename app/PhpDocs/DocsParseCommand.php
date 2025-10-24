@@ -70,7 +70,7 @@ final class DocsParseCommand
 
         Index::updateOrCreate(
             [
-                'uri' => $slug,
+                'uri' => ltrim($slug, '/'),
             ],
             [
                 'title' => $title,

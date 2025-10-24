@@ -34,7 +34,8 @@ $meta->canonical ??= null;
 </head>
 <body class="antialiased relative">
 
-<div id="command-palette"></div>
+<x-php-search />
+
 <div class="bg-gray-100 m-2 sm:m-0 p-0 sm:p-2 md:p-4 rounded-md sm:shadow-lg relative">
     <x-slot/>
 </div>
