@@ -98,7 +98,7 @@ $meta->canonical ??= null;
     </div>
 </div>
 
-<div class="col-span-2 overflow-y-auto gap-4 max-h-full fixed pb-16 hidden md:grid">
+<div class="col-span-2 overflow-y-auto gap-4 max-h-full fixed pb-16 pt-8 pl-4 hidden md:grid">
     <x-slot name="left"/>
 </div>
 
