@@ -1,0 +1,30 @@
+:root {
+    --color-primary: var(--color-php);
+}
+
+.php-varlistentry {
+    display: grid;
+    gap: .5em;
+}
+
+.php-varlistentry .php-term {
+    font-weight: bold;
+}
+
+.php-member,
+.php-listitem {
+    display: grid;
+    gap: .5em;
+    margin-left: 1em;
+}
+
+ul .php-member,
+ul .php-listitem {
+    display: list-item;
+    list-style-type: disc;
+
+    & + .php-member,
+    & + .php-listitem {
+        margin-top: .4em;
+    }
+}

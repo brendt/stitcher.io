@@ -3,23 +3,24 @@
 
 @theme {
     --color-primary: #fe2977;
-    --color-php: #4F5B93;
-    --color-php-light: #7A86B8;
     --color-pastel: #fcf4f5;
 
     --font-sans: "Avenir", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-serif: Menlo, Monaco, "Ubuntu Mono", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-    --ui-bg: var(--color-white);
-    --ui-bg-muted: var(--color-slate-50);
-    --ui-bg-elevated: var(--color-neutral-50);
-    --ui-bg-accented: var(--color-neutral-200);
-    --ui-bg-inverted: var(--color-neutral-900);
+    --color-php: #4F5B93;
+    --color-php-light: #7A86B8;
+
+    --color-ui: var(--color-white);
+    --color-ui-accented: var(--color-gray-100);
+    --color-ui-muted: var(--color-slate-50);
+    --color-ui-elevated: var(--color-neutral-50);
+    --color-ui-inverted: var(--color-neutral-900);
 }
 
 pre {
-    background-color: var(--color-gray-100);
+    background-color: var(--color-ui-accented);
     padding: 1em;
     font-size: 0.9rem;
     overflow-x: auto;
@@ -29,7 +30,7 @@ pre {
 
 code {
     font-size: 0.9em;
-    background-color: var(--color-gray-100);
+    background-color: var(--color-ui-accented);
     padding: 3px 5px;
     border-radius: 0.1em;
     word-break: break-word;
@@ -175,29 +176,5 @@ img + img {
     img[src$=".svg"] {
         max-height: 50vh;
         margin: 0 auto;
-    }
-}
-
-.php-var-list {
-    display: grid;
-    gap: .5em;
-}
-
-.php-var-list .php-term {
-    font-weight: bold;
-}
-
-.php-list-item {
-    display: grid;
-    gap: .5em;
-    margin-left: 1em;
-}
-
-ul .php-list-item {
-    display: list-item;
-    list-style-type: disc;
-
-    & + .php-list-item {
-        margin-top: .4em;
     }
 }

@@ -20,7 +20,7 @@ final class DocsParseCommand
     {
         $outputBase = __DIR__ . '/md/';
 
-        if (is_dir($outputBase)) {
+        if (is_dir($outputBase) && $filter === null) {
             delete($outputBase);
         }
 

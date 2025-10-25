@@ -18,7 +18,7 @@ $meta->canonical ??= null;
 ?>
 
 <!doctype html>
-<html lang="en" class="h-dvh flex flex-col md:p-4 bg-php">
+<html lang="en" class="h-dvh flex flex-col md:p-4 bg-ui">
 <head>
     <!-- General -->
     <title :if="$title">{{ $title }} | Stitcher.io</title>
@@ -30,17 +30,63 @@ $meta->canonical ??= null;
     <!-- Assets -->
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
     <x-vite-tags/>
+    <x-vite-tags entrypoint="app/PhpDocs/php-docs.css"/>
+
     <x-slot name="head"/>
 </head>
 <body class="antialiased relative">
 
-<x-php-search />
+<x-php-search/>
 
-<div class="bg-gray-100 m-2 sm:m-0 p-0 sm:p-2 md:p-4 rounded-md sm:shadow-lg relative">
-    <x-slot/>
+<div class="fixed w-full">
+    <div class="bg-php/50 p-4 max-w-[1200px] mx-auto rounded-md shadow-md backdrop-blur flex items-center gap-4 justify-between">
+        <div class="flex items-center gap-4">
+            <a href="/php">
+                <x-icon name="logos:php-alt" class="size-10 fill-white"/>
+            </a>
+
+            <div class="flex gap-2  items-center">
+                <x-template :foreach="$breadcrumbs->loop() as $href => $name">
+                    <span :if="$breadcrumbs->isLast" class="font-bold text-ui-accented p-2 rounded-md ">{{ $name }}</span>
+                    <a :else :href="$href" class="bg-ui-accented p-2 rounded-md text-sm hover:bg-php-light hover:text-white cursor-pointer font-bold">
+                        {{ $name }}
+                    </a>
+                </x-template>
+            </div>
+        </div>
+
+        <div>
+            <div
+                    id="search-trigger"
+                    class="
+                        flex items-center gap-2
+                        bg-ui-accented p-2 rounded-md text-sm hover:bg-php-light hover:text-white cursor-pointer font-bold
+                    "
+            >
+                <span>cmd + k</span>
+                <x-icon name="oui:search" class="size-3 fill-php"/>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="grid grid-cols-12 gap-4 mt-32">
+    <div class="col-span-2">
+        <x-slot name="left"/>
+    </div>
+
+    <div class="col-span-8">
+        <x-slot/>
+    </div>
+
+    <div class="col-span-2">
+        <x-slot name="right"/>
+    </div>
+</div>
+
+
 <x-slot name="scripts"/>
+
 <script>
     document.body.addEventListener('htmx:configRequest', function (evt) {
         evt.detail.headers['x-xsrf-token'] = '{{ csrf_token() }}';

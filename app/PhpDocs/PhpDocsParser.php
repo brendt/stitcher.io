@@ -4,6 +4,7 @@ namespace App\PhpDocs;
 
 use App\PhpDocs\Elements\CodeElement;
 use App\PhpDocs\Elements\DefaultElement;
+use App\PhpDocs\Elements\DivElement;
 use App\PhpDocs\Elements\InlineCodeElement;
 use App\PhpDocs\Elements\LinkElement;
 use App\PhpDocs\Elements\ListElement;
@@ -96,7 +97,6 @@ final class PhpDocsParser
             'note' => new NoteElement($node->textContent),
             'warning' => new WarningElement($node->textContent),
             'itemizedlist', 'simplelist' => new ListElement(),
-            'listitem', 'member' => new ListItemElement(),
             'code', 'literal', 'classname', 'function', 'type', 'constant', 'parameter' => new InlineCodeElement($node->textContent),
             'methodsynopsis' => new MethodSynopsisElement($node),
             'screen', 'programlisting' => new CodeElement(
@@ -106,8 +106,7 @@ final class PhpDocsParser
             'link' => $node instanceof \Dom\Element
                 ? new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href'))
                 : new LinkElement($node->textContent, null),
-            'varlistentry' => new VarListEntryElement(),
-            'term' => new TermElement(),
+            'varlistentry', 'term', 'listitem', 'member' => new DivElement($node->nodeName),
             'refentry', 'chapter', 'reference', 'sect2', 'sect1', '#document',
             'informalexample', 'partintro', 'section', 'refsect1', 'refnamediv',
             'variablelist', 'example' => new NestedElement(),

@@ -4,7 +4,7 @@ use App\PhpDocs\PhpDocsController;
 ?>
 
 <div id="php-search-results">
-    <nav  class="grid gap-1 bg-white p-2 mx-5 rounded-b-md shadow-md" :if="($keyword ?? null)">
+    <nav  class="grid gap-1 bg-white p-2 rounded-b-md shadow-md" :if="($keyword ?? null)">
         <a
             :foreach="$matches as $match"
             :href="uri([PhpDocsController::class, 'show'], slug: ltrim($match->uri, '/'))"

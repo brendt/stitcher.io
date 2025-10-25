@@ -1,3 +1,16 @@
+function toggleSearch() {
+    const searchPopup = document.querySelector('#search-popup');
+    const search = document.querySelector('#search');
+
+    if (searchPopup.classList.contains('hidden')) {
+        searchPopup.classList.remove('hidden');
+        search.focus();
+        search.select();
+    } else {
+        searchPopup.classList.add('hidden');
+    }
+}
+
 document.addEventListener('keydown', (e) => {
     if (e.key !== 'k') {
         return;
@@ -10,16 +23,7 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const searchPopup = document.querySelector('#search-popup');
-    const search = document.querySelector('#search');
-
-    if (searchPopup.classList.contains('hidden')) {
-        searchPopup.classList.remove('hidden');
-        search.focus();
-        search.select();
-    } else {
-        searchPopup.classList.add('hidden');
-    }
+    toggleSearch();
 });
 
 document.addEventListener('keydown', (e) => {
@@ -33,6 +37,12 @@ document.addEventListener('keydown', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    const searchTrigger = document.querySelector('#search-trigger');
+
+    searchTrigger.addEventListener('click', () => {
+        toggleSearch();
+    })
+
     const search = document.querySelector('#search');
 
     search.addEventListener('keydown', function (e) {
