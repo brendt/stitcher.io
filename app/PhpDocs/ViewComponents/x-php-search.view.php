@@ -2,6 +2,7 @@
         id="search-popup"
         class="
             backdrop-blur-sm
+            bg-php-light/10
             fixed  z-[100] top-0 left-0 h-full w-full
             flex flex-col justify-center
             hidden

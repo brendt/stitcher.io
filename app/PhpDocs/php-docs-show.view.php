@@ -1,3 +1,5 @@
 <x-php-base>
-    <x-markdown :content="$content"/>
+    <article>
+        <x-markdown :content="$content"/>
+    </article>
 </x-php-base>`

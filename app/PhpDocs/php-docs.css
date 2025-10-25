@@ -28,3 +28,9 @@ ul .php-listitem {
         margin-top: .4em;
     }
 }
+
+article {
+    & * + * {
+        margin-top: 1em;
+    }
+}
