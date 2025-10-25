@@ -96,4 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         results[nextIndex].setAttribute('data-selected', '');
     });
+
+    document.getElementById('toggle-theme').addEventListener('click', () => {
+        toggleDarkMode();
+    });
 });

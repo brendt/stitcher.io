@@ -9,6 +9,7 @@ use Tempest\Router\Post;
 use Tempest\View\View;
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
+use function Tempest\Support\path;
 
 final class PhpDocsController
 {
@@ -46,38 +47,50 @@ final class PhpDocsController
             base: '/php/',
         );
 
-        $keyword = 'array';
-        $matches = Index::select()
-            ->where(
-                'title LIKE ? OR uri LIKE ?',
-                "%{$keyword}%",
-                "%{$keyword}%",
-            )
-            ->where('title <> ""')
-            ->paginate(10)->data;
+//        $keyword = 'array';
+//        $matches = Index::select()
+//            ->where(
+//                'title LIKE ? OR uri LIKE ?',
+//                "%{$keyword}%",
+//                "%{$keyword}%",
+//            )
+//            ->where('title <> ""')
+//            ->paginate(10)->data;
 
         return \Tempest\view(
             'php-docs-directory.view.php',
             files: $files,
             breadcrumbs: $breadcrumbs,
-            matches: $matches,
-            keyword: $keyword,
+            matches: $matches ?? [],
+            keyword: $keyword ?? null,
         );
     }
 
     private function file(string $slug): View
     {
-        $markdown = file_get_contents(__DIR__ . '/md/' . $slug . '.md');
+        $path = __DIR__ . '/md/' . $slug . '.md';
+
+        $markdown = file_get_contents($path);
 
         $breadcrumbs = new Breadcrumbs(
             path: $slug,
             base: '/php/',
         );
 
+        $related = arr(glob(pathinfo($path, PATHINFO_DIRNAME) . '/*'))
+            ->mapWithKeys(function (string $path) {
+                $slug = str_replace([__DIR__ . '/md/', '.md'], '', $path);
+
+                $slug = ltrim($slug, '/');
+
+                yield uri([self::class, 'show'], slug: $slug) => pathinfo($slug, PATHINFO_FILENAME);
+            });
+
         return \Tempest\view(
             'php-docs-show.view.php',
             content: $markdown,
             breadcrumbs: $breadcrumbs,
+            related: $related,
         );
     }
 

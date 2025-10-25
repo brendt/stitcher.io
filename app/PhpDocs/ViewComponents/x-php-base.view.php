@@ -59,15 +59,15 @@ $meta->canonical ??= null;
 <x-php-search :matches="$matches ?? []" :keyword="$keyword ?? null"/>
 
 <div class="fixed w-full">
-    <div class="bg-(--ui-php)/60 p-4 max-w-[1200px] mx-auto rounded-md shadow-md backdrop-blur flex items-center gap-4 justify-between">
+    <div class="bg-(--ui-php)/60 p-4 max-w-[1200px] mx-auto md:rounded-md shadow-md backdrop-blur flex items-center gap-4 justify-between">
         <div class="flex items-center gap-4">
             <a href="/php">
                 <x-icon name="logos:php-alt" class="size-10 fill-white"/>
             </a>
 
-            <div class="flex gap-2  items-center">
+            <div class="gap-2  items-center hidden md:flex">
                 <x-template :foreach="$breadcrumbs->loop() as $href => $name">
-                    <span :if="$breadcrumbs->isLast" class="font-bold text-(--ui-white) p-2 rounded-md ">{{ $name }}</span>
+                    <span :if="$breadcrumbs->isLast" class="text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm cursor-default font-bold">{{ $name }}</span>
                     <a :else :href="$href" class="text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold">
                         {{ $name }}
                     </a>
@@ -76,14 +76,6 @@ $meta->canonical ??= null;
         </div>
 
         <div class="flex gap-2 items-center">
-            <button id="toggle-theme" class="
-                overflow-hidden transition hover:text-(--ui-primary)
-                flex items-center gap-2
-                text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold
-            ">
-                <x-icon name="tabler:moon" class="size-5 dark:opacity-0 dark:translate-y-full duration-200"/>
-            </button>
-
             <div
                     id="search-trigger"
                     class="
@@ -94,20 +86,30 @@ $meta->canonical ??= null;
                 <span>cmd + k</span>
                 <x-icon name="oui:search" class="size-3 fill-php"/>
             </div>
+
+            <button id="toggle-theme" class="
+                overflow-hidden transition hover:text-(--ui-primary)
+                flex items-center gap-2
+                text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold
+            ">
+                <x-icon name="tabler:moon" class="size-5 dark:opacity-0 dark:translate-y-full duration-200"/>
+            </button>
         </div>
     </div>
 </div>
 
-<div class="grid grid-cols-12 gap-4 mt-32">
-    <div class="col-span-2">
-        <x-slot name="left"/>
-    </div>
+<div class="col-span-2 overflow-y-auto gap-4 max-h-full fixed pb-16 hidden md:grid">
+    <x-slot name="left"/>
+</div>
 
-    <div class="col-span-8">
+<div class="grid md:grid-cols-12 gap-4 mt-32 mb-32 px-4">
+    <div class="hidden md:block md:col-span-2"></div>
+
+    <div class="sm:px-0 w-full md:col-span-8">
         <x-slot/>
     </div>
 
-    <div class="col-span-2">
+    <div class="hidden md:block md:col-span-2">
         <x-slot name="right"/>
     </div>
 </div>

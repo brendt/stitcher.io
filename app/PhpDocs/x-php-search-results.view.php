@@ -4,7 +4,7 @@ use App\PhpDocs\PhpDocsController;
 ?>
 
 <div id="php-search-results">
-    <nav  class="grid gap-1 bg-(--ui-php)/50 p-2 rounded-md shadow-md" :if="($keyword ?? null)">
+    <nav  class="grid gap-1 bg-(--ui-php)/60 p-2 rounded-md shadow-md" :if="($keyword ?? null)">
         <a
             :foreach="$matches as $match"
             :href="uri([PhpDocsController::class, 'show'], slug: ltrim($match->uri, '/'))"
@@ -16,8 +16,12 @@ use App\PhpDocs\PhpDocsController;
 
                 p-2 px-3 rounded-md
                 font-bold
+                grid
             "
-        >{{ $match->title }}</a>
+        >
+            {{ $match->title }}
+            <span class="text-(--ui-text-secondary) text-xs">{{ $match->uri }}</span>
+        </a>
         <div :forelse class="flex justify-center py-2 text-gray-500">
             No results
         </div>

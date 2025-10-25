@@ -16,7 +16,7 @@
         --ui-php-light: #7A86B8;
         --ui-text: var(--color-neutral-900);
         --ui-white: var(--color-neutral-50);
-        --ui-text-secondary: var(--color-neutral-500);
+        --ui-text-secondary: var(--color-slate-200);
         --ui-bg: var(--color-white);
         --ui-bg-secondary: var(--color-gray-100);
     }
@@ -25,7 +25,7 @@
         --ui-php: #4F5B93;
         --ui-php-light: #7A86B8;
         --ui-text: var(--color-neutral-50);
-        --ui-text-secondary: var(--color-neutral-200);
+        --ui-text-secondary: var(--color-slate-200);
         --ui-bg: var(--color-slate-700);
         --ui-bg-secondary: var(--color-slate-600);
     }

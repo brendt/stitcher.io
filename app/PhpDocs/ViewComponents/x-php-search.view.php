@@ -2,9 +2,10 @@
         id="search-popup"
         class="
             backdrop-blur-sm
-            bg-(--ui-php-light)/15
+            md:bg-(--ui-php-light)/15
             fixed  z-[100] top-0 left-0 h-full w-full
             flex flex-col justify-center
+            pt-4 md:pt-0
             hidden
         "
 >
@@ -17,7 +18,7 @@
                            mx-5
                            md:mx-0
                             p-4 text-lg
-                            bg-(--ui-php)/50
+                            bg-(--ui-php)/60
                             text-(--ui-white)
                             md:shadow-xl
                             focus:shadow-md focus:outline-0

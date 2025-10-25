@@ -106,7 +106,7 @@ final class PhpDocsParser
             'link' => $node instanceof \Dom\Element
                 ? new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href'))
                 : new LinkElement($node->textContent, null),
-            'varlistentry', 'term', 'listitem', 'member' => new DivElement($node->nodeName),
+            'varlistentry', 'term', 'listitem', 'member', 'caution' => new DivElement($node->nodeName),
             'refentry', 'chapter', 'reference', 'sect2', 'sect1', '#document',
             'informalexample', 'partintro', 'section', 'refsect1', 'refnamediv',
             'variablelist', 'example' => new NestedElement(),
