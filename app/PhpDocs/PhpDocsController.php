@@ -3,15 +3,12 @@
 namespace App\PhpDocs;
 
 use Tempest\Http\Request;
-use Tempest\Http\Response;
-use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\View\View;
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
-use function Tempest\Support\str;
 
 final class PhpDocsController
 {
@@ -49,10 +46,22 @@ final class PhpDocsController
             base: '/php/',
         );
 
+        $keyword = 'array';
+        $matches = Index::select()
+            ->where(
+                'title LIKE ? OR uri LIKE ?',
+                "%{$keyword}%",
+                "%{$keyword}%",
+            )
+            ->where('title <> ""')
+            ->paginate(10)->data;
+
         return \Tempest\view(
             'php-docs-directory.view.php',
             files: $files,
             breadcrumbs: $breadcrumbs,
+            matches: $matches,
+            keyword: $keyword,
         );
     }
 

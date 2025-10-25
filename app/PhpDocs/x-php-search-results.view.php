@@ -4,15 +4,17 @@ use App\PhpDocs\PhpDocsController;
 ?>
 
 <div id="php-search-results">
-    <nav  class="grid gap-1 bg-white p-2 rounded-b-md shadow-md" :if="($keyword ?? null)">
+    <nav  class="grid gap-1 bg-(--ui-php)/50 p-2 rounded-md shadow-md" :if="($keyword ?? null)">
         <a
             :foreach="$matches as $match"
             :href="uri([PhpDocsController::class, 'show'], slug: ltrim($match->uri, '/'))"
             class="
                 search-result
-                bg-gray-50 p-2 px-3 rounded-md
-                data-[selected]:bg-php-light data-[selected]:text-white
-                hover:bg-php-light hover:text-white
+
+                text-(--ui-white)
+                hover:bg-(--ui-php) data-[selected]:bg-(--ui-php)
+
+                p-2 px-3 rounded-md
                 font-bold
             "
         >{{ $match->title }}</a>
