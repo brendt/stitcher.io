@@ -13,8 +13,11 @@ final readonly class LinkElement implements Element
 
     public function render(): string
     {
-        $href = $this->href ?? '#';
 
-        return "[$this->text]($href)";
+        return sprintf(
+            '<a href="%s">%s</a>',
+            $this->href ?? '#',
+            $this->text,
+        );
     }
 }

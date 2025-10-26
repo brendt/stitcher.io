@@ -18,11 +18,11 @@ final class DefaultElement implements Element, HasChildren
     {
 
         return sprintf(<<<'TXT'
-```txt
+<div class="php-unparsed">
 UNPARSED: %s
 
 %s
-```
+</div>
 TXT,
             $this->name,
             $this->textContent ?? '',

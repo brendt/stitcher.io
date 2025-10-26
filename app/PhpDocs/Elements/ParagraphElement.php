@@ -11,6 +11,6 @@ final class ParagraphElement implements Element, HasChildren
 
     public function render(): string
     {
-        return implode('', array_map(fn (Element $element) => $element->render(), $this->children));
+        return '<p>' . implode('', array_map(fn (Element $element) => $element->render(), $this->children)) . '</p>';
     }
 }

@@ -66,7 +66,7 @@ final class DocsParseCommand
 
     private function index(string $slug, string $parsed): void
     {
-        $title = str($parsed)->afterFirst('#')->before(PHP_EOL)->trim()->toString();
+        $title = str($parsed)->afterFirst('<h1>')->before('</h1>')->before(PHP_EOL)->trim()->toString();
 
         Index::updateOrCreate(
             [

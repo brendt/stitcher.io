@@ -4,11 +4,11 @@ namespace App\PhpDocs\Elements;
 
 use App\PhpDocs\Element;
 
-final class TitleElement implements Element
+final readonly class TitleElement implements Element
 {
     public function __construct(
-        private readonly string $title,
-        private readonly int $level,
+        private string $title,
+        private int $level,
     ) {}
 
     public function render(): string
@@ -16,10 +16,10 @@ final class TitleElement implements Element
         $title = trim($this->title);
 
         $level = match ($this->level) {
-            1 => '#',
-            default => '##',
+            1 => '1',
+            default => '2',
         };
 
-        return "{$level} {$title}";
+        return sprintf('<h%s>%s</h%s>', $level, $title, $level);
     }
 }

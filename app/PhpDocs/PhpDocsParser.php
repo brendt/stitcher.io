@@ -8,20 +8,18 @@ use App\PhpDocs\Elements\DivElement;
 use App\PhpDocs\Elements\InlineCodeElement;
 use App\PhpDocs\Elements\LinkElement;
 use App\PhpDocs\Elements\ListElement;
-use App\PhpDocs\Elements\ListItemElement;
 use App\PhpDocs\Elements\NestedElement;
-use App\PhpDocs\Elements\NoteElement;
 use App\PhpDocs\Elements\ParagraphElement;
 use App\PhpDocs\Elements\MethodSynopsisElement;
-use App\PhpDocs\Elements\TermElement;
+use App\PhpDocs\Elements\SimpleParagraphElement;
 use App\PhpDocs\Elements\TextElement;
 use App\PhpDocs\Elements\TitleElement;
-use App\PhpDocs\Elements\VarListEntryElement;
 use App\PhpDocs\Elements\VoidElement;
 use App\PhpDocs\Elements\WarningElement;
 use Dom\Node;
 use Dom\XMLDocument;
 use DOMException;
+use Tempest\Highlight\Highlighter;
 
 final class PhpDocsParser
 {
@@ -29,7 +27,9 @@ final class PhpDocsParser
     private string $path;
     private int $titleLevel = 1;
 
-    public function __construct()
+    public function __construct(
+        private Highlighter $highlighter,
+    )
     {
         $entityFiles = glob(__DIR__ . '/xml/**.ent');
         $entityFiles[] = __DIR__ . '/global/global.ent';
@@ -91,22 +91,22 @@ final class PhpDocsParser
     private function parseNode(Node $node): Element
     {
         $element = match ($node->nodeName) {
-            'simpara', '#text', 'refpurpose' => new TextElement($node->textContent),
+            '#text', 'refpurpose' => new TextElement($node->textContent),
+            'simpara' => new SimpleParagraphElement($node->textContent),
             'para' => new ParagraphElement(),
             'title', 'refname' => new TitleElement($node->textContent, $this->titleLevel),
-            'note' => new NoteElement($node->textContent),
-            'warning' => new WarningElement($node->textContent),
             'itemizedlist', 'simplelist' => new ListElement(),
-            'code', 'literal', 'classname', 'function', 'type', 'constant', 'parameter' => new InlineCodeElement($node->textContent),
-            'methodsynopsis' => new MethodSynopsisElement($node),
+            'code', 'literal', 'classname', 'function', 'type', 'constant', 'parameter' => new InlineCodeElement($node->textContent, $this->highlighter),
+            'methodsynopsis' => new MethodSynopsisElement($node, $this->highlighter),
             'screen', 'programlisting' => new CodeElement(
                 $node->textContent,
                 $node instanceof \Dom\Element ? $node->getAttribute('role') : 'php',
+                $this->highlighter,
             ),
             'link' => $node instanceof \Dom\Element
                 ? new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href'))
                 : new LinkElement($node->textContent, null),
-            'varlistentry', 'term', 'listitem', 'member', 'caution' => new DivElement($node->nodeName),
+            'varlistentry', 'term', 'listitem', 'member', 'caution', 'note', 'warning' => new DivElement($node->nodeName),
             'refentry', 'chapter', 'reference', 'sect2', 'sect1', '#document',
             'informalexample', 'partintro', 'section', 'refsect1', 'refnamediv',
             'variablelist', 'example' => new NestedElement(),

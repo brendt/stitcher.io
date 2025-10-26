@@ -6,11 +6,13 @@ use App\PhpDocs\Element;
 use App\PhpDocs\Elements\Synopsis\MethodNameElement;
 use App\PhpDocs\Elements\Synopsis\TypeElement;
 use Dom\Node;
+use Tempest\Highlight\Highlighter;
 
 final readonly class MethodSynopsisElement implements Element
 {
     public function __construct(
         private Node $node,
+        private Highlighter $highlighter,
     ) {}
 
     public function render(): string
@@ -29,19 +31,14 @@ final readonly class MethodSynopsisElement implements Element
             }
         }
 
-        return sprintf(<<<'TXT'
-            
-            
-            ```php
-            {:hl-property:%s:}(%s): {:hl-type:%s:}
-            ```
-            
-            
-            TXT,
+        $parsedCode = $this->highlighter->parse(sprintf(
+            '{:hl-property:%s:}(%s): {:hl-type:%s:}',
             $methodName,
             implode(', ', array_map(fn (MethodParamElement $methodParam) => $methodParam->render(), $methodParams)),
             $type,
-        );
+        ), 'php');
+
+        return "<pre>{$parsedCode}</pre>";
     }
 
     private function renderNode(Node $node): string
