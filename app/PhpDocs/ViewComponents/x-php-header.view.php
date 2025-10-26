@@ -18,15 +18,12 @@
             id="header"
     >
         <!-- Left side -->
-        <div class="flex items-center gap-4">
-            <a href="/" class="flex items-center gap-4">
-                <!-- Logo -->
-                <a href="/php">
-                    <x-icon name="logos:php-alt" class="size-10 fill-white"/>
-                </a>
+        <div class="flex items-center gap-2">
+            <a href="/php" class="mx-4">
+                <x-icon name="logos:php-alt" class="size-10 fill-white"/>
             </a>
             <x-template :foreach="$breadcrumbs->loop() as $href => $name">
-                <span :if="$breadcrumbs->isLast" class="text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm cursor-default font-bold hidden md:block">{{ $name }}</span>
+                <span :if="$breadcrumbs->isLast" class="text-(--ui-white) border-(--ui-php) border-b-2 p-1 mx-1 text-sm cursor-default font-bold hidden md:block">{{ $name }}</span>
                 <a :else :href="$href" class="text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold">
                     {{ $name }}
                 </a>
@@ -39,27 +36,25 @@
         </div>
 
         <!-- Right side -->
-        <div class="flex items-center gap-4 font-medium">
-            <div class="flex gap-2 items-center">
-                <div
+        <div class="flex items-center gap-2 font-medium">
+            <div
                     id="search-trigger"
                     class="
                         flex items-center gap-2
                         text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold
                     "
-                >
-                    <span>cmd + k</span>
-                    <x-icon name="oui:search" class="size-3 fill-php"/>
-                </div>
+            >
+                <span>cmd + k</span>
+                <x-icon name="oui:search" class="size-3 fill-php"/>
+            </div>
 
-                <button id="toggle-theme" class="
+            <button id="toggle-theme" class="
                             overflow-hidden transition hover:text-(--ui-primary)
                             flex items-center gap-2
                             text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold
                         ">
-                    <x-icon name="tabler:moon" class="size-5 dark:opacity-0 dark:translate-y-full duration-200"/>
-                </button>
-            </div>
+                <x-icon name="tabler:moon" class="size-5 dark:opacity-0 dark:translate-y-full duration-200"/>
+            </button>
         </div>
     </header>
 </div>

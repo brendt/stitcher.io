@@ -20,6 +20,25 @@
         --ui-bg: var(--color-white);
         --ui-bg-secondary: var(--color-gray-100);
 
+        --code-keyword: #4f95d1;
+        --code-property: #4cb966;
+        --code-type: #d14f57;
+        --code-generic: #9d3af6;
+        --code-value: #515248;
+        --code-comment: #888888;
+        --code-highlight: #22dddd33;
+        --code-addition: #00ff0022;
+        --code-deletion: #ff000011;
+        --code-gutter: #555555;
+        --code-gutter-addition: #34a853;
+        --code-gutter-deletion: #ea4334;
+        --code-moderate: #fef9c3;
+        --code-complex: #fee2e2;
+        --code-adverb: #e0f2fe;
+        --code-passive: #dcfce7;
+        --code-complex-phrase: #f3e8ff;
+        --code-qualified: #f1f5f9;
+
         --ui-header-height: --spacing(18);
         @media (width > 40rem) {
             --ui-header-height: --spacing(28);
@@ -31,8 +50,11 @@
         --ui-php-light: #7A86B8;
         --ui-text: var(--color-neutral-50);
         --ui-text-secondary: var(--color-slate-200);
-        --ui-bg: var(--color-slate-700);
-        --ui-bg-secondary: var(--color-slate-600);
+        --ui-bg: #37383F;
+        --ui-bg-secondary: #4B4E63;
+
+        --code-value: var(--color-white);
+        --code-type: #e27181;
     }
 }
 

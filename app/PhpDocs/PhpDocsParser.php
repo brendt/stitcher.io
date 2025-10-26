@@ -94,7 +94,7 @@ final class PhpDocsParser
     {
         $element = match ($node->nodeName) {
             '#text' => new TextElement($node->textContent),
-            'refpurpose', 'simpara' => new SimpleParagraphElement($node->textContent),
+            'simpara' => new SimpleParagraphElement($node->textContent),
             'para' => new ParagraphElement(),
             'title', 'refname' => new TitleElement($node->textContent, $this->titleLevel),
             'itemizedlist', 'simplelist' => new ListElement(),
@@ -109,9 +109,10 @@ final class PhpDocsParser
             'link' => $node instanceof \Dom\Element
                 ? new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href'))
                 : new LinkElement($node->textContent, null),
-            'varlistentry', 'term', 'listitem', 'caution', 'note', 'warning' => new DivElement($node->nodeName),
+            'refsect1' => new DivElement($node->getAttribute('role') ?? $node->nodeName),
+            'varlistentry', 'term', 'listitem', 'caution', 'note', 'warning', 'refpurpose' => new DivElement($node->nodeName),
             'refentry', 'chapter', 'reference', 'sect2', 'sect1', '#document',
-            'informalexample', 'partintro', 'section', 'refsect1', 'refnamediv',
+            'informalexample', 'partintro', 'section', 'refnamediv',
             'variablelist', 'example' => new NestedElement(),
             'titleabbrev', '#comment', 'phpdoc' => new VoidElement(),
             default => new DefaultElement($node->nodeName, $node->textContent),

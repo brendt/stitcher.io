@@ -60,10 +60,13 @@ $meta->canonical ??= null;
 <x-php-header />
 
 <main class="flex mx-auto px-4 xl:px-8 gap-4 grow mb-16">
+    {{--
     <div data-save-scroll="docs-sidebar" class="hidden lg:block top-28 sticky xl:px-6 pt-4 xl:w-[20rem] max-h-[calc(100dvh-var(--ui-header-height))] overflow-auto shrink-0">
-        <x-slot name="left"/>
+        <x-slot name="_left"/>
     </div>
-    <div class="w-full lg:w-[60%]">
+    --}}
+
+    <div class="w-full lg:max-w-[1200px] mx-auto">
         <x-slot/>
     </div>
 </main>

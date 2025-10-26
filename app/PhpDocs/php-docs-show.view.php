@@ -14,7 +14,7 @@
                 ">{{ $name }}</a>
         </nav>
     </x-slot>
-    <article>
+    <div class="php-content">
         {!! $content !!}
-    </article>
+    </div>
 </x-php-base>

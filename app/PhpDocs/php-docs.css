@@ -31,8 +31,64 @@ ul .php-listitem {
     }
 }
 
-article {
-    & * + * {
-        margin-top: 1em;
+code {
+    background-color: var(--ui-bg-secondary);
+    font-size: 0.9em;
+}
+
+
+.php-content {
+    display: grid;
+    gap: 1em;
+
+    & h1 {
+        font-weight: bold;
+        font-size: 2.5rem;
+    }
+}
+
+.php-refpurpose {
+    font-style: italic;
+}
+
+.php-seealso,
+.php-examples,
+.php-returnvalues,
+.php-refpurpose,
+.php-description,
+.php-parameters {
+    display: grid;
+    gap: .5em;
+
+    & > h2 {
+        margin-top: 0;
+    }
+
+    & + div {
+        margin-top: 1.5em;
+    }
+}
+
+.php-seealso {
+
+    & ul {
+        padding-left: 2em;
+    }
+}
+
+.php-seealso a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+
+    &:hover {
+        text-decoration: none;
+
+        & code {
+            background-color: var(--ui-php-light);
+        }
+    }
+
+    & span {
+        color: inherit;
     }
 }
