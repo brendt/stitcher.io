@@ -19,6 +19,11 @@
         --ui-text-secondary: var(--color-slate-200);
         --ui-bg: var(--color-white);
         --ui-bg-secondary: var(--color-gray-100);
+
+        --ui-header-height: --spacing(18);
+        @media (width > 40rem) {
+            --ui-header-height: --spacing(28);
+        }
     }
 
     .dark {
