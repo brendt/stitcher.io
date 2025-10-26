@@ -6,6 +6,6 @@
         </nav>
     </x-slot>
     <article>
-        <x-markdown :content="$content"/>
+        {!! $content !!}
     </article>
 </x-php-base>
