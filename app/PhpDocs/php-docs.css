@@ -18,11 +18,13 @@
     margin-left: 1em;
 }
 
+ul > a,
 ul .php-member,
 ul .php-listitem {
     display: list-item;
     list-style-type: disc;
 
+    & + a,
     & + .php-member,
     & + .php-listitem {
         margin-top: .4em;

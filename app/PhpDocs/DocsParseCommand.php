@@ -27,7 +27,7 @@ final class DocsParseCommand
         $inputBase = __DIR__ . '/xml/';
 
         if ($filter) {
-            $files = glob($inputBase . '/' . $filter . '*.xml');
+            $files = glob($inputBase . $filter . '*.xml');
         } else {
             $files = glob($inputBase . '{,*/,*/*/,*/*/*/}*.xml', GLOB_BRACE);
         }
@@ -36,7 +36,9 @@ final class DocsParseCommand
         $failed = 0;
 
         foreach ($files as $inputPath) {
-            $parsed = $this->parser->parse($inputPath);
+            $slug = str_replace([$inputBase, '.xml'], '', $inputPath);
+
+            $parsed = $this->parser->parse($slug, $inputPath);
 
             if (! $parsed) {
                 $this->error($inputPath);
