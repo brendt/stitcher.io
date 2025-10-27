@@ -88,12 +88,15 @@ final class PhpDocsController
 
         $originalUri = 'https://php.net/manual/en/' . str_replace('/', '.', ltrim($slug, '/')) . '.php';
 
+        $index = Index::select()->where('uri', $slug)->first();
+
         return \Tempest\view(
             'php-docs-show.view.php',
             content: $markdown,
             breadcrumbs: $breadcrumbs,
             related: $related,
             originalUri: $originalUri,
+            index: $index,
         );
     }
 

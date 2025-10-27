@@ -93,12 +93,12 @@ final class PhpDocsParser
     private function parseNode(Node $node): Element
     {
         $element = match ($node->nodeName) {
-            '#text' => new TextElement($node->textContent),
+            '#text', 'acronym' => new TextElement($node->textContent),
             'simpara' => new SimpleParagraphElement($node->textContent),
             'para' => new ParagraphElement(),
             'title', 'refname' => new TitleElement($node->textContent, $this->titleLevel),
             'itemizedlist', 'simplelist' => new ListElement(),
-            'code', 'literal', 'classname', 'function', 'type', 'constant', 'parameter' => new InlineCodeElement($node->textContent, $this->highlighter),
+            'code', 'literal', 'classname', 'function', 'type', 'constant', 'parameter', 'filename' => new InlineCodeElement($node->textContent, $this->highlighter),
             'methodsynopsis' => new MethodSynopsisElement($node, $this->highlighter),
             'member' => new MemberElement($this->slug, $node),
             'screen', 'programlisting' => new CodeElement(
@@ -108,11 +108,16 @@ final class PhpDocsParser
             ),
             'link' => new LinkElement($node),
             'refsect1' => new DivElement($node->getAttribute('role') ?? $node->nodeName),
-            'varlistentry', 'term', 'listitem', 'caution', 'note', 'warning', 'refpurpose' => new DivElement($node->nodeName),
+
+            'varlistentry', 'term', 'listitem', 'caution', 'note', 'warning', 'refpurpose',
+            'appendix', 'info' => new DivElement($node->nodeName),
+
             'refentry', 'chapter', 'reference', 'sect2', 'sect1', '#document',
             'informalexample', 'partintro', 'section', 'refnamediv',
             'variablelist', 'example' => new NestedElement(),
+
             'titleabbrev', '#comment', 'phpdoc' => new VoidElement(),
+
             default => new DefaultElement($node->nodeName, $node->textContent),
         };
 

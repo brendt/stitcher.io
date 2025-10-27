@@ -1,4 +1,4 @@
-<x-php-base>
+<x-php-base :title="$index?->title ?? null">
     <x-slot name="left">
         <span class="font-semibold text-(--ui-text)">
             Related

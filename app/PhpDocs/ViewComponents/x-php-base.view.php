@@ -21,8 +21,8 @@ $meta->canonical ??= null;
 <html lang="en" class="h-dvh">
 <head>
     <!-- General -->
-    <title :if="$title">{{ $title }} | Stitcher.io</title>
-    <title :else>Stitcher.io</title>
+    <title :if="$title">{{ $title }} | PHP docs (unofficial)</title>
+    <title :else>PHP docs (unofficial)</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 
@@ -46,6 +46,11 @@ $meta->canonical ??= null;
 
         applyTheme();
     </script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-php/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-php/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-php/favicon-16x16.png">
+    <link rel="manifest" href="/favicon-php/site.webmanifest">
 
     <!-- Assets -->
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
