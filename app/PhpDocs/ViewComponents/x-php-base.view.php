@@ -56,7 +56,7 @@ $meta->canonical ??= null;
 </head>
 <body class="antialiased relative bg-(--ui-bg) text-(--ui-text)">
 
-<div class="bg-red-200 text-center text-sm p-1 text-black w-full fixed top-0">
+<div class="bg-[#793862] text-center text-sm p-1 text-white w-full fixed top-0">
     This is a work-in-progess redesign of the official PHP docs.
 </div>
 

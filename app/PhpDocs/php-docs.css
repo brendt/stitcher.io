@@ -92,3 +92,7 @@ code {
         color: inherit;
     }
 }
+
+ul {
+    margin-left: 2em;
+}

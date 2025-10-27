@@ -51,7 +51,7 @@
         --ui-text: var(--color-neutral-50);
         --ui-text-secondary: var(--color-slate-200);
         --ui-bg: #37383F;
-        --ui-bg-secondary: #4B4E63;
+        --ui-bg-secondary: rgba(75, 78, 99, 0.55);
 
         --code-value: var(--color-white);
         --code-type: #e27181;
