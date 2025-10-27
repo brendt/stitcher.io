@@ -58,6 +58,22 @@
                     <x-icon name="tabler:moon" class="size-4 dark:opacity-0 dark:translate-y-full duration-200"/>
                 </div>
             </button>
+
+            <a :if="($originalUri ?? null)"
+                :href="$originalUri"
+                target="_blank" rel="noopener noreferrer"
+                class="
+                    hidden sm:flex
+                    overflow-hidden transition hover:text-(--ui-primary)
+                    items-center gap-2
+                    text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold
+                "
+                title="View original source"
+            >
+                <div class="size-5 flex justify-center items-center">
+                    <x-icon name="simple-icons:php" class="size-6 dark:opacity-0 dark:translate-y-full duration-200"/>
+                </div>
+            </a>
         </div>
     </header>
 </div>

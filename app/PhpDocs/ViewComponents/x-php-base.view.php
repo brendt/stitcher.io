@@ -57,7 +57,7 @@ $meta->canonical ??= null;
 <body class="antialiased relative bg-(--ui-bg) text-(--ui-text)">
 
 <div class="bg-[#793862] text-center text-sm p-1 text-white w-full fixed top-0">
-    This is a work-in-progess redesign of the official PHP docs.
+    This is a third-party work-in-progess redesign of the official PHP docs.
 </div>
 
 <x-php-search :matches="$matches ?? []" :keyword="$keyword ?? null"/>

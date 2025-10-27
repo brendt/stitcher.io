@@ -86,11 +86,14 @@ final class PhpDocsController
                 yield uri([self::class, 'show'], slug: $slug) => pathinfo($slug, PATHINFO_FILENAME);
             });
 
+        $originalUri = 'https://php.net/manual/en/' . str_replace('/', '.', ltrim($slug, '/')) . '.php';
+
         return \Tempest\view(
             'php-docs-show.view.php',
             content: $markdown,
             breadcrumbs: $breadcrumbs,
             related: $related,
+            originalUri: $originalUri,
         );
     }
 
