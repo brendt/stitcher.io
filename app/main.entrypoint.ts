@@ -100,4 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('toggle-theme').addEventListener('click', () => {
         toggleDarkMode();
     });
+
+    const searchPopup = document.querySelector('#search-popup');
+    searchPopup.addEventListener('click', function (e) {
+        if (e.target === searchPopup) {
+            e.stopPropagation()
+            e.preventDefault();
+            toggleSearch();
+        }
+    });
+
 });

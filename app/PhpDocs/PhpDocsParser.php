@@ -100,15 +100,13 @@ final class PhpDocsParser
             'itemizedlist', 'simplelist' => new ListElement(),
             'code', 'literal', 'classname', 'function', 'type', 'constant', 'parameter' => new InlineCodeElement($node->textContent, $this->highlighter),
             'methodsynopsis' => new MethodSynopsisElement($node, $this->highlighter),
-            'member' => new MemberElement($this->slug),
+            'member' => new MemberElement($this->slug, $node),
             'screen', 'programlisting' => new CodeElement(
                 $node->textContent,
                 $node instanceof \Dom\Element ? $node->getAttribute('role') : 'php',
                 $this->highlighter,
             ),
-            'link' => $node instanceof \Dom\Element
-                ? new LinkElement($node->textContent, $node->getAttribute('linkend') ?? $node->getAttribute('xlink:href'))
-                : new LinkElement($node->textContent, null),
+            'link' => new LinkElement($node),
             'refsect1' => new DivElement($node->getAttribute('role') ?? $node->nodeName),
             'varlistentry', 'term', 'listitem', 'caution', 'note', 'warning', 'refpurpose' => new DivElement($node->nodeName),
             'refentry', 'chapter', 'reference', 'sect2', 'sect1', '#document',

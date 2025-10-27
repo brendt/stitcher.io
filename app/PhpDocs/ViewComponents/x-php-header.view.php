@@ -1,5 +1,5 @@
 <!-- Header -->
-<div class="flex flex-col inset-x-0 items-center lg:justify-center z-[1] h-(--ui-header-height)">
+<div class="flex flex-col inset-x-0 items-center lg:justify-center z-[1] h-(--ui-header-height) mt-7">
     <header
             class="
             group
@@ -8,7 +8,7 @@
             lg:rounded-md
             lg:-translate-y-2
              py-4 px-4
-             flex items-center justify-between
+             flex items-center justify-between gap-2
              duration-200
              lg:data-[scrolling]:translate-y-2
              data-[scrolling]:ring-(--ui-php)/90
@@ -31,9 +31,7 @@
         </div>
 
         <!-- Center -->
-        <div class="flex items-center gap-4">
-            <!--            <x-search/>-->
-        </div>
+        <div class="flex items-center gap-4"></div>
 
         <!-- Right side -->
         <div class="flex items-center gap-2 font-medium">
@@ -44,16 +42,21 @@
                         text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold
                     "
             >
-                <span>cmd + k</span>
-                <x-icon name="oui:search" class="size-3 fill-php"/>
+                <span class="hidden sm:inline">cmd + k</span>
+                <div class="size-5 flex justify-center items-center">
+                    <x-icon name="oui:search" class="size-4 fill-php"/>
+                </div>
             </div>
 
             <button id="toggle-theme" class="
-                            overflow-hidden transition hover:text-(--ui-primary)
-                            flex items-center gap-2
-                            text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold
-                        ">
-                <x-icon name="tabler:moon" class="size-5 dark:opacity-0 dark:translate-y-full duration-200"/>
+                hidden sm:flex
+                overflow-hidden transition hover:text-(--ui-primary)
+                items-center gap-2
+                text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold
+            ">
+                <div class="size-5 flex justify-center items-center">
+                    <x-icon name="tabler:moon" class="size-4 dark:opacity-0 dark:translate-y-full duration-200"/>
+                </div>
             </button>
         </div>
     </header>

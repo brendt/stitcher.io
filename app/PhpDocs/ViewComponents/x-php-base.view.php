@@ -18,7 +18,7 @@ $meta->canonical ??= null;
 ?>
 
 <!doctype html>
-<html lang="en" class="h-dvh flex flex-col md:p-4">
+<html lang="en" class="h-dvh">
 <head>
     <!-- General -->
     <title :if="$title">{{ $title }} | Stitcher.io</title>
@@ -56,10 +56,14 @@ $meta->canonical ??= null;
 </head>
 <body class="antialiased relative bg-(--ui-bg) text-(--ui-text)">
 
+<div class="bg-red-200 text-center text-sm p-1 text-black w-full fixed top-0">
+    This is a work-in-progess redesign of the official PHP docs.
+</div>
+
 <x-php-search :matches="$matches ?? []" :keyword="$keyword ?? null"/>
 <x-php-header />
 
-<main class="flex mx-auto px-4 xl:px-8 gap-4 grow mb-16">
+<main class="flex mx-auto px-4 xl:px-8 gap-4 grow mb-16 mt-4 md:mt-0">
     {{--
     <div data-save-scroll="docs-sidebar" class="hidden lg:block top-28 sticky xl:px-6 pt-4 xl:w-[20rem] max-h-[calc(100dvh-var(--ui-header-height))] overflow-auto shrink-0">
         <x-slot name="_left"/>

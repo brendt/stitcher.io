@@ -5,6 +5,7 @@ namespace App\PhpDocs\Elements;
 use App\PhpDocs\Element;
 use App\PhpDocs\HasChildren;
 use App\PhpDocs\PhpDocsController;
+use Dom\Node;
 use function Tempest\Router\uri;
 use function Tempest\Support\path;
 
@@ -14,10 +15,16 @@ final class MemberElement implements Element, HasChildren
 
     public function __construct(
         private string $currentSlug,
+        private Node $node,
     ) {}
 
     public function render(): string
     {
+        if ($this->node->firstChild?->nodeName === 'link') {
+            return new LinkElement($this->node->firstChild)->render();
+        }
+
+
         $path = pathinfo($this->currentSlug, PATHINFO_DIRNAME);
 
         $child = implode('', array_map(fn (Element $element) => $element->render(), $this->children));
