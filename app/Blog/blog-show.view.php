@@ -1,10 +1,10 @@
-<x-base :meta="$post->meta ?? null">
+<x-base :meta="$post->meta ?? null" :title="$post->title">
     <x-container class="grid gap-4">
         <x-menu />
 
         <x-article>
             <div>
-                <h1 class="text-4xl font-bold text-primary"><a href="/">{{ $post->title }}</a></h1>
+                <h1 class="text-4xl font-bold text-primary">{{ $post->title }}</h1>
                 <small class="pl-1">Written on {{ $post->date->format('YYYY-MM-dd') }}</small>
             </div>
 
