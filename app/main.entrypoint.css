@@ -57,6 +57,10 @@ article > * {
     max-width: 100%;
 }
 
+article h1 {
+    line-height: 0.9em;
+}
+
 h1 {
     font-size: 2.5em;
     line-height: 1.1em;
