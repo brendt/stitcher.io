@@ -32,7 +32,7 @@ h1 > a {
     word-break: break-word;
 }
 
-p a {
+article a {
     text-decoration: underline;
     text-decoration-color: var(--color-primary);
     text-decoration-thickness: 3px;
@@ -55,10 +55,6 @@ p a {
 
 article > * {
     max-width: 100%;
-}
-
-article h1 {
-    line-height: 0.9em;
 }
 
 h1 {
