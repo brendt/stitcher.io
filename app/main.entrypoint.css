@@ -169,3 +169,10 @@ img + img {
         margin: 0 auto;
     }
 }
+
+blockquote {
+    border-left: 4px solid var(--color-primary);
+    padding: .5em 0 .5em 1em;
+    font-size: 1em;
+    font-style: italic;
+}
