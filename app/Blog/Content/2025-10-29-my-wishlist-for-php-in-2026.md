@@ -2,7 +2,7 @@
 title: My wishlist for PHP in 2026
 ---
 
-As we near the end of 2025, I thought it was a good time to reflect on my wishlist for PHP. I've done so a couple of times before, and I'm happy I've been able to scratch a couple of items off my list because they actually made it in the language by now:
+As we near the end of 2025, I thought it was a good time to reflect on my wishlist for PHP. I've done so a couple of times before. I'm happy I've been able to scratch a couple of items off those lists because they actually made it into the language by now:
 
 - [Named parameters](/blog/php-8-named-arguments)
 - [Improved type variance](/blog/new-in-php-74#improved-type-variance-rfc)
@@ -15,13 +15,13 @@ By the way: if you have any features on your wishlist you want to share, remembe
 
 ## PHP Editions
 
-Because of PHP's backwards compatibility promise, new features added to the language have to be perfect: once they are added into the language, they are there to stay. That's one of the reasons features take so long to add and often end up full of compromise, because internals try to foresee all the edge cases. The most recent example is the new [URI extension](https://thephp.foundation/blog/2025/10/10/php-85-uri-extension/#thoughtfully-built-to-last):
+Because of PHP's backwards compatibility promise, new features have to be perfect: once they are added into the language, they are there to stay. That's one of the reasons features take so long to add and often end up full of compromise, because internals try to foresee all the edge cases. The most recent example is the new [URI extension](https://thephp.foundation/blog/2025/10/10/php-85-uri-extension/#thoughtfully-built-to-last):
 
 > Thus, over the course of almost one year, more than 150 emails on the PHP Internals list were sent. Additionally, several off-list discussions in various chat rooms have been had.
 
 Almost a whole year was spent on a relatively small feature. On top of that: no one is perfect, and things will have been overlooked.
 
-In my opinion PHP would benefit tremendously from having opt-in features: a way to enable a specific feature only within a specific namespace. That way PHP could introduce new features that broke backwards compatibility, without actually affecting any existing code. It could reduce the need for "getting it perfect" if they had some kind of "experimental feature" opt-in as well: a stage where breaking changes would still be allowed. 
+PHP would benefit from having opt-in features: a way to enable a specific feature only within a specific namespace. That way PHP could introduce new features that broke backwards compatibility, without actually affecting any existing code. It could reduce the need for "getting it perfect" if they had some kind of "experimental feature" opt-in as well: a stage where breaking changes would still be allowed. 
 
 In other words: you could update to the latest PHP version, and only enable breaking changes for a part of your codebase (likely your own project code), but leave vendor code unaffected by it. Maybe the syntax would look something like this:
 
@@ -37,7 +37,7 @@ namespace App
 }
 ```
 
-There is a lot to unpack about this topic, and I plan to write a followup-post about it soon. I do want to mention that I'm not pulling this idea out of thin air: Nikita actually proposed to add a concept of [PHP editions](https://externals.io/message/106453#106454), which in turn was based on [Rust Editions](https://doc.rust-lang.org/edition-guide/editions/index.html):
+There is a lot to unpack about this topic, and I plan to write a followup-post about it soon. I do want to mention that I'm not pulling this idea out of thin air: Nikita actually proposed to add [PHP editions](https://externals.io/message/106453#106454) years ago, which in turn was based on [Rust Editions](https://doc.rust-lang.org/edition-guide/editions/index.html):
 
 > I think that introducing this kind of concept for PHP is very, very important. We have a long list of issues that we cannot address due to backwards compatibility constraints and will never be able to address, on any timescale, without having the ability of opt-in migration.
 > I do plan to create an RFC on this topic.
@@ -46,9 +46,9 @@ Unfortunately, Nikita has since left PHP, and that RFC never came to fruition.
 
 ## Interface default methods
 
-Of all my wishlist items, I'm most hopeful this one might actually happen some day. There has already been [an RFC](https://wiki.php.net/rfc/interface-default-methods) for it in the past, and some internals have expressed interest in doing a second attempt at this one.
+Of all my wishlist items, I'm most hopeful this one might actually happen some day. There has already been [an RFC](https://wiki.php.net/rfc/interface-default-methods) for it in the past, and some internals have expressed interest in doing a second attempt at it.
 
-The idea is about interfaces providing a default implementation right within the interface:
+The idea is to allow interfaces to provide a default implementation, right within the interface itself:
 
 ```php
 interface Request
@@ -66,12 +66,54 @@ interface Request
 }
 ```
 
-Classes implementing this interface can override the default implementation, but they don't have to if they don't need to. This sounds a lot like abstract classes, doesn't it? Well, there are two differences:
+Classes implementing this interface can override the default implementation, but they don't have to if they don't need to. But hang on — this is what abstract classes are for, no? In a way, yes, but there are some important differences between interfaces and abstract classes:
 
-- You can only inherit from one abstract class, while you can implement multiple interfaces
-- Interfaces usually stand on their own, while deep inheritance chains with abstract classes is a much more common occurrence.
+- You can only inherit from one abstract class, while you can implement multiple interfaces; and
+- interfaces usually stand on their own, while deep inheritance chains with abstract classes are a much more common occurrence.
 
-To me, the benefit of using interfaces over abstract classes lies in the fact that interfaces give a lot more freedom and flexibility.
+These two factors combined make interfaces much more lightweight and flexible compared to abstract classes, and that is why I prefer to use interfaces. Abstract classes simply get a too tight a grip on my codebase, it feels like they are almost "chocking" my code, and I don't like that.
+
+One classic example of abstract classes failing is model classes in Laravel:
+
+```php
+class BlogPost extends Model { /* … */ }
+
+class NewsBlogPost extends Model { /* … */ }
+
+class GuestBlogPost extends Model { /* … */ }
+```
+
+Personally, I would like to model `{php}NewsBlogPost` and `{php}GuestBlogPost` as subtypes of `{php}BlogPost`, so that I could leverage the benefits mentioned before: code reuse and polymorphism. However, my code has to be tightly coupled to `{php}Model`, because otherwise it couldn't work with Laravel's ORM. From my perspective, a `{php}NewsBlogPost` isn't a `{php}Model`, it just happens to be compatible with the technical expectations the framework has defined of what "a model should look like". 
+
+And that's what interfaces are better at representing:
+
+```php
+class BlogPost implements Model { /* … */ }
+
+class NewsBlogPost extends BlogPost { /* … */ }
+
+class GuestBlogPost extends BlogPost { /* … */ }
+```
+
+However, the downside with PHP is that an interface has no way of providing an implementation, and you end up having to reimplement all `{php}Model` specific methods whenever you implement it. PHP has a workaround of some sorts, to use traits:
+
+```php
+class BlogPost implements Model 
+{ 
+    use IsModel;
+}
+```
+
+You know, this works, but it's not suuuuuuper convenient. And that's why I want interface default methods :)
+
+Sidenote: we could achieve the same result if traits could be used to represent types. Technically this is impossible because of how traits are a compile-time copy/paste mechanism, but if people find it easier to accept "type hints on traits" over "interface default methods", then I'm totally ok with that approach as well:
+
+```php
+class BlogPost 
+{ 
+    use Model;
+}
+```
 
 ## Generics
 
@@ -100,4 +142,24 @@ My final wishlist item (I'm keeping it pretty down-to-earth, don't you think?) i
 }
 ```
 
+Look, at the end of the day: I just want a simple way to represent data in a structured manner. I think it's a widespread use case and should be fairly straight-forward to add. 
+
 Am I asking too much? Maybe. Let me know [in the comments](#comments), and don't forget to leave your wishlist features as well!
+
+## Things I scratched
+
+I mentioned I had scratched a couple of things from my list as well. For example, I wanted **scalar objects** so that you could write something like this:
+
+```php
+$string = ' hello, world '; 
+
+echo $string->trim()->explode(',');
+```
+
+Look, I still want them; they would be nice. However, I simply think the scope of such a feature is too large to ever make it through [PHP's committee](/blog/limited-by-committee) in a reasonable way. Meanwhile, we have many userland implementations that are a tiny bit more verbose but do the job. I'm ok with that.
+
+I also wanted **unified functions names and signatures**, but that's just never happening. Actually, having PHP editions might open the door for this refactor, but even then do I have my doubts. I've come to accept PHP's quirkiness. 
+
+Finally, there was **clone with**. Which… we will actually get in PHP 8.5, but not in a way that solves [the issue I hoped it would solve](/blog/readonly-or-private-set). So, yeah. I think that ship has sailed? 
+
+However, let's focus on the things that might still happen. I think editions are the key to solving many problems in PHP, and I hope someone will put it back on the table in 2026!
