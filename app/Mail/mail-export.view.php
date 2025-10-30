@@ -408,13 +408,17 @@
     }
 
     blockquote {
-        background-color: rgba(252, 244, 245, 0.52);
-        font-size: 18px;
+        border-left: 4px solid #fe2977;
+        padding-left: 1em;
+        font-style: italic;
         overflow: hidden;
-        max-width: 150%;
-        margin-left: -35px;
-        margin-right: -35px;
-        padding: 20px 35px;
+        max-width: 100%;
+        margin-left: 10px;
+        margin-bottom: 1em;
+    }
+
+    blockquote + p {
+        margin-top: 1em;
     }
 
     blockquote p {
