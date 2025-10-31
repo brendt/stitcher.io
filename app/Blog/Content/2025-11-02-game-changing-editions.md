@@ -1,3 +1,5 @@
+https://github.com/php/php-rfcs/pull/2
+
 Last week, I shared [my wishlist for PHP in 2026](/blog/my-wishlist-for-php-in-2026), and the one item that stood out were "PHP Editions". Let's unpack why I think this would be a gamechanger for PHP.
 
 ## What are editions?
