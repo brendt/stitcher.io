@@ -4,18 +4,15 @@ namespace App\Map\Tile\GenericTile;
 
 use App\Map\Biome\Biome;
 use App\Map\Tile\Tile;
-use Spatie\Cloneable\Cloneable;
 
 class BaseTile implements Tile
 {
-    use Cloneable;
-
     public function __construct(
-        public readonly int $x,
-        public readonly int $y,
-        public readonly ?float $temperature = null,
-        public readonly ?float $elevation = null,
-        public readonly ?Biome $biome = null,
+        public int $x,
+        public int $y,
+        public ?float $temperature = null,
+        public ?float $elevation = null,
+        public ?Biome $biome = null,
     ) {}
 
     public function getColor(): string
@@ -25,23 +22,29 @@ class BaseTile implements Tile
 
     public function setTemperature(float $temperature): self
     {
-        return $this->with(
-            temperature: $temperature,
-        );
+        $clone = clone $this;
+
+        $clone->temperature = $temperature;
+
+        return $clone;
     }
 
     public function setElevation(float $elevation): self
     {
-        return $this->with(
-            elevation: $elevation,
-        );
+        $clone = clone $this;
+
+        $clone->elevation = $elevation;
+
+        return $clone;
     }
 
     public function setBiome(Biome $biome): self
     {
-        return $this->with(
-            biome: $biome,
-        );
+        $clone = clone $this;
+
+        $clone->biome = $biome;
+
+        return $clone;
     }
 
     public function getBiome(): ?Biome

@@ -5,7 +5,6 @@ namespace App\Map;
 use App\Map\Item\HandHeldItem\Axe;
 use App\Map\Item\HandHeldItem\FishingNet;
 use App\Map\Item\HandHeldItem;
-use App\Map\Item\HasMenu;
 use App\Map\Item\Item;
 use App\Map\Item\HandHeldItem\Pickaxe;
 use App\Map\Item\HandHeldItem\Shears;
@@ -32,7 +31,9 @@ use App\Map\Tile\ResourceTile;
 use App\Map\Tile\ResourceTile\Resource;
 use App\Map\Tile\Tile;
 use Tempest\Http\Session\Session;
+use Tempest\Support\Arr\ImmutableArray;
 use function Tempest\get;
+use function Tempest\Support\arr;
 
 /**
  * @property HandHeldItem[] $items
@@ -55,49 +56,33 @@ final class MapGame
         public int $gameTime = 0,
         public array $handHeldItems = [],
         public bool $paused = false,
-        public ?Menu $menu = null,
     ) {}
 
-    public static function resolve(Map $component, ?int $seed = null): self
+    public static function resolve(?int $seed = null): self
     {
-        if ($fromSession = get(Session::class)->get('map')) {
-            $game = unserialize($fromSession);
-        } else {
-            $game = self::init($seed ?? 1);
-        }
+        return self::init($seed ?? 1);
 
-        $game->setComponent($component);
-
-        if (request()->query->has('cheat')) {
-            foreach (Resource::cases() as $case) {
-                $property = $case->getCountPropertyName();
-
-                while ($game->{$property} < 1000) {
-                    $game->{$property} += 1000;
-                }
-            }
-        }
+//        if ($fromSession = get(Session::class)->get('map')) {
+//            $game = unserialize($fromSession);
+//        } else {
+//            $game = self::init($seed ?? 1);
+//        }
 
         return $game;
-    }
-
-    private function setComponent(Map $component): void
-    {
-        $this->component = $component;
     }
 
     public function persist(): self
     {
         $this->updateGameTime();
 
-        $this->session->put('map', serialize($this));
+//        $this->session->set('map', serialize($this));
 
         return $this;
     }
 
     public function destroy(): void
     {
-        $this->session->remove('map');
+//        $this->session->remove('map');
     }
 
     public static function init(int $seed): self
@@ -216,17 +201,16 @@ final class MapGame
     }
 
     /**
-     * @return Item[]|Collection
+     * @return \Tempest\Support\Arr\ImmutableArray<>
      */
-    public function getAvailableItems(): Collection
+    public function getAvailableItems(): ImmutableArray
     {
-        $handHeldItems = collect([
+        $handHeldItems = arr([
             new Pickaxe(),
             new Axe(),
             new FishingNet(),
             new Shears(),
-        ])
-            ->reject(fn (HandHeldItem $item) => isset($this->handHeldItems[$item->getId()]));
+        ])->filter(fn (HandHeldItem $item) => ! isset($this->handHeldItems[$item->getId()]));
 
         $tileItems = [
             new TreeFarmer(),
@@ -239,7 +223,7 @@ final class MapGame
 
         return $handHeldItems
             ->merge($tileItems)
-            ->mapWithKeys(fn (Item $item) => [$item->getId() => $item]);
+            ->mapWithKeys(fn (Item $item) => yield $item->getId() => $item);
     }
 
     public function getHandHeldItemForTile(Tile $tile): ?HandHeldItem
@@ -292,27 +276,5 @@ final class MapGame
             $this->baseLayer->get($tile->getX(), $tile->getY() - 1),
             $this->baseLayer->get($tile->getX(), $tile->getY() + 1),
         ]);
-    }
-
-    public function openMenu(HasMenu $hasMenu): void
-    {
-        $this->paused = true;
-        $this->menu = $hasMenu->getMenu();
-    }
-
-    public function closeMenu(): self
-    {
-        $this->paused = false;
-        $this->menu = null;
-
-        return $this;
-    }
-
-    public function saveMenu(array $form): self
-    {
-        $this->menu->hasMenu->saveMenu($form);
-        $this->closeMenu();
-
-        return $this;
     }
 }

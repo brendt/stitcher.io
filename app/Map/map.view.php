@@ -1,7 +1,7 @@
-<div {{ ($game->paused ?? null) ? '' : 'wire:poll' }}>
+<div>
     <style>
         :root {
-            --tile-size: {{ 25 }}px;
+            --tile-size: {{ 10 }}px;
             --tile-border-color: none;
             --tile-gap: 0;
         }
@@ -137,21 +137,13 @@
         }
     </style>
 
-    @if($game->menu ?? null)
-        <div class="menu-window">
-            <div class="menu tile-menu">
-                {{ $game->menu->render() }}
-            </div>
-        </div>
-    @endif
-
     <div class="game-window">
         <div class="menu menu-top flex justify-between py-2 px-2">
-            @foreach ($game->handHeldItems as $item)
-                <span class="mx-4">
-                    {{ $item->getName() }}
-                </span>
-            @endforeach
+<!--            @foreach ($game->handHeldItems as $item)-->
+<!--                <span class="mx-4">-->
+<!--                    {{ $item->getName() }}-->
+<!--                </span>-->
+<!--            @endforeach-->
             <span class="mx-4">
                 Wood: {{ $game->woodCount }} <span class="text-sm">({{ $game->resourcePerTick(\App\Map\Tile\ResourceTile\Resource::Wood) }}/t)</span>
             </span>
@@ -169,96 +161,37 @@
                 </span>
         </div>
 
-        <div class="menu menu-left">
-            <h1>Shop</h1>
-
-            <ul>
-                @foreach($game->getAvailableItems() as $item)
-                    <li class="item">
-                        @if($game->canBuy($item))
-                            @if($item instanceof \App\Map\Item\HandHeldItem)
-                                <button wire:click="buyHandHeldItem('{{ $item->getId() }}')">{{ $item->getName() }} {{ $item->getPrice() }}</button>
-                            @else
-                                <button wire:click="selectItem('{{ $item->getId() }}')">{{ $item->getName() }} {{ $item->getPrice() }}</button>
-                            @endif
-                        @else
-                            <span>
-                        {{ $item->getName() }} {{ $item->getPrice() }}
-                    </span>
-                        @endif
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-
         <div class="menu menu-bottom flex justify-center py-2">
-            @if($selectedItem = $game->selectedItem)
-                <span class="mx-2">
-                        Selected item: {{ $selectedItem::class }}
-                    </span>
-            @endif
+            <span class="mx-2">
+                Last update: {{ $game->gameTime }}
+            </span>
 
             <span class="mx-2">
-                    Last update: {{ $game->gameTime }}
-                </span>
-
-            <span class="mx-2">
-                    Seed: <a class="underline hover:no-underline" href="/map/{{ $game->seed }}">{{ $game->seed }}</a>
-                </span>
+                Seed: <a class="underline hover:no-underline" href="/map/{{ $game->seed }}">{{ $game->seed }}</a>
+            </span>
 
             <span class="mx-2">
                 <button class="underline hover:no-underline" wire:click="resetGame">Reset</button>
             </span>
         </div>
 
-        <div class="board {{ $game->selectedItem !== null ? 'hasSelectedItem' : 'noSelectedItem' }}">
-            @foreach ($board as $x => $row)
-                @foreach ($row as $y => $tile)
-                    @php($item = $tile->item ?? null)
+        <div class="board ">
+            <x-template :foreach="$board as $x => $row">
+                <x-template :foreach="$row as $y => $tile">
                     <div class="
                             tile
                             {{ $tile instanceof \App\Map\Tile\HasBorder ? 'tile-border' : ''}}
                             {{ $tile instanceof \App\Map\Tile\HandlesClick && $tile->canClick($game) ? 'clickable' : 'unclickable'}}
-                            {{ $item ? 'hasItem' : '' }}
                         " style="
                             grid-area: {{ $y + 1 }} / {{ $x + 1 }} / {{ $y + 1 }} / {{ $x + 1 }};
                             --tile-color:{{ $tile->getColor() }};
-                            @if($tile instanceof \App\Map\Tile\HasBorder && $tile->getBorderColor())--tile-border-color:{{ $tile->getBorderColor() }}@endif
+                            {{ $tile instanceof \App\Map\Tile\HasBorder && $tile->getBorderColor() ? '--tile-border-color:'.$tile->getBorderColor() : ''}}
                         "
-                         wire:click.stop="handleClick({{ $x }}, {{ $y }})"
+                        wire:click.stop="handleClick({{ $x }}, {{ $y }})"
                     >
-                        <div class="debug menu">
-                            Tile: {{ $tile::class }}
-                            <br>
-                            Biome: {{ ($tile->biome ?? null) ? $tile->biome::class : '?' }}
-                            <br>
-                            Elevation: {{ $tile->elevation ?? '?' }}
-                            <br>
-                            Temperature: {{ $tile->temperature ?? '?' }}
-                            <br>
-                            Color: {{ $tile->getColor() }}
-                            <br>
-                            Noise: {{ $tile->noise ?? '?' }}
-                            <br>
-                            {{--                            Neighbours:--}}
-                            {{--                            <ul>--}}
-                            {{--                                @foreach($game->getNeighbours($tile) as $neighbour)--}}
-                            {{--                                    <li class="ml-2">--}}
-                            {{--                                        {{ $neighbour::class }}--}}
-                            {{--                                    </li>--}}
-                            {{--                                @endforeach--}}
-                            {{--                            </ul>--}}
-                        </div>
                     </div>
-
-                @endforeach
-            @endforeach
+                </x-template>
+            </x-template>
         </div>
     </div>
-
-    <script>
-        window.addEventListener("keydown", function (event) {
-            Livewire.emit('handleKeypress', event.key);
-        });
-    </script>
 </div>

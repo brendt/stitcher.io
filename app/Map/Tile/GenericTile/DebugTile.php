@@ -26,4 +26,14 @@ final readonly class DebugTile implements Tile
     {
         return null;
     }
+
+    public function getX(): int
+    {
+        return 0;
+    }
+
+    public function getY(): int
+    {
+        return 0;
+    }
 }

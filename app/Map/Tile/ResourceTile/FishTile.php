@@ -15,12 +15,12 @@ final class FishTile extends BaseTile implements ResourceTile
     use TickableTile;
 
     public function __construct(
-        public readonly int $x,
-        public readonly int $y,
-        public readonly ?float $temperature,
-        public readonly ?float $elevation,
-        public readonly ?Biome $biome,
-        public readonly float $noise,
+        public int $x,
+        public int $y,
+        public ?float $temperature,
+        public ?float $elevation,
+        public ?Biome $biome,
+        public float $noise,
         public ?TileItem $item = null,
     ) {}
 

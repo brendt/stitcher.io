@@ -15,11 +15,11 @@ use App\Map\Tile\HasBorder;
 final class LandTile extends BaseTile implements HandlesClick, HasBorder, HasMenu, HandlesTicks
 {
     public function __construct(
-        public readonly int $x,
-        public readonly int $y,
-        public readonly ?float $temperature,
-        public readonly ?float $elevation,
-        public readonly ?Biome $biome,
+        public int $x,
+        public int $y,
+        public ?float $temperature,
+        public ?float $elevation,
+        public ?Biome $biome,
         public ?TileItem $item = null,
     ) {}
 
