@@ -93,7 +93,7 @@ $meta->canonical ??= null;
 </div>
 
 <div class="flex justify-center">
-    <img src="img/things-stick.svg" class="things-stick" alt="Background stick figure">
+    <img src="/img/static/things-stick.svg" class="things-stick" alt="Background stick figure">
 </div>
 
 <div class="p-2 z-[1] pb-[3vh]  w-full  text-white font-bold font-sm grid gap-4">
