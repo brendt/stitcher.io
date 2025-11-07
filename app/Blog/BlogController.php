@@ -13,6 +13,7 @@ use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
 use Tempest\Router\SetCurrentUrlMiddleware;
+use Tempest\Router\Stateless;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
 use Tempest\View\ViewRenderer;
@@ -59,9 +60,10 @@ final class BlogController
         );
     }
 
-    #[Get('/rss', without: [SetCurrentUrlMiddleware::class])]
-    #[Get('/feed', without: [SetCurrentUrlMiddleware::class])]
-    #[Get('/atom', without: [SetCurrentUrlMiddleware::class])]
+    #[Stateless]
+    #[Get('/rss')]
+    #[Get('/feed')]
+    #[Get('/atom')]
     public function rss(
         ViewRenderer $viewRenderer,
         Cache $cache,
@@ -77,7 +79,7 @@ final class BlogController
         return new Ok($xml)->addHeader('Content-Type', 'application/xml;charset=UTF-8');
     }
 
-    #[Get('/blog/{slug}/meta.png', without: [SetCurrentUrlMiddleware::class])]
+    #[Stateless, Get('/blog/{slug}/meta.png')]
     public function metaPng(
         string $slug,
         Request $request,
@@ -88,8 +90,7 @@ final class BlogController
         return $this->meta($slug, $request, $repository, $viewRenderer);
     }
 
-
-    #[Get('/blog/{slug}/meta', without: [SetCurrentUrlMiddleware::class])]
+    #[Stateless, Get('/blog/{slug}/meta')]
     public function meta(
         string $slug,
         Request $request,

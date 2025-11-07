@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7ea048967aafa5e48534731cdfcf98e",
+    "content-hash": "8b659864f9594a287936810937258fed",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -4846,16 +4846,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v2.6.3",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "82bbeba76919dbd3b90107af05a1e2ec449e64bd"
+                "reference": "a0f67411c20b51d44bc6469a31f0ecb3e4d95e2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/82bbeba76919dbd3b90107af05a1e2ec449e64bd",
-                "reference": "82bbeba76919dbd3b90107af05a1e2ec449e64bd",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/a0f67411c20b51d44bc6469a31f0ecb3e4d95e2b",
+                "reference": "a0f67411c20b51d44bc6469a31f0ecb3e4d95e2b",
                 "shasum": ""
             },
             "require": {
@@ -5064,7 +5064,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v2.6.3"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/v2.7.0"
             },
             "funding": [
                 {
@@ -5072,7 +5072,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-07T10:58:48+00:00"
+            "time": "2025-11-07T12:46:48+00:00"
         },
         {
             "name": "tempest/highlight",
