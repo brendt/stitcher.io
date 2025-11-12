@@ -12,6 +12,8 @@ use Tempest\Http\Responses\File;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
+use Tempest\Router\SetCurrentUrlMiddleware;
+use Tempest\Router\Stateless;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
 use Tempest\View\ViewRenderer;
@@ -58,6 +60,7 @@ final class BlogController
         );
     }
 
+    #[Stateless]
     #[Get('/rss')]
     #[Get('/feed')]
     #[Get('/atom')]
@@ -76,7 +79,7 @@ final class BlogController
         return new Ok($xml)->addHeader('Content-Type', 'application/xml;charset=UTF-8');
     }
 
-    #[Get('/blog/{slug}/meta.png')]
+    #[Stateless, Get('/blog/{slug}/meta.png')]
     public function metaPng(
         string $slug,
         Request $request,
@@ -87,8 +90,7 @@ final class BlogController
         return $this->meta($slug, $request, $repository, $viewRenderer);
     }
 
-
-    #[Get('/blog/{slug}/meta')]
+    #[Stateless, Get('/blog/{slug}/meta')]
     public function meta(
         string $slug,
         Request $request,

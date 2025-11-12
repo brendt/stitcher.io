@@ -9,7 +9,7 @@ use function Tempest\Http\csrf_token;
 use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
 
-$title ??= null;
+$title ??= 'Things I wish I knew';
 $meta ??= new Meta();
 $meta->title ??= 'Stitcher.io';
 $meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
@@ -60,21 +60,43 @@ $meta->canonical ??= null;
 
     <!-- Assets -->
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+
     <x-vite-tags entrypoint="app/main.entrypoint.css"/>
-    <x-vite-tags entrypoint="app/main.entrypoint.ts"/>
-    <x-slot name="head"/>
+    <x-vite-tags entrypoint="app/Talks/things-talk.css"/>
 </head>
 <body class="antialiased relative">
-<div class="bg-primary sm:bg-gray-100 m-2 sm:m-0 p-0 sm:p-2 md:p-4 rounded-md sm:shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
-    <x-slot/>
+
+<div class="max-w-[600px] mx-auto p-4 grid gap-2">
+    <h1 class="my-8">Things I wish I knew</h1>
+
+    <p>Thank you for attending my talk! If you have any thoughts, feedback, or followup questions, you can always reach out to me via <a href="mailto:brendt@stitcher.io">brendt@stitcher.io</a>.</p>
+
+    <p>Here you'll find all relevant links and references:</p>
+
+    <ul>
+        <li>
+            <a href="https://things-i-wish-i-knew.com/">Things I wish I knew when I started programming</a> — my newly published book, sharing many stories and lessons from the almost two decades I've been programming.
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=tbDDYKRFjhk">Does AI Actually Boost Developer Productivity?</a> — a very accessible talk from one of the researchers at the Standford team.
+        </li>
+        <li>
+            <a href="https://www.wheresyoured.at/the-haters-gui/">The Hater's Guide to AI</a> — a one-hour long essay diving deep into the topic of AI's sustainability in the long run.
+        </li>
+        <li>
+            <a href="https://curveshift.net/p/what-happens-if-ai-is-a-bubble">What happens if AI is a bubble?</a> — a balanced 5-minute read about whether AI is currently a bubble or not, and what would happen if it were.
+        </li>
+        <li>
+            <a href="https://epoch.ai/blog/how-much-does-it-cost-to-train-frontier-ai-models">How much does it cost to train frontier AI models?</a> — a paper detailing the costs that come with training AI models.
+        </li>
+    </ul>
 </div>
 
-<div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-white font-bold font-sm grid gap-4">
-    <div class="flex justify-center">
-            <span>
-                Noticed a tpyo? You can <a href="https://github.com/brendt/stitcher.io">submit a PR</a> to fix it.
-            </span>
-    </div>
+<div class="flex justify-center">
+    <img src="/img/static/things-stick.svg" class="things-stick" alt="Background stick figure">
+</div>
+
+<div class="p-2 z-[1] pb-[3vh]  w-full  text-white font-bold font-sm grid gap-4">
     <div class="flex flex-wrap gap-8 items-center justify-center">
         <a href="/">Home</a>
         <a href="/rss">RSS</a>
@@ -83,20 +105,6 @@ $meta->canonical ??= null;
         <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
     </div>
 </div>
-
-<x-slot name="scripts"/>
-<script>
-    document.body.addEventListener('htmx:configRequest', function (evt) {
-        evt.detail.headers['x-xsrf-token'] = '{{ csrf_token() }}';
-    });
-
-    document.body.addEventListener('htmx:beforeOnLoad', function (evt) {
-        if (evt.detail.xhr.status === 500) {
-            document.querySelector('#htmx-error').innerHTML = evt.detail.xhr.statusText;
-            document.querySelector('#htmx-error').classList.remove('hidden');
-        }
-    });
-</script>
 
 </body>
 </html>
