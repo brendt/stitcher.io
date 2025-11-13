@@ -1,4 +1,4 @@
-Last week, I shared [my wishlist for PHP in 2026](/blog/my-wishlist-for-php-in-2026), and the one item that stood out were "PHP Editions". Let's unpack why I think this would be a gamechanger for PHP.
+A couple of weeks ago, I shared [my wishlist for PHP in 2026](/blog/my-wishlist-for-php-in-2026), and the one item that stood out were "PHP Editions". Let's unpack why I think this would be a gamechanger for PHP.
 
 ## What are editions?
 
@@ -6,7 +6,7 @@ The word "edition" was pitched by Nikita Popov years ago, and was inspired by [R
 
 > There are times when it's useful to make backwards-incompatible changes to the language […] Rust uses editions to solve this problem. When there are backwards-incompatible changes, they are pushed into the next edition. Since editions are opt-in, existing crates won't use the changes unless they explicitly migrate into the new edition.
 
-In other words: **editions allow us to have opt-in breaking changes, on a granular level.**
+In other words: **editions allow us to have opt-in breaking changes.**
 
 In Rust, you specify the edition in a `Cargo.toml` file (similar to `composer.json`): 
 
@@ -22,7 +22,7 @@ Every package in Rust can thus define its own edition, and different packages wi
 
 ## Why break stuff?
 
-"Can't we just… not break stuff?" Sure, PHP already does its utmost best to keep backwards compatibility to the highest level. That doesn't always work out, and luckily, there are automated tools these days that have made upgrading PHP super easy. Despite all of that, [Packagist stats](/blog/php-version-stats-june-2025) report around 50% of PHP projects running on outdated versions. Around 50% of the most popular open source packages still have support for unsupported PHP versions as well. Last year, PHP [increased their security support](https://wiki.php.net/rfc/release_cycle_update) for outdated versions with an additional year, creating even less incentive for projects to upgrade.
+"Can't we just… not break stuff?" Sure, PHP already does its utmost best to keep backwards compatibility to the highest level. That doesn't always work out, and luckily, there are automated tools these days that have made upgrading PHP super easy. Despite all of that, [Packagist stats](/blog/php-version-stats-june-2025) report around 50% of PHP projects running on outdated versions. Around 50% of the most popular open source packages still support outdated PHP versions as well. Last year, PHP [increased their security support](https://wiki.php.net/rfc/release_cycle_update) for outdated versions with an additional year, creating even less incentive for projects to upgrade.
 
 [![](/img/blog/version-stats/2025-jun-03.svg)](/img/blog/version-stats/2025-jun-03.svg)
 
@@ -30,41 +30,40 @@ PHP doesn't hold on to backwards compatibility just for the sake of it. It does 
 
 ![](/img/blog/editions/octoverse-2025-top-programming-languages.webp)
 
-Stability comes at a cost, though. It's getting increasingly difficult to evolve PHP and shape it into a more modern language. People's expectations of a programming language in 2025 have changed, and PHP is struggling to keep up. [JetBrains' recent dev ecosystem survey](https://blog.jetbrains.com/phpstorm/2025/10/state-of-php-2025/), for example, shows that a large portion of surveyed developers consider adopting languages like Go, Python, or Rust, alongside or instead of PHP. I don't think that in itself is bad: using different technologies for different tasks has its merits; but it also shows that there is potential for PHP to grow still. 
+Stability comes at a cost, though. It's getting increasingly difficult to evolve PHP and shape it into a more modern language. Expectations of a programming language in 2025 are different from those in 2000, and PHP is struggling to keep up. [JetBrains' recent dev ecosystem survey](https://blog.jetbrains.com/phpstorm/2025/10/state-of-php-2025/), for example, shows that a large portion of surveyed developers consider adopting languages like Go, Python, or Rust, alongside or instead of PHP. I don't think that in itself is bad: using different technologies for different tasks has its merits; but it also shows that there is room for PHP to grow. 
 
 ![](/img/blog/editions/php-to-go.webp)
 
-As a final argument, here's what [Nikita Popov said](https://externals.io/message/106453#106454) on the matter when he was still working on PHP:
+Here's a powerful insight that [Nikita Popov shared](https://externals.io/message/106453#106454) on the matter when he was still working on PHP:
  
 > I think that introducing this kind of concept [editions] for PHP is very, very important. We have a long list of issues that we cannot address due to backwards compatibility constraints and will never be able to address, on any timescale, without having the ability of opt-in migration.
 
-So, why do we need to "break stuff"? I would summarize it as "to move the language forward in a relevant, contemporary way, at a reasonable timescale".
+So, why do we need to "break stuff"? I would summarize it as this: **to move the language forward in a relevant, contemporary way, at a reasonable timescale**.
 
 ## A long list of issues
 
-Before diving into technicalities, let's also unpack what Nikita meant with "a long list of issues that currently can't be addressed". Let's make sure we know what we're concretely talking about. Before leaving, Nikita had already done [a lot of work on editions](https://github.com/php/php-rfcs/pull/2). Here are a couple of ideas he listed that would be (easier) to implement if we had opt-in breaking changes:
+Before diving into technicalities, let's also unpack what Nikita meant with "a long list of issues that currently can't be addressed". Let's make sure we know what we're talking about in practice. Here are a couple of [ideas that Nikita listed](https://github.com/nikic/php-rfcs/blob/language-evolution/rfcs/0000-language-evolution.md) when he was still working on PHP:
 
 - Explicit pass-by-reference, where both the call-site and definition-site have to define references. You can read more about it [here](https://wiki.php.net/rfc/explicit_send_by_ref).
-- Strict operators, which makes all operands strict. There's also an [RFC](https://wiki.php.net/rfc/strict_operators) for it.
+- Strict operators, which makes all operators use strict comparisons. There's also an [RFC](https://wiki.php.net/rfc/strict_operators) for it.
 - Improved string interpolation to allow arbitrary expressions like `$string = "foo #{1 + 1} bar"`. You can [read about it here](https://wiki.php.net/rfc/arbitrary_expression_interpolation). 
 - Finally, Nikita's list mentioned a feature that has since been implemented without editions: the [deprecation of dynamic properties](/blog/deprecated-dynamic-properties-in-php-82).
 
-That last one, actually, is interesting. Indeed, dynamic properties were deprecated in PHP 8.2, and might be removed in PHP 9.0 (although that has yet to be confirmed). To deal with the deprecation and potential future-breaking change, we got a new `{php}#[AllowDynamicProperties]` attribute: a way to _opt-out_ of the deprecation, on a class-based level. With the new attribute, though, we have essentially added _another_ thing that has to be deprecated and removed before dynamic properties can be entirely gone from the language. That's because, technically, you could consider the removal of `{php}#[AllowDynamicProperties]` to be a breaking change in itself as well. As far as I know, there's no consensus yet on how to deal with this change, but you can see how the addition of the attribute is causing a lot of headaches. 
+That last one, actually, is interesting. Indeed, dynamic properties were deprecated in PHP 8.2, and might be removed in PHP 9.0 (although that has yet to be confirmed). To deal with the deprecation and potential future-breaking change, we got a new `{php}#[AllowDynamicProperties]` attribute: a way to _opt-out_ of the deprecation, on a class-based level. With this new attribute, though, we have essentially added _another_ thing that has to be deprecated and removed before dynamic properties can be entirely gone from the language. That's because, technically, you could consider the removal of `{php}#[AllowDynamicProperties]` to be a breaking change in itself as well. As far as I know, there's no consensus yet on how to deal with this change, but you can see how the addition of the attribute is causing a lot of headaches. 
 
-Let's imagine how the deprecation of dynamic properties could have gone if we had opt-in breaking changes: the attribute itself wouldn't have been necessary, since people would have been able to opt-in the breaking change on their own basis. Whatever vendor dependencies still relied on dynamic properties could have decided to not support this feature (yet), and everything would have been worked without even the need for deprecation. 
+Let's imagine how the deprecation of dynamic properties could have gone if we had opt-in breaking changes: the `{php}#[AllowDynamicProperties]` attribute wouldn't have been necessary, since people would have been able to opt-in the breaking change on their own basis. Whatever vendor dependencies still relied on dynamic properties could have decided to not support this feature (yet), and everything would have been worked without even the need for deprecation. 
 
 Those were Nikita's examples,  I can think of a couple more features that would made sense to be opt-in as well:
 
-- Disabling the runtime type checker for part of your code that's being verified by static analyzer, possibly increasing runtime performance.
+- Disabling the runtime type checker for parts of your code that's being verified by static analyzer, possibly increasing runtime performance.
 - Building on top of that, if "running PHP without runtime type checks" becomes acceptable, this would finally open the door for proper generics support.
 - New features could be marked as "experimental opt-ins": features that we're sure will end up in the language, but might need another year of real-life testing and fine-tuning before calling them "stable".
-- You can probably think of a couple more ideas as well.
 
 You might disagree with some of the proposals listed above, and that's ok. These are just here as examples to show how opt-in breaking changes could help PHP move forward. Now that we know what kind of things _could_ be possible, let's discuss the technical side.
 
 ## Editions — or something else?
 
-You might have noticed that I tried to avoid the word "edition" and preferred to use "opt-in breaking changes" instead. That's because I don't think PHP could port the concept of editions as we know it in Rust and call it a day. For starters, Rust editions all compile to the same version. While that's trivial to do in Rust, I reckon it would be a lot more tricky to pull off in PHP, due to its runtime nature. It also limits the scope of things that can be "editioned". On top of that, Rust editions also come with a "lifetime guarantee", something that I'm not sure is the best approach for PHP either.
+You might have noticed that I tried to avoid the word "edition" and preferred to use "opt-in breaking changes" instead. That's because I don't think PHP should port the concept of editions as we know it in Rust and call it a day. For starters, Rust editions all compile to the same version. While that's trivial to do in Rust, I reckon it would be a lot more tricky to pull off in PHP, due to its runtime nature. It also limits the scope of things that can be "editioned". On top of that, Rust editions also come with a "lifetime guarantee", something that I'm not sure is the best approach for PHP either.
 
 When you get to the core of "editions", though, it's about opt-in breaking changes. That, I think, is key to helping PHP move into the next phase of maturity.
 
@@ -124,13 +123,20 @@ Even better, I reckon it would be trivial for composer to add support for namesp
 }
 ```
 
-Having read through Nikita's draft work from years ago, I think we're only one minor RFC away from unlocking a whole new potential for PHP. Yes, we would still need to answer questions like: 
+Having read through Nikita's draft work from years ago, I think we're only one minor RFC away from unlocking a whole new potential for PHP. 
 
-- Do we support opt-in breaking changes indefinitely, like Rust, or will we have true "breaking-points" where opt-in features become the default in a new major version?
-- Will we group opt-in features into something like "editions", or keep them more granular like `{:hl-property:strict_types:}`? 
-- The idea of experimental features could be massively beneficial to PHP as well, but I only mentioned it briefly, and there are a lot of details to be discussed there.
-- There's the question of what kind of changes could be modeled as opt-ins, some things might be technically too complex to pull off, or run into other kinds of limitations. 
+## Unanswered questions
 
-Let's take it step by step, though. I think namespace-scoped declares make a lot of sense and would already benefit PHP today because of `{:hl-property:strict_types:}`, even if we didn't immediately introduce new opt-in features. My plan is to not just blog about it. I had to write this blog post to order my thoughts, and my next step is to talk to some Foundation members and gather their input. I'm up for helping revive the namespace-scoped declares, as well as help carve out a framework for what "opt-in features" in PHP would look like in the future. 
+I'm skipping over a lot of intricacies and details. For example, the [main discussion](https://github.com/php/php-rfcs/pull/2) topic was whether PHP should have a concept of editions like Rust, or build on top of the existing `{php}declare` directive. The Rust approach would mean we'd have one edition per year at max, and each edition would build on top of the other. Embracing `{php}declare` would mean more flexibility, but also more complexity.
 
-Step by step, though. If you have any thoughts or feedback, you can also [leave them here](#comments), or wherever you're reading this post. Any input is welcome. 
+On top of that, there are questions like:
+
+- Do we support opt-in breaking changes indefinitely, like Rust, or will we have true "breaking-points" where opt-in features become the default in a new major version? 
+- The idea of _experimental features_ could be massively beneficial to PHP as well, but I only mentioned it briefly, and there are a lot of details to be discussed there.
+- What kind of changes could be modeled as opt-ins? Some things might be technically too complex to pull off or run into other kinds of limitations. 
+
+I've skimmed over my personal preference in this blog post, and I'm happy to further elaborate on it soon. At the same time, let's take it step by step: whether we choose to go with yearly editions or granular feature toggles, we'll need namespaced-scoped declares in both cases. Even if neither approaches got accepted, we would still benefit from namespace-scoped declares today because of `{:hl-property:strict_types:}`, which we could then define on a higher level. 
+
+My plan is to not just blog about it. I had to write this blog post to order my thoughts, and my next step is to talk to some Foundation members and gather their input. I'm up for helping revive the namespace-scoped declares, as well as help carve out a framework for what "opt-in features" in PHP would look like in the future. 
+
+I would also like to hear from you: I'm especially curious to hear your thoughts about linear editions vs. granular feature opt-ins. You can leave your thoughts [in the comments](#comments), [send me an email](mailto:brendt@stitcher.io), or [join the Tempest Discord server](/discord). 
