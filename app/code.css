@@ -180,3 +180,7 @@
 .hl-qualified-phrase {
     background-color: var(--code-qualified);
 }
+
+.hl-striped {
+    border-bottom: 1px solid red;
+}
