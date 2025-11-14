@@ -33,10 +33,11 @@ final readonly class CommentsController
     {
         $post = $this->repository->find($slug);
 
-        if (strlen($request->comment) < 5 || strlen($request->comment) > 1000) {
+        if (strlen($request->comment) < 5) {
             return $this->render(
                 $post,
-                commentError: 'Your comment must be between 5 and 1000 characters long.',
+                commentError: 'Your comment must be more than 5 characters long',
+                currentComment: $request->comment,
             );
         }
 

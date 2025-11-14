@@ -40,7 +40,7 @@ $back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
     </div>
 
     <form :else :hx-post="uri([CommentsController::class, 'comment'], slug: $post->slug)" hx-target="#comments" class="grid gap-2 bg-gray-100 p-4 rounded">
-        <x-input name="comment" label="Leave a comment:" type="textarea" required></x-input>
+        <x-input name="comment" label="Leave a comment:" type="textarea" :value="$currentComment ?? ''" required></x-input>
         <div :if="$commentError ?? null" class="text-red-500">
             {{ $commentError }}
         </div>
