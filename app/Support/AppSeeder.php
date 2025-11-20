@@ -2,10 +2,10 @@
 
 namespace App\Support;
 
-use App\Authentication\Role;
-use App\Authentication\User;
 use App\Blog\BlogPostRepository;
 use App\Blog\Comment;
+use App\Support\Authentication\Role;
+use App\Support\Authentication\User;
 use Tempest\Database\DatabaseSeeder;
 use Tempest\DateTime\DateTime;
 use UnitEnum;

@@ -2,10 +2,6 @@
 
 use Tempest\Http\Request;
 use function Tempest\get;
-use function Tempest\Router\uri;
-use App\Authentication\AuthController;
-use App\Blog\BlogController;
-use App\Blog\CommentsController;
 use function Tempest\Support\str;
 
 $user ??= null;

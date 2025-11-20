@@ -28,7 +28,6 @@ final class RedirectMiddleware implements HttpMiddleware
             '/the-road-to-php-81/unsub' => 'https://road-to-php.com/unsub',
             '/the-road-to-php-81/success' => 'https://road-to-php.com/success',
             '/blogs-for-devs' => '/blogs-for-devs/01-intro',
-            '/feed' => '/rss',
             '/feed.xml' => '/rss',
             '/rss.xml' => '/rss',
             '/games' => '/games/all',

@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Aggregate\Posts;
+
+use App\Aggregate\Posts\Events\PostSynced;
+use App\Aggregate\Posts\Events\SourceSynced;
+use App\Aggregate\Posts\Events\SourceSyncFailed;
+use Tempest\Console\ConsoleArgument;
+use Tempest\Console\ConsoleCommand;
+use Tempest\Console\HasConsole;
+use Tempest\Console\Schedule;
+use Tempest\Console\Scheduler\Every;
+use Tempest\EventBus\EventBus;
+use function Tempest\Support\str;
+
+final class SyncSourcesCommand
+{
+    use HasConsole;
+
+    public function __construct(
+        private readonly SyncSource $syncSource,
+        private readonly EventBus $eventBus,
+    ) {}
+
+    #[ConsoleCommand]
+    #[Schedule(Every::HOUR)]
+    public function __invoke(
+        ?string $source = null,
+        #[ConsoleArgument(aliases: ['-v'])]
+        bool $verbose = false,
+    ): void {
+        if ($verbose) {
+            $this->eventBus->listen($this->onPostSynced(...));
+        }
+
+        $this->eventBus->listen($this->onSourceSynced(...));
+        $this->eventBus->listen($this->onSourceSyncFailed(...));
+
+        $query = Source::select()
+            ->where('state = :state', state: SourceState::PUBLISHED->value);
+
+        if ($source) {
+            $query->where(
+                'name LIKE :filter OR uri LIKE :filter',
+                filter: "%{$source}%",
+            );
+        }
+
+        $sources = $query->all();
+
+        $this->info(sprintf(
+            "Syncing %s %s…\n",
+            count($sources),
+            str('source')->pluralize(count($sources)),
+        ));
+
+        foreach ($sources as $source) {
+            ($this->syncSource)($source);
+        }
+    }
+
+    public function onPostSynced(PostSynced $event): void
+    {
+        $this->writeln("  - {$event->uri}");
+    }
+
+    public function onSourceSynced(SourceSynced $event): void
+    {
+        $this->success($event->uri);
+    }
+
+    public function onSourceSyncFailed(SourceSyncFailed $event): void
+    {
+        $this->error($event->uri);
+    }
+}

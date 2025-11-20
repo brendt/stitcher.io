@@ -62,7 +62,6 @@ final class BlogController
 
     #[Stateless]
     #[Get('/rss')]
-    #[Get('/feed')]
     #[Get('/atom')]
     public function rss(
         ViewRenderer $viewRenderer,

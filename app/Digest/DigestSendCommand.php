@@ -2,9 +2,9 @@
 
 namespace App\Digest;
 
-use App\Authentication\Role;
-use App\Authentication\User;
 use App\Blog\Comment;
+use App\Support\Authentication\Role;
+use App\Support\Authentication\User;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Console\Schedule;

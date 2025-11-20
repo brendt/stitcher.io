@@ -2,7 +2,7 @@
 
 namespace App\Blog;
 
-use App\Authentication\AuthMiddleware;
+use App\Support\Authentication\AuthMiddleware;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\DateTime\DateTime;
 use Tempest\Http\Session\Session;

@@ -177,3 +177,44 @@ blockquote {
     font-size: 1em;
     font-style: italic;
 }
+
+
+.copy-uri {
+    & > .icon-copy {
+        display: inline-block;
+    }
+
+    & > .icon-copied {
+        display: none;
+    }
+
+    &.copied {
+        & > .icon-copy {
+            display: none;
+        }
+
+        & > .icon-copied {
+            display: inline-block;
+        }
+    }
+}
+
+.htmx-button {
+    & .during-input {
+        display: inline-block;
+    }
+
+    & .during-request {
+        display: none;
+    }
+}
+
+.htmx-button.htmx-request {
+    & .during-input {
+        display: none;
+    }
+
+    & .during-request {
+        display: inline-block;
+    }
+}

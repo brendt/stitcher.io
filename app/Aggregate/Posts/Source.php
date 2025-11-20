@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Aggregate\Posts;
+
+use Tempest\Database\IsDatabaseModel;
+use Tempest\Database\Virtual;
+use Tempest\Router\Bindable;
+use Tempest\Support\Str\ImmutableString;
+
+final class Source implements Bindable
+{
+    use IsDatabaseModel;
+
+    public string $name;
+    public string $uri;
+    public int $visits = 0;
+    public int $rank = 0;
+    public int $publicationRatio = 0;
+
+    public SourceState $state = SourceState::PENDING;
+
+    #[Virtual]
+    public bool $isExternals {
+        get => $this->name === 'https://externals.io';
+    }
+
+    #[Virtual]
+    public bool $isPending {
+        get => $this->state === SourceState::PENDING;
+    }
+
+    #[Virtual]
+    public bool $isDenied {
+        get => $this->state === SourceState::DENIED;
+    }
+
+    #[Virtual]
+    public bool $isPublished {
+        get => $this->state === SourceState::PUBLISHED;
+    }
+
+    #[Virtual]
+    public string $shortName {
+        get => new ImmutableString($this->name)->afterFirst('https://')->afterFirst('www.')->truncate(25, '…');
+    }
+}
