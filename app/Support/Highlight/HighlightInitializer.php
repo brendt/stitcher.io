@@ -15,6 +15,7 @@ final readonly class HighlightInitializer implements Initializer
         $highlighter = new Highlighter();
 
         $highlighter
+            ->addLanguage(new ExtendedPhpLanguage())
             ->addLanguage(new TempestConsoleWebLanguage())
             ->addLanguage(new TempestViewLanguage());
 
