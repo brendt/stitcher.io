@@ -25,7 +25,7 @@ final class NwsSyncCommand
     {
         $xml = $this->cache->resolve(
             'nws',
-            fn () => file_get_contents('https://www.vrt.be/vrtnws/nl.rss.articles.xml'),
+            fn () => file_get_contents('https://www.vrt.be/vrtnws/en.rss.articles.xml'),
             Duration::hour(),
         );
 
@@ -46,6 +46,7 @@ final class NwsSyncCommand
                         'title' => $item['title'],
                         'summary' => $summary,
                         'publishedAt' => DateTime::parse($item['published']),
+                        'tag' => $item['tag'] ?? '',
                     ],
                 );
 
@@ -58,12 +59,13 @@ final class NwsSyncCommand
 
     private function parseXml(string $input): array
     {
-        $xml = simplexml_load_string($input, "SimpleXMLElement", LIBXML_NOCDATA | LIBXML_NOWARNING | LIBXML_NOERROR);
+        $input = str_replace('vrtns:nstag', 'tag', $input);
+
+        $xml = simplexml_load_string($input, "SimpleXMLElement", LIBXML_NOWARNING | LIBXML_NOERROR);
 
         if (! $xml) {
             return [];
         }
-
         $json = json_encode($xml);
 
         return json_decode($json, true, flags: JSON_THROW_ON_ERROR)['entry'];

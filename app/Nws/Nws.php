@@ -13,6 +13,7 @@ final class Nws
     public string $title;
     public DateTime $publishedAt;
     public string $summary;
+    public string $tag;
     public ?array $sentiment = null;
     public ?array $keywords = null;
 }

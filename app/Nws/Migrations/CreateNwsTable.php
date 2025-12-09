@@ -19,6 +19,7 @@ final class CreateNwsTable implements MigratesUp
             ->string('title')
             ->datetime('publishedAt')
             ->text('summary')
+            ->string('tag')
             ->json('sentiment', nullable: true)
             ->json('keywords', nullable: true);
     }
