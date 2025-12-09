@@ -14,6 +14,6 @@ final class Nws
     public DateTime $publishedAt;
     public string $summary;
     public string $tag;
-    public ?array $sentiment = null;
+    public ?Sentiment $sentiment = null;
     public ?array $keywords = null;
 }

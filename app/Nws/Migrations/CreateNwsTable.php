@@ -3,6 +3,7 @@
 namespace App\Nws\Migrations;
 
 use App\Nws\Nws;
+use App\Nws\Sentiment;
 use Tempest\Database\MigratesUp;
 use Tempest\Database\QueryStatement;
 use Tempest\Database\QueryStatements\CreateTableStatement;
@@ -20,7 +21,7 @@ final class CreateNwsTable implements MigratesUp
             ->datetime('publishedAt')
             ->text('summary')
             ->string('tag')
-            ->json('sentiment', nullable: true)
+            ->enum('sentiment', Sentiment::class, nullable: true)
             ->json('keywords', nullable: true);
     }
 }

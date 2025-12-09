@@ -3,6 +3,7 @@
 namespace App\Nws\Commands;
 
 use App\Nws\Nws;
+use App\Nws\Sentiment;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Console\Schedule;
@@ -18,7 +19,8 @@ final class NwsSentimentCommand
     {
         error_reporting(E_ALL ^ E_DEPRECATED);
 
-        $classifier = pipeline('sentiment-analysis', 'twn39/multilingual-sentiment-analysis-ONNX');
+        $classifier = pipeline('sentiment-analysis');
+//        $classifier = pipeline('sentiment-analysis', 'twn39/multilingual-sentiment-analysis-ONNX');
 
         $query = Nws::select();
 
@@ -30,7 +32,7 @@ final class NwsSentimentCommand
             /** @var Nws $nws */
             foreach ($items as $nws) {
                 $sentiment = $classifier($nws->title . ' ' . $nws->summary);
-                $nws->sentiment = $sentiment;
+                $nws->sentiment = Sentiment::tryFrom($sentiment['label']);
                 $nws->save();
                 $this->success($nws->title);
             }
