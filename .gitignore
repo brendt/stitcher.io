@@ -19,3 +19,4 @@ public/meta/*
 public/**/meta.png
 !public/meta/meta_small.png
 public/**/index.html
+.transformers-cache
