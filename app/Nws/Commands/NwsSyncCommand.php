@@ -25,8 +25,8 @@ final class NwsSyncCommand
     {
         $xml = $this->cache->resolve(
             'nws',
-            fn () => file_get_contents('https://www.vrt.be/vrtnws/en.rss.articles.xml'),
-            Duration::hour(),
+            fn () => file_get_contents('https://www.vrt.be/vrtnws/nl.rss.articles.xml'),
+            Duration::minutes(30),
         );
 
         $items = $this->parseXml($xml);
@@ -55,6 +55,8 @@ final class NwsSyncCommand
                 $this->error($e->getMessage());
             }
         }
+
+        $this->success('Done');
     }
 
     private function parseXml(string $input): array

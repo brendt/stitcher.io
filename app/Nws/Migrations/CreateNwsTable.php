@@ -21,7 +21,6 @@ final class CreateNwsTable implements MigratesUp
             ->datetime('publishedAt')
             ->text('summary')
             ->string('tag')
-            ->enum('sentiment', Sentiment::class, nullable: true)
-            ->json('keywords', nullable: true);
+            ->enum('sentiment', Sentiment::class, nullable: true);
     }
 }

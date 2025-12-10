@@ -14,13 +14,12 @@ final class NwsSentimentCommand
 {
     use HasConsole;
 
-    #[ConsoleCommand, Schedule(Every::DAY)]
+    #[ConsoleCommand, Schedule(Every::HOUR)]
     public function __invoke(bool $all = false): void
     {
         error_reporting(E_ALL ^ E_DEPRECATED);
 
         $classifier = pipeline('sentiment-analysis');
-//        $classifier = pipeline('sentiment-analysis', 'twn39/multilingual-sentiment-analysis-ONNX');
 
         $query = Nws::select();
 
@@ -38,5 +37,6 @@ final class NwsSentimentCommand
             }
         });
 
+        $this->success('Done');
     }
 }

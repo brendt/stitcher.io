@@ -15,5 +15,4 @@ final class Nws
     public string $summary;
     public string $tag;
     public ?Sentiment $sentiment = null;
-    public ?array $keywords = null;
 }
