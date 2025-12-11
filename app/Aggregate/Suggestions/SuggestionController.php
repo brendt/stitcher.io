@@ -2,6 +2,8 @@
 
 namespace App\Aggregate\Suggestions;
 
+use App\Aggregate\FeedController;
+use App\Aggregate\Posts\Actions\QueuePost;
 use App\Aggregate\Posts\Actions\ResolveTitle;
 use App\Aggregate\Posts\Post;
 use App\Aggregate\Posts\PostState;
@@ -44,7 +46,7 @@ final readonly class SuggestionController
             }
         });
 
-        return new Redirect('/?success');
+        return new Redirect(Router\uri([FeedController::class, 'home'], success: 1));
     }
 
     #[Admin, Stateless, Router\Post('/suggestions/deny/{suggestion}')]
@@ -85,13 +87,32 @@ final readonly class SuggestionController
         return $this->render();
     }
 
+    #[Admin, Stateless, Router\Post('/suggestions/queue/{suggestion}')]
+    public function queue(Suggestion $suggestion, ResolveTitle $resolveTitle, QueuePost $queuePost): View
+    {
+        $title = $resolveTitle($suggestion->uri);
+
+        $post = Post::create(
+            title: $title,
+            uri: $suggestion->uri,
+            createdAt: DateTime::now(),
+            publicationDate: null,
+            state: PostState::PENDING,
+        );
+
+        $queuePost($post);
+
+        $suggestion->delete();
+
+        return $this->render();
+    }
+
     private function render(): View
     {
-        $suggestions = Suggestion::select()->all();
-
         return view(
             'x-suggestions.view.php',
-            suggestions: $suggestions,
+            suggestions: Suggestion::select()->all(),
+            shouldQueue: Post::shouldQueue(),
         );
     }
 }

@@ -1,4 +1,5 @@
 <?php
+use App\Aggregate\Suggestions\SuggestionController;
 ?>
 
 <x-base>

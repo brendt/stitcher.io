@@ -15,10 +15,11 @@ $meta->title ??= 'Stitcher.io';
 $meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
 $meta->image ??= uri('/meta/meta_small.png');
 $meta->canonical ??= null;
+$isProduction = get(AppConfig::class)->environment->isProduction();
 ?>
 
 <!doctype html>
-<html lang="en" class="h-dvh flex flex-col md:p-4 bg-primary">
+<html lang="en" class="h-dvh flex flex-col md:p-4" :class="$isProduction ? 'bg-primary' : 'bg-green-600'">
 <head>
     <!-- General -->
     <title :if="$title">{{ $title }} | Stitcher.io</title>
@@ -79,6 +80,7 @@ $meta->canonical ??= null;
         <a href="/">Home</a>
         <a href="/rss">RSS</a>
         <a href="/mail">Newsletter</a>
+        <a href="/login">Login</a>
         <a href="https://tempestphp.com/discord">Discord</a>
         <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
     </div>

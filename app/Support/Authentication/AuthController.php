@@ -80,8 +80,12 @@ final readonly class AuthController
 
     private function autoLogin(): ?Redirect
     {
-        if ($this->appConfig->environment->isLocal() && env('AUTO_LOGIN')) {
-            $this->authenticator->authenticate(User::get(new PrimaryKey(1)));
+        if (
+            $this->appConfig->environment->isLocal()
+            && env('AUTO_LOGIN')
+            && ($user = User::get(new PrimaryKey(1)))
+        ) {
+            $this->authenticator->authenticate($user);
 
             return new Redirect('/');
         }

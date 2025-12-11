@@ -119,4 +119,9 @@ final class Post implements Bindable
             ->build()
             ->fetchFirst()['count'] ?? 0;
     }
+
+    public static function shouldQueue(): bool
+    {
+        return self::publishedToday() >= 3;
+    }
 }

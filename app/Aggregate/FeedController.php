@@ -6,29 +6,31 @@ use App\Aggregate\Posts\Post;
 use App\Aggregate\Suggestions\Suggestion;
 use Closure;
 use Tempest\Auth\Authentication\Authenticator;
+use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\FormatPattern;
 use Tempest\Http\Request;
+use Tempest\Http\Response;
+use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
 use Tempest\Router\Prefix;
+use Tempest\Router\Stateless;
 use Tempest\Support\Arr\ImmutableArray;
 use Tempest\View\View;
+use Tempest\View\ViewRenderer;
 use function Tempest\Support\arr;
 use function Tempest\view;
 
 #[Prefix('/feed')]
 final class FeedController
 {
-    #[Get('/{?page}')]
-    public function home(?string $page, Authenticator $authenticator, Request $request): View
+    #[Get('/')]
+    public function home(Authenticator $authenticator, Request $request): View
     {
-        $currentPage = $page ? intval($page) : 1;
-
-        $page = Post::published()
+        $posts = arr(Post::published()
             ->orderBy('publicationDate DESC')
-            ->paginate(currentPage: $currentPage);
-
-        $posts = arr($page->data);
+            ->limit(20)
+            ->all());
 
         /** @var \App\Support\Authentication\User $user */
         $user = $authenticator->current();
@@ -36,8 +38,7 @@ final class FeedController
         if ($user?->isAdmin) {
             $futureQueued = Post::futureQueued();
             $pendingPosts = Post::pending()->limit(5)->all();
-            $publishedPostsToday = Post::publishedToday();
-            $shouldQueue = $publishedPostsToday >= 3;
+            $shouldQueue = Post::shouldQueue();
             $pendingCount = Post::pendingCount();
             $suggestions = Suggestion::select()->all();
         }
@@ -45,7 +46,6 @@ final class FeedController
         return view(
             'feed.view.php',
             user: $user,
-            page: $page,
             posts: $posts,
             color: $this->createColorFunction($posts),
             pendingPosts: $pendingPosts ?? [],
@@ -80,6 +80,27 @@ final class FeedController
             user: $authenticator->current(),
             page: null,
         );
+    }
+
+    #[Stateless, Get('/rss')]
+    public function __invoke(
+        ViewRenderer $viewRenderer,
+        Cache $cache,
+    ): Response
+    {
+        $xml = $cache->resolve(
+            key: 'rss',
+            callback: fn () => $viewRenderer->render(view(
+                __DIR__ . '/feed-rss.view.php',
+                posts: Post::published()
+                    ->orderBy('publicationDate DESC')
+                    ->limit(50)
+                    ->all(),
+            )),
+            expiration: DateTime::now()->plusHours(1),
+        );
+
+        return new Ok($xml)->addHeader('Content-Type', 'application/xml;charset=UTF-8');
     }
 
     private function createColorFunction(ImmutableArray $posts): Closure

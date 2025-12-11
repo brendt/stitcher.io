@@ -8,7 +8,7 @@ use App\Support\Authentication\AuthController;
 use App\Aggregate\Suggestions\SuggestionController;
 ?>
 
-<x-base>
+<x-base title="Feed">
     <x-slot name="head">
         <script :if="$user?->isAdmin" src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
         <script>
@@ -33,6 +33,7 @@ use App\Aggregate\Suggestions\SuggestionController;
     </x-slot>
 
     <div class="max-w-[800px] m-auto grid gap-2">
+        <x-menu />
 
         <div class="grid gap-2 mt-4" :if="$user?->isAdmin">
             <x-suggestions :suggestions="$suggestions" />
@@ -77,14 +78,5 @@ use App\Aggregate\Suggestions\SuggestionController;
                 />
             </div>
         </div>
-
-        <div class="flex gap-2 mt-8">
-            <a
-                    :if="$page?->hasNext"
-                    :href="uri([FeedController::class, 'home'], page: $page->nextPage)"
-                    class="flex-auto text-center bg-white font-bold hover:underline p-3 rounded-lg shadow-sm"
-            >Read more</a>
-        </div>
-
     </div>
 </x-base>

@@ -2,10 +2,10 @@
 
 namespace App\Aggregate\Posts;
 
+use App\Aggregate\Posts\Actions\QueuePost;
 use App\Support\Authentication\Admin;
 use Tempest\Database\Query;
 use Tempest\DateTime\DateTime;
-use Tempest\DateTime\FormatPattern;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router;
 use Tempest\View\View;
@@ -52,30 +52,9 @@ final class PostsController
     }
 
     #[Admin, Router\Post('/posts/queue/{post}')]
-    public function queue(Post $post): View
+    public function queue(Post $post, QueuePost $queuePost): View
     {
-        $lastFullDay = new Query(<<<SQL
-        SELECT publicationDate
-        FROM posts
-        WHERE publicationDate > :publicationDate
-        AND state = :state
-        GROUP BY publicationDate
-        HAVING COUNT(*) >= 3
-        ORDER BY publicationDate DESC
-        LIMIT 1;
-
-        SQL)->fetchFirst(
-            publicationDate: DateTime::now()->startOfDay()->format(FormatPattern::SQL_DATE_TIME),
-            state: PostState::PUBLISHED,
-        );
-
-        $nextDate = DateTime::parse($lastFullDay['publicationDate'] ?? 'now')
-            ->plusDay()
-            ->startOfDay();
-
-        $post->state = PostState::PUBLISHED;
-        $post->publicationDate = $nextDate;
-        $post->save();
+        $queuePost($post);
 
         return $this->render();
     }
@@ -83,8 +62,7 @@ final class PostsController
     private function render(): View
     {
         $pendingPosts = Post::pending()->limit(5)->all();
-        $publishedPostsToday = Post::publishedToday();
-        $shouldQueue = $publishedPostsToday >= 3;
+        $shouldQueue = Post::shouldQueue();
         $futureQueued = Post::futureQueued();
         $pendingCount = Post::pendingCount();
 
