@@ -25,6 +25,9 @@ use function Tempest\Router\uri;
                     <![CDATA[ Brent ]]>
                 </name>
             </author>
+            <content>
+                <![CDATA[ Read the full post on <a :href="$post->uri">{{ $post->uri }}</a> ]]>
+            </content>
         </entry>
     <?php endforeach; ?>
 </feed>
