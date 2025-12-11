@@ -26,7 +26,7 @@ use function Tempest\Router\uri;
                 </name>
             </author>
             <content>
-                <![CDATA[ Read the full post on <a :href="$post->uri">{{ $post->uri }}</a> ]]>
+                <![CDATA[ Read the full post on <a href="{{ $post->uri }}">{{ $post->uri }}</a> ]]>
             </content>
         </entry>
     <?php endforeach; ?>
