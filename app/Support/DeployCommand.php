@@ -26,7 +26,7 @@ final readonly class DeployCommand
             default => 'deploy-full.sh',
         };
 
-        $this->info('Running deploy script');
+        $this->info("Running deploy script `{$deployScript}`");
         passthru("ssh forge@stitcher.io 'cd stitcher.io && bash app/Deploy/{$deployScript}'");
 
         $this->success('Deploy success');
