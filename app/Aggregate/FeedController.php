@@ -89,7 +89,7 @@ final class FeedController
     ): Response
     {
         $xml = $cache->resolve(
-            key: 'rss',
+            key: 'feed-rss',
             callback: fn () => $viewRenderer->render(view(
                 __DIR__ . '/feed-rss.view.php',
                 posts: Post::published()

@@ -70,7 +70,7 @@ final class BlogController
     ): Response
     {
         $xml = $cache->resolve(
-            key: 'rss',
+            key: 'blog-rss',
             callback: fn () => $viewRenderer->render(view('blog-rss.view.php', posts: $repository->all())),
             expiration: DateTime::now()->plusHours(1),
         );
