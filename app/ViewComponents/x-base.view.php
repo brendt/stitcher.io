@@ -19,7 +19,7 @@ $isProduction = get(AppConfig::class)->environment->isProduction();
 ?>
 
 <!doctype html>
-<html lang="en" class="h-dvh flex flex-col md:p-4" :class="$isProduction ? 'bg-primary' : 'bg-green-600'">
+<html lang="en" class="h-dvh flex flex-col md:p-4 bg-gray-100" :class="$isProduction ? 'sm:bg-primary' : 'sm:bg-green-600'">
 <head>
     <!-- General -->
     <title :if="$title">{{ $title }} | Stitcher.io</title>
@@ -66,22 +66,22 @@ $isProduction = get(AppConfig::class)->environment->isProduction();
     <x-slot name="head"/>
 </head>
 <body class="antialiased relative">
-<div class="bg-primary sm:bg-gray-100 m-2 sm:m-0 p-0 sm:p-2 md:p-4 rounded-md sm:shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
+<div class="bg-gray-100 m-2 sm:m-0 p-0 sm:p-2 md:p-4 rounded-md sm:shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
     <x-slot/>
 </div>
 
-<div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-white font-bold font-sm grid gap-4">
+<div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-primary sm:text-white font-bold font-sm grid gap-4">
     <div class="flex justify-center">
             <span>
                 Noticed a tpyo? You can <a href="https://github.com/brendt/stitcher.io">submit a PR</a> to fix it.
             </span>
     </div>
     <div class="flex flex-wrap gap-8 items-center justify-center">
-        <a href="/">Home</a>
-        <a href="/rss">RSS</a>
-        <a href="/mail">Newsletter</a>
-        <a href="/login">Login</a>
-        <a href="https://tempestphp.com/discord">Discord</a>
+        <a class="underline hover:no-underline" href="/">Home</a>
+        <a class="underline hover:no-underline" href="/rss">RSS</a>
+        <a class="underline hover:no-underline" href="/mail">Newsletter</a>
+        <a class="underline hover:no-underline" href="/login">Login</a>
+        <a class="underline hover:no-underline" href="https://tempestphp.com/discord">Discord</a>
         <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
     </div>
 </div>

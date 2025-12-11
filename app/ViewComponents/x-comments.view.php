@@ -3,6 +3,8 @@
 use Tempest\Http\Request;
 use function Tempest\get;
 use function Tempest\Support\str;
+use function Tempest\Router\uri;
+use App\Blog\CommentsController;
 
 $user ??= null;
 $comments ??= [];
