@@ -4,6 +4,7 @@ namespace App\Blog;
 
 use Generator;
 use Tempest\Router\DataProvider;
+use function Tempest\Support\arr;
 
 final readonly class BlogPostDataProvider implements DataProvider
 {
@@ -13,7 +14,9 @@ final readonly class BlogPostDataProvider implements DataProvider
 
     public function provide(): Generator
     {
-        foreach (glob(__DIR__ . "/Content/*.md") as $path) {
+        $paths = arr(glob(__DIR__ . "/Content/*.md"))->reverse();
+
+        foreach ($paths as $path) {
             preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
 
             yield [
