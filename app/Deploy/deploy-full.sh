@@ -13,6 +13,7 @@ php8.4 tempest discovery:generate
 php8.4 tempest migrate:up --force
 
 # Build front-end
+php8.4 tempest static:clean
 /home/forge/.bun/bin/bun run build
 php8.4 tempest cache:clear --force
 php8.4 tempest view:clear --force
