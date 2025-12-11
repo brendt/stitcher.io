@@ -4,6 +4,7 @@
  */
 
 use App\Blog\Meta;
+use Tempest\Auth\Authentication\Authenticator;
 use function Tempest\get;
 use function Tempest\Http\csrf_token;
 use Tempest\Core\AppConfig;
@@ -16,6 +17,7 @@ $meta->description ??= 'A blog about modern PHP, the web, and programming in gen
 $meta->image ??= uri('/meta/meta_small.png');
 $meta->canonical ??= null;
 $isProduction = get(AppConfig::class)->environment->isProduction();
+$isLoggedIn = get(Authenticator::class)->current() !== null;
 ?>
 
 <!doctype html>
@@ -80,9 +82,12 @@ $isProduction = get(AppConfig::class)->environment->isProduction();
         <a class="underline hover:no-underline" href="/">Home</a>
         <a class="underline hover:no-underline" href="/rss">RSS</a>
         <a class="underline hover:no-underline" href="/mail">Newsletter</a>
-        <a class="underline hover:no-underline" href="/login">Login</a>
         <a class="underline hover:no-underline" href="https://tempestphp.com/discord">Discord</a>
+
         <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
+
+        <a :if="!$isLoggedIn" class="underline hover:no-underline" href="/login">Login</a>
+        <a :else class="underline hover:no-underline" href="/logout">Logout</a>
     </div>
 </div>
 
