@@ -12,7 +12,7 @@ use function Tempest\Router\uri;
     <id>https://stitcher.io/feed/rss</id>
     <link href="https://stitcher.io/feed/rss" rel="self"/>
     <title>
-        <![CDATA[ Stitcher's community feed ]]>
+        <![CDATA[ Stitcher's Community Feed ]]>
     </title>
     <subtitle>An aggregation of great content across the web</subtitle>
     <updated><?= date('c') ?></updated>

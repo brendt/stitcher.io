@@ -10,9 +10,7 @@ use App\Aggregate\Suggestions\SuggestionController;
                     <span class="font-bold text-slate-600">Submit to Aggregate</span>
                 </div>
 
-                <p>
-                    Aggregate is a community-powered RSS feed, which you are a part of. Leave a link here to an interesting post, video, or blog, and it might be published in the feed!
-                </p>
+                <p>This is my community-driven content aggregator, aka <span class="font-bold">Stitcher's Community Feed</span>. Leave a link here to an interesting post, video, or blog, and it might be published in the feed!</p>
 
                 <x-input type="text" name="suggestion">
                     <x-slot name="label">

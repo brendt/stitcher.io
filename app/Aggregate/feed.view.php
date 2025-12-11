@@ -40,19 +40,24 @@ use App\Aggregate\Suggestions\SuggestionController;
             <x-pending-posts :pendingPosts="$pendingPosts" :shouldQueue="$shouldQueue" :futureQueued="$futureQueued"/>
         </div>
 
-        <div class="rounded-lg bg-white shadow-sm hover:shadow-lg flex text-center mb-8 mt-8">
-            <span :if="$success ?? null" class="grow p-4 font-bold text-emerald-700">
-                Your suggestion has been added!
-                <a :href="uri([SuggestionController::class, 'suggest'])" class="underline hover:no-underline">Add another one</a>
-            </span>
-            <a :else :href="uri([SuggestionController::class, 'suggest'])" class="underline hover:no-underline grow p-4 font-bold">
-                Add your own
-            </a>
-        </div>
+
+        <x-card :if="$success ?? null">
+            <p>
+                <span class="text-emerald-700 font-bold">Your suggestion has been added!</span>&nbsp;<a :href="uri([SuggestionController::class, 'suggest'])" class="font-bold underline hover:no-underline">Add another one</a>
+            </p>
+        </x-card>
+
+        <x-card>
+            <p>This is my community-driven content aggregator, aka <span class="font-bold">Stitcher's Community Feed</span>. This is a hand-curated list of thought-provoking content from around the web. You can browse through the most recent posts on this page, or you can <a href="/feed/rss">follow the RSS feed</a> directly.</p>
+
+            <p>
+                Finally, you can <a :href="uri([SuggestionController::class, 'suggest'])">add your own suggestions</a> as well.
+            </p>
+        </x-card>
 
         <div
                 :foreach="$posts as $index => $post"
-                class="rounded-lg bg-white shadow-sm hover:shadow-lg flex items-center justify-between"
+                class="rounded-xs bg-white shadow-sm hover:shadow-lg flex items-center justify-between"
         >
             <div class="pl-4">
                 <span class="text-md sm:text-xs p-1 px-2 rounded-sm {{ $color($post) }}">{{ $post->visits }}</span>
