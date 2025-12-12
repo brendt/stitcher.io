@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "790217a9a2633f19f15680b2bd970855",
+    "content-hash": "397ffee422e93f4fba36838f44ccefeb",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -5709,16 +5709,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v2.13.0",
+            "version": "v2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "6153ffe781f831e0164ade46d9f919551e6d057c"
+                "reference": "7afcdb378399d0d217268a1122f8418fc60a6d60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/6153ffe781f831e0164ade46d9f919551e6d057c",
-                "reference": "6153ffe781f831e0164ade46d9f919551e6d057c",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/7afcdb378399d0d217268a1122f8418fc60a6d60",
+                "reference": "7afcdb378399d0d217268a1122f8418fc60a6d60",
                 "shasum": ""
             },
             "require": {
@@ -5928,7 +5928,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v2.13.0"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/v2.14.0"
             },
             "funding": [
                 {
@@ -5936,7 +5936,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-04T13:53:49+00:00"
+            "time": "2025-12-12T08:09:51+00:00"
         },
         {
             "name": "tempest/highlight",
@@ -6794,16 +6794,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.5.2",
+            "version": "12.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "06713c2633d6d832f2fe98a70511ecaa7cb92c1a"
+                "reference": "6dc2e076d09960efbb0c1272aa9bc156fc80955e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/06713c2633d6d832f2fe98a70511ecaa7cb92c1a",
-                "reference": "06713c2633d6d832f2fe98a70511ecaa7cb92c1a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6dc2e076d09960efbb0c1272aa9bc156fc80955e",
+                "reference": "6dc2e076d09960efbb0c1272aa9bc156fc80955e",
                 "shasum": ""
             },
             "require": {
@@ -6871,7 +6871,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.2"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.3"
             },
             "funding": [
                 {
@@ -6895,7 +6895,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-08T07:22:32+00:00"
+            "time": "2025-12-11T08:52:59+00:00"
         },
         {
             "name": "sebastian/cli-parser",
