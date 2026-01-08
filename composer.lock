@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "71052527981578cdd4ceb50ea9932b33",
+    "content-hash": "17921c65dacb3a7c0c106c74e6e4c7d0",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -5713,7 +5713,7 @@
             "dist": {
                 "type": "path",
                 "url": "../tempest-framework",
-                "reference": "5ec931ac21682216a21d77f8a5c85c9cd9da15d5"
+                "reference": "516a0ac6e7a4092fd97f46f7df98fd7e97d252da"
             },
             "require": {
                 "doctrine/inflector": "^2.0",
