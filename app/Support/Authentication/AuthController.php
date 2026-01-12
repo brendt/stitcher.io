@@ -42,7 +42,7 @@ final readonly class AuthController
             return $response;
         }
 
-        $type ??= 'google';
+        $type ??= $request->get('type') ?? 'google';
 
         $oauth = $this->container->get(OAuthClient::class, tag: $type);
 
