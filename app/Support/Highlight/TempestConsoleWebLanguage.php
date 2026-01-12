@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Support\Highlight;
 
+use Override;
 use App\Support\Highlight\Injections\CommentInjection;
 use App\Support\Highlight\Injections\DimInjection;
 use App\Support\Highlight\Injections\EmphasizeInjection;
@@ -18,19 +19,19 @@ use Tempest\Highlight\Language;
 
 final readonly class TempestConsoleWebLanguage implements Language
 {
-    #[\Override]
+    #[Override]
     public function getName(): string
     {
         return 'console';
     }
 
-    #[\Override]
+    #[Override]
     public function getAliases(): array
     {
         return [];
     }
 
-    #[\Override]
+    #[Override]
     public function getInjections(): array
     {
         return [
@@ -47,7 +48,7 @@ final readonly class TempestConsoleWebLanguage implements Language
         ];
     }
 
-    #[\Override]
+    #[Override]
     public function getPatterns(): array
     {
         return [];

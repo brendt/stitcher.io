@@ -2,6 +2,9 @@
 
 namespace App\Aggregate\Posts;
 
+use Tempest\Router\Prefix;
+use Tempest\Router\Stateless;
+use Tempest\Router\Get;
 use App\Aggregate\Posts\Actions\QueuePost;
 use App\Support\Authentication\Admin;
 use Tempest\Database\Query;
@@ -11,12 +14,12 @@ use Tempest\Router;
 use Tempest\View\View;
 use Throwable;
 use function Tempest\defer;
-use function Tempest\view;
+use function Tempest\View\view;
 
-#[Router\Prefix('/feed'), Router\Stateless]
+#[Prefix('/feed'), Stateless]
 final class PostsController
 {
-    #[Router\Get('/posts/{post}')]
+    #[Get('/posts/{post}')]
     public function visit(Post $post): Redirect
     {
         defer(function () use ($post) {
@@ -66,7 +69,7 @@ final class PostsController
         $futureQueued = Post::futureQueued();
         $pendingCount = Post::pendingCount();
 
-        return view(
+        return \Tempest\View\view(
             'x-pending-posts.view.php',
             pendingPosts: $pendingPosts,
             shouldQueue: $shouldQueue,

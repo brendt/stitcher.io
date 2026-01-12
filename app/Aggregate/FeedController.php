@@ -2,6 +2,7 @@
 
 namespace App\Aggregate;
 
+use App\Support\Authentication\User;
 use App\Aggregate\Posts\Post;
 use App\Aggregate\Suggestions\Suggestion;
 use Closure;
@@ -19,7 +20,7 @@ use Tempest\Support\Arr\ImmutableArray;
 use Tempest\View\View;
 use Tempest\View\ViewRenderer;
 use function Tempest\Support\arr;
-use function Tempest\view;
+use function Tempest\View\view;
 
 #[Prefix('/feed')]
 final class FeedController
@@ -32,7 +33,7 @@ final class FeedController
             ->limit(20)
             ->all());
 
-        /** @var \App\Support\Authentication\User $user */
+        /** @var User $user */
         $user = $authenticator->current();
 
         if ($user?->isAdmin) {
@@ -43,7 +44,7 @@ final class FeedController
             $suggestions = Suggestion::select()->all();
         }
 
-        return view(
+        return \Tempest\View\view(
             'feed.view.php',
             user: $user,
             posts: $posts,
@@ -68,7 +69,7 @@ final class FeedController
 
         $posts = $posts->sortByCallback(fn (Post $a, Post $b) => $b->publicationDate <=> $a->publicationDate);
 
-        return view(
+        return \Tempest\View\view(
             'feed.view.php',
             posts: $posts,
             color: $this->createColorFunction($posts),
@@ -90,7 +91,7 @@ final class FeedController
     {
         $xml = $cache->resolve(
             key: 'feed-rss',
-            callback: fn () => $viewRenderer->render(view(
+            callback: fn () => $viewRenderer->render(\Tempest\View\view(
                 __DIR__ . '/feed-rss.view.php',
                 posts: Post::published()
                     ->orderBy('publicationDate DESC')

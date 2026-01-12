@@ -2,14 +2,15 @@
 
 namespace App\Aggregate\Posts;
 
+use Tempest\Router\Post;
 use App\Authentication\AdminMiddleware;
 use Tempest\Router;
 use Tempest\View\View;
-use function Tempest\view;
+use function Tempest\View\view;
 
 final class PendingSourcesController
 {
-    #[Router\Post('/sources/deny/{source}', middleware: [AdminMiddleware::class])]
+    #[Post('/sources/deny/{source}', middleware: [AdminMiddleware::class])]
     public function deny(Source $source): View
     {
         $source->state = SourceState::DENIED;
@@ -18,7 +19,7 @@ final class PendingSourcesController
         return $this->render();
     }
 
-    #[Router\Post('/sources/publish/{source}', middleware: [AdminMiddleware::class])]
+    #[Post('/sources/publish/{source}', middleware: [AdminMiddleware::class])]
     public function publish(Source $source, SyncSource $syncSource): View
     {
         $source->state = SourceState::PUBLISHED;
@@ -37,6 +38,6 @@ final class PendingSourcesController
             ->limit(5)
             ->all();
 
-        return view('x-pending-sources.view.php', pendingSources: $pendingSources);
+        return \Tempest\View\view('x-pending-sources.view.php', pendingSources: $pendingSources);
     }
 }

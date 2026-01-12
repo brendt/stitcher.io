@@ -7,7 +7,6 @@ use App\Blog\Meta;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Core\Environment;
 use function Tempest\get;
-use function Tempest\Http\csrf_token;
 use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
 
@@ -94,10 +93,6 @@ $isLoggedIn = get(Authenticator::class)->current() !== null;
 
 <x-slot name="scripts"/>
 <script>
-    document.body.addEventListener('htmx:configRequest', function (evt) {
-        evt.detail.headers['x-xsrf-token'] = '{{ csrf_token() }}';
-    });
-
     document.body.addEventListener('htmx:beforeOnLoad', function (evt) {
         if (evt.detail.xhr.status === 500) {
             document.querySelector('#htmx-error').innerHTML = evt.detail.xhr.statusText;

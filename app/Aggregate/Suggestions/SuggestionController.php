@@ -2,6 +2,8 @@
 
 namespace App\Aggregate\Suggestions;
 
+use Tempest\Router\Get;
+use function Tempest\Router\uri;
 use App\Aggregate\FeedController;
 use App\Aggregate\Posts\Actions\QueuePost;
 use App\Aggregate\Posts\Actions\ResolveTitle;
@@ -18,14 +20,14 @@ use Tempest\Router;
 use Tempest\Router\Stateless;
 use Tempest\View\View;
 use function Tempest\defer;
-use function Tempest\view;
+use function Tempest\View\view;
 
 final readonly class SuggestionController
 {
-    #[Router\Get('/suggest')]
+    #[Get('/suggest')]
     public function suggest(): View
     {
-        return view('suggest.view.php');
+        return \Tempest\View\view('suggest.view.php');
     }
 
     #[Router\Post('/suggest')]
@@ -46,7 +48,7 @@ final readonly class SuggestionController
             }
         });
 
-        return new Redirect(Router\uri([FeedController::class, 'home'], success: 1));
+        return new Redirect(uri([FeedController::class, 'home'], success: 1));
     }
 
     #[Admin, Stateless, Router\Post('/suggestions/deny/{suggestion}')]
@@ -109,7 +111,7 @@ final readonly class SuggestionController
 
     private function render(): View
     {
-        return view(
+        return \Tempest\View\view(
             'x-suggestions.view.php',
             suggestions: Suggestion::select()->all(),
             shouldQueue: Post::shouldQueue(),

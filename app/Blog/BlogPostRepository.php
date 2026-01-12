@@ -2,6 +2,7 @@
 
 namespace App\Blog;
 
+use Tempest\Mapper\map;
 use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\DateTime\DateTime;
@@ -46,7 +47,7 @@ final  class BlogPostRepository
             ...$frontMatter,
         ];
 
-        $post = \Tempest\map($data)->to(BlogPost::class);
+        $post = map($data)->to(BlogPost::class);
 
         $allPosts = $this->all();
         $currentIndex = null;
@@ -64,7 +65,7 @@ final  class BlogPostRepository
     }
 
     /**
-     * @return ImmutableArray<array-key, \App\Blog\BlogPost>
+     * @return ImmutableArray<array-key, BlogPost>
      */
     public function all(): ImmutableArray
     {

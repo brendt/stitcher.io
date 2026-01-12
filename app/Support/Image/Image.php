@@ -11,7 +11,7 @@ final class Image
 
     public ?string $alt = null;
 
-    /** @var \App\Support\Image\SrcSet[] */
+    /** @var SrcSet[] */
     public array $srcset = [];
 
     public string $srcPath {

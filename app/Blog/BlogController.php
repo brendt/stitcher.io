@@ -19,7 +19,7 @@ use Tempest\View\View;
 use Tempest\View\ViewRenderer;
 use function Tempest\root_path;
 use function Tempest\Router\uri;
-use function Tempest\view;
+use function Tempest\View\view;
 
 final class BlogController
 {
@@ -29,7 +29,7 @@ final class BlogController
     {
         $posts = $repository->all();
 
-        return \Tempest\view('blog-overview.view.php', posts: $posts);
+        return \Tempest\View\view('blog-overview.view.php', posts: $posts);
     }
 
     #[Get('/blog/{slug}')]
@@ -52,7 +52,7 @@ final class BlogController
             ->orderBy('createdAt DESC')
             ->all();
 
-        return \Tempest\view(
+        return \Tempest\View\view(
             'blog-show.view.php',
             post: $post,
             comments: $comments,
@@ -71,7 +71,7 @@ final class BlogController
     {
         $xml = $cache->resolve(
             key: 'blog-rss',
-            callback: fn () => $viewRenderer->render(view('blog-rss.view.php', posts: $repository->all())),
+            callback: fn () => $viewRenderer->render(\Tempest\View\view('blog-rss.view.php', posts: $repository->all())),
             expiration: DateTime::now()->plusHours(1),
         );
 
@@ -104,7 +104,7 @@ final class BlogController
         }
 
         if ($request->has('html')) {
-            $html = $viewRenderer->render(view('blog-meta.view.php', post: $post));
+            $html = $viewRenderer->render(\Tempest\View\view('blog-meta.view.php', post: $post));
 
             return new Ok($html);
         }
