@@ -2,7 +2,6 @@
 
 namespace App\Blog;
 
-use Tempest\Mapper\map;
 use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\DateTime\DateTime;
@@ -47,7 +46,7 @@ final  class BlogPostRepository
             ...$frontMatter,
         ];
 
-        $post = map($data)->to(BlogPost::class);
+        $post = \Tempest\Mapper\map($data)->to(BlogPost::class);
 
         $allPosts = $this->all();
         $currentIndex = null;

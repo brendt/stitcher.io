@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Aggregate\Suggestions;
+namespace App\Aggregate\Suggestions\Migrations;
 
 use Tempest\Database\MigratesUp;
 use Tempest\Database\QueryStatement;

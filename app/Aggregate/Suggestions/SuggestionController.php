@@ -27,9 +27,8 @@ use function Tempest\View\view;
 final readonly class SuggestionController
 {
     #[Get('/suggest')]
-    public function suggest(FormSession $session): View
+    public function suggest(): View
     {
-        lw($session);
         return view('suggest.view.php');
     }
 
@@ -43,9 +42,12 @@ final readonly class SuggestionController
         );
 
         defer(function () use ($suggestion) {
-            $feedUri = new FindSuggestionFeedUri()($suggestion->uri);
+            if ($title = new ResolveTitle()($suggestion->uri)) {
+                $suggestion->title = $title;
+                $suggestion->save();
+            }
 
-            if ($feedUri) {
+            if ($feedUri = new FindSuggestionFeedUri()($suggestion->uri)) {
                 $suggestion->feedUri = $feedUri;
                 $suggestion->save();
             }
