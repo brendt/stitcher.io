@@ -27,7 +27,7 @@ use function Tempest\View\view;
 final readonly class SuggestionController
 {
     #[Get('/suggest')]
-    public function suggest(FormSession $session, Request $request): View
+    public function suggest(FormSession $session): View
     {
         lw($session);
         return view('suggest.view.php');
