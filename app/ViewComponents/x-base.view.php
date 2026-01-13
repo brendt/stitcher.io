@@ -6,7 +6,7 @@
 use App\Blog\Meta;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Core\Environment;
-use function Tempest\get;
+use function Tempest\Container\get;
 use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
 

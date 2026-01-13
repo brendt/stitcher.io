@@ -6,7 +6,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Image as ScalableImage;
 use Tempest\CommandBus\Async;
 use Tempest\CommandBus\CommandHandler;
-use function Tempest\command;
+use function Tempest\CommandBus\command;
 use function Tempest\Support\path;
 
 final readonly class ImageFactory

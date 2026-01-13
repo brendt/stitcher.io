@@ -1,7 +1,7 @@
 <?php
 
 use Tempest\Http\Request;
-use function Tempest\get;
+use function Tempest\Container\get;
 use function Tempest\Support\str;
 use function Tempest\Router\uri;
 use App\Blog\CommentsController;
@@ -10,7 +10,7 @@ use App\Support\Authentication\AuthController;
 $user ??= null;
 $comments ??= [];
 $confirm ??= null;
-$back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
+$back ??= str(\Tempest\Container\get(Request::class)->path)->beforeLast('/comments')->toString();
 ?>
 
 <div id="comments" class="grid gap-4">

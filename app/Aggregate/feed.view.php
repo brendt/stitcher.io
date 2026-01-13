@@ -47,7 +47,7 @@ use App\Aggregate\Suggestions\SuggestionController;
             </p>
         </x-card>
 
-        <x-card>
+        <x-card :if="! $user?->isAdmin">
             <p>This is my community-driven content aggregator, aka <span class="font-bold">Stitcher's Community Feed</span>. This is a hand-curated list of thought-provoking content from around the web. You can browse through the most recent posts on this page, or you can <a href="/feed/rss">follow the RSS feed</a> directly.</p>
 
             <p>

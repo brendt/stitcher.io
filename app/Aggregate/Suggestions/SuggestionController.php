@@ -2,6 +2,8 @@
 
 namespace App\Aggregate\Suggestions;
 
+use Tempest\Http\Session\FormSession;
+use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
 use function Tempest\Router\uri;
 use App\Aggregate\FeedController;
@@ -25,9 +27,10 @@ use function Tempest\View\view;
 final readonly class SuggestionController
 {
     #[Get('/suggest')]
-    public function suggest(): View
+    public function suggest(FormSession $session, Request $request): View
     {
-        return \Tempest\View\view('suggest.view.php');
+        lw($session);
+        return view('suggest.view.php');
     }
 
     #[Router\Post('/suggest')]
@@ -111,7 +114,7 @@ final readonly class SuggestionController
 
     private function render(): View
     {
-        return \Tempest\View\view(
+        return view(
             'x-suggestions.view.php',
             suggestions: Suggestion::select()->all(),
             shouldQueue: Post::shouldQueue(),

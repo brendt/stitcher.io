@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5e66cefd4560e3bde35243ba6fb29dd",
+    "content-hash": "17921c65dacb3a7c0c106c74e6e4c7d0",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -5710,16 +5710,10 @@
         {
             "name": "tempest/framework",
             "version": "3.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "07c5aafcb95fdf829966727790b94fdde67ac398"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/07c5aafcb95fdf829966727790b94fdde67ac398",
-                "reference": "07c5aafcb95fdf829966727790b94fdde67ac398",
-                "shasum": ""
+                "type": "path",
+                "url": "../tempest-framework",
+                "reference": "f97b0cf9907ec1e6280216cf7abdc098ac76b977"
             },
             "require": {
                 "doctrine/inflector": "^2.0",
@@ -5846,12 +5840,45 @@
                 "ext-pcntl": "Required to use some interactive console components.",
                 "ext-posix": "Required to use some interactive console components."
             },
-            "default-branch": true,
             "bin": [
                 "packages/console/bin/tempest"
             ],
             "type": "library",
             "autoload": {
+                "psr-4": {
+                    "Tempest\\Auth\\": "packages/auth/src",
+                    "Tempest\\Cache\\": "packages/cache/src",
+                    "Tempest\\Clock\\": "packages/clock/src",
+                    "Tempest\\CommandBus\\": "packages/command-bus/src",
+                    "Tempest\\Console\\": "packages/console/src",
+                    "Tempest\\Container\\": "packages/container/src",
+                    "Tempest\\Core\\": "packages/core/src",
+                    "Tempest\\Cryptography\\": "packages/cryptography/src",
+                    "Tempest\\Database\\": "packages/database/src",
+                    "Tempest\\DateTime\\": "packages/datetime/src",
+                    "Tempest\\Debug\\": "packages/debug/src",
+                    "Tempest\\Discovery\\": "packages/discovery/src",
+                    "Tempest\\EventBus\\": "packages/event-bus/src",
+                    "Tempest\\Framework\\": "src/Tempest/Framework",
+                    "Tempest\\Generation\\": "packages/generation/src",
+                    "Tempest\\HttpClient\\": "packages/http-client/src",
+                    "Tempest\\Http\\": "packages/http/src",
+                    "Tempest\\Icon\\": "packages/icon/src",
+                    "Tempest\\Intl\\": "packages/intl/src",
+                    "Tempest\\KeyValue\\": "packages/kv-store/src",
+                    "Tempest\\Log\\": "packages/log/src",
+                    "Tempest\\Mail\\": "packages/mail/src",
+                    "Tempest\\Mapper\\": "packages/mapper/src",
+                    "Tempest\\Process\\": "packages/process/src",
+                    "Tempest\\Reflection\\": "packages/reflection/src",
+                    "Tempest\\Router\\": "packages/router/src",
+                    "Tempest\\Storage\\": "packages/storage/src",
+                    "Tempest\\Support\\": "packages/support/src",
+                    "Tempest\\Upgrade\\": "packages/upgrade/src",
+                    "Tempest\\Validation\\": "packages/validation/src",
+                    "Tempest\\View\\": "packages/view/src",
+                    "Tempest\\Vite\\": "packages/vite/src"
+                },
                 "files": [
                     "packages/clock/src/functions.php",
                     "packages/command-bus/src/functions.php",
@@ -5886,58 +5913,110 @@
                     "packages/support/src/functions.php",
                     "packages/view/src/functions.php",
                     "packages/vite/src/functions.php"
-                ],
+                ]
+            },
+            "autoload-dev": {
                 "psr-4": {
-                    "Tempest\\Log\\": "packages/log/src",
-                    "Tempest\\Auth\\": "packages/auth/src",
-                    "Tempest\\Core\\": "packages/core/src",
-                    "Tempest\\Http\\": "packages/http/src",
-                    "Tempest\\Icon\\": "packages/icon/src",
-                    "Tempest\\Intl\\": "packages/intl/src",
-                    "Tempest\\Mail\\": "packages/mail/src",
-                    "Tempest\\View\\": "packages/view/src",
-                    "Tempest\\Vite\\": "packages/vite/src",
-                    "Tempest\\Cache\\": "packages/cache/src",
-                    "Tempest\\Clock\\": "packages/clock/src",
-                    "Tempest\\Debug\\": "packages/debug/src",
-                    "Tempest\\Mapper\\": "packages/mapper/src",
-                    "Tempest\\Router\\": "packages/router/src",
-                    "Tempest\\Console\\": "packages/console/src",
-                    "Tempest\\Process\\": "packages/process/src",
-                    "Tempest\\Storage\\": "packages/storage/src",
-                    "Tempest\\Support\\": "packages/support/src",
-                    "Tempest\\Upgrade\\": "packages/upgrade/src",
-                    "Tempest\\Database\\": "packages/database/src",
-                    "Tempest\\DateTime\\": "packages/datetime/src",
-                    "Tempest\\EventBus\\": "packages/event-bus/src",
-                    "Tempest\\KeyValue\\": "packages/kv-store/src",
-                    "Tempest\\Container\\": "packages/container/src",
-                    "Tempest\\Discovery\\": "packages/discovery/src",
-                    "Tempest\\Framework\\": "src/Tempest/Framework",
-                    "Tempest\\CommandBus\\": "packages/command-bus/src",
-                    "Tempest\\Generation\\": "packages/generation/src",
-                    "Tempest\\HttpClient\\": "packages/http-client/src",
-                    "Tempest\\Reflection\\": "packages/reflection/src",
-                    "Tempest\\Validation\\": "packages/validation/src",
-                    "Tempest\\Cryptography\\": "packages/cryptography/src"
+                    "Tempest\\Auth\\Tests\\": "packages/auth/tests",
+                    "Tempest\\Cache\\Tests\\": "packages/cache/tests",
+                    "Tempest\\Clock\\Tests\\": "packages/clock/tests",
+                    "Tempest\\CommandBus\\Tests\\": "packages/command-bus/tests",
+                    "Tempest\\Console\\Tests\\": "packages/console/tests",
+                    "Tempest\\Container\\Tests\\": "packages/container/tests",
+                    "Tempest\\Core\\Tests\\": "packages/core/tests",
+                    "Tempest\\Cryptography\\Tests\\": "packages/cryptography/tests",
+                    "Tempest\\Database\\Tests\\": "packages/database/tests",
+                    "Tempest\\DateTime\\Tests\\": "packages/datetime/tests",
+                    "Tempest\\Debug\\Tests\\": "packages/debug/tests",
+                    "Tempest\\EventBus\\Tests\\": "packages/event-bus/tests",
+                    "Tempest\\Generation\\Tests\\": "packages/generation/tests",
+                    "Tempest\\HttpClient\\Tests\\": "packages/http-client/tests",
+                    "Tempest\\Http\\Tests\\": "packages/http/tests",
+                    "Tempest\\Icon\\Tests\\": "packages/icon/tests",
+                    "Tempest\\Intl\\Tests\\": "packages/intl/tests",
+                    "Tempest\\KeyValue\\Tests\\": "packages/kv-store/tests",
+                    "Tempest\\Log\\Tests\\": "packages/log/tests",
+                    "Tempest\\Mail\\Tests\\": "packages/mail/tests",
+                    "Tempest\\Mapper\\Tests\\": "packages/mapper/tests",
+                    "Tempest\\Process\\Tests\\": "packages/process/tests",
+                    "Tempest\\Reflection\\Tests\\": "packages/reflection/tests",
+                    "Tempest\\Router\\Tests\\": "packages/router/tests",
+                    "Tempest\\Storage\\Tests\\": "packages/storage/tests",
+                    "Tempest\\Support\\Tests\\": "packages/support/tests",
+                    "Tempest\\Upgrade\\Tests\\": "packages/upgrade/tests",
+                    "Tempest\\Validation\\Tests\\": "packages/validation/tests",
+                    "Tempest\\View\\Tests\\": "packages/view/tests",
+                    "Tempest\\Vite\\Tests\\": "packages/vite/tests",
+                    "Tests\\Tempest\\": "tests"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "phpunit": [
+                    "@php -d memory_limit=2G vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices"
+                ],
+                "coverage": [
+                    "vendor/bin/phpunit --coverage-html build/reports/html --coverage-clover build/reports/clover.xml"
+                ],
+                "fmt": [
+                    "vendor/bin/mago fmt"
+                ],
+                "lint:fix": [
+                    "vendor/bin/mago lint --fix --format-after-fix"
+                ],
+                "style": [
+                    "composer fmt && composer lint:fix"
+                ],
+                "test": [
+                    "composer phpunit"
+                ],
+                "test:stop": [
+                    "composer phpunit -- --stop-on-error --stop-on-failure"
+                ],
+                "lint": [
+                    "vendor/bin/mago lint --potentially-unsafe --minimum-fail-level=note"
+                ],
+                "phpstan": [
+                    "vendor/bin/phpstan analyse src tests --memory-limit=1G"
+                ],
+                "rector": [
+                    "vendor/bin/rector process --no-ansi"
+                ],
+                "merge": [
+                    "php -d\"error_reporting = E_ALL & ~E_DEPRECATED\" vendor/bin/monorepo-builder merge"
+                ],
+                "intl:plural": [
+                    "./packages/intl/bin/plural-rules.php"
+                ],
+                "exceptions:dev": [
+                    "cd ./packages/router/src/Exceptions/local && bun i && bun run dev"
+                ],
+                "exceptions:build": [
+                    "cd ./packages/router/src/Exceptions/local && bun i && bun run build"
+                ],
+                "release": [
+                    "composer qa",
+                    "./bin/release"
+                ],
+                "qa": [
+                    "composer fmt",
+                    "composer lint:fix",
+                    "composer lint",
+                    "composer merge",
+                    "composer rector",
+                    "./bin/validate-packages",
+                    "./tempest discovery:clear --no-interaction",
+                    "composer phpunit",
+                    "composer phpstan",
+                    "composer exceptions:build"
+                ]
+            },
             "license": [
                 "MIT"
             ],
             "description": "The PHP framework that gets out of your way.",
-            "support": {
-                "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/3.x"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/tempestphp",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-01-09T13:41:32+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "tempest/highlight",

@@ -10,7 +10,7 @@ use Tempest\DateTime\DateTime;
 use Tempest\DateTime\FormatPattern;
 use Tempest\Router\Bindable;
 use function Tempest\Database\query;
-use function Tempest\get;
+use function Tempest\Container\get;
 
 final class Post implements Bindable
 {
