@@ -4,19 +4,19 @@
 . ~/.nvm/nvm.sh
 
 # Dependencies
-php8.4 /usr/local/bin/composer install --no-dev
+php8.5 /usr/local/bin/composer install --no-dev
 /home/forge/.bun/bin/bun install
 
 # Tempest
-php8.4 tempest cache:clear --force --internal --all
-php8.4 tempest discovery:generate
-php8.4 tempest migrate:up --force
+php8.5 tempest cache:clear --force --internal --all
+php8.5 tempest discovery:generate
+php8.5 tempest migrate:up --force
 
 # Build front-end
 /home/forge/.bun/bin/bun run build
-php8.4 tempest cache:clear --force
-php8.4 tempest view:clear --force
-php8.4 tempest static:generate --verbose=true
+php8.5 tempest cache:clear --force
+php8.5 tempest view:clear --force
+php8.5 tempest static:generate --verbose=true
 
 # Supervisor
 sudo supervisorctl restart all
