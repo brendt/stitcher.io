@@ -11,7 +11,7 @@ use Tempest\DateTime\DateTime;
 use Tempest\DateTime\Duration;
 use Tempest\Support\Arr\ImmutableArray;
 use Throwable;
-use function Tempest\event;
+use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
 final readonly class SyncSource

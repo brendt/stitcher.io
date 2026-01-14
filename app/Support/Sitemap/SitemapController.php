@@ -2,6 +2,7 @@
 
 namespace App\Support\Sitemap;
 
+use Tempest\Router\DataProvider;
 use Tempest\Cache\Cache;
 use Tempest\Container\Container;
 use Tempest\DateTime\Duration;
@@ -12,7 +13,7 @@ use Tempest\Router\Get;
 use Tempest\Router\RouteConfig;
 use Tempest\Router\StaticPage;
 use function Tempest\Router\uri;
-use function Tempest\view;
+use function Tempest\View\view;
 
 final class SitemapController
 {
@@ -38,7 +39,7 @@ final class SitemapController
                         continue;
                     }
 
-                    /** @var \Tempest\Router\DataProvider $dataProvider */
+                    /** @var DataProvider $dataProvider */
                     $dataProvider = $container->get($staticPage->dataProviderClass);
 
                     foreach ($dataProvider->provide() as $params) {

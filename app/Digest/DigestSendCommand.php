@@ -13,7 +13,7 @@ use Tempest\DateTime\DateTime;
 use Tempest\Mail\GenericEmail;
 use Tempest\Mail\Mailer;
 use function Tempest\Database\query;
-use function Tempest\view;
+use function Tempest\View\view;
 
 final class DigestSendCommand
 {

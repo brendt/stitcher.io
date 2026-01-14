@@ -46,7 +46,7 @@ final  class BlogPostRepository
             ...$frontMatter,
         ];
 
-        $post = \Tempest\map($data)->to(BlogPost::class);
+        $post = \Tempest\Mapper\map($data)->to(BlogPost::class);
 
         $allPosts = $this->all();
         $currentIndex = null;
@@ -64,7 +64,7 @@ final  class BlogPostRepository
     }
 
     /**
-     * @return ImmutableArray<array-key, \App\Blog\BlogPost>
+     * @return ImmutableArray<array-key, BlogPost>
      */
     public function all(): ImmutableArray
     {

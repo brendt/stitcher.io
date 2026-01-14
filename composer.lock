@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "397ffee422e93f4fba36838f44ccefeb",
+    "content-hash": "d5e66cefd4560e3bde35243ba6fb29dd",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -5709,16 +5709,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v2.14.0",
+            "version": "3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "7afcdb378399d0d217268a1122f8418fc60a6d60"
+                "reference": "56ba5ea92d8458038af566391e4eb3279481e02f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/7afcdb378399d0d217268a1122f8418fc60a6d60",
-                "reference": "7afcdb378399d0d217268a1122f8418fc60a6d60",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/56ba5ea92d8458038af566391e4eb3279481e02f",
+                "reference": "56ba5ea92d8458038af566391e4eb3279481e02f",
                 "shasum": ""
             },
             "require": {
@@ -5743,7 +5743,7 @@
                 "monolog/monolog": "^3.7.0",
                 "nette/php-generator": "^4.1.6",
                 "nikic/php-parser": "^5.3",
-                "php": "^8.4",
+                "php": "^8.5",
                 "psr-discovery/http-client-implementations": "^1.4",
                 "psr-discovery/http-factory-implementations": "^1.2",
                 "psr/cache": "^3.0",
@@ -5846,6 +5846,7 @@
                 "ext-pcntl": "Required to use some interactive console components.",
                 "ext-posix": "Required to use some interactive console components."
             },
+            "default-branch": true,
             "bin": [
                 "packages/console/bin/tempest"
             ],
@@ -5928,7 +5929,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v2.14.0"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/3.x"
             },
             "funding": [
                 {
@@ -5936,7 +5937,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-12-12T08:09:51+00:00"
+            "time": "2026-01-13T12:50:41+00:00"
         },
         {
             "name": "tempest/highlight",
@@ -7899,7 +7900,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "tempest/framework": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

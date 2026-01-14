@@ -1,9 +1,9 @@
 {
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.14",
-    "tailwindcss": "^4.1.14",
-    "vite": "^7.1.10",
-    "vite-plugin-tempest": "^2.3.3"
+    "@tailwindcss/vite": "^4.1.18",
+    "tailwindcss": "^4.1.18",
+    "vite": "^7.3.1",
+    "vite-plugin-tempest": "^2.13.0"
   },
   "type": "module",
   "scripts": {
@@ -11,6 +11,6 @@
     "build": "vite build"
   },
   "dependencies": {
-    "puppeteer": "^24.25.0"
+    "puppeteer": "^24.34.0"
   }
 }

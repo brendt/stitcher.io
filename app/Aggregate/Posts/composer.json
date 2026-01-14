@@ -1,0 +1,14 @@
+{
+    "name": "vendor_name/Posts",
+    "description": "description",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "brentroose",
+            "email": "email@example.com"
+        }
+    ],
+    "require": {
+    }
+}

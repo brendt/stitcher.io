@@ -4,9 +4,6 @@
  */
 
 use App\Blog\Meta;
-use function Tempest\get;
-use function Tempest\Http\csrf_token;
-use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
 
 $title ??= 'Things I wish I knew';

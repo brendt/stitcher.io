@@ -12,7 +12,7 @@ final class TalksController
     #[Get('/things-talk')]
     public function things(): View
     {
-        return \Tempest\view(
+        return \Tempest\View\view(
             'things-talk.view.php',
         );
     }

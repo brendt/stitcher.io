@@ -5,8 +5,8 @@
 
 use App\Blog\Meta;
 use Tempest\Auth\Authentication\Authenticator;
-use function Tempest\get;
-use function Tempest\Http\csrf_token;
+use Tempest\Core\Environment;
+use function Tempest\Container\get;
 use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
 
@@ -16,7 +16,7 @@ $meta->title ??= 'Stitcher.io';
 $meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
 $meta->image ??= uri('/meta/meta_small.png');
 $meta->canonical ??= null;
-$isProduction = get(AppConfig::class)->environment->isProduction();
+$isProduction = get(Environment::class)->isProduction();
 $isLoggedIn = get(Authenticator::class)->current() !== null;
 ?>
 
@@ -93,10 +93,6 @@ $isLoggedIn = get(Authenticator::class)->current() !== null;
 
 <x-slot name="scripts"/>
 <script>
-    document.body.addEventListener('htmx:configRequest', function (evt) {
-        evt.detail.headers['x-xsrf-token'] = '{{ csrf_token() }}';
-    });
-
     document.body.addEventListener('htmx:beforeOnLoad', function (evt) {
         if (evt.detail.xhr.status === 500) {
             document.querySelector('#htmx-error').innerHTML = evt.detail.xhr.statusText;

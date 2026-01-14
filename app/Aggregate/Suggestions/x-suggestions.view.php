@@ -10,7 +10,7 @@ use function Tempest\Router\uri;
     >
 
         <span class="text-gray-500">
-            <span class="font-bold wrap-anywhere">{{ $suggestion->uri }}</span>
+            <span class="font-bold wrap-anywhere">{{ $suggestion->title ?? $suggestion->uri }}</span>
         </span>
 
         <div class="flex gap-8 sm:gap-2">

@@ -8,6 +8,7 @@ use Tempest\Auth\OAuth\OAuthClient;
 use Tempest\Auth\OAuth\OAuthUser;
 use Tempest\Container\Container;
 use Tempest\Core\AppConfig;
+use Tempest\Core\Environment;
 use Tempest\Database\PrimaryKey;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
@@ -21,7 +22,7 @@ final readonly class AuthController
 {
     public function __construct(
         private Authenticator $authenticator,
-        private AppConfig $appConfig,
+        private Environment $environment,
         private Container $container,
         private Session $session,
     ) {}
@@ -81,7 +82,7 @@ final readonly class AuthController
     private function autoLogin(): ?Redirect
     {
         if (
-            $this->appConfig->environment->isLocal()
+            $this->environment->isLocal()
             && env('AUTO_LOGIN')
             && ($user = User::get(new PrimaryKey(1)))
         ) {

@@ -36,10 +36,11 @@ use App\Aggregate\Posts\PostsController;
     </div>
 
     <div class="flex justify-between">
-        <div class="bg-gray-200 p-2 text-xs rounded-lg shadow-xs" :if="$pendingCount">
-            {{ $pendingCount }} pending
+        <div class="bg-gray-200 p-2 text-xs rounded-lg shadow-xs">
+            {{ $pendingCount }} to be reviewed
         </div>
-        <div class="bg-gray-200 p-2 text-xs rounded-lg shadow-xs" :if="$futureQueued">
+        <a :href="uri([SuggestionController::class, 'suggest'])" class="bg-gray-200 p-2 text-xs rounded-lg shadow-xs underline hover:no-underline font-bold">Add</a>
+        <div class="bg-gray-200 p-2 text-xs rounded-lg shadow-xs">
             {{ $futureQueued }} queued
         </div>
     </div>

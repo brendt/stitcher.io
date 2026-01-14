@@ -88,7 +88,7 @@ final readonly class CommentsController
             ->orderBy('createdAt DESC')
             ->all();
 
-        return \Tempest\view(
+        return \Tempest\View\view(
             __DIR__ . '/../ViewComponents/x-comments.view.php',
             ...$data,
             post: $post,

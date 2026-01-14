@@ -7,14 +7,15 @@
  * @var string|null $default
  */
 
+use Tempest\Http\Session\FormSession;
 use Tempest\Http\Session\Session;
 use Tempest\Validation\Validator;
 
-use function Tempest\get;
+use function Tempest\Container\get;
 use function Tempest\Support\str;
 
-/** @var Session $session */
-$session = get(Session::class);
+/** @var FormSession $session */
+$session = get(FormSession::class);
 
 /** @var Validator $validator */
 $validator = get(Validator::class);

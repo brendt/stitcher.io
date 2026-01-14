@@ -10,7 +10,7 @@ use App\Suggestions\Events\FeedUriFetchEmpty;
 use Dom\HTMLDocument;
 use Feed;
 use Throwable;
-use function Tempest\event;
+use function Tempest\EventBus\event;
 use function Tempest\Support\str;
 
 final readonly class FindSuggestionFeedUri
