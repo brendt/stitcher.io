@@ -7,7 +7,6 @@ namespace App\Analytics;
 use App\Support\StoredEvents\HasCreatedAtDate;
 use App\Support\StoredEvents\ShouldBeStored;
 use DateTimeImmutable;
-use Override;
 use Symfony\Component\Uid\Uuid;
 
 final class PageVisited implements ShouldBeStored, HasCreatedAtDate

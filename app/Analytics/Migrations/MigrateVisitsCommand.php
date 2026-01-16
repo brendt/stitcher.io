@@ -3,13 +3,13 @@
 namespace App\Analytics\Migrations;
 
 use App\Analytics\PageVisited;
-use App\Support\StoredEvents\HasCreatedAtDate;
 use App\Support\StoredEvents\StoredEvent;
 use DateTimeImmutable;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
+use Tempest\Database\Query;
 use function Tempest\Database\query;
-use function Tempest\EventBus\event;
+use function Tempest\Support\arr;
 
 final class MigrateVisitsCommand
 {

@@ -11,17 +11,8 @@ use Symfony\Component\Uid\Uuid;
 $uuid = Uuid::v4()->toString();
 ?>
 
-<div class="grid gap-4 bg-white rounded-2xl p-2 md:p-4 md:pt-2 shadow">
-    <div class="px-1 flex gap-2 items-center justify-between flex-wrap flex-col md:flex-row">
-        <h2 class="font-bold">
-            {{ $chartTitle }}
-        </h2>
-        <span class="text-sm text-gray-800 bg-gray-200 rounded-md px-2 py-1">total: {{ number_format($chart->total) }}</span>
-    </div>
-    <div>
-        <canvas id="<?= $uuid ?>" class="h-[300px] w-[100px]"></canvas>
-    </div>
-
+<x-analytics-card :title="$title" :total="$chart->total" :uuid="$uuid" :chart="$chart" :label="$label">
+    <canvas id="<?= $uuid ?>" class="h-[300px] w-[100px]"></canvas>
     <script>
         var ctx = document.getElementById('<?= $uuid ?>');
 
@@ -62,4 +53,4 @@ $uuid = Uuid::v4()->toString();
             }
         });
     </script>
-</div>
+</x-analytics-card>
