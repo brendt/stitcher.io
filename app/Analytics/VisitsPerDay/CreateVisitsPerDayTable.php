@@ -14,7 +14,7 @@ final class CreateVisitsPerDayTable implements MigratesUp
 
     public function up(): QueryStatement
     {
-        return CreateTableStatement::forModel('visits_per_day')
+        return new CreateTableStatement('visits_per_day')
             ->primary()
             ->datetime('date')
             ->integer('count')

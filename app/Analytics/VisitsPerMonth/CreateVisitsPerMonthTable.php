@@ -14,7 +14,7 @@ final class CreateVisitsPerMonthTable implements MigratesUp
 
     public function up(): QueryStatement
     {
-        return CreateTableStatement::forModel('visits_per_month')
+        return new CreateTableStatement('visits_per_month')
             ->primary()
             ->datetime('date')
             ->integer('count')
