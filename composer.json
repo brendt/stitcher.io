@@ -2,7 +2,7 @@
     "name": "tempest/app",
     "type": "project",
     "require": {
-        "php": "^8.4",
+        "php": "^8.5",
         "tempest/framework": "3.x-dev",
         "symfony/yaml": "^7.3",
         "spatie/yaml-front-matter": "^2.1",

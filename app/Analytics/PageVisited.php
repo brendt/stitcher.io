@@ -28,7 +28,6 @@ final class PageVisited implements ShouldBeStored, HasCreatedAtDate
         get => $this->visitedAt;
     }
 
-    #[Override]
     public function serialize(): string
     {
         return json_encode([
@@ -42,7 +41,6 @@ final class PageVisited implements ShouldBeStored, HasCreatedAtDate
         ]);
     }
 
-    #[Override]
     public static function unserialize(string $payload): self
     {
         $data = json_decode($payload, true);

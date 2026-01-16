@@ -3,6 +3,8 @@
 namespace App\Analytics\Migrations;
 
 use App\Analytics\PageVisited;
+use App\Support\StoredEvents\HasCreatedAtDate;
+use App\Support\StoredEvents\StoredEvent;
 use DateTimeImmutable;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
@@ -40,13 +42,22 @@ final class MigrateVisitsCommand
                 $lastId = 0;
 
                 foreach ($visits as $visit) {
-                    event(new PageVisited(
+                    $event = new PageVisited(
                         url: $visit['url'],
                         visitedAt: new DateTimeImmutable($visit['date']),
                         ip: $visit['ip'],
                         userAgent: $visit['user_agent'] ?? '',
                         raw: $visit['payload'],
-                    ));
+                    );
+
+                    query(StoredEvent::class)
+                        ->insert(
+                            uuid: $event->uuid,
+                            eventClass: $event::class,
+                            payload: $event->serialize(),
+                            createdAt: $event->createdAt,
+                        )
+                        ->execute();
 
                     $lastId = $visit['id'];
                 }
@@ -54,13 +65,23 @@ final class MigrateVisitsCommand
                 $currentCount += count($visits);
 
                 $this->writeln(sprintf(
-                    '%s (%s/%s)',
+                    '%s (%s/%s) %s',
                     floor($currentCount / $totalCount * 100) . '%',
                     number_format($currentCount),
                     number_format($totalCount),
+                    $this->memory(),
                 ));
 
                 file_put_contents(__DIR__ . '/last-id', $lastId);
             }, 1000);
+    }
+
+    private function memory(): string
+    {
+        $memory = memory_get_usage(true);
+
+        $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
+
+        return @round($memory / pow(1024, ($i = floor(log($memory, 1024)))), 2) . ' ' . $unit[$i];
     }
 }
