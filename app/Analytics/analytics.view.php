@@ -9,7 +9,7 @@
 
             <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-12">
                 <x-chart :chart="$visitsPerDay" label="Visits" chart-title="Visits last 62 days"></x-chart>
-                <x-chart :chart="$visitsPerHour" label="Visits" chart-title="Visits last 24 hours"></x-chart>
+                <x-chart :chart="$visitsPerHour" label="Visits" chart-title="Visits last 48 hours"></x-chart>
             </div>
         </div>
     </div>

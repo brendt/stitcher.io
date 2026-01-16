@@ -23,7 +23,7 @@ final readonly class EventsReplayCommand
         private Container $container,
     ) {}
 
-    #[ConsoleCommand(middleware: [ForceMiddleware::class])]
+    #[ConsoleCommand(aliases: ['replay'], middleware: [ForceMiddleware::class])]
     public function __invoke(?string $replay = null): void
     {
         $projectors = arr($this->storedEventConfig->projectors)->sort();
@@ -67,11 +67,11 @@ final readonly class EventsReplayCommand
         }
 
         foreach ($projectors as $projectorClass) {
+            $currentCount = 0;
+
             if (! in_array($projectorClass, $replay, strict: true)) {
                 continue;
             }
-
-            $this->info(sprintf('Replaying <style="underline">%s</style>', $projectorClass));
 
             /** @var Projector $projector */
             $projector = $this->container->get($projectorClass);
@@ -81,12 +81,23 @@ final readonly class EventsReplayCommand
             StoredEvent::select()
                 ->orderBy('createdAt ASC')
                 ->chunk(
-                    function (array $storedEvents) use ($projector): void {
-                        $this->write('.');
+                    function (array $storedEvents) use ($projectorClass, $eventCount, &$currentCount, $projector): void {
+                        if ($storedEvents === []) {
+                            return;
+                        }
 
                         foreach ($storedEvents as $storedEvent) {
                             $projector->replay($storedEvent->getEvent());
                         }
+
+                        $currentCount += count($storedEvents);
+
+                        $this->writeln(sprintf(
+                            '[<style="dim">%s</style>] %d/%d',
+                            $projectorClass,
+                            $currentCount,
+                            $eventCount,
+                        ));
                     },
                     500,
                 );

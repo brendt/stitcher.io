@@ -11,8 +11,8 @@ use Symfony\Component\Uid\Uuid;
 $uuid = Uuid::v4()->toString();
 ?>
 
-<div class="grid gap-2">
-    <h2 class="font-bold">{{ $chartTitle }}</h2>
+<div class="grid gap-2 bg-white rounded-2xl p-4 pt-2 shadow">
+    <h2 class="ml-4 font-bold">{{ $chartTitle }}</h2>
     <div>
         <canvas id="<?= $uuid ?>" class="h-[300px] w-[100px]"></canvas>
     </div>

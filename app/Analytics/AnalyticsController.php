@@ -19,7 +19,7 @@ final class AnalyticsController
         $visitsPerHour = new Chart(arr(query(VisitsPerHour::class)
             ->select()
             ->orderBy('hour DESC')
-            ->limit(24)
+            ->limit(48)
             ->all())->reverse());
 
         $visitsPerDay = new Chart(arr(query(VisitsPerDay::class)
