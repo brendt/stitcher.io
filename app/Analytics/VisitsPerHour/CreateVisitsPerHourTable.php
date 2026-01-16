@@ -14,7 +14,7 @@ final class CreateVisitsPerHourTable implements MigratesUp
 
     public function up(): QueryStatement
     {
-        return new CreateTableStatement('visits_per_hour')
+        return CreateTableStatement::forModel(VisitsPerHour::class)
             ->primary()
             ->datetime('hour')
             ->integer('count')

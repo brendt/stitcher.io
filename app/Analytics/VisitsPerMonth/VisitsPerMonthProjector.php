@@ -9,6 +9,7 @@ use App\Support\StoredEvents\Projector;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
+use function Tempest\Database\inspect;
 
 final readonly class VisitsPerMonthProjector implements Projector
 {
@@ -21,7 +22,7 @@ final readonly class VisitsPerMonthProjector implements Projector
 
     public function clear(): void
     {
-        new QueryBuilder('visits_per_month')
+        new QueryBuilder(VisitsPerMonth::class)
             ->delete()
             ->allowAll()
             ->execute();
@@ -31,9 +32,10 @@ final readonly class VisitsPerMonthProjector implements Projector
     public function onPageVisited(PageVisited $pageVisited): void
     {
         $date = $pageVisited->visitedAt->format('Y-m') . '-01';
+        $table = inspect(VisitsPerMonth::class)->getTableName();
 
         new Query(<<<SQL
-        INSERT INTO visits_per_month (`date`, `count`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
+        INSERT INTO $table (`date`, `count`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
         SQL, [
             $date,
             1

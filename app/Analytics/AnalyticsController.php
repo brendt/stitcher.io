@@ -5,6 +5,7 @@ namespace App\Analytics;
 use App\Analytics\VisitsPerDay\VisitsPerDay;
 use App\Analytics\VisitsPerHour\VisitsPerHour;
 use App\Analytics\VisitsPerMonth\VisitsPerMonth;
+use App\Analytics\VisitsPerYear\VisitsPerYear;
 use Tempest\Router\Get;
 use Tempest\View\View;
 use function Tempest\Database\query;
@@ -34,12 +35,18 @@ final class AnalyticsController
             ->limit(36)
             ->all())->reverse());
 
+        $visitsPerYear = new Chart(arr(query(VisitsPerYear::class)
+            ->select()
+            ->orderBy('date ASC')
+            ->all()
+        ));
+
         return view(
             'analytics.view.php',
             visitsPerHour: $visitsPerHour,
             visitsPerDay: $visitsPerDay,
             visitsPerMonth: $visitsPerMonth,
+            visitsPerYear: $visitsPerYear,
         );
     }
-
 }

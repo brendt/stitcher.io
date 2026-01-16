@@ -11,6 +11,10 @@
             </div>
 
             <x-chart :chart="$visitsPerMonth" label="Visits" chart-title="Visits last 36 months"></x-chart>
+
+            <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-12">
+                <x-chart :chart="$visitsPerYear" label="Visits" chart-title="Visits per year"></x-chart>
+            </div>
         </div>
     </div>
 </x-base>

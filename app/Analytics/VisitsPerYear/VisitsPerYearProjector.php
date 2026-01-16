@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Analytics\VisitsPerDay;
+namespace App\Analytics\VisitsPerYear;
 
 use App\Analytics\PageVisited;
 use App\Support\StoredEvents\Projector;
@@ -11,7 +11,7 @@ use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
 use function Tempest\Database\inspect;
 
-final readonly class VisitsPerDayProjector implements Projector
+final readonly class VisitsPerYearProjector implements Projector
 {
     public function replay(object $event): void
     {
@@ -22,7 +22,7 @@ final readonly class VisitsPerDayProjector implements Projector
 
     public function clear(): void
     {
-        new QueryBuilder('visits_per_day')
+        new QueryBuilder(VisitsPerYear::class)
             ->delete()
             ->allowAll()
             ->execute();
@@ -31,8 +31,8 @@ final readonly class VisitsPerDayProjector implements Projector
     #[EventHandler]
     public function onPageVisited(PageVisited $pageVisited): void
     {
-        $date = $pageVisited->visitedAt->setTime(0, 0);
-        $table = inspect(VisitsPerDay::class)->getTableName();
+        $date = $pageVisited->visitedAt->format('Y') . '-01-01';
+        $table = inspect(VisitsPerYear::class)->getTableName();
 
         new Query(<<<SQL
         INSERT INTO $table (`date`, `count`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
