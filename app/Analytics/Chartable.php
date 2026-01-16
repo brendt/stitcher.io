@@ -8,7 +8,7 @@ interface Chartable
         get;
     }
 
-    public mixed $value {
+    public int $value {
         get;
     }
 }

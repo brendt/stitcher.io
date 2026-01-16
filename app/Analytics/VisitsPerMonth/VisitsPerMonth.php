@@ -18,7 +18,7 @@ final class VisitsPerMonth implements Chartable
         }
     }
 
-    public mixed $value {
+    public int $value {
         get {
             return $this->count;
         }

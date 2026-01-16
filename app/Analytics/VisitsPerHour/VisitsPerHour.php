@@ -18,7 +18,7 @@ final class VisitsPerHour implements Chartable
         }
     }
 
-    public mixed $value {
+    public int $value {
         get {
             return $this->count;
         }

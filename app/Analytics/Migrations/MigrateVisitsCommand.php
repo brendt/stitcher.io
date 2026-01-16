@@ -27,6 +27,7 @@ final class MigrateVisitsCommand
         $totalCount = query('visits')
             ->count()
             ->where('id > ?', $lastId)
+            ->where('url NOT IN ("/rss/de-job", "/wp-login.php", "/.well-known/traffic-advice", "/resources/img/favicon/safari-pinned-tab.svg", "/ads.txt")')
             ->execute();
 
         $currentCount = 0;
@@ -34,6 +35,7 @@ final class MigrateVisitsCommand
         query('visits')
             ->select()
             ->where('id > ?', $lastId)
+            ->where('url NOT IN ("/rss/de-job", "/wp-login.php", "/.well-known/traffic-advice", "/resources/img/favicon/safari-pinned-tab.svg", "/ads.txt")')
             ->chunk(function (array $visits) use ($totalCount, &$currentCount) {
                 $lastId = 0;
 

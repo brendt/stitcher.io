@@ -11,8 +11,13 @@ use Symfony\Component\Uid\Uuid;
 $uuid = Uuid::v4()->toString();
 ?>
 
-<div class="grid gap-2 bg-white rounded-2xl p-4 pt-2 shadow">
-    <h2 class="ml-4 font-bold">{{ $chartTitle }}</h2>
+<div class="grid gap-4 bg-white rounded-2xl p-2 md:p-4 md:pt-2 shadow">
+    <div class="px-1 flex gap-2 items-center justify-between flex-wrap flex-col md:flex-row">
+        <h2 class="font-bold">
+            {{ $chartTitle }}
+        </h2>
+        <span class="text-sm text-gray-800 bg-gray-200 rounded-md px-2 py-1">total: {{ number_format($chart->total) }}</span>
+    </div>
     <div>
         <canvas id="<?= $uuid ?>" class="h-[300px] w-[100px]"></canvas>
     </div>
@@ -27,10 +32,19 @@ $uuid = Uuid::v4()->toString();
                 datasets: [{
                     label: '<?= $label ?>',
                     data: <?= json_encode($chart->values->values()->toArray()) ?>,
+                    borderColor: '#fe2977',
                     borderWidth: 2
                 }]
             },
             options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: false
+                    },
+                },
                 maintainAspectRatio: false,
                 elements: {
                     line: {
