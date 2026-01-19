@@ -113,7 +113,6 @@ final class ParseLogCommand
             $date = new DateTimeImmutable($date . ' +0000');
 
             if ($lastDate && $lastDate >= $date) {
-                $this->writeln(sprintf("<style=\"bg-yellow fg-white\">%s </style> skipped", $date->format('Y-m-d H:i:s')));
                 continue;
             }
 
