@@ -32,10 +32,9 @@ final readonly class VisitsPerYearProjector implements Projector
     public function onPageVisited(PageVisited $pageVisited): void
     {
         $date = $pageVisited->visitedAt->format('Y') . '-01-01';
-        $table = inspect(VisitsPerYear::class)->getTableName();
 
         new Query(<<<SQL
-        INSERT INTO $table (`date`, `count`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
+        INSERT INTO `visits_per_year` (`date`, `count`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
         SQL, [
             $date,
             1

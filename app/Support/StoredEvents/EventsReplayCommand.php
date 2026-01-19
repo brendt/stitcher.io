@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Support\StoredEvents;
 
+use Tempest\Cache\Cache;
 use Tempest\Console\Console;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Console\Middleware\ForceMiddleware;
 use Tempest\Container\Container;
+use Tempest\DateTime\Duration;
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
 use function Tempest\Support\str;
@@ -21,6 +23,7 @@ final readonly class EventsReplayCommand
         private StoredEventConfig $storedEventConfig,
         private Console $console,
         private Container $container,
+        private Cache $cache,
     ) {}
 
     #[ConsoleCommand(aliases: ['replay'], middleware: [ForceMiddleware::class])]
@@ -51,8 +54,13 @@ final readonly class EventsReplayCommand
             return;
         }
 
-//        $eventCount = query('stored_events')->count()->execute();
-        $eventCount = 1;
+        $this->info('Gathering events…');
+
+        $eventCount = $this->cache->resolve(
+            'event-count',
+            fn () => query('stored_events')->count()->execute(),
+            Duration::hour(),
+        );
 
         $confirm = $this->confirm(sprintf(
             'We\'re going to replay %d events on %d %s, this will take a while. Continue?',
@@ -81,12 +89,13 @@ final readonly class EventsReplayCommand
 
         $this->info("Replaying events…");
 
-        $currentCount = 0;
         $startTime = microtime(true);
+        $eventsProcessed = 0;
+        $currentEps = 0;
+        $timeRemaining = -1;
 
         $offset = 0;
         $limit = 1500;
-        $currentEps = 0;
 
         while ($data = query('stored_events')->select()->offset($offset)->limit($limit)->all()) {
             // Setup
@@ -105,19 +114,21 @@ final readonly class EventsReplayCommand
             }
 
             // Metrics
-            $currentCount += count($events);
+            $eventsProcessed += count($events);
             $currentTime = microtime(true);
             $timeElapsed = $currentTime - $startTime;
             $previousEps = $currentEps;
-            $currentEps = round($currentCount / $timeElapsed);
+            $currentEps = round($eventsProcessed / $timeElapsed);
+            $timeRemaining = round(($eventCount - $eventsProcessed) / $currentEps);
 
             $this->writeln(sprintf(
-                '%s/%s — %s — <style="%s">%s/eps</style>',
-                number_format($currentCount),
+                '%s/%s — %s — <style="%s">%s/eps</style> — %ss left',
+                number_format($eventsProcessed),
                 number_format($eventCount),
                 $this->memory(),
                 $currentEps > $previousEps ? 'fg-green' : 'fg-red',
                 $currentEps,
+                $timeRemaining > 0 ? $timeRemaining : '?',
             ));
         }
 
