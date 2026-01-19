@@ -11,7 +11,7 @@
                     <table>
                         <tr class="table-head">
                             <td>Post</td>
-                            <td class="text-right">Recent visits</td>
+                            <td class="text-right">Visits this month</td>
                         </tr>
                         <tr :foreach="$popularPosts as $post">
                             <td>
