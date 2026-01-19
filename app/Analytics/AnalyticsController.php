@@ -43,11 +43,12 @@ final class AnalyticsController
             ->all()
         ));
 
-        $date = DateTime::now()->startOfWeek()->startOfDay();
+        $date = DateTime::now()->minusDays(14);
 
         $popularPosts = query(VisitsPerPostPerWeek::class)
             ->select()
-            ->where('date', $date)
+            ->where('date > ?', $date)
+            ->whereNot('uri', '/')
             ->orderBy('count DESC')
             ->limit(8)
             ->all();

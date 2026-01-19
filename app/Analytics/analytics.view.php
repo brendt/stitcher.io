@@ -7,11 +7,11 @@
         <div class="w-full z-10 p-2 md:p-12 grid gap-4 md:gap-8">
             <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-12">
                 <x-chart :chart="$visitsPerHour" label="Visits" title="Visits last 48 hours"></x-chart>
-                <x-analytics-card title="Popular posts this week">
+                <x-analytics-card title="Popular posts">
                     <table>
                         <tr class="table-head">
                             <td>Post</td>
-                            <td class="text-right">Visits this week</td>
+                            <td class="text-right">Recent visits</td>
                         </tr>
                         <tr :foreach="$popularPosts as $post">
                             <td>
