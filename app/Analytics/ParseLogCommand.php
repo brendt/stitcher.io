@@ -76,7 +76,9 @@ final class ParseLogCommand
     #[ConsoleCommand]
     public function __invoke(?string $path = null): void
     {
-        $handle = fopen($path ?? $this->config->accessLogPath, 'r');
+        $path = $path ?? $this->config->accessLogPath;
+
+        $handle = fopen($path, 'r');
 
         // Resolve the last stored date
         $lastDate = query('stored_events')
@@ -90,7 +92,7 @@ final class ParseLogCommand
             $lastDate = new DateTimeImmutable($lastDate['createdAt']);
         }
 
-        $this->success(sprintf("Parsing <style=\"underline\">%s</style>", $this->config->accessLogPath));
+        $this->success(sprintf("Parsing <style=\"underline\">%s</style>", $path));
 
         while (true) {
             $line = str(fgets($handle) ?: '')->trim();
