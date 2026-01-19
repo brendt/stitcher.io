@@ -74,6 +74,7 @@ final  class BlogPostRepository
 
         $posts = arr(glob(__DIR__ . "/Content/*.md"))
             ->reverse()
+            ->filter(fn (string $path) => ! str_starts_with($path, __DIR__ . '/Content/_'))
             ->map(function (string $path) {
                 $content = file_get_contents($path);
                 preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
