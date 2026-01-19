@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Analytics;
 
-use App\Support\StoredEvents\StoredEvent;
 use DateTimeImmutable;
 use Tempest\Clock\Clock;
 use Tempest\Console\ConsoleCommand;
@@ -31,6 +30,8 @@ final class ParseLogCommand
         '/rss',
         '/img',
         '/rss/',
+        '/build/assets',
+        '/feed',
         '/feed',
         '/feed/',
         '/favicon.ico',
@@ -125,7 +126,7 @@ final class ParseLogCommand
             }
 
             // URL Blacklist
-            if ($url->endsWith(self::URL_BLACKLIST)) {
+            if ($url->endsWith(self::URL_BLACKLIST) || $url->startsWith(self::URL_BLACKLIST)) {
                 continue;
             }
 

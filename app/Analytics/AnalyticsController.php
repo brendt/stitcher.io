@@ -48,7 +48,7 @@ final class AnalyticsController
         $popularPosts = query(VisitsPerPostPerWeek::class)
             ->select()
             ->where('date > ?', $date)
-            ->whereNot('uri', '/')
+            ->where('uri LIKE ?', '/blog/%')
             ->orderBy('count DESC')
             ->limit(8)
             ->all();
