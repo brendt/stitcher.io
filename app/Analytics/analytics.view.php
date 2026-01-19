@@ -17,7 +17,7 @@
                             <td>
                                 <a :href="$post->uri" class="underline hover:no-underline">{{ $post->uri }}</a>
                             </td>
-                            <td class="text-right">{{ $post->count }}</td>
+                            <td class="text-right">{{ number_format($post->count) }}</td>
                         </tr>
                         <tr :forelse>
                             <td colspan="2" class="text-center">No data</td>
