@@ -7,10 +7,9 @@ use App\Analytics\VisitsPerHour\VisitsPerHour;
 use App\Analytics\VisitsPerMonth\VisitsPerMonth;
 use App\Analytics\VisitsPerPostPerWeek\VisitsPerPostPerWeek;
 use App\Analytics\VisitsPerYear\VisitsPerYear;
-use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
-use Tempest\DateTime\Duration;
 use Tempest\Router\Get;
+use Tempest\Router\StaticPage;
 use Tempest\View\View;
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
@@ -18,15 +17,9 @@ use function Tempest\View\view;
 
 final class AnalyticsController
 {
-    public function __construct(private Cache $cache) {}
-
-    #[Get('/analytics')]
+    #[Get('/analytics'), StaticPage]
     public function __invoke(): View
     {
-        if ($this->cache->has('analytics')) {
-            return $this->cache->get('analytics');
-        }
-
         $visitsPerHour = new Chart(arr(query(VisitsPerHour::class)
             ->select()
             ->orderBy('hour DESC')
@@ -48,7 +41,7 @@ final class AnalyticsController
         $visitsPerYear = new Chart(arr(query(VisitsPerYear::class)
             ->select()
             ->orderBy('date ASC')
-            ->all(),
+            ->all()
         ));
 
         $popularPosts = query(VisitsPerPostPerWeek::class)
@@ -61,7 +54,7 @@ final class AnalyticsController
             ->limit(8)
             ->all();
 
-        $view = view(
+        return view(
             'analytics.view.php',
             visitsPerHour: $visitsPerHour,
             visitsPerDay: $visitsPerDay,
@@ -69,9 +62,5 @@ final class AnalyticsController
             visitsPerYear: $visitsPerYear,
             popularPosts: $popularPosts,
         );
-
-        $this->cache->put('analytics', $view, Duration::minutes(10));
-
-        return $view;
     }
 }
