@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use Tempest\Clock\Clock;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
+use function Tempest\Database\query;
 use function Tempest\EventBus\event;
 use function Tempest\Support\str;
 
@@ -73,19 +74,23 @@ final class ParseLogCommand
     private static array $ips = [];
 
     #[ConsoleCommand]
-    public function __invoke(): void
+    public function __invoke(?string $path = null): void
     {
-        $handle = fopen($this->config->accessLogPath, 'r');
-
-        $this->success(sprintf("Parsing <style=\"underline\">%s</style>", $this->config->accessLogPath));
+        $handle = fopen($path ?? $this->config->accessLogPath, 'r');
 
         // Resolve the last stored date
-        $lastDate = StoredEvent::select()
-            ->where('eventClass = :eventClass', eventClass: PageVisited::class)
-            ->orderBy('createdAt DESC')
+        $lastDate = query('stored_events')
+            ->select()
+            ->where('eventClass = ?', PageVisited::class)
             ->limit(1)
-            ->first()
-            ?->createdAt;
+            ->orderBy('id DESC')
+            ->first();
+
+        if ($lastDate) {
+            $lastDate = new DateTimeImmutable($lastDate['createdAt']);
+        }
+
+        $this->success(sprintf("Parsing <style=\"underline\">%s</style>", $this->config->accessLogPath));
 
         while (true) {
             $line = str(fgets($handle) ?: '')->trim();
@@ -106,6 +111,7 @@ final class ParseLogCommand
             $date = new DateTimeImmutable($date . ' +0000');
 
             if ($lastDate && $lastDate >= $date) {
+                $this->writeln(sprintf("<style=\"bg-yellow fg-white\">%s </style> skipped", $date->format('Y-m-d H:i:s')));
                 continue;
             }
 
