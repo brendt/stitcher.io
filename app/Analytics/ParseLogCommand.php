@@ -28,6 +28,7 @@ final class ParseLogCommand
         '/analytics.js',
         '/stats',
         '/rss',
+        '/analytics',
         '/img',
         '/rss/',
         '/build/assets',
