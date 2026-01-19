@@ -49,6 +49,7 @@ final class AnalyticsController
             ->select()
             ->where('date > ?', $date)
             ->where('uri LIKE ?', '/blog/%')
+            ->where('uri NOT LIKE ?', '/blog/%/comments')
             ->orderBy('count DESC')
             ->limit(8)
             ->all();
