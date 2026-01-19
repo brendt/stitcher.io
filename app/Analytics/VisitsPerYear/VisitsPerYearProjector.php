@@ -9,7 +9,6 @@ use App\Support\StoredEvents\Projector;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
-use function Tempest\Database\inspect;
 
 final readonly class VisitsPerYearProjector implements Projector
 {

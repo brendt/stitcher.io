@@ -92,12 +92,11 @@ final readonly class EventsReplayCommand
         $startTime = microtime(true);
         $eventsProcessed = 0;
         $currentEps = 0;
-        $timeRemaining = -1;
 
-        $offset = 0;
+        $lastId = 0;
         $limit = 1500;
 
-        while ($data = query('stored_events')->select()->offset($offset)->limit($limit)->all()) {
+        while ($data = query('stored_events')->select()->where('id > ?', $lastId)->limit($limit)->all()) {
             // Setup
             $events = arr($data)
                 ->map(function (array $item) {
@@ -108,7 +107,6 @@ final readonly class EventsReplayCommand
             // Loop
             foreach ($projectors as $projector) {
                 foreach ($events as $event) {
-
                     $projector->replay($event);
                 }
             }
@@ -122,14 +120,17 @@ final readonly class EventsReplayCommand
             $timeRemaining = round(($eventCount - $eventsProcessed) / $currentEps);
 
             $this->writeln(sprintf(
-                '%s/%s — %s — <style="%s">%s/eps</style> — %ss left',
+                '%s/%s — %s — <style="%s">%s/eps</style> — %ss left — %s offset',
                 number_format($eventsProcessed),
                 number_format($eventCount),
                 $this->memory(),
                 $currentEps > $previousEps ? 'fg-green' : 'fg-red',
                 $currentEps,
-                $timeRemaining > 0 ? $timeRemaining : '?',
+                $timeRemaining > 0 ? $timeRemaining : '0',
+                $lastId,
             ));
+
+            $lastId = array_last($data)['id'];
         }
 
         $this->success('Done');

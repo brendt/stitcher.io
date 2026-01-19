@@ -9,7 +9,6 @@ use App\Support\StoredEvents\Projector;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
-use function Tempest\Database\inspect;
 
 final readonly class VisitsPerHourProjector implements Projector
 {
@@ -32,10 +31,9 @@ final readonly class VisitsPerHourProjector implements Projector
     public function onPageVisited(PageVisited $pageVisited): void
     {
         $hour = $pageVisited->visitedAt->format('Y-m-d H') . ':00:00';
-        $table = inspect(VisitsPerHour::class)->getTableName();
 
         new Query(<<<SQL
-        INSERT INTO $table (`hour`, `count`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
+        INSERT INTO `visits_per_hour` (`hour`, `count`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
         SQL, [
             $hour,
             1

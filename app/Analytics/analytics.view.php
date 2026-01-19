@@ -19,6 +19,9 @@
                             </td>
                             <td class="text-right">{{ $post->count }}</td>
                         </tr>
+                        <tr :forelse>
+                            <td colspan="2" class="text-center">No data</td>
+                        </tr>
                     </table>
                 </x-analytics-card>
             </div>
