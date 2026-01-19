@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Support\StoredEvents;
 
+use App\Analytics\PageVisited;
 use Tempest\Console\Console;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
@@ -51,7 +52,8 @@ final readonly class EventsReplayCommand
             return;
         }
 
-        $eventCount = query(StoredEvent::class)->count()->execute();
+//        $eventCount = query('stored_events')->count()->execute();
+        $eventCount = 1;
 
         $confirm = $this->confirm(sprintf(
             'We\'re going to replay %d events on %d %s, this will take a while. Continue?',
@@ -66,45 +68,76 @@ final readonly class EventsReplayCommand
             return;
         }
 
-        foreach ($projectors as $projectorClass) {
-            $currentCount = 0;
+        $projectors = $projectors
+            ->filter(fn (string $projectorClass) => in_array($projectorClass, $replay, strict: true))
+            ->map(fn (string $projectorClass) => $this->container->get($projectorClass));
 
-            if (! in_array($projectorClass, $replay, strict: true)) {
-                continue;
-            }
+        $this->info("Clearing projectors…");
 
-            /** @var Projector $projector */
-            $projector = $this->container->get($projectorClass);
-
+        foreach ($projectors as $projector) {
             $projector->clear();
-
-            StoredEvent::select()
-                ->orderBy('createdAt ASC')
-                ->chunk(
-                    function (array $storedEvents) use ($projectorClass, $eventCount, &$currentCount, $projector): void {
-                        if ($storedEvents === []) {
-                            return;
-                        }
-
-                        foreach ($storedEvents as $storedEvent) {
-                            $projector->replay($storedEvent->getEvent());
-                        }
-
-                        $currentCount += count($storedEvents);
-
-                        $this->writeln(sprintf(
-                            '[<style="dim">%s</style>] %d/%d',
-                            $projectorClass,
-                            $currentCount,
-                            $eventCount,
-                        ));
-                    },
-                    500,
-                );
-
-            $this->writeln();
         }
 
         $this->success('Done');
+
+        $this->info("Replaying events…");
+
+        $currentCount = 0;
+        $startTime = microtime(true);
+
+        $offset = 0;
+        $limit = 1500;
+        $currentEps = 0;
+
+        while ($data = query('visits')->select()->offset($offset)->limit($limit)->all()) {
+            // Setup
+            $events = arr($data)
+                ->map(function (array $item) {
+                    return new PageVisited(
+                        url: $item['url'],
+                        visitedAt: new \DateTimeImmutable($item['date']),
+                        ip: $item['ip'],
+                        userAgent: $item['user_agent'] ?? '',
+                        raw: $item['payload'],
+                    );
+                })
+                ->toArray();
+
+
+            // Loop
+            foreach ($projectors as $projector) {
+                foreach ($events as $event) {
+
+                    $projector->replay($event);
+                }
+            }
+
+            // Metrics
+            $currentCount += count($events);
+            $currentTime = microtime(true);
+            $timeElapsed = $currentTime - $startTime;
+            $previousEps = $currentEps;
+            $currentEps = round($currentCount / $timeElapsed);
+
+            $this->writeln(sprintf(
+                '%s/%s — %s — <style="%s">%s/eps</style>',
+                number_format($currentCount),
+                number_format($eventCount),
+                $this->memory(),
+                $currentEps > $previousEps ? 'fg-green' : 'fg-red',
+                $currentEps,
+            ));
+        }
+
+        $this->success('Done');
+    }
+
+    private function memory(): string
+    {
+        $memory = memory_get_usage(true);
+
+        $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
+
+        return @round($memory / pow(1024, ($i = floor(log($memory, 1024)))), 2) . $unit[$i];
     }
 }
