@@ -48,7 +48,7 @@ article a {
 }
 
 @media (min-width: 800px) {
-    article > *:not(pre):not(iframe):not(p:has(img)):not(.inset):not(.table-container) {
+    article > *:not(pre):not(iframe):not(p:has(img)):not(video):not(.inset):not(.table-container) {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
@@ -56,6 +56,14 @@ article a {
 
 article > * {
     max-width: 100%;
+}
+
+article video {
+    border-radius: 4x;
+}
+
+article img {
+    border-radius: 3px;
 }
 
 h1 {
