@@ -18,6 +18,7 @@ final class MigrateVisitsCommand
     #[ConsoleCommand]
     public function __invoke(): void
     {
+        return;
         $this->writeln('Preparing…');
 
         $lastId = 0;
