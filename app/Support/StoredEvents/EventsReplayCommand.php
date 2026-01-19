@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Support\StoredEvents;
 
-use App\Analytics\PageVisited;
 use Tempest\Console\Console;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
@@ -89,20 +88,13 @@ final readonly class EventsReplayCommand
         $limit = 1500;
         $currentEps = 0;
 
-        while ($data = query('visits')->select()->offset($offset)->limit($limit)->all()) {
+        while ($data = query('stored_events')->select()->offset($offset)->limit($limit)->all()) {
             // Setup
             $events = arr($data)
                 ->map(function (array $item) {
-                    return new PageVisited(
-                        url: $item['url'],
-                        visitedAt: new \DateTimeImmutable($item['date']),
-                        ip: $item['ip'],
-                        userAgent: $item['user_agent'] ?? '',
-                        raw: $item['payload'],
-                    );
+                    return $item['eventClass']::unserialize($item['payload']);
                 })
                 ->toArray();
-
 
             // Loop
             foreach ($projectors as $projector) {
