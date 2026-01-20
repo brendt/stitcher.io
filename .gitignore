@@ -18,6 +18,7 @@ public/img/*
 public/meta/*
 public/**/meta.png
 !public/meta/meta_small.png
+!public/meta/meta_lg.png
 public/**/index.html
 .transformers-cache
 last-id
