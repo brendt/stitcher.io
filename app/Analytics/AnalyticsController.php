@@ -4,6 +4,7 @@ namespace App\Analytics;
 
 use App\Analytics\VisitsPerDay\VisitsPerDay;
 use App\Analytics\VisitsPerHour\VisitsPerHour;
+use App\Analytics\VisitsPerMinute\VisitsPerMinute;
 use App\Analytics\VisitsPerMonth\VisitsPerMonth;
 use App\Analytics\VisitsPerPostPerWeek\VisitsPerPostPerWeek;
 use App\Analytics\VisitsPerYear\VisitsPerYear;
@@ -62,5 +63,19 @@ final class AnalyticsController
             visitsPerYear: $visitsPerYear,
             popularPosts: $popularPosts,
         );
+    }
+
+    #[Get('/analytics/realtime')]
+    public function realtime(): View
+    {
+        $time = DateTime::parse(DateTime::now()->minusMinutes(2)->format('yyyy-MM-dd HH:mm') . ':00');
+
+        $visits = query(VisitsPerMinute::class)
+            ->select()
+            ->where('time > ?', $time)
+            ->first()
+            ?->count ?? 0;
+
+        return view('x-realtime.view.php', visits: $visits);
     }
 }

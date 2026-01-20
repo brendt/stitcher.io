@@ -2,7 +2,7 @@
 
 namespace Tests\Analytics\VisitsPerHour;
 
-use App\Analytics\VisitsPerHour\VisitsPerHourProjector;
+use App\Analytics\VisitsPerMinute\VisitsPerMinuteProjector;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Analytics\TestsAnalytics;
 use Tests\IntegrationTestCase;
@@ -45,7 +45,7 @@ class VisitsPerHourProjectorTest extends IntegrationTestCase
         $this->triggerVisit('2026-01-01 01:00:00');
         $this->triggerVisit('2026-01-01 01:00:00');
 
-        $this->console->call(sprintf('replay "%s" --force', VisitsPerHourProjector::class))->assertSuccess();
+        $this->console->call(sprintf('replay "%s" --force', VisitsPerMinuteProjector::class))->assertSuccess();
 
         $this->database->assertTableHasRow(
             table: 'visits_per_hour',

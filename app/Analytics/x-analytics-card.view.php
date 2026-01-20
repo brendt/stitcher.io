@@ -1,5 +1,5 @@
 <div class="grid gap-4 bg-white rounded-2xl p-2 md:p-4 md:pt-2 shadow">
-    <div class="px-1 flex gap-2 items-center justify-between flex-wrap flex-col md:flex-row">
+    <div class="flex gap-2 items-center justify-between flex-wrap flex-col md:flex-row">
         <h2 class="font-bold">
             {{ $title }}
         </h2>
