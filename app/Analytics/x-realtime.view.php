@@ -10,6 +10,7 @@ use function Tempest\Router\uri;
         :hx-get="uri([AnalyticsController::class, 'realtime'])"
         hx-trigger="click, every 3s"
         hx-swap="outerHTML"
+        class="grid"
 >
     <x-metric-card
         class="bg-blue-200"
