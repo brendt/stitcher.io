@@ -6,9 +6,29 @@
 
     <div class="w-full flex flex-col pb-8">
         <div class="w-full z-10 p-2 md:p-12 grid gap-4 md:gap-8">
-            <x-realtime />
+            <div class="grid md:grid-cols-4 gap-4 md:gap-8">
+                <x-realtime :visits="$realtimeVisitCount" />
 
-            <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-12">
+                <x-metric-card
+                    class="bg-green-200"
+                    title="Visits today"
+                    :metric="number_format($visitsThisDay ?? 0)"
+                ></x-metric-card>
+
+                <x-metric-card
+                    class="bg-yellow-200"
+                    title="Visits this month"
+                    :metric="number_format($visitsThisMonth ?? 0)"
+                ></x-metric-card>
+
+                <x-metric-card
+                    class="bg-purple-200"
+                    title="Most popular post today"
+                    :metric="$mostPopularPostToday?->uri ?? '-'"
+                ></x-metric-card>
+            </div>
+
+            <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-4 md:gap-8">
                 <x-chart :chart="$visitsPerHour" label="Visits" title="Visits last 48 hours"></x-chart>
                 <x-analytics-card title="Popular posts">
                     <table>
@@ -31,7 +51,7 @@
 
             <x-chart :chart="$visitsPerMonth" label="Visits" title="Visits last 36 months"></x-chart>
 
-            <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-12">
+            <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-8">
                 <x-chart :chart="$visitsPerDay" label="Visits" title="Visits last 62 days"></x-chart>
                 <x-chart :chart="$visitsPerYear" label="Visits" title="Visits per year"></x-chart>
             </div>

@@ -6,6 +6,7 @@ use App\Analytics\VisitsPerDay\VisitsPerDay;
 use App\Analytics\VisitsPerHour\VisitsPerHour;
 use App\Analytics\VisitsPerMinute\VisitsPerMinute;
 use App\Analytics\VisitsPerMonth\VisitsPerMonth;
+use App\Analytics\VisitsPerPostPerDay\VisitsPerPostPerDay;
 use App\Analytics\VisitsPerPostPerWeek\VisitsPerPostPerWeek;
 use App\Analytics\VisitsPerYear\VisitsPerYear;
 use Tempest\DateTime\DateTime;
@@ -21,6 +22,25 @@ final class AnalyticsController
     #[Get('/analytics'), StaticPage]
     public function __invoke(): View
     {
+        $visitsThisDay = query(VisitsPerDay::class)
+            ->select()
+            ->orderBy('date DESC')
+            ->limit(1)
+            ->first();
+
+        $visitsThisMonth = query(VisitsPerMonth::class)
+            ->select()
+            ->orderBy('date DESC')
+            ->limit(1)
+            ->first();
+
+        $mostPopularPostToday = query(VisitsPerPostPerDay::class)
+            ->select()
+            ->where('date = ?', DateTime::now()->startOfDay())
+            ->orderBy('count DESC')
+            ->limit(1)
+            ->first();
+
         $visitsPerHour = new Chart(arr(query(VisitsPerHour::class)
             ->select()
             ->orderBy('hour DESC')
@@ -57,6 +77,10 @@ final class AnalyticsController
 
         return view(
             'analytics.view.php',
+            realtimeVisitCount: $this->realtimeVisitCount(),
+            visitsThisDay: $visitsThisDay?->count ?? 0,
+            visitsThisMonth: $visitsThisMonth?->count ?? 0,
+            mostPopularPostToday: $mostPopularPostToday ?? null,
             visitsPerHour: $visitsPerHour,
             visitsPerDay: $visitsPerDay,
             visitsPerMonth: $visitsPerMonth,
@@ -68,14 +92,17 @@ final class AnalyticsController
     #[Get('/analytics/realtime')]
     public function realtime(): View
     {
+        return view('x-realtime.view.php', visits: $this->realtimeVisitCount());
+    }
+
+    private function realtimeVisitCount(): int
+    {
         $time = DateTime::parse(DateTime::now()->minusMinutes(4)->format('yyyy-MM-dd HH:mm') . ':00');
 
-        $visits = query(VisitsPerMinute::class)
+        return query(VisitsPerMinute::class)
             ->select()
             ->where('time > ?', $time)
             ->first()
             ?->count ?? 0;
-
-        return view('x-realtime.view.php', visits: $visits);
     }
 }

@@ -8,12 +8,12 @@ use function Tempest\Router\uri;
 <div
         id="realtime"
         :hx-get="uri([AnalyticsController::class, 'realtime'])"
-        hx-trigger="every 3s, load"
+        hx-trigger="click, every 3s"
         hx-swap="outerHTML"
-        class="grid md:grid-cols-4 gap-4"
 >
-    <div class="p-4 bg-blue-200 rounded-2xl flex flex-col shadow-lg">
-        <span class="text-xl font-bold font-mono">{{ $visits ?? 0 }}</span>
-        <span>Current visitor count</span>
-    </div>
+    <x-metric-card
+        class="bg-blue-200"
+        title="Active visitors"
+        :metric="number_format($visits ?? 0)"
+    />
 </div>
