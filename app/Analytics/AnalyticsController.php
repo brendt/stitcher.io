@@ -68,7 +68,7 @@ final class AnalyticsController
     #[Get('/analytics/realtime')]
     public function realtime(): View
     {
-        $time = DateTime::parse(DateTime::now()->minusMinutes(2)->format('yyyy-MM-dd HH:mm') . ':00');
+        $time = DateTime::parse(DateTime::now()->minusMinutes(4)->format('yyyy-MM-dd HH:mm') . ':00');
 
         $visits = query(VisitsPerMinute::class)
             ->select()
