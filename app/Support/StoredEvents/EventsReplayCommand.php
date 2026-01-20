@@ -96,7 +96,7 @@ final readonly class EventsReplayCommand
         $currentEps = 0;
 
         $lastId = 0;
-        $limit = 1500;
+        $limit = 1000;
 
         while ($data = query('stored_events')->select()->where('id > ?', $lastId)->limit($limit)->all()) {
             // Setup
