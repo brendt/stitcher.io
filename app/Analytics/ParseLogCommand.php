@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Tempest\Clock\Clock;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
+use Tempest\DateTime\DateTime;
 use function Tempest\Database\query;
 use function Tempest\EventBus\event;
 use function Tempest\Support\str;
@@ -98,6 +99,11 @@ final class ParseLogCommand
         $this->success(sprintf("Parsing <style=\"underline\">%s</style>", $path));
 
         while (true) {
+            // Supervisor will restart this process to prevent memory issues
+            if (DateTime::now()->getHours() === 0 && DateTime::now()->getMinutes() === 0) {
+                exit;
+            }
+
             $line = str(fgets($handle) ?: '')->trim();
 
             if ($line->isEmpty()) {
