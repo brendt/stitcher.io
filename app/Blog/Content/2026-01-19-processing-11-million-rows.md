@@ -74,7 +74,7 @@ StoredEvent::select()
     ->chunk(
 ```
 
-Indeed, this change made our throughput jump from 30 to **6700 events per second**. You would think that's the problem already solved, but we'll actually be able to more than double that result in the end. 
+Indeed, this change made our throughput jump from 30 to **6700 events per second**. You would think that's the problem already solved, but we'll actually be able to more than triple that result in the end. 
 
 ## Reversing the loop
 
@@ -359,17 +359,60 @@ foreach ($projectors as $projector) {
 }
 ```
 
-This change pushed performance from 14k to **19k events per second**!
+I was amazed to see that this change pushed performance from 14k to **19k events per second**!
 
 <video controls="true" autoplay="" muted="" loop="" playsinline="">
-    <source src="/img/static/eps/eps.mp4" type="video/mp4">
+    <source src="/img/static/eps/eps-1.mp4" type="video/mp4">
 </video>
 
+## Finally satisfied, or am I?
+
+At this point, I was pretty mind-blown with all the optimizations that I had made. However, would you believe me that I'd be able to **more than double the throughput with just two lines of code**? 
+
+On that same Discord server I mentioned earlier, Márk reached out to me. Now, Márk has been a very talented and loyal contributor to Tempest for over a year now. When Márk speaks, I tend to pay attention. Here's what he said:
+
+> What about... 👀 transactions to reduce fsync lag
+
+Hmm, ok? What's that about, I asked.
+
+> So, if you don't do transactions […] InnoDB calls fsync() after every commit due to ACID (we are talking D here -> Durability). Without a transaction, every insert is an implicit commit, so 20k inserts = 20k commits = fsync() called 20k times. With an explicit transaction, it's... explicit. You can have 20k inserts in one transaction, when you commit it, that's gonna be 1 commit -> fsync() called once.
+
+He ended by saying 
+
+> Depending on the disk/CPU this operation can be quite meaningful
+
+I was skeptical it would yield any meaningful results, but no harm in trying, right? After all, it's literally two lines of code to wrap the replay part in a transaction:
+
+```php
+$this->database->withinTransaction(function () use ($projectors, $events) {
+    foreach ($projectors as $projector) {
+        foreach ($events as $event) {
+            $projector->replay($event);
+        }
+
+        if ($projector instanceof BufferedProjector) {
+            $projector->persist();
+        }
+    }
+});
+```
+
+Do you want to make a guess as to how much improvement this made? We went from an already impressive 19k to… **45k events per second**.
+
+🤯
+
+<video controls="true" autoplay="" muted="" loop="" playsinline="">
+    <source src="/img/static/eps/eps-2.mp4" type="video/mp4">
+</video>
+
+If I ever meet Márk face-to-face, I'm buying him a beer. 
 
 ## Finally satisfied
 
-With these results, and confirmed by Xdebug, I was satisfied: I've managed to optimize performance from 30 to 14,000 events per second. Rebuilding a single projector now takes 10 minutes instead of 4–5 hours, an amazing improvement.
+When I published this blog post yesterday, I assumed there were more improvements to be made. I wouldn't have guessed more than a doubling would be possible though. And who knows, maybe there's even more to be gained still? 
 
-However, I'm sure there are more improvements to be made. Maybe you have some ideas as well? I'd love to read them in [the comments](#comments)!
+Needless to say, I'm already very satisfied. I went from 30 to almost 50,000 events events per second. Rebuilding a single projector now takes a couple of minutes instead of 4–5 hours, an amazing improvement.
+
+If you have any ideas on how to further improve it, you're welcome to [join the Tempest Discord server](/discrod) or [leave a comment](#comments)!
 
 Finally, all the code for this is open source. You can check of my [blog's source code here](https://github.com/brendt/stitcher.io), [the analytics module is here](https://github.com/brendt/stitcher.io/tree/main/app/Analytics), [the dashboard itself is here](/analytics), and it's of course all powered by [Tempest](https://tempestphp.com/). 

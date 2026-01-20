@@ -10,6 +10,7 @@ use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Console\Middleware\ForceMiddleware;
 use Tempest\Container\Container;
+use Tempest\Database\Database;
 use Tempest\DateTime\Duration;
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
@@ -24,6 +25,7 @@ final readonly class EventsReplayCommand
         private Console $console,
         private Container $container,
         private Cache $cache,
+        private Database $database,
     ) {}
 
     #[ConsoleCommand(aliases: ['replay'], middleware: [ForceMiddleware::class])]
@@ -104,16 +106,19 @@ final readonly class EventsReplayCommand
                 })
                 ->toArray();
 
-            // Loop
-            foreach ($projectors as $projector) {
-                foreach ($events as $event) {
-                    $projector->replay($event);
-                }
 
-                if ($projector instanceof BufferedProjector) {
-                    $projector->persist();
+            $this->database->withinTransaction(function () use ($projectors, $events) {
+                // Loop
+                foreach ($projectors as $projector) {
+                    foreach ($events as $event) {
+                        $projector->replay($event);
+                    }
+
+                    if ($projector instanceof BufferedProjector) {
+                        $projector->persist();
+                    }
                 }
-            }
+            });
 
             // Metrics
             $eventsProcessed += count($events);
