@@ -6,11 +6,17 @@ namespace App\Support\StoredEvents;
 
 use DateTimeImmutable;
 use Override;
+use Tempest\Container\Container;
 use Tempest\EventBus\EventBusMiddleware;
 use Tempest\EventBus\EventBusMiddlewareCallable;
 
 final readonly class StoredEventMiddleware implements EventBusMiddleware
 {
+    public function __construct(
+        private StoredEventConfig $storedEventConfig,
+    private Container $container,
+    ) {}
+
     #[Override]
     public function __invoke(string|object $event, EventBusMiddlewareCallable $next): void
     {
@@ -24,5 +30,13 @@ final readonly class StoredEventMiddleware implements EventBusMiddleware
         }
 
         $next($event);
+
+        foreach ($this->storedEventConfig->projectors as $projectorClass) {
+            $projector = $this->container->get($projectorClass);
+
+            if ($projector instanceof BuffersUpdates) {
+                $projector->persist();
+            }
+        }
     }
 }

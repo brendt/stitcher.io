@@ -109,6 +109,10 @@ final readonly class EventsReplayCommand
                 foreach ($events as $event) {
                     $projector->replay($event);
                 }
+
+                if ($projector instanceof BuffersUpdates) {
+                    $projector->persist();
+                }
             }
 
             // Metrics
