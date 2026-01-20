@@ -5,16 +5,21 @@ declare(strict_types=1);
 namespace App\Analytics\VisitsPerPostPerWeek;
 
 use App\Analytics\PageVisited;
+use App\Support\StoredEvents\BufferedProjector;
+use App\Support\StoredEvents\BuffersUpdates;
 use App\Support\StoredEvents\Projector;
 use DateInterval;
+use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
-use Tempest\Database\Exceptions\QueryWasInvalid;
-use Tempest\Database\Query;
 use Tempest\DateTime\DateTime;
+use Tempest\DateTime\FormatPattern;
 use Tempest\EventBus\EventHandler;
 
-final readonly class VisitsPerPostPerWeekProjector implements Projector
+#[Singleton]
+final class VisitsPerPostPerWeekProjector implements Projector, BufferedProjector
 {
+    use BuffersUpdates;
+
     public function replay(object $event): void
     {
         if ($event instanceof PageVisited) {
@@ -33,18 +38,13 @@ final readonly class VisitsPerPostPerWeekProjector implements Projector
     #[EventHandler]
     public function onPageVisited(PageVisited $pageVisited): void
     {
-        $date = DateTime::parse($pageVisited->visitedAt)->startOfDay()->startOfWeek();
+        $date = DateTime::parse($pageVisited->visitedAt)->startOfDay()->startOfWeek()->format(FormatPattern::SQL_DATE_TIME);
 
-        try {
-            new Query(<<<SQL
-            INSERT INTO `visits_per_post_per_week` (`uri`, `date`, `count`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
-            SQL, [
-                $pageVisited->url,
-                $date,
-                1
-            ])->execute();
-        } catch (QueryWasInvalid) {
-            // Skip this one
-        }
+        $this->queries[] = sprintf(
+            "INSERT INTO `visits_per_post_per_week` (`uri`, `date`, `count`) VALUES (\"%s\", \"%s\", %s) ON DUPLICATE KEY UPDATE `count` = `count` + 1",
+            $pageVisited->url,
+            $date,
+            1,
+        );
     }
 }

@@ -281,9 +281,9 @@ Running another profiler session also confirmed: there were no more big bottlene
 
 [![](/img/blog/eps/benchmark-2.png)](*/img/blog/eps/benchmark-2.png)
 
-## One more thing!
+## Optimizing the long-run
 
-One last thing I noticed only when I ran the replay command for a longer time was that performance would slow down the longer the code ran. I was already tracking memory, which remained stable, so that wasn't the problem. After some thought, I realized it might have to do with the increasing `$offset` size on the query. So instead of using a traditional offset, I swapped it for the numeric (indexed) ID:
+Another thing I noticed only when I ran the replay command for a longer time was that performance would slow down the longer the code ran. I was already tracking memory, which remained stable, so that wasn't the problem. After some thought, I realized it might have to do with the increasing `$offset` size on the query. So instead of using a traditional offset, I swapped it for the numeric (indexed) ID:
 
 ```php
 $lastId = 0;
@@ -297,6 +297,69 @@ while ($data = query('stored_events')->select()->where('id > ?', $lastId)->limit
 ```
 
 This kept performance steady over time, which is rather important because our script will run for tens of minutes.
+
+## Buffered inserts
+
+Another idea that someone on the [Tempest Discord server](/discord) mentioned was to buffer projector queries. Instead of sending query per query to the database server, why not buffer them for a while, and then send them in bulk. That wasn't too difficult to add either. I made the feature opt-in for now via an interface:
+
+```php
+interface BufferedProjector extends Projector
+{
+    public function persist(): void;
+}
+```
+
+Then I provided a trait that could be used by all buffered projectors:
+
+```php
+trait BuffersUpdates
+{
+    private array $queries = [];
+
+    public function persist(): void
+    {
+        if ($this->queries === []) {
+            return;
+        }
+
+        new Query(implode('; ', $this->queries))->execute();
+
+        $this->queries = [];
+    }
+}
+```
+
+Next, I adjusted the projectors so that they didn't directly execute the query, but instead pushed it into the buffer:
+
+```php
+#[EventHandler]
+public function onPageVisited(PageVisited $pageVisited): void
+{
+    $hour = $pageVisited->visitedAt->format('Y-m-d H') . ':00:00';
+
+    $this->queries[] = sprintf(
+        "INSERT INTO `visits_per_hour` (`hour`, `count`) VALUES (\"%s\", %s) ON DUPLICATE KEY UPDATE `count` = `count` + 1",
+        $hour,
+        1
+    );
+}
+```
+
+And finally, I made it so that the replay command would manually persist the buffer:
+
+```php
+foreach ($projectors as $projector) {
+    foreach ($events as $event) {
+        $projector->replay($event);
+    }
+
+    if ($projector instanceof BufferedProjector) {
+        $projector->persist();
+    }
+}
+```
+
+This change pushed performance from 14k to **19k events per second**!
 
 <video controls="true" autoplay="" muted="" loop="" playsinline="">
     <source src="/img/static/eps/eps.mp4" type="video/mp4">

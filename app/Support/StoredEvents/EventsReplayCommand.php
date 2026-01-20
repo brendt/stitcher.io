@@ -110,7 +110,7 @@ final readonly class EventsReplayCommand
                     $projector->replay($event);
                 }
 
-                if ($projector instanceof BuffersUpdates) {
+                if ($projector instanceof BufferedProjector) {
                     $projector->persist();
                 }
             }

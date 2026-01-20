@@ -34,7 +34,7 @@ final readonly class StoredEventMiddleware implements EventBusMiddleware
         foreach ($this->storedEventConfig->projectors as $projectorClass) {
             $projector = $this->container->get($projectorClass);
 
-            if ($projector instanceof BuffersUpdates) {
+            if ($projector instanceof BufferedProjector) {
                 $projector->persist();
             }
         }

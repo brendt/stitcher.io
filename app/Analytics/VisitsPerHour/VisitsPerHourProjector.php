@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace App\Analytics\VisitsPerHour;
 
 use App\Analytics\PageVisited;
+use App\Support\StoredEvents\BufferedProjector;
+use App\Support\StoredEvents\BuffersUpdates;
 use App\Support\StoredEvents\Projector;
+use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
-use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
 
-final readonly class VisitsPerHourProjector implements Projector
+#[Singleton]
+final class VisitsPerHourProjector implements Projector, BufferedProjector
 {
+    use BuffersUpdates;
+
     public function replay(object $event): void
     {
         if ($event instanceof PageVisited) {
@@ -32,11 +37,10 @@ final readonly class VisitsPerHourProjector implements Projector
     {
         $hour = $pageVisited->visitedAt->format('Y-m-d H') . ':00:00';
 
-        new Query(<<<SQL
-        INSERT INTO `visits_per_hour` (`hour`, `count`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
-        SQL, [
+        $this->queries[] = sprintf(
+            "INSERT INTO `visits_per_hour` (`hour`, `count`) VALUES (\"%s\", %s) ON DUPLICATE KEY UPDATE `count` = `count` + 1",
             $hour,
             1
-        ])->execute();
+        );
     }
 }

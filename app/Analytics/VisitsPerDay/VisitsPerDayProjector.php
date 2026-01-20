@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace App\Analytics\VisitsPerDay;
 
 use App\Analytics\PageVisited;
+use App\Support\StoredEvents\BufferedProjector;
 use App\Support\StoredEvents\BuffersUpdates;
 use App\Support\StoredEvents\Projector;
 use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
-use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
-use function Tempest\Database\query;
 
 #[Singleton]
-final class VisitsPerDayProjector implements Projector, BuffersUpdates
+final class VisitsPerDayProjector implements Projector, BufferedProjector
 {
-    private array $queries = [];
+    use BuffersUpdates;
 
     public function replay(object $event): void
     {
@@ -31,17 +30,6 @@ final class VisitsPerDayProjector implements Projector, BuffersUpdates
             ->delete()
             ->allowAll()
             ->execute();
-    }
-
-    public function persist(): void
-    {
-        if ($this->queries === []) {
-            return;
-        }
-
-        new Query(implode(' ', $this->queries))->execute();
-
-        $this->queries = [];
     }
 
     #[EventHandler]

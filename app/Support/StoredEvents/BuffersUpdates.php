@@ -2,7 +2,20 @@
 
 namespace App\Support\StoredEvents;
 
-interface BuffersUpdates
+use Tempest\Database\Query;
+
+trait BuffersUpdates
 {
-    public function persist(): void;
+    private array $queries = [];
+
+    public function persist(): void
+    {
+        if ($this->queries === []) {
+            return;
+        }
+
+        new Query(implode('; ', $this->queries))->execute();
+
+        $this->queries = [];
+    }
 }

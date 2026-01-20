@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace App\Analytics\VisitsPerPostPerDay;
 
 use App\Analytics\PageVisited;
+use App\Support\StoredEvents\BufferedProjector;
+use App\Support\StoredEvents\BuffersUpdates;
 use App\Support\StoredEvents\Projector;
+use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
-use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
 
-final readonly class VisitsPerPostPerDayProjector implements Projector
+#[Singleton]
+final class VisitsPerPostPerDayProjector implements Projector, BufferedProjector
 {
+    use BuffersUpdates;
+
     public function replay(object $event): void
     {
         if ($event instanceof PageVisited) {
@@ -30,14 +35,13 @@ final readonly class VisitsPerPostPerDayProjector implements Projector
     #[EventHandler]
     public function onPageVisited(PageVisited $pageVisited): void
     {
-        $date = $pageVisited->visitedAt->setTime(0, 0);
+        $date = $pageVisited->visitedAt->format('Y-m-d') . ' 00:00:00';
 
-        new Query(<<<SQL
-        INSERT INTO `visits_per_post_per_day` (`uri`, `date`, `count`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `count` = `count` + 1
-        SQL, [
+        $this->queries[] = sprintf(
+            "INSERT INTO `visits_per_post_per_day` (`uri`, `date`, `count`) VALUES (\"%s\", \"%s\", %s) ON DUPLICATE KEY UPDATE `count` = `count` + 1",
             $pageVisited->url,
             $date,
-            1
-        ])->execute();
+            1,
+        );
     }
 }
