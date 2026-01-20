@@ -10,7 +10,7 @@ use function Tempest\Router\uri;
         :hx-get="uri([AnalyticsController::class, 'realtime'])"
         hx-trigger="every 3s, load"
         hx-swap="outerHTML"
-        class="grid grid-cols-4 gap-4"
+        class="grid md:grid-cols-4 gap-4"
 >
     <div class="p-4 bg-blue-200 rounded-2xl flex flex-col shadow-lg">
         <span class="text-xl font-bold font-mono">{{ $visits ?? 0 }}</span>
