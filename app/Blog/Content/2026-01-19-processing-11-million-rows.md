@@ -413,6 +413,6 @@ When I published this blog post yesterday, I assumed there were more improvement
 
 Needless to say, I'm already very satisfied. I went from 30 to almost 50,000 events events per second. Rebuilding a single projector now takes a couple of minutes instead of 4–5 hours, an amazing improvement.
 
-If you have any ideas on how to further improve it, you're welcome to [join the Tempest Discord server](/discrod) or [leave a comment](#comments)!
+If you have any ideas on how to further improve it, you're welcome to [join the Tempest Discord server](/discord) or [leave a comment](#comments)!
 
 Finally, all the code for this is open source. You can check of my [blog's source code here](https://github.com/brendt/stitcher.io), [the analytics module is here](https://github.com/brendt/stitcher.io/tree/main/app/Analytics), [the dashboard itself is here](/analytics), and it's of course all powered by [Tempest](https://tempestphp.com/). 
