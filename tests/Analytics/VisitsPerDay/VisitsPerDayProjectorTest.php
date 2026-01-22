@@ -2,10 +2,12 @@
 
 namespace Tests\Analytics\VisitsPerDay;
 
+use App\Analytics\VisitsPerDay\VisitsPerDay;
 use App\Analytics\VisitsPerDay\VisitsPerDayProjector;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Analytics\TestsAnalytics;
 use Tests\IntegrationTestCase;
+use function Tempest\Database\query;
 
 class VisitsPerDayProjectorTest extends IntegrationTestCase
 {

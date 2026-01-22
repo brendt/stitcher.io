@@ -11,6 +11,7 @@ use App\Support\StoredEvents\Projector;
 use DateInterval;
 use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
+use Tempest\Database\Query;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\FormatPattern;
 use Tempest\EventBus\EventHandler;
@@ -18,7 +19,34 @@ use Tempest\EventBus\EventHandler;
 #[Singleton]
 final class VisitsPerPostPerWeekProjector implements Projector, BufferedProjector
 {
-    use BuffersUpdates;
+    private array $inserts = [];
+
+    #[EventHandler]
+    public function onPageVisited(PageVisited $pageVisited): void
+    {
+        $date = DateTime::parse($pageVisited->visitedAt)->startOfDay()->startOfWeek()->format(FormatPattern::SQL_DATE_TIME);
+
+        $this->inserts[] = [$pageVisited->url, $date];
+    }
+
+    public function persist(): void
+    {
+        if ($this->inserts === []) {
+            return;
+        }
+
+        $query = new Query(sprintf(
+            'INSERT INTO `visits_per_post_per_week` (`uri`, `date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + 1',
+            implode(',', array_map(
+                fn (array $data) => sprintf('("%s", "%s", 1)', ...$data),
+                $this->inserts,
+            )),
+        ));
+
+        $query->execute();
+
+        $this->inserts = [];
+    }
 
     public function replay(object $event): void
     {
@@ -33,18 +61,5 @@ final class VisitsPerPostPerWeekProjector implements Projector, BufferedProjecto
             ->delete()
             ->allowAll()
             ->execute();
-    }
-
-    #[EventHandler]
-    public function onPageVisited(PageVisited $pageVisited): void
-    {
-        $date = DateTime::parse($pageVisited->visitedAt)->startOfDay()->startOfWeek()->format(FormatPattern::SQL_DATE_TIME);
-
-        $this->queries[] = sprintf(
-            "INSERT INTO `visits_per_post_per_week` (`uri`, `date`, `count`) VALUES (\"%s\", \"%s\", %s) ON DUPLICATE KEY UPDATE `count` = `count` + 1",
-            $pageVisited->url,
-            $date,
-            1,
-        );
     }
 }

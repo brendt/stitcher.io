@@ -58,11 +58,7 @@ final readonly class EventsReplayCommand
 
         $this->info('Gathering events…');
 
-        $eventCount = $this->cache->resolve(
-            'event-count',
-            fn () => query('stored_events')->count()->execute(),
-            Duration::hour(),
-        );
+        $eventCount = query('stored_events')->select()->orderBy('id DESC')->limit(1)->first()['id'] ?? 0;
 
         $confirm = $this->confirm(sprintf(
             'We\'re going to replay %d events on %d %s, this will take a while. Continue?',
@@ -96,7 +92,7 @@ final readonly class EventsReplayCommand
         $currentEps = 0;
 
         $lastId = 0;
-        $limit = 1000;
+        $limit = 1500;
 
         while ($data = query('stored_events')->select()->where('id > ?', $lastId)->limit($limit)->all()) {
             // Setup
@@ -105,7 +101,6 @@ final readonly class EventsReplayCommand
                     return $item['eventClass']::unserialize($item['payload']);
                 })
                 ->toArray();
-
 
             $this->database->withinTransaction(function () use ($projectors, $events) {
                 // Loop
@@ -129,14 +124,13 @@ final readonly class EventsReplayCommand
             $timeRemaining = round(($eventCount - $eventsProcessed) / $currentEps);
 
             $this->writeln(sprintf(
-                '%s/%s — %s — <style="%s">%s/eps</style> — %ss left — %s offset',
+                '%s/%s — %s — <style="%s">%s/eps</style> — %ss left',
                 number_format($eventsProcessed),
                 number_format($eventCount),
                 $this->memory(),
                 $currentEps > $previousEps ? 'fg-green' : 'fg-red',
-                $currentEps,
+                number_format($currentEps),
                 $timeRemaining > 0 ? $timeRemaining : '0',
-                $lastId,
             ));
 
             $lastId = array_last($data)['id'];
