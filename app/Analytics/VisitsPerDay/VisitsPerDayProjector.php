@@ -17,6 +17,12 @@ final class VisitsPerDayProjector implements Projector, BufferedProjector
 {
     private array $inserts = [];
 
+    #[EventHandler]
+    public function onPageVisited(PageVisited $pageVisited): void
+    {
+        $this->inserts[] = $pageVisited->visitedAt->format('Y-m-d') . ' 00:00:00';
+    }
+
     public function persist(): void
     {
         if ($this->inserts === []) {
@@ -49,11 +55,5 @@ final class VisitsPerDayProjector implements Projector, BufferedProjector
             ->delete()
             ->allowAll()
             ->execute();
-    }
-
-    #[EventHandler]
-    public function onPageVisited(PageVisited $pageVisited): void
-    {
-        $this->inserts[] = $pageVisited->visitedAt->format('Y-m-d H') . ':00:00';
     }
 }

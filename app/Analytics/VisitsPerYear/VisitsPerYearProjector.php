@@ -17,6 +17,14 @@ final class VisitsPerYearProjector implements Projector, BufferedProjector
 {
     private array $inserts = [];
 
+    #[EventHandler]
+    public function onPageVisited(PageVisited $pageVisited): void
+    {
+        $date = $pageVisited->visitedAt->format('Y') . '-01-01';
+
+        $this->inserts[] = $date;
+    }
+
     public function persist(): void
     {
         if ($this->inserts === []) {
@@ -49,13 +57,5 @@ final class VisitsPerYearProjector implements Projector, BufferedProjector
             ->delete()
             ->allowAll()
             ->execute();
-    }
-
-    #[EventHandler]
-    public function onPageVisited(PageVisited $pageVisited): void
-    {
-        $date = $pageVisited->visitedAt->format('Y') . '-01-01';
-
-        $this->inserts[] = $date;
     }
 }
