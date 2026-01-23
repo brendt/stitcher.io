@@ -2,8 +2,6 @@
 
 namespace App\Aggregate\Suggestions;
 
-use Tempest\Http\Session\FormSession;
-use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
 use function Tempest\Router\uri;
 use App\Aggregate\FeedController;
@@ -26,6 +24,10 @@ use function Tempest\View\view;
 
 final readonly class SuggestionController
 {
+    public function __construct(
+        private ResolveTitle $resolveTitle,
+    ) {}
+
     #[Get('/suggest')]
     public function suggest(): View
     {
@@ -42,7 +44,7 @@ final readonly class SuggestionController
         );
 
         defer(function () use ($suggestion) {
-            if ($title = new ResolveTitle()($suggestion->uri)) {
+            if ($title = ($this->resolveTitle)($suggestion->uri)) {
                 $suggestion->title = $title;
                 $suggestion->save();
             }
