@@ -37,6 +37,8 @@ final class AnalyticsController
         $mostPopularPostToday = query(VisitsPerPostPerDay::class)
             ->select()
             ->where('date = ?', DateTime::now()->startOfDay())
+            ->where('uri LIKE ?', '/blog/%')
+            ->where('uri NOT LIKE ?', '/blog/%/comments')
             ->orderBy('count DESC')
             ->limit(1)
             ->first();
