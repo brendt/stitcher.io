@@ -11,7 +11,6 @@ use Tempest\Console\HasConsole;
 use Tempest\Console\Middleware\ForceMiddleware;
 use Tempest\Container\Container;
 use Tempest\Database\Database;
-use Tempest\DateTime\Duration;
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
 use function Tempest\Support\str;
@@ -92,9 +91,9 @@ final readonly class EventsReplayCommand
         $currentEps = 0;
 
         $lastId = 0;
-        $limit = 1500;
+        $limit = 30_000;
 
-        while ($data = query('stored_events')->select()->where('id > ?', $lastId)->limit($limit)->all()) {
+        while ($data = query('stored_events')->select('id', 'eventClass', 'payload')->where('id > ?', $lastId)->limit($limit)->all()) {
             // Setup
             $events = arr($data)
                 ->map(function (array $item) {
