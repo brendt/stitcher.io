@@ -93,7 +93,7 @@ final readonly class EventsReplayCommand
         $lastId = 0;
         $limit = 30_000;
 
-        while ($data = query('stored_events')->select()->where('id > ?', $lastId)->limit($limit)->all()) {
+        while ($data = query('stored_events')->select('id', 'eventClass', 'payload')->where('id > ?', $lastId)->limit($limit)->all()) {
             // Setup
             $events = arr($data)
                 ->map(function (array $item) {
