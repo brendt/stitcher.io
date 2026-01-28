@@ -22,7 +22,7 @@ final class VisitsPerYearProjector implements Projector, BufferedProjector
     {
         $date = $pageVisited->visitedAt->format('Y') . '-01-01';
 
-        $this->inserts[] = $date;
+        $this->inserts[$date] = ($this->inserts[$date] ?? 0) + 1;
     }
 
     public function persist(): void
@@ -31,12 +31,15 @@ final class VisitsPerYearProjector implements Projector, BufferedProjector
             return;
         }
 
+        $values = [];
+
+        foreach ($this->inserts as $date => $count) {
+            $values[] = "(\"{$date}\",{$count})";
+        }
+
         $query = new Query(sprintf(
-            'INSERT INTO `visits_per_year` (`date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + 1',
-            implode(',', array_map(
-                fn (string $date) => "(\"$date\",1)",
-                $this->inserts,
-            )),
+            'INSERT INTO `visits_per_year` (`date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + VALUES(`count`)',
+            implode(',', $values),
         ));
 
         $query->execute();
