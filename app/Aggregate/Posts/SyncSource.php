@@ -25,13 +25,19 @@ final readonly class SyncSource
 
     public function __invoke(Source $source): void
     {
-        $xml = $this->cache->resolve(
-            'source_' . $source->id,
-            fn () => $this->http->get($source->uri, [
-                'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1'
-            ])->body ?? '',
-            Duration::minutes(10),
-        );
+        try {
+            $xml = $this->cache->resolve(
+                'source_' . $source->id,
+                fn () => $this->http->get($source->uri, [
+                    'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1'
+                ])->body ?? '',
+                Duration::minutes(10),
+            );
+        } catch (Throwable) {
+            event(new SourceSyncFailed($source->uri));
+
+            return;
+        }
 
         if ($xml === false) {
             event(new SourceSyncFailed($source->uri));
