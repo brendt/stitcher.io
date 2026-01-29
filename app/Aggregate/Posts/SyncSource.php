@@ -147,7 +147,8 @@ final readonly class SyncSource
             ?? $array['entries']
             ?? $array['item']
             ?? $array['items']
-            ?? $array['channel']['item'],
+            ?? $array['channel']['item']
+            ?? [],
         );
     }
 }
