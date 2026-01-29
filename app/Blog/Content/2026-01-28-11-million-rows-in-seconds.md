@@ -223,7 +223,7 @@ while ($events = query('stored_events')->select('id', 'createdAt')->where('id > 
 }
 ```
 
-Remember how we started from processing 30 events per second, then went all the way up to 400k. It took a long way to get here. With this change, performance bumped to… **1.7M events per second**. That's **17,000,000** events per second!
+Remember how we started from processing 30 events per second, then went all the way up to 400k. It took a long way to get here. With this change, performance bumped to… **1.7M events per second**. That's **1,700,000** events per second!
 
 <video controls="true" autoplay="" muted="" loop="" playsinline="">
     <source src="/img/static/eps/eps-3.mp4" type="video/mp4">
