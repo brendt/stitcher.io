@@ -9,6 +9,7 @@ use App\Aggregate\Posts\Events\SourceSyncFailed;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\Duration;
+use Tempest\HttpClient\HttpClient;
 use Tempest\Support\Arr\ImmutableArray;
 use Throwable;
 use function Tempest\EventBus\event;
@@ -19,13 +20,16 @@ final readonly class SyncSource
     public function __construct(
         private Cache $cache,
         private ResolveTitle $resolveTitle,
+        private HttpClient $http,
     ) {}
 
     public function __invoke(Source $source): void
     {
         $xml = $this->cache->resolve(
             'source_' . $source->id,
-            fn () => @file_get_contents($source->uri),
+            fn () => $this->http->get($source->uri, [
+                'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1'
+            ])->body ?? '',
             Duration::minutes(10),
         );
 
