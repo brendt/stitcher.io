@@ -11,6 +11,7 @@ use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
+use function Tempest\Support\arr;
 
 #[Singleton]
 final class VisitsPerDayProjector implements Projector, BufferedProjector
@@ -20,7 +21,8 @@ final class VisitsPerDayProjector implements Projector, BufferedProjector
     #[EventHandler]
     public function onPageVisited(PageVisited $pageVisited): void
     {
-        $this->inserts[] = $pageVisited->visitedAt->format('Y-m-d') . ' 00:00:00';
+        $this->inserts[$pageVisited->visitedAt->format('Y-m-d')] ??= 0;
+        $this->inserts[$pageVisited->visitedAt->format('Y-m-d')]++;
     }
 
     public function persist(): void
@@ -30,11 +32,10 @@ final class VisitsPerDayProjector implements Projector, BufferedProjector
         }
 
         $query = new Query(sprintf(
-            'INSERT INTO `visits_per_day` (`date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + 1',
-            implode(',', array_map(
-                fn (string $date) => "(\"$date\",1)",
-                $this->inserts,
-            )),
+            'INSERT INTO `visits_per_day` (`date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + VALUES(`count`)',
+            arr($this->inserts)
+                ->map(fn (int $count, string $date) => "(\"{$date} 00:00:00\", $count)")
+                ->implode(','),
         ));
 
         $query->execute();

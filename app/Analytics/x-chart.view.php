@@ -3,7 +3,6 @@
 /**
  * @var \App\Analytics\Chart $chart
  * @var string $label
- * @var string $title
  */
 
 use Symfony\Component\Uid\Uuid;
@@ -18,15 +17,6 @@ $uuid = Uuid::v4()->toString();
 
         new Chart(ctx, {
             type: 'line',
-            data: {
-                labels: <?= json_encode($chart->labels->values()->toArray()) ?>,
-                datasets: [{
-                    label: '<?= $label ?>',
-                    data: <?= json_encode($chart->values->values()->toArray()) ?>,
-                    borderColor: '#fe2977',
-                    borderWidth: 2
-                }]
-            },
             options: {
                 plugins: {
                     legend: {
@@ -44,12 +34,32 @@ $uuid = Uuid::v4()->toString();
                 },
                 scales: {
                     y: {
-                        <?php if ($chart->min !== null): ?>
-                            min: <?= $chart->min - 100 ?>,
-                        <?php endif; ?>
-                        beginAtZero: true
-                    }
+                        // min: 100,
+                        beginAtZero: true,
+                        display: true,
+                        position: 'left',
+                    },
+
+                    <x-template :if="$chart->twoScales">
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: true,
+                            grid: {
+                                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                            },
+                        },
+                    </x-template>
                 }
+            },
+            data: {
+                labels: {!! json_encode($chart->labels->values()->toArray()) !!},
+                datasets: [
+                    <x-template :foreach="$chart->datasets as $dataset">
+                        {!! $dataset->render() !!},
+                    </x-template>
+                ]
             }
         });
     </script>

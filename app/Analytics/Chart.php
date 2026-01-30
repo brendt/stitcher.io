@@ -5,23 +5,29 @@ declare(strict_types=1);
 namespace App\Analytics;
 
 use Tempest\Support\Arr\ImmutableArray;
+use function Tempest\Support\arr;
 
-final readonly class Chart
+final class Chart
 {
-    public ImmutableArray $labels;
+    public int $total {
+        get => $this->datasets->first()->total;
+    }
 
-    public ImmutableArray $values;
-
-    public int $total;
+    public ImmutableArray $labels {
+        get => $this->datasets->first()->labels;
+    }
 
     public function __construct(
-        /** @var array<string, \App\Analytics\Chartable> */
-        private ImmutableArray $entries,
+        public ImmutableArray $datasets,
+        public bool $twoScales = false,
         public ?int $min = null,
-    )
+    ) {}
+
+    public static function forData(array $datasets): self
     {
-        $this->labels = $entries->map(fn (Chartable $chartable) => $chartable->label);
-        $this->values = $entries->map(fn (Chartable $chartable) => $chartable->value);
-        $this->total = $entries->reduce(fn (int $carry, Chartable $chartable) => $carry + $chartable->value, 0);
+        return new self(
+            datasets: arr($datasets)
+                ->map(fn (ImmutableArray $items, int|string $title) => new Dataset($title, $items))
+        );
     }
 }

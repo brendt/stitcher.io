@@ -2,6 +2,7 @@
 
 namespace App\Analytics;
 
+use App\Analytics\DailyAveragePerMonth\RollingMonthlyAverage;
 use App\Analytics\VisitsPerDay\VisitsPerDay;
 use App\Analytics\VisitsPerHour\VisitsPerHour;
 use App\Analytics\VisitsPerMinute\VisitsPerMinute;
@@ -43,29 +44,52 @@ final class AnalyticsController
             ->limit(1)
             ->first();
 
-        $visitsPerHour = new Chart(arr(query(VisitsPerHour::class)
-            ->select()
-            ->orderBy('hour DESC')
-            ->limit(48)
-            ->all())->reverse());
+        $visitsPerHour = Chart::forData([
+            'Visits per hour' => arr(query(VisitsPerHour::class)
+                ->select()
+                ->orderBy('hour DESC')
+                ->limit(48)
+                ->all())->reverse(),
+        ]);
 
-        $visitsPerDay = new Chart(arr(query(VisitsPerDay::class)
-            ->select()
-            ->orderBy('date DESC')
-            ->limit(62)
-            ->all())->reverse());
+        $visitsPerDay = Chart::forData([
+            'Visits per day' => arr(query(VisitsPerDay::class)
+                ->select()
+                ->orderBy('date DESC')
+                ->limit(62)
+                ->all())->reverse(),
+        ]);
 
-        $visitsPerMonth = new Chart(arr(query(VisitsPerMonth::class)
-            ->select()
-            ->orderBy('date DESC')
-            ->limit(36)
-            ->all())->reverse());
+        $visitsPerMonth = new Chart(
+            datasets: arr([
+                new Dataset(
+                    title: 'Visits per month',
+                    entries: arr(query(VisitsPerMonth::class)
+                        ->select()
+                        ->orderBy('date DESC')
+                        ->where('date > ?', DateTime::now()->minusMonths(36))
+                        ->all())->reverse(),
+                ),
+                new Dataset(
+                    title: 'Rolling 6-month average',
+                    entries: arr(query(RollingMonthlyAverage::class)
+                        ->select()
+                        ->orderBy('date DESC')
+                        ->where('date > ?', DateTime::now()->minusMonths(36))
+                        ->all())->reverse(),
+                    color: '#DE2F7844',
+                    pointStyle: 'cross',
+                ),
+            ]),
+        );
 
-        $visitsPerYear = new Chart(arr(query(VisitsPerYear::class)
-            ->select()
-            ->orderBy('date ASC')
-            ->all()
-        ));
+        $visitsPerYear = Chart::forData([
+            'Visits per year' => arr(query(VisitsPerYear::class)
+                ->select()
+                ->orderBy('date ASC')
+                ->all(),
+            ),
+        ]);
 
         $popularPosts = query(VisitsPerPostPerWeek::class)
             ->select('uri', 'SUM(count) AS count')

@@ -6,12 +6,12 @@ namespace App\Analytics\VisitsPerMonth;
 
 use App\Analytics\PageVisited;
 use App\Support\StoredEvents\BufferedProjector;
-use App\Support\StoredEvents\BuffersUpdates;
 use App\Support\StoredEvents\Projector;
 use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
+use function Tempest\Support\arr;
 
 #[Singleton]
 final class VisitsPerMonthProjector implements Projector, BufferedProjector
@@ -21,7 +21,8 @@ final class VisitsPerMonthProjector implements Projector, BufferedProjector
     #[EventHandler]
     public function onPageVisited(PageVisited $pageVisited): void
     {
-        $this->inserts[] = $pageVisited->visitedAt->format('Y-m') . '-01';
+        $this->inserts[$pageVisited->visitedAt->format('Y-m')] ??= 0;
+        $this->inserts[$pageVisited->visitedAt->format('Y-m')]++;
     }
 
     public function persist(): void
@@ -31,11 +32,10 @@ final class VisitsPerMonthProjector implements Projector, BufferedProjector
         }
 
         $query = new Query(sprintf(
-            'INSERT INTO `visits_per_month` (`date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + 1',
-            implode(',', array_map(
-                fn (string $date) => "(\"$date\",1)",
-                $this->inserts,
-            )),
+            'INSERT INTO `visits_per_month` (`date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + VALUES(`count`)',
+            arr($this->inserts)
+                ->map(fn (int $count, string $date) => "(\"{$date}-01\", $count)")
+                ->implode(','),
         ));
 
         $query->execute();

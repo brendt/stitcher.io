@@ -76,6 +76,11 @@ final readonly class EventsReplayCommand
             ->filter(fn (string $projectorClass) => in_array($projectorClass, $replay, strict: true))
             ->map(fn (string $projectorClass) => $this->container->get($projectorClass));
 
+        if ($projectors->isEmpty()) {
+            $this->error('No projectors selected');
+            return;
+        }
+
         $this->info("Clearing projectors…");
 
         foreach ($projectors as $projector) {
