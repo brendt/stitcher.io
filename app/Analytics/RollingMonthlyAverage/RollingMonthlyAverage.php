@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Analytics\DailyAveragePerMonth;
+namespace App\Analytics\RollingMonthlyAverage;
 
 use App\Analytics\Chartable;
 use DateTime;

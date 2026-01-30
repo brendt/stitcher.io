@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Analytics\DailyAveragePerMonth;
+namespace App\Analytics\RollingMonthlyAverage;
 
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
@@ -19,30 +19,19 @@ final class ReportRollingMonthlyAverageCommand
         ?string $to = null,
     ): void
     {
-        $day = DateTime::parse($from ?? 'now');
+        $currentMonth = DateTime::parse($from ?? 'now');
         $to = DateTime::parse($to ?? 'now');
 
-        while ($day <= $to) {
-            $startOfMonth = $day->startOfMonth();
-            $endOfMonth = $day->endOfMonth();
+        while ($currentMonth <= $to) {
+            $average = $this->reportAverage($currentMonth);
 
-            $diff = $endOfMonth->getTimestamp()->getSeconds() - $startOfMonth->getTimestamp()->getSeconds();
-            $amountOfDays = (int)round($diff / (60 * 60 * 24));
+            $this->success($currentMonth->format('YYYY-MM') . " {$average}");
 
-            $average = $this->reportAverage($amountOfDays, $startOfMonth, $endOfMonth, $day);
-
-            $this->success($day->format('YYYY-MM') . " {$average}");
-
-            $day = $day->plusMonth();
+            $currentMonth = $currentMonth->plusMonth();
         }
     }
 
-    private function reportAverage(
-        int $amountOfDays,
-        DateTime $start,
-        DateTime $end,
-        DateTime $currentMonth,
-    ): int
+    private function reportAverage(DateTime $currentMonth): int
     {
         $average = query('visits_per_month')
             ->select('AVG(count) AS `avg`')
