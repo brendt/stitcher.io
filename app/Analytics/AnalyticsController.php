@@ -3,6 +3,7 @@
 namespace App\Analytics;
 
 use App\Analytics\RollingDailyAverage\RollingDailyAverage;
+use App\Analytics\RollingHourlyAverage\RollingHourlyAverage;
 use App\Analytics\RollingMonthlyAverage\RollingMonthlyAverage;
 use App\Analytics\VisitsPerDay\VisitsPerDay;
 use App\Analytics\VisitsPerHour\VisitsPerHour;
@@ -45,13 +46,28 @@ final class AnalyticsController
             ->limit(1)
             ->first();
 
-        $visitsPerHour = Chart::forData([
-            'Visits per hour' => arr(query(VisitsPerHour::class)
-                ->select()
-                ->orderBy('hour DESC')
-                ->limit(48)
-                ->all())->reverse(),
-        ]);
+        $visitsPerHour = new Chart(
+            datasets: arr([
+                new Dataset(
+                    title: 'Visits per hour',
+                    entries: arr(query(VisitsPerHour::class)
+                        ->select()
+                        ->orderBy('hour DESC')
+                        ->where('hour > ?', DateTime::now()->minusHours(48))
+                        ->all())->reverse(),
+                ),
+                new Dataset(
+                    title: 'Rolling 12-hour average',
+                    entries: arr(query(RollingHourlyAverage::class)
+                        ->select()
+                        ->orderBy('date DESC')
+                        ->where('date > ?', DateTime::now()->minusHours(48))
+                        ->all())->reverse(),
+                    color: '#DE2F7844',
+                    pointStyle: 'cross',
+                ),
+            ]),
+        );
 
         $visitsPerDay = new Chart(
             datasets: arr([
