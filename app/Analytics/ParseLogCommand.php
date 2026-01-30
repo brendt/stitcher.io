@@ -9,6 +9,7 @@ use Tempest\Clock\Clock;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\DateTime\DateTime;
+use Throwable;
 use function Tempest\Database\query;
 use function Tempest\EventBus\event;
 use function Tempest\Support\str;
@@ -114,7 +115,11 @@ final class ParseLogCommand
                 continue;
             }
 
-            $date = new DateTimeImmutable($date . ' +0000');
+            try {
+                $date = new DateTimeImmutable($date . ' +0000');
+            } catch (Throwable) {
+                continue;
+            }
 
             if ($lastDate && $lastDate >= $date) {
                 continue;
