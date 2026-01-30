@@ -12,7 +12,7 @@ final readonly class DeployCommand
     use HasConsole;
 
     #[ConsoleCommand('deploy')]
-    public function __invoke(bool $backend = false, bool $code = false,): void
+    public function __invoke(bool $backend = false): void
     {
         $this->info('Starting deploy');
 
