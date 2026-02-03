@@ -23,7 +23,7 @@ use function Tempest\View\view;
 final class AnalyticsController
 {
     #[Get('/analytics'), StaticPage]
-    public function __invoke(): View
+    public function analytics(): View
     {
         $visitsThisDay = query(VisitsPerDay::class)
             ->select()
@@ -125,7 +125,7 @@ final class AnalyticsController
 
         $popularPosts = query(VisitsPerPostPerWeek::class)
             ->select('uri', 'SUM(count) AS count')
-            ->where('date > ?', DateTime::now()->minusDays(32)->startOfDay())
+            ->where('date > ?', DateTime::now()->minusDays(31)->startOfDay())
             ->where('uri LIKE ?', '/blog/%')
             ->where('uri NOT LIKE ?', '/blog/%/comments')
             ->orderBy('SUM(count) DESC')
@@ -144,6 +144,27 @@ final class AnalyticsController
             visitsPerMonth: $visitsPerMonth,
             visitsPerYear: $visitsPerYear,
             popularPosts: $popularPosts,
+        );
+    }
+
+    #[Get('/analytics/post/{uri:.*}')]
+    public function forPost(string $uri): View
+    {
+        $uri = '/' . $uri;
+
+        $visitsPerDay = Chart::forData([
+            'Visits last 124 days' => arr(query(VisitsPerPostPerDay::class)
+                ->select()
+                ->orderBy('date DESC')
+                ->where('date > ?', DateTime::now()->minusDays(124))
+                ->where('uri', $uri)
+                ->all())->reverse()
+        ]);
+
+        return view(
+            'analytics-post.view.php',
+            uri: $uri,
+            visitsPerDay: $visitsPerDay,
         );
     }
 

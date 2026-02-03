@@ -11,6 +11,7 @@ use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
+use function Tempest\Support\arr;
 
 #[Singleton]
 final class VisitsPerPostPerDayProjector implements Projector, BufferedProjector
@@ -20,10 +21,8 @@ final class VisitsPerPostPerDayProjector implements Projector, BufferedProjector
     #[EventHandler]
     public function onPageVisited(PageVisited $pageVisited): void
     {
-        $this->inserts[] = [
-            $pageVisited->url,
-            $pageVisited->visitedAt->format('Y-m-d') . ' 00:00:00'
-        ];
+        $this->inserts[$pageVisited->url][$pageVisited->visitedAt->format('Y-m-d')] ??= 0;
+        $this->inserts[$pageVisited->url][$pageVisited->visitedAt->format('Y-m-d')]++;
     }
 
     public function persist(): void
@@ -33,12 +32,16 @@ final class VisitsPerPostPerDayProjector implements Projector, BufferedProjector
         }
 
         $query = new Query(sprintf(
-            'INSERT INTO `visits_per_post_per_day` (`uri`, `date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + 1',
-            implode(',', array_map(
-                fn (array $data) => sprintf('("%s", "%s", 1)', ...$data),
-                $this->inserts,
-            )),
+            'INSERT INTO `visits_per_post_per_day` (`uri`, `date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + VALUES(`count`)',
+            arr($this->inserts)
+                ->map(fn (array $days, string $uri) => arr($days)
+                    ->map(fn (int $count, string $date) => "(\"{$uri}\", \"{$date}\", {$count})")
+                    ->implode(','),
+                )
+                ->implode(','),
         ));
+
+        ll($query->toRawSql());
 
         $query->execute();
 

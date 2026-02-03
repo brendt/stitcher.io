@@ -2,6 +2,8 @@
 title: Processing 11 million rows in minutes instead of hours
 ---
 
+Before you start: I just published a second part of this blog post, you can [read it here](https://stitcher.io/blog/processing-11-million-rows).
+
 Around 5 years ago, I decided to drop all client-side analytics on this blog, and instead opt for server-side anonymous analytics. I had several reasons:
 
 - No more client-side overhead by removing JavaScript libraries
@@ -416,3 +418,5 @@ Needless to say, I'm already very satisfied. I went from 30 to almost 50,000 eve
 If you have any ideas on how to further improve it, you're welcome to [join the Tempest Discord server](/discord) or [leave a comment](#comments)!
 
 Finally, all the code for this is open source. You can check of my [blog's source code here](https://github.com/brendt/stitcher.io), [the analytics module is here](https://github.com/brendt/stitcher.io/tree/main/app/Analytics), [the dashboard itself is here](/analytics), and it's of course all powered by [Tempest](https://tempestphp.com/). 
+
+**Update: I've published a second part to this series, you can [read it here](https://stitcher.io/blog/processing-11-million-rows).**

@@ -7,45 +7,44 @@
     <div class="w-full flex flex-col pb-8">
         <div class="w-full z-10 p-2 md:p-12 grid gap-4 md:gap-8">
             <div class="grid md:grid-cols-4 gap-4 md:gap-8">
-                <x-realtime :visits="$realtimeVisitCount" />
+                <x-realtime :visits="$realtimeVisitCount"/>
 
                 <x-metric-card
-                    class="bg-green-200"
-                    title="Visits today"
-                    :metric="number_format($visitsThisDay ?? 0)"
+                        class="bg-green-200"
+                        title="Visits today"
+                        :metric="number_format($visitsThisDay ?? 0)"
                 ></x-metric-card>
 
                 <x-metric-card
-                    class="bg-yellow-200"
-                    title="Visits this month"
-                    :metric="number_format($visitsThisMonth ?? 0)"
+                        class="bg-yellow-200"
+                        title="Visits this month"
+                        :metric="number_format($visitsThisMonth ?? 0)"
                 ></x-metric-card>
 
                 <x-metric-card
-                    class="bg-purple-200"
-                    title="Most popular post today"
-                    :metric="$mostPopularPostToday?->uri ?? '-'"
+                        class="bg-purple-200"
+                        title="Most popular post today"
+                        :metric="$mostPopularPostToday?->uri ?? '-'"
                 ></x-metric-card>
             </div>
 
             <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-4 md:gap-8">
                 <x-chart :chart="$visitsPerHour" label="Visits" title="Visits last 48 hours"></x-chart>
                 <x-analytics-card title="Popular posts">
-                    <table>
-                        <tr class="table-head">
-                            <td>Post</td>
-                            <td class="text-right">Visits this month</td>
-                        </tr>
-                        <tr :foreach="$popularPosts as $post">
-                            <td>
-                                <a :href="$post->uri" class="underline hover:no-underline">{{ $post->uri }}</a>
-                            </td>
-                            <td class="text-right">{{ number_format($post->count) }}</td>
-                        </tr>
-                        <tr :forelse>
-                            <td colspan="2" class="text-center">No data</td>
-                        </tr>
-                    </table>
+                    <div class="grid rounded overflow-hidden">
+                        <div class="flex justify-between px-3 py-2 font-bold bg-pastel">
+                            <span>Post</span>
+                            <span>Visits this month</span>
+                        </div>
+                        <a
+                                :foreach="$popularPosts as $post"
+                                :href="$post->detailUri"
+                                class="flex justify-between w-full px-3 py-1 bg-pastel hover:bg-primary hover:text-white"
+                        >
+                            <span>{{ $post->uri }}</span>
+                            <span>{{ number_format($post->count) }}</span>
+                        </a>
+                    </div>
                 </x-analytics-card>
             </div>
 
