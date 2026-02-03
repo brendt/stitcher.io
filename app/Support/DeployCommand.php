@@ -22,7 +22,6 @@ final readonly class DeployCommand
 
         $deployScript = match (true) {
             $backend => 'deploy-backend.sh',
-            $code => 'deploy-code.sh',
             default => 'deploy-full.sh',
         };
 
