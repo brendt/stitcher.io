@@ -76,7 +76,7 @@ final class AnalyticsController
                     entries: arr(query(VisitsPerDay::class)
                         ->select()
                         ->orderBy('date DESC')
-                        ->where('date > ?', DateTime::now()->minusDays(62))
+                        ->where('date > ?', DateTime::now()->minusDays(100))
                         ->all())->reverse(),
                 ),
                 new Dataset(
@@ -84,7 +84,7 @@ final class AnalyticsController
                     entries: arr(query(RollingDailyAverage::class)
                         ->select()
                         ->orderBy('date DESC')
-                        ->where('date > ?', DateTime::now()->minusDays(62))
+                        ->where('date > ?', DateTime::now()->minusDays(100))
                         ->all())->reverse(),
                     color: '#DE2F7844',
                     pointStyle: 'cross',

@@ -48,10 +48,10 @@
                 </x-analytics-card>
             </div>
 
-            <x-chart :chart="$visitsPerMonth" label="Visits" title="Visits last 36 months"></x-chart>
+            <x-chart :chart="$visitsPerDay" label="Visits" title="Visits last 100 days"></x-chart>
 
             <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-8">
-                <x-chart :chart="$visitsPerDay" label="Visits" title="Visits last 62 days"></x-chart>
+                <x-chart :chart="$visitsPerMonth" label="Visits" title="Visits last 36 months"></x-chart>
                 <x-chart :chart="$visitsPerYear" label="Visits" title="Visits per year"></x-chart>
             </div>
         </div>
