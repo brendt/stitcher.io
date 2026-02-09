@@ -41,8 +41,6 @@ final class VisitsPerPostPerDayProjector implements Projector, BufferedProjector
                 ->implode(','),
         ));
 
-        ll($query->toRawSql());
-
         $query->execute();
 
         $this->inserts = [];
