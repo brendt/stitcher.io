@@ -2,7 +2,7 @@
 title: Processing 11 million rows in minutes instead of hours
 ---
 
-Before you start: I just published a second part of this blog post, you can [read it here](https://stitcher.io/blog/processing-11-million-rows).
+Before you start: I just published a second part of this blog post, you can [read it here](https://stitcher.io/blog/11-million-rows-in-seconds).
 
 Around 5 years ago, I decided to drop all client-side analytics on this blog, and instead opt for server-side anonymous analytics. I had several reasons:
 
@@ -419,4 +419,4 @@ If you have any ideas on how to further improve it, you're welcome to [join the 
 
 Finally, all the code for this is open source. You can check of my [blog's source code here](https://github.com/brendt/stitcher.io), [the analytics module is here](https://github.com/brendt/stitcher.io/tree/main/app/Analytics), [the dashboard itself is here](/analytics), and it's of course all powered by [Tempest](https://tempestphp.com/). 
 
-**Update: I've published a second part to this series, you can [read it here](https://stitcher.io/blog/processing-11-million-rows).**
+**Update: I've published a second part to this series, you can [read it here](https://stitcher.io/blog/11-million-rows-in-seconds).**
