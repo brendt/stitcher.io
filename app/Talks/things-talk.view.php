@@ -86,6 +86,9 @@ $meta->canonical ??= null;
         <li>
             <a href="https://epoch.ai/blog/how-much-does-it-cost-to-train-frontier-ai-models">How much does it cost to train frontier AI models?</a> — a paper detailing the costs that come with training AI models.
         </li>
+        <li>
+            <a href="https://www.anthropic.com/research/AI-assistance-coding-skills">How AI assistance impacts the formation of coding skills</a> — a study by Anthropic.
+        </li>
     </ul>
 </div>
 
