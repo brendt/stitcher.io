@@ -4,6 +4,8 @@ namespace App\Blog;
 
 use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Tempest\Cache\Cache;
+use Tempest\Container\Tag;
 use Tempest\DateTime\DateTime;
 use Tempest\Support\Arr\ImmutableArray;
 use function Tempest\Router\uri;
@@ -16,6 +18,7 @@ final  class BlogPostRepository
 
     public function __construct(
         private readonly MarkdownConverter $converter,
+        #[Tag('blog')] private readonly Cache $cache,
     ) {}
 
     public function find(string $slug): ?BlogPost
@@ -26,27 +29,36 @@ final  class BlogPostRepository
             return null;
         }
 
+        $cacheKey = hash('xxh64', $path);
+        $lastModified = filemtime($path);
+
+        $cachedVersion = $this->cache->get($cacheKey);
+
+        if ($cachedVersion && $cachedVersion['lastModified'] === $lastModified) {
+            return $cachedVersion['post'];
+        }
+
         $content = file_get_contents($path);
 
         $frontMatter = YamlFrontMatter::parse($content)->matter();
 
-        $meta = [
-            'image' => uri([BlogController::class, 'metaPng'], slug: $slug),
-            ...($frontMatter['meta'] ?? []),
-        ];
+        $meta = $frontMatter['meta'] ?? [];
 
         unset($frontMatter['meta'], $frontMatter['next']);
 
-        $data = [
-            'slug' => $slug,
-            'title' => str($slug)->replace('-', ' ')->upperFirst()->toString(),
-            'date' => $this->parseDate($path),
-            'content' => $this->converter->convert($content)->getContent(),
-            'meta' => $meta,
-            ...$frontMatter,
-        ];
-
-        $post = \Tempest\Mapper\map($data)->to(BlogPost::class);
+        $post = new BlogPost(
+            slug: $slug,
+            title: str($slug)->replace('-', ' ')->upperFirst()->toString(),
+            content: $this->converter->convert($content)->getContent(),
+            date: $this->parseDate($path),
+            meta: new Meta(
+                title: $meta['title'] ?? null,
+                description: $meta['description'] ?? null,
+                image: uri([BlogController::class, 'metaPng'], slug: $slug),
+                author: $meta['author'] ?? null,
+                canonical: $meta['canonical'] ?? null,
+            ),
+        );
 
         $allPosts = $this->all();
         $currentIndex = null;
@@ -59,6 +71,8 @@ final  class BlogPostRepository
         }
 
         $post->next = $allPosts[$currentIndex + 1] ?? null;
+
+        $this->cache->put($cacheKey, ['post' => $post, 'lastModified' => $lastModified]);
 
         return $post;
     }
