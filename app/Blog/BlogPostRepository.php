@@ -4,8 +4,6 @@ namespace App\Blog;
 
 use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
-use Tempest\Cache\Cache;
-use Tempest\Container\Tag;
 use Tempest\DateTime\DateTime;
 use Tempest\Support\Arr\ImmutableArray;
 use function Tempest\Router\uri;
@@ -18,7 +16,6 @@ final  class BlogPostRepository
 
     public function __construct(
         private readonly MarkdownConverter $converter,
-        #[Tag('blog')] private readonly Cache $cache,
     ) {}
 
     public function find(string $slug): ?BlogPost
@@ -27,15 +24,6 @@ final  class BlogPostRepository
 
         if (! $path) {
             return null;
-        }
-
-        $cacheKey = hash('xxh64', $path);
-        $lastModified = filemtime($path);
-
-        $cachedVersion = $this->cache->get($cacheKey);
-
-        if ($cachedVersion && $cachedVersion['lastModified'] === $lastModified) {
-            return $cachedVersion['post'];
         }
 
         $content = file_get_contents($path);
@@ -71,8 +59,6 @@ final  class BlogPostRepository
         }
 
         $post->next = $allPosts[$currentIndex + 1] ?? null;
-
-        $this->cache->put($cacheKey, ['post' => $post, 'lastModified' => $lastModified]);
 
         return $post;
     }
