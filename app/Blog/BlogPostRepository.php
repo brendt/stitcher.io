@@ -36,7 +36,7 @@ final  class BlogPostRepository
 
         $post = new BlogPost(
             slug: $slug,
-            title: str($slug)->replace('-', ' ')->upperFirst()->toString(),
+            title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
             content: $this->converter->convert($content)->getContent(),
             date: $this->parseDate($path),
             meta: new Meta(
@@ -88,7 +88,7 @@ final  class BlogPostRepository
 
                 return new BlogPost(
                     slug: $slug,
-                    title: str($slug)->replace('-', ' ')->upperFirst()->toString(),
+                    title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
                     content: '',
                     date: $this->parseDate($path),
                     meta: new Meta(
