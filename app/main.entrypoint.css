@@ -155,6 +155,10 @@ li {
     margin-left: 2em;
 }
 
+p + ol {
+    margin-top: .5em;
+}
+
 ol li {
     list-style-type: decimal;
 }
