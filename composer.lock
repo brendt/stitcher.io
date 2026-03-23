@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a93b38eca6c741793330c2c45c56463",
+    "content-hash": "9d2192788fa6fe765dd9c233837819f2",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -5714,16 +5714,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "dev-static-generate-without-session",
+            "version": "v3.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "6397aa57ed77a489c5cae2556d1c315ccf2d447b"
+                "reference": "619622eb94335b7b6b287ab3729b8972670c7611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/6397aa57ed77a489c5cae2556d1c315ccf2d447b",
-                "reference": "6397aa57ed77a489c5cae2556d1c315ccf2d447b",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/619622eb94335b7b6b287ab3729b8972670c7611",
+                "reference": "619622eb94335b7b6b287ab3729b8972670c7611",
                 "shasum": ""
             },
             "require": {
@@ -5940,7 +5940,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/static-generate-without-session"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.6.2"
             },
             "funding": [
                 {
@@ -5948,7 +5948,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-23T10:44:45+00:00"
+            "time": "2026-03-23T10:55:20+00:00"
         },
         {
             "name": "tempest/highlight",
@@ -7925,9 +7925,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "tempest/framework": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
