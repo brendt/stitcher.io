@@ -46,16 +46,10 @@ final class BlogController
             return new NotFound();
         }
 
-        $comments = Comment::select()
-            ->with('user')
-            ->where('for', $post->slug)
-            ->orderBy('createdAt DESC')
-            ->all();
-
         return \Tempest\View\view(
             'blog-show.view.php',
             post: $post,
-            comments: $comments,
+            comments: [],
             user: $authenticator->current(),
         );
     }
