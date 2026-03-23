@@ -64,7 +64,7 @@ final class YouTubeChatCommand
                 return $videoId;
             }
 
-            sleep(30);
+            sleep(120);
         }
     }
 
@@ -80,7 +80,7 @@ final class YouTubeChatCommand
                 $this->info("Poll failed ({$failureCount}/3)...");
             }
 
-            sleep(2);
+            sleep(5);
         }
     }
 
@@ -127,6 +127,7 @@ final class YouTubeChatCommand
         $response = $this->request($url);
 
         if ($response === null || isset($response['error'])) {
+            $this->error('Poll response error: ' . json_encode($response));
             return false;
         }
 
@@ -185,9 +186,15 @@ final class YouTubeChatCommand
         if (isset($data['error']['code']) && $data['error']['code'] === 401) {
             $this->info('Access token expired, refreshing...');
             if ($this->refreshAccessToken()) {
+                $this->info('Retrying request...');
                 return $this->request($url);
             }
+            $this->error('Token refresh failed, returning null');
             return null;
+        }
+
+        if (isset($data['error'])) {
+            $this->error('API error: ' . json_encode($data['error']));
         }
 
         return $data;
