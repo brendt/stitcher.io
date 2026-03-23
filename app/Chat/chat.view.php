@@ -10,7 +10,7 @@ use App\Chat\ChatController;
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 </head>
-<body class="bg-[#1b1429]">
+<body class="p-2 relative">
 
 <div
         id="chat"
@@ -20,13 +20,5 @@ use App\Chat\ChatController;
 >
     <x-chat />
 </div>
-
-<script>
-    document.body.addEventListener('htmx:afterSwap', function(event) {
-        if (event.detail.target.id === 'chat') {
-            window.scrollTo(0, document.body.scrollHeight);
-        }
-    });
-</script>
 </body>
 </html>
