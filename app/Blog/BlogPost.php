@@ -6,7 +6,7 @@ use Tempest\DateTime\DateTime;
 use Tempest\Router\Bindable;
 use function Tempest\Router\uri;
 
-final class BlogPost implements Bindable
+final class BlogPost
 {
     public function __construct(
         public string $slug,
@@ -19,10 +19,5 @@ final class BlogPost implements Bindable
 
     public string $uri {
         get => uri([BlogController::class, 'show'], slug: $this->slug);
-    }
-
-    public static function resolve(string $input): Bindable
-    {
-
     }
 }
