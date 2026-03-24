@@ -28,8 +28,6 @@ final class ChatController
 
         $messages = $this->chatStorage->getMessages();
 
-//        $messages = array_slice(array_reverse($messages), 0, 6);
-
         return view('x-chat.view.php', messages: $messages, modal: $modal);
     }
 }
