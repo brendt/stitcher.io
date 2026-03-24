@@ -3,6 +3,7 @@
 namespace App\Chat;
 
 use DateTimeImmutable;
+use SimpleXMLElement;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use function Tempest\env;
@@ -11,12 +12,15 @@ final class YouTubeChatCommand
 {
     use HasConsole;
 
-    private const API_BASE = 'https://www.googleapis.com/youtube/v3';
+    private const string API_BASE = 'https://www.googleapis.com/youtube/v3';
+    private const string FEED_BASE = 'https://www.youtube.com/feeds/videos.xml';
 
     private ?string $accessToken = null;
     private ?string $liveChatId = null;
     private ?string $nextPageToken = null;
+    private ?string $currentVideoId = null;
     private array $seenMessageIds = [];
+    private array $checkedVideoIds = [];
 
     public function __construct(
         private ChatStorage $chatStorage,
@@ -28,44 +32,106 @@ final class YouTubeChatCommand
         $this->accessToken = env('YOUTUBE_ACCESS_TOKEN');
         $channelId = env('YOUTUBE_CHANNEL_ID');
 
-        $this->info("Watching channel {$channelId} for live streams...");
+        $this->info("Watching channel {$channelId} feed for livestream starts...");
 
         while (true) {
-            // Wait for a live stream
-            $videoId = $this->waitForLiveStream($channelId);
-
-            $this->liveChatId = $this->fetchLiveChatId($videoId);
-
-            if ($this->liveChatId === null) {
-                $this->error('Could not find live chat ID. Retrying...');
-                sleep(10);
-                continue;
-            }
+            ['videoId' => $videoId, 'liveChatId' => $liveChatId] = $this->waitForLiveStreamFromFeed($channelId);
+            $this->currentVideoId = $videoId;
+            $this->liveChatId = $liveChatId;
 
             $this->success("Connected to live chat: {$this->liveChatId}");
 
-            // Poll messages until stream ends
             $this->pollUntilStreamEnds();
 
             $this->info('Stream ended. Waiting for new stream...');
+            if ($this->currentVideoId !== null) {
+                $this->checkedVideoIds[$this->currentVideoId] = true;
+            }
+            $this->currentVideoId = null;
             $this->liveChatId = null;
             $this->nextPageToken = null;
             $this->seenMessageIds = [];
         }
     }
 
-    private function waitForLiveStream(string $channelId): string
+    private function waitForLiveStreamFromFeed(string $channelId): array
     {
         while (true) {
-            $videoId = $this->findLiveVideoId($channelId);
+            $entries = $this->fetchFeedEntries($channelId);
 
-            if ($videoId !== null) {
-                $this->success("Found live video: {$videoId}");
-                return $videoId;
+            if ($entries === null) {
+                $this->error('Failed to fetch YouTube feed. Retrying in 60s...');
+                sleep(60);
+                continue;
             }
 
-            sleep(120);
+            $latestEntry = $entries[0] ?? null;
+
+            if ($latestEntry === null) {
+                $this->info('Feed has no entries yet. Retrying in 60s...');
+                sleep(60);
+                continue;
+            }
+
+            $videoId = $latestEntry['videoId'];
+
+            if (isset($this->checkedVideoIds[$videoId])) {
+                sleep(60);
+                continue;
+            }
+
+            $this->info("Found new latest feed video: {$videoId}, checking live status...");
+            $liveChatId = $this->fetchLiveChatId($videoId);
+
+            if ($liveChatId === null) {
+                $this->checkedVideoIds[$videoId] = true;
+                $this->info("Latest feed video {$videoId} is not currently live. Waiting for a newer video...");
+                sleep(60);
+                continue;
+            }
+
+            return [
+                'videoId' => $videoId,
+                'liveChatId' => $liveChatId,
+            ];
         }
+    }
+
+    private function fetchFeedEntries(string $channelId): ?array
+    {
+        $url = self::FEED_BASE . '?' . http_build_query([
+            'channel_id' => $channelId,
+        ]);
+
+        $xml = $this->requestXml($url);
+
+        if ($xml === null) {
+            return null;
+        }
+
+        $namespaces = $xml->getNamespaces(true);
+        $ytNamespace = $namespaces['yt'] ?? null;
+        $entries = [];
+
+        foreach ($xml->entry as $entry) {
+            if (!$entry instanceof SimpleXMLElement) {
+                continue;
+            }
+
+            $yt = $ytNamespace ? $entry->children($ytNamespace) : null;
+            $videoId = trim((string) ($yt?->videoId ?? ''));
+
+            if ($videoId === '') {
+                continue;
+            }
+
+            $entries[] = [
+                'videoId' => $videoId,
+                'updated' => trim((string) $entry->updated),
+            ];
+        }
+
+        return $entries;
     }
 
     private function pollUntilStreamEnds(): void
@@ -84,21 +150,6 @@ final class YouTubeChatCommand
         }
     }
 
-    private function findLiveVideoId(string $channelId): ?string
-    {
-        $url = self::API_BASE . '/search?' . http_build_query([
-            'part' => 'id',
-            'channelId' => $channelId,
-            'eventType' => 'live',
-            'type' => 'video',
-            'maxResults' => 1,
-        ]);
-
-        $response = $this->request($url);
-
-        return $response['items'][0]['id']['videoId'] ?? null;
-    }
-
     private function fetchLiveChatId(string $videoId): ?string
     {
         $url = self::API_BASE . '/videos?' . http_build_query([
@@ -106,7 +157,7 @@ final class YouTubeChatCommand
             'id' => $videoId,
         ]);
 
-        $response = $this->request($url);
+        $response = $this->requestJson($url);
 
         return $response['items'][0]['liveStreamingDetails']['activeLiveChatId'] ?? null;
     }
@@ -124,7 +175,7 @@ final class YouTubeChatCommand
         }
 
         $url = self::API_BASE . '/liveChat/messages?' . http_build_query($params);
-        $response = $this->request($url);
+        $response = $this->requestJson($url);
 
         if ($response === null || isset($response['error'])) {
             $this->error('Poll response error: ' . json_encode($response));
@@ -161,7 +212,24 @@ final class YouTubeChatCommand
         return true;
     }
 
-    private function request(string $url): ?array
+    private function requestXml(string $url): ?SimpleXMLElement
+    {
+        $result = @file_get_contents($url);
+
+        if ($result === false) {
+            return null;
+        }
+
+        $xml = @simplexml_load_string($result);
+
+        if ($xml === false) {
+            return null;
+        }
+
+        return $xml;
+    }
+
+    private function requestJson(string $url): ?array
     {
         $context = stream_context_create([
             'http' => [
@@ -182,12 +250,11 @@ final class YouTubeChatCommand
 
         $data = json_decode($result, true);
 
-        // Handle token refresh if needed
         if (isset($data['error']['code']) && $data['error']['code'] === 401) {
             $this->info('Access token expired, refreshing...');
             if ($this->refreshAccessToken()) {
                 $this->info('Retrying request...');
-                return $this->request($url);
+                return $this->requestJson($url);
             }
             $this->error('Token refresh failed, returning null');
             return null;
