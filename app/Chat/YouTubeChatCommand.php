@@ -44,6 +44,13 @@ final class YouTubeChatCommand
             $this->isFirstPollAfterConnect = true;
 
             $this->success("Connected to live chat: {$this->liveChatId}");
+            $this->chatStorage->appendMessage(new Message(
+                user: 'PHPAnnotated',
+                content: "Connected",
+                platform: 'youtube',
+                timestamp: new DateTimeImmutable(),
+                color: $this->chatStorage->getUserColor('PHPAnnotated'),
+            ));
 
             $this->pollUntilStreamEnds();
 
