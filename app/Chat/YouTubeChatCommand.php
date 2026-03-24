@@ -3,10 +3,12 @@
 namespace App\Chat;
 
 use DateTimeImmutable;
-use SimpleXMLElement;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
+use Tempest\DateTime\DateTime;
+use Tempest\HttpClient\HttpClient;
 use function Tempest\env;
+use function Tempest\Support\str;
 
 final class YouTubeChatCommand
 {
@@ -14,6 +16,7 @@ final class YouTubeChatCommand
 
     private const string API_BASE = 'https://www.googleapis.com/youtube/v3';
     private const string FEED_BASE = 'https://www.youtube.com/feeds/videos.xml';
+    private const int LATEST_RECHECK_SECONDS = 180;
 
     private ?string $accessToken = null;
     private ?string $liveChatId = null;
@@ -26,6 +29,7 @@ final class YouTubeChatCommand
 
     public function __construct(
         private ChatStorage $chatStorage,
+        private HttpClient $http,
     ) {}
 
     #[ConsoleCommand('chat:youtube')]
@@ -43,7 +47,7 @@ final class YouTubeChatCommand
             $this->connectedAt = new DateTimeImmutable();
             $this->isFirstPollAfterConnect = true;
 
-            $this->success("Connected to live chat: {$this->liveChatId}");
+            $this->success("Connected to live chat: {$this->liveChatId} {$this->currentVideoId}");
             $this->chatStorage->appendMessage(new Message(
                 user: 'PHPAnnotated',
                 content: "Connected",
@@ -78,29 +82,27 @@ final class YouTubeChatCommand
                 continue;
             }
 
-            $latestEntry = $entries[0] ?? null;
-
-            if ($latestEntry === null) {
+            if ($entries === []) {
                 $this->info('Feed has no entries yet. Retrying in 60s...');
                 sleep(60);
                 continue;
             }
 
-            $videoId = $latestEntry['videoId'];
-            $updatedAt = $latestEntry['updated'] ?? '';
+            $candidate = $this->findLatestCandidateEntry($entries);
 
-            if (($this->checkedVideoIds[$videoId] ?? null) === $updatedAt) {
-                $this->info("Latest feed video {$videoId} already checked at {$updatedAt}, waiting for changes...");
+            if ($candidate === null) {
+                $latestVideoId = $entries[0]['videoId'] ?? 'n/a';
+                $this->info("Latest feed video {$latestVideoId} already checked recently, waiting 1 minute for updates...");
                 sleep(60);
                 continue;
             }
 
-            $this->info("Checking latest feed video {$videoId} (updated: {$updatedAt})...");
+            $videoId = $candidate['videoId'];
             $liveChatId = $this->fetchLiveChatId($videoId);
-            $this->checkedVideoIds[$videoId] = $updatedAt;
+            $this->checkedVideoIds[$videoId] = true;
 
             if ($liveChatId === null) {
-                $this->info("Latest feed video {$videoId} is not currently live. Waiting for newer feed updates...");
+                $this->info("Latest feed video {$videoId} is not currently live. Waiting 1 minute for newer feed updates...");
                 sleep(60);
                 continue;
             }
@@ -112,37 +114,43 @@ final class YouTubeChatCommand
         }
     }
 
+    private function findLatestCandidateEntry(array $entries): ?array
+    {
+        $latest = array_first($entries);
+
+        if ($latest === null) {
+            return null;
+        }
+
+        $videoId = $latest['videoId'];
+        $isChecked = isset($this->checkedVideoIds[$videoId]);
+
+        if (! $isChecked) {
+            return $latest;
+        }
+
+        return null;
+    }
+
     private function fetchFeedEntries(string $channelId): ?array
     {
         $url = self::FEED_BASE . '?' . http_build_query([
             'channel_id' => $channelId,
         ]);
 
-        $xml = $this->requestXml($url);
+        $input = $this->http->get($url, [
+            'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1'
+        ])->body;
 
-        if ($xml === null) {
-            return null;
-        }
+        $xml = simplexml_load_string($input, "SimpleXMLElement", LIBXML_NOCDATA);
+        $json = json_encode($xml);
+        $data = json_decode($json, true);
 
-        $namespaces = $xml->getNamespaces(true);
-        $ytNamespace = $namespaces['yt'] ?? null;
-        $entries = [];
-
-        foreach ($xml->entry as $entry) {
-            if (!$entry instanceof SimpleXMLElement) {
-                continue;
-            }
-
-            $yt = $ytNamespace ? $entry->children($ytNamespace) : null;
-            $videoId = trim((string) ($yt?->videoId ?? ''));
-
-            if ($videoId === '') {
-                continue;
-            }
-
+        foreach ($data['entry'] as $entry) {
             $entries[] = [
-                'videoId' => $videoId,
-                'updated' => trim((string) $entry->updated),
+                'videoId' => str($entry['id'])->afterLast(':')->toString(),
+                'published' => DateTime::parse($entry['published']),
+                'title' => $entry['title'],
             ];
         }
 
@@ -237,23 +245,6 @@ final class YouTubeChatCommand
         }
 
         return true;
-    }
-
-    private function requestXml(string $url): ?SimpleXMLElement
-    {
-        $result = @file_get_contents($url);
-
-        if ($result === false) {
-            return null;
-        }
-
-        $xml = @simplexml_load_string($result);
-
-        if ($xml === false) {
-            return null;
-        }
-
-        return $xml;
     }
 
     private function requestJson(string $url): ?array
