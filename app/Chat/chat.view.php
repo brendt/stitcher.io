@@ -29,12 +29,12 @@ use App\Chat\ChatController;
     };
 
     document.addEventListener('DOMContentLoaded', function () {
-        requestAnimationFrame(scrollChatToBottom);
+        scrollChatToBottom();
     });
 
     document.body.addEventListener('htmx:afterSwap', function (event) {
         if (event.target.id !== 'chat') return;
-        requestAnimationFrame(scrollChatToBottom);
+        scrollChatToBottom();
     });
 </script>
 </body>
