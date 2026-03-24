@@ -49,7 +49,7 @@ final class YouTubeChatCommand
 
             $this->info('Stream ended. Waiting for new stream...');
             if ($this->currentVideoId !== null) {
-                $this->checkedVideoIds[$this->currentVideoId] = true;
+                $this->info("Marked livestream {$this->currentVideoId} as completed; waiting for feed updates...");
             }
             $this->currentVideoId = null;
             $this->liveChatId = null;
@@ -80,18 +80,20 @@ final class YouTubeChatCommand
             }
 
             $videoId = $latestEntry['videoId'];
+            $updatedAt = $latestEntry['updated'] ?? '';
 
-            if (isset($this->checkedVideoIds[$videoId])) {
+            if (($this->checkedVideoIds[$videoId] ?? null) === $updatedAt) {
+                $this->info("Latest feed video {$videoId} already checked at {$updatedAt}, waiting for changes...");
                 sleep(60);
                 continue;
             }
 
-            $this->info("Found new latest feed video: {$videoId}, checking live status...");
+            $this->info("Checking latest feed video {$videoId} (updated: {$updatedAt})...");
             $liveChatId = $this->fetchLiveChatId($videoId);
+            $this->checkedVideoIds[$videoId] = $updatedAt;
 
             if ($liveChatId === null) {
-                $this->checkedVideoIds[$videoId] = true;
-                $this->info("Latest feed video {$videoId} is not currently live. Waiting for a newer video...");
+                $this->info("Latest feed video {$videoId} is not currently live. Waiting for newer feed updates...");
                 sleep(60);
                 continue;
             }
