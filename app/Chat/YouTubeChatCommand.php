@@ -5,31 +5,32 @@ namespace App\Chat;
 use DateTimeImmutable;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
-use Tempest\DateTime\DateTime;
 use Tempest\HttpClient\HttpClient;
+use Throwable;
 use function Tempest\env;
-use function Tempest\Support\str;
 
 final class YouTubeChatCommand
 {
     use HasConsole;
 
     private const string API_BASE = 'https://www.googleapis.com/youtube/v3';
-    private const string FEED_BASE = 'https://www.youtube.com/feeds/videos.xml';
-    private const int LATEST_RECHECK_SECONDS = 180;
+    private const int MAIN_LOOP_SLEEP_SECONDS = 60;
+    private const int CHAT_STATUS_CHECK_SECONDS = 60;
+    private const int FALLBACK_CHAT_SLEEP_SECONDS = 5;
+    private const int MAX_CHAT_POLL_FAILURES = 3;
+    private const int MAX_BACKFILL_ROUNDS = 3;
+    private const int LIVE_BROADCAST_MAX_RESULTS = 5;
+    private const string USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1';
 
     private ?string $accessToken = null;
+    private ?string $currentVideoId = null;
     private ?string $liveChatId = null;
     private ?string $nextPageToken = null;
-    private ?string $currentVideoId = null;
-    private ?DateTimeImmutable $connectedAt = null;
-    private bool $isFirstPollAfterConnect = false;
     private array $seenMessageIds = [];
-    private array $checkedVideoIds = [];
 
     public function __construct(
-        private ChatStorage $chatStorage,
-        private HttpClient $http,
+        private readonly ChatStorage $chatStorage,
+        private readonly HttpClient $http,
     ) {}
 
     #[ConsoleCommand('chat:youtube')]
@@ -38,139 +39,171 @@ final class YouTubeChatCommand
         $this->accessToken = env('YOUTUBE_ACCESS_TOKEN');
         $channelId = env('YOUTUBE_CHANNEL_ID');
 
-        $this->info("Watching channel {$channelId} feed for livestream starts...");
+        $this->logInfo("YouTube chat watcher started for channel {$channelId}");
+        $this->logInfo('Using API detector for livestream status (swappable via detectLivestreamStatus).');
 
         while (true) {
-            ['videoId' => $videoId, 'liveChatId' => $liveChatId] = $this->waitForLiveStreamFromFeed($channelId);
-            $this->currentVideoId = $videoId;
-            $this->liveChatId = $liveChatId;
-            $this->connectedAt = new DateTimeImmutable();
-            $this->isFirstPollAfterConnect = true;
+            $status = $this->detectLivestreamStatus();
 
-            $this->success("Connected to live chat: {$this->liveChatId} {$this->currentVideoId}");
-            $this->chatStorage->appendMessage(new Message(
-                user: 'PHPAnnotated',
-                content: "Connected",
-                platform: 'youtube',
-                timestamp: new DateTimeImmutable(),
-                color: $this->chatStorage->getUserColor('PHPAnnotated'),
-            ));
-
-            $this->pollUntilStreamEnds();
-
-            $this->info('Stream ended. Waiting for new stream...');
-            if ($this->currentVideoId !== null) {
-                $this->info("Marked livestream {$this->currentVideoId} as completed; waiting for feed updates...");
+            if ($status['state'] !== 'live') {
+                $label = $status['state'] === 'unknown'
+                    ? 'livestream status unknown (API issue)'
+                    : 'no active livestream';
+                $this->logInfo("Main loop: {$label}, sleeping 60 seconds.");
+                sleep(self::MAIN_LOOP_SLEEP_SECONDS);
+                continue;
             }
-            $this->currentVideoId = null;
-            $this->liveChatId = null;
-            $this->connectedAt = null;
-            $this->isFirstPollAfterConnect = false;
-            $this->nextPageToken = null;
-            $this->seenMessageIds = [];
+
+            $stream = $status['stream'];
+            $this->startChatSession($stream['videoId'], $stream['liveChatId']);
+            $this->chatMessageLoop();
+            $this->resetChatSession();
+
+            $this->logInfo('Main loop: chat loop ended, sleeping 60 seconds before checking livestream status again.');
+            sleep(self::MAIN_LOOP_SLEEP_SECONDS);
         }
     }
 
-    private function waitForLiveStreamFromFeed(string $channelId): array
+    private function startChatSession(string $videoId, string $liveChatId): void
     {
+        $this->currentVideoId = $videoId;
+        $this->liveChatId = $liveChatId;
+        $this->nextPageToken = null;
+        $this->seenMessageIds = [];
+
+        $this->logInfo("Connected to livestream {$videoId} with chat {$liveChatId}");
+        $this->chatStorage->appendMessage(new Message(
+            user: 'PHPAnnotated',
+            content: 'Connected',
+            platform: 'youtube',
+            timestamp: new DateTimeImmutable(),
+            color: $this->chatStorage->getUserColor('PHPAnnotated'),
+        ));
+    }
+
+    private function resetChatSession(): void
+    {
+        $this->logInfo('Resetting chat session state.');
+        $this->currentVideoId = null;
+        $this->liveChatId = null;
+        $this->nextPageToken = null;
+        $this->seenMessageIds = [];
+    }
+
+    private function chatMessageLoop(): void
+    {
+        $this->logInfo('Chat loop started; attempting to backfill missed messages.');
+        $this->backfillMessages();
+
+        $pollFailureCount = 0;
+        $nextStatusCheckAt = time();
+
         while (true) {
-            $entries = $this->fetchFeedEntries($channelId);
+            if (time() >= $nextStatusCheckAt) {
+                $nextStatusCheckAt = time() + self::CHAT_STATUS_CHECK_SECONDS;
+                $status = $this->detectLivestreamStatus();
 
-            if ($entries === null) {
-                $this->error('Failed to fetch YouTube feed. Retrying in 60s...');
-                sleep(60);
+                if ($status['state'] !== 'live') {
+                    $this->logInfo('Chat loop: livestream is no longer live, returning to main loop.');
+                    return;
+                }
+
+                $liveVideoId = $status['stream']['videoId'] ?? null;
+                if ($liveVideoId !== $this->currentVideoId) {
+                    $this->logInfo("Chat loop: detected different live stream {$liveVideoId}, returning to main loop.");
+                    return;
+                }
+            }
+
+            $pollResult = $this->pollChatMessages();
+
+            if (! $pollResult['ok']) {
+                $pollFailureCount++;
+                $this->logWarning("Chat loop: poll failed ({$pollFailureCount}/" . self::MAX_CHAT_POLL_FAILURES . ').');
+
+                if ($pollFailureCount >= self::MAX_CHAT_POLL_FAILURES) {
+                    $this->logError('Chat loop: too many poll failures, returning to main loop.');
+                    return;
+                }
+
+                sleep(self::FALLBACK_CHAT_SLEEP_SECONDS);
                 continue;
             }
 
-            if ($entries === []) {
-                $this->info('Feed has no entries yet. Retrying in 60s...');
-                sleep(60);
+            $pollFailureCount = 0;
+            $storedCount = $pollResult['storedCount'];
+            $sleepSeconds = $pollResult['sleepSeconds'];
+            $this->logInfo("Chat loop: stored {$storedCount} message(s), sleeping {$sleepSeconds}s.");
+            sleep($sleepSeconds);
+        }
+    }
+
+    private function backfillMessages(): void
+    {
+        $total = 0;
+
+        for ($i = 1; $i <= self::MAX_BACKFILL_ROUNDS; $i++) {
+            $result = $this->pollChatMessages();
+
+            if (! $result['ok']) {
+                $this->logWarning("Backfill stopped at round {$i} due to poll failure.");
+                break;
+            }
+
+            $total += $result['storedCount'];
+
+            if ($result['storedCount'] === 0) {
+                break;
+            }
+        }
+
+        $this->logInfo("Backfill complete: stored {$total} message(s).");
+    }
+
+    private function detectLivestreamStatus(): array
+    {
+        return $this->detectLivestreamStatusViaApi();
+    }
+
+    private function detectLivestreamStatusViaApi(): array
+    {
+        $url = self::API_BASE . '/liveBroadcasts?' . http_build_query([
+            'part' => 'id,snippet,status',
+            'mine' => 'true',
+            'broadcastType' => 'all',
+            'maxResults' => self::LIVE_BROADCAST_MAX_RESULTS,
+        ]);
+
+        $response = $this->requestAuthorizedJson($url);
+
+        if ($response === null) {
+            return ['state' => 'unknown'];
+        }
+
+        foreach ($response['items'] ?? [] as $item) {
+            $videoId = $item['id'] ?? null;
+            $lifeCycleStatus = $item['status']['lifeCycleStatus'] ?? null;
+
+            if ($lifeCycleStatus !== 'live' || ! is_string($videoId) || $videoId === '') {
                 continue;
             }
 
-            $candidate = $this->findLatestCandidateEntry($entries);
+            $liveChatId = $item['snippet']['liveChatId'] ?? $this->fetchLiveChatId($videoId);
 
-            if ($candidate === null) {
-                $latestVideoId = $entries[0]['videoId'] ?? 'n/a';
-                $this->info("Latest feed video {$latestVideoId} already checked recently, waiting 1 minute for updates...");
-                sleep(60);
-                continue;
-            }
-
-            $videoId = $candidate['videoId'];
-            $liveChatId = $this->fetchLiveChatId($videoId);
-            $this->checkedVideoIds[$videoId] = true;
-
-            if ($liveChatId === null) {
-                $this->info("Latest feed video {$videoId} is not currently live. Waiting 1 minute for newer feed updates...");
-                sleep(60);
+            if (! is_string($liveChatId) || $liveChatId === '') {
                 continue;
             }
 
             return [
-                'videoId' => $videoId,
-                'liveChatId' => $liveChatId,
-            ];
-        }
-    }
-
-    private function findLatestCandidateEntry(array $entries): ?array
-    {
-        $latest = array_first($entries);
-
-        if ($latest === null) {
-            return null;
-        }
-
-        $videoId = $latest['videoId'];
-        $isChecked = isset($this->checkedVideoIds[$videoId]);
-
-        if (! $isChecked) {
-            return $latest;
-        }
-
-        return null;
-    }
-
-    private function fetchFeedEntries(string $channelId): ?array
-    {
-        $url = self::FEED_BASE . '?' . http_build_query([
-            'channel_id' => $channelId,
-        ]);
-
-        $input = $this->http->get($url, [
-            'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1'
-        ])->body;
-
-        $xml = simplexml_load_string($input, "SimpleXMLElement", LIBXML_NOCDATA);
-        $json = json_encode($xml);
-        $data = json_decode($json, true);
-
-        foreach ($data['entry'] as $entry) {
-            $entries[] = [
-                'videoId' => str($entry['id'])->afterLast(':')->toString(),
-                'published' => DateTime::parse($entry['published']),
-                'title' => $entry['title'],
+                'state' => 'live',
+                'stream' => [
+                    'videoId' => $videoId,
+                    'liveChatId' => $liveChatId,
+                ],
             ];
         }
 
-        return $entries;
-    }
-
-    private function pollUntilStreamEnds(): void
-    {
-        $failureCount = 0;
-
-        while ($failureCount < 3) {
-            if ($this->pollMessages()) {
-                $failureCount = 0;
-            } else {
-                $failureCount++;
-                $this->info("Poll failed ({$failureCount}/3)...");
-            }
-
-            sleep(5);
-        }
+        return ['state' => 'offline'];
     }
 
     private function fetchLiveChatId(string $videoId): ?string
@@ -180,15 +213,25 @@ final class YouTubeChatCommand
             'id' => $videoId,
         ]);
 
-        $response = $this->requestJson($url);
+        $response = $this->requestAuthorizedJson($url);
 
-        return $response['items'][0]['liveStreamingDetails']['activeLiveChatId'] ?? null;
+        if ($response === null) {
+            return null;
+        }
+
+        $liveChatId = $response['items'][0]['liveStreamingDetails']['activeLiveChatId'] ?? null;
+
+        return is_string($liveChatId) && $liveChatId !== '' ? $liveChatId : null;
     }
 
-    private function pollMessages(): bool
+    /**
+     * @return array{ok:bool,storedCount:int,sleepSeconds:int}
+     */
+    private function pollChatMessages(): array
     {
-        $skipBacklog = $this->isFirstPollAfterConnect;
-        $this->isFirstPollAfterConnect = false;
+        if ($this->liveChatId === null) {
+            return ['ok' => false, 'storedCount' => 0, 'sleepSeconds' => self::FALLBACK_CHAT_SLEEP_SECONDS];
+        }
 
         $params = [
             'part' => 'snippet,authorDetails',
@@ -201,19 +244,19 @@ final class YouTubeChatCommand
         }
 
         $url = self::API_BASE . '/liveChat/messages?' . http_build_query($params);
-        $response = $this->requestJson($url);
+        $response = $this->requestAuthorizedJson($url);
 
-        if ($response === null || isset($response['error'])) {
-            $this->error('Poll response error: ' . json_encode($response));
-            return false;
+        if ($response === null) {
+            return ['ok' => false, 'storedCount' => 0, 'sleepSeconds' => self::FALLBACK_CHAT_SLEEP_SECONDS];
         }
 
-        $this->nextPageToken = $response['nextPageToken'] ?? null;
+        $this->nextPageToken = $response['nextPageToken'] ?? $this->nextPageToken;
 
+        $storedCount = 0;
         foreach ($response['items'] ?? [] as $item) {
             $messageId = $item['id'] ?? null;
 
-            if ($messageId === null || isset($this->seenMessageIds[$messageId])) {
+            if (! is_string($messageId) || isset($this->seenMessageIds[$messageId])) {
                 continue;
             }
 
@@ -222,98 +265,145 @@ final class YouTubeChatCommand
             $snippet = $item['snippet'] ?? [];
             $author = $item['authorDetails'] ?? [];
             $user = $author['displayName'] ?? 'Unknown';
+            $content = $snippet['displayMessage'] ?? '';
             $publishedAt = new DateTimeImmutable($snippet['publishedAt'] ?? 'now');
-
-            if (
-                $skipBacklog
-                && $this->connectedAt !== null
-                && $publishedAt <= $this->connectedAt
-            ) {
-                continue;
-            }
 
             $message = new Message(
                 user: $user,
-                content: $snippet['displayMessage'] ?? '',
+                content: $content,
                 platform: 'youtube',
                 timestamp: $publishedAt,
                 color: $this->chatStorage->getUserColor($user),
             );
 
             $this->chatStorage->appendMessage($message);
-            $this->writeln("[{$message->user}] {$message->content}");
+            $this->info(sprintf('[%s] [%s] %s', $this->timestamp(), $message->user, $message->content));
+            $storedCount++;
         }
 
-        return true;
+        $intervalMillis = (int) ($response['pollingIntervalMillis'] ?? (self::FALLBACK_CHAT_SLEEP_SECONDS * 1000));
+        $sleepSeconds = max(self::FALLBACK_CHAT_SLEEP_SECONDS, (int) ceil($intervalMillis / 1000));
+
+        return ['ok' => true, 'storedCount' => $storedCount, 'sleepSeconds' => $sleepSeconds];
     }
 
-    private function requestJson(string $url): ?array
+    private function requestAuthorizedJson(string $url, bool $allowRefresh = true): ?array
     {
-        $context = stream_context_create([
-            'http' => [
-                'method' => 'GET',
-                'header' => implode("\r\n", [
-                    'Authorization: Bearer ' . $this->accessToken,
-                    'Accept: application/json',
-                ]),
-                'ignore_errors' => true,
+        $response = $this->requestJson(
+            method: 'GET',
+            url: $url,
+            headers: [
+                'Authorization' => 'Bearer ' . $this->accessToken,
+                'Accept' => 'application/json',
+                'User-Agent' => self::USER_AGENT,
             ],
-        ]);
+        );
 
-        $result = @file_get_contents($url, false, $context);
-
-        if ($result === false) {
+        if ($response === null) {
             return null;
         }
 
-        $data = json_decode($result, true);
+        if ($response['status'] === 401 && $allowRefresh) {
+            $this->logWarning('Access token expired, refreshing token.');
 
-        if (isset($data['error']['code']) && $data['error']['code'] === 401) {
-            $this->info('Access token expired, refreshing...');
             if ($this->refreshAccessToken()) {
-                $this->info('Retrying request...');
-                return $this->requestJson($url);
+                return $this->requestAuthorizedJson($url, false);
             }
-            $this->error('Token refresh failed, returning null');
+
+            $this->logError('Token refresh failed.');
             return null;
         }
 
-        if (isset($data['error'])) {
-            $this->error('API error: ' . json_encode($data['error']));
+        if ($response['status'] >= 400) {
+            $this->logError('API HTTP error ' . $response['status'] . ': ' . json_encode($response['data'] ?? []));
+            return null;
         }
 
-        return $data;
+        if (! is_array($response['data'])) {
+            $this->logError('API response is not valid JSON.');
+            return null;
+        }
+
+        if (isset($response['data']['error'])) {
+            $this->logError('API error: ' . json_encode($response['data']['error']));
+            return null;
+        }
+
+        return $response['data'];
+    }
+
+    /**
+     * @return array{status:int,data:mixed}|null
+     */
+    private function requestJson(string $method, string $url, array $headers = []): ?array
+    {
+        try {
+            $response = match ($method) {
+                'GET' => $this->http->get($url, $headers),
+                'POST' => $this->http->post($url, $headers),
+                default => throw new \RuntimeException("Unsupported method {$method}"),
+            };
+        } catch (Throwable $throwable) {
+            $this->logError("HTTP request failed: {$throwable->getMessage()}");
+            return null;
+        }
+
+        $rawBody = $response->body;
+        $data = is_string($rawBody) ? json_decode($rawBody, true) : $rawBody;
+
+        return [
+            'status' => $response->status->value,
+            'data' => $data,
+        ];
     }
 
     private function refreshAccessToken(): bool
     {
-        $response = file_get_contents('https://oauth2.googleapis.com/token', false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => 'Content-Type: application/x-www-form-urlencoded',
-                'content' => http_build_query([
-                    'client_id' => env('YOUTUBE_CLIENT_ID'),
-                    'client_secret' => env('YOUTUBE_CLIENT_SECRET'),
-                    'refresh_token' => env('YOUTUBE_REFRESH_TOKEN'),
-                    'grant_type' => 'refresh_token',
-                ]),
-            ],
-        ]));
+        $url = 'https://oauth2.googleapis.com/token?' . http_build_query([
+            'client_id' => env('YOUTUBE_CLIENT_ID'),
+            'client_secret' => env('YOUTUBE_CLIENT_SECRET'),
+            'refresh_token' => env('YOUTUBE_REFRESH_TOKEN'),
+            'grant_type' => 'refresh_token',
+        ]);
 
-        if ($response === false) {
-            $this->error('Failed to refresh token');
+        $response = $this->requestJson('POST', $url, [
+            'Accept' => 'application/json',
+            'User-Agent' => self::USER_AGENT,
+        ]);
+
+        if ($response === null || $response['status'] >= 400 || ! is_array($response['data'])) {
             return false;
         }
 
-        $data = json_decode($response, true);
+        $newAccessToken = $response['data']['access_token'] ?? null;
 
-        if (isset($data['access_token'])) {
-            $this->accessToken = $data['access_token'];
-            $this->success('Token refreshed');
-            return true;
+        if (! is_string($newAccessToken) || $newAccessToken === '') {
+            return false;
         }
 
-        $this->error('Token refresh failed: ' . ($data['error_description'] ?? 'Unknown error'));
-        return false;
+        $this->accessToken = $newAccessToken;
+        $this->logInfo('Access token refreshed.');
+
+        return true;
+    }
+
+    private function logInfo(string $message): void
+    {
+        $this->info(sprintf('[%s] %s', $this->timestamp(), $message));
+    }
+
+    private function logWarning(string $message): void
+    {
+        $this->warning(sprintf('[%s] %s', $this->timestamp(), $message));
+    }
+
+    private function logError(string $message): void
+    {
+        $this->error(sprintf('[%s] %s', $this->timestamp(), $message));
+    }
+
+    private function timestamp(): string
+    {
+        return new DateTimeImmutable()->format('Y-m-d H:i:s');
     }
 }
