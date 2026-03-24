@@ -2,6 +2,7 @@
 
 namespace App\Chat;
 
+use Tempest\Http\Request;
 use Tempest\Router\Get;
 use Tempest\View\View;
 use function Tempest\View\view;
@@ -13,18 +14,22 @@ final class ChatController
     ) {}
 
     #[Get('/chat')]
-    public function index(): View
+    public function index(Request $request): View
     {
-        return view('chat.view.php');
+        $modal = $request->has('modal');
+
+        return view('chat.view.php', modal: $modal);
     }
 
     #[Get('/chat/realtime')]
-    public function realtime(): View
+    public function realtime(Request $request): View
     {
+        $modal = $request->has('modal');
+
         $messages = $this->chatStorage->getMessages();
 
-        $messages = array_slice(array_reverse($messages), 0, 6);
+//        $messages = array_slice(array_reverse($messages), 0, 6);
 
-        return view('x-chat.view.php', messages: $messages);
+        return view('x-chat.view.php', messages: $messages, modal: $modal);
     }
 }

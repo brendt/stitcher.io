@@ -19,6 +19,8 @@ final class YouTubeChatCommand
     private ?string $liveChatId = null;
     private ?string $nextPageToken = null;
     private ?string $currentVideoId = null;
+    private ?DateTimeImmutable $connectedAt = null;
+    private bool $isFirstPollAfterConnect = false;
     private array $seenMessageIds = [];
     private array $checkedVideoIds = [];
 
@@ -38,6 +40,8 @@ final class YouTubeChatCommand
             ['videoId' => $videoId, 'liveChatId' => $liveChatId] = $this->waitForLiveStreamFromFeed($channelId);
             $this->currentVideoId = $videoId;
             $this->liveChatId = $liveChatId;
+            $this->connectedAt = new DateTimeImmutable();
+            $this->isFirstPollAfterConnect = true;
 
             $this->success("Connected to live chat: {$this->liveChatId}");
 
@@ -49,6 +53,8 @@ final class YouTubeChatCommand
             }
             $this->currentVideoId = null;
             $this->liveChatId = null;
+            $this->connectedAt = null;
+            $this->isFirstPollAfterConnect = false;
             $this->nextPageToken = null;
             $this->seenMessageIds = [];
         }
@@ -164,6 +170,9 @@ final class YouTubeChatCommand
 
     private function pollMessages(): bool
     {
+        $skipBacklog = $this->isFirstPollAfterConnect;
+        $this->isFirstPollAfterConnect = false;
+
         $params = [
             'part' => 'snippet,authorDetails',
             'liveChatId' => $this->liveChatId,
@@ -196,12 +205,21 @@ final class YouTubeChatCommand
             $snippet = $item['snippet'] ?? [];
             $author = $item['authorDetails'] ?? [];
             $user = $author['displayName'] ?? 'Unknown';
+            $publishedAt = new DateTimeImmutable($snippet['publishedAt'] ?? 'now');
+
+            if (
+                $skipBacklog
+                && $this->connectedAt !== null
+                && $publishedAt <= $this->connectedAt
+            ) {
+                continue;
+            }
 
             $message = new Message(
                 user: $user,
                 content: $snippet['displayMessage'] ?? '',
                 platform: 'youtube',
-                timestamp: new DateTimeImmutable($snippet['publishedAt'] ?? 'now'),
+                timestamp: $publishedAt,
                 color: $this->chatStorage->getUserColor($user),
             );
 
