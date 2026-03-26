@@ -2769,11 +2769,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.42",
+            "version": "2.1.43",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1279e1ce86ba768f0780c9d889852b4e02ff40d0",
-                "reference": "1279e1ce86ba768f0780c9d889852b4e02ff40d0",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d01bebe3edfd4d49b9666ee5b8271ddca561042f",
+                "reference": "d01bebe3edfd4d49b9666ee5b8271ddca561042f",
                 "shasum": ""
             },
             "require": {
@@ -2818,7 +2818,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-17T14:58:32+00:00"
+            "time": "2026-03-24T20:40:50+00:00"
         },
         {
             "name": "psr-discovery/discovery",
@@ -5714,16 +5714,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v3.6.2",
+            "version": "v3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "619622eb94335b7b6b287ab3729b8972670c7611"
+                "reference": "c3f70732a08126e1a1f6e6d3686527f51bddf9ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/619622eb94335b7b6b287ab3729b8972670c7611",
-                "reference": "619622eb94335b7b6b287ab3729b8972670c7611",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/c3f70732a08126e1a1f6e6d3686527f51bddf9ff",
+                "reference": "c3f70732a08126e1a1f6e6d3686527f51bddf9ff",
                 "shasum": ""
             },
             "require": {
@@ -5940,7 +5940,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.6.2"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.7.0"
             },
             "funding": [
                 {
@@ -5948,7 +5948,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-23T10:55:20+00:00"
+            "time": "2026-03-24T13:10:44+00:00"
         },
         {
             "name": "tempest/highlight",

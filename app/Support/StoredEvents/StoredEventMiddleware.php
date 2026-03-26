@@ -20,14 +20,17 @@ final readonly class StoredEventMiddleware implements EventBusMiddleware
     #[Override]
     public function __invoke(string|object $event, EventBusMiddlewareCallable $next): void
     {
-        if ($event instanceof ShouldBeStored) {
-            new StoredEvent(
-                uuid: $event->uuid,
-                eventClass: $event::class,
-                payload: $event->serialize(),
-                createdAt: $event instanceof HasCreatedAtDate ? $event->createdAt : new DateTimeImmutable(),
-            )->save();
+        if (! $event instanceof ShouldBeStored) {
+            $next($event);
+            return;
         }
+
+        new StoredEvent(
+            uuid: $event->uuid,
+            eventClass: $event::class,
+            payload: $event->serialize(),
+            createdAt: $event instanceof HasCreatedAtDate ? $event->createdAt : new DateTimeImmutable(),
+        )->save();
 
         $next($event);
 
@@ -35,7 +38,9 @@ final readonly class StoredEventMiddleware implements EventBusMiddleware
             $projector = $this->container->get($projectorClass);
 
             if ($projector instanceof BufferedProjector) {
+                lw($projector::class);
                 $projector->persist();
+                lw('done');
             }
         }
     }
