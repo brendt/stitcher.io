@@ -38,9 +38,7 @@ final readonly class StoredEventMiddleware implements EventBusMiddleware
             $projector = $this->container->get($projectorClass);
 
             if ($projector instanceof BufferedProjector) {
-                lw($projector::class);
                 $projector->persist();
-                lw('done');
             }
         }
     }
