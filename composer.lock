@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d2192788fa6fe765dd9c233837819f2",
+    "content-hash": "0aa5c9e130ab3eaf066486891220bfed",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -1884,16 +1884,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.32.0",
+            "version": "3.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "254b1595b16b22dbddaaef9ed6ca9fdac4956725"
+                "reference": "570b8871e0ce693764434b29154c54b434905350"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/254b1595b16b22dbddaaef9ed6ca9fdac4956725",
-                "reference": "254b1595b16b22dbddaaef9ed6ca9fdac4956725",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/570b8871e0ce693764434b29154c54b434905350",
+                "reference": "570b8871e0ce693764434b29154c54b434905350",
                 "shasum": ""
             },
             "require": {
@@ -1961,9 +1961,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.32.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.33.0"
             },
-            "time": "2026-02-25T17:01:41+00:00"
+            "time": "2026-03-25T07:59:30+00:00"
         },
         {
             "name": "league/flysystem-local",
@@ -2769,11 +2769,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.43",
+            "version": "2.1.44",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d01bebe3edfd4d49b9666ee5b8271ddca561042f",
-                "reference": "d01bebe3edfd4d49b9666ee5b8271ddca561042f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4a88c083c668b2c364a425c9b3171b2d9ea5d218",
+                "reference": "4a88c083c668b2c364a425c9b3171b2d9ea5d218",
                 "shasum": ""
             },
             "require": {
@@ -2818,7 +2818,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-24T20:40:50+00:00"
+            "time": "2026-03-25T17:34:21+00:00"
         },
         {
             "name": "psr-discovery/discovery",
@@ -5714,16 +5714,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v3.7.0",
+            "version": "dev-fix-slot-rendering",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "c3f70732a08126e1a1f6e6d3686527f51bddf9ff"
+                "reference": "301d8b2861090eedcc2afd017688a820199ca2be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/c3f70732a08126e1a1f6e6d3686527f51bddf9ff",
-                "reference": "c3f70732a08126e1a1f6e6d3686527f51bddf9ff",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/301d8b2861090eedcc2afd017688a820199ca2be",
+                "reference": "301d8b2861090eedcc2afd017688a820199ca2be",
                 "shasum": ""
             },
             "require": {
@@ -5940,7 +5940,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.7.0"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/fix-slot-rendering"
             },
             "funding": [
                 {
@@ -5948,7 +5948,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-24T13:10:44+00:00"
+            "time": "2026-03-27T08:07:27+00:00"
         },
         {
             "name": "tempest/highlight",
@@ -7925,7 +7925,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "tempest/framework": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
