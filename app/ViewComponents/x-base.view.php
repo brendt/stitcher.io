@@ -12,7 +12,11 @@ use function Tempest\Router\uri;
 
 $title ??= null;
 $meta ??= new Meta();
-$meta->title ??= 'Stitcher.io';
+if (($meta->title ?? null) === null) {
+    $meta->title ??= $title ?? 'stitcher.io';
+} else {
+    $meta->title .= ' | stitcher.io';
+}
 $meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
 //$meta->image ??= uri('/meta/meta_small.png');
 $meta->image = uri('/meta/meta_lg.png');
