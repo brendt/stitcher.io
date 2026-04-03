@@ -40,8 +40,8 @@ final  class BlogPostRepository
             content: $this->converter->convert($content)->getContent(),
             date: $this->parseDate($path),
             meta: new Meta(
-                title: $meta['title'] ?? null,
-                description: $meta['description'] ?? null,
+                title: $meta['title'] ?? $frontMatter['title'] ?? null,
+                description: $meta['description'] ?? $frontMatter['description'] ?? null,
                 image: uri([BlogController::class, 'metaPng'], slug: $slug),
                 author: $meta['author'] ?? null,
                 canonical: $meta['canonical'] ?? null,
@@ -92,8 +92,8 @@ final  class BlogPostRepository
                     content: '',
                     date: $this->parseDate($path),
                     meta: new Meta(
-                        title: $meta['title'] ?? null,
-                        description: $meta['description'] ?? null,
+                        title: $meta['title'] ?? $frontMatter['title'] ?? null,
+                        description: $meta['description'] ?? $frontMatter['description'] ?? null,
                         image: uri([BlogController::class, 'metaPng'], slug: $slug),
                         author: $meta['author'] ?? null,
                         canonical: $meta['canonical'] ?? null,
