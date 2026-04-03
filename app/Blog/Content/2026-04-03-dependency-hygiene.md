@@ -31,9 +31,21 @@ Of course, this is only a sample of the full PHP ecosystem. But it did seem sign
 
 Another great example is `symfony/polyfill-mbstring`: it comes with virtually every PHP project I work on. I don't really know where it comes from without running `composer why` (it's a really useful command, by the way) — I've just come to accept it: if you're doing anything PHP related, chances are `symfony/polyfill-mbstring` will be in there somewhere. I couldn't include it in my scanner script, because `symfony/polyfill-mbstring` replaces an _optional_ PHP extension and isn't tied to a fixed PHP version (although to be honest, `mbstring` is always installed by default on my environments at least).
 
-Anyway, there's no way for me to opt-out of pulling in this package. There are so many other packages out there depending on something that depends on something that depends on `symfony/polyfill-mbstring`, that makes it vitually impossible to not require it. Even though I have the `mbstring` extension in all my PHP installations!
+Anyway, there's one way to opt-out of pulling in these packages: by adding a [`replace`](https://getcomposer.org/doc/04-schema.md#replace) config in your project's composer.json:
 
-Is there anything wrong with pulling in that package? Not really. Unless, of course, one day, a supply-chain attack happens like we've seen more than once in the NPM ecosystem lately. It _is_ convenient to have the polyfill in place in case someone somewhere needs it. But is that really good enough a reason? 
+```json
+{
+    "replace": {
+        "symfony/polyfill-php54": "*",
+        "paragonie/sodium_compat": "*",
+        "symfony/polyfill-mbstring": "*"
+    }
+}
+```
+
+In indicates to composer that the current project _replaces_ these packages, thus they won't be pulled in. It's a bit convoluted, and most projects likely don't bother to set it up. Without doing the replace trick in every one of my projects, chances are very likely I end up with them: there are so many packages out there depending on something that depends on something that depends on `symfony/polyfill-mbstring`, which makes it vitually impossible to not require it.
+
+Is there anything wrong with pulling in these packages? Not really. Unless, of course, one day, a supply-chain attack happens like we've seen more than once in the NPM ecosystem lately. It _is_ convenient to have the polyfill in place in case someone somewhere needs it. But is that really good enough a reason? 
 
 Maybe we do need to practice a little more dependency hygiene? Let me know your thoughts in [the comments](#comments) or [on Discord](/discord)!
 
