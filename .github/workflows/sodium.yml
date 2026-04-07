@@ -1,0 +1,26 @@
+name: Sodium
+
+on:
+  workflow_dispatch:
+
+jobs:
+  phpunit:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        php: [8.5]
+
+    name: "Sodium"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Sodium
+        run: php -i | grep sodium
