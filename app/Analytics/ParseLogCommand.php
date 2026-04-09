@@ -139,6 +139,15 @@ final class ParseLogCommand
                 continue;
             }
 
+            // Resolve and check status code
+            $statusCode = str($line->match('/"(GET|POST).*?"\s([\d]+)/', match: 2));
+
+            if (! $statusCode->startsWith('2')) {
+                $this->writeln(sprintf("<style=\"bg-red fg-white\">%s </style> %s (%s)", $date->format('Y-m-d H:i:s'), $url, $statusCode));
+
+                continue;
+            }
+
             // Resolve and check IP
             $ip = $line->match("/^([\d\.\w\:]+)/");
 
@@ -168,7 +177,7 @@ final class ParseLogCommand
 
             $previousDateForIp = self::$ips[$event->ip] ?? null;
 
-            if ($previousDateForIp && $previousDateForIp->diff($event->visitedAt)->s < 1) {
+            if ($previousDateForIp && $previousDateForIp->diff($event->visitedAt)->s < 3) {
                 self::$ips[$event->ip] = $event->visitedAt;
 
                 $this->writeln(sprintf("<style=\"bg-red fg-white\">%s </style> %s (throttled)", $date->format('Y-m-d H:i:s'), $event->url));

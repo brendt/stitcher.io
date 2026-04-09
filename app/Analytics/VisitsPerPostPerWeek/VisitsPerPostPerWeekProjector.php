@@ -6,9 +6,7 @@ namespace App\Analytics\VisitsPerPostPerWeek;
 
 use App\Analytics\PageVisited;
 use App\Support\StoredEvents\BufferedProjector;
-use App\Support\StoredEvents\BuffersUpdates;
 use App\Support\StoredEvents\Projector;
-use DateInterval;
 use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;

@@ -6,7 +6,6 @@ namespace App\Analytics\VisitsPerHour;
 
 use App\Analytics\PageVisited;
 use App\Support\StoredEvents\BufferedProjector;
-use App\Support\StoredEvents\BuffersUpdates;
 use App\Support\StoredEvents\Projector;
 use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
