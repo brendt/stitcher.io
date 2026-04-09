@@ -2,6 +2,8 @@
 title: Dependency Hygiene
 ---
 
+_Edit: this blog post sparked a lot of interesting discussions. I first wrote a separate followup blog post, but I wanted to bundle everything in one place. So I added a section to this blog post instead, addressing some of the arguments that were made across the internet._
+
 I was reading this blog post about how [package managers are evil](https://stitcher.io/feed/posts/74429). I don't really agree on the "evil" part because package managers do solve a problem that would be very hard to deal with manually. That being said, I was curious enough to do a little experiment.
 
 I recently came across a project that required `paragonie/sodium_compat`. Fair enough: it adds support for sodium functions before they came built-in with PHP 7.2. However… this particular project required PHP 7.3 at the minimum! So even though `paragonie/sodium_compat` got included in every installation, it wasn't actually useful anymore. So [I made an issue](https://github.com/pusher/pusher-http-php/issues/400) asking them about it, and eventually they did remove it.
@@ -49,3 +51,35 @@ Is there anything wrong with pulling in these packages? Not really. Unless, of c
 
 Maybe we do need to practice a little more dependency hygiene? Let me know your thoughts in [the comments](#comments) or [on Discord](/discord)!
 
+## Followup
+
+Since publishing this blog post, many people have pitched in with their feedback, which was really valuable. I want to address these point here as well.
+
+### On sodium specifically
+
+First, most discussion turned out to be about `paragonie/sodium-compat` specifically. It's kind of unfortunate that this discussion overtook the point I was trying to get across, which was for a big part my fault. What I missed intially is that `ext-sodium` is indeed a bundled extension since PHP 7.2, but not enabled by default on Linux and Windows. Why that's the case, I'm not sure.
+
+So while the argument I made for dependency hygiene still holds, for `paragonie/sodium-compat` it's a bit more tricky. Personally, as an open source maintainer, I would still think it's better to let users decide on the project/system level whether they want to rely on `ext-sodium` or  `paragonie/sodium-compat`, without a third-party library forcing me to download an external package. The `replace` trick works, but there's also no mechanism forcing you to do so. In practice, I doubt many projects actually go through the effort of doing so.
+
+### On composer opportunities
+
+Many people pitched the idea for an addition to the composer.json scheme, where a package itself could declare itself redundant if some system-requirements are met. For example, it could look something like this:
+
+```json
+{
+    "name": "paragonie/sodium_compat",
+    {:hl-comment:# …:}
+    "replaced-by": {
+        "ext-sodium": "*",
+        "php": "^7.2"
+    }
+}
+```
+
+To be clear: this is not available in composer right now. I think it's an interesting idea, but I reckon there likely are many reasons why it's not viable. I'm going to ask Jordi about it, though.
+
+### On package hygiene
+
+My main worry, which I tried to convey with this blog post, is redundant code ending up on millions of systems that don't really need it (`paragonie/sodium-compat` has ±140k daily installs). Today there's no problem with that, just like there was no problem with any of the NPM packages that fell to the recent side-chain attacks. I really don't think we should act lightly about it, and I think it's worth having a discussion about it.
+
+In my opinion, the problem with these widespread packages has been exacerbated because libraries require them without a second thought. These libraries, in turn, are then required by so many projects, causing a dependency of a dependency to end up in places where it shouldn't be. That's why I think part of "good dependency hygiene" is to not hard-require polyfills and compat packages on the library-level, and instead let the user decide on the best approach on the project or system level.  
