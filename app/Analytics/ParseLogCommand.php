@@ -73,6 +73,7 @@ final class ParseLogCommand
         '34.89.200.43',
         '130.255.160.128',
         '185.13.96.91',
+        '157.15.40.6',
     ];
 
     /** @var DateTimeImmutable[] */
