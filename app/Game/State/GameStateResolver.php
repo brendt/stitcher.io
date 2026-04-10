@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Game\State;
 
+use App\Game\Challenge\ChallengeCommandResolver;
 use App\Game\Persistence\GameRepository;
 use Random\Engine\Mt19937;
 use Random\Randomizer;
@@ -12,15 +13,17 @@ final readonly class GameStateResolver
 {
     public function __construct(
         private GameRepository $games,
+        private ChallengeCommandResolver $challenges,
     ) {}
 
     /**
      * @return array<string, mixed>
      */
-    public function resolve(string $gameId, bool $includeTimeline = false): array
+    public function resolve(string $gameId, bool $includeTimeline = false, ?string $viewerPlayerId = null): array
     {
         $meta = $this->games->loadMeta($gameId);
         $game = $this->games->load($gameId);
+        $this->challenges->fillPlayerSpecificChallengePool(gameId: $gameId, game: $game);
         $coordinates = $this->games->stationCoordinates($gameId);
         $usedStationNames = [];
 
@@ -61,7 +64,12 @@ final readonly class GameStateResolver
             $game->edges,
         );
 
-        $challenges = $this->games->allChallenges($gameId);
+        $resolvedViewerPlayerId = $viewerPlayerId;
+        if ($resolvedViewerPlayerId === null && $game->players !== []) {
+            $resolvedViewerPlayerId = array_key_first($game->players);
+        }
+
+        $challenges = $this->games->allChallenges($gameId, viewerPlayerId: $resolvedViewerPlayerId);
         $finalization = $this->games->latestMatchFinalization($gameId);
 
         $payload = [
@@ -69,6 +77,7 @@ final readonly class GameStateResolver
                 'id' => $meta['id'],
                 'status' => $meta['status'],
                 'createdAt' => $meta['created_at'],
+                'durationSeconds' => 1200,
             ],
             'players' => $players,
             'stations' => $stations,

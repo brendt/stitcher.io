@@ -20,6 +20,7 @@ final readonly class GameStateController
         return new Json($this->resolver->resolve(
             gameId: $gameId,
             includeTimeline: (bool) ($request->timeline ?? false),
+            viewerPlayerId: $request->playerId,
         ));
     }
 }

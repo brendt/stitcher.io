@@ -14,6 +14,7 @@ final readonly class MapGenerator
 {
     private const MAX_STATION_COUNT = 200;
     private const MIN_STATION_DISTANCE = 3;
+    private const MIN_INTERSECTION_STATION_DISTANCE = 5;
     private const MIN_LINE_STATIONS = 4;
 
     public function generate(int $stationCount, int $seed, int $playerCount = 2): GeneratedMap
@@ -24,168 +25,179 @@ final readonly class MapGenerator
         if ($stationCount > self::MAX_STATION_COUNT) {
             throw new InvalidArgumentException(sprintf('Station count must be at most %d.', self::MAX_STATION_COUNT));
         }
-
-        $baseGridSize = $playerCount <= 2 ? 100 : 120;
-        $stationScale = sqrt(max(1, $stationCount / 60));
-        $gridSize = (int) ceil($baseGridSize * $stationScale);
-
-        $random = new Randomizer(new Mt19937($seed));
-
-        $edgeKeys = [];
-        $edges = [];
-        $totalLoopSlots = $stationCount + 2; // Two shared hub stations appear in both loops.
-        $mainTarget = max(self::MIN_LINE_STATIONS, (int) ceil($totalLoopSlots / 2));
-        $secondaryTarget = $totalLoopSlots - $mainTarget;
-
-        if ($secondaryTarget > 0 && $secondaryTarget < self::MIN_LINE_STATIONS) {
-            $missing = self::MIN_LINE_STATIONS - $secondaryTarget;
-            $mainTarget = max(self::MIN_LINE_STATIONS, $mainTarget - $missing);
-            $secondaryTarget = $totalLoopSlots - $mainTarget;
+        if ($playerCount < 2 || $playerCount > 6) {
+            throw new InvalidArgumentException('Player count must be between 2 and 6.');
+        }
+        if ($stationCount < ($playerCount * self::MIN_LINE_STATIONS)) {
+            throw new InvalidArgumentException(sprintf(
+                'Station count must be at least %d for %d players.',
+                $playerCount * self::MIN_LINE_STATIONS,
+                $playerCount,
+            ));
         }
 
-        $maxLoopStations = max($mainTarget, $secondaryTarget);
+        $random = new Randomizer(new Mt19937($seed));
+        $lineStationTargets = $this->lineStationTargets($stationCount, $playerCount);
+        $maxLoopStations = max($lineStationTargets);
         $requiredRadius = (int) ceil(($maxLoopStations * self::MIN_STATION_DISTANCE * 1.18) / (2 * M_PI));
-        $radius = max(14, min((int) floor($gridSize * 0.28), $requiredRadius));
+        $radius = max(14, $requiredRadius);
+        $baseGridSize = $playerCount <= 2 ? 100 : 120;
+        $stationScale = sqrt(max(1, $stationCount / 60));
+        $maxCenterSpread = (int) ceil(($playerCount - 1) * 15);
+        $minGridSize = (2 * ($radius + 6)) + $maxCenterSpread + 8;
+        $gridSize = (int) ceil(max($baseGridSize * $stationScale, $minGridSize));
+
         $stationCoordinates = [];
         $stationIds = [];
-        $hubIds = [];
-        $mainLineStationIds = [];
-        $secondaryLineStationIds = [];
+        $loopStationIds = [];
         $generated = false;
 
-        for ($layoutAttempt = 0; $layoutAttempt < 10; $layoutAttempt++) {
+        for ($layoutAttempt = 0; $layoutAttempt < 18; $layoutAttempt++) {
             $stationCoordinates = [];
             $stationIds = [];
+            $loopStationIds = [];
             $stationCounter = 1;
-            $radiusForAttempt = max(12, $radius - $layoutAttempt);
-            $centerY = max($radiusForAttempt + 6, min($gridSize - $radiusForAttempt - 6, (int) floor($gridSize * 0.5)));
-            $maxCenterDistance = $gridSize - (2 * ($radiusForAttempt + 6));
-            $centerDistance = min($random->getInt(8, 12), $maxCenterDistance);
+            $radiusForAttempt = max(12, $radius - intdiv($layoutAttempt, 4));
+            $midpoint = (int) floor($gridSize / 2);
+            $minCenter = $radiusForAttempt + 6;
+            $maxCenter = $gridSize - $radiusForAttempt - 6;
+            $centerStepAxes = [];
+            $offsets = [['x' => 0, 'y' => 0]];
+            $currentOffsetX = 0;
+            $currentOffsetY = 0;
+            for ($stepIndex = 0; $stepIndex < ($playerCount - 1); $stepIndex++) {
+                $centerStepAxes[] = $random->getInt(0, 1) === 1;
+            }
 
-            if ($centerDistance < (self::MIN_STATION_DISTANCE * 2)) {
+            if (
+                $playerCount > 2
+                && (count(array_unique($centerStepAxes)) === 1)
+            ) {
+                $flipIndex = $random->getInt(0, count($centerStepAxes) - 1);
+                $centerStepAxes[$flipIndex] = ! $centerStepAxes[$flipIndex];
+            }
+
+            for ($stepIndex = 0; $stepIndex < ($playerCount - 1); $stepIndex++) {
+                $step = $random->getInt(15, 30);
+                if ($centerStepAxes[$stepIndex]) {
+                    $currentOffsetX += $step;
+                } else {
+                    $currentOffsetY += $step;
+                }
+
+                $offsets[] = ['x' => $currentOffsetX, 'y' => $currentOffsetY];
+            }
+
+            $offsetXs = array_column($offsets, 'x');
+            $offsetYs = array_column($offsets, 'y');
+            $baseCenterX = $midpoint - (int) round(((min($offsetXs) + max($offsetXs)) / 2));
+            $baseCenterY = $midpoint - (int) round(((min($offsetYs) + max($offsetYs)) / 2));
+
+            $layoutValid = true;
+            for ($lineIndex = 0; $lineIndex < $playerCount; $lineIndex++) {
+                $lineId = sprintf('L%d', $lineIndex + 1);
+                $targetCount = $lineStationTargets[$lineIndex];
+                $centerX = $baseCenterX + $offsets[$lineIndex]['x'];
+                $centerY = $baseCenterY + $offsets[$lineIndex]['y'];
+                $centerX = max($minCenter, min($maxCenter, $centerX));
+                $centerY = max($minCenter, min($maxCenter, $centerY));
+
+                $lineStations = $this->generateCircularLine(
+                    random: $random,
+                    gridSize: $gridSize,
+                    lineId: $lineId,
+                    targetCount: $targetCount,
+                    centerX: $centerX,
+                    centerY: $centerY,
+                    radius: $radiusForAttempt,
+                    sharedHubIds: [],
+                    stationCounter: $stationCounter,
+                    stationIds: $stationIds,
+                    stationCoordinates: $stationCoordinates,
+                );
+
+                if ($lineStations === []) {
+                    $layoutValid = false;
+                    break;
+                }
+
+                $loopStationIds[] = $lineStations;
+            }
+
+            if (! $layoutValid || count($stationIds) !== $stationCount) {
                 continue;
             }
 
-            $center1X = (int) floor(($gridSize - $centerDistance) / 2);
-            $center2X = $center1X + $centerDistance;
-
-            if ($center2X <= $center1X) {
-                continue;
-            }
-
-            $centerDistance = $center2X - $center1X;
-            if ($centerDistance >= (2 * $radiusForAttempt)) {
-                continue;
-            }
-
-            $intersectionHeight = (int) round(sqrt(max(1, ($radiusForAttempt * $radiusForAttempt) - (($centerDistance * $centerDistance) / 4))));
-            $intersectionHeight = max((int) ceil(self::MIN_STATION_DISTANCE / 2), $intersectionHeight);
-            $intersectionX = (int) round(($center1X + $center2X) / 2);
-            $hubTopY = max(2, min($gridSize - 2, $centerY - $intersectionHeight));
-            $hubBottomY = max(2, min($gridSize - 2, $centerY + $intersectionHeight));
-
-            if (! $this->hasEnoughSpacing($intersectionX, $hubTopY, $stationCoordinates)) {
-                continue;
-            }
-
-            if (! $this->hasEnoughSpacing($intersectionX, $hubBottomY, [
-                'hub-top' => ['x' => $intersectionX, 'y' => $hubTopY, 'line_id' => 'L1'],
-            ])) {
-                continue;
-            }
-
-            $hubTopId = sprintf('S%d', $stationCounter++);
-            $hubBottomId = sprintf('S%d', $stationCounter++);
-            $stationIds[] = $hubTopId;
-            $stationIds[] = $hubBottomId;
-            $stationCoordinates[$hubTopId] = ['x' => $intersectionX, 'y' => $hubTopY, 'line_id' => 'L1'];
-            $stationCoordinates[$hubBottomId] = ['x' => $intersectionX, 'y' => $hubBottomY, 'line_id' => 'L1'];
-
-            $attemptHubIds = [$hubTopId => true, $hubBottomId => true];
-
-            $attemptMainLineStationIds = $this->generateCircularLine(
-                random: $random,
-                gridSize: $gridSize,
-                lineId: 'L1',
-                targetCount: $mainTarget,
-                centerX: $center1X,
-                centerY: $centerY,
-                radius: $radiusForAttempt,
-                sharedHubIds: [$hubTopId, $hubBottomId],
-                stationCounter: $stationCounter,
-                stationIds: $stationIds,
-                stationCoordinates: $stationCoordinates,
-            );
-
-            $attemptSecondaryLineStationIds = $this->generateCircularLine(
-                random: $random,
-                gridSize: $gridSize,
-                lineId: 'L2',
-                targetCount: $secondaryTarget,
-                centerX: $center2X,
-                centerY: $centerY,
-                radius: $radiusForAttempt,
-                sharedHubIds: [$hubTopId, $hubBottomId],
-                stationCounter: $stationCounter,
-                stationIds: $stationIds,
-                stationCoordinates: $stationCoordinates,
-            );
-
-            if ($attemptMainLineStationIds === [] || $attemptSecondaryLineStationIds === []) {
-                continue;
-            }
-
-            if (count($stationIds) !== $stationCount) {
-                continue;
-            }
-
-            $hubIds = $attemptHubIds;
-            $mainLineStationIds = $attemptMainLineStationIds;
-            $secondaryLineStationIds = $attemptSecondaryLineStationIds;
             $generated = true;
             break;
         }
 
         if (! $generated) {
-            throw new InvalidArgumentException('Could not generate two circular lines with current constraints.');
+            throw new InvalidArgumentException('Could not generate looped lines with current constraints.');
         }
 
-        for ($i = 0; $i < count($mainLineStationIds) - 1; $i++) {
-            $this->addEdge(
+        $edgeKeys = [];
+        $edges = [];
+        foreach ($loopStationIds as $lineStationIds) {
+            for ($i = 0; $i < count($lineStationIds) - 1; $i++) {
+                $this->addEdge(
+                    edges: $edges,
+                    edgeKeys: $edgeKeys,
+                    random: $random,
+                    from: $lineStationIds[$i],
+                    to: $lineStationIds[$i + 1],
+                    stationCoordinates: $stationCoordinates,
+                );
+            }
+
+            $this->closeLoop(
+                random: $random,
+                lineStationIds: $lineStationIds,
+                stationCoordinates: $stationCoordinates,
                 edges: $edges,
                 edgeKeys: $edgeKeys,
-                random: $random,
-                from: $mainLineStationIds[$i],
-                to: $mainLineStationIds[$i + 1],
-                stationCoordinates: $stationCoordinates,
             );
         }
 
-        for ($i = 0; $i < count($secondaryLineStationIds) - 1; $i++) {
-            $this->addEdge(
+        for ($i = 0; $i < count($loopStationIds) - 1; $i++) {
+            $bridge = $this->nearestStationPair(
+                firstLineStationIds: $loopStationIds[$i],
+                secondLineStationIds: $loopStationIds[$i + 1],
+                stationCoordinates: $stationCoordinates,
+            );
+
+            if ($bridge === null) {
+                continue;
+            }
+
+            $added = $this->addEdge(
                 edges: $edges,
                 edgeKeys: $edgeKeys,
                 random: $random,
-                from: $secondaryLineStationIds[$i],
-                to: $secondaryLineStationIds[$i + 1],
+                from: $bridge['from'],
+                to: $bridge['to'],
                 stationCoordinates: $stationCoordinates,
+                avoidOverlaps: true,
             );
+
+            if (! $added) {
+                $this->addEdge(
+                    edges: $edges,
+                    edgeKeys: $edgeKeys,
+                    random: $random,
+                    from: $bridge['from'],
+                    to: $bridge['to'],
+                    stationCoordinates: $stationCoordinates,
+                );
+            }
         }
 
-        $this->closeLoop(
-            random: $random,
-            lineStationIds: $mainLineStationIds,
-            stationCoordinates: $stationCoordinates,
+        $stationCounter = count($stationIds) + 1;
+        $this->promoteEdgeIntersectionsToStations(
             edges: $edges,
-            edgeKeys: $edgeKeys,
-        );
-
-        $this->closeLoop(
-            random: $random,
-            lineStationIds: $secondaryLineStationIds,
+            stationIds: $stationIds,
             stationCoordinates: $stationCoordinates,
-            edges: $edges,
-            edgeKeys: $edgeKeys,
+            stationCounter: $stationCounter,
         );
 
         $stations = [];
@@ -193,7 +205,7 @@ final readonly class MapGenerator
         foreach ($stationIds as $stationId) {
             $stations[$stationId] = new Station(
                 id: $stationId,
-                isHub: isset($hubIds[$stationId]),
+                isHub: false,
             );
         }
 
@@ -202,6 +214,20 @@ final readonly class MapGenerator
             edges: $edges,
             stationCoordinates: $stationCoordinates,
         );
+    }
+
+    /**
+     * @return list<int>
+     */
+    private function lineStationTargets(int $stationCount, int $playerCount): array
+    {
+        $targets = array_fill(0, $playerCount, intdiv($stationCount, $playerCount));
+
+        for ($index = 0; $index < ($stationCount % $playerCount); $index++) {
+            $targets[$index]++;
+        }
+
+        return $targets;
     }
 
     /**
@@ -223,8 +249,8 @@ final readonly class MapGenerator
         array &$stationIds,
         array &$stationCoordinates,
     ): array {
-        if ($targetCount < count($sharedHubIds) + 2) {
-            $targetCount = count($sharedHubIds) + 2;
+        if ($targetCount < max(self::MIN_LINE_STATIONS, count($sharedHubIds) + 2)) {
+            $targetCount = max(self::MIN_LINE_STATIONS, count($sharedHubIds) + 2);
         }
 
         $orderedStationIds = array_fill(0, $targetCount, null);
@@ -336,6 +362,296 @@ final readonly class MapGenerator
         $lineStationIds = array_values(array_filter($orderedStationIds, static fn (?string $id): bool => $id !== null));
 
         return $lineStationIds;
+    }
+
+    /**
+     * @param list<string> $firstLineStationIds
+     * @param list<string> $secondLineStationIds
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     * @return array{from: string, to: string}|null
+     */
+    private function nearestStationPair(array $firstLineStationIds, array $secondLineStationIds, array $stationCoordinates): ?array
+    {
+        $bestPair = null;
+        $bestDistance = null;
+
+        foreach ($firstLineStationIds as $from) {
+            $fromCoordinate = $stationCoordinates[$from] ?? null;
+            if ($fromCoordinate === null) {
+                continue;
+            }
+
+            foreach ($secondLineStationIds as $to) {
+                $toCoordinate = $stationCoordinates[$to] ?? null;
+                if ($toCoordinate === null) {
+                    continue;
+                }
+
+                $distance = abs($fromCoordinate['x'] - $toCoordinate['x']) + abs($fromCoordinate['y'] - $toCoordinate['y']);
+                if ($bestDistance === null || $distance < $bestDistance) {
+                    $bestDistance = $distance;
+                    $bestPair = ['from' => $from, 'to' => $to];
+                }
+            }
+        }
+
+        return $bestPair;
+    }
+
+    /**
+     * @param list<Edge> $edges
+     * @param list<string> $stationIds
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    private function promoteEdgeIntersectionsToStations(
+        array &$edges,
+        array &$stationIds,
+        array &$stationCoordinates,
+        int &$stationCounter,
+    ): void {
+        $intersectionStationIds = [];
+
+        for ($pass = 0; $pass < 200; $pass++) {
+            $splitApplied = false;
+            $edgeCount = count($edges);
+
+            for ($i = 0; $i < $edgeCount; $i++) {
+                for ($j = $i + 1; $j < $edgeCount; $j++) {
+                    $first = $edges[$i];
+                    $second = $edges[$j];
+
+                    if (
+                        $first->fromStationId === $second->fromStationId
+                        || $first->fromStationId === $second->toStationId
+                        || $first->toStationId === $second->fromStationId
+                        || $first->toStationId === $second->toStationId
+                    ) {
+                        continue;
+                    }
+
+                    $intersection = $this->edgeIntersectionPoint($first, $second, $stationCoordinates);
+                    if ($intersection === null) {
+                        continue;
+                    }
+
+                    $x = (int) round($intersection['x']);
+                    $y = (int) round($intersection['y']);
+                    $x = max(2, $x);
+                    $y = max(2, $y);
+                    $stationId = $this->stationAtCoordinate($x, $y, $stationCoordinates);
+                    $stationId ??= $this->nearestStationWithinDistance(
+                        x: $x,
+                        y: $y,
+                        stationCoordinates: $stationCoordinates,
+                        maxDistance: self::MIN_INTERSECTION_STATION_DISTANCE,
+                    );
+
+                    if ($stationId === null) {
+                        if (! $this->hasEnoughSpacing($x, $y, $stationCoordinates)) {
+                            continue;
+                        }
+
+                        if (! $this->hasEnoughIntersectionSpacing($x, $y, $intersectionStationIds, $stationCoordinates)) {
+                            continue;
+                        }
+
+                        $stationId = sprintf('S%d', $stationCounter++);
+                        $stationIds[] = $stationId;
+                        $lineId = $stationCoordinates[$first->fromStationId]['line_id'] ?? 'L1';
+                        $stationCoordinates[$stationId] = ['x' => $x, 'y' => $y, 'line_id' => $lineId];
+                        $intersectionStationIds[] = $stationId;
+                    }
+
+                    $rebuilt = [];
+                    $edgeKeys = [];
+
+                    foreach ($edges as $index => $edge) {
+                        if ($index === $i || $index === $j) {
+                            foreach ($this->splitEdgeThroughStation($edge, $stationId, $stationCoordinates) as $split) {
+                                $this->appendUniqueEdge($rebuilt, $edgeKeys, $split);
+                            }
+                            continue;
+                        }
+
+                        $this->appendUniqueEdge($rebuilt, $edgeKeys, $edge);
+                    }
+
+                    $edges = $rebuilt;
+                    $splitApplied = true;
+                    break 2;
+                }
+            }
+
+            if (! $splitApplied) {
+                return;
+            }
+        }
+    }
+
+    /**
+     * @param list<string> $intersectionStationIds
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    private function hasEnoughIntersectionSpacing(int $x, int $y, array $intersectionStationIds, array $stationCoordinates): bool
+    {
+        foreach ($intersectionStationIds as $stationId) {
+            $coordinate = $stationCoordinates[$stationId] ?? null;
+            if ($coordinate === null) {
+                continue;
+            }
+
+            $distance = abs($coordinate['x'] - $x) + abs($coordinate['y'] - $y);
+            if ($distance < self::MIN_INTERSECTION_STATION_DISTANCE) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     * @return array{x: float, y: float}|null
+     */
+    private function edgeIntersectionPoint(Edge $first, Edge $second, array $stationCoordinates): ?array
+    {
+        $a1 = $stationCoordinates[$first->fromStationId] ?? null;
+        $a2 = $stationCoordinates[$first->toStationId] ?? null;
+        $b1 = $stationCoordinates[$second->fromStationId] ?? null;
+        $b2 = $stationCoordinates[$second->toStationId] ?? null;
+        if ($a1 === null || $a2 === null || $b1 === null || $b2 === null) {
+            return null;
+        }
+
+        $denominator = (($a1['x'] - $a2['x']) * ($b1['y'] - $b2['y'])) - (($a1['y'] - $a2['y']) * ($b1['x'] - $b2['x']));
+        if (abs($denominator) < 1e-9) {
+            return null;
+        }
+
+        $detA = ($a1['x'] * $a2['y']) - ($a1['y'] * $a2['x']);
+        $detB = ($b1['x'] * $b2['y']) - ($b1['y'] * $b2['x']);
+        $x = (($detA * ($b1['x'] - $b2['x'])) - (($a1['x'] - $a2['x']) * $detB)) / $denominator;
+        $y = (($detA * ($b1['y'] - $b2['y'])) - (($a1['y'] - $a2['y']) * $detB)) / $denominator;
+
+        if (
+            ! $this->pointWithinSegmentBounds($x, $y, $a1, $a2)
+            || ! $this->pointWithinSegmentBounds($x, $y, $b1, $b2)
+        ) {
+            return null;
+        }
+
+        if (
+            $this->pointAtSegmentEndpoint($x, $y, $a1, $a2)
+            || $this->pointAtSegmentEndpoint($x, $y, $b1, $b2)
+        ) {
+            return null;
+        }
+
+        return ['x' => $x, 'y' => $y];
+    }
+
+    /**
+     * @param array{x: int, y: int} $from
+     * @param array{x: int, y: int} $to
+     */
+    private function pointWithinSegmentBounds(float $x, float $y, array $from, array $to): bool
+    {
+        return $x >= (min($from['x'], $to['x']) - 0.001)
+            && $x <= (max($from['x'], $to['x']) + 0.001)
+            && $y >= (min($from['y'], $to['y']) - 0.001)
+            && $y <= (max($from['y'], $to['y']) + 0.001);
+    }
+
+    /**
+     * @param array{x: int, y: int} $from
+     * @param array{x: int, y: int} $to
+     */
+    private function pointAtSegmentEndpoint(float $x, float $y, array $from, array $to): bool
+    {
+        return (abs($x - $from['x']) < 0.001 && abs($y - $from['y']) < 0.001)
+            || (abs($x - $to['x']) < 0.001 && abs($y - $to['y']) < 0.001);
+    }
+
+    /**
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    private function stationAtCoordinate(int $x, int $y, array $stationCoordinates): ?string
+    {
+        foreach ($stationCoordinates as $stationId => $coordinate) {
+            if ($coordinate['x'] === $x && $coordinate['y'] === $y) {
+                return $stationId;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    private function nearestStationWithinDistance(int $x, int $y, array $stationCoordinates, int $maxDistance): ?string
+    {
+        $closestStationId = null;
+        $closestDistance = null;
+
+        foreach ($stationCoordinates as $stationId => $coordinate) {
+            $distance = abs($coordinate['x'] - $x) + abs($coordinate['y'] - $y);
+            if ($distance > $maxDistance) {
+                continue;
+            }
+
+            if ($closestDistance === null || $distance < $closestDistance) {
+                $closestDistance = $distance;
+                $closestStationId = $stationId;
+            }
+        }
+
+        return $closestStationId;
+    }
+
+    /**
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     * @return list<Edge>
+     */
+    private function splitEdgeThroughStation(Edge $edge, string $stationId, array $stationCoordinates): array
+    {
+        if ($edge->fromStationId === $stationId || $edge->toStationId === $stationId) {
+            return [$edge];
+        }
+
+        if (! isset($stationCoordinates[$edge->fromStationId], $stationCoordinates[$edge->toStationId], $stationCoordinates[$stationId])) {
+            return [$edge];
+        }
+
+        return [
+            new Edge(
+                fromStationId: $edge->fromStationId,
+                toStationId: $stationId,
+                travelTimeSeconds: $edge->travelTimeSeconds,
+                isExpress: $edge->isExpress,
+            ),
+            new Edge(
+                fromStationId: $stationId,
+                toStationId: $edge->toStationId,
+                travelTimeSeconds: $edge->travelTimeSeconds,
+                isExpress: $edge->isExpress,
+            ),
+        ];
+    }
+
+    /**
+     * @param list<Edge> $edges
+     * @param array<string, true> $edgeKeys
+     */
+    private function appendUniqueEdge(array &$edges, array &$edgeKeys, Edge $edge): void
+    {
+        $key = $this->edgeKey($edge->fromStationId, $edge->toStationId);
+        if (isset($edgeKeys[$key])) {
+            return;
+        }
+
+        $edgeKeys[$key] = true;
+        $edges[] = $edge;
     }
 
     /**

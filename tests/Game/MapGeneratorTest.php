@@ -67,14 +67,14 @@ final class MapGeneratorTest extends TestCase
     }
 
     #[Test]
-    public function generated_map_uses_only_intersection_points_as_hubs(): void
+    public function generated_map_has_no_hubs(): void
     {
         $generator = new MapGenerator();
         $map = $generator->generate(stationCount: 50, seed: 7);
 
         $hubCount = count(array_filter($map->stations, static fn ($station): bool => $station->isHub));
 
-        self::assertSame(2, $hubCount);
+        self::assertSame(0, $hubCount);
     }
 
     #[Test]
@@ -104,7 +104,7 @@ final class MapGeneratorTest extends TestCase
             }
         }
 
-        self::assertLessThanOrEqual(3, count($lineIds));
+        self::assertLessThanOrEqual(6, count($lineIds));
     }
 
     #[Test]
@@ -130,7 +130,7 @@ final class MapGeneratorTest extends TestCase
     }
 
     #[Test]
-    public function generated_map_limits_branch_lines_to_two(): void
+    public function generated_map_builds_two_lines_by_default(): void
     {
         $generator = new MapGenerator();
         $map = $generator->generate(stationCount: 80, seed: 41026);
@@ -141,34 +141,27 @@ final class MapGeneratorTest extends TestCase
             $lineIds[$coordinate['line_id']] = true;
         }
 
-        // L1 main line + at most two branch lines.
-        self::assertLessThanOrEqual(3, count($lineIds));
+        self::assertSame(2, count($lineIds));
     }
 
     #[Test]
-    public function generated_map_builds_two_lines_with_two_intersections(): void
+    public function generated_map_builds_one_loop_per_player_up_to_six_players(): void
     {
         $generator = new MapGenerator();
-        $map = $generator->generate(stationCount: 50, seed: 1104);
+        $map = $generator->generate(stationCount: 96, seed: 1104, playerCount: 6);
 
-        $lineByStation = [];
-        foreach ($map->stationCoordinates as $stationId => $coordinate) {
-            $lineByStation[$stationId] = $coordinate['line_id'];
+        $stationCountPerLine = [];
+        foreach ($map->stationCoordinates as $coordinate) {
+            $lineId = $coordinate['line_id'];
+            $stationCountPerLine[$lineId] = ($stationCountPerLine[$lineId] ?? 0) + 1;
         }
 
-        self::assertContains('L1', array_values($lineByStation));
-        self::assertContains('L2', array_values($lineByStation));
+        self::assertCount(6, $stationCountPerLine);
 
-        $intersectionEdges = 0;
-        foreach ($map->edges as $edge) {
-            $fromLine = $lineByStation[$edge->fromStationId] ?? null;
-            $toLine = $lineByStation[$edge->toStationId] ?? null;
-
-            if ($fromLine !== null && $toLine !== null && $fromLine !== $toLine) {
-                $intersectionEdges++;
-            }
+        for ($index = 1; $index <= 6; $index++) {
+            $lineId = sprintf('L%d', $index);
+            self::assertArrayHasKey($lineId, $stationCountPerLine);
+            self::assertGreaterThanOrEqual(4, $stationCountPerLine[$lineId]);
         }
-
-        self::assertGreaterThanOrEqual(2, $intersectionEdges);
     }
 }

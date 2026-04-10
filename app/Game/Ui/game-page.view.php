@@ -6,6 +6,13 @@
     <title>Rail Claim Demo</title>
     <x-vite-tags entrypoint="app/main.entrypoint.css"/>
     <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
         @keyframes reachablePulse {
             0% {
                 filter: brightness(1);
@@ -23,78 +30,76 @@
             user-select: none;
             -webkit-user-select: none;
         }
+
+        #terrain-layer,
+        #edge-layer,
+        #node-layer {
+            image-rendering: pixelated;
+        }
+
+        #edge-layer {
+            shape-rendering: crispEdges;
+        }
+
+        #move-modal button:not(:disabled) {
+            cursor: pointer;
+            transition: filter 120ms ease-in-out, background-color 120ms ease-in-out;
+        }
+
+        #move-modal button:not(:disabled):hover {
+            filter: brightness(0.94);
+        }
+
+        #move-modal-coin-selector button:not(:disabled):hover {
+            background-color: #d1d5db;
+        }
     </style>
 </head>
-<body class="bg-gray-100 p-2 md:p-4">
-<div id="game-root" class="w-full h-full bg-white rounded-lg border border-gray-200 p-3 md:p-4" :data-game-id="$gameId">
-    <div class="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <h1 class="text-2xl font-bold">Rail Claim Demo</h1>
-        <div class="flex gap-2 text-sm">
-            <a href="/game/demo" class="bg-pink-600 text-white px-3 py-2 rounded font-bold hover:opacity-90">New demo</a>
-            <button id="refresh-btn" class="bg-gray-200 px-3 py-2 rounded font-bold hover:bg-gray-300">Refresh</button>
+<body class="bg-gray-800 m-0 h-screen overflow-hidden">
+<div id="game-root" class="w-screen h-screen bg-gray-800 p-0" style="width: 100vw; height: 100vh;" :data-game-id="$gameId">
+    <div class="relative w-full h-full" style="width: 100%; height: 100%;">
+        <a href="/game/demo" class="fixed right-4 top-4 z-50 bg-pink-600 text-white px-3 py-2 rounded font-bold hover:opacity-90 text-sm">New demo</a>
+        <div id="game-timer-notch" style="position: fixed; left: 50%; top: 0; transform: translateX(-50%); z-index: 100; background: #111827; color: #f9fafb; border: 1px solid #374151; border-top: none; border-radius: 0 0 12px 12px; box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 2px 0 rgba(255,255,255,0.08) inset; padding: 8px 20px; font-size: 14px; font-weight: 700; line-height: 1; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">
+            00:00
         </div>
-    </div>
 
-    <div class="grid lg:grid-cols-[1fr_320px] gap-4">
-        <section class="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            <div class="px-3 py-2 border-b border-gray-200 flex justify-between items-center text-sm">
-                <span class="font-bold">Map</span>
-                <div class="flex gap-2">
-                    <button id="zoom-out" class="bg-gray-100 px-2 py-1 rounded">-</button>
-                    <button id="zoom-in" class="bg-gray-100 px-2 py-1 rounded">+</button>
-                </div>
-            </div>
+        <section class="w-full h-full overflow-hidden" style="width: 100%; height: 100%;">
             <div
                 id="map-viewport"
-                class="relative w-full bg-gray-50 overflow-hidden touch-none border-t border-gray-200 select-none"
-                style="height: 70vh; min-height: 420px;"
+                class="relative w-full h-full bg-gray-800 overflow-hidden touch-none select-none"
+                style="width: 100%; height: 100%; background: #1f2937;"
             >
                 <div id="map-stage" class="absolute left-0 top-0 origin-top-left select-none" style="width:1200px;height:800px;">
+                    <canvas id="terrain-layer" width="1200" height="800" class="absolute inset-0"></canvas>
                     <svg id="edge-layer" width="1200" height="800" class="absolute inset-0"></svg>
+                    <div id="intersection-layer" class="absolute inset-0 pointer-events-none"></div>
                     <div id="node-layer" class="absolute inset-0"></div>
                 </div>
-                <div id="move-modal" data-map-interactive="true" class="hidden absolute z-30 w-52 rounded-lg border border-gray-300 bg-white p-3 shadow-lg text-xs">
+                <div id="move-modal" data-map-interactive="true" class="hidden absolute z-30 w-52 rounded-lg border border-gray-300 p-3 shadow-lg text-xs bg-white">
                     <div id="move-modal-title" class="font-bold text-sm text-gray-900 mb-2"></div>
-                    <div class="flex items-center justify-center gap-2">
-                        <button id="move-modal-minus" type="button" class="min-w-12 px-3 py-1 rounded bg-gray-100 font-bold">-</button>
+                    <div id="move-modal-coin-selector" class="flex items-center justify-center gap-2">
+                        <button id="move-modal-minus" type="button" class="min-w-12 px-3 py-1 rounded bg-gray-100 font-bold cursor-pointer hover:bg-gray-200">-</button>
                         <div id="move-modal-amount" class="min-w-12 text-center text-sm font-bold text-gray-900">0</div>
-                        <button id="move-modal-plus" type="button" class="min-w-12 px-3 py-1 rounded bg-gray-100 font-bold">+</button>
+                        <button id="move-modal-plus" type="button" class="min-w-12 px-3 py-1 rounded bg-gray-100 font-bold cursor-pointer hover:bg-gray-200">+</button>
+                        <button id="move-modal-max" type="button" class="min-w-12 px-3 py-1 rounded bg-gray-100 font-bold cursor-pointer hover:bg-gray-200">++</button>
                     </div>
-                    <div class="mt-4 flex justify-end gap-2">
-                        <button id="move-modal-cancel" type="button" class="bg-gray-100 px-2 py-1 rounded">Cancel</button>
-                        <button id="move-modal-confirm" type="button" class="bg-emerald-600 text-white px-2 py-1 rounded">Confirm travel</button>
+                    <div class="mt-4 flex w-full gap-2">
+                        <button id="move-modal-cancel" type="button" class="flex-1 px-2 py-1 rounded bg-gray-100 text-center">Cancel</button>
+                        <button id="move-modal-confirm" type="button" class="flex-1 px-2 py-1 rounded bg-emerald-600 text-white text-center">Confirm travel</button>
+                        <button id="move-modal-challenge" type="button" class="hidden flex-1 px-2 py-1 rounded bg-yellow-300 font-bold hover:bg-yellow-400 text-center">Claim challenge</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <aside class="bg-white rounded-lg border border-gray-200 p-3 grid gap-3 h-fit text-sm">
-            <div>
-                <div class="font-bold mb-2">Game</div>
-                <div id="status-line" class="text-gray-600">Loading…</div>
-            </div>
+        <aside id="player-stats-overlay" class="grid gap-2" style="position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: min(520px, calc(100vw - 24px)); z-index: 95; background: #111827; color: #f9fafb; border: 1px solid #374151; border-bottom: none; border-radius: 12px 12px 0 0; box-shadow: 0 -12px 24px rgba(0,0,0,0.4), 0 -2px 0 rgba(255,255,255,0.08) inset; padding: 10px 14px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; font-weight: 700; line-height: 1;">
+            <div id="feedback" class="min-h-5 text-center text-xs" style="color: #9ca3af; font-weight: 600;"></div>
+            <div id="player-stats-content" class="text-center" style="color: #d1d5db;">Loading…</div>
+        </aside>
 
-            <div>
-                <label for="player-select" class="font-bold block mb-1">Control player</label>
-                <select id="player-select" class="w-full bg-gray-50 border border-gray-300 rounded px-2 py-1"></select>
-            </div>
-
-            <div class="grid gap-2">
-                <button id="challenge-btn" class="bg-yellow-300 rounded px-3 py-2 font-bold hover:bg-yellow-400">Complete challenge here</button>
-                <button id="finalize-btn" class="bg-gray-200 rounded px-3 py-2 font-bold hover:bg-gray-300">Finalize match (force)</button>
-            </div>
-
-            <div>
-                <div class="font-bold mb-1">Players</div>
-                <div id="players-panel" class="grid gap-1 text-gray-700"></div>
-            </div>
-
-            <div>
-                <div class="font-bold mb-1">Timeline</div>
-                <div id="timeline-panel" class="grid gap-1 text-xs text-gray-600 max-h-52 overflow-auto"></div>
-            </div>
-
-            <div id="feedback" class="text-xs min-h-5"></div>
+        <aside style="position: fixed; right: 16px; top: 68px; width: 220px; z-index: 96; background: rgba(17,24,39,0.95); border: 1px solid #374151; border-radius: 10px; box-shadow: 0 10px 18px rgba(0,0,0,0.35); padding: 10px;">
+            <label for="player-select" class="font-bold block mb-1 text-xs" style="color: #e5e7eb; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">Control player</label>
+            <select id="player-select" class="w-full rounded px-2 py-1 text-sm" style="background: #0b1220; color: #f9fafb; border: 1px solid #4b5563;"></select>
         </aside>
     </div>
 </div>
@@ -105,29 +110,37 @@
         if (!gameId) {
             throw new Error('Missing game id');
         }
-        const stateUrl = `/games/${gameId}/state?timeline=true`;
-
         const viewport = document.getElementById('map-viewport');
         const stage = document.getElementById('map-stage');
+        const terrainLayer = document.getElementById('terrain-layer');
         const edgeLayer = document.getElementById('edge-layer');
+        const intersectionLayer = document.getElementById('intersection-layer');
         const nodeLayer = document.getElementById('node-layer');
-        const statusLine = document.getElementById('status-line');
-        const playersPanel = document.getElementById('players-panel');
-        const timelinePanel = document.getElementById('timeline-panel');
+        const gameTimerNotch = document.getElementById('game-timer-notch');
         const feedback = document.getElementById('feedback');
+        const playerStatsOverlay = document.getElementById('player-stats-overlay');
+        const playerStatsContent = document.getElementById('player-stats-content');
         const playerSelect = document.getElementById('player-select');
         const moveModal = document.getElementById('move-modal');
         const moveModalTitle = document.getElementById('move-modal-title');
+        const moveModalCoinSelector = document.getElementById('move-modal-coin-selector');
         const moveModalMinus = document.getElementById('move-modal-minus');
         const moveModalAmount = document.getElementById('move-modal-amount');
         const moveModalPlus = document.getElementById('move-modal-plus');
+        const moveModalMax = document.getElementById('move-modal-max');
         const moveModalCancel = document.getElementById('move-modal-cancel');
         const moveModalConfirm = document.getElementById('move-modal-confirm');
-        const challengeBtn = document.getElementById('challenge-btn');
-        const finalizeBtn = document.getElementById('finalize-btn');
+        const moveModalChallenge = document.getElementById('move-modal-challenge');
+        const zoomInBtn = document.getElementById('zoom-in');
+        const zoomOutBtn = document.getElementById('zoom-out');
+        const refreshBtn = document.getElementById('refresh-btn');
         const OVERCLAIM_CAP = 5;
         const NODE_SIZE = 24;
-        const PLAYER_COLOR_FALLBACK = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#ec4899', '#14b8a6'];
+        const DEFAULT_CENTER_SCALE = 1.24;
+        const MAP_SCALE_FACTOR = 10;
+        const MAP_PADDING = 40;
+        const MAP_TRAILING_PADDING = 420;
+        const PLAYER_COLOR_FALLBACK = ['#ef4444', '#3b82f6', '#10b981', '#6366f1', '#ec4899', '#06b6d4'];
 
         let state = null;
         let stationPositions = {};
@@ -142,12 +155,14 @@
         let moveModalStationId = null;
         let moveModalBounds = null;
         let moveModalCoins = 0;
+        let stationBounds = null;
+        let statsIntervalId = null;
 
         stage.style.transformOrigin = '0 0';
 
         function setFeedback(message, isError = false) {
             feedback.textContent = message;
-            feedback.className = isError ? 'text-xs min-h-5 text-red-700' : 'text-xs min-h-5 text-emerald-700';
+            feedback.className = isError ? 'text-xs min-h-5 text-center text-red-700' : 'text-xs min-h-5 text-center text-emerald-700';
         }
 
         function applyNodeScale() {
@@ -215,6 +230,9 @@
             moveModalStationId = null;
             moveModalBounds = null;
             moveModal.classList.add('hidden');
+            moveModalChallenge.classList.add('hidden');
+            moveModalCoinSelector.classList.remove('hidden');
+            moveModalConfirm.classList.remove('hidden');
         }
 
         function clampMoveCoins(value) {
@@ -233,14 +251,19 @@
             moveModalAmount.textContent = String(moveModalCoins);
             const decreaseDisabled = moveModalBounds.disabled || moveModalCoins <= moveModalBounds.min;
             const increaseDisabled = moveModalBounds.disabled || moveModalCoins >= moveModalBounds.max;
+            const maxDisabled = moveModalBounds.disabled || moveModalCoins >= moveModalBounds.max;
             moveModalMinus.disabled = decreaseDisabled;
             moveModalPlus.disabled = increaseDisabled;
+            moveModalMax.disabled = maxDisabled;
             moveModalMinus.className = decreaseDisabled
                 ? 'min-w-12 px-3 py-1 rounded bg-gray-200 text-gray-400 font-bold cursor-not-allowed'
-                : 'min-w-12 px-3 py-1 rounded bg-gray-100 font-bold';
+                : 'min-w-12 px-3 py-1 rounded bg-gray-100 font-bold cursor-pointer hover:bg-gray-200';
             moveModalPlus.className = increaseDisabled
                 ? 'min-w-12 px-3 py-1 rounded bg-gray-200 text-gray-400 font-bold cursor-not-allowed'
-                : 'min-w-12 px-3 py-1 rounded bg-gray-100 font-bold';
+                : 'min-w-12 px-3 py-1 rounded bg-gray-100 font-bold cursor-pointer hover:bg-gray-200';
+            moveModalMax.className = maxDisabled
+                ? 'min-w-12 px-3 py-1 rounded bg-gray-200 text-gray-400 font-bold cursor-not-allowed'
+                : 'min-w-12 px-3 py-1 rounded bg-gray-100 font-bold cursor-pointer hover:bg-gray-200';
         }
 
         function positionMoveModal() {
@@ -299,13 +322,23 @@
             return { min, max, value: min, disabled: false };
         }
 
+        function defaultDepositForMove(player, target) {
+            const bounds = moveDepositBounds(player, target);
+            if (!bounds || bounds.disabled) {
+                return 0;
+            }
+
+            return bounds.value;
+        }
+
         function showMoveModal(stationId) {
             const player = currentPlayer();
             if (!player) {
                 return;
             }
 
-            if (!canMoveTo(player, stationId)) {
+            const isCurrentStation = player.stationId === stationId;
+            if (!isCurrentStation && !canMoveTo(player, stationId)) {
                 setFeedback('Target is not adjacent to your current station.', true);
                 return;
             }
@@ -315,6 +348,16 @@
             if (!bounds) {
                 return;
             }
+            const challenge = isCurrentStation ? challengeAtStation(stationId) : null;
+            if (challenge) {
+                moveModalChallenge.textContent = `Claim challenge (+${challenge.reward})`;
+                moveModalChallenge.classList.remove('hidden');
+            } else {
+                moveModalChallenge.classList.add('hidden');
+            }
+            const challengeOnlyMode = isCurrentStation && challenge !== null;
+            moveModalCoinSelector.classList.toggle('hidden', challengeOnlyMode);
+            moveModalConfirm.classList.toggle('hidden', challengeOnlyMode);
 
             moveModalStationId = stationId;
             moveModalBounds = bounds;
@@ -356,6 +399,16 @@
 
         function isMapInteractiveTarget(target) {
             return target instanceof Element && Boolean(target.closest('[data-map-interactive="true"]'));
+        }
+
+        function isTypingTarget(target) {
+            return target instanceof HTMLElement
+                && (
+                    target.tagName === 'INPUT'
+                    || target.tagName === 'TEXTAREA'
+                    || target.tagName === 'SELECT'
+                    || target.isContentEditable
+                );
         }
 
         viewport.addEventListener('pointerdown', (event) => {
@@ -422,11 +475,24 @@
             zoomAt(event.clientX, event.clientY, step);
         }, { passive: false });
 
-        document.getElementById('zoom-in').addEventListener('click', () => {
+        window.addEventListener('keydown', (event) => {
+            if (event.code !== 'Space') {
+                return;
+            }
+
+            if (isTypingTarget(event.target)) {
+                return;
+            }
+
+            event.preventDefault();
+            recenterMapCameraPreserveZoom();
+        });
+
+        zoomInBtn?.addEventListener('click', () => {
             zoomAtViewportCenter(1.1);
         });
 
-        document.getElementById('zoom-out').addEventListener('click', () => {
+        zoomOutBtn?.addEventListener('click', () => {
             zoomAtViewportCenter(0.9);
         });
 
@@ -447,6 +513,18 @@
             moveModalCoins = clampMoveCoins(moveModalCoins + 1);
             updateMoveModalAmountUi();
         });
+        moveModalMax.addEventListener('click', async (event) => {
+            if (!moveModalBounds || moveModalBounds.disabled) {
+                return;
+            }
+
+            moveModalCoins = clampMoveCoins(moveModalBounds.max);
+            updateMoveModalAmountUi();
+
+            if (event.altKey && moveModalStationId) {
+                await moveTo(moveModalStationId, moveModalCoins);
+            }
+        });
         moveModalConfirm.addEventListener('click', async () => {
             if (!moveModalStationId || !moveModalBounds) {
                 return;
@@ -454,6 +532,10 @@
 
             const deposit = clampMoveCoins(moveModalCoins);
             await moveTo(moveModalStationId, deposit);
+        });
+        moveModalChallenge.addEventListener('click', async () => {
+            const player = currentPlayer();
+            await completeChallengeForPlayer(player);
         });
 
         function ensurePlayerOptions() {
@@ -474,11 +556,11 @@
 
         function computeStationPositions() {
             stationPositions = {};
-            const scaleFactor = 10;
-            const padding = 40;
 
             let maxX = 0;
             let maxY = 0;
+            let minX = Number.POSITIVE_INFINITY;
+            let minY = Number.POSITIVE_INFINITY;
             let skipped = 0;
 
             for (const station of state.stations) {
@@ -487,22 +569,68 @@
                     continue;
                 }
 
-                const x = padding + (station.x * scaleFactor);
-                const y = padding + (station.y * scaleFactor);
+                const x = MAP_PADDING + (station.x * MAP_SCALE_FACTOR);
+                const y = MAP_PADDING + (station.y * MAP_SCALE_FACTOR);
 
                 stationPositions[station.id] = { x, y };
                 maxX = Math.max(maxX, x);
                 maxY = Math.max(maxY, y);
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
             }
 
-            stage.style.width = `${Math.max(1200, maxX + padding)}px`;
-            stage.style.height = `${Math.max(800, maxY + padding)}px`;
-            edgeLayer.setAttribute('width', String(Math.max(1200, maxX + padding)));
-            edgeLayer.setAttribute('height', String(Math.max(800, maxY + padding)));
+            const stageWidth = Math.max(1200, maxX + MAP_PADDING + MAP_TRAILING_PADDING);
+            const stageHeight = Math.max(800, maxY + MAP_PADDING + MAP_TRAILING_PADDING);
+            stage.style.width = `${stageWidth}px`;
+            stage.style.height = `${stageHeight}px`;
+            terrainLayer.width = stageWidth;
+            terrainLayer.height = stageHeight;
+            terrainLayer.style.width = `${stageWidth}px`;
+            terrainLayer.style.height = `${stageHeight}px`;
+            edgeLayer.setAttribute('width', String(stageWidth));
+            edgeLayer.setAttribute('height', String(stageHeight));
+            stationBounds = Number.isFinite(minX) && Number.isFinite(minY)
+                ? { minX, minY, maxX, maxY }
+                : null;
 
             if (skipped > 0) {
                 setFeedback(`Skipped ${skipped} stations without coordinates`, true);
             }
+        }
+
+        function centerMapCamera() {
+            const viewportWidth = viewport.clientWidth;
+            const viewportHeight = viewport.clientHeight;
+            if (viewportWidth <= 0 || viewportHeight <= 0) {
+                return;
+            }
+
+            scale = clampScale(DEFAULT_CENTER_SCALE);
+            const selected = currentPlayer();
+            const selectedWorld = selected?.stationId ? stationPositions[selected.stationId] : null;
+            const worldCenterX = selectedWorld?.x ?? (stationBounds ? ((stationBounds.minX + stationBounds.maxX) / 2) : (stage.clientWidth / 2));
+            const worldCenterY = selectedWorld?.y ?? (stationBounds ? ((stationBounds.minY + stationBounds.maxY) / 2) : (stage.clientHeight / 2));
+            stageX = (viewportWidth / 2) - (worldCenterX * scale);
+            stageY = (viewportHeight / 2) - (worldCenterY * scale);
+            applyTransform();
+            hideMoveModal();
+        }
+
+        function recenterMapCameraPreserveZoom() {
+            const viewportWidth = viewport.clientWidth;
+            const viewportHeight = viewport.clientHeight;
+            if (viewportWidth <= 0 || viewportHeight <= 0) {
+                return;
+            }
+
+            const selected = currentPlayer();
+            const selectedWorld = selected?.stationId ? stationPositions[selected.stationId] : null;
+            const worldCenterX = selectedWorld?.x ?? (stationBounds ? ((stationBounds.minX + stationBounds.maxX) / 2) : (stage.clientWidth / 2));
+            const worldCenterY = selectedWorld?.y ?? (stationBounds ? ((stationBounds.minY + stationBounds.maxY) / 2) : (stage.clientHeight / 2));
+            stageX = (viewportWidth / 2) - (worldCenterX * scale);
+            stageY = (viewportHeight / 2) - (worldCenterY * scale);
+            applyTransform();
+            hideMoveModal();
         }
 
         function stationById(id) {
@@ -518,6 +646,16 @@
             return state.players.find((player) => player.id === id) ?? null;
         }
 
+        function stateUrlForCurrentPlayer() {
+            const playerId = playerSelect.value || state?.players?.[0]?.id || '';
+            const params = new URLSearchParams({ timeline: 'true' });
+            if (playerId) {
+                params.set('playerId', playerId);
+            }
+
+            return `/games/${gameId}/state?${params.toString()}`;
+        }
+
         function playerColor(playerId) {
             if (!playerId) {
                 return '#94a3b8';
@@ -526,7 +664,9 @@
             if (playerId === 'p1') return '#ef4444';
             if (playerId === 'p2') return '#3b82f6';
             if (playerId === 'p3') return '#10b981';
-            if (playerId === 'p4') return '#f59e0b';
+            if (playerId === 'p4') return '#6366f1';
+            if (playerId === 'p5') return '#ec4899';
+            if (playerId === 'p6') return '#06b6d4';
 
             let hash = 0;
             for (let i = 0; i < playerId.length; i++) {
@@ -571,6 +711,217 @@
             return [...deduped.values()];
         }
 
+        function terrainSeed() {
+            let hash = 2166136261;
+            for (let i = 0; i < gameId.length; i++) {
+                hash ^= gameId.charCodeAt(i);
+                hash = Math.imul(hash, 16777619);
+            }
+
+            return hash >>> 0;
+        }
+
+        function gridKey(x, y) {
+            return `${x},${y}`;
+        }
+
+        function parseGridKey(key) {
+            const [x, y] = key.split(',').map(Number);
+            return { x, y };
+        }
+
+        function bresenhamLineCells(x0, y0, x1, y1) {
+            const cells = [];
+            let x = x0;
+            let y = y0;
+            const dx = Math.abs(x1 - x0);
+            const sx = x0 < x1 ? 1 : -1;
+            const dy = -Math.abs(y1 - y0);
+            const sy = y0 < y1 ? 1 : -1;
+            let error = dx + dy;
+
+            while (true) {
+                cells.push({ x, y });
+                if (x === x1 && y === y1) break;
+                const e2 = 2 * error;
+                if (e2 >= dy) {
+                    error += dy;
+                    x += sx;
+                }
+                if (e2 <= dx) {
+                    error += dx;
+                    y += sy;
+                }
+            }
+
+            return cells;
+        }
+
+        function terrainNoise(x, y, seed) {
+            let value = seed ^ Math.imul(x, 374761393) ^ Math.imul(y, 668265263);
+            value = (value ^ (value >>> 13)) >>> 0;
+            value = Math.imul(value, 1274126177) >>> 0;
+            return ((value ^ (value >>> 16)) >>> 0) / 4294967295;
+        }
+
+        function buildPerlin(seed) {
+            const permutation = [...Array(256).keys()];
+            let state = seed >>> 0;
+            const random = () => {
+                state ^= state << 13;
+                state ^= state >>> 17;
+                state ^= state << 5;
+                return (state >>> 0) / 4294967295;
+            };
+
+            for (let i = permutation.length - 1; i > 0; i--) {
+                const j = Math.floor(random() * (i + 1));
+                [permutation[i], permutation[j]] = [permutation[j], permutation[i]];
+            }
+
+            const p = new Array(512);
+            for (let i = 0; i < 512; i++) {
+                p[i] = permutation[i & 255];
+            }
+
+            return p;
+        }
+
+        function perlin2d(x, y, p) {
+            const fade = (t) => t * t * t * (t * (t * 6 - 15) + 10);
+            const lerp = (a, b, t) => a + (t * (b - a));
+            const grad = (hash, gx, gy) => {
+                const h = hash & 3;
+                if (h === 0) return gx + gy;
+                if (h === 1) return -gx + gy;
+                if (h === 2) return gx - gy;
+                return -gx - gy;
+            };
+
+            const xi = Math.floor(x) & 255;
+            const yi = Math.floor(y) & 255;
+            const xf = x - Math.floor(x);
+            const yf = y - Math.floor(y);
+            const u = fade(xf);
+            const v = fade(yf);
+
+            const aa = p[p[xi] + yi];
+            const ab = p[p[xi] + yi + 1];
+            const ba = p[p[xi + 1] + yi];
+            const bb = p[p[xi + 1] + yi + 1];
+
+            const x1 = lerp(grad(aa, xf, yf), grad(ba, xf - 1, yf), u);
+            const x2 = lerp(grad(ab, xf, yf - 1), grad(bb, xf - 1, yf - 1), u);
+            return lerp(x1, x2, v);
+        }
+
+        function octavePerlin(x, y, p, octaves = 4, persistence = 0.55, lacunarity = 2) {
+            let amplitude = 1;
+            let frequency = 1;
+            let total = 0;
+            let amplitudeSum = 0;
+
+            for (let i = 0; i < octaves; i++) {
+                total += perlin2d(x * frequency, y * frequency, p) * amplitude;
+                amplitudeSum += amplitude;
+                amplitude *= persistence;
+                frequency *= lacunarity;
+            }
+
+            // Normalize from roughly [-1, 1] to [0, 1]
+            return (total / amplitudeSum + 1) / 2;
+        }
+
+        function biomeColor(biome, x, y, seed) {
+            const variation = ((x + y) & 1) ^ (terrainNoise(x, y, seed) > 0.66 ? 1 : 0);
+            const palettes = {
+                land: ['#8fbf61', '#7fae53'],
+                water: ['#4d89b9', '#3f78a5'],
+                forest: ['#4f8c3d', '#447a35'],
+                mountain: ['#8f8a83', '#7b766f'],
+            };
+
+            return palettes[biome][variation];
+        }
+
+        function renderTerrain() {
+            const context = terrainLayer.getContext('2d');
+            if (!context) {
+                return;
+            }
+
+            context.clearRect(0, 0, terrainLayer.width, terrainLayer.height);
+
+            const stationsWithCoords = state.stations.filter((station) => (
+                typeof station.x === 'number' && typeof station.y === 'number'
+            ));
+            const land = new Set();
+
+            for (const station of stationsWithCoords) {
+                land.add(gridKey(station.x, station.y));
+            }
+
+            for (const edge of uniqueEdges()) {
+                const from = stationById(edge.fromStationId);
+                const to = stationById(edge.toStationId);
+                if (!from || !to || typeof from.x !== 'number' || typeof from.y !== 'number' || typeof to.x !== 'number' || typeof to.y !== 'number') {
+                    continue;
+                }
+
+                for (const cell of bresenhamLineCells(from.x, from.y, to.x, to.y)) {
+                    land.add(gridKey(cell.x, cell.y));
+                }
+            }
+
+            const expandedLand = new Set(land);
+            for (const key of land) {
+                const { x, y } = parseGridKey(key);
+                for (let dx = -1; dx <= 1; dx++) {
+                    for (let dy = -1; dy <= 1; dy++) {
+                        const nx = x + dx;
+                        const ny = y + dy;
+                        expandedLand.add(gridKey(nx, ny));
+                    }
+                }
+            }
+
+            const seed = terrainSeed();
+            const perlin = buildPerlin(seed);
+            const tileSize = MAP_SCALE_FACTOR;
+            const columns = Math.ceil(terrainLayer.width / tileSize);
+            const rows = Math.ceil(terrainLayer.height / tileSize);
+
+            for (let row = 0; row <= rows; row++) {
+                for (let column = 0; column <= columns; column++) {
+                    const elevation = octavePerlin((column + 1000) * 0.06, (row + 1000) * 0.06, perlin, 4, 0.58, 2.1);
+                    const moisture = octavePerlin((column - 700) * 0.08, (row - 700) * 0.08, perlin, 3, 0.5, 2);
+                    let biome = 'land';
+
+                    if (elevation < 0.36) {
+                        biome = 'water';
+                    } else if (elevation > 0.78) {
+                        biome = 'mountain';
+                    } else if (moisture > 0.58) {
+                        biome = 'forest';
+                    }
+
+                    context.fillStyle = biomeColor(biome, column, row, seed);
+                    context.fillRect(column * tileSize, row * tileSize, tileSize, tileSize);
+                }
+            }
+
+            for (const key of expandedLand) {
+                const { x, y } = parseGridKey(key);
+                context.fillStyle = biomeColor('land', x, y, seed);
+                context.fillRect(
+                    MAP_PADDING + (x * tileSize),
+                    MAP_PADDING + (y * tileSize),
+                    tileSize,
+                    tileSize,
+                );
+            }
+        }
+
         function reachableEdgeKeys(player) {
             if (!player?.stationId) {
                 return new Set();
@@ -606,21 +957,145 @@
                 const baseStroke = edge.isExpress ? '#0f766e' : (touchesBranchLine ? '#7f8fb0' : '#94a3b8');
                 const edgeStroke = ownerStroke ?? baseStroke;
 
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', String(from.x));
-                line.setAttribute('y1', String(from.y));
-                line.setAttribute('x2', String(to.x));
-                line.setAttribute('y2', String(to.y));
-                line.setAttribute('stroke', edgeStroke);
-                line.setAttribute('stroke-width', edge.isExpress ? '4' : '2');
-                line.setAttribute('stroke-opacity', '0.75');
-                line.setAttribute('stroke-linecap', 'round');
-                edgeLayer.appendChild(line);
+                const base = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                base.setAttribute('x1', String(from.x));
+                base.setAttribute('y1', String(from.y));
+                base.setAttribute('x2', String(to.x));
+                base.setAttribute('y2', String(to.y));
+                base.setAttribute('stroke', 'rgba(255,255,255,0.72)');
+                base.setAttribute('stroke-width', edge.isExpress ? '6' : '4');
+                base.setAttribute('stroke-linecap', 'square');
+                edgeLayer.appendChild(base);
+
+                const accent = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                accent.setAttribute('x1', String(from.x));
+                accent.setAttribute('y1', String(from.y));
+                accent.setAttribute('x2', String(to.x));
+                accent.setAttribute('y2', String(to.y));
+                accent.setAttribute('stroke', edgeStroke);
+                accent.setAttribute('stroke-width', edge.isExpress ? '3' : '2');
+                accent.setAttribute('stroke-opacity', '0.9');
+                accent.setAttribute('stroke-linecap', 'square');
+                edgeLayer.appendChild(accent);
+            }
+        }
+
+        function edgeSegments() {
+            const segments = [];
+
+            for (const edge of uniqueEdges()) {
+                const from = stationPositions[edge.fromStationId];
+                const to = stationPositions[edge.toStationId];
+                if (!from || !to) {
+                    continue;
+                }
+
+                segments.push({
+                    fromStationId: edge.fromStationId,
+                    toStationId: edge.toStationId,
+                    x1: from.x,
+                    y1: from.y,
+                    x2: to.x,
+                    y2: to.y,
+                });
+            }
+
+            return segments;
+        }
+
+        function segmentIntersectionPoint(a, b) {
+            const denominator = ((a.x1 - a.x2) * (b.y1 - b.y2)) - ((a.y1 - a.y2) * (b.x1 - b.x2));
+            if (Math.abs(denominator) < 1e-9) {
+                return null;
+            }
+
+            const determinantA = (a.x1 * a.y2) - (a.y1 * a.x2);
+            const determinantB = (b.x1 * b.y2) - (b.y1 * b.x2);
+            const x = ((determinantA * (b.x1 - b.x2)) - ((a.x1 - a.x2) * determinantB)) / denominator;
+            const y = ((determinantA * (b.y1 - b.y2)) - ((a.y1 - a.y2) * determinantB)) / denominator;
+
+            const within = (value, min, max) => value >= (Math.min(min, max) - 0.001) && value <= (Math.max(min, max) + 0.001);
+            if (
+                !within(x, a.x1, a.x2)
+                || !within(y, a.y1, a.y2)
+                || !within(x, b.x1, b.x2)
+                || !within(y, b.y1, b.y2)
+            ) {
+                return null;
+            }
+
+            const endpointMatch = (pointX, pointY, segment) => (
+                (Math.abs(pointX - segment.x1) < 0.001 && Math.abs(pointY - segment.y1) < 0.001)
+                || (Math.abs(pointX - segment.x2) < 0.001 && Math.abs(pointY - segment.y2) < 0.001)
+            );
+            if (endpointMatch(x, y, a) || endpointMatch(x, y, b)) {
+                return null;
+            }
+
+            return { x, y };
+        }
+
+        function renderIntersections() {
+            intersectionLayer.innerHTML = '';
+            const segments = edgeSegments();
+            const points = new Map();
+
+            for (let i = 0; i < segments.length; i++) {
+                for (let j = i + 1; j < segments.length; j++) {
+                    const first = segments[i];
+                    const second = segments[j];
+                    if (
+                        first.fromStationId === second.fromStationId
+                        || first.fromStationId === second.toStationId
+                        || first.toStationId === second.fromStationId
+                        || first.toStationId === second.toStationId
+                    ) {
+                        continue;
+                    }
+
+                    const intersection = segmentIntersectionPoint(first, second);
+                    if (!intersection) {
+                        continue;
+                    }
+
+                    const key = `${Math.round(intersection.x)},${Math.round(intersection.y)}`;
+                    points.set(key, intersection);
+                }
+            }
+
+            for (const point of points.values()) {
+                const marker = document.createElement('div');
+                marker.className = 'absolute';
+                marker.style.left = `${point.x - 4}px`;
+                marker.style.top = `${point.y - 4}px`;
+                marker.style.width = '8px';
+                marker.style.height = '8px';
+                marker.style.borderRadius = '2px';
+                marker.style.backgroundColor = '#facc15';
+                marker.style.border = '1px solid #854d0e';
+                marker.style.boxShadow = '1px 1px 0 #00000066';
+                marker.title = 'Rail intersection';
+                intersectionLayer.appendChild(marker);
             }
         }
 
         function challengeAtStation(stationId) {
-            return state.challenges.find((challenge) => challenge.active && challenge.station_id === stationId) ?? null;
+            const activeAtStation = state.challenges.filter((challenge) => challenge.active && challenge.station_id === stationId);
+            if (activeAtStation.length === 0) {
+                return null;
+            }
+
+            const player = currentPlayer();
+            const personal = activeAtStation.find((challenge) => challenge.challenge_type === 'player' && challenge.player_id === player?.id);
+            return personal ?? activeAtStation[0];
+        }
+
+        function activeChallengeForPlayer(player) {
+            if (!player?.stationId) {
+                return null;
+            }
+
+            return challengeAtStation(player.stationId);
         }
 
         function canMoveTo(player, targetStationId) {
@@ -650,7 +1125,26 @@
             return response.json();
         }
 
-        async function moveTo(targetStationId, requestedDeposit = null) {
+        async function completeChallengeForPlayer(player) {
+            if (!player || !player.stationId) return;
+
+            const challenge = activeChallengeForPlayer(player);
+            if (!challenge) {
+                setFeedback('No active challenge at this station.', true);
+                return;
+            }
+
+            const result = await postForm(`/games/${gameId}/commands/complete-challenge`, {
+                playerId: player.id,
+                stationId: player.stationId,
+            });
+
+            setFeedback(result.accepted ? `Challenge completed: +${result.reward} coins` : `Challenge rejected: ${result.reason}`, !result.accepted);
+            hideMoveModal();
+            await loadState();
+        }
+
+        async function moveTo(targetStationId, requestedDeposit = null, autoClaimChallenge = false) {
             const player = currentPlayer();
             if (!player) return;
 
@@ -684,11 +1178,22 @@
             });
 
             setFeedback(
-                result.accepted ? `Move accepted to ${stationLabel(target)}.` : `Move rejected: ${result.reason}`,
+                result.accepted ? `Traveled to ${stationLabel(target)}.` : `Move rejected: ${result.reason}`,
                 !result.accepted,
             );
             hideMoveModal();
             await loadState();
+
+            if (result.accepted) {
+                const updatedPlayer = state.players.find((candidate) => candidate.id === player.id);
+                if (updatedPlayer?.stationId === targetStationId && challengeAtStation(targetStationId)) {
+                    if (autoClaimChallenge) {
+                        await completeChallengeForPlayer(updatedPlayer);
+                    } else {
+                        showMoveModal(targetStationId);
+                    }
+                }
+            }
         }
 
         function renderNodes() {
@@ -714,15 +1219,18 @@
                 const isOutOfReachClaimed = isClaimed && !isPlayerStation && !isReachable;
                 const claimAura = claimShadow(station.ownerId, station.topValue);
 
-                button.className = 'absolute rounded-full border text-[7px] font-bold transition flex items-center justify-center p-0 leading-none';
+                button.className = 'absolute border text-[7px] font-black flex items-center justify-center p-0 leading-none';
                 button.style.left = `${position.x - (NODE_SIZE / 2)}px`;
                 button.style.top = `${position.y - (NODE_SIZE / 2)}px`;
                 button.style.width = `${NODE_SIZE}px`;
                 button.style.height = `${NODE_SIZE}px`;
-                button.style.borderRadius = '50%';
+                button.style.borderRadius = '2px';
+                button.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
                 button.style.userSelect = 'none';
                 button.style.webkitUserSelect = 'none';
-                button.style.opacity = isOutOfReachClaimed ? '1' : ((!isPlayerStation && !isReachable) ? '0.35' : '1');
+                button.style.opacity = challenge
+                    ? '1'
+                    : (isOutOfReachClaimed ? '1' : ((!isPlayerStation && !isReachable) ? '0.7' : '1'));
                 button.style.cursor = isReachable || isPlayerStation ? 'pointer' : 'not-allowed';
 
                 if (isPlayerStation) {
@@ -730,21 +1238,20 @@
                     button.style.borderColor = selectedPlayerColor;
                     button.style.color = '#ffffff';
                     button.style.outline = 'none';
-                    button.style.boxShadow = claimAura || 'none';
+                    button.style.boxShadow = claimAura ? `${claimAura}, 2px 2px 0 #00000055` : '2px 2px 0 #00000055';
                 } else if (isReachable) {
                     button.style.background = '#ffffff';
                     button.style.borderColor = selectedPlayerColor;
                     button.style.color = isClaimed ? ownerColor : selectedPlayerColor;
                     button.style.outline = 'none';
-                    const doubleRing = `0 0 0 2px #ffffff, 0 0 0 4px ${selectedPlayerColor}`;
-                    const reachGlow = `0 0 12px ${selectedPlayerColor}88`;
-                    button.style.boxShadow = claimAura ? `${claimAura}, ${doubleRing}, ${reachGlow}` : `${doubleRing}, ${reachGlow}`;
-                    button.style.animation = 'reachablePulse 1.3s ease-in-out infinite';
+                    const doubleOutline = `0 0 0 1px #ffffff, 0 0 0 3px ${selectedPlayerColor}`;
+                    button.style.boxShadow = claimAura ? `${claimAura}, ${doubleOutline}, 2px 2px 0 #00000044` : `${doubleOutline}, 2px 2px 0 #00000044`;
+                    button.style.animation = 'none';
                 } else {
                     button.style.background = isClaimed ? '#ffffff' : '#e5e7eb';
                     button.style.color = isClaimed ? ownerColor : '#334155';
                     button.style.outline = 'none';
-                    button.style.boxShadow = claimAura || 'none';
+                    button.style.boxShadow = claimAura ? `${claimAura}, 2px 2px 0 #00000033` : '2px 2px 0 #00000033';
                     button.style.animation = 'none';
                     button.style.borderColor = isOutOfReachClaimed ? ownerColor : '#475569';
                 }
@@ -754,9 +1261,28 @@
                 }
 
                 const deposited = station.topValue > 0 ? station.topValue : null;
-                button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ' | challenge' : ''}`;
+                button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ` | challenge +${challenge.reward}` : ''}`;
                 button.textContent = deposited === null ? '-' : String(deposited);
-                button.addEventListener('click', () => {
+                button.addEventListener('click', (event) => {
+                    const bypassPopup = event.altKey === true;
+
+                    if (bypassPopup && isPlayerStation && challenge) {
+                        completeChallengeForPlayer(player);
+                        return;
+                    }
+
+                    if (bypassPopup && isReachable) {
+                        const targetStation = stationById(station.id);
+                        const deposit = defaultDepositForMove(player, targetStation);
+                        moveTo(station.id, deposit, true);
+                        return;
+                    }
+
+                    if (isPlayerStation && challenge) {
+                        showMoveModal(station.id);
+                        return;
+                    }
+
                     if (!isReachable) {
                         setFeedback('Target is not adjacent to your current station.', true);
                         return;
@@ -770,6 +1296,27 @@
                     showMoveModal(station.id);
                 });
 
+                if (challenge) {
+                    const badge = document.createElement('div');
+                    badge.dataset.mapInteractive = 'true';
+                    badge.className = 'absolute rounded-full border shadow-[1px_1px_0_#00000055]';
+                    badge.style.opacity = '1';
+                    badge.style.right = '-4px';
+                    badge.style.top = '-4px';
+                    badge.style.width = '10px';
+                    badge.style.height = '10px';
+                    if (challenge.challenge_type === 'player' && challenge.player_id) {
+                        const color = playerColor(challenge.player_id);
+                        badge.style.backgroundColor = color;
+                        badge.style.borderColor = '#0f172a';
+                    } else {
+                        badge.style.backgroundColor = '#facc15';
+                        badge.style.borderColor = '#713f12';
+                    }
+                    badge.title = `Challenge reward: +${challenge.reward} coins`;
+                    button.appendChild(badge);
+                }
+
                 nodeLayer.appendChild(button);
             }
 
@@ -782,85 +1329,113 @@
             }
         }
 
-        function renderSidebar() {
-            statusLine.textContent = `Game ${state.game.id} · ${state.game.status}`;
-
-            playersPanel.innerHTML = '';
-            for (const player of state.players) {
-                const score = state.score?.scores?.[player.id]?.score ?? 0;
-                const line = document.createElement('div');
-                line.textContent = `${player.id}: ${player.coins} coins · ${player.stationId ?? '-'} · score ${score}`;
-                playersPanel.appendChild(line);
+        function gameTimeLeftSeconds() {
+            if (!state?.game) {
+                return 0;
             }
 
-            const active = currentPlayer();
-            if (active?.stationId) {
-                const reachableCount = state.stations.filter((station) => canMoveTo(active, station.id)).length;
-                const nav = document.createElement('div');
-                nav.className = 'mt-2 text-xs text-gray-600';
-                nav.textContent = `Selected: ${active.id} at ${active.stationId} · reachable: ${reachableCount}`;
-                playersPanel.appendChild(nav);
+            const durationSeconds = Number(state.game.durationSeconds ?? 1200);
+            const createdAtTimestamp = Date.parse(String(state.game.createdAt ?? ''));
+            if (!Number.isFinite(createdAtTimestamp)) {
+                return Math.max(0, Math.floor(durationSeconds));
             }
 
-            timelinePanel.innerHTML = '';
-            for (const event of (state.timeline ?? []).slice(-15).reverse()) {
-                const row = document.createElement('div');
-                row.textContent = `${event.type} (${event.player_id ?? 'system'})`;
-                timelinePanel.appendChild(row);
-            }
+            const elapsedSeconds = Math.floor((Date.now() - createdAtTimestamp) / 1000);
+            return Math.max(0, Math.floor(durationSeconds) - elapsedSeconds);
         }
 
-        async function loadState() {
-            const response = await fetch(stateUrl, { headers: { 'Accept': 'application/json' } });
+        function formatDuration(totalSeconds) {
+            const clamped = Math.max(0, Math.floor(totalSeconds));
+            const minutes = Math.floor(clamped / 60);
+            const seconds = clamped % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function renderPlayerStatsOverlay() {
+            if (!playerStatsOverlay || !playerStatsContent || !state) {
+                return;
+            }
+
+            const claimedByPlayer = new Map();
+            for (const station of state.stations) {
+                if (!station.ownerId) {
+                    continue;
+                }
+
+                claimedByPlayer.set(station.ownerId, (claimedByPlayer.get(station.ownerId) ?? 0) + 1);
+            }
+
+            const timeLeft = formatDuration(gameTimeLeftSeconds());
+            if (gameTimerNotch) {
+                gameTimerNotch.textContent = timeLeft;
+            }
+            const activePlayer = currentPlayer();
+
+            playerStatsContent.innerHTML = '';
+
+            if (!activePlayer) {
+                const empty = document.createElement('div');
+                empty.className = 'text-xs';
+                empty.style.color = '#9ca3af';
+                empty.textContent = 'No active player selected.';
+                playerStatsContent.appendChild(empty);
+                return;
+            }
+
+            const row = document.createElement('div');
+            row.style.display = 'inline-flex';
+            row.style.alignItems = 'center';
+            row.style.justifyContent = 'center';
+            row.style.gap = '8px';
+            row.style.fontSize = '14px';
+            row.style.fontWeight = '700';
+            row.style.lineHeight = '1';
+            row.style.color = '#f3f4f6';
+
+            const indicator = document.createElement('span');
+            indicator.style.display = 'inline-block';
+            indicator.style.width = '10px';
+            indicator.style.height = '10px';
+            indicator.style.borderRadius = '9999px';
+            indicator.style.backgroundColor = playerColor(activePlayer.id);
+            indicator.style.border = '1px solid #0f172a';
+
+            const text = document.createElement('span');
+            text.textContent = `${activePlayer.id} · coins: ${activePlayer.coins} · claimed: ${claimedByPlayer.get(activePlayer.id) ?? 0}`;
+
+            row.appendChild(indicator);
+            row.appendChild(text);
+            playerStatsContent.appendChild(row);
+        }
+
+        async function loadState(recenter = false) {
+            const response = await fetch(stateUrlForCurrentPlayer(), { headers: { 'Accept': 'application/json' } });
             state = await response.json();
             ensurePlayerOptions();
             computeStationPositions();
+            renderTerrain();
             renderEdges();
+            renderIntersections();
             renderNodes();
-            renderSidebar();
+            renderPlayerStatsOverlay();
+            if (recenter) {
+                centerMapCamera();
+            }
         }
 
-        playerSelect.addEventListener('change', () => {
+        playerSelect.addEventListener('change', async () => {
             hideMoveModal();
-            renderEdges();
-            renderNodes();
-            renderSidebar();
-        });
-
-        challengeBtn.addEventListener('click', async () => {
-            const player = currentPlayer();
-            if (!player || !player.stationId) return;
-
-            const result = await postForm(`/games/${gameId}/commands/complete-challenge`, {
-                playerId: player.id,
-                stationId: player.stationId,
-            });
-
-            setFeedback(result.accepted ? `Challenge completed: +${result.reward} coins` : `Challenge rejected: ${result.reason}`, !result.accepted);
             await loadState();
         });
 
-        finalizeBtn.addEventListener('click', async () => {
-            const result = await postForm(`/games/${gameId}/commands/finalize-match`, {
-                force: true,
-                hubBonus: 2,
-            });
+        refreshBtn?.addEventListener('click', () => loadState(true));
 
-            if (!result.accepted) {
-                setFeedback(`Finalize rejected: ${result.reason}`, true);
-            } else if (result.isTie) {
-                setFeedback(`Match finalized: tie (${result.tiedPlayerIds.join(', ')})`);
-            } else {
-                setFeedback(`Match finalized: winner ${result.winnerPlayerId}`);
+        loadState(true).then(() => {
+            if (!statsIntervalId) {
+                statsIntervalId = setInterval(() => {
+                    renderPlayerStatsOverlay();
+                }, 1000);
             }
-
-            await loadState();
-        });
-
-        document.getElementById('refresh-btn').addEventListener('click', loadState);
-
-        loadState().then(() => {
-            applyTransform();
             setInterval(loadState, 3000);
         }).catch((error) => {
             setFeedback(`Failed to load state: ${error.message}`, true);

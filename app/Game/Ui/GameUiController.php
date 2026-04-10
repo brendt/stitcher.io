@@ -9,6 +9,7 @@ use App\Game\Domain\Game;
 use App\Game\Domain\Player;
 use App\Game\Map\MapGenerator;
 use App\Game\Persistence\GameRepository;
+use Tempest\Http\Request;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
 use Tempest\View\View;
@@ -30,27 +31,56 @@ final readonly class GameUiController
     }
 
     #[Get('/game/demo')]
-    public function demo(): Redirect
+    public function demo(Request $request): Redirect
     {
         $gameId = 'demo-' . random_int(100000, 999999);
         $seed = random_int(1, 2_147_483_647);
-        // Higher station density keeps corridor curvature smoother (~20 stations per cardinal segment).
-        $map = $this->maps->generate(stationCount: 100, seed: $seed);
-
-        $stationIds = array_values(array_keys($map->stations));
-        $playerAStation = $stationIds[0];
-        $playerBStation = $stationIds[(int) floor(count($stationIds) / 2)];
+        $requestedPlayers = $request->get('players');
+        $playerCount = $requestedPlayers !== null ? (int) $requestedPlayers : 2;
+        $playerCount = max(2, min(6, $playerCount));
+        $stationCount = max(100, $playerCount * 30);
+        $map = $this->maps->generate(stationCount: $stationCount, seed: $seed, playerCount: $playerCount);
 
         $stations = $map->stations;
-        $stations[$playerAStation] = $stations[$playerAStation]->withClaim(ownerId: 'p1', topValue: 1);
-        $stations[$playerBStation] = $stations[$playerBStation]->withClaim(ownerId: 'p2', topValue: 1);
+        $stationsByLine = [];
+        foreach ($map->stationCoordinates as $stationId => $coordinate) {
+            $lineId = (string) ($coordinate['line_id'] ?? 'L1');
+            $stationsByLine[$lineId] ??= [];
+            $stationsByLine[$lineId][] = $stationId;
+        }
+
+        $players = [];
+        $usedStartStations = [];
+
+        for ($index = 1; $index <= $playerCount; $index++) {
+            $playerId = sprintf('p%d', $index);
+            $lineId = sprintf('L%d', $index);
+            $candidates = $stationsByLine[$lineId] ?? array_keys($stations);
+            $availableCandidates = array_values(array_filter(
+                $candidates,
+                static fn (string $stationId): bool => ! isset($usedStartStations[$stationId]),
+            ));
+
+            if ($availableCandidates === []) {
+                $availableCandidates = array_values(array_filter(
+                    array_keys($stations),
+                    static fn (string $stationId): bool => ! isset($usedStartStations[$stationId]),
+                ));
+            }
+
+            if ($availableCandidates === []) {
+                throw new \RuntimeException('Could not assign unique start stations for all players.');
+            }
+
+            $startStation = $availableCandidates[random_int(0, count($availableCandidates) - 1)];
+            $usedStartStations[$startStation] = true;
+            $stations[$startStation] = $stations[$startStation]->withClaim(ownerId: $playerId, topValue: 1);
+            $players[$playerId] = new Player(id: $playerId, coins: 40, stationId: $startStation);
+        }
 
         $game = new Game(
             id: $gameId,
-            players: [
-                'p1' => new Player(id: 'p1', coins: 40, stationId: $playerAStation),
-                'p2' => new Player(id: 'p2', coins: 40, stationId: $playerBStation),
-            ],
+            players: $players,
             stations: $stations,
             edges: $map->edges,
         );
@@ -61,7 +91,7 @@ final readonly class GameUiController
             status: 'active',
             stationCoordinates: $map->stationCoordinates,
         );
-        $this->challenges->fillChallengePool(gameId: $gameId);
+        $this->challenges->fillChallengePool(gameId: $gameId, capMultiplier: 1.5);
 
         return new Redirect(uri([self::class, 'show'], gameId: $gameId));
     }

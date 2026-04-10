@@ -12,4 +12,5 @@ final class GameStateRequest implements Request
     use IsRequest;
 
     public ?bool $timeline = null;
+    public ?string $playerId = null;
 }

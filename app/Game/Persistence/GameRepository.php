@@ -306,11 +306,12 @@ final class GameRepository
             ->count()
             ->where('game_id = ?', $gameId)
             ->where('active = ?', true)
+            ->where('(challenge_type IS NULL OR challenge_type = ?)', 'global')
             ->execute() ?? 0);
     }
 
     /**
-     * @return list<array{id: int, station_id: string, reward: int}>
+     * @return list<array{id: int, station_id: string, reward: int, challenge_type: string, player_id: ?string}>
      */
     public function activeChallenges(string $gameId): array
     {
@@ -319,9 +320,11 @@ final class GameRepository
                 'id' => (int) $row['id'],
                 'station_id' => (string) $row['station_id'],
                 'reward' => (int) $row['reward'],
+                'challenge_type' => (string) ($row['challenge_type'] ?? 'global'),
+                'player_id' => isset($row['player_id']) ? (string) $row['player_id'] : null,
             ],
             query('game_challenges')
-                ->select('id', 'station_id', 'reward')
+                ->select('id', 'station_id', 'reward', 'challenge_type', 'player_id')
                 ->where('game_id = ?', $gameId)
                 ->where('active = ?', true)
                 ->all(),
@@ -343,7 +346,13 @@ final class GameRepository
         );
     }
 
-    public function spawnChallenge(string $gameId, string $stationId, int $reward): int
+    public function spawnChallenge(
+        string $gameId,
+        string $stationId,
+        int $reward,
+        string $challengeType = 'global',
+        ?string $playerId = null,
+    ): int
     {
         $id = query('game_challenges')
             ->insert(
@@ -351,6 +360,8 @@ final class GameRepository
                 station_id: $stationId,
                 active: true,
                 reward: $reward,
+                challenge_type: $challengeType,
+                player_id: $playerId,
             )
             ->execute()
             ?->value;
@@ -359,16 +370,40 @@ final class GameRepository
     }
 
     /**
-     * @return array{id: int, station_id: string, reward: int}|null
+     * @return array{id: int, station_id: string, reward: int, challenge_type: string, player_id: ?string}|null
      */
-    public function activeChallengeAtStation(string $gameId, string $stationId): ?array
+    public function activeChallengeAtStation(string $gameId, string $stationId, ?string $playerId = null): ?array
     {
-        $row = query('game_challenges')
-            ->select('id', 'station_id', 'reward')
+        $rows = query('game_challenges')
+            ->select('id', 'station_id', 'reward', 'challenge_type', 'player_id')
             ->where('game_id = ?', $gameId)
             ->where('station_id = ?', $stationId)
             ->where('active = ?', true)
-            ->first();
+            ->all();
+
+        if ($rows === []) {
+            return null;
+        }
+
+        $row = null;
+        foreach ($rows as $candidate) {
+            $type = (string) ($candidate['challenge_type'] ?? 'global');
+            $owner = isset($candidate['player_id']) ? (string) $candidate['player_id'] : null;
+            if ($type === 'player' && $playerId !== null && $owner === $playerId) {
+                $row = $candidate;
+                break;
+            }
+        }
+
+        if ($row === null) {
+            foreach ($rows as $candidate) {
+                $type = (string) ($candidate['challenge_type'] ?? 'global');
+                if ($type === 'global') {
+                    $row = $candidate;
+                    break;
+                }
+            }
+        }
 
         if ($row === null) {
             return null;
@@ -378,7 +413,33 @@ final class GameRepository
             'id' => (int) $row['id'],
             'station_id' => (string) $row['station_id'],
             'reward' => (int) $row['reward'],
+            'challenge_type' => (string) ($row['challenge_type'] ?? 'global'),
+            'player_id' => isset($row['player_id']) ? (string) $row['player_id'] : null,
         ];
+    }
+
+    public function hasActivePlayerSpecificChallenge(string $gameId, string $playerId): bool
+    {
+        return (int) (query('game_challenges')
+            ->count()
+            ->where('game_id = ?', $gameId)
+            ->where('active = ?', true)
+            ->where('challenge_type = ?', 'player')
+            ->where('player_id = ?', $playerId)
+            ->execute() ?? 0) > 0;
+    }
+
+    public function latestPlayerSpecificChallengeSpawnedAt(string $gameId, string $playerId): ?string
+    {
+        $row = query('game_challenges')
+            ->select('spawned_at')
+            ->where('game_id = ?', $gameId)
+            ->where('challenge_type = ?', 'player')
+            ->where('player_id = ?', $playerId)
+            ->orderBy('id DESC')
+            ->first();
+
+        return $row !== null ? (string) $row['spawned_at'] : null;
     }
 
     public function completeChallenge(int $challengeId): void
@@ -393,21 +454,41 @@ final class GameRepository
     }
 
     /**
-     * @return list<array{id: int, station_id: string, reward: int, active: bool}>
+     * @return list<array{id: int, station_id: string, reward: int, active: bool, challenge_type: string, player_id: ?string}>
      */
-    public function allChallenges(string $gameId): array
+    public function allChallenges(string $gameId, ?string $viewerPlayerId = null): array
     {
+        $rows = query('game_challenges')
+            ->select('id', 'station_id', 'reward', 'active', 'challenge_type', 'player_id')
+            ->where('game_id = ?', $gameId)
+            ->all();
+
+        $filteredRows = array_values(array_filter(
+            $rows,
+            static function (array $row) use ($viewerPlayerId): bool {
+                $type = (string) ($row['challenge_type'] ?? 'global');
+                if ($type !== 'player') {
+                    return true;
+                }
+
+                if ($viewerPlayerId === null) {
+                    return false;
+                }
+
+                return isset($row['player_id']) && (string) $row['player_id'] === $viewerPlayerId;
+            },
+        ));
+
         return array_map(
             static fn (array $row): array => [
                 'id' => (int) $row['id'],
                 'station_id' => (string) $row['station_id'],
                 'reward' => (int) $row['reward'],
                 'active' => (bool) $row['active'],
+                'challenge_type' => (string) ($row['challenge_type'] ?? 'global'),
+                'player_id' => isset($row['player_id']) ? (string) $row['player_id'] : null,
             ],
-            query('game_challenges')
-                ->select('id', 'station_id', 'reward', 'active')
-                ->where('game_id = ?', $gameId)
-                ->all(),
+            $filteredRows,
         );
     }
 
