@@ -73,6 +73,8 @@ final class GameStateControllerTest extends IntegrationTestCase
             $response->body['stations'],
             static fn (array $station): bool => $station['id'] === 'S1',
         ))[0];
+        self::assertArrayHasKey('name', $stationS1);
+        self::assertNotSame('', $stationS1['name']);
         self::assertSame(10, $stationS1['x']);
         self::assertSame(20, $stationS1['y']);
         self::assertSame('L1', $stationS1['lineId']);

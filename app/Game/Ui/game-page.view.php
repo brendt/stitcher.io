@@ -53,6 +53,18 @@
                     <svg id="edge-layer" width="1200" height="800" class="absolute inset-0"></svg>
                     <div id="node-layer" class="absolute inset-0"></div>
                 </div>
+                <div id="move-modal" data-map-interactive="true" class="hidden absolute z-30 w-52 rounded-lg border border-gray-300 bg-white p-3 shadow-lg text-xs">
+                    <div id="move-modal-title" class="font-bold text-sm text-gray-900 mb-2"></div>
+                    <div class="flex items-center justify-center gap-2">
+                        <button id="move-modal-minus" type="button" class="min-w-12 px-3 py-1 rounded bg-gray-100 font-bold">-</button>
+                        <div id="move-modal-amount" class="min-w-12 text-center text-sm font-bold text-gray-900">0</div>
+                        <button id="move-modal-plus" type="button" class="min-w-12 px-3 py-1 rounded bg-gray-100 font-bold">+</button>
+                    </div>
+                    <div class="mt-4 flex justify-end gap-2">
+                        <button id="move-modal-cancel" type="button" class="bg-gray-100 px-2 py-1 rounded">Cancel</button>
+                        <button id="move-modal-confirm" type="button" class="bg-emerald-600 text-white px-2 py-1 rounded">Confirm travel</button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -65,12 +77,6 @@
             <div>
                 <label for="player-select" class="font-bold block mb-1">Control player</label>
                 <select id="player-select" class="w-full bg-gray-50 border border-gray-300 rounded px-2 py-1"></select>
-            </div>
-
-            <div>
-                <label for="deposit-input" class="font-bold block mb-1">Deposit</label>
-                <input id="deposit-input" type="number" min="1" value="1" class="w-full bg-gray-50 border border-gray-300 rounded px-2 py-1" />
-                <div class="text-xs text-gray-500 mt-1">Used only for neutral/enemy stations.</div>
             </div>
 
             <div class="grid gap-2">
@@ -110,7 +116,13 @@
         const timelinePanel = document.getElementById('timeline-panel');
         const feedback = document.getElementById('feedback');
         const playerSelect = document.getElementById('player-select');
-        const depositInput = document.getElementById('deposit-input');
+        const moveModal = document.getElementById('move-modal');
+        const moveModalTitle = document.getElementById('move-modal-title');
+        const moveModalMinus = document.getElementById('move-modal-minus');
+        const moveModalAmount = document.getElementById('move-modal-amount');
+        const moveModalPlus = document.getElementById('move-modal-plus');
+        const moveModalCancel = document.getElementById('move-modal-cancel');
+        const moveModalConfirm = document.getElementById('move-modal-confirm');
         const challengeBtn = document.getElementById('challenge-btn');
         const finalizeBtn = document.getElementById('finalize-btn');
         const OVERCLAIM_CAP = 5;
@@ -127,6 +139,9 @@
         let pinchStartScale = 1;
         let pinchStartWorld = null;
         let panStart = null;
+        let moveModalStationId = null;
+        let moveModalBounds = null;
+        let moveModalCoins = 0;
 
         stage.style.transformOrigin = '0 0';
 
@@ -152,6 +167,7 @@
             // Canonical camera model: screen = world * scale + translation.
             stage.style.transform = `matrix(${scale}, 0, 0, ${scale}, ${stageX}, ${stageY})`;
             applyNodeScale();
+            positionMoveModal();
         }
 
         function clampScale(value) {
@@ -181,6 +197,136 @@
                 x: (pointX - stageX) / scale,
                 y: (pointY - stageY) / scale,
             };
+        }
+
+        function stationScreenPoint(stationId) {
+            const world = stationPositions[stationId];
+            if (!world) {
+                return null;
+            }
+
+            return {
+                x: (world.x * scale) + stageX,
+                y: (world.y * scale) + stageY,
+            };
+        }
+
+        function hideMoveModal() {
+            moveModalStationId = null;
+            moveModalBounds = null;
+            moveModal.classList.add('hidden');
+        }
+
+        function clampMoveCoins(value) {
+            if (!moveModalBounds) {
+                return 0;
+            }
+
+            return Math.max(moveModalBounds.min, Math.min(moveModalBounds.max, value));
+        }
+
+        function updateMoveModalAmountUi() {
+            if (!moveModalBounds) {
+                return;
+            }
+
+            moveModalAmount.textContent = String(moveModalCoins);
+            const decreaseDisabled = moveModalBounds.disabled || moveModalCoins <= moveModalBounds.min;
+            const increaseDisabled = moveModalBounds.disabled || moveModalCoins >= moveModalBounds.max;
+            moveModalMinus.disabled = decreaseDisabled;
+            moveModalPlus.disabled = increaseDisabled;
+            moveModalMinus.className = decreaseDisabled
+                ? 'min-w-12 px-3 py-1 rounded bg-gray-200 text-gray-400 font-bold cursor-not-allowed'
+                : 'min-w-12 px-3 py-1 rounded bg-gray-100 font-bold';
+            moveModalPlus.className = increaseDisabled
+                ? 'min-w-12 px-3 py-1 rounded bg-gray-200 text-gray-400 font-bold cursor-not-allowed'
+                : 'min-w-12 px-3 py-1 rounded bg-gray-100 font-bold';
+        }
+
+        function positionMoveModal() {
+            if (!moveModalStationId || moveModal.classList.contains('hidden')) {
+                return;
+            }
+
+            const stationPoint = stationScreenPoint(moveModalStationId);
+            if (!stationPoint) {
+                hideMoveModal();
+                return;
+            }
+
+            const modalWidth = moveModal.offsetWidth || 208;
+            const modalHeight = moveModal.offsetHeight || 128;
+            let left = stationPoint.x - (modalWidth / 2);
+            let top = stationPoint.y - modalHeight - 14;
+
+            if (top < 8) {
+                top = stationPoint.y + 14;
+            }
+
+            left = Math.max(8, Math.min((viewport.clientWidth - modalWidth - 8), left));
+            top = Math.max(8, Math.min((viewport.clientHeight - modalHeight - 8), top));
+            moveModal.style.left = `${left}px`;
+            moveModal.style.top = `${top}px`;
+        }
+
+        function moveDepositBounds(player, target) {
+            if (!player || !target) {
+                return null;
+            }
+
+            if (target.ownerId === player.id) {
+                return { min: 0, max: 0, value: 0, disabled: true };
+            }
+
+            if (target.ownerId === null) {
+                const min = 1;
+                const max = Math.min(OVERCLAIM_CAP, player.coins);
+
+                if (max < min) {
+                    return { min, max, value: min, disabled: true };
+                }
+
+                return { min, max, value: min, disabled: false };
+            }
+
+            const min = target.topValue + 1;
+            const max = Math.min(target.topValue + OVERCLAIM_CAP, player.coins);
+
+            if (max < min) {
+                return { min, max, value: min, disabled: true };
+            }
+
+            return { min, max, value: min, disabled: false };
+        }
+
+        function showMoveModal(stationId) {
+            const player = currentPlayer();
+            if (!player) {
+                return;
+            }
+
+            if (!canMoveTo(player, stationId)) {
+                setFeedback('Target is not adjacent to your current station.', true);
+                return;
+            }
+
+            const station = stationById(stationId);
+            const bounds = moveDepositBounds(player, station);
+            if (!bounds) {
+                return;
+            }
+
+            moveModalStationId = stationId;
+            moveModalBounds = bounds;
+            moveModalCoins = clampMoveCoins(bounds.value);
+            moveModalTitle.textContent = stationLabel(station);
+            moveModalConfirm.disabled = bounds.disabled;
+            moveModalConfirm.className = bounds.disabled
+                ? 'bg-gray-300 text-white px-2 py-1 rounded cursor-not-allowed'
+                : 'bg-emerald-600 text-white px-2 py-1 rounded';
+            updateMoveModalAmountUi();
+            moveModal.classList.remove('hidden');
+            positionMoveModal();
         }
 
         function zoomAt(clientX, clientY, factor) {
@@ -215,6 +361,10 @@
         viewport.addEventListener('pointerdown', (event) => {
             if (isMapInteractiveTarget(event.target)) {
                 return;
+            }
+
+            if (moveModalStationId) {
+                hideMoveModal();
             }
 
             viewport.setPointerCapture(event.pointerId);
@@ -280,6 +430,32 @@
             zoomAtViewportCenter(0.9);
         });
 
+        moveModalCancel.addEventListener('click', hideMoveModal);
+        moveModalMinus.addEventListener('click', () => {
+            if (!moveModalBounds || moveModalBounds.disabled) {
+                return;
+            }
+
+            moveModalCoins = clampMoveCoins(moveModalCoins - 1);
+            updateMoveModalAmountUi();
+        });
+        moveModalPlus.addEventListener('click', () => {
+            if (!moveModalBounds || moveModalBounds.disabled) {
+                return;
+            }
+
+            moveModalCoins = clampMoveCoins(moveModalCoins + 1);
+            updateMoveModalAmountUi();
+        });
+        moveModalConfirm.addEventListener('click', async () => {
+            if (!moveModalStationId || !moveModalBounds) {
+                return;
+            }
+
+            const deposit = clampMoveCoins(moveModalCoins);
+            await moveTo(moveModalStationId, deposit);
+        });
+
         function ensurePlayerOptions() {
             const selected = playerSelect.value;
             playerSelect.innerHTML = '';
@@ -331,6 +507,10 @@
 
         function stationById(id) {
             return state.stations.find((station) => station.id === id) ?? null;
+        }
+
+        function stationLabel(station) {
+            return station?.name ?? station?.id ?? '-';
         }
 
         function currentPlayer() {
@@ -470,7 +650,7 @@
             return response.json();
         }
 
-        async function moveTo(targetStationId) {
+        async function moveTo(targetStationId, requestedDeposit = null) {
             const player = currentPlayer();
             if (!player) return;
 
@@ -481,30 +661,33 @@
 
             const target = stationById(targetStationId);
             const ownedByPlayer = target?.ownerId === player.id;
-            let deposit = ownedByPlayer ? null : Number.parseInt(depositInput.value || '1', 10);
+            let deposit = ownedByPlayer ? 0 : Number.parseInt(String(requestedDeposit ?? 1), 10);
+            const bounds = moveDepositBounds(player, target);
+            if (!bounds) return;
 
-            if (!ownedByPlayer && target?.ownerId) {
-                const minimum = target.topValue + 1;
-                const maximum = target.topValue + OVERCLAIM_CAP;
-                const requested = Number.isFinite(deposit) ? deposit : minimum;
-                const adjusted = Math.max(minimum, Math.min(maximum, requested));
-
-                if (adjusted !== requested) {
-                    setFeedback(`Adjusted bid to ${adjusted} (allowed ${minimum}-${maximum} for this overclaim).`);
-                }
-
-                deposit = adjusted;
-                depositInput.value = String(adjusted);
+            if (bounds.disabled && !ownedByPlayer) {
+                setFeedback('Not enough coins for this move.', true);
+                return;
             }
+
+            const adjusted = Math.max(bounds.min, Math.min(bounds.max, Number.isFinite(deposit) ? deposit : bounds.value));
+            if (!ownedByPlayer && adjusted !== deposit) {
+                setFeedback(`Adjusted investment to ${adjusted} (allowed ${bounds.min}-${bounds.max}).`);
+            }
+            deposit = adjusted;
 
             const result = await postForm(`/games/${gameId}/commands/move`, {
                 playerId: player.id,
                 fromStationId: player.stationId,
                 toStationId: targetStationId,
-                deposit: Number.isFinite(deposit) ? deposit : 1,
+                deposit,
             });
 
-            setFeedback(result.accepted ? `Move accepted to ${targetStationId}.` : `Move rejected: ${result.reason}`, !result.accepted);
+            setFeedback(
+                result.accepted ? `Move accepted to ${stationLabel(target)}.` : `Move rejected: ${result.reason}`,
+                !result.accepted,
+            );
+            hideMoveModal();
             await loadState();
         }
 
@@ -563,9 +746,7 @@
                     button.style.outline = 'none';
                     button.style.boxShadow = claimAura || 'none';
                     button.style.animation = 'none';
-                    button.style.borderColor = isOutOfReachClaimed
-                        ? ownerColor
-                        : (station.isHub ? '#f59e0b' : '#475569');
+                    button.style.borderColor = isOutOfReachClaimed ? ownerColor : '#475569';
                 }
 
                 if (isPlayerStation) {
@@ -573,14 +754,32 @@
                 }
 
                 const deposited = station.topValue > 0 ? station.topValue : null;
-                button.title = `${station.id} | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ' | challenge' : ''}`;
+                button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ' | challenge' : ''}`;
                 button.textContent = deposited === null ? '-' : String(deposited);
-                button.addEventListener('click', () => moveTo(station.id));
+                button.addEventListener('click', () => {
+                    if (!isReachable) {
+                        setFeedback('Target is not adjacent to your current station.', true);
+                        return;
+                    }
+
+                    if (station.ownerId === player?.id) {
+                        moveTo(station.id, 0);
+                        return;
+                    }
+
+                    showMoveModal(station.id);
+                });
 
                 nodeLayer.appendChild(button);
             }
 
             applyNodeScale();
+
+            if (moveModalStationId && !stationPositions[moveModalStationId]) {
+                hideMoveModal();
+            } else {
+                positionMoveModal();
+            }
         }
 
         function renderSidebar() {
@@ -622,6 +821,7 @@
         }
 
         playerSelect.addEventListener('change', () => {
+            hideMoveModal();
             renderEdges();
             renderNodes();
             renderSidebar();

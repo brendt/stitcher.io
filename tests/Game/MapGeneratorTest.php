@@ -67,15 +67,14 @@ final class MapGeneratorTest extends TestCase
     }
 
     #[Test]
-    public function generated_map_has_small_hub_count_between_two_and_four(): void
+    public function generated_map_uses_only_intersection_points_as_hubs(): void
     {
         $generator = new MapGenerator();
         $map = $generator->generate(stationCount: 50, seed: 7);
 
         $hubCount = count(array_filter($map->stations, static fn ($station): bool => $station->isHub));
 
-        self::assertGreaterThanOrEqual(2, $hubCount);
-        self::assertLessThanOrEqual(4, $hubCount);
+        self::assertSame(2, $hubCount);
     }
 
     #[Test]
@@ -101,7 +100,7 @@ final class MapGeneratorTest extends TestCase
                 }
 
                 $distance = abs($a['x'] - $b['x']) + abs($a['y'] - $b['y']);
-                self::assertGreaterThanOrEqual(2, $distance);
+                self::assertGreaterThanOrEqual(3, $distance);
             }
         }
 
@@ -144,5 +143,32 @@ final class MapGeneratorTest extends TestCase
 
         // L1 main line + at most two branch lines.
         self::assertLessThanOrEqual(3, count($lineIds));
+    }
+
+    #[Test]
+    public function generated_map_builds_two_lines_with_two_intersections(): void
+    {
+        $generator = new MapGenerator();
+        $map = $generator->generate(stationCount: 50, seed: 1104);
+
+        $lineByStation = [];
+        foreach ($map->stationCoordinates as $stationId => $coordinate) {
+            $lineByStation[$stationId] = $coordinate['line_id'];
+        }
+
+        self::assertContains('L1', array_values($lineByStation));
+        self::assertContains('L2', array_values($lineByStation));
+
+        $intersectionEdges = 0;
+        foreach ($map->edges as $edge) {
+            $fromLine = $lineByStation[$edge->fromStationId] ?? null;
+            $toLine = $lineByStation[$edge->toStationId] ?? null;
+
+            if ($fromLine !== null && $toLine !== null && $fromLine !== $toLine) {
+                $intersectionEdges++;
+            }
+        }
+
+        self::assertGreaterThanOrEqual(2, $intersectionEdges);
     }
 }

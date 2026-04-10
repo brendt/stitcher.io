@@ -12,161 +12,142 @@ use Random\Randomizer;
 
 final readonly class MapGenerator
 {
-    private const MAX_BRANCHES = 2;
-
-    public function __construct(
-        private float $hubRatio = 0.05,
-    ) {}
+    private const MAX_STATION_COUNT = 200;
+    private const MIN_STATION_DISTANCE = 3;
+    private const MIN_LINE_STATIONS = 4;
 
     public function generate(int $stationCount, int $seed, int $playerCount = 2): GeneratedMap
     {
         if ($stationCount < 8) {
             throw new InvalidArgumentException('Station count must be at least 8.');
         }
+        if ($stationCount > self::MAX_STATION_COUNT) {
+            throw new InvalidArgumentException(sprintf('Station count must be at most %d.', self::MAX_STATION_COUNT));
+        }
 
-        $gridSize = $playerCount <= 2 ? 100 : 120;
+        $baseGridSize = $playerCount <= 2 ? 100 : 120;
+        $stationScale = sqrt(max(1, $stationCount / 60));
+        $gridSize = (int) ceil($baseGridSize * $stationScale);
 
         $random = new Randomizer(new Mt19937($seed));
 
-        $startXMin = (int) floor($gridSize * 0.15);
-        $startXMax = (int) ceil($gridSize * 0.85);
-        $startYMin = (int) floor($gridSize * 0.08);
-        $startYMax = (int) ceil($gridSize * 0.20);
-
-        $x = $random->getInt($startXMin, $startXMax);
-        $y = $random->getInt($startYMin, $startYMax);
-
-        $stationCoordinates = [];
-        $stationIds = [];
-        $mainLineStationIds = [];
         $edgeKeys = [];
         $edges = [];
-        $lineCounter = 1;
+        $totalLoopSlots = $stationCount + 2; // Two shared hub stations appear in both loops.
+        $mainTarget = max(self::MIN_LINE_STATIONS, (int) ceil($totalLoopSlots / 2));
+        $secondaryTarget = $totalLoopSlots - $mainTarget;
 
-        $stationCounter = 1;
-        $firstId = sprintf('S%d', $stationCounter++);
-        $stationIds[] = $firstId;
-        $mainLineStationIds[] = $firstId;
-        $stationCoordinates[$firstId] = ['x' => $x, 'y' => $y, 'line_id' => 'L1'];
-        $lastMainStationId = $firstId;
-
-        // Right, down, left, up.
-        $directions = [
-            ['dx' => 1, 'dy' => 0],
-            ['dx' => 0, 'dy' => 1],
-            ['dx' => -1, 'dy' => 0],
-            ['dx' => 0, 'dy' => -1],
-        ];
-
-        $reservedForBranches = max(4, min(12, (int) floor($stationCount * 0.2)));
-        $mainTarget = max(8, $stationCount - $reservedForBranches);
-        $segmentTarget = max(8, (int) ceil($mainTarget / 4));
-        $globalAttempts = 0;
-
-        while (count($mainLineStationIds) < $mainTarget && $globalAttempts < ($stationCount * 200)) {
-            foreach ($directions as $direction) {
-                $stepsThisSegment = $segmentTarget + $random->getInt(-2, 2);
-                $stepsThisSegment = max(6, $stepsThisSegment);
-
-                for ($step = 0; $step < $stepsThisSegment; $step++) {
-                    if (count($mainLineStationIds) >= $mainTarget) {
-                        break 2;
-                    }
-
-                    $globalAttempts++;
-
-                    $candidate = $this->nextCoordinate(
-                        random: $random,
-                        x: $x,
-                        y: $y,
-                        dx: $direction['dx'],
-                        dy: $direction['dy'],
-                        gridSize: $gridSize,
-                        existingCoordinates: $stationCoordinates,
-                    );
-
-                    if ($candidate === null) {
-                        continue;
-                    }
-
-                    $x = $candidate['x'];
-                    $y = $candidate['y'];
-
-                    $stationId = sprintf('S%d', $stationCounter++);
-                    $stationIds[] = $stationId;
-                    $mainLineStationIds[] = $stationId;
-                    $stationCoordinates[$stationId] = ['x' => $x, 'y' => $y, 'line_id' => 'L1'];
-                    $lastMainStationId = $stationId;
-                }
-            }
+        if ($secondaryTarget > 0 && $secondaryTarget < self::MIN_LINE_STATIONS) {
+            $missing = self::MIN_LINE_STATIONS - $secondaryTarget;
+            $mainTarget = max(self::MIN_LINE_STATIONS, $mainTarget - $missing);
+            $secondaryTarget = $totalLoopSlots - $mainTarget;
         }
 
-        if (count($mainLineStationIds) < 8) {
-            throw new InvalidArgumentException('Could not generate enough main-line stations with current constraints.');
-        }
+        $maxLoopStations = max($mainTarget, $secondaryTarget);
+        $requiredRadius = (int) ceil(($maxLoopStations * self::MIN_STATION_DISTANCE * 1.18) / (2 * M_PI));
+        $radius = max(14, min((int) floor($gridSize * 0.28), $requiredRadius));
+        $stationCoordinates = [];
+        $stationIds = [];
+        $hubIds = [];
+        $mainLineStationIds = [];
+        $secondaryLineStationIds = [];
+        $generated = false;
 
-        $hubCount = min(4, max(2, (int) round($stationCount * $this->hubRatio)));
-        $hubIds = $this->pickDistributedHubIds($mainLineStationIds, $hubCount);
+        for ($layoutAttempt = 0; $layoutAttempt < 10; $layoutAttempt++) {
+            $stationCoordinates = [];
+            $stationIds = [];
+            $stationCounter = 1;
+            $radiusForAttempt = max(12, $radius - $layoutAttempt);
+            $centerY = max($radiusForAttempt + 6, min($gridSize - $radiusForAttempt - 6, (int) floor($gridSize * 0.5)));
+            $maxCenterDistance = $gridSize - (2 * ($radiusForAttempt + 6));
+            $centerDistance = min($random->getInt(8, 12), $maxCenterDistance);
 
-        $branchesCreated = 0;
-
-        foreach (array_keys($hubIds) as $splitStationId) {
-            if (count($stationIds) >= $stationCount || $branchesCreated >= self::MAX_BRANCHES) {
-                break;
-            }
-
-            $lineCounter++;
-            $created = $this->generateBranch(
-                random: $random,
-                gridSize: $gridSize,
-                splitStationId: $splitStationId,
-                mainLineStationIds: $mainLineStationIds,
-                remainingStations: $stationCount - count($stationIds),
-                stationCounter: $stationCounter,
-                stationIds: $stationIds,
-                stationCoordinates: $stationCoordinates,
-                edges: $edges,
-                edgeKeys: $edgeKeys,
-                lineId: sprintf('L%d', $lineCounter),
-            );
-
-            if ($created) {
-                $branchesCreated++;
-            }
-        }
-
-        $fillAttempts = 0;
-
-        while (count($stationIds) < $stationCount && $fillAttempts < ($stationCount * 300)) {
-            $fillAttempts++;
-
-            $direction = $directions[$random->getInt(0, count($directions) - 1)];
-            $candidate = $this->nextCoordinate(
-                random: $random,
-                x: $x,
-                y: $y,
-                dx: $direction['dx'],
-                dy: $direction['dy'],
-                gridSize: $gridSize,
-                existingCoordinates: $stationCoordinates,
-            );
-
-            if ($candidate === null) {
+            if ($centerDistance < (self::MIN_STATION_DISTANCE * 2)) {
                 continue;
             }
 
-            $x = $candidate['x'];
-            $y = $candidate['y'];
+            $center1X = (int) floor(($gridSize - $centerDistance) / 2);
+            $center2X = $center1X + $centerDistance;
 
-            $stationId = sprintf('S%d', $stationCounter++);
-            $stationIds[] = $stationId;
-            $mainLineStationIds[] = $stationId;
-            $stationCoordinates[$stationId] = ['x' => $x, 'y' => $y, 'line_id' => 'L1'];
-            $lastMainStationId = $stationId;
+            if ($center2X <= $center1X) {
+                continue;
+            }
+
+            $centerDistance = $center2X - $center1X;
+            if ($centerDistance >= (2 * $radiusForAttempt)) {
+                continue;
+            }
+
+            $intersectionHeight = (int) round(sqrt(max(1, ($radiusForAttempt * $radiusForAttempt) - (($centerDistance * $centerDistance) / 4))));
+            $intersectionHeight = max((int) ceil(self::MIN_STATION_DISTANCE / 2), $intersectionHeight);
+            $intersectionX = (int) round(($center1X + $center2X) / 2);
+            $hubTopY = max(2, min($gridSize - 2, $centerY - $intersectionHeight));
+            $hubBottomY = max(2, min($gridSize - 2, $centerY + $intersectionHeight));
+
+            if (! $this->hasEnoughSpacing($intersectionX, $hubTopY, $stationCoordinates)) {
+                continue;
+            }
+
+            if (! $this->hasEnoughSpacing($intersectionX, $hubBottomY, [
+                'hub-top' => ['x' => $intersectionX, 'y' => $hubTopY, 'line_id' => 'L1'],
+            ])) {
+                continue;
+            }
+
+            $hubTopId = sprintf('S%d', $stationCounter++);
+            $hubBottomId = sprintf('S%d', $stationCounter++);
+            $stationIds[] = $hubTopId;
+            $stationIds[] = $hubBottomId;
+            $stationCoordinates[$hubTopId] = ['x' => $intersectionX, 'y' => $hubTopY, 'line_id' => 'L1'];
+            $stationCoordinates[$hubBottomId] = ['x' => $intersectionX, 'y' => $hubBottomY, 'line_id' => 'L1'];
+
+            $attemptHubIds = [$hubTopId => true, $hubBottomId => true];
+
+            $attemptMainLineStationIds = $this->generateCircularLine(
+                random: $random,
+                gridSize: $gridSize,
+                lineId: 'L1',
+                targetCount: $mainTarget,
+                centerX: $center1X,
+                centerY: $centerY,
+                radius: $radiusForAttempt,
+                sharedHubIds: [$hubTopId, $hubBottomId],
+                stationCounter: $stationCounter,
+                stationIds: $stationIds,
+                stationCoordinates: $stationCoordinates,
+            );
+
+            $attemptSecondaryLineStationIds = $this->generateCircularLine(
+                random: $random,
+                gridSize: $gridSize,
+                lineId: 'L2',
+                targetCount: $secondaryTarget,
+                centerX: $center2X,
+                centerY: $centerY,
+                radius: $radiusForAttempt,
+                sharedHubIds: [$hubTopId, $hubBottomId],
+                stationCounter: $stationCounter,
+                stationIds: $stationIds,
+                stationCoordinates: $stationCoordinates,
+            );
+
+            if ($attemptMainLineStationIds === [] || $attemptSecondaryLineStationIds === []) {
+                continue;
+            }
+
+            if (count($stationIds) !== $stationCount) {
+                continue;
+            }
+
+            $hubIds = $attemptHubIds;
+            $mainLineStationIds = $attemptMainLineStationIds;
+            $secondaryLineStationIds = $attemptSecondaryLineStationIds;
+            $generated = true;
+            break;
         }
 
-        if (count($stationIds) < $stationCount) {
-            throw new InvalidArgumentException('Could not generate enough stations with current constraints.');
+        if (! $generated) {
+            throw new InvalidArgumentException('Could not generate two circular lines with current constraints.');
         }
 
         for ($i = 0; $i < count($mainLineStationIds) - 1; $i++) {
@@ -180,14 +161,31 @@ final readonly class MapGenerator
             );
         }
 
-        // Keep at least one closed loop on the main line.
-        $this->addEdge(
+        for ($i = 0; $i < count($secondaryLineStationIds) - 1; $i++) {
+            $this->addEdge(
+                edges: $edges,
+                edgeKeys: $edgeKeys,
+                random: $random,
+                from: $secondaryLineStationIds[$i],
+                to: $secondaryLineStationIds[$i + 1],
+                stationCoordinates: $stationCoordinates,
+            );
+        }
+
+        $this->closeLoop(
+            random: $random,
+            lineStationIds: $mainLineStationIds,
+            stationCoordinates: $stationCoordinates,
             edges: $edges,
             edgeKeys: $edgeKeys,
+        );
+
+        $this->closeLoop(
             random: $random,
-            from: $lastMainStationId,
-            to: $mainLineStationIds[0],
+            lineStationIds: $secondaryLineStationIds,
             stationCoordinates: $stationCoordinates,
+            edges: $edges,
+            edgeKeys: $edgeKeys,
         );
 
         $stations = [];
@@ -207,308 +205,202 @@ final readonly class MapGenerator
     }
 
     /**
-     * @param array<string, array{x: int, y: int, line_id: string}> $existingCoordinates
-     * @return array{x: int, y: int}|null
+     * @param list<string> $sharedHubIds
+     * @param list<string> $stationIds
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     * @return list<string>
      */
-    private function nextCoordinate(
+    private function generateCircularLine(
         Randomizer $random,
-        int $x,
-        int $y,
-        int $dx,
-        int $dy,
         int $gridSize,
-        array $existingCoordinates,
-    ): ?array {
-        for ($retry = 0; $retry < 8; $retry++) {
-            $forward = $this->weightedForwardStep($random);
-            $offset = $this->weightedOffset($random);
-            $offsetSign = $random->getInt(0, 1) === 0 ? -1 : 1;
+        string $lineId,
+        int $targetCount,
+        int $centerX,
+        int $centerY,
+        int $radius,
+        array $sharedHubIds,
+        int &$stationCounter,
+        array &$stationIds,
+        array &$stationCoordinates,
+    ): array {
+        if ($targetCount < count($sharedHubIds) + 2) {
+            $targetCount = count($sharedHubIds) + 2;
+        }
 
-            $perpX = -$dy;
-            $perpY = $dx;
+        $orderedStationIds = array_fill(0, $targetCount, null);
+        $reservedIndices = [];
 
-            $candidateX = $x + ($dx * $forward) + ($perpX * $offset * $offsetSign);
-            $candidateY = $y + ($dy * $forward) + ($perpY * $offset * $offsetSign);
+        foreach ($sharedHubIds as $hubId) {
+            $hub = $stationCoordinates[$hubId] ?? null;
+            if ($hub === null) {
+                continue;
+            }
 
-            $candidateX = max(2, min($gridSize - 2, $candidateX));
-            $candidateY = max(2, min($gridSize - 2, $candidateY));
+            $angle = atan2((float) ($hub['y'] - $centerY), (float) ($hub['x'] - $centerX));
+            if ($angle < 0) {
+                $angle += 2 * M_PI;
+            }
 
-            if ($this->hasEnoughSpacing($candidateX, $candidateY, $existingCoordinates)) {
-                return ['x' => $candidateX, 'y' => $candidateY];
+            $approximateIndex = (int) round(($angle / (2 * M_PI)) * $targetCount) % $targetCount;
+
+            for ($offset = 0; $offset < $targetCount; $offset++) {
+                $index = ($approximateIndex + $offset) % $targetCount;
+                if (!isset($reservedIndices[$index])) {
+                    $orderedStationIds[$index] = $hubId;
+                    $reservedIndices[$index] = true;
+                    break;
+                }
             }
         }
 
-        return null;
-    }
+        for ($index = 0; $index < $targetCount; $index++) {
+            if ($orderedStationIds[$index] !== null) {
+                continue;
+            }
 
-    private function weightedForwardStep(Randomizer $random): int
-    {
-        $bucket = [1, 1, 2, 2, 3, 3, 4, 5];
+            $baseAngle = (2 * M_PI * $index) / $targetCount;
+            $prevIndex = ($index - 1 + $targetCount) % $targetCount;
+            $prevBaseAngle = (2 * M_PI * $prevIndex) / $targetCount;
+            $prevBaseX = (int) round($centerX + (cos($prevBaseAngle) * $radius));
+            $prevBaseY = (int) round($centerY + (sin($prevBaseAngle) * $radius));
+            $placed = false;
 
-        return $bucket[$random->getInt(0, count($bucket) - 1)];
-    }
+            $baseX = (int) round($centerX + (cos($baseAngle) * $radius));
+            $baseY = (int) round($centerY + (sin($baseAngle) * $radius));
+            $stepX = $baseX - $prevBaseX;
+            $stepY = $baseY - $prevBaseY;
+            $previousStationId = $orderedStationIds[$prevIndex];
+            $previousActual = $previousStationId !== null ? ($stationCoordinates[$previousStationId] ?? null) : null;
+            $anchorX = $previousActual['x'] ?? $prevBaseX;
+            $anchorY = $previousActual['y'] ?? $prevBaseY;
+            $expectedStepMagnitudeSquared = ($stepX * $stepX) + ($stepY * $stepY);
+            $prevPrevIndex = ($prevIndex - 1 + $targetCount) % $targetCount;
+            $prevPrevStationId = $orderedStationIds[$prevPrevIndex];
+            $prevPrevActual = $prevPrevStationId !== null ? ($stationCoordinates[$prevPrevStationId] ?? null) : null;
+            $prevActualStepX = $prevPrevActual !== null ? ($anchorX - $prevPrevActual['x']) : null;
+            $prevActualStepY = $prevPrevActual !== null ? ($anchorY - $prevPrevActual['y']) : null;
 
-    private function weightedOffset(Randomizer $random): int
-    {
-        $bucket = [0, 0, 0, 1, 1, 2, 3];
+            for ($retry = 0; $retry < 60; $retry++) {
+                $xVariance = $random->getInt(-3, 3);
+                $yVariance = $random->getInt(-3, 3);
+                $x = (int) round($anchorX + $stepX + $xVariance);
+                $y = (int) round($anchorY + $stepY + $yVariance);
+                $candidateStepX = $x - $anchorX;
+                $candidateStepY = $y - $anchorY;
 
-        return $bucket[$random->getInt(0, count($bucket) - 1)];
+                if ($expectedStepMagnitudeSquared > 0) {
+                    // Prevent reverse moves: candidate must keep moving in the loop's local direction.
+                    $forwardProjection = ($candidateStepX * $stepX) + ($candidateStepY * $stepY);
+                    if ($forwardProjection <= 0) {
+                        continue;
+                    }
+                }
+
+                if ($prevActualStepX !== null && $prevActualStepY !== null) {
+                    // Prevent jagged backtracking between consecutive segments.
+                    $turnProjection = ($candidateStepX * $prevActualStepX) + ($candidateStepY * $prevActualStepY);
+                    $prevStepMagnitudeSquared = ($prevActualStepX * $prevActualStepX) + ($prevActualStepY * $prevActualStepY);
+                    $allowedBacktrack = $prevStepMagnitudeSquared * -0.25;
+                    if ($turnProjection < $allowedBacktrack) {
+                        continue;
+                    }
+                }
+
+                // Keep a loose circular envelope, but allow visible wobble.
+                $distanceFromCenter = sqrt((($x - $centerX) ** 2) + (($y - $centerY) ** 2));
+                if (abs($distanceFromCenter - $radius) > 8) {
+                    continue;
+                }
+
+                $x = max(2, min($gridSize - 2, $x));
+                $y = max(2, min($gridSize - 2, $y));
+
+                if (! $this->hasEnoughSpacing($x, $y, $stationCoordinates)) {
+                    continue;
+                }
+
+                $stationId = sprintf('S%d', $stationCounter++);
+                $stationIds[] = $stationId;
+                $stationCoordinates[$stationId] = ['x' => $x, 'y' => $y, 'line_id' => $lineId];
+                $orderedStationIds[$index] = $stationId;
+                $placed = true;
+                break;
+            }
+
+            if (! $placed) {
+                return [];
+            }
+        }
+
+        /** @var list<string> $lineStationIds */
+        $lineStationIds = array_values(array_filter($orderedStationIds, static fn (?string $id): bool => $id !== null));
+
+        return $lineStationIds;
     }
 
     /**
-     * @param list<string> $mainLineStationIds
-     * @param list<string> $stationIds
+     * @param list<string> $lineStationIds
      * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
      * @param list<Edge> $edges
      * @param array<string, true> $edgeKeys
      */
-    private function generateBranch(
+    private function closeLoop(
         Randomizer $random,
-        int $gridSize,
-        string $splitStationId,
-        array $mainLineStationIds,
-        int $remainingStations,
-        int &$stationCounter,
-        array &$stationIds,
-        array &$stationCoordinates,
+        array $lineStationIds,
+        array $stationCoordinates,
         array &$edges,
         array &$edgeKeys,
-        string $lineId,
-    ): bool {
-        if ($remainingStations < 3) {
-            return false;
+    ): void {
+        if (count($lineStationIds) < 3) {
+            return;
         }
 
-        $split = $stationCoordinates[$splitStationId];
-        $currentX = $split['x'];
-        $currentY = $split['y'];
-        ['dx' => $dx, 'dy' => $dy] = $this->directionTowardCenter($currentX, $currentY, $gridSize);
+        $first = $lineStationIds[0];
+        $last = $lineStationIds[count($lineStationIds) - 1];
 
-        $previousId = $splitStationId;
-        $stationsSinceSplit = 0;
-        $consecutiveFailures = 0;
-        $branchTarget = min($remainingStations, $random->getInt(8, 18));
-        $createdStations = 0;
+        $closed = $this->addEdge(
+            edges: $edges,
+            edgeKeys: $edgeKeys,
+            random: $random,
+            from: $last,
+            to: $first,
+            stationCoordinates: $stationCoordinates,
+        );
 
-        while ($stationsSinceSplit < $branchTarget) {
-            $candidate = $stationsSinceSplit === 0
-                ? $this->initialBranchCoordinate(
-                    random: $random,
-                    x: $currentX,
-                    y: $currentY,
-                    dx: $dx,
-                    dy: $dy,
-                    gridSize: $gridSize,
-                    existingCoordinates: $stationCoordinates,
-                )
-                : $this->nextCoordinate(
-                    random: $random,
-                    x: $currentX,
-                    y: $currentY,
-                    dx: $dx,
-                    dy: $dy,
-                    gridSize: $gridSize,
-                    existingCoordinates: $stationCoordinates,
-                );
-
-            if ($candidate === null) {
-                $consecutiveFailures++;
-
-                if ($consecutiveFailures >= 5) {
-                    return $createdStations > 0;
-                }
-
-                ['dx' => $dx, 'dy' => $dy] = $this->rotateDirection(dx: $dx, dy: $dy, random: $random);
-                continue;
-            }
-
-            $consecutiveFailures = 0;
-            $currentX = $candidate['x'];
-            $currentY = $candidate['y'];
-
-            $newStationId = sprintf('S%d', $stationCounter++);
-            $stationIds[] = $newStationId;
-            $stationCoordinates[$newStationId] = ['x' => $currentX, 'y' => $currentY, 'line_id' => $lineId];
-            $edgeAdded = $this->addEdge(
-                edges: $edges,
-                edgeKeys: $edgeKeys,
-                random: $random,
-                from: $previousId,
-                to: $newStationId,
-                stationCoordinates: $stationCoordinates,
-                avoidOverlaps: true,
-            );
-
-            if (! $edgeAdded) {
-                unset($stationCoordinates[$newStationId]);
-                array_pop($stationIds);
-                $stationCounter--;
-                $consecutiveFailures++;
-                continue;
-            }
-
-            $createdStations++;
-
-            $previousId = $newStationId;
-            $stationsSinceSplit++;
-
-            if ($random->getInt(1, 100) <= 20) {
-                ['dx' => $dx, 'dy' => $dy] = $this->rotateDirection(dx: $dx, dy: $dy, random: $random);
-            }
-
-            $mergeChance = min(45, 3 * $stationsSinceSplit);
-
-            if ($stationsSinceSplit >= 5 && $random->getInt(1, 100) <= $mergeChance) {
-                $mergeTarget = $this->findMergeTarget(
-                    random: $random,
-                    currentStationId: $newStationId,
-                    splitStationId: $splitStationId,
-                    mainLineStationIds: $mainLineStationIds,
-                    stationCoordinates: $stationCoordinates,
-                    edgeKeys: $edgeKeys,
-                );
-
-                if ($mergeTarget !== null) {
-                    $merged = $this->addEdge(
-                        edges: $edges,
-                        edgeKeys: $edgeKeys,
-                        random: $random,
-                        from: $newStationId,
-                        to: $mergeTarget,
-                        stationCoordinates: $stationCoordinates,
-                        avoidOverlaps: true,
-                    );
-
-                    if ($merged) {
-                        return true;
-                    }
-                }
-            }
-
-            if ($this->isNearBoundary(x: $currentX, y: $currentY, gridSize: $gridSize, margin: 2)) {
-                return $createdStations > 0;
-            }
+        if ($closed) {
+            return;
         }
 
-        return $createdStations > 0;
-    }
-
-    /**
-     * @param array<string, array{x: int, y: int, line_id: string}> $existingCoordinates
-     * @return array{x: int, y: int}|null
-     */
-    private function initialBranchCoordinate(
-        Randomizer $random,
-        int $x,
-        int $y,
-        int $dx,
-        int $dy,
-        int $gridSize,
-        array $existingCoordinates,
-    ): ?array {
-        for ($retry = 0; $retry < 8; $retry++) {
-            $forward = $random->getInt(4, 8);
-            $offset = $this->weightedOffset($random);
-            $offsetSign = $random->getInt(0, 1) === 0 ? -1 : 1;
-            $perpX = -$dy;
-            $perpY = $dx;
-
-            $candidateX = $x + ($dx * $forward) + ($perpX * $offset * $offsetSign);
-            $candidateY = $y + ($dy * $forward) + ($perpY * $offset * $offsetSign);
-
-            $candidateX = max(2, min($gridSize - 2, $candidateX));
-            $candidateY = max(2, min($gridSize - 2, $candidateY));
-
-            if ($this->hasEnoughSpacing($candidateX, $candidateY, $existingCoordinates)) {
-                return ['x' => $candidateX, 'y' => $candidateY];
+        $candidatePairs = [];
+        for ($i = 0; $i < count($lineStationIds); $i++) {
+            for ($j = $i + 2; $j < count($lineStationIds); $j++) {
+                $from = $lineStationIds[$i];
+                $to = $lineStationIds[$j];
+                $distance = abs($stationCoordinates[$from]['x'] - $stationCoordinates[$to]['x'])
+                    + abs($stationCoordinates[$from]['y'] - $stationCoordinates[$to]['y']);
+                $candidatePairs[] = ['from' => $from, 'to' => $to, 'distance' => $distance];
             }
-        }
-
-        return null;
-    }
-
-    /**
-     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
-     * @param list<string> $mainLineStationIds
-     * @param array<string, true> $edgeKeys
-     */
-    private function findMergeTarget(
-        Randomizer $random,
-        string $currentStationId,
-        string $splitStationId,
-        array $mainLineStationIds,
-        array $stationCoordinates,
-        array $edgeKeys,
-    ): ?string {
-        $current = $stationCoordinates[$currentStationId];
-        $candidates = [];
-
-        foreach ($mainLineStationIds as $candidateStationId) {
-            if ($candidateStationId === $splitStationId || $candidateStationId === $currentStationId) {
-                continue;
-            }
-
-            $key = $this->edgeKey($currentStationId, $candidateStationId);
-
-            if (isset($edgeKeys[$key])) {
-                continue;
-            }
-
-            $candidate = $stationCoordinates[$candidateStationId];
-            $distance = abs($candidate['x'] - $current['x']) + abs($candidate['y'] - $current['y']);
-
-            if ($distance < 6 || $distance > 40) {
-                continue;
-            }
-
-            $candidates[] = ['stationId' => $candidateStationId, 'distance' => $distance];
-        }
-
-        if ($candidates === []) {
-            return null;
         }
 
         usort(
-            $candidates,
-            static fn (array $a, array $b): int => $a['distance'] <=> $b['distance'],
+            $candidatePairs,
+            static fn (array $left, array $right): int => $right['distance'] <=> $left['distance'],
         );
 
-        $top = array_slice($candidates, 0, min(3, count($candidates)));
+        foreach ($candidatePairs as $pair) {
+            $added = $this->addEdge(
+                edges: $edges,
+                edgeKeys: $edgeKeys,
+                random: $random,
+                from: $pair['from'],
+                to: $pair['to'],
+                stationCoordinates: $stationCoordinates,
+            );
 
-        return $top[$random->getInt(0, count($top) - 1)]['stationId'];
-    }
-
-    /**
-     * @return array{dx: int, dy: int}
-     */
-    private function directionTowardCenter(int $x, int $y, int $gridSize): array
-    {
-        $center = (int) floor($gridSize / 2);
-        $deltaX = $center - $x;
-        $deltaY = $center - $y;
-
-        if (abs($deltaX) >= abs($deltaY)) {
-            return ['dx' => $deltaX >= 0 ? 1 : -1, 'dy' => 0];
+            if ($added) {
+                return;
+            }
         }
-
-        return ['dx' => 0, 'dy' => $deltaY >= 0 ? 1 : -1];
-    }
-
-    /**
-     * @return array{dx: int, dy: int}
-     */
-    private function rotateDirection(int $dx, int $dy, Randomizer $random): array
-    {
-        if ($random->getInt(0, 1) === 0) {
-            return ['dx' => -$dy, 'dy' => $dx];
-        }
-
-        return ['dx' => $dy, 'dy' => -$dx];
-    }
-
-    private function isNearBoundary(int $x, int $y, int $gridSize, int $margin = 3): bool
-    {
-        return $x <= $margin || $y <= $margin || $x >= ($gridSize - $margin) || $y >= ($gridSize - $margin);
     }
 
     /**
@@ -665,7 +557,7 @@ final readonly class MapGenerator
         foreach ($existingCoordinates as $coordinate) {
             $distance = abs($coordinate['x'] - $x) + abs($coordinate['y'] - $y);
 
-            if ($distance < 2) {
+            if ($distance < self::MIN_STATION_DISTANCE) {
                 return false;
             }
         }
@@ -673,21 +565,4 @@ final readonly class MapGenerator
         return true;
     }
 
-    /**
-     * @param list<string> $orderedStationIds
-     * @return array<string, true>
-     */
-    private function pickDistributedHubIds(array $orderedStationIds, int $hubCount): array
-    {
-        $count = count($orderedStationIds);
-        $step = max(1, (int) floor($count / $hubCount));
-        $hubs = [];
-
-        for ($i = 0; $i < $hubCount; $i++) {
-            $index = ($i * $step) % $count;
-            $hubs[$orderedStationIds[$index]] = true;
-        }
-
-        return $hubs;
-    }
 }
