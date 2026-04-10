@@ -131,7 +131,6 @@ final readonly class ChallengeCommandResolver
     ): void {
         $game ??= $this->games->load($gameId);
         $effectiveAt ??= DateTime::now()->format(FormatPattern::SQL_DATE_TIME);
-        $now = DateTime::parse($effectiveAt);
         $seed = $this->seedFrom($gameId, $effectiveAt . '|player');
         $randomizer = new Randomizer(new Mt19937($seed));
 
@@ -140,14 +139,27 @@ final readonly class ChallengeCommandResolver
                 continue;
             }
 
-            if ($this->games->hasActivePlayerSpecificChallenge($gameId, $player->id)) {
-                continue;
+            $activeChallenge = $this->games->activePlayerSpecificChallenge($gameId, $player->id);
+            if ($activeChallenge !== null) {
+                $activeAge = $this->elapsedSeconds(
+                    from: $activeChallenge['spawned_at'],
+                    to: $effectiveAt,
+                );
+                if ($activeAge !== null && $activeAge < self::PLAYER_SPECIFIC_CHALLENGE_INTERVAL_SECONDS) {
+                    continue;
+                }
+
+                // Rotate stale, unclaimed player-specific challenges at interval boundaries.
+                $this->games->deactivateChallenge($activeChallenge['id']);
             }
 
             $lastSpawnedAt = $this->games->latestPlayerSpecificChallengeSpawnedAt($gameId, $player->id);
             if ($lastSpawnedAt !== null) {
-                $elapsed = (int) $now->since(DateTime::parse($lastSpawnedAt))->getTotalSeconds();
-                if ($elapsed < self::PLAYER_SPECIFIC_CHALLENGE_INTERVAL_SECONDS) {
+                $elapsed = $this->elapsedSeconds(
+                    from: $lastSpawnedAt,
+                    to: $effectiveAt,
+                );
+                if ($elapsed !== null && $elapsed < self::PLAYER_SPECIFIC_CHALLENGE_INTERVAL_SECONDS) {
                     continue;
                 }
             }
@@ -249,5 +261,16 @@ final readonly class ChallengeCommandResolver
     private function seedFrom(string $gameId, string $effectiveAt): int
     {
         return abs(crc32($gameId . '|' . $effectiveAt));
+    }
+
+    private function elapsedSeconds(string $from, string $to): ?int
+    {
+        $fromTimestamp = strtotime($from);
+        $toTimestamp = strtotime($to);
+        if ($fromTimestamp === false || $toTimestamp === false) {
+            return null;
+        }
+
+        return max(0, $toTimestamp - $fromTimestamp);
     }
 }

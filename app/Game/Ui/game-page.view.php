@@ -86,6 +86,7 @@
 <div id="game-root" class="w-screen h-screen bg-gray-800 p-0" style="width: 100vw; height: 100vh;" :data-game-id="$gameId">
     <div class="relative w-full h-full" style="width: 100%; height: 100%;">
         <a href="/game/demo" class="fixed right-4 top-4 z-50 bg-pink-600 text-white px-3 py-2 rounded font-bold hover:opacity-90 text-sm">New demo</a>
+        <button id="help-toggle" type="button" onclick="var m=document.getElementById('help-modal'); if(m){m.style.display='flex';}" class="fixed right-6 top-20 rounded-full font-bold text-base" style="z-index:130;background:#111827;color:#f9fafb;border:1px solid #374151;box-shadow:0 6px 14px rgba(0,0,0,0.35);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;cursor:pointer;padding:10px 14px;line-height:1;margin:10px;" aria-label="Open help" title="Help">?</button>
         <div id="game-timer-notch" style="position: fixed; left: 50%; top: 0; transform: translateX(-50%); z-index: 100; background: #111827; color: #f9fafb; border: 1px solid #374151; border-top: none; border-radius: 0 0 12px 12px; box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 2px 0 rgba(255,255,255,0.08) inset; padding: 8px 20px; font-size: 14px; font-weight: 700; line-height: 1; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">
             00:00
         </div>
@@ -129,6 +130,53 @@
             <label for="player-select" class="font-bold block mb-1 text-xs" style="color: #e5e7eb; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">Control player</label>
             <select id="player-select" class="w-full rounded px-2 py-1 text-sm" style="background: #0b1220; color: #f9fafb; border: 1px solid #4b5563;"></select>
         </aside>
+        <div id="help-modal" class="fixed inset-0 flex items-center justify-center" style="display:none;position:fixed;inset:0;z-index:200;padding:28px;background: rgba(3,7,18,0.62);">
+            <div data-help-panel="true" class="rounded-xl border" style="width:min(430px, calc(100vw - 56px));padding:20px 22px;background:#111827;color:#f9fafb;border-color:#374151;box-shadow:0 18px 28px rgba(0,0,0,0.45), 0 2px 0 rgba(255,255,255,0.08) inset;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;box-sizing:border-box;">
+                <div class="mb-3 flex items-center justify-between">
+                    <h2 class="text-sm font-bold tracking-wide">How To Play</h2>
+                    <button id="help-close" type="button" onclick="var m=document.getElementById('help-modal'); if(m){m.style.display='none';}" class="rounded px-2 py-1 text-xs font-bold" style="background:#1f2937;border:1px solid #4b5563;color:#e5e7eb;cursor:pointer;">Close</button>
+                </div>
+                <p class="text-xs leading-relaxed" style="color:#d1d5db;">
+                    Travel across connected stations and invest coins to claim control of the rail network. Build momentum by chaining routes, completing challenges, and ending with the strongest claimed map presence.
+                </p>
+                <div class="mt-4 grid gap-2 text-xs">
+                    <div class="flex items-center gap-4">
+                        <span style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;border:1px solid #475569;border-radius:2px;background:#e5e7eb;color:#334155;box-shadow:2px 2px 0 #00000033;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,&quot;Liberation Mono&quot;,&quot;Courier New&quot;,monospace;font-size:9px;font-weight:900;line-height:1;">-</span>
+                        <span>Unclaimed station</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;border:1px solid #ef4444;border-radius:2px;background:#ef4444;color:#ffffff;box-shadow:0 0 0 2px #ef4444, 2px 2px 0 #00000055;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,&quot;Liberation Mono&quot;,&quot;Courier New&quot;,monospace;font-size:9px;font-weight:900;line-height:1;">5</span>
+                        <span>Self-claimed station with 5 coins</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span style="display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;border:1px solid #3b82f6;border-radius:2px;background:#ffffff;color:#3b82f6;box-shadow:0 0 0 2px #3b82f6, 2px 2px 0 #00000044;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,&quot;Liberation Mono&quot;,&quot;Courier New&quot;,monospace;font-size:9px;font-weight:900;line-height:1;">3</span>
+                        <span>Claimed station by another player</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span style="position:relative;display:inline-block;width:64px;height:10px;">
+                            <span style="position:absolute;left:0;top:2px;right:0;height:6px;background:#facc15;"></span>
+                            <span style="position:absolute;left:0;top:3px;right:0;height:3px;background:#94a3b8;opacity:0.9;"></span>
+                        </span>
+                        <span>High-speed line</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span style="position:relative;display:inline-block;width:64px;height:8px;">
+                            <span style="position:absolute;left:0;top:2px;right:0;height:4px;background:rgba(255,255,255,0.72);"></span>
+                            <span style="position:absolute;left:0;top:3px;right:0;height:2px;background:#94a3b8;opacity:0.9;"></span>
+                        </span>
+                        <span>Normal line</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span style="display:inline-block;width:10px;height:10px;border-radius:9999px;border:1px solid #713f12;background:#facc15;box-shadow:1px 1px 0 #00000055;"></span>
+                        <span>Challenge</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span style="display:inline-block;width:10px;height:10px;border-radius:9999px;border:1px solid #0f172a;background:#ef4444;box-shadow:1px 1px 0 #00000055;"></span>
+                        <span>Player-specific challenge</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -149,6 +197,9 @@
         const playerStatsOverlay = document.getElementById('player-stats-overlay');
         const playerStatsContent = document.getElementById('player-stats-content');
         const playerSelect = document.getElementById('player-select');
+        const helpToggle = document.getElementById('help-toggle');
+        const helpModal = document.getElementById('help-modal');
+        const helpClose = document.getElementById('help-close');
         const moveModal = document.getElementById('move-modal');
         const moveModalTitle = document.getElementById('move-modal-title');
         const moveModalCoinSelector = document.getElementById('move-modal-coin-selector');
@@ -189,6 +240,18 @@
         let lastStateLoadedAtMs = Date.now();
 
         stage.style.transformOrigin = '0 0';
+
+        function showHelpModal() {
+            if (helpModal) {
+                helpModal.style.display = 'flex';
+            }
+        }
+
+        function hideHelpModal() {
+            if (helpModal) {
+                helpModal.style.display = 'none';
+            }
+        }
 
         function setFeedback(message, isError = false) {
             feedback.textContent = message;
@@ -525,6 +588,12 @@
         }, { passive: false });
 
         window.addEventListener('keydown', (event) => {
+            if (event.code === 'Escape' && helpModal && helpModal.style.display !== 'none') {
+                event.preventDefault();
+                hideHelpModal();
+                return;
+            }
+
             if (event.code !== 'Space') {
                 return;
             }
@@ -543,6 +612,13 @@
 
         zoomOutBtn?.addEventListener('click', () => {
             zoomAtViewportCenter(0.9);
+        });
+        helpToggle?.addEventListener('click', showHelpModal);
+        helpClose?.addEventListener('click', hideHelpModal);
+        helpModal?.addEventListener('click', (event) => {
+            if (event.target === helpModal) {
+                hideHelpModal();
+            }
         });
 
         moveModalCancel.addEventListener('click', hideMoveModal);

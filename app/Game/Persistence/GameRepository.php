@@ -574,6 +574,31 @@ final class GameRepository
             ->execute() ?? 0) > 0;
     }
 
+    /**
+     * @return array{id: int, station_id: string, spawned_at: string}|null
+     */
+    public function activePlayerSpecificChallenge(string $gameId, string $playerId): ?array
+    {
+        $row = query('game_challenges')
+            ->select('id', 'station_id', 'spawned_at')
+            ->where('game_id = ?', $gameId)
+            ->where('active = ?', true)
+            ->where('challenge_type = ?', 'player')
+            ->where('player_id = ?', $playerId)
+            ->orderBy('id DESC')
+            ->first();
+
+        if ($row === null) {
+            return null;
+        }
+
+        return [
+            'id' => (int) $row['id'],
+            'station_id' => (string) $row['station_id'],
+            'spawned_at' => (string) $row['spawned_at'],
+        ];
+    }
+
     public function latestPlayerSpecificChallengeSpawnedAt(string $gameId, string $playerId): ?string
     {
         $row = query('game_challenges')
@@ -594,6 +619,14 @@ final class GameRepository
                 active: false,
                 completed_at: DateTime::now()->format(FormatPattern::SQL_DATE_TIME),
             )
+            ->where('id = ?', $challengeId)
+            ->execute();
+    }
+
+    public function deactivateChallenge(int $challengeId): void
+    {
+        query('game_challenges')
+            ->update(active: false)
             ->where('id = ?', $challengeId)
             ->execute();
     }
