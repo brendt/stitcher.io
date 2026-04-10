@@ -497,19 +497,34 @@ final class GameRepository
         int $reward,
         string $challengeType = 'global',
         ?string $playerId = null,
+        ?string $spawnedAt = null,
     ): int
     {
-        $id = query('game_challenges')
-            ->insert(
-                game_id: $gameId,
-                station_id: $stationId,
-                active: true,
-                reward: $reward,
-                challenge_type: $challengeType,
-                player_id: $playerId,
-            )
-            ->execute()
-            ?->value;
+        $query = query('game_challenges');
+        $id = $spawnedAt === null
+            ? $query
+                ->insert(
+                    game_id: $gameId,
+                    station_id: $stationId,
+                    active: true,
+                    reward: $reward,
+                    challenge_type: $challengeType,
+                    player_id: $playerId,
+                )
+                ->execute()
+                ?->value
+            : $query
+                ->insert(
+                    game_id: $gameId,
+                    station_id: $stationId,
+                    active: true,
+                    reward: $reward,
+                    challenge_type: $challengeType,
+                    player_id: $playerId,
+                    spawned_at: $spawnedAt,
+                )
+                ->execute()
+                ?->value;
 
         return (int) $id;
     }

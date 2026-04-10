@@ -107,6 +107,7 @@ final readonly class ChallengeCommandResolver
                 stationId: $stationId,
                 reward: $reward,
                 challengeType: 'global',
+                spawnedAt: $effectiveAt,
             );
 
             $this->games->appendEvent(
@@ -178,6 +179,7 @@ final readonly class ChallengeCommandResolver
                 reward: $reward,
                 challengeType: 'player',
                 playerId: $player->id,
+                spawnedAt: $effectiveAt,
             );
 
             $this->games->appendEvent(
@@ -206,7 +208,7 @@ final readonly class ChallengeCommandResolver
         }
 
         $excluded = array_fill_keys($this->games->activeChallengeStations($game->id), true);
-        $distances = $this->stationDistancesFrom($game, $player->stationId);
+        $distances = $this->stationDistancesFrom($game, $player->stationId, includeExpress: false);
         $candidates = [];
 
         foreach ($distances as $stationId => $distance) {
@@ -227,10 +229,18 @@ final readonly class ChallengeCommandResolver
     /**
      * @return array<string, int>
      */
-    private function stationDistancesFrom(\App\Game\Domain\Game $game, string $originStationId): array
+    private function stationDistancesFrom(
+        \App\Game\Domain\Game $game,
+        string $originStationId,
+        bool $includeExpress = true,
+    ): array
     {
         $adjacency = [];
         foreach ($game->edges as $edge) {
+            if (! $includeExpress && $edge->isExpress) {
+                continue;
+            }
+
             $adjacency[$edge->fromStationId] ??= [];
             $adjacency[$edge->toStationId] ??= [];
             $adjacency[$edge->fromStationId][] = $edge->toStationId;
@@ -271,6 +281,12 @@ final readonly class ChallengeCommandResolver
             return null;
         }
 
-        return max(0, $toTimestamp - $fromTimestamp);
+        $elapsed = $toTimestamp - $fromTimestamp;
+        if ($elapsed < 0) {
+            // Defensive fallback for timestamp source/timezone skew.
+            return self::PLAYER_SPECIFIC_CHALLENGE_INTERVAL_SECONDS + 1;
+        }
+
+        return $elapsed;
     }
 }
