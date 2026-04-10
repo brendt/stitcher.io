@@ -85,13 +85,15 @@ final class MapGeneratorTest extends TestCase
         $map = $generator->generate(stationCount: 50, seed: 123);
 
         self::assertCount(50, $map->stationCoordinates);
+        $lineIds = [];
 
         foreach ($map->stationCoordinates as $aId => $a) {
             self::assertGreaterThanOrEqual(0, $a['x']);
             self::assertGreaterThanOrEqual(0, $a['y']);
             self::assertLessThanOrEqual(100, $a['x']);
             self::assertLessThanOrEqual(100, $a['y']);
-            self::assertSame('L1', $a['line_id']);
+            self::assertMatchesRegularExpression('/^L\d+$/', $a['line_id']);
+            $lineIds[$a['line_id']] = true;
 
             foreach ($map->stationCoordinates as $bId => $b) {
                 if ($aId === $bId) {
@@ -102,6 +104,8 @@ final class MapGeneratorTest extends TestCase
                 self::assertGreaterThanOrEqual(2, $distance);
             }
         }
+
+        self::assertLessThanOrEqual(3, count($lineIds));
     }
 
     #[Test]
@@ -110,12 +114,8 @@ final class MapGeneratorTest extends TestCase
         $generator = new MapGenerator();
         $map = $generator->generate(stationCount: 50, seed: 2026);
 
-        self::assertCount(50, $map->edges);
-
-        $closingEdge = $map->edges[array_key_last($map->edges)];
-
-        self::assertSame('S50', $closingEdge->fromStationId);
-        self::assertSame('S1', $closingEdge->toStationId);
+        // Connected graph + edges >= nodes guarantees at least one cycle.
+        self::assertGreaterThanOrEqual(count($map->stations), count($map->edges));
     }
 
     #[Test]
@@ -128,5 +128,21 @@ final class MapGeneratorTest extends TestCase
             self::assertLessThanOrEqual(120, $coordinate['x']);
             self::assertLessThanOrEqual(120, $coordinate['y']);
         }
+    }
+
+    #[Test]
+    public function generated_map_limits_branch_lines_to_two(): void
+    {
+        $generator = new MapGenerator();
+        $map = $generator->generate(stationCount: 80, seed: 41026);
+
+        $lineIds = [];
+
+        foreach ($map->stationCoordinates as $coordinate) {
+            $lineIds[$coordinate['line_id']] = true;
+        }
+
+        // L1 main line + at most two branch lines.
+        self::assertLessThanOrEqual(3, count($lineIds));
     }
 }

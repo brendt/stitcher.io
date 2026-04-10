@@ -34,7 +34,8 @@ final readonly class GameUiController
     {
         $gameId = 'demo-' . random_int(100000, 999999);
         $seed = random_int(1, 2_147_483_647);
-        $map = $this->maps->generate(stationCount: 50, seed: $seed);
+        // Higher station density keeps corridor curvature smoother (~20 stations per cardinal segment).
+        $map = $this->maps->generate(stationCount: 100, seed: $seed);
 
         $stationIds = array_values(array_keys($map->stations));
         $playerAStation = $stationIds[0];

@@ -44,9 +44,6 @@
                     <button id="zoom-in" class="bg-gray-100 px-2 py-1 rounded">+</button>
                 </div>
             </div>
-            <div class="px-3 py-2 text-xs text-gray-600 border-b border-gray-200">
-                Navigation: select a player on the right. Current station has a black ring. Green rings are reachable next moves.
-            </div>
             <div
                 id="map-viewport"
                 class="relative w-full bg-gray-50 overflow-hidden touch-none border-t border-gray-200 select-none"
@@ -123,12 +120,15 @@
         let state = null;
         let stationPositions = {};
         let scale = 1;
-        let offsetX = 0;
-        let offsetY = 0;
+        let stageX = 0;
+        let stageY = 0;
         let activePointers = new Map();
         let pinchStartDistance = null;
         let pinchStartScale = 1;
+        let pinchStartWorld = null;
         let panStart = null;
+
+        stage.style.transformOrigin = '0 0';
 
         function setFeedback(message, isError = false) {
             feedback.textContent = message;
@@ -149,12 +149,57 @@
         }
 
         function applyTransform() {
-            stage.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+            // Canonical camera model: screen = world * scale + translation.
+            stage.style.transform = `matrix(${scale}, 0, 0, ${scale}, ${stageX}, ${stageY})`;
             applyNodeScale();
         }
 
         function clampScale(value) {
             return Math.max(0.4, Math.min(2.5, value));
+        }
+
+        function viewportPoint(clientX, clientY) {
+            const rect = viewport.getBoundingClientRect();
+
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top,
+            };
+        }
+
+        function viewportCenterClientPoint() {
+            const rect = viewport.getBoundingClientRect();
+
+            return {
+                x: rect.left + (rect.width / 2),
+                y: rect.top + (rect.height / 2),
+            };
+        }
+
+        function screenToWorld(pointX, pointY) {
+            return {
+                x: (pointX - stageX) / scale,
+                y: (pointY - stageY) / scale,
+            };
+        }
+
+        function zoomAt(clientX, clientY, factor) {
+            const nextScale = clampScale(scale * factor);
+            if (nextScale === scale) {
+                return;
+            }
+
+            const point = viewportPoint(clientX, clientY);
+            const world = screenToWorld(point.x, point.y);
+            scale = nextScale;
+            stageX = point.x - (world.x * scale);
+            stageY = point.y - (world.y * scale);
+            applyTransform();
+        }
+
+        function zoomAtViewportCenter(factor) {
+            const center = viewportCenterClientPoint();
+            zoomAt(center.x, center.y, factor);
         }
 
         function distance(a, b) {
@@ -176,13 +221,16 @@
             activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
             if (activePointers.size === 1) {
-                panStart = { x: event.clientX, y: event.clientY, offsetX, offsetY };
+                panStart = { x: event.clientX, y: event.clientY, stageX, stageY };
             }
 
             if (activePointers.size === 2) {
                 const [a, b] = [...activePointers.values()];
                 pinchStartDistance = distance(a, b);
                 pinchStartScale = scale;
+                const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+                const midPoint = viewportPoint(mid.x, mid.y);
+                pinchStartWorld = screenToWorld(midPoint.x, midPoint.y);
             }
         });
 
@@ -192,40 +240,44 @@
             activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
             if (activePointers.size === 1 && panStart) {
-                offsetX = panStart.offsetX + (event.clientX - panStart.x);
-                offsetY = panStart.offsetY + (event.clientY - panStart.y);
+                stageX = panStart.stageX + (event.clientX - panStart.x);
+                stageY = panStart.stageY + (event.clientY - panStart.y);
                 applyTransform();
             }
 
-            if (activePointers.size === 2 && pinchStartDistance) {
+            if (activePointers.size === 2 && pinchStartDistance && pinchStartWorld) {
                 const [a, b] = [...activePointers.values()];
                 const currentDistance = distance(a, b);
+                const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+                const midPoint = viewportPoint(mid.x, mid.y);
                 scale = clampScale(pinchStartScale * (currentDistance / pinchStartDistance));
+                stageX = midPoint.x - (pinchStartWorld.x * scale);
+                stageY = midPoint.y - (pinchStartWorld.y * scale);
                 applyTransform();
             }
         });
 
         viewport.addEventListener('pointerup', (event) => {
             activePointers.delete(event.pointerId);
-            if (activePointers.size < 2) pinchStartDistance = null;
+            if (activePointers.size < 2) {
+                pinchStartDistance = null;
+                pinchStartWorld = null;
+            }
             if (activePointers.size === 0) panStart = null;
         });
 
         viewport.addEventListener('wheel', (event) => {
             event.preventDefault();
-            const step = event.deltaY < 0 ? 1.08 : 0.92;
-            scale = clampScale(scale * step);
-            applyTransform();
+            const step = Math.exp(-event.deltaY * 0.0045);
+            zoomAt(event.clientX, event.clientY, step);
         }, { passive: false });
 
         document.getElementById('zoom-in').addEventListener('click', () => {
-            scale = clampScale(scale * 1.1);
-            applyTransform();
+            zoomAtViewportCenter(1.1);
         });
 
         document.getElementById('zoom-out').addEventListener('click', () => {
-            scale = clampScale(scale * 0.9);
-            applyTransform();
+            zoomAtViewportCenter(0.9);
         });
 
         function ensurePlayerOptions() {
@@ -358,6 +410,7 @@
         function renderEdges() {
             edgeLayer.innerHTML = '';
             const stationOwnerById = new Map(state.stations.map((station) => [station.id, station.ownerId]));
+            const stationLineById = new Map(state.stations.map((station) => [station.id, station.lineId]));
 
             for (const edge of uniqueEdges()) {
                 const from = stationPositions[edge.fromStationId];
@@ -367,7 +420,11 @@
                 const toOwner = stationOwnerById.get(edge.toStationId);
                 const sameOwner = fromOwner !== null && fromOwner === toOwner;
                 const ownerStroke = sameOwner ? playerColor(fromOwner) : null;
-                const edgeStroke = ownerStroke ?? (edge.isExpress ? '#0f766e' : '#94a3b8');
+                const fromLine = stationLineById.get(edge.fromStationId);
+                const toLine = stationLineById.get(edge.toStationId);
+                const touchesBranchLine = (fromLine && fromLine !== 'L1') || (toLine && toLine !== 'L1');
+                const baseStroke = edge.isExpress ? '#0f766e' : (touchesBranchLine ? '#7f8fb0' : '#94a3b8');
+                const edgeStroke = ownerStroke ?? baseStroke;
 
                 const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 line.setAttribute('x1', String(from.x));
