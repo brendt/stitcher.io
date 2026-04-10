@@ -142,7 +142,7 @@
                 const isCurrent = node.dataset.current === 'true';
                 const exponent = isReachable ? 0.9 : 1;
                 const baseScale = Math.pow(inverse, exponent);
-                const nodeScale = isCurrent ? (baseScale * 1.14) : baseScale;
+                const nodeScale = isCurrent ? (baseScale * 1.5) : baseScale;
                 node.style.transform = `scale(${nodeScale})`;
                 node.style.transformOrigin = 'center center';
             }
@@ -368,27 +368,17 @@
                 const sameOwner = fromOwner !== null && fromOwner === toOwner;
                 const ownerStroke = sameOwner ? playerColor(fromOwner) : null;
                 const edgeStroke = ownerStroke ?? (edge.isExpress ? '#0f766e' : '#94a3b8');
-                const edgeKey = undirectedEdgeKey(edge.fromStationId, edge.toStationId);
-                const dx = to.x - from.x;
-                const dy = to.y - from.y;
-                const length = Math.hypot(dx, dy) || 1;
-                const nx = -dy / length;
-                const ny = dx / length;
-                const hash = Array.from(edgeKey).reduce((acc, char) => acc + char.charCodeAt(0), 0);
-                const direction = hash % 2 === 0 ? 1 : -1;
-                const bend = Math.min(14, Math.max(3, length * 0.06)) * direction;
-                const cx = ((from.x + to.x) / 2) + (nx * bend);
-                const cy = ((from.y + to.y) / 2) + (ny * bend);
 
-                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                path.setAttribute('d', `M ${from.x} ${from.y} Q ${cx} ${cy} ${to.x} ${to.y}`);
-                path.setAttribute('fill', 'none');
-                path.setAttribute('stroke', edgeStroke);
-                path.setAttribute('stroke-width', edge.isExpress ? '4' : '2');
-                path.setAttribute('stroke-opacity', '0.75');
-                path.setAttribute('stroke-linecap', 'round');
-                path.setAttribute('stroke-linejoin', 'round');
-                edgeLayer.appendChild(path);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', String(from.x));
+                line.setAttribute('y1', String(from.y));
+                line.setAttribute('x2', String(to.x));
+                line.setAttribute('y2', String(to.y));
+                line.setAttribute('stroke', edgeStroke);
+                line.setAttribute('stroke-width', edge.isExpress ? '4' : '2');
+                line.setAttribute('stroke-opacity', '0.75');
+                line.setAttribute('stroke-linecap', 'round');
+                edgeLayer.appendChild(line);
             }
         }
 
