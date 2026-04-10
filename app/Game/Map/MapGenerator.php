@@ -1258,7 +1258,7 @@ final readonly class MapGenerator
         $dy = $toCoordinate['y'] - $fromCoordinate['y'];
         $distance = sqrt(($dx * $dx) + ($dy * $dy));
 
-        return max(1, (int) ceil($distance / max(1, $distanceDivisor)));
+        return max(1, (int) ceil($distance / max(1, $distanceDivisor))) + 1;
     }
 
     private function edgeKey(string $a, string $b): string

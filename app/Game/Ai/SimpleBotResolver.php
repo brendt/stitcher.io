@@ -19,6 +19,8 @@ use Tempest\Http\Method;
 final readonly class SimpleBotResolver
 {
     private const OVERCLAIM_CAP = 5;
+    private const MIN_THINK_SECONDS = 1;
+    private const MAX_THINK_SECONDS = 4;
 
     public function __construct(
         private GameRepository $games,
@@ -60,12 +62,18 @@ final readonly class SimpleBotResolver
                 return;
             }
 
+            if ($this->shouldWaitForThink($gameId, $player->id, $effectiveAt, $randomizer)) {
+                return;
+            }
+
             if ($this->tryClaimChallenge($gameId, $player->id, $player->stationId, $effectiveAt)) {
+                $this->scheduleNextThink($gameId, $player->id, $effectiveAt, $randomizer);
                 return;
             }
 
             $neighbors = $this->neighborsFor($game, $player->stationId);
             if ($neighbors === []) {
+                $this->scheduleNextThink($gameId, $player->id, $effectiveAt, $randomizer);
                 return;
             }
             $challengeTargets = $this->targetChallengeStations($gameId, $player->id);
@@ -141,6 +149,7 @@ final readonly class SimpleBotResolver
             }
 
             if ($moved) {
+                $this->scheduleNextThink($gameId, $player->id, $effectiveAt, $randomizer);
                 return;
             }
 
@@ -171,10 +180,13 @@ final readonly class SimpleBotResolver
                         deposit: (int) $deposit,
                         effectiveAt: $effectiveAt,
                     )) {
+                        $this->scheduleNextThink($gameId, $player->id, $effectiveAt, $randomizer);
                         return;
                     }
                 }
             }
+
+            $this->scheduleNextThink($gameId, $player->id, $effectiveAt, $randomizer);
     }
 
     private function attemptMove(
@@ -254,6 +266,46 @@ final readonly class SimpleBotResolver
     private function isBotPlayerId(string $playerId): bool
     {
         return str_starts_with($playerId, 'ai');
+    }
+
+    private function shouldWaitForThink(
+        string $gameId,
+        string $playerId,
+        string $effectiveAt,
+        Randomizer $randomizer,
+    ): bool {
+        $nowTimestamp = strtotime($effectiveAt);
+        if ($nowTimestamp === false) {
+            return false;
+        }
+
+        $thinkUntil = $this->games->latestBotThinkUntil($gameId, $playerId);
+        if ($thinkUntil === null) {
+            $this->scheduleNextThink($gameId, $playerId, $effectiveAt, $randomizer);
+            return true;
+        }
+
+        $untilTimestamp = strtotime($thinkUntil);
+        if ($untilTimestamp === false) {
+            return false;
+        }
+
+        return $nowTimestamp < $untilTimestamp;
+    }
+
+    private function scheduleNextThink(string $gameId, string $playerId, string $effectiveAt, Randomizer $randomizer): void
+    {
+        $base = DateTime::parse($effectiveAt);
+        $delay = $randomizer->getInt(self::MIN_THINK_SECONDS, self::MAX_THINK_SECONDS);
+        $until = $base->plusSeconds($delay)->format(FormatPattern::SQL_DATE_TIME);
+
+        $this->games->appendEvent(
+            gameId: $gameId,
+            type: 'bot_think_until',
+            playerId: $playerId,
+            payload: ['delaySeconds' => $delay],
+            effectiveAt: $until,
+        );
     }
 
     /**

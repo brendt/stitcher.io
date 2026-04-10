@@ -109,7 +109,7 @@ final readonly class GameStateResolver
                 'id' => $meta['id'],
                 'status' => $meta['status'],
                 'createdAt' => $meta['created_at'],
-                'durationSeconds' => 1200,
+                'durationSeconds' => 600,
             ],
             'players' => $players,
             'stations' => $stations,

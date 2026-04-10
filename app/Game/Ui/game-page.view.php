@@ -97,7 +97,7 @@
                 class="relative w-full h-full bg-gray-800 overflow-hidden touch-none select-none"
                 style="width: 100%; height: 100%; background: #1f2937; touch-action: none;"
             >
-                <div id="map-stage" class="absolute left-0 top-0 origin-top-left select-none" style="width:1200px;height:800px;">
+                <div id="map-stage" class="absolute left-0 top-0 origin-top-left select-none" style="width:1200px;height:800px;border-radius:18px;overflow:hidden;border:2px solid #374151;box-shadow:0 18px 30px rgba(0,0,0,0.35), 0 2px 0 rgba(255,255,255,0.08) inset;">
                     <canvas id="terrain-layer" width="1200" height="800" class="absolute inset-0"></canvas>
                     <svg id="edge-layer" width="1200" height="800" class="absolute inset-0"></svg>
                     <div id="intersection-layer" class="absolute inset-0 pointer-events-none"></div>
@@ -1741,7 +1741,7 @@
                 return 0;
             }
 
-            const durationSeconds = Number(state.game.durationSeconds ?? 1200);
+            const durationSeconds = Number(state.game.durationSeconds ?? 600);
             const createdAtTimestamp = Date.parse(String(state.game.createdAt ?? ''));
             if (!Number.isFinite(createdAtTimestamp)) {
                 return Math.max(0, Math.floor(durationSeconds));

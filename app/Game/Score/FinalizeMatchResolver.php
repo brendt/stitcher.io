@@ -26,7 +26,7 @@ final readonly class FinalizeMatchResolver
      */
     public function handle(string $gameId, FinalizeMatchRequest $request): array
     {
-        $durationSeconds = $request->durationSeconds ?? 1200;
+        $durationSeconds = $request->durationSeconds ?? 600;
         $hubBonus = $request->hubBonus ?? 2;
         $force = $request->force ?? false;
 

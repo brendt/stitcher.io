@@ -627,6 +627,24 @@ final class GameRepository
         return $row !== null ? (string) $row['spawned_at'] : null;
     }
 
+    public function latestBotThinkUntil(string $gameId, string $playerId): ?string
+    {
+        $row = query('game_events')
+            ->select('effective_at')
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'bot_think_until')
+            ->where('player_id = ?', $playerId)
+            ->orderBy('id DESC')
+            ->first();
+
+        if ($row === null) {
+            return null;
+        }
+
+        $effectiveAt = (string) ($row['effective_at'] ?? '');
+        return $effectiveAt !== '' ? $effectiveAt : null;
+    }
+
     public function completeChallenge(int $challengeId): void
     {
         query('game_challenges')
