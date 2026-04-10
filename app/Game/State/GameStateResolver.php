@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Game\State;
 
 use App\Game\Challenge\ChallengeCommandResolver;
+use App\Game\Move\MoveCommandResolver;
 use App\Game\Persistence\GameRepository;
 use Random\Engine\Mt19937;
 use Random\Randomizer;
@@ -14,6 +15,7 @@ final readonly class GameStateResolver
     public function __construct(
         private GameRepository $games,
         private ChallengeCommandResolver $challenges,
+        private MoveCommandResolver $moves,
     ) {}
 
     /**
@@ -21,6 +23,7 @@ final readonly class GameStateResolver
      */
     public function resolve(string $gameId, bool $includeTimeline = false, ?string $viewerPlayerId = null): array
     {
+        $this->moves->processDueMoves($gameId);
         $meta = $this->games->loadMeta($gameId);
         $game = $this->games->load($gameId);
         $this->challenges->fillPlayerSpecificChallengePool(gameId: $gameId, game: $game);
@@ -28,11 +31,30 @@ final readonly class GameStateResolver
         $usedStationNames = [];
 
         $players = array_values(array_map(
-            static fn ($player): array => [
-                'id' => $player->id,
-                'coins' => $player->coins,
-                'stationId' => $player->stationId,
-            ],
+            function ($player) use ($gameId): array {
+                $pendingMove = $this->games->pendingMoveForPlayer(
+                    gameId: $gameId,
+                    playerId: $player->id,
+                );
+
+                $pendingMovePayload = null;
+                if ($pendingMove !== null) {
+                    $remainingSeconds = max(0, (int) ceil((strtotime($pendingMove['arrivalAt']) - time())));
+                    $pendingMovePayload = [
+                        'toStationId' => $pendingMove['toStationId'],
+                        'arrivalAt' => $pendingMove['arrivalAt'],
+                        'travelTimeSeconds' => $pendingMove['travelTimeSeconds'],
+                        'remainingSeconds' => $remainingSeconds,
+                    ];
+                }
+
+                return [
+                    'id' => $player->id,
+                    'coins' => $player->coins,
+                    'stationId' => $player->stationId,
+                    'pendingMove' => $pendingMovePayload,
+                ];
+            },
             $game->players,
         ));
 

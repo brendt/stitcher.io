@@ -25,6 +25,33 @@
             }
         }
 
+        @keyframes transitTargetPulse {
+            0% {
+                box-shadow:
+                    0 0 0 2px rgba(var(--pulse-r), var(--pulse-g), var(--pulse-b), 0.9),
+                    2px 2px 0 #00000055;
+            }
+            50% {
+                box-shadow:
+                    0 0 0 9px rgba(var(--pulse-r), var(--pulse-g), var(--pulse-b), 0.2),
+                    2px 2px 0 #00000055;
+            }
+            100% {
+                box-shadow:
+                    0 0 0 2px rgba(var(--pulse-r), var(--pulse-g), var(--pulse-b), 0.9),
+                    2px 2px 0 #00000055;
+            }
+        }
+
+        @keyframes departingStationFade {
+            0% {
+                filter: brightness(1.06);
+            }
+            100% {
+                filter: brightness(1);
+            }
+        }
+
         #edge-layer,
         #edge-layer text {
             user-select: none;
@@ -77,6 +104,7 @@
                 </div>
                 <div id="move-modal" data-map-interactive="true" class="hidden absolute z-30 w-52 rounded-lg border border-gray-300 p-3 shadow-lg text-xs bg-white">
                     <div id="move-modal-title" class="font-bold text-sm text-gray-900 mb-2"></div>
+                    <div id="move-modal-travel-time" class="hidden mb-2 text-center text-[11px] font-semibold text-gray-600"></div>
                     <div id="move-modal-coin-selector" class="flex items-center justify-center gap-2">
                         <button id="move-modal-minus" type="button" class="min-w-12 px-3 py-1 rounded bg-gray-100 font-bold cursor-pointer hover:bg-gray-200">-</button>
                         <div id="move-modal-amount" class="min-w-12 text-center text-sm font-bold text-gray-900">0</div>
@@ -131,6 +159,7 @@
         const moveModalCancel = document.getElementById('move-modal-cancel');
         const moveModalConfirm = document.getElementById('move-modal-confirm');
         const moveModalChallenge = document.getElementById('move-modal-challenge');
+        const moveModalTravelTime = document.getElementById('move-modal-travel-time');
         const zoomInBtn = document.getElementById('zoom-in');
         const zoomOutBtn = document.getElementById('zoom-out');
         const refreshBtn = document.getElementById('refresh-btn');
@@ -157,6 +186,7 @@
         let moveModalCoins = 0;
         let stationBounds = null;
         let statsIntervalId = null;
+        let lastStateLoadedAtMs = Date.now();
 
         stage.style.transformOrigin = '0 0';
 
@@ -231,6 +261,10 @@
             moveModalBounds = null;
             moveModal.classList.add('hidden');
             moveModalChallenge.classList.add('hidden');
+            if (moveModalTravelTime) {
+                moveModalTravelTime.textContent = '';
+                moveModalTravelTime.classList.add('hidden');
+            }
             moveModalCoinSelector.classList.remove('hidden');
             moveModalConfirm.classList.remove('hidden');
         }
@@ -356,15 +390,30 @@
                 moveModalChallenge.classList.add('hidden');
             }
             const challengeOnlyMode = isCurrentStation && challenge !== null;
-            moveModalCoinSelector.classList.toggle('hidden', challengeOnlyMode);
+            const claimedTravelMode = !isCurrentStation && station.ownerId === player.id;
+            const hideCoinSelector = challengeOnlyMode || claimedTravelMode;
+            moveModalCoinSelector.classList.toggle('hidden', hideCoinSelector);
             moveModalConfirm.classList.toggle('hidden', challengeOnlyMode);
+            const travelTimeSeconds = (!isCurrentStation && player.stationId)
+                ? edgeTravelTimeSeconds(player.stationId, stationId)
+                : null;
+            if (moveModalTravelTime) {
+                if (!challengeOnlyMode && travelTimeSeconds !== null) {
+                    moveModalTravelTime.textContent = `Travel time: ${travelTimeSeconds}s`;
+                    moveModalTravelTime.classList.remove('hidden');
+                } else {
+                    moveModalTravelTime.textContent = '';
+                    moveModalTravelTime.classList.add('hidden');
+                }
+            }
 
             moveModalStationId = stationId;
             moveModalBounds = bounds;
             moveModalCoins = clampMoveCoins(bounds.value);
             moveModalTitle.textContent = stationLabel(station);
-            moveModalConfirm.disabled = bounds.disabled;
-            moveModalConfirm.className = bounds.disabled
+            const confirmDisabled = challengeOnlyMode ? false : (!claimedTravelMode && bounds.disabled);
+            moveModalConfirm.disabled = confirmDisabled;
+            moveModalConfirm.className = confirmDisabled
                 ? 'bg-gray-300 text-white px-2 py-1 rounded cursor-not-allowed'
                 : 'bg-emerald-600 text-white px-2 py-1 rounded';
             updateMoveModalAmountUi();
@@ -637,6 +686,20 @@
             return state.stations.find((station) => station.id === id) ?? null;
         }
 
+        function edgeTravelTimeSeconds(fromStationId, toStationId) {
+            if (!fromStationId || !toStationId) {
+                return null;
+            }
+
+            const edge = state.edges.find((candidate) => (
+                (candidate.fromStationId === fromStationId && candidate.toStationId === toStationId)
+                || (candidate.toStationId === fromStationId && candidate.fromStationId === toStationId)
+            ));
+
+            const seconds = Number(edge?.travelTimeSeconds ?? NaN);
+            return Number.isFinite(seconds) && seconds > 0 ? seconds : null;
+        }
+
         function stationLabel(station) {
             return station?.name ?? station?.id ?? '-';
         }
@@ -644,6 +707,26 @@
         function currentPlayer() {
             const id = playerSelect.value || state.players[0]?.id;
             return state.players.find((player) => player.id === id) ?? null;
+        }
+
+        function playerRemainingTravelSeconds(player) {
+            const pendingMove = player?.pendingMove;
+            if (!pendingMove) {
+                return null;
+            }
+
+            if (Number.isFinite(Number(pendingMove.remainingSeconds))) {
+                const elapsedSeconds = Math.max(0, Math.floor((Date.now() - lastStateLoadedAtMs) / 1000));
+                return Math.max(0, Number(pendingMove.remainingSeconds) - elapsedSeconds);
+            }
+
+            if (pendingMove.arrivalAt) {
+                const arrivalTimestamp = Date.parse(String(pendingMove.arrivalAt).replace(' ', 'T'));
+                const remaining = Math.ceil((arrivalTimestamp - Date.now()) / 1000);
+                return Math.max(0, Number.isFinite(remaining) ? remaining : 0);
+            }
+
+            return null;
         }
 
         function stateUrlForCurrentPlayer() {
@@ -674,6 +757,36 @@
             }
 
             return PLAYER_COLOR_FALLBACK[hash % PLAYER_COLOR_FALLBACK.length];
+        }
+
+        function hexToRgb(hex) {
+            const value = String(hex ?? '').replace('#', '');
+            const normalized = value.length === 3
+                ? value.split('').map((part) => part + part).join('')
+                : value;
+
+            if (!/^[0-9a-fA-F]{6}$/.test(normalized)) {
+                return { r: 148, g: 163, b: 184 };
+            }
+
+            return {
+                r: Number.parseInt(normalized.slice(0, 2), 16),
+                g: Number.parseInt(normalized.slice(2, 4), 16),
+                b: Number.parseInt(normalized.slice(4, 6), 16),
+            };
+        }
+
+        function rgbaFromHex(hex, alpha) {
+            const rgb = hexToRgb(hex);
+            return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+        }
+
+        function washedHexColor(hex, ratio = 0.35) {
+            const rgb = hexToRgb(hex);
+            const clamp = (value) => Math.max(0, Math.min(255, Math.round(value)));
+            const mix = (channel) => clamp(channel + ((255 - channel) * ratio));
+            const toHex = (channel) => mix(channel).toString(16).padStart(2, '0');
+            return `#${toHex(rgb.r)}${toHex(rgb.g)}${toHex(rgb.b)}`;
         }
 
         function claimShadow(ownerId, topValue) {
@@ -954,15 +1067,16 @@
                 const fromLine = stationLineById.get(edge.fromStationId);
                 const toLine = stationLineById.get(edge.toStationId);
                 const touchesBranchLine = (fromLine && fromLine !== 'L1') || (toLine && toLine !== 'L1');
-                const baseStroke = edge.isExpress ? '#0f766e' : (touchesBranchLine ? '#7f8fb0' : '#94a3b8');
+                const baseStroke = touchesBranchLine ? '#7f8fb0' : '#94a3b8';
                 const edgeStroke = ownerStroke ?? baseStroke;
+                const borderStroke = edge.isExpress ? '#facc15' : 'rgba(255,255,255,0.72)';
 
                 const base = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 base.setAttribute('x1', String(from.x));
                 base.setAttribute('y1', String(from.y));
                 base.setAttribute('x2', String(to.x));
                 base.setAttribute('y2', String(to.y));
-                base.setAttribute('stroke', 'rgba(255,255,255,0.72)');
+                base.setAttribute('stroke', borderStroke);
                 base.setAttribute('stroke-width', edge.isExpress ? '6' : '4');
                 base.setAttribute('stroke-linecap', 'square');
                 edgeLayer.appendChild(base);
@@ -1148,6 +1262,12 @@
             const player = currentPlayer();
             if (!player) return;
 
+            if (player.pendingMove) {
+                const remaining = playerRemainingTravelSeconds(player);
+                setFeedback(`Already traveling (${remaining ?? '?'}s left).`, true);
+                return;
+            }
+
             if (!canMoveTo(player, targetStationId)) {
                 setFeedback('Target is not adjacent to your current station.', true);
                 return;
@@ -1177,10 +1297,17 @@
                 deposit,
             });
 
-            setFeedback(
-                result.accepted ? `Traveled to ${stationLabel(target)}.` : `Move rejected: ${result.reason}`,
-                !result.accepted,
-            );
+            let moveMessage = `Move rejected: ${result.reason}`;
+            let moveError = !result.accepted;
+            if (result.accepted && result.reason === 'in_transit') {
+                moveMessage = `Traveling to ${stationLabel(target)} (${result.travelTimeSeconds ?? '?'}s)`;
+                moveError = false;
+            } else if (result.accepted) {
+                moveMessage = `Traveled to ${stationLabel(target)}.`;
+                moveError = false;
+            }
+
+            setFeedback(moveMessage, moveError);
             hideMoveModal();
             await loadState();
 
@@ -1199,6 +1326,19 @@
         function renderNodes() {
             nodeLayer.innerHTML = '';
             const player = currentPlayer();
+            const inTransit = Boolean(player?.pendingMove);
+            const transitTargetStationId = player?.pendingMove?.toStationId ?? null;
+            const playerIdsByStation = new Map();
+
+            for (const candidate of state.players) {
+                if (!candidate.stationId) {
+                    continue;
+                }
+
+                const occupying = playerIdsByStation.get(candidate.stationId) ?? [];
+                occupying.push(candidate.id);
+                playerIdsByStation.set(candidate.stationId, occupying);
+            }
 
             for (const station of state.stations) {
                 const position = stationPositions[station.id];
@@ -1209,8 +1349,8 @@
                 button.dataset.mapInteractive = 'true';
                 button.dataset.mapNode = 'true';
                 const challenge = challengeAtStation(station.id);
-                const isPlayerStation = player?.stationId === station.id;
-                const isReachable = player ? canMoveTo(player, station.id) : false;
+                const isPlayerStation = !inTransit && player?.stationId === station.id;
+                const isReachable = !inTransit && player ? canMoveTo(player, station.id) : false;
                 button.dataset.reachable = isReachable ? 'true' : 'false';
                 button.dataset.current = isPlayerStation ? 'true' : 'false';
                 const selectedPlayerColor = playerColor(player?.id ?? null);
@@ -1218,6 +1358,9 @@
                 const isClaimed = station.ownerId !== null;
                 const isOutOfReachClaimed = isClaimed && !isPlayerStation && !isReachable;
                 const claimAura = claimShadow(station.ownerId, station.topValue);
+                const occupyingPlayerIds = playerIdsByStation.get(station.id) ?? [];
+                const otherOccupyingPlayerId = occupyingPlayerIds.find((playerId) => playerId !== player?.id) ?? null;
+                const otherOccupyingPlayerColor = otherOccupyingPlayerId ? playerColor(otherOccupyingPlayerId) : null;
 
                 button.className = 'absolute border text-[7px] font-black flex items-center justify-center p-0 leading-none';
                 button.style.left = `${position.x - (NODE_SIZE / 2)}px`;
@@ -1239,13 +1382,20 @@
                     button.style.color = '#ffffff';
                     button.style.outline = 'none';
                     button.style.boxShadow = claimAura ? `${claimAura}, 2px 2px 0 #00000055` : '2px 2px 0 #00000055';
+                } else if (otherOccupyingPlayerColor) {
+                    button.style.background = washedHexColor(otherOccupyingPlayerColor, 0.42);
+                    button.style.borderColor = otherOccupyingPlayerColor;
+                    button.style.color = '#ffffff';
+                    button.style.outline = 'none';
+                    button.style.boxShadow = claimAura ? `${claimAura}, 2px 2px 0 #00000044` : '2px 2px 0 #00000044';
+                    button.style.animation = 'none';
                 } else if (isReachable) {
                     button.style.background = '#ffffff';
                     button.style.borderColor = selectedPlayerColor;
                     button.style.color = isClaimed ? ownerColor : selectedPlayerColor;
                     button.style.outline = 'none';
                     const doubleOutline = `0 0 0 1px #ffffff, 0 0 0 3px ${selectedPlayerColor}`;
-                    button.style.boxShadow = claimAura ? `${claimAura}, ${doubleOutline}, 2px 2px 0 #00000044` : `${doubleOutline}, 2px 2px 0 #00000044`;
+                    button.style.boxShadow = claimAura ? `${doubleOutline}, ${claimAura}, 2px 2px 0 #00000044` : `${doubleOutline}, 2px 2px 0 #00000044`;
                     button.style.animation = 'none';
                 } else {
                     button.style.background = isClaimed ? '#ffffff' : '#e5e7eb';
@@ -1260,10 +1410,30 @@
                     button.style.animation = 'none';
                 }
 
+                if (inTransit && player?.stationId === station.id) {
+                    button.style.animation = 'departingStationFade 180ms ease-out';
+                }
+
+                if (inTransit && transitTargetStationId === station.id) {
+                    const pulseColor = playerColor(player?.id ?? null);
+                    const rgb = hexToRgb(pulseColor);
+                    button.style.setProperty('--pulse-r', String(rgb.r));
+                    button.style.setProperty('--pulse-g', String(rgb.g));
+                    button.style.setProperty('--pulse-b', String(rgb.b));
+                    button.style.borderColor = pulseColor;
+                    button.style.animation = 'transitTargetPulse 1.25s ease-in-out infinite';
+                }
+
                 const deposited = station.topValue > 0 ? station.topValue : null;
                 button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ` | challenge +${challenge.reward}` : ''}`;
                 button.textContent = deposited === null ? '-' : String(deposited);
                 button.addEventListener('click', (event) => {
+                    if (inTransit) {
+                        const remaining = playerRemainingTravelSeconds(player);
+                        setFeedback(`Travel in progress (${remaining ?? '?'}s left).`, true);
+                        return;
+                    }
+
                     const bypassPopup = event.altKey === true;
 
                     if (bypassPopup && isPlayerStation && challenge) {
@@ -1289,7 +1459,7 @@
                     }
 
                     if (station.ownerId === player?.id) {
-                        moveTo(station.id, 0);
+                        showMoveModal(station.id);
                         return;
                     }
 
@@ -1322,7 +1492,7 @@
 
             applyNodeScale();
 
-            if (moveModalStationId && !stationPositions[moveModalStationId]) {
+            if (inTransit || (moveModalStationId && !stationPositions[moveModalStationId])) {
                 hideMoveModal();
             } else {
                 positionMoveModal();
@@ -1406,12 +1576,48 @@
             row.appendChild(indicator);
             row.appendChild(text);
             playerStatsContent.appendChild(row);
+
+            if (activePlayer.pendingMove) {
+                const destination = stationById(activePlayer.pendingMove.toStationId);
+                const destinationLabel = stationLabel(destination) || activePlayer.pendingMove.toStationId;
+                const remaining = playerRemainingTravelSeconds(activePlayer) ?? activePlayer.pendingMove.remainingSeconds ?? '?';
+                feedback.className = 'text-xs min-h-5 text-center text-gray-300';
+                feedback.textContent = `Traveling to ${destinationLabel} (${remaining}s)`;
+            }
+        }
+
+        function maybeShowArrivalFeedback(previousState, nextState) {
+            if (!previousState || !nextState) {
+                return;
+            }
+
+            const selectedPlayerId = playerSelect.value || nextState.players[0]?.id;
+            if (!selectedPlayerId) {
+                return;
+            }
+
+            const previousPlayer = previousState.players?.find((player) => player.id === selectedPlayerId) ?? null;
+            const nextPlayer = nextState.players?.find((player) => player.id === selectedPlayerId) ?? null;
+            if (!previousPlayer || !nextPlayer) {
+                return;
+            }
+
+            if (!previousPlayer.pendingMove || nextPlayer.pendingMove) {
+                return;
+            }
+
+            const arrivedStation = nextState.stations?.find((station) => station.id === nextPlayer.stationId) ?? null;
+            const destinationLabel = stationLabel(arrivedStation) || nextPlayer.stationId || previousPlayer.pendingMove.toStationId;
+            setFeedback(`Arrived at ${destinationLabel}.`);
         }
 
         async function loadState(recenter = false) {
+            const previousState = state;
             const response = await fetch(stateUrlForCurrentPlayer(), { headers: { 'Accept': 'application/json' } });
             state = await response.json();
+            lastStateLoadedAtMs = Date.now();
             ensurePlayerOptions();
+            maybeShowArrivalFeedback(previousState, state);
             computeStationPositions();
             renderTerrain();
             renderEdges();

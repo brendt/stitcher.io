@@ -19,12 +19,56 @@ final readonly class MoveCommandResolver
     ) {}
 
     /**
-     * @return array{accepted: bool, reason: string, requestEventId: int}
+     * @return array{accepted: bool, reason: string, requestEventId: int, arrivalAt?: string, travelTimeSeconds?: int}
      */
     public function handle(string $gameId, MoveCommandRequest $request): array
     {
-        $effectiveAt = $request->effectiveAt
+        $departureAt = $request->effectiveAt
             ?? DateTime::now()->format(FormatPattern::SQL_DATE_TIME);
+        $game = $this->games->load($gameId);
+
+        if ($this->games->hasPendingMoveForPlayer($gameId, $request->playerId)) {
+            return [
+                'accepted' => false,
+                'reason' => 'already_in_transit',
+                'requestEventId' => 0,
+            ];
+        }
+
+        $travelTimeSeconds = $this->travelTimeBetween(
+            game: $game,
+            fromStationId: $request->fromStationId,
+            toStationId: $request->toStationId,
+        );
+
+        if ($travelTimeSeconds === null) {
+            return [
+                'accepted' => false,
+                'reason' => 'not_adjacent',
+                'requestEventId' => 0,
+            ];
+        }
+
+        $validation = $this->validateMove(
+            game: $game,
+            request: [
+                'id' => 0,
+                'playerId' => $request->playerId,
+                'fromStationId' => $request->fromStationId,
+                'toStationId' => $request->toStationId,
+                'deposit' => $request->deposit,
+            ],
+        );
+
+        if ($validation['accepted'] === false) {
+            return [
+                'accepted' => false,
+                'reason' => $validation['reason'],
+                'requestEventId' => 0,
+            ];
+        }
+
+        $arrivalAt = DateTime::parse($departureAt)->plusSeconds($travelTimeSeconds)->format(FormatPattern::SQL_DATE_TIME);
 
         $requestEventId = $this->games->appendEvent(
             gameId: $gameId,
@@ -35,27 +79,54 @@ final readonly class MoveCommandResolver
                 'fromStationId' => $request->fromStationId,
                 'toStationId' => $request->toStationId,
                 'deposit' => $request->deposit,
+                'departureAt' => $departureAt,
+                'travelTimeSeconds' => $travelTimeSeconds,
             ],
-            effectiveAt: $effectiveAt,
+            effectiveAt: $arrivalAt,
         );
 
-        $this->resolveTargetConflicts(
-            gameId: $gameId,
-            effectiveAt: $effectiveAt,
-            toStationId: $request->toStationId,
-        );
+        $this->processDueMoves($gameId);
 
         $resolution = $this->games->findMoveResolution(
             gameId: $gameId,
-            effectiveAt: $effectiveAt,
+            effectiveAt: $arrivalAt,
             requestEventId: $requestEventId,
         );
 
+        if ($resolution !== null) {
+            return [
+                'accepted' => (bool) ($resolution['accepted'] ?? false),
+                'reason' => (string) ($resolution['reason'] ?? 'pending'),
+                'requestEventId' => $requestEventId,
+                'arrivalAt' => $arrivalAt,
+                'travelTimeSeconds' => $travelTimeSeconds,
+            ];
+        }
+
         return [
-            'accepted' => (bool) ($resolution['accepted'] ?? false),
-            'reason' => (string) ($resolution['reason'] ?? 'pending'),
+            'accepted' => true,
+            'reason' => 'in_transit',
             'requestEventId' => $requestEventId,
+            'arrivalAt' => $arrivalAt,
+            'travelTimeSeconds' => $travelTimeSeconds,
         ];
+    }
+
+    public function processDueMoves(string $gameId, ?string $upToEffectiveAt = null): void
+    {
+        $upToEffectiveAt ??= DateTime::now()->format(FormatPattern::SQL_DATE_TIME);
+        $slots = $this->games->pendingMoveArrivalSlots(
+            gameId: $gameId,
+            upToEffectiveAt: $upToEffectiveAt,
+        );
+
+        foreach ($slots as $slot) {
+            $this->resolveTargetConflicts(
+                gameId: $gameId,
+                effectiveAt: $slot['effectiveAt'],
+                toStationId: $slot['toStationId'],
+            );
+        }
     }
 
     private function resolveTargetConflicts(string $gameId, string $effectiveAt, string $toStationId): void
@@ -262,5 +333,19 @@ final readonly class MoveCommandResolver
             effectiveAt: $effectiveAt,
             orderKey: $requestId,
         );
+    }
+
+    private function travelTimeBetween(Game $game, string $fromStationId, string $toStationId): ?int
+    {
+        foreach ($game->edges as $edge) {
+            $matchesForward = $edge->fromStationId === $fromStationId && $edge->toStationId === $toStationId;
+            $matchesReverse = $edge->toStationId === $fromStationId && $edge->fromStationId === $toStationId;
+
+            if ($matchesForward || $matchesReverse) {
+                return $edge->travelTimeSeconds;
+            }
+        }
+
+        return null;
     }
 }

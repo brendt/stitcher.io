@@ -83,7 +83,7 @@ final class MapGeneratorTest extends TestCase
         $generator = new MapGenerator();
         $map = $generator->generate(stationCount: 50, seed: 123);
 
-        self::assertCount(50, $map->stationCoordinates);
+        self::assertGreaterThanOrEqual(50, count($map->stationCoordinates));
         $lineIds = [];
 
         foreach ($map->stationCoordinates as $aId => $a) {
@@ -91,7 +91,7 @@ final class MapGeneratorTest extends TestCase
             self::assertGreaterThanOrEqual(0, $a['y']);
             self::assertLessThanOrEqual(100, $a['x']);
             self::assertLessThanOrEqual(100, $a['y']);
-            self::assertMatchesRegularExpression('/^L\d+$/', $a['line_id']);
+            self::assertMatchesRegularExpression('/^(L\d+|HS1)$/', $a['line_id']);
             $lineIds[$a['line_id']] = true;
 
             foreach ($map->stationCoordinates as $bId => $b) {
@@ -141,7 +141,10 @@ final class MapGeneratorTest extends TestCase
             $lineIds[$coordinate['line_id']] = true;
         }
 
-        self::assertSame(2, count($lineIds));
+        self::assertSame(3, count($lineIds));
+        self::assertArrayHasKey('L1', $lineIds);
+        self::assertArrayHasKey('L2', $lineIds);
+        self::assertArrayHasKey('HS1', $lineIds);
     }
 
     #[Test]
@@ -156,12 +159,94 @@ final class MapGeneratorTest extends TestCase
             $stationCountPerLine[$lineId] = ($stationCountPerLine[$lineId] ?? 0) + 1;
         }
 
-        self::assertCount(6, $stationCountPerLine);
+        self::assertGreaterThanOrEqual(7, count($stationCountPerLine));
 
         for ($index = 1; $index <= 6; $index++) {
             $lineId = sprintf('L%d', $index);
             self::assertArrayHasKey($lineId, $stationCountPerLine);
             self::assertGreaterThanOrEqual(4, $stationCountPerLine[$lineId]);
         }
+    }
+
+    #[Test]
+    public function generated_map_always_contains_one_high_speed_line(): void
+    {
+        $generator = new MapGenerator();
+        $map = $generator->generate(stationCount: 80, seed: 2918, playerCount: 4);
+
+        $expressEdges = array_filter(
+            $map->edges,
+            static fn ($edge): bool => $edge->isExpress,
+        );
+
+        self::assertNotEmpty($expressEdges);
+    }
+
+    #[Test]
+    public function high_speed_line_connects_existing_network_and_hs_stations(): void
+    {
+        $generator = new MapGenerator();
+        $map = $generator->generate(stationCount: 80, seed: 90211, playerCount: 4);
+
+        $lineByStation = [];
+        foreach ($map->stationCoordinates as $stationId => $coordinate) {
+            $lineByStation[$stationId] = $coordinate['line_id'];
+        }
+
+        $expressEdges = array_values(array_filter(
+            $map->edges,
+            static fn ($edge): bool => $edge->isExpress,
+        ));
+
+        self::assertNotEmpty($expressEdges);
+
+        $nonHsStationsOnExpress = [];
+        foreach ($expressEdges as $edge) {
+            $fromLine = $lineByStation[$edge->fromStationId] ?? null;
+            $toLine = $lineByStation[$edge->toStationId] ?? null;
+
+            if ($fromLine !== 'HS1') {
+                $nonHsStationsOnExpress[$edge->fromStationId] = true;
+            }
+            if ($toLine !== 'HS1') {
+                $nonHsStationsOnExpress[$edge->toStationId] = true;
+            }
+        }
+
+        self::assertGreaterThanOrEqual(2, count($nonHsStationsOnExpress));
+    }
+
+    #[Test]
+    public function five_or_more_players_generate_two_high_speed_axes(): void
+    {
+        $generator = new MapGenerator();
+        $map = $generator->generate(stationCount: 96, seed: 9911, playerCount: 6);
+
+        $hasHorizontalExpress = false;
+        $hasVerticalExpress = false;
+
+        foreach ($map->edges as $edge) {
+            if (! $edge->isExpress) {
+                continue;
+            }
+
+            $from = $map->stationCoordinates[$edge->fromStationId] ?? null;
+            $to = $map->stationCoordinates[$edge->toStationId] ?? null;
+            if ($from === null || $to === null) {
+                continue;
+            }
+
+            $dx = abs($to['x'] - $from['x']);
+            $dy = abs($to['y'] - $from['y']);
+            if ($dx >= $dy) {
+                $hasHorizontalExpress = true;
+            }
+            if ($dy >= $dx) {
+                $hasVerticalExpress = true;
+            }
+        }
+
+        self::assertTrue($hasHorizontalExpress);
+        self::assertTrue($hasVerticalExpress);
     }
 }

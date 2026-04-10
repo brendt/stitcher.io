@@ -246,6 +246,151 @@ final class GameRepository
         return null;
     }
 
+    /**
+     * @return list<array{effectiveAt: string, toStationId: string}>
+     */
+    public function pendingMoveArrivalSlots(string $gameId, string $upToEffectiveAt): array
+    {
+        $requests = query('game_events')
+            ->select('id', 'effective_at', 'payload')
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'move_requested')
+            ->where('effective_at IS NOT NULL')
+            ->where('effective_at <= ?', $upToEffectiveAt)
+            ->orderBy('effective_at ASC')
+            ->orderBy('id ASC')
+            ->all();
+
+        $resolutions = query('game_events')
+            ->select('payload')
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'move_resolved')
+            ->all();
+
+        $resolvedRequestIds = [];
+        foreach ($resolutions as $row) {
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            if (isset($payload['requestEventId'])) {
+                $resolvedRequestIds[(int) $payload['requestEventId']] = true;
+            }
+        }
+
+        $slots = [];
+        foreach ($requests as $row) {
+            $requestId = (int) $row['id'];
+            if (isset($resolvedRequestIds[$requestId])) {
+                continue;
+            }
+
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            $effectiveAt = (string) ($row['effective_at'] ?? '');
+            $toStationId = (string) ($payload['toStationId'] ?? '');
+            if ($effectiveAt === '' || $toStationId === '') {
+                continue;
+            }
+
+            $slotKey = $effectiveAt . '|' . $toStationId;
+            $slots[$slotKey] = [
+                'effectiveAt' => $effectiveAt,
+                'toStationId' => $toStationId,
+            ];
+        }
+
+        return array_values($slots);
+    }
+
+    public function hasPendingMoveForPlayer(string $gameId, string $playerId): bool
+    {
+        $requests = query('game_events')
+            ->select('id')
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'move_requested')
+            ->where('player_id = ?', $playerId)
+            ->all();
+
+        if ($requests === []) {
+            return false;
+        }
+
+        $requestIds = array_map(static fn (array $row): int => (int) $row['id'], $requests);
+        $resolutions = query('game_events')
+            ->select('payload')
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'move_resolved')
+            ->all();
+
+        $resolvedRequestIds = [];
+        foreach ($resolutions as $row) {
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            if (isset($payload['requestEventId'])) {
+                $resolvedRequestIds[(int) $payload['requestEventId']] = true;
+            }
+        }
+
+        foreach ($requestIds as $requestId) {
+            if (! isset($resolvedRequestIds[$requestId])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return array{toStationId: string, arrivalAt: string, travelTimeSeconds: int}|null
+     */
+    public function pendingMoveForPlayer(string $gameId, string $playerId): ?array
+    {
+        $requests = query('game_events')
+            ->select('id', 'payload', 'effective_at')
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'move_requested')
+            ->where('player_id = ?', $playerId)
+            ->orderBy('id ASC')
+            ->all();
+
+        if ($requests === []) {
+            return null;
+        }
+
+        $resolutions = query('game_events')
+            ->select('payload')
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'move_resolved')
+            ->where('player_id = ?', $playerId)
+            ->all();
+
+        $resolvedRequestIds = [];
+        foreach ($resolutions as $row) {
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            if (isset($payload['requestEventId'])) {
+                $resolvedRequestIds[(int) $payload['requestEventId']] = true;
+            }
+        }
+
+        foreach ($requests as $request) {
+            $requestId = (int) $request['id'];
+            if (isset($resolvedRequestIds[$requestId])) {
+                continue;
+            }
+
+            $payload = json_decode($request['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            $toStationId = (string) ($payload['toStationId'] ?? '');
+            $arrivalAt = (string) ($request['effective_at'] ?? '');
+            if ($toStationId === '' || $arrivalAt === '') {
+                continue;
+            }
+
+            return [
+                'toStationId' => $toStationId,
+                'arrivalAt' => $arrivalAt,
+                'travelTimeSeconds' => (int) ($payload['travelTimeSeconds'] ?? 0),
+            ];
+        }
+
+        return null;
+    }
+
     public function updatePlayerState(string $gameId, string $playerId, int $coins, string $stationId): void
     {
         query('game_players')

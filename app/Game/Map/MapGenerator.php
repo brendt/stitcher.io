@@ -16,6 +16,15 @@ final readonly class MapGenerator
     private const MIN_STATION_DISTANCE = 3;
     private const MIN_INTERSECTION_STATION_DISTANCE = 5;
     private const MIN_LINE_STATIONS = 4;
+    private const HIGH_SPEED_TOP_BOTTOM_POOL_SIZE = 10;
+    private const HIGH_SPEED_MIN_SEGMENT_DISTANCE = 9;
+    private const HIGH_SPEED_MIN_STATION_COUNT = 4;
+    private const HIGH_SPEED_MAX_STATION_COUNT = 7;
+    private const HIGH_SPEED_EXPRESS_DIVISOR = 12;
+    private const HIGH_SPEED_X_VARIANCE = 1;
+    private const HIGH_SPEED_Y_VARIANCE = 2;
+    private const HIGH_SPEED_MAX_PERPENDICULAR_STEP = 7;
+    private const HIGH_SPEED_INTERSECTION_CLEAR_RADIUS = 4;
 
     public function generate(int $stationCount, int $seed, int $playerCount = 2): GeneratedMap
     {
@@ -143,7 +152,6 @@ final readonly class MapGenerator
                 $this->addEdge(
                     edges: $edges,
                     edgeKeys: $edgeKeys,
-                    random: $random,
                     from: $lineStationIds[$i],
                     to: $lineStationIds[$i + 1],
                     stationCoordinates: $stationCoordinates,
@@ -151,7 +159,6 @@ final readonly class MapGenerator
             }
 
             $this->closeLoop(
-                random: $random,
                 lineStationIds: $lineStationIds,
                 stationCoordinates: $stationCoordinates,
                 edges: $edges,
@@ -173,7 +180,6 @@ final readonly class MapGenerator
             $added = $this->addEdge(
                 edges: $edges,
                 edgeKeys: $edgeKeys,
-                random: $random,
                 from: $bridge['from'],
                 to: $bridge['to'],
                 stationCoordinates: $stationCoordinates,
@@ -184,7 +190,6 @@ final readonly class MapGenerator
                 $this->addEdge(
                     edges: $edges,
                     edgeKeys: $edgeKeys,
-                    random: $random,
                     from: $bridge['from'],
                     to: $bridge['to'],
                     stationCoordinates: $stationCoordinates,
@@ -193,6 +198,40 @@ final readonly class MapGenerator
         }
 
         $stationCounter = count($stationIds) + 1;
+        if ($playerCount >= 5) {
+            $this->addHighSpeedLine(
+                random: $random,
+                edges: $edges,
+                edgeKeys: $edgeKeys,
+                stationIds: $stationIds,
+                stationCoordinates: $stationCoordinates,
+                stationCounter: $stationCounter,
+                forcedAxis: 'x',
+                highSpeedLineId: 'HS1',
+            );
+            $this->addHighSpeedLine(
+                random: $random,
+                edges: $edges,
+                edgeKeys: $edgeKeys,
+                stationIds: $stationIds,
+                stationCoordinates: $stationCoordinates,
+                stationCounter: $stationCounter,
+                forcedAxis: 'y',
+                highSpeedLineId: 'HS2',
+            );
+        } else {
+            $this->addHighSpeedLine(
+                random: $random,
+                edges: $edges,
+                edgeKeys: $edgeKeys,
+                stationIds: $stationIds,
+                stationCoordinates: $stationCoordinates,
+                stationCounter: $stationCounter,
+                forcedAxis: null,
+                highSpeedLineId: 'HS1',
+            );
+        }
+
         $this->promoteEdgeIntersectionsToStations(
             edges: $edges,
             stationIds: $stationIds,
@@ -400,6 +439,319 @@ final readonly class MapGenerator
 
     /**
      * @param list<Edge> $edges
+     * @param array<string, true> $edgeKeys
+     * @param list<string> $stationIds
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    private function addHighSpeedLine(
+        Randomizer $random,
+        array &$edges,
+        array &$edgeKeys,
+        array &$stationIds,
+        array &$stationCoordinates,
+        int &$stationCounter,
+        ?string $forcedAxis,
+        string $highSpeedLineId,
+    ): void {
+        if (count($stationCoordinates) < 2) {
+            return;
+        }
+
+        $existingStationIds = array_values(array_filter(
+            array_keys($stationCoordinates),
+            static fn (string $stationId): bool => ! str_starts_with(($stationCoordinates[$stationId]['line_id'] ?? ''), 'HS'),
+        ));
+        if (count($existingStationIds) < 2) {
+            return;
+        }
+
+        $axis = $forcedAxis ?? $this->highSpeedAxis($stationCoordinates);
+        $top = $existingStationIds;
+        usort(
+            $top,
+            fn (string $left, string $right): int => $this->stationAxisValue($stationCoordinates[$left], $axis)
+                <=> $this->stationAxisValue($stationCoordinates[$right], $axis),
+        );
+        $top = array_slice($top, 0, min(self::HIGH_SPEED_TOP_BOTTOM_POOL_SIZE, count($top)));
+        if ($top === []) {
+            return;
+        }
+
+        $bottom = $existingStationIds;
+        usort(
+            $bottom,
+            fn (string $left, string $right): int => $this->stationAxisValue($stationCoordinates[$right], $axis)
+                <=> $this->stationAxisValue($stationCoordinates[$left], $axis),
+        );
+        $bottom = array_slice($bottom, 0, min(self::HIGH_SPEED_TOP_BOTTOM_POOL_SIZE, count($bottom)));
+        if ($bottom === []) {
+            return;
+        }
+
+        for ($attempt = 0; $attempt < 30; $attempt++) {
+            $from = $top[$random->getInt(0, count($top) - 1)];
+            $candidateBottom = array_values(array_filter(
+                $bottom,
+                static fn (string $stationId): bool => $stationId !== $from,
+            ));
+            if ($candidateBottom === []) {
+                continue;
+            }
+
+            $to = $candidateBottom[$random->getInt(0, count($candidateBottom) - 1)];
+            $highSpeedCoordinates = $this->highSpeedStationCoordinates(
+                random: $random,
+                fromCoordinate: $stationCoordinates[$from],
+                toCoordinate: $stationCoordinates[$to],
+                existingCoordinates: $stationCoordinates,
+                axis: $axis,
+                highSpeedLineId: $highSpeedLineId,
+            );
+
+            if ($highSpeedCoordinates === []) {
+                continue;
+            }
+
+            $route = [$from];
+            foreach ($highSpeedCoordinates as $coordinate) {
+                $stationId = sprintf('S%d', $stationCounter++);
+                $stationIds[] = $stationId;
+                $stationCoordinates[$stationId] = [
+                    'x' => $coordinate['x'],
+                    'y' => $coordinate['y'],
+                    'line_id' => $highSpeedLineId,
+                ];
+                $route[] = $stationId;
+            }
+            $route[] = $to;
+
+            for ($index = 0; $index < count($route) - 1; $index++) {
+                $this->addExpressEdge(
+                    edges: $edges,
+                    edgeKeys: $edgeKeys,
+                    from: $route[$index],
+                    to: $route[$index + 1],
+                    stationCoordinates: $stationCoordinates,
+                );
+            }
+
+            return;
+        }
+
+        $fallbackFrom = $top[$random->getInt(0, count($top) - 1)];
+        $fallbackBottom = array_values(array_filter(
+            $bottom,
+            static fn (string $stationId): bool => $stationId !== $fallbackFrom,
+        ));
+        if ($fallbackBottom === []) {
+            return;
+        }
+
+        $fallbackTo = $fallbackBottom[$random->getInt(0, count($fallbackBottom) - 1)];
+        $this->addExpressEdge(
+            edges: $edges,
+            edgeKeys: $edgeKeys,
+            from: $fallbackFrom,
+            to: $fallbackTo,
+            stationCoordinates: $stationCoordinates,
+        );
+    }
+
+    /**
+     * @param array{x: int, y: int, line_id: string} $fromCoordinate
+     * @param array{x: int, y: int, line_id: string} $toCoordinate
+     * @param array<string, array{x: int, y: int, line_id: string}> $existingCoordinates
+     * @return list<array{x: int, y: int}>
+     */
+    private function highSpeedStationCoordinates(
+        Randomizer $random,
+        array $fromCoordinate,
+        array $toCoordinate,
+        array $existingCoordinates,
+        string $axis,
+        string $highSpeedLineId,
+    ): array {
+        $dx = $toCoordinate['x'] - $fromCoordinate['x'];
+        $dy = $toCoordinate['y'] - $fromCoordinate['y'];
+        $distance = sqrt(($dx * $dx) + ($dy * $dy));
+        if ($distance <= 0.001) {
+            return [];
+        }
+
+        $stationCount = (int) floor($distance / self::HIGH_SPEED_MIN_SEGMENT_DISTANCE) + 1;
+        $stationCount = max(self::HIGH_SPEED_MIN_STATION_COUNT, min(self::HIGH_SPEED_MAX_STATION_COUNT, $stationCount));
+        $intermediateCount = max(1, $stationCount - 2);
+        $proposed = [];
+        $workingCoordinates = $existingCoordinates;
+        $alongDelta = $axis === 'x' ? $dx : $dy;
+        $directionAlong = $alongDelta === 0 ? 1 : ($alongDelta > 0 ? 1 : -1);
+
+        for ($index = 1; $index <= $intermediateCount; $index++) {
+            $ratio = $index / ($intermediateCount + 1);
+            $baseX = (int) round($fromCoordinate['x'] + ($ratio * $dx));
+            $baseY = (int) round($fromCoordinate['y'] + ($ratio * $dy));
+            $placement = $this->placeHighSpeedStationCoordinate(
+                random: $random,
+                baseX: $baseX,
+                baseY: $baseY,
+                axis: $axis,
+                directionAlong: $directionAlong,
+                existingCoordinates: $workingCoordinates,
+                previousCoordinate: $proposed[$index - 2] ?? $fromCoordinate,
+            );
+            if ($placement === null) {
+                return [];
+            }
+
+            $proposed[] = $placement;
+            $workingCoordinates[sprintf('__hs_%d', $index)] = [
+                'x' => $placement['x'],
+                'y' => $placement['y'],
+                'line_id' => $highSpeedLineId,
+            ];
+        }
+
+        return $proposed;
+    }
+
+    /**
+     * @param array<string, array{x: int, y: int, line_id: string}> $existingCoordinates
+     * @param array{x: int, y: int}|null $previousCoordinate
+     * @return array{x: int, y: int}|null
+     */
+    private function placeHighSpeedStationCoordinate(
+        Randomizer $random,
+        int $baseX,
+        int $baseY,
+        string $axis,
+        int $directionAlong,
+        array $existingCoordinates,
+        ?array $previousCoordinate,
+    ): ?array {
+        for ($attempt = 0; $attempt < 140; $attempt++) {
+            $xVariance = $attempt < 90
+                ? $random->getInt(-self::HIGH_SPEED_X_VARIANCE, self::HIGH_SPEED_X_VARIANCE)
+                : $random->getInt(-3, 3);
+            $yVariance = $attempt < 90
+                ? $random->getInt(-self::HIGH_SPEED_Y_VARIANCE, self::HIGH_SPEED_Y_VARIANCE)
+                : $random->getInt(-5, 5);
+            $x = max(2, $baseX + $xVariance);
+            $y = max(2, $baseY + $yVariance);
+
+            if (! $this->isValidHighSpeedStep($previousCoordinate, $x, $y, $axis, $directionAlong)) {
+                continue;
+            }
+
+            if (! $this->hasEnoughSpacing($x, $y, $existingCoordinates)) {
+                continue;
+            }
+
+            return ['x' => $x, 'y' => $y];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array{x: int, y: int}|null $previousCoordinate
+     */
+    private function isValidHighSpeedStep(
+        ?array $previousCoordinate,
+        int $x,
+        int $y,
+        string $axis,
+        int $directionAlong,
+    ): bool
+    {
+        if ($previousCoordinate === null) {
+            return true;
+        }
+
+        $alongStep = $axis === 'x' ? ($x - $previousCoordinate['x']) : ($y - $previousCoordinate['y']);
+        if (($alongStep * $directionAlong) < 1) {
+            return false;
+        }
+
+        $perpendicularStep = $axis === 'x'
+            ? abs($y - $previousCoordinate['y'])
+            : abs($x - $previousCoordinate['x']);
+
+        return $perpendicularStep <= self::HIGH_SPEED_MAX_PERPENDICULAR_STEP;
+    }
+
+    /**
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    private function highSpeedAxis(array $stationCoordinates): string
+    {
+        $minX = null;
+        $maxX = null;
+        $minY = null;
+        $maxY = null;
+
+        foreach ($stationCoordinates as $coordinate) {
+            $x = $coordinate['x'];
+            $y = $coordinate['y'];
+            $minX = $minX === null ? $x : min($minX, $x);
+            $maxX = $maxX === null ? $x : max($maxX, $x);
+            $minY = $minY === null ? $y : min($minY, $y);
+            $maxY = $maxY === null ? $y : max($maxY, $y);
+        }
+
+        $spanX = ($maxX ?? 0) - ($minX ?? 0);
+        $spanY = ($maxY ?? 0) - ($minY ?? 0);
+
+        return $spanX >= $spanY ? 'x' : 'y';
+    }
+
+    /**
+     * @param array{x: int, y: int, line_id: string} $coordinate
+     */
+    private function stationAxisValue(array $coordinate, string $axis): int
+    {
+        return $axis === 'x' ? $coordinate['x'] : $coordinate['y'];
+    }
+
+    /**
+     * @param list<Edge> $edges
+     * @param array<string, true> $edgeKeys
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    private function addExpressEdge(
+        array &$edges,
+        array &$edgeKeys,
+        string $from,
+        string $to,
+        array $stationCoordinates,
+    ): bool {
+        if ($from === $to) {
+            return false;
+        }
+
+        $key = $this->edgeKey($from, $to);
+        if (isset($edgeKeys[$key])) {
+            return false;
+        }
+
+        $edges[] = new Edge(
+            fromStationId: $from,
+            toStationId: $to,
+            travelTimeSeconds: $this->travelTimeSecondsBetween(
+                stationCoordinates: $stationCoordinates,
+                from: $from,
+                to: $to,
+                distanceDivisor: self::HIGH_SPEED_EXPRESS_DIVISOR,
+            ),
+            isExpress: true,
+        );
+
+        $edgeKeys[$key] = true;
+
+        return true;
+    }
+
+    /**
+     * @param list<Edge> $edges
      * @param list<string> $stationIds
      * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
      */
@@ -434,32 +786,50 @@ final readonly class MapGenerator
                         continue;
                     }
 
+                    if ($this->shouldSkipIntersectionPromotion($first, $second)) {
+                        continue;
+                    }
+
                     $x = (int) round($intersection['x']);
                     $y = (int) round($intersection['y']);
                     $x = max(2, $x);
                     $y = max(2, $y);
+                    $isHighSpeedCrossing = $first->isExpress xor $second->isExpress;
+                    $involvesHighSpeed = $first->isExpress || $second->isExpress;
                     $stationId = $this->stationAtCoordinate($x, $y, $stationCoordinates);
-                    $stationId ??= $this->nearestStationWithinDistance(
-                        x: $x,
-                        y: $y,
-                        stationCoordinates: $stationCoordinates,
-                        maxDistance: self::MIN_INTERSECTION_STATION_DISTANCE,
-                    );
 
-                    if ($stationId === null) {
-                        if (! $this->hasEnoughSpacing($x, $y, $stationCoordinates)) {
-                            continue;
+                    if ($isHighSpeedCrossing) {
+                        if ($stationId === null) {
+                            $expressEdge = $first->isExpress ? $first : $second;
+                            $expressLineId = $stationCoordinates[$expressEdge->fromStationId]['line_id'] ?? 'HS1';
+                            $stationId = sprintf('S%d', $stationCounter++);
+                            $stationIds[] = $stationId;
+                            $stationCoordinates[$stationId] = ['x' => $x, 'y' => $y, 'line_id' => $expressLineId];
+                            $intersectionStationIds[] = $stationId;
                         }
+                    } else {
+                        $stationId ??= $this->nearestStationWithinDistance(
+                            x: $x,
+                            y: $y,
+                            stationCoordinates: $stationCoordinates,
+                            maxDistance: self::MIN_INTERSECTION_STATION_DISTANCE,
+                        );
 
-                        if (! $this->hasEnoughIntersectionSpacing($x, $y, $intersectionStationIds, $stationCoordinates)) {
-                            continue;
+                        if ($stationId === null) {
+                            if (! $this->hasEnoughSpacing($x, $y, $stationCoordinates)) {
+                                continue;
+                            }
+
+                            if (! $this->hasEnoughIntersectionSpacing($x, $y, $intersectionStationIds, $stationCoordinates)) {
+                                continue;
+                            }
+
+                            $stationId = sprintf('S%d', $stationCounter++);
+                            $stationIds[] = $stationId;
+                            $lineId = $stationCoordinates[$first->fromStationId]['line_id'] ?? 'L1';
+                            $stationCoordinates[$stationId] = ['x' => $x, 'y' => $y, 'line_id' => $lineId];
+                            $intersectionStationIds[] = $stationId;
                         }
-
-                        $stationId = sprintf('S%d', $stationCounter++);
-                        $stationIds[] = $stationId;
-                        $lineId = $stationCoordinates[$first->fromStationId]['line_id'] ?? 'L1';
-                        $stationCoordinates[$stationId] = ['x' => $x, 'y' => $y, 'line_id' => $lineId];
-                        $intersectionStationIds[] = $stationId;
                     }
 
                     $rebuilt = [];
@@ -477,6 +847,17 @@ final readonly class MapGenerator
                     }
 
                     $edges = $rebuilt;
+                    if ($involvesHighSpeed) {
+                        $this->mergeStationsNearIntersection(
+                            intersectionStationId: $stationId,
+                            x: $x,
+                            y: $y,
+                            stationIds: $stationIds,
+                            stationCoordinates: $stationCoordinates,
+                            edges: $edges,
+                            radius: self::HIGH_SPEED_INTERSECTION_CLEAR_RADIUS,
+                        );
+                    }
                     $splitApplied = true;
                     break 2;
                 }
@@ -486,6 +867,95 @@ final readonly class MapGenerator
                 return;
             }
         }
+    }
+
+    private function shouldSkipIntersectionPromotion(Edge $first, Edge $second): bool
+    {
+        return false;
+    }
+
+    /**
+     * @param list<string> $stationIds
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     * @param list<Edge> $edges
+     */
+    private function mergeStationsNearIntersection(
+        string $intersectionStationId,
+        int $x,
+        int $y,
+        array &$stationIds,
+        array &$stationCoordinates,
+        array &$edges,
+        int $radius,
+    ): void {
+        $toMerge = [];
+
+        foreach ($stationCoordinates as $stationId => $coordinate) {
+            if ($stationId === $intersectionStationId) {
+                continue;
+            }
+
+            $distance = abs($coordinate['x'] - $x) + abs($coordinate['y'] - $y);
+            if ($distance <= $radius) {
+                $toMerge[$stationId] = true;
+            }
+        }
+
+        if ($toMerge === []) {
+            return;
+        }
+
+        $stationIds = array_values(array_filter(
+            $stationIds,
+            static fn (string $stationId): bool => ! isset($toMerge[$stationId]),
+        ));
+
+        foreach (array_keys($toMerge) as $stationId) {
+            unset($stationCoordinates[$stationId]);
+        }
+
+        $merged = [];
+        foreach ($edges as $edge) {
+            $from = isset($toMerge[$edge->fromStationId]) ? $intersectionStationId : $edge->fromStationId;
+            $to = isset($toMerge[$edge->toStationId]) ? $intersectionStationId : $edge->toStationId;
+            if ($from === $to) {
+                continue;
+            }
+
+            $distanceDivisor = $edge->isExpress ? self::HIGH_SPEED_EXPRESS_DIVISOR : 4;
+            $candidate = new Edge(
+                fromStationId: $from,
+                toStationId: $to,
+                travelTimeSeconds: $this->travelTimeSecondsBetween(
+                    stationCoordinates: $stationCoordinates,
+                    from: $from,
+                    to: $to,
+                    distanceDivisor: $distanceDivisor,
+                ),
+                isExpress: $edge->isExpress,
+            );
+
+            $key = $this->edgeKey($from, $to);
+            $current = $merged[$key] ?? null;
+            if ($current === null) {
+                $merged[$key] = $candidate;
+                continue;
+            }
+
+            if (! $current->isExpress && $candidate->isExpress) {
+                $merged[$key] = $candidate;
+                continue;
+            }
+
+            if (
+                $current->isExpress === $candidate->isExpress
+                && $candidate->travelTimeSeconds < $current->travelTimeSeconds
+            ) {
+                $merged[$key] = $candidate;
+            }
+        }
+
+        $edges = array_values($merged);
     }
 
     /**
@@ -627,13 +1097,21 @@ final readonly class MapGenerator
             new Edge(
                 fromStationId: $edge->fromStationId,
                 toStationId: $stationId,
-                travelTimeSeconds: $edge->travelTimeSeconds,
+                travelTimeSeconds: $this->travelTimeSecondsBetween(
+                    stationCoordinates: $stationCoordinates,
+                    from: $edge->fromStationId,
+                    to: $stationId,
+                ),
                 isExpress: $edge->isExpress,
             ),
             new Edge(
                 fromStationId: $stationId,
                 toStationId: $edge->toStationId,
-                travelTimeSeconds: $edge->travelTimeSeconds,
+                travelTimeSeconds: $this->travelTimeSecondsBetween(
+                    stationCoordinates: $stationCoordinates,
+                    from: $stationId,
+                    to: $edge->toStationId,
+                ),
                 isExpress: $edge->isExpress,
             ),
         ];
@@ -661,7 +1139,6 @@ final readonly class MapGenerator
      * @param array<string, true> $edgeKeys
      */
     private function closeLoop(
-        Randomizer $random,
         array $lineStationIds,
         array $stationCoordinates,
         array &$edges,
@@ -677,7 +1154,6 @@ final readonly class MapGenerator
         $closed = $this->addEdge(
             edges: $edges,
             edgeKeys: $edgeKeys,
-            random: $random,
             from: $last,
             to: $first,
             stationCoordinates: $stationCoordinates,
@@ -707,7 +1183,6 @@ final readonly class MapGenerator
             $added = $this->addEdge(
                 edges: $edges,
                 edgeKeys: $edgeKeys,
-                random: $random,
                 from: $pair['from'],
                 to: $pair['to'],
                 stationCoordinates: $stationCoordinates,
@@ -726,7 +1201,6 @@ final readonly class MapGenerator
     private function addEdge(
         array &$edges,
         array &$edgeKeys,
-        Randomizer $random,
         string $from,
         string $to,
         array $stationCoordinates,
@@ -751,13 +1225,40 @@ final readonly class MapGenerator
         $edges[] = new Edge(
             fromStationId: $from,
             toStationId: $to,
-            travelTimeSeconds: $random->getInt(2, 6),
+            travelTimeSeconds: $this->travelTimeSecondsBetween(
+                stationCoordinates: $stationCoordinates,
+                from: $from,
+                to: $to,
+            ),
             isExpress: false,
         );
 
         $edgeKeys[$key] = true;
 
         return true;
+    }
+
+    /**
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    private function travelTimeSecondsBetween(
+        array $stationCoordinates,
+        string $from,
+        string $to,
+        int $distanceDivisor = 4,
+    ): int
+    {
+        $fromCoordinate = $stationCoordinates[$from] ?? null;
+        $toCoordinate = $stationCoordinates[$to] ?? null;
+        if ($fromCoordinate === null || $toCoordinate === null) {
+            return 1;
+        }
+
+        $dx = $toCoordinate['x'] - $fromCoordinate['x'];
+        $dy = $toCoordinate['y'] - $fromCoordinate['y'];
+        $distance = sqrt(($dx * $dx) + ($dy * $dy));
+
+        return max(1, (int) ceil($distance / max(1, $distanceDivisor)));
     }
 
     private function edgeKey(string $a, string $b): string
