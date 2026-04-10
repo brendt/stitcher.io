@@ -25,6 +25,11 @@ final readonly class ChallengeCommandResolver
      */
     public function handle(string $gameId, ChallengeCommandRequest $request): array
     {
+        $meta = $this->games->loadMeta($gameId);
+        if (($meta['status'] ?? 'pending') !== 'active') {
+            return ['accepted' => false, 'reason' => 'game_not_active', 'reward' => 0];
+        }
+
         $game = $this->games->load($gameId);
         $player = $game->player($request->playerId);
 
@@ -100,7 +105,7 @@ final readonly class ChallengeCommandResolver
                 return;
             }
 
-            $reward = $randomizer->getInt(20, 50);
+            $reward = $randomizer->getInt(10, 25);
 
             $this->games->spawnChallenge(
                 gameId: $gameId,
@@ -171,7 +176,7 @@ final readonly class ChallengeCommandResolver
             }
 
             $stationId = $candidateStationIds[$randomizer->getInt(0, count($candidateStationIds) - 1)];
-            $reward = $randomizer->getInt(60, 110);
+            $reward = $randomizer->getInt(30, 55);
 
             $this->games->spawnChallenge(
                 gameId: $gameId,

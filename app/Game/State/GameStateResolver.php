@@ -25,18 +25,26 @@ final readonly class GameStateResolver
      */
     public function resolve(string $gameId, bool $includeTimeline = false, ?string $viewerPlayerId = null): array
     {
-        $this->moves->processDueMoves($gameId);
         $meta = $this->games->loadMeta($gameId);
-        $game = $this->games->load($gameId);
-        $this->challenges->fillPlayerSpecificChallengePool(gameId: $gameId, game: $game);
-        try {
-            $this->bots->playTurn(gameId: $gameId, game: $game);
-        } catch (\Throwable) {
-            // Bot failures should not block state payloads for human players.
+        $isActive = ($meta['status'] ?? 'pending') === 'active';
+
+        if ($isActive) {
+            $this->moves->processDueMoves($gameId);
         }
-        $this->moves->processDueMoves($gameId);
+
         $game = $this->games->load($gameId);
-        $this->challenges->fillPlayerSpecificChallengePool(gameId: $gameId, game: $game);
+        if ($isActive) {
+            $this->challenges->fillPlayerSpecificChallengePool(gameId: $gameId, game: $game);
+            try {
+                $this->bots->playTurn(gameId: $gameId, game: $game);
+            } catch (\Throwable) {
+                // Bot failures should not block state payloads for human players.
+            }
+            $this->moves->processDueMoves($gameId);
+            $game = $this->games->load($gameId);
+            $this->challenges->fillPlayerSpecificChallengePool(gameId: $gameId, game: $game);
+        }
+
         $coordinates = $this->games->stationCoordinates($gameId);
         $usedStationNames = [];
 
@@ -109,8 +117,10 @@ final readonly class GameStateResolver
                 'id' => $meta['id'],
                 'status' => $meta['status'],
                 'createdAt' => $meta['created_at'],
+                'createdAtUnix' => strtotime($meta['created_at']) ?: null,
                 'durationSeconds' => 600,
             ],
+            'lobby' => $this->resolveLobby($meta, $game),
             'players' => $players,
             'stations' => $stations,
             'edges' => $edges,
@@ -128,6 +138,41 @@ final readonly class GameStateResolver
         }
 
         return $payload;
+    }
+
+    /**
+     * @param array{id: string, status: string, created_at: string} $meta
+     * @return array{
+     *   isPending: bool,
+     *   requiredHumanPlayers: int,
+     *   joinedHumanPlayers: int,
+     *   remainingHumanPlayers: int,
+     *   joinUrl: string
+     * }
+     */
+    private function resolveLobby(array $meta, \App\Game\Domain\Game $game): array
+    {
+        $requiredHumanPlayers = 0;
+        $joinedHumanPlayers = 0;
+
+        foreach ($game->players as $player) {
+            if (!str_starts_with($player->id, 'p')) {
+                continue;
+            }
+
+            $requiredHumanPlayers++;
+            if ($player->stationId !== null) {
+                $joinedHumanPlayers++;
+            }
+        }
+
+        return [
+            'isPending' => ($meta['status'] ?? 'pending') === 'pending',
+            'requiredHumanPlayers' => $requiredHumanPlayers,
+            'joinedHumanPlayers' => $joinedHumanPlayers,
+            'remainingHumanPlayers' => max(0, $requiredHumanPlayers - $joinedHumanPlayers),
+            'joinUrl' => sprintf('/game/%s/join', $meta['id']),
+        ];
     }
 
     /**

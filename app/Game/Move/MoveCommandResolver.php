@@ -23,6 +23,15 @@ final readonly class MoveCommandResolver
      */
     public function handle(string $gameId, MoveCommandRequest $request): array
     {
+        $meta = $this->games->loadMeta($gameId);
+        if (($meta['status'] ?? 'pending') !== 'active') {
+            return [
+                'accepted' => false,
+                'reason' => 'game_not_active',
+                'requestEventId' => 0,
+            ];
+        }
+
         $departureAt = $request->effectiveAt
             ?? DateTime::now()->format(FormatPattern::SQL_DATE_TIME);
         $game = $this->games->load($gameId);

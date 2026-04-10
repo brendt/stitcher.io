@@ -16,7 +16,7 @@ use Tests\IntegrationTestCase;
 final class ChallengeCommandControllerTest extends IntegrationTestCase
 {
     #[Test]
-    public function challenge_completion_rewards_between_twenty_and_fifty(): void
+    public function challenge_completion_rewards_between_ten_and_twenty_five(): void
     {
         $gameId = 'game-challenge-' . random_int(1000, 999999);
         $game = new Game(
@@ -70,8 +70,8 @@ final class ChallengeCommandControllerTest extends IntegrationTestCase
         );
 
         foreach ($rewards as $reward) {
-            self::assertGreaterThanOrEqual(20, $reward);
-            self::assertLessThanOrEqual(50, $reward);
+            self::assertGreaterThanOrEqual(10, $reward);
+            self::assertLessThanOrEqual(25, $reward);
         }
     }
 

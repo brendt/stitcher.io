@@ -85,9 +85,9 @@
 <body class="bg-gray-800 m-0 h-screen overflow-hidden">
 <div id="game-root" class="w-screen h-screen bg-gray-800 p-0" style="width: 100vw; height: 100vh;" :data-game-id="$gameId">
     <div class="relative w-full h-full" style="width: 100%; height: 100%;">
-        <a href="/game/demo?mode=single&players=2" class="fixed right-4 top-4 z-50 bg-pink-600 text-white px-3 py-2 rounded font-bold hover:opacity-90 text-sm">New demo</a>
+        <a id="new-demo-link" href="/game/demo?mode=single&players=2" class="fixed right-4 top-4 z-50 bg-pink-600 text-white px-3 py-2 rounded font-bold hover:opacity-90 text-sm">New demo</a>
         <button id="help-toggle" type="button" onclick="var m=document.getElementById('help-modal'); if(m){m.style.display='flex';}" class="fixed right-6 top-20 rounded-full font-bold text-base" style="z-index:130;background:#111827;color:#f9fafb;border:1px solid #374151;box-shadow:0 6px 14px rgba(0,0,0,0.35);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;cursor:pointer;padding:10px 14px;line-height:1;margin:10px;" aria-label="Open help" title="Help">?</button>
-        <div id="game-timer-notch" style="position: fixed; left: 50%; top: 0; transform: translateX(-50%); z-index: 100; background: #111827; color: #f9fafb; border: 1px solid #374151; border-top: none; border-radius: 0 0 12px 12px; box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 2px 0 rgba(255,255,255,0.08) inset; padding: 8px 20px; font-size: 14px; font-weight: 700; line-height: 1; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">
+        <div id="game-timer-notch" style="position: fixed; left: 50%; top: 20px; transform: translateX(-50%); z-index: 100; background: #111827; color: #f9fafb; border: 1px solid #374151; border-radius: 12px; box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 2px 0 rgba(255,255,255,0.08) inset; padding: 8px 20px; font-size: 14px; font-weight: 700; line-height: 1; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 6px;">
             00:00
         </div>
 
@@ -118,15 +118,33 @@
                         <button id="move-modal-challenge" type="button" class="hidden flex-1 px-2 py-1 rounded bg-yellow-300 font-bold hover:bg-yellow-400 text-center">Claim challenge</button>
                     </div>
                 </div>
+                <div id="lobby-overlay" class="hidden" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;padding:24px;z-index:120;background:rgba(3,7,18,0.72);">
+                    <div style="width:min(460px, calc(100vw - 56px));padding:20px 22px;background:#111827;color:#f9fafb;border:1px solid #374151;border-radius:14px;box-shadow:0 20px 30px rgba(0,0,0,0.42), 0 2px 0 rgba(255,255,255,0.08) inset;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+                        <h2 id="lobby-title" class="text-sm font-bold tracking-wide" style="margin:0 0 10px;">Waiting for players</h2>
+                        <div id="lobby-progress" class="text-xs" style="color:#d1d5db;margin-bottom:10px;">0/0 players joined</div>
+                        <div class="text-xs" style="color:#9ca3af;margin-bottom:6px;">Share this join URL:</div>
+                        <div class="flex gap-2">
+                            <input id="lobby-share-url" readonly class="flex-1 text-xs rounded px-2 py-1" style="background:#0b1220;color:#f9fafb;border:1px solid #4b5563;"/>
+                            <button id="lobby-copy-url" type="button" class="rounded px-3 py-1 text-xs font-bold" style="background:#1f2937;border:1px solid #4b5563;color:#e5e7eb;cursor:pointer;">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="end-overlay" class="hidden absolute inset-0 items-center justify-center p-6" style="z-index:125;background:rgba(3,7,18,0.78);">
+                    <div style="width:min(520px, calc(100vw - 56px));padding:20px 22px;background:#111827;color:#f9fafb;border:1px solid #374151;border-radius:14px;box-shadow:0 20px 30px rgba(0,0,0,0.42), 0 2px 0 rgba(255,255,255,0.08) inset;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">
+                        <h2 id="end-title" class="text-sm font-bold tracking-wide" style="margin:0 0 8px;">Match finished</h2>
+                        <div id="end-subtitle" class="text-xs" style="color:#d1d5db;margin-bottom:12px;">Final score</div>
+                        <div id="end-scores" class="grid gap-2 text-xs"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <aside id="player-stats-overlay" class="grid gap-2" style="position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: min(520px, calc(100vw - 24px)); z-index: 95; background: #111827; color: #f9fafb; border: 1px solid #374151; border-bottom: none; border-radius: 12px 12px 0 0; box-shadow: 0 -12px 24px rgba(0,0,0,0.4), 0 -2px 0 rgba(255,255,255,0.08) inset; padding: 10px 14px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; font-weight: 700; line-height: 1;">
-            <div id="feedback" class="min-h-5 text-center text-xs" style="color: #9ca3af; font-weight: 600;"></div>
+        <aside id="player-stats-overlay" class="grid gap-2" style="position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); width: min(520px, calc(100vw - 24px)); z-index: 95; background: #111827; color: #f9fafb; border: 1px solid #374151; border-radius: 12px; box-shadow: 0 -12px 24px rgba(0,0,0,0.4), 0 -2px 0 rgba(255,255,255,0.08) inset; padding: 8px 14px 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; font-weight: 700; line-height: 1;">
+            <div id="feedback" class="text-center text-xs" style="display:none;color: #9ca3af; font-weight: 600;"></div>
             <div id="player-stats-content" class="text-center" style="color: #d1d5db;">Loading…</div>
         </aside>
 
-        <aside style="position: fixed; right: 16px; top: 68px; width: 220px; z-index: 96; background: rgba(17,24,39,0.95); border: 1px solid #374151; border-radius: 10px; box-shadow: 0 10px 18px rgba(0,0,0,0.35); padding: 10px;">
+        <aside id="player-control-overlay" style="position: fixed; right: 16px; top: 68px; width: 220px; z-index: 96; background: rgba(17,24,39,0.95); border: 1px solid #374151; border-radius: 10px; box-shadow: 0 10px 18px rgba(0,0,0,0.35); padding: 10px;">
             <label for="player-select" class="font-bold block mb-1 text-xs" style="color: #e5e7eb; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">Control player</label>
             <select id="player-select" class="w-full rounded px-2 py-1 text-sm" style="background: #0b1220; color: #f9fafb; border: 1px solid #4b5563;"></select>
         </aside>
@@ -186,6 +204,9 @@
         if (!gameId) {
             throw new Error('Missing game id');
         }
+        const queryParams = new URLSearchParams(window.location.search);
+        const initialPlayerIdFromUrl = queryParams.get('playerId') ?? '';
+        const isDemoGame = String(gameId).startsWith('demo-');
         const viewport = document.getElementById('map-viewport');
         const stage = document.getElementById('map-stage');
         const terrainLayer = document.getElementById('terrain-layer');
@@ -196,7 +217,17 @@
         const feedback = document.getElementById('feedback');
         const playerStatsOverlay = document.getElementById('player-stats-overlay');
         const playerStatsContent = document.getElementById('player-stats-content');
+        const newDemoLink = document.getElementById('new-demo-link');
+        const playerControlOverlay = document.getElementById('player-control-overlay');
         const playerSelect = document.getElementById('player-select');
+        const lobbyOverlay = document.getElementById('lobby-overlay');
+        const lobbyProgress = document.getElementById('lobby-progress');
+        const lobbyShareUrl = document.getElementById('lobby-share-url');
+        const lobbyCopyUrl = document.getElementById('lobby-copy-url');
+        const endOverlay = document.getElementById('end-overlay');
+        const endTitle = document.getElementById('end-title');
+        const endSubtitle = document.getElementById('end-subtitle');
+        const endScores = document.getElementById('end-scores');
         const helpToggle = document.getElementById('help-toggle');
         const helpModal = document.getElementById('help-modal');
         const helpClose = document.getElementById('help-close');
@@ -244,9 +275,19 @@
         let moveModalCoins = 0;
         let stationBounds = null;
         let statsIntervalId = null;
+        let statePollIntervalId = null;
         let lastStateLoadedAtMs = Date.now();
+        let hasAppliedInitialPlayerSelection = false;
+        let finalizeInFlight = false;
+        let gameStopped = false;
 
         stage.style.transformOrigin = '0 0';
+        if (playerControlOverlay && !isDemoGame) {
+            playerControlOverlay.style.display = 'none';
+        }
+        if (newDemoLink && !isDemoGame) {
+            newDemoLink.style.display = 'none';
+        }
 
         function showHelpModal() {
             if (helpModal) {
@@ -260,9 +301,242 @@
             }
         }
 
-        function setFeedback(message, isError = false) {
-            feedback.textContent = message;
-            feedback.className = isError ? 'text-xs min-h-5 text-center text-red-700' : 'text-xs min-h-5 text-center text-emerald-700';
+        function setFeedback(message, isError = false, isMuted = false) {
+            const text = String(message ?? '').trim();
+            if (!text) {
+                feedback.textContent = '';
+                feedback.style.display = 'none';
+                feedback.className = 'text-xs text-center';
+                return;
+            }
+
+            feedback.style.display = '';
+            feedback.textContent = text;
+            feedback.className = isMuted
+                ? 'text-xs text-center text-gray-300'
+                : (isError ? 'text-xs text-center text-red-700' : 'text-xs text-center text-emerald-700');
+        }
+
+        function isGamePending() {
+            return Boolean(state?.lobby?.isPending);
+        }
+
+        function hasFinalizedScore(snapshot = state) {
+            if (!snapshot?.score) {
+                return false;
+            }
+
+            if (snapshot.score.winnerPlayerId || snapshot.score.isTie) {
+                return true;
+            }
+
+            return Object.keys(snapshot.score.scores ?? {}).length > 0;
+        }
+
+        function isGameCompleted(snapshot = state) {
+            return String(snapshot?.game?.status ?? '') === 'completed' || hasFinalizedScore(snapshot);
+        }
+
+        function stopGameLoops() {
+            if (gameStopped) {
+                return;
+            }
+
+            gameStopped = true;
+
+            if (statsIntervalId) {
+                clearInterval(statsIntervalId);
+                statsIntervalId = null;
+            }
+
+            if (statePollIntervalId) {
+                clearInterval(statePollIntervalId);
+                statePollIntervalId = null;
+            }
+
+            hideMoveModal();
+        }
+
+        function sortedFinalScores(snapshot = state) {
+            const entries = [];
+            const scoreMap = snapshot?.score?.scores ?? {};
+
+            for (const playerId of Object.keys(scoreMap)) {
+                const row = scoreMap[playerId] ?? {};
+                entries.push({
+                    playerId,
+                    stations: Number(row.stations ?? 0),
+                    hubs: Number(row.hubs ?? 0),
+                    score: Number(row.score ?? 0),
+                });
+            }
+
+            entries.sort((left, right) => {
+                if (left.score !== right.score) {
+                    return right.score - left.score;
+                }
+
+                if (left.stations !== right.stations) {
+                    return right.stations - left.stations;
+                }
+
+                return left.playerId.localeCompare(right.playerId);
+            });
+
+            return entries;
+        }
+
+        function updateEndOverlay() {
+            if (!endOverlay) {
+                return;
+            }
+
+            if (!isGameCompleted()) {
+                endOverlay.classList.add('hidden');
+                endOverlay.style.display = 'none';
+                return;
+            }
+
+            stopGameLoops();
+            setFeedback('');
+            if (playerControlOverlay) {
+                playerControlOverlay.style.display = 'none';
+            }
+
+            endOverlay.classList.remove('hidden');
+            endOverlay.style.display = 'flex';
+
+            const winnerPlayerId = state?.score?.winnerPlayerId ?? null;
+            const isTie = Boolean(state?.score?.isTie);
+
+            if (endTitle) {
+                endTitle.textContent = isTie
+                    ? 'Match finished: tie'
+                    : `Match finished: ${winnerPlayerId ?? 'unknown'} wins`;
+            }
+
+            if (endSubtitle) {
+                endSubtitle.textContent = 'Final score';
+            }
+
+            if (!endScores) {
+                return;
+            }
+
+            endScores.innerHTML = '';
+            for (const entry of sortedFinalScores()) {
+                const row = document.createElement('div');
+                row.style.display = 'flex';
+                row.style.alignItems = 'center';
+                row.style.justifyContent = 'space-between';
+                row.style.gap = '10px';
+                row.style.padding = '6px 8px';
+                row.style.border = '1px solid #374151';
+                row.style.borderRadius = '8px';
+                row.style.background = entry.playerId === winnerPlayerId ? 'rgba(16,185,129,0.16)' : 'rgba(31,41,55,0.6)';
+
+                const left = document.createElement('span');
+                left.style.display = 'inline-flex';
+                left.style.alignItems = 'center';
+                left.style.gap = '6px';
+
+                const dot = document.createElement('span');
+                dot.style.display = 'inline-block';
+                dot.style.width = '8px';
+                dot.style.height = '8px';
+                dot.style.borderRadius = '9999px';
+                dot.style.backgroundColor = playerColor(entry.playerId);
+                dot.style.border = '1px solid #0f172a';
+
+                const name = document.createElement('span');
+                name.textContent = entry.playerId;
+
+                left.appendChild(dot);
+                left.appendChild(name);
+
+                const right = document.createElement('span');
+                right.style.color = '#d1d5db';
+                right.textContent = `score: ${entry.score} · stations: ${entry.stations} · hubs: ${entry.hubs}`;
+
+                row.appendChild(left);
+                row.appendChild(right);
+                endScores.appendChild(row);
+            }
+        }
+
+        function gameTimeLeftSecondsFor(snapshot) {
+            if (!snapshot?.game) {
+                return 0;
+            }
+
+            const durationSeconds = Number(snapshot.game.durationSeconds ?? 600);
+            if (Boolean(snapshot?.lobby?.isPending)) {
+                return Math.max(0, Math.floor(durationSeconds));
+            }
+
+            const createdAtUnix = Number(snapshot.game.createdAtUnix ?? Number.NaN);
+            const createdAtTimestamp = Number.isFinite(createdAtUnix)
+                ? (createdAtUnix * 1000)
+                : Date.parse(String(snapshot.game.createdAt ?? '').replace(' ', 'T'));
+            if (!Number.isFinite(createdAtTimestamp)) {
+                return Math.max(0, Math.floor(durationSeconds));
+            }
+
+            const elapsedSeconds = Math.floor((Date.now() - createdAtTimestamp) / 1000);
+            return Math.max(0, Math.floor(durationSeconds) - elapsedSeconds);
+        }
+
+        async function finalizeMatchIfElapsed(snapshot) {
+            if (finalizeInFlight) {
+                return false;
+            }
+
+            if (!snapshot?.game || Boolean(snapshot?.lobby?.isPending) || isGameCompleted(snapshot)) {
+                return false;
+            }
+
+            if (gameTimeLeftSecondsFor(snapshot) > 0) {
+                return false;
+            }
+
+            finalizeInFlight = true;
+            try {
+                const result = await postForm(`/games/${gameId}/commands/finalize-match`, {
+                    durationSeconds: Number(snapshot.game.durationSeconds ?? 600),
+                });
+
+                return Boolean(result?.accepted);
+            } catch (_error) {
+                return false;
+            } finally {
+                finalizeInFlight = false;
+            }
+        }
+
+        function updateLobbyOverlay() {
+            if (!lobbyOverlay) {
+                return;
+            }
+
+            const lobby = state?.lobby ?? null;
+            if (!lobby || !lobby.isPending) {
+                lobbyOverlay.classList.add('hidden');
+                lobbyOverlay.style.display = 'none';
+                return;
+            }
+
+            hideMoveModal();
+            lobbyOverlay.classList.remove('hidden');
+            lobbyOverlay.style.display = 'flex';
+            if (lobbyProgress) {
+                lobbyProgress.textContent = `${lobby.joinedHumanPlayers}/${lobby.requiredHumanPlayers} players joined`;
+            }
+
+            if (lobbyShareUrl) {
+                const path = String(lobby.joinUrl ?? `/game/${gameId}/join`);
+                const absoluteUrl = path.startsWith('http') ? path : `${window.location.origin}${path}`;
+                lobbyShareUrl.value = absoluteUrl;
+            }
         }
 
         function applyNodeScale() {
@@ -438,6 +712,16 @@
         }
 
         function showMoveModal(stationId) {
+            if (isGameCompleted()) {
+                setFeedback('Match is finished.', true, true);
+                return;
+            }
+
+            if (isGamePending()) {
+                setFeedback('Game is waiting for all players to join.', true);
+                return;
+            }
+
             const player = currentPlayer();
             if (!player) {
                 return;
@@ -776,6 +1060,19 @@
                 hideHelpModal();
             }
         });
+        lobbyCopyUrl?.addEventListener('click', async () => {
+            const value = lobbyShareUrl?.value ?? '';
+            if (!value) {
+                return;
+            }
+
+            try {
+                await navigator.clipboard.writeText(value);
+                setFeedback('Join URL copied.');
+            } catch (_error) {
+                setFeedback('Could not copy URL.', true);
+            }
+        });
 
         moveModalCancel.addEventListener('click', hideMoveModal);
         moveModalMinus.addEventListener('click', () => {
@@ -828,6 +1125,12 @@
                 option.value = player.id;
                 option.textContent = `${player.id} (${player.coins} coins)`;
                 playerSelect.appendChild(option);
+            }
+
+            if (!hasAppliedInitialPlayerSelection && initialPlayerIdFromUrl && state.players.some((p) => p.id === initialPlayerIdFromUrl)) {
+                playerSelect.value = initialPlayerIdFromUrl;
+                hasAppliedInitialPlayerSelection = true;
+                return;
             }
 
             if (selected && state.players.some((p) => p.id === selected)) {
@@ -1472,6 +1775,16 @@
         }
 
         async function completeChallengeForPlayer(player) {
+            if (isGameCompleted()) {
+                setFeedback('Match is finished.', true, true);
+                return;
+            }
+
+            if (isGamePending()) {
+                setFeedback('Game is waiting for all players to join.', true);
+                return;
+            }
+
             if (!player || !player.stationId) return;
 
             const challenge = activeChallengeForPlayer(player);
@@ -1491,6 +1804,16 @@
         }
 
         async function moveTo(targetStationId, requestedDeposit = null, autoClaimChallenge = false) {
+            if (isGameCompleted()) {
+                setFeedback('Match is finished.', true, true);
+                return;
+            }
+
+            if (isGamePending()) {
+                setFeedback('Game is waiting for all players to join.', true);
+                return;
+            }
+
             const player = currentPlayer();
             if (!player) return;
 
@@ -1607,7 +1930,9 @@
                 button.style.opacity = challenge
                     ? '1'
                     : (isOutOfReachClaimed ? '1' : ((!isPlayerStation && !isReachable) ? '0.7' : '1'));
-                button.style.cursor = isReachable || isPlayerStation ? 'pointer' : 'not-allowed';
+                button.style.cursor = isGamePending()
+                    ? 'not-allowed'
+                    : (isGameCompleted() ? 'not-allowed' : (isReachable || isPlayerStation ? 'pointer' : 'not-allowed'));
 
                 if (isPlayerStation) {
                     button.style.background = selectedPlayerColor;
@@ -1662,6 +1987,16 @@
                 button.textContent = deposited === null ? '-' : String(deposited);
                 button.addEventListener('click', (event) => {
                     if (Date.now() - lastTouchDragAt < 300) {
+                        return;
+                    }
+
+                    if (isGameCompleted()) {
+                        setFeedback('Match is finished.', true, true);
+                        return;
+                    }
+
+                    if (isGamePending()) {
+                        setFeedback('Game is waiting for all players to join.', true);
                         return;
                     }
 
@@ -1737,18 +2072,7 @@
         }
 
         function gameTimeLeftSeconds() {
-            if (!state?.game) {
-                return 0;
-            }
-
-            const durationSeconds = Number(state.game.durationSeconds ?? 600);
-            const createdAtTimestamp = Date.parse(String(state.game.createdAt ?? ''));
-            if (!Number.isFinite(createdAtTimestamp)) {
-                return Math.max(0, Math.floor(durationSeconds));
-            }
-
-            const elapsedSeconds = Math.floor((Date.now() - createdAtTimestamp) / 1000);
-            return Math.max(0, Math.floor(durationSeconds) - elapsedSeconds);
+            return gameTimeLeftSecondsFor(state);
         }
 
         function formatDuration(totalSeconds) {
@@ -1774,7 +2098,48 @@
 
             const timeLeft = formatDuration(gameTimeLeftSeconds());
             if (gameTimerNotch) {
-                gameTimerNotch.textContent = timeLeft;
+                gameTimerNotch.innerHTML = '';
+                const highestClaimedScore = state.players.reduce((max, player) => {
+                    const claimedCount = claimedByPlayer.get(player.id) ?? 0;
+                    return Math.max(max, claimedCount);
+                }, 0);
+
+                const time = document.createElement('span');
+                time.textContent = timeLeft;
+                gameTimerNotch.appendChild(time);
+
+                for (const player of state.players) {
+                    const separator = document.createElement('span');
+                    separator.textContent = '·';
+                    separator.style.opacity = '0.85';
+                    gameTimerNotch.appendChild(separator);
+
+                    const score = document.createElement('span');
+                    score.style.display = 'inline-flex';
+                    score.style.alignItems = 'center';
+                    score.style.gap = '6px';
+                    score.style.paddingBottom = '1px';
+
+                    const dot = document.createElement('span');
+                    dot.style.display = 'inline-block';
+                    dot.style.width = '8px';
+                    dot.style.height = '8px';
+                    dot.style.borderRadius = '9999px';
+                    dot.style.backgroundColor = playerColor(player.id);
+                    dot.style.border = '1px solid #0f172a';
+
+                    const label = document.createElement('span');
+                    const claimedCount = claimedByPlayer.get(player.id) ?? 0;
+                    label.textContent = `${claimedCount}`;
+                    label.style.color = playerColor(player.id);
+                    if (claimedCount === highestClaimedScore && highestClaimedScore > 0) {
+                        score.style.borderBottom = `2px solid ${playerColor(player.id)}`;
+                    }
+
+                    score.appendChild(dot);
+                    score.appendChild(label);
+                    gameTimerNotch.appendChild(score);
+                }
             }
             const activePlayer = currentPlayer();
 
@@ -1814,17 +2179,37 @@
             row.appendChild(text);
             playerStatsContent.appendChild(row);
 
+            if (isGamePending()) {
+                setFeedback('Waiting for players...', false, true);
+                return;
+            }
+
+            if (isGameCompleted()) {
+                setFeedback('');
+                return;
+            }
+
             if (activePlayer.pendingMove) {
                 const destination = stationById(activePlayer.pendingMove.toStationId);
                 const destinationLabel = stationLabel(destination) || activePlayer.pendingMove.toStationId;
                 const remaining = playerRemainingTravelSeconds(activePlayer) ?? activePlayer.pendingMove.remainingSeconds ?? '?';
-                feedback.className = 'text-xs min-h-5 text-center text-gray-300';
-                feedback.textContent = `Traveling to ${destinationLabel} (${remaining}s)`;
+                setFeedback(`Traveling to ${destinationLabel} (${remaining}s)`, false, true);
+                return;
             }
+
+            setFeedback('');
         }
 
         function maybeShowArrivalFeedback(previousState, nextState) {
             if (!previousState || !nextState) {
+                return null;
+            }
+
+            if (nextState?.lobby?.isPending) {
+                return null;
+            }
+
+            if (isGameCompleted(nextState)) {
                 return null;
             }
 
@@ -1853,6 +2238,10 @@
             const previousState = state;
             const response = await fetch(stateUrlForCurrentPlayer(), { headers: { 'Accept': 'application/json' } });
             state = await response.json();
+            if (await finalizeMatchIfElapsed(state)) {
+                const finalized = await fetch(stateUrlForCurrentPlayer(), { headers: { 'Accept': 'application/json' } });
+                state = await finalized.json();
+            }
             lastStateLoadedAtMs = Date.now();
             ensurePlayerOptions();
             const arrivalStationId = maybeShowArrivalFeedback(previousState, state);
@@ -1861,7 +2250,9 @@
             renderEdges();
             renderIntersections();
             renderNodes();
-            if (arrivalStationId && challengeAtStation(arrivalStationId)) {
+            updateLobbyOverlay();
+            updateEndOverlay();
+            if (!isGamePending() && arrivalStationId && challengeAtStation(arrivalStationId)) {
                 showMoveModal(arrivalStationId);
             }
             renderPlayerStatsOverlay();
@@ -1871,6 +2262,10 @@
         }
 
         playerSelect.addEventListener('change', async () => {
+            if (isGameCompleted()) {
+                return;
+            }
+
             hideMoveModal();
             await loadState();
         });
@@ -1878,12 +2273,14 @@
         refreshBtn?.addEventListener('click', () => loadState(true));
 
         loadState(true).then(() => {
-            if (!statsIntervalId) {
+            if (!statsIntervalId && !isGameCompleted()) {
                 statsIntervalId = setInterval(() => {
                     renderPlayerStatsOverlay();
                 }, 1000);
             }
-            setInterval(loadState, 3000);
+            if (!statePollIntervalId && !isGameCompleted()) {
+                statePollIntervalId = setInterval(loadState, 3000);
+            }
         }).catch((error) => {
             setFeedback(`Failed to load state: ${error.message}`, true);
         });

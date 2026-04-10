@@ -439,6 +439,18 @@ final class GameRepository
 
     public function setStatus(string $gameId, string $status): void
     {
+        if ($status === 'active') {
+            query('games')
+                ->update(
+                    status: $status,
+                    created_at: DateTime::now()->format(FormatPattern::SQL_DATE_TIME),
+                )
+                ->where('id = ?', $gameId)
+                ->execute();
+
+            return;
+        }
+
         query('games')
             ->update(status: $status)
             ->where('id = ?', $gameId)
