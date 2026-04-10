@@ -7,7 +7,9 @@ namespace App\Game\Challenge;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\Json;
 use Tempest\Router\Post;
+use Tempest\Router\Stateless;
 
+#[Stateless]
 final readonly class ChallengeCommandController
 {
     public function __construct(

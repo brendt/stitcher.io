@@ -7,7 +7,9 @@ namespace App\Game\Move;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\Json;
 use Tempest\Router\Post;
+use Tempest\Router\Stateless;
 
+#[Stateless]
 final readonly class MoveCommandController
 {
     public function __construct(

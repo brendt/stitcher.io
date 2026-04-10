@@ -95,7 +95,7 @@
             <div
                 id="map-viewport"
                 class="relative w-full h-full bg-gray-800 overflow-hidden touch-none select-none"
-                style="width: 100%; height: 100%; background: #1f2937;"
+                style="width: 100%; height: 100%; background: #1f2937; touch-action: none;"
             >
                 <div id="map-stage" class="absolute left-0 top-0 origin-top-left select-none" style="width:1200px;height:800px;">
                     <canvas id="terrain-layer" width="1200" height="800" class="absolute inset-0"></canvas>
@@ -220,6 +220,9 @@
         const MAP_SCALE_FACTOR = 10;
         const MAP_PADDING = 40;
         const MAP_TRAILING_PADDING = 420;
+        const PINCH_ZOOM_EXPONENT = 1.5;
+        const DOUBLE_TAP_MAX_DELAY_MS = 280;
+        const DOUBLE_TAP_MAX_DISTANCE_PX = 24;
         const PLAYER_COLOR_FALLBACK = ['#ef4444', '#3b82f6', '#10b981', '#6366f1', '#ec4899', '#06b6d4'];
 
         let state = null;
@@ -232,6 +235,10 @@
         let pinchStartScale = 1;
         let pinchStartWorld = null;
         let panStart = null;
+        let panStartIsTouch = false;
+        let lastTouchDragAt = 0;
+        let lastTapAt = 0;
+        let lastTapPoint = null;
         let moveModalStationId = null;
         let moveModalBounds = null;
         let moveModalCoins = 0;
@@ -517,6 +524,10 @@
             return target instanceof Element && Boolean(target.closest('[data-map-interactive="true"]'));
         }
 
+        function isMapNodeTarget(target) {
+            return target instanceof Element && Boolean(target.closest('[data-map-node="true"]'));
+        }
+
         function isTypingTarget(target) {
             return target instanceof HTMLElement
                 && (
@@ -527,40 +538,105 @@
                 );
         }
 
-        viewport.addEventListener('pointerdown', (event) => {
-            if (isMapInteractiveTarget(event.target)) {
+        function clearPointerState(pointerId = null) {
+            if (pointerId === null) {
+                activePointers.clear();
+            } else {
+                activePointers.delete(pointerId);
+            }
+
+            if (activePointers.size === 1) {
+                const [remainingPointer] = [...activePointers.values()];
+                if (remainingPointer) {
+                    panStart = { x: remainingPointer.x, y: remainingPointer.y, stageX, stageY };
+                    panStartIsTouch = true;
+                }
+            }
+
+            if (activePointers.size < 2) {
+                pinchStartDistance = null;
+                pinchStartWorld = null;
+            }
+
+            if (activePointers.size === 0) {
+                panStart = null;
+                panStartIsTouch = false;
+            }
+        }
+
+        function handleDoubleTapRecenter(clientX, clientY, target, isTouch) {
+            if (!isTouch || isMapInteractiveTarget(target)) {
                 return;
             }
 
-            if (moveModalStationId) {
-                hideMoveModal();
+            if (!panStart) {
+                return;
             }
 
-            viewport.setPointerCapture(event.pointerId);
-            activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+            const movedX = clientX - panStart.x;
+            const movedY = clientY - panStart.y;
+            if ((movedX * movedX) + (movedY * movedY) > 36) {
+                return;
+            }
+
+            const now = Date.now();
+            if (!lastTapPoint) {
+                lastTapAt = now;
+                lastTapPoint = { x: clientX, y: clientY };
+                return;
+            }
+
+            const deltaTime = now - lastTapAt;
+            const deltaX = clientX - lastTapPoint.x;
+            const deltaY = clientY - lastTapPoint.y;
+            const maxDistanceSq = DOUBLE_TAP_MAX_DISTANCE_PX * DOUBLE_TAP_MAX_DISTANCE_PX;
+
+            lastTapAt = now;
+            lastTapPoint = { x: clientX, y: clientY };
+
+            if (deltaTime <= DOUBLE_TAP_MAX_DELAY_MS && ((deltaX * deltaX) + (deltaY * deltaY) <= maxDistanceSq)) {
+                recenterMapCameraPreserveZoom();
+            }
+        }
+
+        function beginGesture(pointerId, clientX, clientY, target, isTouch = false, allowInteractiveStart = false) {
+            if (!allowInteractiveStart && isMapInteractiveTarget(target)) {
+                return;
+            }
+
+            activePointers.set(pointerId, { x: clientX, y: clientY });
 
             if (activePointers.size === 1) {
-                panStart = { x: event.clientX, y: event.clientY, stageX, stageY };
+                panStart = { x: clientX, y: clientY, stageX, stageY };
+                panStartIsTouch = isTouch;
             }
 
             if (activePointers.size === 2) {
                 const [a, b] = [...activePointers.values()];
+                panStart = null;
+                panStartIsTouch = false;
                 pinchStartDistance = distance(a, b);
                 pinchStartScale = scale;
                 const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
                 const midPoint = viewportPoint(mid.x, mid.y);
                 pinchStartWorld = screenToWorld(midPoint.x, midPoint.y);
             }
-        });
+        }
 
-        viewport.addEventListener('pointermove', (event) => {
-            if (!activePointers.has(event.pointerId)) return;
+        function moveGesture(pointerId, clientX, clientY) {
+            if (!activePointers.has(pointerId)) return;
 
-            activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+            activePointers.set(pointerId, { x: clientX, y: clientY });
 
             if (activePointers.size === 1 && panStart) {
-                stageX = panStart.stageX + (event.clientX - panStart.x);
-                stageY = panStart.stageY + (event.clientY - panStart.y);
+                const movedX = clientX - panStart.x;
+                const movedY = clientY - panStart.y;
+                if (panStartIsTouch && ((movedX * movedX) + (movedY * movedY) > 36)) {
+                    lastTouchDragAt = Date.now();
+                }
+
+                stageX = panStart.stageX + (clientX - panStart.x);
+                stageY = panStart.stageY + (clientY - panStart.y);
                 applyTransform();
             }
 
@@ -569,21 +645,97 @@
                 const currentDistance = distance(a, b);
                 const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
                 const midPoint = viewportPoint(mid.x, mid.y);
-                scale = clampScale(pinchStartScale * (currentDistance / pinchStartDistance));
+                const pinchRatio = currentDistance / pinchStartDistance;
+                const acceleratedRatio = Math.pow(pinchRatio, PINCH_ZOOM_EXPONENT);
+                scale = clampScale(pinchStartScale * acceleratedRatio);
                 stageX = midPoint.x - (pinchStartWorld.x * scale);
                 stageY = midPoint.y - (pinchStartWorld.y * scale);
                 applyTransform();
             }
+        }
+
+        viewport.addEventListener('pointerdown', (event) => {
+            const isInteractiveTarget = isMapInteractiveTarget(event.target);
+            const allowInteractiveStart = event.pointerType === 'touch' && isMapNodeTarget(event.target);
+
+            if (!isInteractiveTarget) {
+                if (moveModalStationId) {
+                    hideMoveModal();
+                }
+
+                try {
+                    viewport.setPointerCapture(event.pointerId);
+                } catch (_error) {
+                    // Some mobile browsers fail pointer capture for touch pointers.
+                }
+            }
+
+            beginGesture(
+                event.pointerId,
+                event.clientX,
+                event.clientY,
+                event.target,
+                event.pointerType === 'touch',
+                allowInteractiveStart
+            );
+        });
+
+        viewport.addEventListener('pointermove', (event) => {
+            if (event.pointerType === 'touch' && activePointers.has(event.pointerId)) {
+                event.preventDefault();
+            }
+
+            moveGesture(event.pointerId, event.clientX, event.clientY);
         });
 
         viewport.addEventListener('pointerup', (event) => {
-            activePointers.delete(event.pointerId);
-            if (activePointers.size < 2) {
-                pinchStartDistance = null;
-                pinchStartWorld = null;
-            }
-            if (activePointers.size === 0) panStart = null;
+            handleDoubleTapRecenter(event.clientX, event.clientY, event.target, event.pointerType === 'touch');
+            clearPointerState(event.pointerId);
         });
+        viewport.addEventListener('pointercancel', (event) => {
+            clearPointerState(event.pointerId);
+        });
+        viewport.addEventListener('lostpointercapture', (event) => {
+            clearPointerState(event.pointerId);
+        });
+
+        if (!window.PointerEvent) {
+            viewport.addEventListener('touchstart', (event) => {
+                const isInteractiveTarget = isMapInteractiveTarget(event.target);
+                const allowInteractiveStart = isMapNodeTarget(event.target);
+
+                if (!isInteractiveTarget && moveModalStationId) {
+                    hideMoveModal();
+                }
+
+                for (const touch of event.changedTouches) {
+                    beginGesture(touch.identifier, touch.clientX, touch.clientY, event.target, true, allowInteractiveStart);
+                }
+            }, { passive: true });
+
+            viewport.addEventListener('touchmove', (event) => {
+                for (const touch of event.changedTouches) {
+                    if (activePointers.has(touch.identifier)) {
+                        event.preventDefault();
+                    }
+
+                    moveGesture(touch.identifier, touch.clientX, touch.clientY);
+                }
+            }, { passive: false });
+
+            viewport.addEventListener('touchend', (event) => {
+                for (const touch of event.changedTouches) {
+                    handleDoubleTapRecenter(touch.clientX, touch.clientY, event.target, true);
+                    clearPointerState(touch.identifier);
+                }
+            }, { passive: true });
+
+            viewport.addEventListener('touchcancel', (event) => {
+                for (const touch of event.changedTouches) {
+                    clearPointerState(touch.identifier);
+                }
+            }, { passive: true });
+        }
 
         viewport.addEventListener('wheel', (event) => {
             event.preventDefault();
@@ -1451,6 +1603,7 @@
                 button.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
                 button.style.userSelect = 'none';
                 button.style.webkitUserSelect = 'none';
+                button.style.touchAction = 'none';
                 button.style.opacity = challenge
                     ? '1'
                     : (isOutOfReachClaimed ? '1' : ((!isPlayerStation && !isReachable) ? '0.7' : '1'));
@@ -1508,6 +1661,10 @@
                 button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ` | challenge +${challenge.reward}` : ''}`;
                 button.textContent = deposited === null ? '-' : String(deposited);
                 button.addEventListener('click', (event) => {
+                    if (Date.now() - lastTouchDragAt < 300) {
+                        return;
+                    }
+
                     if (inTransit) {
                         const remaining = playerRemainingTravelSeconds(player);
                         setFeedback(`Travel in progress (${remaining ?? '?'}s left).`, true);
