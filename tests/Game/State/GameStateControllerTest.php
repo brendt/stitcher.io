@@ -41,7 +41,19 @@ final class GameStateControllerTest extends IntegrationTestCase
         );
 
         $repository = new GameRepository();
-        $repository->save(game: $game, seed: 2026, status: 'active');
+        $repository->save(
+            game: $game,
+            seed: 2026,
+            status: 'active',
+            stationCoordinates: [
+                'S1' => ['x' => 10, 'y' => 20, 'line_id' => 'L1'],
+                'S2' => ['x' => 16, 'y' => 20, 'line_id' => 'L1'],
+                'S3' => ['x' => 21, 'y' => 20, 'line_id' => 'L1'],
+                'S4' => ['x' => 27, 'y' => 20, 'line_id' => 'L1'],
+                'S5' => ['x' => 33, 'y' => 20, 'line_id' => 'L1'],
+                'S6' => ['x' => 38, 'y' => 20, 'line_id' => 'L1'],
+            ],
+        );
 
         (new ChallengeCommandResolver($repository))->fillChallengePool(gameId: $gameId);
 
@@ -56,6 +68,14 @@ final class GameStateControllerTest extends IntegrationTestCase
         self::assertCount(6, $response->body['stations']);
         self::assertCount(2, $response->body['edges']);
         self::assertCount(6, array_values(array_filter($response->body['challenges'], static fn (array $challenge): bool => $challenge['active'])));
+
+        $stationS1 = array_values(array_filter(
+            $response->body['stations'],
+            static fn (array $station): bool => $station['id'] === 'S1',
+        ))[0];
+        self::assertSame(10, $stationS1['x']);
+        self::assertSame(20, $stationS1['y']);
+        self::assertSame('L1', $stationS1['lineId']);
 
         self::assertArrayNotHasKey('timeline', $response->body);
     }

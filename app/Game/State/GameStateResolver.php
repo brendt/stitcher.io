@@ -19,6 +19,7 @@ final readonly class GameStateResolver
     {
         $meta = $this->games->loadMeta($gameId);
         $game = $this->games->load($gameId);
+        $coordinates = $this->games->stationCoordinates($gameId);
 
         $players = array_values(array_map(
             static fn ($player): array => [
@@ -30,12 +31,19 @@ final readonly class GameStateResolver
         ));
 
         $stations = array_values(array_map(
-            static fn ($station): array => [
-                'id' => $station->id,
-                'ownerId' => $station->ownerId,
-                'topValue' => $station->topValue,
-                'isHub' => $station->isHub,
-            ],
+            static function ($station) use ($coordinates): array {
+                $coordinate = $coordinates[$station->id] ?? null;
+
+                return [
+                    'id' => $station->id,
+                    'ownerId' => $station->ownerId,
+                    'topValue' => $station->topValue,
+                    'isHub' => $station->isHub,
+                    'x' => $coordinate['x'] ?? null,
+                    'y' => $coordinate['y'] ?? null,
+                    'lineId' => $coordinate['line_id'] ?? null,
+                ];
+            },
             $game->stations,
         ));
 

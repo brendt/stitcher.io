@@ -54,4 +54,35 @@ final class GameRepositoryTest extends IntegrationTestCase
 
         self::assertCount(count($map->edges), $loaded->edges);
     }
+
+    #[Test]
+    public function it_persists_station_coordinates_when_provided(): void
+    {
+        $gameId = 'game-coords-' . random_int(1000, 999999);
+        $map = (new MapGenerator())->generate(stationCount: 12, seed: 1337);
+
+        $game = new Game(
+            id: $gameId,
+            players: [
+                'p1' => new Player(id: 'p1', coins: 40, stationId: 'S1'),
+                'p2' => new Player(id: 'p2', coins: 35, stationId: 'S2'),
+            ],
+            stations: $map->stations,
+            edges: $map->edges,
+        );
+
+        $repository = new GameRepository();
+        $repository->save(
+            game: $game,
+            seed: 1337,
+            stationCoordinates: $map->stationCoordinates,
+        );
+
+        $coordinates = $repository->stationCoordinates($gameId);
+
+        self::assertArrayHasKey('S1', $coordinates);
+        self::assertSame($map->stationCoordinates['S1']['x'], $coordinates['S1']['x']);
+        self::assertSame($map->stationCoordinates['S1']['y'], $coordinates['S1']['y']);
+        self::assertSame($map->stationCoordinates['S1']['line_id'], $coordinates['S1']['line_id']);
+    }
 }

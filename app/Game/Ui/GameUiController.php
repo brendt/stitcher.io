@@ -54,7 +54,12 @@ final readonly class GameUiController
             edges: $map->edges,
         );
 
-        $this->games->save(game: $game, seed: $seed, status: 'active');
+        $this->games->save(
+            game: $game,
+            seed: $seed,
+            status: 'active',
+            stationCoordinates: $map->stationCoordinates,
+        );
         $this->challenges->fillChallengePool(gameId: $gameId);
 
         return new Redirect(uri([self::class, 'show'], gameId: $gameId));

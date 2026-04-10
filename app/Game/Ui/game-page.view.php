@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <title>Rail Claim Demo</title>
     <x-vite-tags entrypoint="app/main.entrypoint.css"/>
+    <style>
+        @keyframes reachablePulse {
+            0% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.12);
+            }
+            100% {
+                filter: brightness(1);
+            }
+        }
+
+        #edge-layer,
+        #edge-layer text {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 p-2 md:p-4">
 <div id="game-root" class="w-full h-full bg-white rounded-lg border border-gray-200 p-3 md:p-4" :data-game-id="$gameId">
@@ -30,10 +49,10 @@
             </div>
             <div
                 id="map-viewport"
-                class="relative w-full bg-gray-50 overflow-hidden touch-none border-t border-gray-200"
+                class="relative w-full bg-gray-50 overflow-hidden touch-none border-t border-gray-200 select-none"
                 style="height: 70vh; min-height: 420px;"
             >
-                <div id="map-stage" class="absolute left-0 top-0 origin-top-left" style="width:1200px;height:800px;">
+                <div id="map-stage" class="absolute left-0 top-0 origin-top-left select-none" style="width:1200px;height:800px;">
                     <svg id="edge-layer" width="1200" height="800" class="absolute inset-0"></svg>
                     <div id="node-layer" class="absolute inset-0"></div>
                 </div>
@@ -97,6 +116,9 @@
         const depositInput = document.getElementById('deposit-input');
         const challengeBtn = document.getElementById('challenge-btn');
         const finalizeBtn = document.getElementById('finalize-btn');
+        const OVERCLAIM_CAP = 5;
+        const NODE_SIZE = 24;
+        const PLAYER_COLOR_FALLBACK = ['#ef4444', '#3b82f6', '#10b981', '#f59e0b', '#ec4899', '#14b8a6'];
 
         let state = null;
         let stationPositions = {};
@@ -113,8 +135,22 @@
             feedback.className = isError ? 'text-xs min-h-5 text-red-700' : 'text-xs min-h-5 text-emerald-700';
         }
 
+        function applyNodeScale() {
+            const inverse = 1 / scale;
+            for (const node of nodeLayer.querySelectorAll('[data-map-node="true"]')) {
+                const isReachable = node.dataset.reachable === 'true';
+                const isCurrent = node.dataset.current === 'true';
+                const exponent = isReachable ? 0.9 : 1;
+                const baseScale = Math.pow(inverse, exponent);
+                const nodeScale = isCurrent ? (baseScale * 1.14) : baseScale;
+                node.style.transform = `scale(${nodeScale})`;
+                node.style.transformOrigin = 'center center';
+            }
+        }
+
         function applyTransform() {
             stage.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+            applyNodeScale();
         }
 
         function clampScale(value) {
@@ -127,7 +163,15 @@
             return Math.sqrt(dx * dx + dy * dy);
         }
 
+        function isMapInteractiveTarget(target) {
+            return target instanceof Element && Boolean(target.closest('[data-map-interactive="true"]'));
+        }
+
         viewport.addEventListener('pointerdown', (event) => {
+            if (isMapInteractiveTarget(event.target)) {
+                return;
+            }
+
             viewport.setPointerCapture(event.pointerId);
             activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
@@ -201,21 +245,36 @@
         }
 
         function computeStationPositions() {
-            const sorted = [...state.stations].sort((a, b) => a.id.localeCompare(b.id));
-            const centerX = 600;
-            const centerY = 400;
-            const radius = 300;
-
             stationPositions = {};
+            const scaleFactor = 10;
+            const padding = 40;
 
-            sorted.forEach((station, index) => {
-                const angle = (Math.PI * 2 * index) / sorted.length;
-                const hubOffset = station.isHub ? -45 : 0;
-                stationPositions[station.id] = {
-                    x: centerX + Math.cos(angle) * (radius + hubOffset),
-                    y: centerY + Math.sin(angle) * (radius + hubOffset),
-                };
-            });
+            let maxX = 0;
+            let maxY = 0;
+            let skipped = 0;
+
+            for (const station of state.stations) {
+                if (typeof station.x !== 'number' || typeof station.y !== 'number') {
+                    skipped++;
+                    continue;
+                }
+
+                const x = padding + (station.x * scaleFactor);
+                const y = padding + (station.y * scaleFactor);
+
+                stationPositions[station.id] = { x, y };
+                maxX = Math.max(maxX, x);
+                maxY = Math.max(maxY, y);
+            }
+
+            stage.style.width = `${Math.max(1200, maxX + padding)}px`;
+            stage.style.height = `${Math.max(800, maxY + padding)}px`;
+            edgeLayer.setAttribute('width', String(Math.max(1200, maxX + padding)));
+            edgeLayer.setAttribute('height', String(Math.max(800, maxY + padding)));
+
+            if (skipped > 0) {
+                setFeedback(`Skipped ${skipped} stations without coordinates`, true);
+            }
         }
 
         function stationById(id) {
@@ -227,34 +286,109 @@
             return state.players.find((player) => player.id === id) ?? null;
         }
 
-        function renderEdges() {
-            edgeLayer.innerHTML = '';
+        function playerColor(playerId) {
+            if (!playerId) {
+                return '#94a3b8';
+            }
+
+            if (playerId === 'p1') return '#ef4444';
+            if (playerId === 'p2') return '#3b82f6';
+            if (playerId === 'p3') return '#10b981';
+            if (playerId === 'p4') return '#f59e0b';
+
+            let hash = 0;
+            for (let i = 0; i < playerId.length; i++) {
+                hash = (hash * 31 + playerId.charCodeAt(i)) >>> 0;
+            }
+
+            return PLAYER_COLOR_FALLBACK[hash % PLAYER_COLOR_FALLBACK.length];
+        }
+
+        function claimShadow(ownerId, topValue) {
+            if (!ownerId || topValue <= 0) {
+                return '';
+            }
+
+            const spread = Math.min(8, 1 + Math.floor(topValue / 3));
+            const color = playerColor(ownerId);
+            return `0 0 0 ${spread}px ${color}`;
+        }
+
+        function undirectedEdgeKey(a, b) {
+            return a < b ? `${a}|${b}` : `${b}|${a}`;
+        }
+
+        function uniqueEdges() {
+            const deduped = new Map();
 
             for (const edge of state.edges) {
+                const key = undirectedEdgeKey(edge.fromStationId, edge.toStationId);
+                const existing = deduped.get(key);
+
+                if (!existing) {
+                    deduped.set(key, edge);
+                    continue;
+                }
+
+                // Keep strongest visual variant if duplicate directed rows exist.
+                if (!existing.isExpress && edge.isExpress) {
+                    deduped.set(key, edge);
+                }
+            }
+
+            return [...deduped.values()];
+        }
+
+        function reachableEdgeKeys(player) {
+            if (!player?.stationId) {
+                return new Set();
+            }
+
+            const keys = new Set();
+
+            for (const edge of uniqueEdges()) {
+                if (edge.fromStationId === player.stationId || edge.toStationId === player.stationId) {
+                    keys.add(undirectedEdgeKey(edge.fromStationId, edge.toStationId));
+                }
+            }
+
+            return keys;
+        }
+
+        function renderEdges() {
+            edgeLayer.innerHTML = '';
+            const stationOwnerById = new Map(state.stations.map((station) => [station.id, station.ownerId]));
+
+            for (const edge of uniqueEdges()) {
                 const from = stationPositions[edge.fromStationId];
                 const to = stationPositions[edge.toStationId];
                 if (!from || !to) continue;
+                const fromOwner = stationOwnerById.get(edge.fromStationId);
+                const toOwner = stationOwnerById.get(edge.toStationId);
+                const sameOwner = fromOwner !== null && fromOwner === toOwner;
+                const ownerStroke = sameOwner ? playerColor(fromOwner) : null;
+                const edgeStroke = ownerStroke ?? (edge.isExpress ? '#0f766e' : '#94a3b8');
+                const edgeKey = undirectedEdgeKey(edge.fromStationId, edge.toStationId);
+                const dx = to.x - from.x;
+                const dy = to.y - from.y;
+                const length = Math.hypot(dx, dy) || 1;
+                const nx = -dy / length;
+                const ny = dx / length;
+                const hash = Array.from(edgeKey).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                const direction = hash % 2 === 0 ? 1 : -1;
+                const bend = Math.min(14, Math.max(3, length * 0.06)) * direction;
+                const cx = ((from.x + to.x) / 2) + (nx * bend);
+                const cy = ((from.y + to.y) / 2) + (ny * bend);
 
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', String(from.x));
-                line.setAttribute('y1', String(from.y));
-                line.setAttribute('x2', String(to.x));
-                line.setAttribute('y2', String(to.y));
-                line.setAttribute('stroke', edge.isExpress ? '#0f766e' : '#94a3b8');
-                line.setAttribute('stroke-width', edge.isExpress ? '4' : '2');
-                line.setAttribute('stroke-linecap', 'round');
-                edgeLayer.appendChild(line);
-
-                const midX = (from.x + to.x) / 2;
-                const midY = (from.y + to.y) / 2;
-                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                label.setAttribute('x', String(midX));
-                label.setAttribute('y', String(midY - 4));
-                label.setAttribute('font-size', '10');
-                label.setAttribute('fill', '#334155');
-                label.setAttribute('text-anchor', 'middle');
-                label.textContent = String(edge.travelTimeSeconds);
-                edgeLayer.appendChild(label);
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', `M ${from.x} ${from.y} Q ${cx} ${cy} ${to.x} ${to.y}`);
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke', edgeStroke);
+                path.setAttribute('stroke-width', edge.isExpress ? '4' : '2');
+                path.setAttribute('stroke-opacity', '0.75');
+                path.setAttribute('stroke-linecap', 'round');
+                path.setAttribute('stroke-linejoin', 'round');
+                edgeLayer.appendChild(path);
             }
         }
 
@@ -300,7 +434,21 @@
 
             const target = stationById(targetStationId);
             const ownedByPlayer = target?.ownerId === player.id;
-            const deposit = ownedByPlayer ? null : Number.parseInt(depositInput.value || '1', 10);
+            let deposit = ownedByPlayer ? null : Number.parseInt(depositInput.value || '1', 10);
+
+            if (!ownedByPlayer && target?.ownerId) {
+                const minimum = target.topValue + 1;
+                const maximum = target.topValue + OVERCLAIM_CAP;
+                const requested = Number.isFinite(deposit) ? deposit : minimum;
+                const adjusted = Math.max(minimum, Math.min(maximum, requested));
+
+                if (adjusted !== requested) {
+                    setFeedback(`Adjusted bid to ${adjusted} (allowed ${minimum}-${maximum} for this overclaim).`);
+                }
+
+                deposit = adjusted;
+                depositInput.value = String(adjusted);
+            }
 
             const result = await postForm(`/games/${gameId}/commands/move`, {
                 playerId: player.id,
@@ -322,38 +470,70 @@
                 if (!position) continue;
 
                 const button = document.createElement('button');
+                button.type = 'button';
+                button.dataset.mapInteractive = 'true';
+                button.dataset.mapNode = 'true';
                 const challenge = challengeAtStation(station.id);
                 const isPlayerStation = player?.stationId === station.id;
                 const isReachable = player ? canMoveTo(player, station.id) : false;
+                button.dataset.reachable = isReachable ? 'true' : 'false';
+                button.dataset.current = isPlayerStation ? 'true' : 'false';
+                const selectedPlayerColor = playerColor(player?.id ?? null);
+                const ownerColor = playerColor(station.ownerId ?? null);
+                const isClaimed = station.ownerId !== null;
+                const isOutOfReachClaimed = isClaimed && !isPlayerStation && !isReachable;
+                const claimAura = claimShadow(station.ownerId, station.topValue);
 
-                button.className = 'absolute w-8 h-8 rounded-full border-2 text-[10px] font-bold transition';
-                button.style.left = `${position.x - 16}px`;
-                button.style.top = `${position.y - 16}px`;
-                button.style.background = station.ownerId === 'p1' ? '#fca5a5' : (station.ownerId === 'p2' ? '#93c5fd' : '#e5e7eb');
-                button.style.borderColor = station.isHub ? '#f59e0b' : '#475569';
-                button.style.opacity = (!isPlayerStation && !isReachable) ? '0.35' : '1';
+                button.className = 'absolute rounded-full border text-[7px] font-bold transition flex items-center justify-center p-0 leading-none';
+                button.style.left = `${position.x - (NODE_SIZE / 2)}px`;
+                button.style.top = `${position.y - (NODE_SIZE / 2)}px`;
+                button.style.width = `${NODE_SIZE}px`;
+                button.style.height = `${NODE_SIZE}px`;
+                button.style.borderRadius = '50%';
+                button.style.userSelect = 'none';
+                button.style.webkitUserSelect = 'none';
+                button.style.opacity = isOutOfReachClaimed ? '1' : ((!isPlayerStation && !isReachable) ? '0.35' : '1');
                 button.style.cursor = isReachable || isPlayerStation ? 'pointer' : 'not-allowed';
+
                 if (isPlayerStation) {
-                    button.style.outline = '3px solid #111827';
+                    button.style.background = selectedPlayerColor;
+                    button.style.borderColor = selectedPlayerColor;
+                    button.style.color = '#ffffff';
+                    button.style.outline = 'none';
+                    button.style.boxShadow = claimAura || 'none';
                 } else if (isReachable) {
-                    button.style.outline = '3px solid #22c55e';
+                    button.style.background = '#ffffff';
+                    button.style.borderColor = selectedPlayerColor;
+                    button.style.color = isClaimed ? ownerColor : selectedPlayerColor;
+                    button.style.outline = 'none';
+                    const doubleRing = `0 0 0 2px #ffffff, 0 0 0 4px ${selectedPlayerColor}`;
+                    const reachGlow = `0 0 12px ${selectedPlayerColor}88`;
+                    button.style.boxShadow = claimAura ? `${claimAura}, ${doubleRing}, ${reachGlow}` : `${doubleRing}, ${reachGlow}`;
+                    button.style.animation = 'reachablePulse 1.3s ease-in-out infinite';
+                } else {
+                    button.style.background = isClaimed ? '#ffffff' : '#e5e7eb';
+                    button.style.color = isClaimed ? ownerColor : '#334155';
+                    button.style.outline = 'none';
+                    button.style.boxShadow = claimAura || 'none';
+                    button.style.animation = 'none';
+                    button.style.borderColor = isOutOfReachClaimed
+                        ? ownerColor
+                        : (station.isHub ? '#f59e0b' : '#475569');
                 }
 
-                button.title = `${station.id} | owner: ${station.ownerId ?? 'neutral'} | top: ${station.topValue}${challenge ? ' | challenge' : ''}`;
-                button.textContent = station.id.replace('S', '');
+                if (isPlayerStation) {
+                    button.style.animation = 'none';
+                }
+
+                const deposited = station.topValue > 0 ? station.topValue : null;
+                button.title = `${station.id} | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ' | challenge' : ''}`;
+                button.textContent = deposited === null ? '-' : String(deposited);
                 button.addEventListener('click', () => moveTo(station.id));
-
-                if (challenge) {
-                    const chip = document.createElement('div');
-                    chip.className = 'absolute text-[10px] bg-yellow-300 text-yellow-900 px-1 rounded';
-                    chip.style.left = `${position.x + 12}px`;
-                    chip.style.top = `${position.y - 20}px`;
-                    chip.textContent = `${challenge.reward}`;
-                    nodeLayer.appendChild(chip);
-                }
 
                 nodeLayer.appendChild(button);
             }
+
+            applyNodeScale();
         }
 
         function renderSidebar() {
@@ -395,6 +575,7 @@
         }
 
         playerSelect.addEventListener('change', () => {
+            renderEdges();
             renderNodes();
             renderSidebar();
         });

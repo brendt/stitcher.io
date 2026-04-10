@@ -15,7 +15,10 @@ use function Tempest\Database\query;
 
 final class GameRepository
 {
-    public function save(Game $game, int $seed, string $status = 'pending'): void
+    /**
+     * @param array<string, array{x: int, y: int, line_id: string}> $stationCoordinates
+     */
+    public function save(Game $game, int $seed, string $status = 'pending', array $stationCoordinates = []): void
     {
         query('games')
             ->insert(
@@ -37,11 +40,16 @@ final class GameRepository
         }
 
         foreach ($game->stations as $station) {
+            $coordinate = $stationCoordinates[$station->id] ?? null;
+
             query('game_stations')
                 ->insert(
                     game_id: $game->id,
                     station_id: $station->id,
                     is_hub: $station->isHub,
+                    x: $coordinate['x'] ?? null,
+                    y: $coordinate['y'] ?? null,
+                    line_id: $coordinate['line_id'] ?? null,
                 )
                 ->execute();
 
@@ -401,6 +409,29 @@ final class GameRepository
                 ->where('game_id = ?', $gameId)
                 ->all(),
         );
+    }
+
+    /**
+     * @return array<string, array{x: ?int, y: ?int, line_id: ?string}>
+     */
+    public function stationCoordinates(string $gameId): array
+    {
+        $rows = query('game_stations')
+            ->select('station_id', 'x', 'y', 'line_id')
+            ->where('game_id = ?', $gameId)
+            ->all();
+
+        $coordinates = [];
+
+        foreach ($rows as $row) {
+            $coordinates[(string) $row['station_id']] = [
+                'x' => isset($row['x']) ? (int) $row['x'] : null,
+                'y' => isset($row['y']) ? (int) $row['y'] : null,
+                'line_id' => isset($row['line_id']) ? (string) $row['line_id'] : null,
+            ];
+        }
+
+        return $coordinates;
     }
 
     /**
