@@ -35,8 +35,11 @@ final readonly class GameUiController
     {
         $gameId = 'demo-' . random_int(100000, 999999);
         $seed = random_int(1, 2_147_483_647);
+        $mode = strtolower((string) ($request->get('mode') ?? ''));
+        $aiFlag = (string) ($request->get('ai') ?? '');
+        $singlePlayer = in_array($mode, ['single', 'singleplayer', 'ai'], true) || in_array(strtolower($aiFlag), ['1', 'true', 'yes'], true);
         $requestedPlayers = $request->get('players');
-        $playerCount = $requestedPlayers !== null ? (int) $requestedPlayers : 2;
+        $playerCount = $requestedPlayers !== null ? (int) $requestedPlayers : ($singlePlayer ? 2 : 2);
         $playerCount = max(2, min(6, $playerCount));
         $stationCount = max(100, $playerCount * 30);
         $map = $this->maps->generate(stationCount: $stationCount, seed: $seed, playerCount: $playerCount);
@@ -53,7 +56,9 @@ final readonly class GameUiController
         $usedStartStations = [];
 
         for ($index = 1; $index <= $playerCount; $index++) {
-            $playerId = sprintf('p%d', $index);
+            $playerId = ($singlePlayer && $index > 1)
+                ? sprintf('ai%d', $index - 1)
+                : sprintf('p%d', $index);
             $lineId = sprintf('L%d', $index);
             $candidates = $stationsByLine[$lineId] ?? array_keys($stations);
             $availableCandidates = array_values(array_filter(

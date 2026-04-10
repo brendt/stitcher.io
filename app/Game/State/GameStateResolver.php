@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Game\State;
 
+use App\Game\Ai\SimpleBotResolver;
 use App\Game\Challenge\ChallengeCommandResolver;
 use App\Game\Move\MoveCommandResolver;
 use App\Game\Persistence\GameRepository;
@@ -16,6 +17,7 @@ final readonly class GameStateResolver
         private GameRepository $games,
         private ChallengeCommandResolver $challenges,
         private MoveCommandResolver $moves,
+        private SimpleBotResolver $bots,
     ) {}
 
     /**
@@ -25,6 +27,14 @@ final readonly class GameStateResolver
     {
         $this->moves->processDueMoves($gameId);
         $meta = $this->games->loadMeta($gameId);
+        $game = $this->games->load($gameId);
+        $this->challenges->fillPlayerSpecificChallengePool(gameId: $gameId, game: $game);
+        try {
+            $this->bots->playTurn(gameId: $gameId, game: $game);
+        } catch (\Throwable) {
+            // Bot failures should not block state payloads for human players.
+        }
+        $this->moves->processDueMoves($gameId);
         $game = $this->games->load($gameId);
         $this->challenges->fillPlayerSpecificChallengePool(gameId: $gameId, game: $game);
         $coordinates = $this->games->stationCoordinates($gameId);

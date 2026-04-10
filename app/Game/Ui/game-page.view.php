@@ -85,7 +85,7 @@
 <body class="bg-gray-800 m-0 h-screen overflow-hidden">
 <div id="game-root" class="w-screen h-screen bg-gray-800 p-0" style="width: 100vw; height: 100vh;" :data-game-id="$gameId">
     <div class="relative w-full h-full" style="width: 100%; height: 100%;">
-        <a href="/game/demo" class="fixed right-4 top-4 z-50 bg-pink-600 text-white px-3 py-2 rounded font-bold hover:opacity-90 text-sm">New demo</a>
+        <a href="/game/demo?mode=single&players=2" class="fixed right-4 top-4 z-50 bg-pink-600 text-white px-3 py-2 rounded font-bold hover:opacity-90 text-sm">New demo</a>
         <button id="help-toggle" type="button" onclick="var m=document.getElementById('help-modal'); if(m){m.style.display='flex';}" class="fixed right-6 top-20 rounded-full font-bold text-base" style="z-index:130;background:#111827;color:#f9fafb;border:1px solid #374151;box-shadow:0 6px 14px rgba(0,0,0,0.35);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;cursor:pointer;padding:10px 14px;line-height:1;margin:10px;" aria-label="Open help" title="Help">?</button>
         <div id="game-timer-notch" style="position: fixed; left: 50%; top: 0; transform: translateX(-50%); z-index: 100; background: #111827; color: #f9fafb; border: 1px solid #374151; border-top: none; border-radius: 0 0 12px 12px; box-shadow: 0 12px 24px rgba(0,0,0,0.4), 0 2px 0 rgba(255,255,255,0.08) inset; padding: 8px 20px; font-size: 14px; font-weight: 700; line-height: 1; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">
             00:00
@@ -329,7 +329,9 @@
                 moveModalTravelTime.classList.add('hidden');
             }
             moveModalCoinSelector.classList.remove('hidden');
+            moveModalCoinSelector.style.display = '';
             moveModalConfirm.classList.remove('hidden');
+            moveModalConfirm.style.display = '';
         }
 
         function clampMoveCoins(value) {
@@ -457,6 +459,8 @@
             const hideCoinSelector = challengeOnlyMode || claimedTravelMode;
             moveModalCoinSelector.classList.toggle('hidden', hideCoinSelector);
             moveModalConfirm.classList.toggle('hidden', challengeOnlyMode);
+            moveModalCoinSelector.style.display = hideCoinSelector ? 'none' : '';
+            moveModalConfirm.style.display = challengeOnlyMode ? 'none' : '';
             const travelTimeSeconds = (!isCurrentStation && player.stationId)
                 ? edgeTravelTimeSeconds(player.stationId, stationId)
                 : null;
@@ -1664,27 +1668,28 @@
 
         function maybeShowArrivalFeedback(previousState, nextState) {
             if (!previousState || !nextState) {
-                return;
+                return null;
             }
 
             const selectedPlayerId = playerSelect.value || nextState.players[0]?.id;
             if (!selectedPlayerId) {
-                return;
+                return null;
             }
 
             const previousPlayer = previousState.players?.find((player) => player.id === selectedPlayerId) ?? null;
             const nextPlayer = nextState.players?.find((player) => player.id === selectedPlayerId) ?? null;
             if (!previousPlayer || !nextPlayer) {
-                return;
+                return null;
             }
 
             if (!previousPlayer.pendingMove || nextPlayer.pendingMove) {
-                return;
+                return null;
             }
 
             const arrivedStation = nextState.stations?.find((station) => station.id === nextPlayer.stationId) ?? null;
             const destinationLabel = stationLabel(arrivedStation) || nextPlayer.stationId || previousPlayer.pendingMove.toStationId;
             setFeedback(`Arrived at ${destinationLabel}.`);
+            return nextPlayer.stationId ?? null;
         }
 
         async function loadState(recenter = false) {
@@ -1693,12 +1698,15 @@
             state = await response.json();
             lastStateLoadedAtMs = Date.now();
             ensurePlayerOptions();
-            maybeShowArrivalFeedback(previousState, state);
+            const arrivalStationId = maybeShowArrivalFeedback(previousState, state);
             computeStationPositions();
             renderTerrain();
             renderEdges();
             renderIntersections();
             renderNodes();
+            if (arrivalStationId && challengeAtStation(arrivalStationId)) {
+                showMoveModal(arrivalStationId);
+            }
             renderPlayerStatsOverlay();
             if (recenter) {
                 centerMapCamera();
