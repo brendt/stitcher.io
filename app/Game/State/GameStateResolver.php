@@ -125,6 +125,7 @@ final readonly class GameStateResolver
             'stations' => $stations,
             'edges' => $edges,
             'challenges' => $challenges,
+            'bonuses' => $this->games->activeDoubleCoinBonuses($gameId),
             'score' => [
                 'winnerPlayerId' => $finalization['winnerPlayerId'] ?? null,
                 'isTie' => $finalization['isTie'] ?? false,

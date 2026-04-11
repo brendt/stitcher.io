@@ -13,6 +13,9 @@ use Tempest\DateTime\FormatPattern;
 
 final readonly class MoveCommandResolver
 {
+    private const FIRST_DOUBLE_COIN_SPAWN_STEPS_PER_PLAYER = 20;
+    private const NEXT_DOUBLE_COIN_SPAWN_STEPS_PER_PLAYER = 30;
+
     public function __construct(
         private GameRepository $games,
         private ClaimRule $claimRule = new ClaimRule(cap: 5),
@@ -246,6 +249,13 @@ final readonly class MoveCommandResolver
                 orderKey: $request['id'],
             );
 
+            $this->applyDoubleCoinBonuses(
+                gameId: $gameId,
+                playerId: $player->id,
+                stationId: $station->id,
+                effectiveAt: $effectiveAt,
+            );
+
             $accepted = true;
         }
     }
@@ -356,5 +366,151 @@ final readonly class MoveCommandResolver
         }
 
         return null;
+    }
+
+    private function applyDoubleCoinBonuses(
+        string $gameId,
+        string $playerId,
+        string $stationId,
+        string $effectiveAt,
+    ): void {
+        if ($this->games->hasActiveDoubleCoinAtStation($gameId, $stationId)) {
+            $game = $this->games->load($gameId);
+            $player = $game->player($playerId);
+            $doubledCoins = $player->coins * 2;
+
+            $this->games->updatePlayerState(
+                gameId: $gameId,
+                playerId: $playerId,
+                coins: $doubledCoins,
+                stationId: $stationId,
+            );
+
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'double_coin_collected',
+                playerId: $playerId,
+                payload: [
+                    'stationId' => $stationId,
+                    'multiplier' => 2,
+                    'coinsAfter' => $doubledCoins,
+                ],
+                effectiveAt: $effectiveAt,
+            );
+        }
+
+        $this->spawnDueDoubleCoinBonuses(
+            gameId: $gameId,
+            effectiveAt: $effectiveAt,
+        );
+    }
+
+    private function spawnDueDoubleCoinBonuses(string $gameId, string $effectiveAt): void
+    {
+        $game = $this->games->load($gameId);
+        $playerCount = count($game->players);
+        if ($playerCount === 0) {
+            return;
+        }
+
+        $stepsTaken = $this->games->acceptedMoveCount($gameId);
+        $spawnedCount = $this->games->doubleCoinSpawnCount($gameId);
+
+        $firstThreshold = self::FIRST_DOUBLE_COIN_SPAWN_STEPS_PER_PLAYER * $playerCount;
+        $nextThresholdSize = self::NEXT_DOUBLE_COIN_SPAWN_STEPS_PER_PLAYER * $playerCount;
+        $nextThreshold = $firstThreshold + ($spawnedCount * $nextThresholdSize);
+
+        while ($stepsTaken >= $nextThreshold) {
+            $stationId = $this->pickFarthestStationFromPlayers($gameId, $game);
+            if ($stationId === null) {
+                return;
+            }
+
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'double_coin_spawned',
+                playerId: null,
+                payload: [
+                    'stationId' => $stationId,
+                    'type' => '2x',
+                ],
+                effectiveAt: $effectiveAt,
+            );
+
+            $spawnedCount++;
+            $nextThreshold = $firstThreshold + ($spawnedCount * $nextThresholdSize);
+        }
+    }
+
+    private function pickFarthestStationFromPlayers(string $gameId, Game $game): ?string
+    {
+        $activeBonusStations = array_fill_keys($this->games->activeDoubleCoinStations($gameId), true);
+        $occupiedStations = [];
+
+        foreach ($game->players as $player) {
+            if ($player->stationId !== null) {
+                $occupiedStations[$player->stationId] = true;
+            }
+        }
+
+        $adjacency = [];
+        foreach ($game->edges as $edge) {
+            $adjacency[$edge->fromStationId] ??= [];
+            $adjacency[$edge->toStationId] ??= [];
+            $adjacency[$edge->fromStationId][] = $edge->toStationId;
+            $adjacency[$edge->toStationId][] = $edge->fromStationId;
+        }
+
+        $distances = [];
+        $queue = [];
+        $cursor = 0;
+        foreach ($game->players as $player) {
+            if ($player->stationId === null || isset($distances[$player->stationId])) {
+                continue;
+            }
+
+            $distances[$player->stationId] = 0;
+            $queue[] = $player->stationId;
+        }
+
+        while ($cursor < count($queue)) {
+            $stationId = $queue[$cursor++];
+            $currentDistance = $distances[$stationId];
+
+            foreach ($adjacency[$stationId] ?? [] as $neighbor) {
+                if (isset($distances[$neighbor])) {
+                    continue;
+                }
+
+                $distances[$neighbor] = $currentDistance + 1;
+                $queue[] = $neighbor;
+            }
+        }
+
+        $bestStationId = null;
+        $bestDistance = -1;
+
+        foreach ($game->stations as $station) {
+            if (isset($activeBonusStations[$station->id])) {
+                continue;
+            }
+
+            if (isset($occupiedStations[$station->id])) {
+                continue;
+            }
+
+            $distance = $distances[$station->id] ?? PHP_INT_MAX;
+            if ($distance > $bestDistance) {
+                $bestDistance = $distance;
+                $bestStationId = $station->id;
+                continue;
+            }
+
+            if ($distance === $bestDistance && $bestStationId !== null && strcmp($station->id, $bestStationId) < 0) {
+                $bestStationId = $station->id;
+            }
+        }
+
+        return $bestStationId;
     }
 }

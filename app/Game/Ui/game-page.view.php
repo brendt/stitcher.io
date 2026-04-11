@@ -281,6 +281,7 @@
         let finalizeInFlight = false;
         let gameStopped = false;
         let matchEndsAtMs = null;
+        let matchEndsAtGameId = null;
 
         stage.style.transformOrigin = '0 0';
         if (playerControlOverlay && !isDemoGame) {
@@ -506,7 +507,14 @@
         function syncMatchEndsAt(snapshot) {
             if (!snapshot?.game) {
                 matchEndsAtMs = null;
+                matchEndsAtGameId = null;
                 return;
+            }
+
+            const snapshotGameId = String(snapshot.game.id ?? '');
+            if (matchEndsAtGameId !== snapshotGameId) {
+                matchEndsAtGameId = snapshotGameId;
+                matchEndsAtMs = null;
             }
 
             const durationSeconds = Number(snapshot.game.durationSeconds ?? 600);
@@ -518,6 +526,11 @@
             // Keep lobby timer fixed until match is active.
             if (Boolean(snapshot?.lobby?.isPending)) {
                 matchEndsAtMs = null;
+                return;
+            }
+
+            // Keep a stable end timestamp for the current game once initialized.
+            if (Number.isFinite(matchEndsAtMs)) {
                 return;
             }
 
@@ -1806,6 +1819,11 @@
             return challengeAtStation(player.stationId);
         }
 
+        function doubleCoinBonusAtStation(stationId) {
+            const bonuses = Array.isArray(state?.bonuses) ? state.bonuses : [];
+            return bonuses.find((bonus) => bonus.active && bonus.type === '2x' && bonus.station_id === stationId) ?? null;
+        }
+
         function canMoveTo(player, targetStationId) {
             if (!player || !player.stationId) return false;
             return state.edges.some((edge) => (
@@ -1963,6 +1981,7 @@
                 button.dataset.mapInteractive = 'true';
                 button.dataset.mapNode = 'true';
                 const challenge = challengeAtStation(station.id);
+                const doubleCoinBonus = doubleCoinBonusAtStation(station.id);
                 const isPlayerStation = !inTransit && player?.stationId === station.id;
                 const isReachable = !inTransit && player ? canMoveTo(player, station.id) : false;
                 button.dataset.reachable = isReachable ? 'true' : 'false';
@@ -2042,7 +2061,7 @@
                 }
 
                 const deposited = station.topValue > 0 ? station.topValue : null;
-                button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ` | challenge +${challenge.reward}` : ''}`;
+                button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ` | challenge +${challenge.reward}` : ''}${doubleCoinBonus ? ' | 2x bonus' : ''}`;
                 button.textContent = deposited === null ? '-' : String(deposited);
                 button.addEventListener('click', (event) => {
                     if (Date.now() - lastTouchDragAt < 300) {
@@ -2102,7 +2121,11 @@
                     badge.dataset.mapInteractive = 'true';
                     badge.className = 'absolute rounded-full border shadow-[1px_1px_0_#00000055]';
                     badge.style.opacity = '1';
-                    badge.style.right = '-4px';
+                    if (doubleCoinBonus) {
+                        badge.style.left = '-4px';
+                    } else {
+                        badge.style.right = '-4px';
+                    }
                     badge.style.top = '-4px';
                     badge.style.width = '10px';
                     badge.style.height = '10px';
@@ -2115,6 +2138,30 @@
                         badge.style.borderColor = '#713f12';
                     }
                     badge.title = `Challenge reward: +${challenge.reward} coins`;
+                    button.appendChild(badge);
+                }
+
+                if (doubleCoinBonus) {
+                    const badge = document.createElement('div');
+                    badge.dataset.mapInteractive = 'true';
+                    badge.className = 'absolute border rounded-[2px]';
+                    badge.style.right = '-6px';
+                    badge.style.top = '-6px';
+                    badge.style.minWidth = '14px';
+                    badge.style.height = '10px';
+                    badge.style.padding = '0 1px';
+                    badge.style.display = 'flex';
+                    badge.style.alignItems = 'center';
+                    badge.style.justifyContent = 'center';
+                    badge.style.backgroundColor = '#7c3aed';
+                    badge.style.borderColor = '#4c1d95';
+                    badge.style.color = '#f5f3ff';
+                    badge.style.fontSize = '7px';
+                    badge.style.fontWeight = '900';
+                    badge.style.lineHeight = '1';
+                    badge.style.boxShadow = '1px 1px 0 #00000055';
+                    badge.textContent = '2x';
+                    badge.title = '2x coin bonus';
                     button.appendChild(badge);
                 }
 

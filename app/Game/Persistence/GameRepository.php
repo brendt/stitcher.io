@@ -246,6 +246,86 @@ final class GameRepository
         return null;
     }
 
+    public function acceptedMoveCount(string $gameId): int
+    {
+        $rows = query('game_events')
+            ->select('payload')
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'move_resolved')
+            ->all();
+
+        $count = 0;
+        foreach ($rows as $row) {
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            if (($payload['accepted'] ?? false) === true) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    public function doubleCoinSpawnCount(string $gameId): int
+    {
+        return (int) (query('game_events')
+            ->count()
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'double_coin_spawned')
+            ->execute() ?? 0);
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function activeDoubleCoinStations(string $gameId): array
+    {
+        $rows = query('game_events')
+            ->select('type', 'payload')
+            ->where('game_id = ?', $gameId)
+            ->where('(type = ? OR type = ?)', 'double_coin_spawned', 'double_coin_collected')
+            ->orderBy('id ASC')
+            ->all();
+
+        $active = [];
+
+        foreach ($rows as $row) {
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            $stationId = (string) ($payload['stationId'] ?? '');
+            if ($stationId === '') {
+                continue;
+            }
+
+            if ($row['type'] === 'double_coin_spawned') {
+                $active[$stationId] = true;
+                continue;
+            }
+
+            unset($active[$stationId]);
+        }
+
+        return array_keys($active);
+    }
+
+    public function hasActiveDoubleCoinAtStation(string $gameId, string $stationId): bool
+    {
+        return in_array($stationId, $this->activeDoubleCoinStations($gameId), true);
+    }
+
+    /**
+     * @return list<array{station_id: string, type: string, active: bool}>
+     */
+    public function activeDoubleCoinBonuses(string $gameId): array
+    {
+        return array_map(
+            static fn (string $stationId): array => [
+                'station_id' => $stationId,
+                'type' => '2x',
+                'active' => true,
+            ],
+            $this->activeDoubleCoinStations($gameId),
+        );
+    }
+
     /**
      * @return list<array{effectiveAt: string, toStationId: string}>
      */
