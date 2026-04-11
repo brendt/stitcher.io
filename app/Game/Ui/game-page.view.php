@@ -83,7 +83,7 @@
     </style>
 </head>
 <body class="bg-gray-800 m-0 h-screen overflow-hidden">
-<div id="game-root" class="w-screen h-screen bg-gray-800 p-0" style="width: 100vw; height: 100vh;" :data-game-id="$gameId">
+<div id="game-root" class="w-screen h-screen p-0" style="width: 100vw; height: 100vh; background:#d9d0be;" :data-game-id="$gameId">
     <div class="relative w-full h-full" style="width: 100%; height: 100%;">
         <a id="new-demo-link" href="/game/demo?mode=single&players=2" class="fixed right-4 top-4 z-50 bg-pink-600 text-white px-3 py-2 rounded font-bold hover:opacity-90 text-sm">New demo</a>
         <button id="help-toggle" type="button" onclick="var m=document.getElementById('help-modal'); if(m){m.style.display='flex';}" class="fixed right-6 top-20 rounded-full font-bold text-base" style="z-index:130;background:#111827;color:#f9fafb;border:1px solid #374151;box-shadow:0 6px 14px rgba(0,0,0,0.35);font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;cursor:pointer;padding:10px 14px;line-height:1;margin:10px;" aria-label="Open help" title="Help">?</button>
@@ -139,7 +139,7 @@
             </div>
         </section>
 
-        <aside id="player-stats-overlay" class="grid gap-2" style="position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); width: min(520px, calc(100vw - 24px)); z-index: 95; background: #111827; color: #f9fafb; border: 1px solid #374151; border-radius: 12px; box-shadow: 0 -12px 24px rgba(0,0,0,0.4), 0 -2px 0 rgba(255,255,255,0.08) inset; padding: 8px 14px 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; font-weight: 700; line-height: 1;">
+        <aside id="player-stats-overlay" class="grid gap-2" style="position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); width: min(520px, calc(100vw - 24px)); z-index: 95; background: #111827; color: #f9fafb; border: 1px solid #374151; border-radius: 12px; box-shadow: 0 -12px 24px rgba(0,0,0,0.4), 0 -2px 0 rgba(255,255,255,0.08) inset; padding: 8px 20px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace; font-size: 14px; font-weight: 700; line-height: 1;">
             <div id="feedback" class="text-center text-xs" style="display:none;color: #9ca3af; font-weight: 600;"></div>
             <div id="player-stats-content" class="text-center" style="color: #d1d5db;">Loading…</div>
         </aside>
@@ -280,6 +280,7 @@
         let hasAppliedInitialPlayerSelection = false;
         let finalizeInFlight = false;
         let gameStopped = false;
+        let matchEndsAtMs = null;
 
         stage.style.transformOrigin = '0 0';
         if (playerControlOverlay && !isDemoGame) {
@@ -474,16 +475,71 @@
                 return Math.max(0, Math.floor(durationSeconds));
             }
 
+            if (Number.isFinite(matchEndsAtMs)) {
+                return Math.max(0, Math.floor((matchEndsAtMs - Date.now()) / 1000));
+            }
+
             const createdAtUnix = Number(snapshot.game.createdAtUnix ?? Number.NaN);
-            const createdAtTimestamp = Number.isFinite(createdAtUnix)
-                ? (createdAtUnix * 1000)
-                : Date.parse(String(snapshot.game.createdAt ?? '').replace(' ', 'T'));
+            let createdAtTimestamp = Number.NaN;
+
+            if (Number.isFinite(createdAtUnix)) {
+                // Support both second- and millisecond-based unix timestamps.
+                createdAtTimestamp = createdAtUnix > 1_000_000_000_000
+                    ? createdAtUnix
+                    : (createdAtUnix * 1000);
+            }
+
+            if (!Number.isFinite(createdAtTimestamp)) {
+                createdAtTimestamp = Date.parse(String(snapshot.game.createdAt ?? '').replace(' ', 'T'));
+            }
+
             if (!Number.isFinite(createdAtTimestamp)) {
                 return Math.max(0, Math.floor(durationSeconds));
             }
 
-            const elapsedSeconds = Math.floor((Date.now() - createdAtTimestamp) / 1000);
+            const now = Date.now();
+            const safeCreatedAtTimestamp = Math.min(createdAtTimestamp, now);
+            const elapsedSeconds = Math.max(0, Math.floor((now - safeCreatedAtTimestamp) / 1000));
             return Math.max(0, Math.floor(durationSeconds) - elapsedSeconds);
+        }
+
+        function syncMatchEndsAt(snapshot) {
+            if (!snapshot?.game) {
+                matchEndsAtMs = null;
+                return;
+            }
+
+            const durationSeconds = Number(snapshot.game.durationSeconds ?? 600);
+            if (!Number.isFinite(durationSeconds)) {
+                matchEndsAtMs = null;
+                return;
+            }
+
+            // Keep lobby timer fixed until match is active.
+            if (Boolean(snapshot?.lobby?.isPending)) {
+                matchEndsAtMs = null;
+                return;
+            }
+
+            const createdAtUnix = Number(snapshot.game.createdAtUnix ?? Number.NaN);
+            let createdAtTimestamp = Number.NaN;
+
+            if (Number.isFinite(createdAtUnix)) {
+                createdAtTimestamp = createdAtUnix > 1_000_000_000_000
+                    ? createdAtUnix
+                    : (createdAtUnix * 1000);
+            }
+
+            if (!Number.isFinite(createdAtTimestamp)) {
+                createdAtTimestamp = Date.parse(String(snapshot.game.createdAt ?? '').replace(' ', 'T'));
+            }
+
+            const now = Date.now();
+            const safeCreatedAtTimestamp = Number.isFinite(createdAtTimestamp)
+                ? Math.min(createdAtTimestamp, now)
+                : now;
+
+            matchEndsAtMs = safeCreatedAtTimestamp + Math.floor(durationSeconds * 1000);
         }
 
         async function finalizeMatchIfElapsed(snapshot) {
@@ -1480,13 +1536,38 @@
             return (total / amplitudeSum + 1) / 2;
         }
 
+        function orthogonalPathPoints(fromX, fromY, toX, toY) {
+            if (fromX === toX || fromY === toY) {
+                return [
+                    { x: fromX, y: fromY },
+                    { x: toX, y: toY },
+                ];
+            }
+
+            const horizontalFirst = Math.abs(fromX - toX) >= Math.abs(fromY - toY);
+            if (horizontalFirst) {
+                return [
+                    { x: fromX, y: fromY },
+                    { x: toX, y: fromY },
+                    { x: toX, y: toY },
+                ];
+            }
+
+            return [
+                { x: fromX, y: fromY },
+                { x: fromX, y: toY },
+                { x: toX, y: toY },
+            ];
+        }
+
         function biomeColor(biome, x, y, seed) {
             const variation = ((x + y) & 1) ^ (terrainNoise(x, y, seed) > 0.66 ? 1 : 0);
             const palettes = {
-                land: ['#8fbf61', '#7fae53'],
-                water: ['#4d89b9', '#3f78a5'],
-                forest: ['#4f8c3d', '#447a35'],
-                mountain: ['#8f8a83', '#7b766f'],
+                // Muted, paper-map inspired tones.
+                land: ['#d7cfb6', '#cfc6ab'],
+                water: ['#9eb2b4', '#93a7aa'],
+                forest: ['#9fa884', '#939d79'],
+                mountain: ['#b3ac9d', '#a8a191'],
             };
 
             return palettes[biome][variation];
@@ -1516,8 +1597,13 @@
                     continue;
                 }
 
-                for (const cell of bresenhamLineCells(from.x, from.y, to.x, to.y)) {
-                    land.add(gridKey(cell.x, cell.y));
+                const points = orthogonalPathPoints(from.x, from.y, to.x, to.y);
+                for (let i = 0; i < points.length - 1; i++) {
+                    const start = points[i];
+                    const end = points[i + 1];
+                    for (const cell of bresenhamLineCells(start.x, start.y, end.x, end.y)) {
+                        land.add(gridKey(cell.x, cell.y));
+                    }
                 }
             }
 
@@ -1545,11 +1631,19 @@
                     const moisture = octavePerlin((column - 700) * 0.08, (row - 700) * 0.08, perlin, 3, 0.5, 2);
                     let biome = 'land';
 
+                    // Bias forest density toward corners for a paper-map look:
+                    // 0 at center, 1 near corners.
+                    const nx = (column / Math.max(1, columns)) * 2 - 1;
+                    const ny = (row / Math.max(1, rows)) * 2 - 1;
+                    const cornerBias = Math.min(1, Math.sqrt((nx * nx) + (ny * ny)) / Math.sqrt(2));
+                    const moistureWithCornerBias = Math.min(1, moisture + (cornerBias * 0.13));
+                    const forestThreshold = 0.58 - (cornerBias * 0.08);
+
                     if (elevation < 0.36) {
                         biome = 'water';
                     } else if (elevation > 0.78) {
                         biome = 'mountain';
-                    } else if (moisture > 0.58) {
+                    } else if (moistureWithCornerBias > forestThreshold) {
                         biome = 'forest';
                     }
 
@@ -1605,26 +1699,26 @@
                 const baseStroke = touchesBranchLine ? '#7f8fb0' : '#94a3b8';
                 const edgeStroke = ownerStroke ?? baseStroke;
                 const borderStroke = edge.isExpress ? '#facc15' : 'rgba(255,255,255,0.72)';
+                const points = orthogonalPathPoints(from.x, from.y, to.x, to.y);
+                const svgPoints = points.map((point) => `${point.x},${point.y}`).join(' ');
 
-                const base = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                base.setAttribute('x1', String(from.x));
-                base.setAttribute('y1', String(from.y));
-                base.setAttribute('x2', String(to.x));
-                base.setAttribute('y2', String(to.y));
+                const base = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+                base.setAttribute('points', svgPoints);
+                base.setAttribute('fill', 'none');
                 base.setAttribute('stroke', borderStroke);
                 base.setAttribute('stroke-width', edge.isExpress ? '6' : '4');
                 base.setAttribute('stroke-linecap', 'square');
+                base.setAttribute('stroke-linejoin', 'miter');
                 edgeLayer.appendChild(base);
 
-                const accent = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                accent.setAttribute('x1', String(from.x));
-                accent.setAttribute('y1', String(from.y));
-                accent.setAttribute('x2', String(to.x));
-                accent.setAttribute('y2', String(to.y));
+                const accent = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+                accent.setAttribute('points', svgPoints);
+                accent.setAttribute('fill', 'none');
                 accent.setAttribute('stroke', edgeStroke);
                 accent.setAttribute('stroke-width', edge.isExpress ? '3' : '2');
                 accent.setAttribute('stroke-opacity', '0.9');
                 accent.setAttribute('stroke-linecap', 'square');
+                accent.setAttribute('stroke-linejoin', 'miter');
                 edgeLayer.appendChild(accent);
             }
         }
@@ -1639,14 +1733,19 @@
                     continue;
                 }
 
-                segments.push({
-                    fromStationId: edge.fromStationId,
-                    toStationId: edge.toStationId,
-                    x1: from.x,
-                    y1: from.y,
-                    x2: to.x,
-                    y2: to.y,
-                });
+                const points = orthogonalPathPoints(from.x, from.y, to.x, to.y);
+                for (let i = 0; i < points.length - 1; i++) {
+                    const start = points[i];
+                    const end = points[i + 1];
+                    segments.push({
+                        fromStationId: edge.fromStationId,
+                        toStationId: edge.toStationId,
+                        x1: start.x,
+                        y1: start.y,
+                        x2: end.x,
+                        y2: end.y,
+                    });
+                }
             }
 
             return segments;
@@ -1686,46 +1785,6 @@
 
         function renderIntersections() {
             intersectionLayer.innerHTML = '';
-            const segments = edgeSegments();
-            const points = new Map();
-
-            for (let i = 0; i < segments.length; i++) {
-                for (let j = i + 1; j < segments.length; j++) {
-                    const first = segments[i];
-                    const second = segments[j];
-                    if (
-                        first.fromStationId === second.fromStationId
-                        || first.fromStationId === second.toStationId
-                        || first.toStationId === second.fromStationId
-                        || first.toStationId === second.toStationId
-                    ) {
-                        continue;
-                    }
-
-                    const intersection = segmentIntersectionPoint(first, second);
-                    if (!intersection) {
-                        continue;
-                    }
-
-                    const key = `${Math.round(intersection.x)},${Math.round(intersection.y)}`;
-                    points.set(key, intersection);
-                }
-            }
-
-            for (const point of points.values()) {
-                const marker = document.createElement('div');
-                marker.className = 'absolute';
-                marker.style.left = `${point.x - 4}px`;
-                marker.style.top = `${point.y - 4}px`;
-                marker.style.width = '8px';
-                marker.style.height = '8px';
-                marker.style.borderRadius = '2px';
-                marker.style.backgroundColor = '#facc15';
-                marker.style.border = '1px solid #854d0e';
-                marker.style.boxShadow = '1px 1px 0 #00000066';
-                marker.title = 'Rail intersection';
-                intersectionLayer.appendChild(marker);
-            }
         }
 
         function challengeAtStation(stationId) {
@@ -2242,6 +2301,7 @@
                 const finalized = await fetch(stateUrlForCurrentPlayer(), { headers: { 'Accept': 'application/json' } });
                 state = await finalized.json();
             }
+            syncMatchEndsAt(state);
             lastStateLoadedAtMs = Date.now();
             ensurePlayerOptions();
             const arrivalStationId = maybeShowArrivalFeedback(previousState, state);
@@ -2273,12 +2333,12 @@
         refreshBtn?.addEventListener('click', () => loadState(true));
 
         loadState(true).then(() => {
-            if (!statsIntervalId && !isGameCompleted()) {
+            if (!statsIntervalId && !gameStopped) {
                 statsIntervalId = setInterval(() => {
                     renderPlayerStatsOverlay();
                 }, 1000);
             }
-            if (!statePollIntervalId && !isGameCompleted()) {
+            if (!statePollIntervalId && !gameStopped) {
                 statePollIntervalId = setInterval(loadState, 3000);
             }
         }).catch((error) => {
