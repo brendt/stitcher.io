@@ -15,6 +15,12 @@ final readonly class MoveCommandResolver
 {
     private const FIRST_DOUBLE_COIN_SPAWN_STEPS_PER_PLAYER = 20;
     private const NEXT_DOUBLE_COIN_SPAWN_STEPS_PER_PLAYER = 30;
+    private const FIRST_STEAL_SPAWN_STEPS_PER_PLAYER = 30;
+    private const NEXT_STEAL_SPAWN_STEPS_PER_PLAYER = 40;
+    private const FIRST_SPEED_BOOST_SPAWN_STEPS_PER_PLAYER = 30;
+    private const NEXT_SPEED_BOOST_SPAWN_STEPS_PER_PLAYER = 40;
+    private const SPEED_BOOST_MULTIPLIER = 2.0;
+    private const SPEED_BOOST_MOVE_DURATION = 20;
 
     public function __construct(
         private GameRepository $games,
@@ -59,6 +65,10 @@ final readonly class MoveCommandResolver
                 'reason' => 'not_adjacent',
                 'requestEventId' => 0,
             ];
+        }
+
+        if ($this->games->hasActiveSpeedBoostForPlayer($gameId, $request->playerId)) {
+            $travelTimeSeconds = max(1, (int) ceil($travelTimeSeconds / self::SPEED_BOOST_MULTIPLIER));
         }
 
         $validation = $this->validateMove(
@@ -139,6 +149,118 @@ final readonly class MoveCommandResolver
                 toStationId: $slot['toStationId'],
             );
         }
+    }
+
+    /**
+     * Demo-only debug helper to spawn bonuses near a specific player.
+     *
+     * @return array{accepted: bool, reason: string, spawned2x: bool, spawnedSteal: bool, spawnedSpeed: bool}
+     */
+    public function debugSpawnBonusesNearPlayer(string $gameId, string $playerId): array
+    {
+        if (!str_starts_with($gameId, 'demo-')) {
+            return [
+                'accepted' => false,
+                'reason' => 'debug_only_for_demo',
+                'spawned2x' => false,
+                'spawnedSteal' => false,
+                'spawnedSpeed' => false,
+            ];
+        }
+
+        $game = $this->games->load($gameId);
+        $player = $game->player($playerId);
+        if ($player->stationId === null) {
+            return [
+                'accepted' => false,
+                'reason' => 'player_has_no_station',
+                'spawned2x' => false,
+                'spawnedSteal' => false,
+                'spawnedSpeed' => false,
+            ];
+        }
+
+        $effectiveAt = DateTime::now()->format(FormatPattern::SQL_DATE_TIME);
+        $blockedStations = array_fill_keys($this->games->activeBonusStations($gameId), true);
+        foreach ($game->players as $candidate) {
+            if ($candidate->stationId !== null) {
+                $blockedStations[$candidate->stationId] = true;
+            }
+        }
+
+        $spawned2x = false;
+        $spawnedSteal = false;
+        $spawnedSpeed = false;
+
+        $doubleStation = $this->pickNearestStationToPlayer(
+            game: $game,
+            originStationId: $player->stationId,
+            blockedStations: array_keys($blockedStations),
+        );
+
+        if ($doubleStation !== null) {
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'double_coin_spawned',
+                playerId: null,
+                payload: [
+                    'stationId' => $doubleStation,
+                    'type' => '2x',
+                ],
+                effectiveAt: $effectiveAt,
+            );
+            $blockedStations[$doubleStation] = true;
+            $spawned2x = true;
+        }
+
+        $stealStation = $this->pickNearestStationToPlayer(
+            game: $game,
+            originStationId: $player->stationId,
+            blockedStations: array_keys($blockedStations),
+        );
+
+        if ($stealStation !== null) {
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'steal_spawned',
+                playerId: null,
+                payload: [
+                    'stationId' => $stealStation,
+                    'type' => 'steal',
+                ],
+                effectiveAt: $effectiveAt,
+            );
+            $spawnedSteal = true;
+            $blockedStations[$stealStation] = true;
+        }
+
+        $speedStation = $this->pickNearestStationToPlayer(
+            game: $game,
+            originStationId: $player->stationId,
+            blockedStations: array_keys($blockedStations),
+        );
+
+        if ($speedStation !== null) {
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'speed_boost_spawned',
+                playerId: null,
+                payload: [
+                    'stationId' => $speedStation,
+                    'type' => 'speed',
+                ],
+                effectiveAt: $effectiveAt,
+            );
+            $spawnedSpeed = true;
+        }
+
+        return [
+            'accepted' => $spawned2x || $spawnedSteal || $spawnedSpeed,
+            'reason' => ($spawned2x || $spawnedSteal || $spawnedSpeed) ? 'accepted' : 'no_available_station',
+            'spawned2x' => $spawned2x,
+            'spawnedSteal' => $spawnedSteal,
+            'spawnedSpeed' => $spawnedSpeed,
+        ];
     }
 
     private function resolveTargetConflicts(string $gameId, string $effectiveAt, string $toStationId): void
@@ -249,7 +371,7 @@ final readonly class MoveCommandResolver
                 orderKey: $request['id'],
             );
 
-            $this->applyDoubleCoinBonuses(
+            $this->applyStepBonuses(
                 gameId: $gameId,
                 playerId: $player->id,
                 stationId: $station->id,
@@ -368,7 +490,7 @@ final readonly class MoveCommandResolver
         return null;
     }
 
-    private function applyDoubleCoinBonuses(
+    private function applyStepBonuses(
         string $gameId,
         string $playerId,
         string $stationId,
@@ -399,7 +521,68 @@ final readonly class MoveCommandResolver
             );
         }
 
+        if ($this->games->hasActiveStealAtStation($gameId, $stationId)) {
+            $game = $this->games->load($gameId);
+            $collector = $game->player($playerId);
+            [$victimId, $stolenCoins] = $this->resolveStealTarget($game, $collector->id);
+
+            $collectorCoinsAfterSteal = $collector->coins + $stolenCoins;
+            $this->games->updatePlayerState(
+                gameId: $gameId,
+                playerId: $collector->id,
+                coins: $collectorCoinsAfterSteal,
+                stationId: $stationId,
+            );
+
+            if ($victimId !== null) {
+                $victim = $game->player($victimId);
+                if ($victim->stationId !== null) {
+                    $this->games->updatePlayerState(
+                        gameId: $gameId,
+                        playerId: $victim->id,
+                        coins: max(0, $victim->coins - $stolenCoins),
+                        stationId: $victim->stationId,
+                    );
+                }
+            }
+
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'steal_collected',
+                playerId: $playerId,
+                payload: [
+                    'stationId' => $stationId,
+                    'victimPlayerId' => $victimId,
+                    'stolenCoins' => $stolenCoins,
+                    'coinsAfter' => $collectorCoinsAfterSteal,
+                ],
+                effectiveAt: $effectiveAt,
+            );
+        }
+
+        if ($this->games->hasActiveSpeedBoostAtStation($gameId, $stationId)) {
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'speed_boost_collected',
+                playerId: $playerId,
+                payload: [
+                    'stationId' => $stationId,
+                    'multiplier' => self::SPEED_BOOST_MULTIPLIER,
+                    'moves' => self::SPEED_BOOST_MOVE_DURATION,
+                ],
+                effectiveAt: $effectiveAt,
+            );
+        }
+
         $this->spawnDueDoubleCoinBonuses(
+            gameId: $gameId,
+            effectiveAt: $effectiveAt,
+        );
+        $this->spawnDueStealBonuses(
+            gameId: $gameId,
+            effectiveAt: $effectiveAt,
+        );
+        $this->spawnDueSpeedBoostBonuses(
             gameId: $gameId,
             effectiveAt: $effectiveAt,
         );
@@ -442,9 +625,122 @@ final readonly class MoveCommandResolver
         }
     }
 
+    private function spawnDueStealBonuses(string $gameId, string $effectiveAt): void
+    {
+        $game = $this->games->load($gameId);
+        $playerCount = count($game->players);
+        if ($playerCount < 2) {
+            return;
+        }
+
+        $movesTaken = $this->games->acceptedMoveCount($gameId);
+        $spawnedCount = $this->games->stealSpawnCount($gameId);
+
+        $firstThreshold = self::FIRST_STEAL_SPAWN_STEPS_PER_PLAYER * $playerCount;
+        $nextThresholdSize = self::NEXT_STEAL_SPAWN_STEPS_PER_PLAYER * $playerCount;
+        $nextThreshold = $firstThreshold + ($spawnedCount * $nextThresholdSize);
+
+        while ($movesTaken >= $nextThreshold) {
+            $stationId = $this->pickFarthestStationFromPlayers($gameId, $game);
+            if ($stationId === null) {
+                return;
+            }
+
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'steal_spawned',
+                playerId: null,
+                payload: [
+                    'stationId' => $stationId,
+                    'type' => 'steal',
+                ],
+                effectiveAt: $effectiveAt,
+            );
+
+            $spawnedCount++;
+            $nextThreshold = $firstThreshold + ($spawnedCount * $nextThresholdSize);
+        }
+    }
+
+    private function spawnDueSpeedBoostBonuses(string $gameId, string $effectiveAt): void
+    {
+        $game = $this->games->load($gameId);
+        $playerCount = count($game->players);
+        if ($playerCount < 2) {
+            return;
+        }
+
+        $movesTaken = $this->games->acceptedMoveCount($gameId);
+        $spawnedCount = $this->games->speedBoostSpawnCount($gameId);
+
+        $firstThreshold = self::FIRST_SPEED_BOOST_SPAWN_STEPS_PER_PLAYER * $playerCount;
+        $nextThresholdSize = self::NEXT_SPEED_BOOST_SPAWN_STEPS_PER_PLAYER * $playerCount;
+        $nextThreshold = $firstThreshold + ($spawnedCount * $nextThresholdSize);
+
+        while ($movesTaken >= $nextThreshold) {
+            $stationId = $this->pickFarthestStationFromPlayers($gameId, $game);
+            if ($stationId === null) {
+                return;
+            }
+
+            $this->games->appendEvent(
+                gameId: $gameId,
+                type: 'speed_boost_spawned',
+                playerId: null,
+                payload: [
+                    'stationId' => $stationId,
+                    'type' => 'speed',
+                ],
+                effectiveAt: $effectiveAt,
+            );
+
+            $spawnedCount++;
+            $nextThreshold = $firstThreshold + ($spawnedCount * $nextThresholdSize);
+        }
+    }
+
+    /**
+     * @return array{0: ?string, 1: int}
+     */
+    private function resolveStealTarget(Game $game, string $collectorPlayerId): array
+    {
+        $bestVictim = null;
+
+        foreach ($game->players as $candidate) {
+            if ($candidate->id === $collectorPlayerId) {
+                continue;
+            }
+
+            if ($candidate->coins <= 0) {
+                continue;
+            }
+
+            if ($bestVictim === null) {
+                $bestVictim = $candidate;
+                continue;
+            }
+
+            if ($candidate->coins > $bestVictim->coins) {
+                $bestVictim = $candidate;
+                continue;
+            }
+
+            if ($candidate->coins === $bestVictim->coins && strcmp($candidate->id, $bestVictim->id) < 0) {
+                $bestVictim = $candidate;
+            }
+        }
+
+        if ($bestVictim === null) {
+            return [null, 0];
+        }
+
+        $stolenCoins = max(1, (int) floor($bestVictim->coins * 0.25));
+        return [$bestVictim->id, min($bestVictim->coins, $stolenCoins)];
+    }
+
     private function pickFarthestStationFromPlayers(string $gameId, Game $game): ?string
     {
-        $activeBonusStations = array_fill_keys($this->games->activeDoubleCoinStations($gameId), true);
+        $activeBonusStations = array_fill_keys($this->games->activeBonusStations($gameId), true);
         $occupiedStations = [];
 
         foreach ($game->players as $player) {
@@ -512,5 +808,46 @@ final readonly class MoveCommandResolver
         }
 
         return $bestStationId;
+    }
+
+    /**
+     * @param list<string> $blockedStations
+     */
+    private function pickNearestStationToPlayer(Game $game, string $originStationId, array $blockedStations): ?string
+    {
+        $blocked = array_fill_keys($blockedStations, true);
+
+        $adjacency = [];
+        foreach ($game->edges as $edge) {
+            $adjacency[$edge->fromStationId] ??= [];
+            $adjacency[$edge->toStationId] ??= [];
+            $adjacency[$edge->fromStationId][] = $edge->toStationId;
+            $adjacency[$edge->toStationId][] = $edge->fromStationId;
+        }
+
+        $visited = [$originStationId => true];
+        $queue = [$originStationId];
+        $cursor = 0;
+
+        while ($cursor < count($queue)) {
+            $stationId = $queue[$cursor++];
+
+            if ($stationId !== $originStationId && !isset($blocked[$stationId])) {
+                return $stationId;
+            }
+
+            $neighbors = $adjacency[$stationId] ?? [];
+            sort($neighbors);
+            foreach ($neighbors as $neighbor) {
+                if (isset($visited[$neighbor])) {
+                    continue;
+                }
+
+                $visited[$neighbor] = true;
+                $queue[] = $neighbor;
+            }
+        }
+
+        return null;
     }
 }

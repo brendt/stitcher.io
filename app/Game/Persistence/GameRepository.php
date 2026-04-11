@@ -274,6 +274,24 @@ final class GameRepository
             ->execute() ?? 0);
     }
 
+    public function stealSpawnCount(string $gameId): int
+    {
+        return (int) (query('game_events')
+            ->count()
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'steal_spawned')
+            ->execute() ?? 0);
+    }
+
+    public function speedBoostSpawnCount(string $gameId): int
+    {
+        return (int) (query('game_events')
+            ->count()
+            ->where('game_id = ?', $gameId)
+            ->where('type = ?', 'speed_boost_spawned')
+            ->execute() ?? 0);
+    }
+
     /**
      * @return list<string>
      */
@@ -312,6 +330,168 @@ final class GameRepository
     }
 
     /**
+     * @return list<string>
+     */
+    public function activeStealStations(string $gameId): array
+    {
+        $rows = query('game_events')
+            ->select('type', 'payload')
+            ->where('game_id = ?', $gameId)
+            ->where('(type = ? OR type = ?)', 'steal_spawned', 'steal_collected')
+            ->orderBy('id ASC')
+            ->all();
+
+        $active = [];
+
+        foreach ($rows as $row) {
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            $stationId = (string) ($payload['stationId'] ?? '');
+            if ($stationId === '') {
+                continue;
+            }
+
+            if ($row['type'] === 'steal_spawned') {
+                $active[$stationId] = true;
+                continue;
+            }
+
+            unset($active[$stationId]);
+        }
+
+        return array_keys($active);
+    }
+
+    public function hasActiveStealAtStation(string $gameId, string $stationId): bool
+    {
+        return in_array($stationId, $this->activeStealStations($gameId), true);
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function activeSpeedBoostStations(string $gameId): array
+    {
+        $rows = query('game_events')
+            ->select('type', 'payload')
+            ->where('game_id = ?', $gameId)
+            ->where('(type = ? OR type = ?)', 'speed_boost_spawned', 'speed_boost_collected')
+            ->orderBy('id ASC')
+            ->all();
+
+        $active = [];
+
+        foreach ($rows as $row) {
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            $stationId = (string) ($payload['stationId'] ?? '');
+            if ($stationId === '') {
+                continue;
+            }
+
+            if ($row['type'] === 'speed_boost_spawned') {
+                $active[$stationId] = true;
+                continue;
+            }
+
+            unset($active[$stationId]);
+        }
+
+        return array_keys($active);
+    }
+
+    public function hasActiveSpeedBoostAtStation(string $gameId, string $stationId): bool
+    {
+        return in_array($stationId, $this->activeSpeedBoostStations($gameId), true);
+    }
+
+    /**
+     * @return array{id: int, moves: int}|null
+     */
+    public function latestSpeedBoostCollection(string $gameId, string $playerId): ?array
+    {
+        $row = query('game_events')
+            ->select('id', 'payload')
+            ->where('game_id = ?', $gameId)
+            ->where('player_id = ?', $playerId)
+            ->where('type = ?', 'speed_boost_collected')
+            ->orderBy('id DESC')
+            ->first();
+
+        if ($row === null) {
+            return null;
+        }
+
+        $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+
+        return [
+            'id' => (int) $row['id'],
+            'moves' => max(0, (int) ($payload['moves'] ?? 20)),
+        ];
+    }
+
+    public function acceptedMoveCountForPlayerAfter(string $gameId, string $playerId, int $afterEventId): int
+    {
+        $rows = query('game_events')
+            ->select('payload')
+            ->where('game_id = ?', $gameId)
+            ->where('player_id = ?', $playerId)
+            ->where('type = ?', 'move_resolved')
+            ->where('id > ?', $afterEventId)
+            ->all();
+
+        $count = 0;
+        foreach ($rows as $row) {
+            $payload = json_decode($row['payload'] ?? '{}', true, flags: JSON_THROW_ON_ERROR);
+            if (($payload['accepted'] ?? false) === true) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    public function speedBoostMovesRemainingForPlayer(string $gameId, string $playerId): int
+    {
+        $latest = $this->latestSpeedBoostCollection($gameId, $playerId);
+        if ($latest === null) {
+            return 0;
+        }
+
+        $usedMoves = $this->acceptedMoveCountForPlayerAfter(
+            gameId: $gameId,
+            playerId: $playerId,
+            afterEventId: $latest['id'],
+        );
+
+        return max(0, $latest['moves'] - $usedMoves);
+    }
+
+    public function hasActiveSpeedBoostForPlayer(string $gameId, string $playerId): bool
+    {
+        return $this->speedBoostMovesRemainingForPlayer($gameId, $playerId) > 0;
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function activeBonusStations(string $gameId): array
+    {
+        $stations = [];
+        foreach ($this->activeDoubleCoinStations($gameId) as $stationId) {
+            $stations[$stationId] = true;
+        }
+
+        foreach ($this->activeStealStations($gameId) as $stationId) {
+            $stations[$stationId] = true;
+        }
+
+        foreach ($this->activeSpeedBoostStations($gameId) as $stationId) {
+            $stations[$stationId] = true;
+        }
+
+        return array_keys($stations);
+    }
+
+    /**
      * @return list<array{station_id: string, type: string, active: bool}>
      */
     public function activeDoubleCoinBonuses(string $gameId): array
@@ -324,6 +504,48 @@ final class GameRepository
             ],
             $this->activeDoubleCoinStations($gameId),
         );
+    }
+
+    /**
+     * @return list<array{station_id: string, type: string, active: bool}>
+     */
+    public function activeStealBonuses(string $gameId): array
+    {
+        return array_map(
+            static fn (string $stationId): array => [
+                'station_id' => $stationId,
+                'type' => 'steal',
+                'active' => true,
+            ],
+            $this->activeStealStations($gameId),
+        );
+    }
+
+    /**
+     * @return list<array{station_id: string, type: string, active: bool}>
+     */
+    public function activeSpeedBoostBonuses(string $gameId): array
+    {
+        return array_map(
+            static fn (string $stationId): array => [
+                'station_id' => $stationId,
+                'type' => 'speed',
+                'active' => true,
+            ],
+            $this->activeSpeedBoostStations($gameId),
+        );
+    }
+
+    /**
+     * @return list<array{station_id: string, type: string, active: bool}>
+     */
+    public function activeBonuses(string $gameId): array
+    {
+        return [
+            ...$this->activeDoubleCoinBonuses($gameId),
+            ...$this->activeStealBonuses($gameId),
+            ...$this->activeSpeedBoostBonuses($gameId),
+        ];
     }
 
     /**

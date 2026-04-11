@@ -21,7 +21,7 @@
             <span style="font-size:13px;">Singleplayer (1v1 bot)</span>
         </label>
 
-        <label style="display:grid;gap:6px;">
+        <label id="player-count-row" style="display:grid;gap:6px;">
             <span style="font-size:12px;color:#cbd5e1;">Human player count (multiplayer mode)</span>
             <select name="players" style="padding:8px 10px;border-radius:8px;border:1px solid #4b5563;background:#0f172a;color:#f9fafb;">
                 <option value="2">2</option>
@@ -35,6 +35,26 @@
         <button type="submit" style="margin-top:4px;padding:10px 12px;border-radius:10px;border:1px solid #374151;background:#ec4899;color:#fff;font-weight:700;cursor:pointer;">Create game</button>
     </form>
 </main>
+<script>
+    (() => {
+        const playerCountRow = document.getElementById('player-count-row');
+        const modeInputs = document.querySelectorAll('input[name="mode"]');
+
+        if (!playerCountRow || modeInputs.length === 0) {
+            return;
+        }
+
+        const syncPlayerCountVisibility = () => {
+            const selectedMode = [...modeInputs].find((input) => input.checked)?.value ?? 'players';
+            playerCountRow.style.display = selectedMode === 'players' ? 'grid' : 'none';
+        };
+
+        for (const input of modeInputs) {
+            input.addEventListener('change', syncPlayerCountVisibility);
+        }
+
+        syncPlayerCountVisibility();
+    })();
+</script>
 </body>
 </html>
-

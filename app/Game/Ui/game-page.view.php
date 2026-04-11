@@ -147,6 +147,7 @@
         <aside id="player-control-overlay" style="position: fixed; right: 16px; top: 68px; width: 220px; z-index: 96; background: rgba(17,24,39,0.95); border: 1px solid #374151; border-radius: 10px; box-shadow: 0 10px 18px rgba(0,0,0,0.35); padding: 10px;">
             <label for="player-select" class="font-bold block mb-1 text-xs" style="color: #e5e7eb; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;">Control player</label>
             <select id="player-select" class="w-full rounded px-2 py-1 text-sm" style="background: #0b1220; color: #f9fafb; border: 1px solid #4b5563;"></select>
+            <button id="debug-spawn-bonuses" type="button" class="mt-2 w-full rounded bg-red-900 px-3 py-2 text-xs font-bold text-white hover:opacity-90">Debug: spawn bonuses</button>
         </aside>
         <div id="help-modal" class="fixed inset-0 flex items-center justify-center" style="display:none;position:fixed;inset:0;z-index:200;padding:28px;background: rgba(3,7,18,0.62);">
             <div data-help-panel="true" class="rounded-xl border" style="width:min(430px, calc(100vw - 56px));padding:20px 22px;background:#111827;color:#f9fafb;border-color:#374151;box-shadow:0 18px 28px rgba(0,0,0,0.45), 0 2px 0 rgba(255,255,255,0.08) inset;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, monospace;box-sizing:border-box;">
@@ -192,6 +193,18 @@
                         <span style="display:inline-block;width:10px;height:10px;border-radius:9999px;border:1px solid #0f172a;background:#ef4444;box-shadow:1px 1px 0 #00000055;"></span>
                         <span>Player-specific challenge</span>
                     </div>
+                    <div class="flex items-center gap-4">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:10px;border:1px solid #4c1d95;border-radius:2px;background:#7c3aed;color:#f5f3ff;font-size:7px;font-weight:900;line-height:1;box-shadow:1px 1px 0 #00000055;">2x</span>
+                        <span>2x coin bonus</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:10px;height:10px;border:1px solid #450a0a;border-radius:2px;background:#7f1d1d;color:#fee2e2;font-size:8px;font-weight:900;line-height:1;box-shadow:1px 1px 0 #00000055;">s</span>
+                        <span>Steal bonus</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:10px;border:1px solid #166534;border-radius:2px;background:#86efac;color:#14532d;font-size:7px;font-weight:900;line-height:1;box-shadow:1px 1px 0 #00000055;">++</span>
+                        <span>Speed bonus (travel time halved for 20 moves)</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -218,6 +231,7 @@
         const playerStatsOverlay = document.getElementById('player-stats-overlay');
         const playerStatsContent = document.getElementById('player-stats-content');
         const newDemoLink = document.getElementById('new-demo-link');
+        const debugSpawnBonusesBtn = document.getElementById('debug-spawn-bonuses');
         const playerControlOverlay = document.getElementById('player-control-overlay');
         const playerSelect = document.getElementById('player-select');
         const lobbyOverlay = document.getElementById('lobby-overlay');
@@ -289,6 +303,9 @@
         }
         if (newDemoLink && !isDemoGame) {
             newDemoLink.style.display = 'none';
+        }
+        if (debugSpawnBonusesBtn && !isDemoGame) {
+            debugSpawnBonusesBtn.style.display = 'none';
         }
 
         function showHelpModal() {
@@ -821,12 +838,45 @@
             moveModalConfirm.classList.toggle('hidden', challengeOnlyMode);
             moveModalCoinSelector.style.display = hideCoinSelector ? 'none' : '';
             moveModalConfirm.style.display = challengeOnlyMode ? 'none' : '';
-            const travelTimeSeconds = (!isCurrentStation && player.stationId)
+            const baseTravelTimeSeconds = (!isCurrentStation && player.stationId)
                 ? edgeTravelTimeSeconds(player.stationId, stationId)
                 : null;
+            const travelTimeSeconds = (!isCurrentStation && player.stationId)
+                ? edgeTravelTimeSeconds(player.stationId, stationId, player)
+                : null;
+            const isBoostedTravelTime = Number(player?.speedBoostMovesRemaining ?? 0) > 0
+                && baseTravelTimeSeconds !== null
+                && travelTimeSeconds !== null
+                && travelTimeSeconds < baseTravelTimeSeconds;
             if (moveModalTravelTime) {
                 if (!challengeOnlyMode && travelTimeSeconds !== null) {
-                    moveModalTravelTime.textContent = `Travel time: ${travelTimeSeconds}s`;
+                    moveModalTravelTime.innerHTML = '';
+                    moveModalTravelTime.appendChild(document.createTextNode(`Travel time: ${travelTimeSeconds}s`));
+                    if (isBoostedTravelTime) {
+                        const separator = document.createTextNode(' ');
+                        const badge = document.createElement('span');
+                        badge.textContent = '++';
+                        badge.title = 'Speed boost active';
+                        badge.style.display = 'inline-flex';
+                        badge.style.alignItems = 'center';
+                        badge.style.justifyContent = 'center';
+                        badge.style.minWidth = '14px';
+                        badge.style.height = '10px';
+                        badge.style.padding = '0 1px';
+                        badge.style.border = '1px solid #166534';
+                        badge.style.borderRadius = '2px';
+                        badge.style.background = '#86efac';
+                        badge.style.color = '#14532d';
+                        badge.style.fontSize = '7px';
+                        badge.style.fontWeight = '900';
+                        badge.style.lineHeight = '1';
+                        badge.style.verticalAlign = 'middle';
+                        badge.style.position = 'relative';
+                        badge.style.top = '-1px';
+                        badge.style.boxShadow = '1px 1px 0 #00000055';
+                        moveModalTravelTime.appendChild(separator);
+                        moveModalTravelTime.appendChild(badge);
+                    }
                     moveModalTravelTime.classList.remove('hidden');
                 } else {
                     moveModalTravelTime.textContent = '';
@@ -1290,7 +1340,7 @@
             return state.stations.find((station) => station.id === id) ?? null;
         }
 
-        function edgeTravelTimeSeconds(fromStationId, toStationId) {
+        function edgeTravelTimeSeconds(fromStationId, toStationId, player = null) {
             if (!fromStationId || !toStationId) {
                 return null;
             }
@@ -1301,7 +1351,16 @@
             ));
 
             const seconds = Number(edge?.travelTimeSeconds ?? NaN);
-            return Number.isFinite(seconds) && seconds > 0 ? seconds : null;
+            if (!Number.isFinite(seconds) || seconds <= 0) {
+                return null;
+            }
+
+            const remainingBoostMoves = Number(player?.speedBoostMovesRemaining ?? 0);
+            if (remainingBoostMoves > 0) {
+                return Math.max(1, Math.ceil(seconds / 2));
+            }
+
+            return seconds;
         }
 
         function stationLabel(station) {
@@ -1824,6 +1883,16 @@
             return bonuses.find((bonus) => bonus.active && bonus.type === '2x' && bonus.station_id === stationId) ?? null;
         }
 
+        function stealBonusAtStation(stationId) {
+            const bonuses = Array.isArray(state?.bonuses) ? state.bonuses : [];
+            return bonuses.find((bonus) => bonus.active && bonus.type === 'steal' && bonus.station_id === stationId) ?? null;
+        }
+
+        function speedBonusAtStation(stationId) {
+            const bonuses = Array.isArray(state?.bonuses) ? state.bonuses : [];
+            return bonuses.find((bonus) => bonus.active && bonus.type === 'speed' && bonus.station_id === stationId) ?? null;
+        }
+
         function canMoveTo(player, targetStationId) {
             if (!player || !player.stationId) return false;
             return state.edges.some((edge) => (
@@ -1982,6 +2051,8 @@
                 button.dataset.mapNode = 'true';
                 const challenge = challengeAtStation(station.id);
                 const doubleCoinBonus = doubleCoinBonusAtStation(station.id);
+                const stealBonus = stealBonusAtStation(station.id);
+                const speedBonus = speedBonusAtStation(station.id);
                 const isPlayerStation = !inTransit && player?.stationId === station.id;
                 const isReachable = !inTransit && player ? canMoveTo(player, station.id) : false;
                 button.dataset.reachable = isReachable ? 'true' : 'false';
@@ -2061,7 +2132,7 @@
                 }
 
                 const deposited = station.topValue > 0 ? station.topValue : null;
-                button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ` | challenge +${challenge.reward}` : ''}${doubleCoinBonus ? ' | 2x bonus' : ''}`;
+                button.title = `${stationLabel(station)} (${station.id}) | owner: ${station.ownerId ?? 'neutral'} | deposited: ${deposited ?? '-'}${challenge ? ` | challenge +${challenge.reward}` : ''}${doubleCoinBonus ? ' | 2x bonus' : ''}${stealBonus ? ' | steal bonus' : ''}${speedBonus ? ' | speed bonus' : ''}`;
                 button.textContent = deposited === null ? '-' : String(deposited);
                 button.addEventListener('click', (event) => {
                     if (Date.now() - lastTouchDragAt < 300) {
@@ -2121,7 +2192,7 @@
                     badge.dataset.mapInteractive = 'true';
                     badge.className = 'absolute rounded-full border shadow-[1px_1px_0_#00000055]';
                     badge.style.opacity = '1';
-                    if (doubleCoinBonus) {
+                    if (doubleCoinBonus || stealBonus || speedBonus) {
                         badge.style.left = '-4px';
                     } else {
                         badge.style.right = '-4px';
@@ -2162,6 +2233,53 @@
                     badge.style.boxShadow = '1px 1px 0 #00000055';
                     badge.textContent = '2x';
                     badge.title = '2x coin bonus';
+                    button.appendChild(badge);
+                }
+
+                if (stealBonus) {
+                    const badge = document.createElement('div');
+                    badge.dataset.mapInteractive = 'true';
+                    badge.className = 'absolute border rounded-[2px]';
+                    badge.style.right = '-6px';
+                    badge.style.top = '-6px';
+                    badge.style.width = '10px';
+                    badge.style.height = '10px';
+                    badge.style.display = 'flex';
+                    badge.style.alignItems = 'center';
+                    badge.style.justifyContent = 'center';
+                    badge.style.backgroundColor = '#7f1d1d';
+                    badge.style.borderColor = '#450a0a';
+                    badge.style.color = '#fee2e2';
+                    badge.style.fontSize = '8px';
+                    badge.style.fontWeight = '900';
+                    badge.style.lineHeight = '1';
+                    badge.style.boxShadow = '1px 1px 0 #00000055';
+                    badge.textContent = 's';
+                    badge.title = 'Steal bonus';
+                    button.appendChild(badge);
+                }
+
+                if (speedBonus) {
+                    const badge = document.createElement('div');
+                    badge.dataset.mapInteractive = 'true';
+                    badge.className = 'absolute border rounded-[2px]';
+                    badge.style.right = '-6px';
+                    badge.style.top = '-6px';
+                    badge.style.minWidth = '14px';
+                    badge.style.height = '10px';
+                    badge.style.padding = '0 1px';
+                    badge.style.display = 'flex';
+                    badge.style.alignItems = 'center';
+                    badge.style.justifyContent = 'center';
+                    badge.style.backgroundColor = '#86efac';
+                    badge.style.borderColor = '#166534';
+                    badge.style.color = '#14532d';
+                    badge.style.fontSize = '7px';
+                    badge.style.fontWeight = '900';
+                    badge.style.lineHeight = '1';
+                    badge.style.boxShadow = '1px 1px 0 #00000055';
+                    badge.textContent = '++';
+                    badge.title = 'Speed bonus';
                     button.appendChild(badge);
                 }
 
@@ -2244,6 +2362,7 @@
 
                     score.appendChild(dot);
                     score.appendChild(label);
+
                     gameTimerNotch.appendChild(score);
                 }
             }
@@ -2283,6 +2402,34 @@
 
             row.appendChild(indicator);
             row.appendChild(text);
+
+            const speedMovesRemaining = Number(activePlayer.speedBoostMovesRemaining ?? 0);
+            if (speedMovesRemaining > 0) {
+                const separator = document.createElement('span');
+                separator.textContent = '·';
+                separator.style.opacity = '0.85';
+
+                const speedBadge = document.createElement('span');
+                speedBadge.textContent = '++';
+                speedBadge.title = `Speed boost active (${speedMovesRemaining} moves left)`;
+                speedBadge.style.display = 'inline-flex';
+                speedBadge.style.alignItems = 'center';
+                speedBadge.style.justifyContent = 'center';
+                speedBadge.style.minWidth = '14px';
+                speedBadge.style.height = '10px';
+                speedBadge.style.padding = '0 1px';
+                speedBadge.style.border = '1px solid #166534';
+                speedBadge.style.borderRadius = '2px';
+                speedBadge.style.background = '#86efac';
+                speedBadge.style.color = '#14532d';
+                speedBadge.style.fontSize = '7px';
+                speedBadge.style.fontWeight = '900';
+                speedBadge.style.lineHeight = '1';
+                speedBadge.style.boxShadow = '1px 1px 0 #00000055';
+                row.appendChild(separator);
+                row.appendChild(speedBadge);
+            }
+
             playerStatsContent.appendChild(row);
 
             if (isGamePending()) {
@@ -2378,6 +2525,34 @@
         });
 
         refreshBtn?.addEventListener('click', () => loadState(true));
+
+        debugSpawnBonusesBtn?.addEventListener('click', async () => {
+            if (!isDemoGame) {
+                return;
+            }
+
+            const player = currentPlayer();
+            if (!player) {
+                setFeedback('No active player selected.', true);
+                return;
+            }
+
+            const result = await postForm(`/games/${gameId}/commands/debug-spawn-bonuses`, {
+                playerId: player.id,
+            });
+
+            if (result.accepted) {
+                const spawned = [];
+                if (result.spawned2x) spawned.push('2x');
+                if (result.spawnedSteal) spawned.push('steal');
+                if (result.spawnedSpeed) spawned.push('speed');
+                setFeedback(`Spawned: ${spawned.join(', ')}`);
+            } else {
+                setFeedback(`Debug spawn rejected: ${result.reason}`, true);
+            }
+
+            await loadState();
+        });
 
         loadState(true).then(() => {
             if (!statsIntervalId && !gameStopped) {

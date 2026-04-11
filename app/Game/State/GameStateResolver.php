@@ -70,6 +70,10 @@ final readonly class GameStateResolver
                     'id' => $player->id,
                     'coins' => $player->coins,
                     'stationId' => $player->stationId,
+                    'speedBoostMovesRemaining' => $this->games->speedBoostMovesRemainingForPlayer(
+                        gameId: $gameId,
+                        playerId: $player->id,
+                    ),
                     'pendingMove' => $pendingMovePayload,
                 ];
             },
@@ -125,7 +129,7 @@ final readonly class GameStateResolver
             'stations' => $stations,
             'edges' => $edges,
             'challenges' => $challenges,
-            'bonuses' => $this->games->activeDoubleCoinBonuses($gameId),
+            'bonuses' => $this->games->activeBonuses($gameId),
             'score' => [
                 'winnerPlayerId' => $finalization['winnerPlayerId'] ?? null,
                 'isTie' => $finalization['isTie'] ?? false,
