@@ -61,7 +61,7 @@
             bottom: 0;
             transform: translateX(-50%);
             z-index: 900;
-            min-width: 460px;
+            min-width: 620px;
             padding: 10px 18px 14px;
             border: 1px solid rgba(255, 255, 255, 0.16);
             border-bottom: none;
@@ -74,6 +74,8 @@
             display: flex;
             gap: 24px;
             justify-content: center;
+            align-items: flex-end;
+            flex-wrap: wrap;
         }
 
         .bottom-notch-stat {
@@ -93,6 +95,15 @@
             line-height: 1;
             font-weight: 700;
         }
+
+        .bottom-notch-max {
+            margin-left: 6px;
+            font-size: 12px;
+            line-height: 1;
+            font-weight: 500;
+            opacity: 0.72;
+            vertical-align: baseline;
+        }
     </style>
 </head>
 
@@ -110,6 +121,10 @@
             <div id="mana-counter" class="bottom-notch-value">0</div>
         </div>
         <div class="bottom-notch-stat">
+            <div class="bottom-notch-label">Stability</div>
+            <div id="stability-counter" class="bottom-notch-value">0</div>
+        </div>
+        <div class="bottom-notch-stat">
             <div class="bottom-notch-label">Coins</div>
             <div id="coin-counter" class="bottom-notch-value">0</div>
         </div>
@@ -125,6 +140,7 @@
         const coinCounter = document.getElementById('coin-counter');
         const healthCounter = document.getElementById('health-counter');
         const manaCounter = document.getElementById('mana-counter');
+        const stabilityCounter = document.getElementById('stability-counter');
         const context = canvas.getContext('2d');
 
         const payload = JSON.parse(dataElement.textContent);
@@ -134,7 +150,11 @@
         let dungeonVersion = null;
         let collectedCoins = 0;
         let health = 0;
+        let maxHealth = 0;
         let mana = 0;
+        let maxMana = 0;
+        let stability = 0;
+        let maxStability = 0;
         let latestChanges = [];
         const wallSpritePaths = {
             top: '/dungeon/wall-top.png',
@@ -144,10 +164,12 @@
         };
         const floorSpritePath = '/dungeon/tile-floor.png';
         const floorCoinsSpritePath = '/dungeon/tile-floor-coins.png';
+        const floorCollapsedSpritePath = '/dungeon/tile-collapsed.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
         const wallSprites = {};
         let floorSprite = null;
         let floorCoinsSprite = null;
+        let floorCollapsedSprite = null;
         let playerSprite = null;
 
         const bounds = {
@@ -245,7 +267,10 @@
 
         function drawFloor(tile, x, y, tileSize) {
             const hasCoins = Number(tile?.coins ?? 0) > 0;
-            const sprite = hasCoins ? (floorCoinsSprite ?? floorSprite) : floorSprite;
+            const isCollapsed = Boolean(tile?.isCollapsed);
+            const sprite = isCollapsed
+                ? (floorCollapsedSprite ?? floorSprite)
+                : (hasCoins ? (floorCoinsSprite ?? floorSprite) : floorSprite);
 
             if (sprite) {
                 context.drawImage(sprite, x, y, tileSize, tileSize);
@@ -473,7 +498,11 @@
             dungeonVersion = nextPayload?.version ?? null;
             collectedCoins = Number(nextPayload?.coins ?? 0);
             health = Number(nextPayload?.health ?? 0);
+            maxHealth = Number(nextPayload?.maxHealth ?? 0);
             mana = Number(nextPayload?.mana ?? 0);
+            maxMana = Number(nextPayload?.maxMana ?? 0);
+            stability = Number(nextPayload?.stability ?? 0);
+            maxStability = Number(nextPayload?.maxStability ?? 0);
             latestChanges = [];
         }
 
@@ -509,6 +538,10 @@
                 }
 
                 if (change?.name === 'tile.generated') {
+                    upsertTile(change.payload);
+                }
+
+                if (change?.name === 'tile.collapsed') {
                     upsertTile(change.payload);
                 }
 
@@ -573,10 +606,45 @@
                     mana += Number(change.payload?.amount ?? 0);
                 }
 
+                if (change?.name === 'player.manaLost') {
+                    if (typeof change.payload?.mana !== 'undefined') {
+                        mana = Number(change.payload.mana);
+                        continue;
+                    }
+
+                    mana -= Number(change.payload?.amount ?? 0);
+                }
+
+                if (
+                    change?.name === 'player.stabilityChanged'
+                    || change?.name === 'player.stabilityGained'
+                    || change?.name === 'player.stabilityLost'
+                    || change?.name === 'player.stabilityIncreased'
+                    || change?.name === 'player.stabilityDecreased'
+                ) {
+                    if (typeof change.payload?.stability !== 'undefined') {
+                        stability = Number(change.payload.stability);
+                        continue;
+                    }
+
+                    if (typeof change.payload?.amount !== 'undefined') {
+                        const amount = Number(change.payload.amount);
+
+                        if (change?.name === 'player.stabilityLost' || change?.name === 'player.stabilityDecreased') {
+                            stability -= amount;
+                            continue;
+                        }
+
+                        stability += amount;
+                    }
+                }
+
                 if (
                     change?.name === 'player.healthChanged'
                     || change?.name === 'player.healthGained'
                     || change?.name === 'player.healthLost'
+                    || change?.name === 'player.healthIncreased'
+                    || change?.name === 'player.healthDecreased'
                 ) {
                     if (typeof change.payload?.health !== 'undefined') {
                         health = Number(change.payload.health);
@@ -586,7 +654,7 @@
                     if (typeof change.payload?.amount !== 'undefined') {
                         const amount = Number(change.payload.amount);
 
-                        if (change?.name === 'player.healthLost') {
+                        if (change?.name === 'player.healthLost' || change?.name === 'player.healthDecreased') {
                             health -= amount;
                             continue;
                         }
@@ -616,12 +684,17 @@
             coinCounter.textContent = String(collectedCoins);
         }
 
+        function formatCurrentMax(current, max) {
+            const safeMax = Number.isFinite(max) ? max : 0;
+            return `${current}<span class="bottom-notch-max">/ ${safeMax}</span>`;
+        }
+
         function renderHealthCounter() {
             if (!healthCounter) {
                 return;
             }
 
-            healthCounter.textContent = String(health);
+            healthCounter.innerHTML = formatCurrentMax(health, maxHealth);
         }
 
         function renderManaCounter() {
@@ -629,7 +702,15 @@
                 return;
             }
 
-            manaCounter.textContent = String(mana);
+            manaCounter.innerHTML = formatCurrentMax(mana, maxMana);
+        }
+
+        function renderStabilityCounter() {
+            if (!stabilityCounter) {
+                return;
+            }
+
+            stabilityCounter.innerHTML = formatCurrentMax(stability, maxStability);
         }
 
         async function movePlayer(direction) {
@@ -662,6 +743,7 @@
                 renderCoinCounter();
                 renderHealthCounter();
                 renderManaCounter();
+                renderStabilityCounter();
             } finally {
                 state.moveInFlight = false;
             }
@@ -704,11 +786,15 @@
                 floorCoinsSprite = image;
             });
 
+            const floorCollapsedPromise = loadImage(floorCollapsedSpritePath).then((image) => {
+                floorCollapsedSprite = image;
+            });
+
             const playerPromise = loadImage(playerSpritePath).then((image) => {
                 playerSprite = image;
             });
 
-            Promise.all([...wallPromises, floorPromise, floorCoinsPromise, playerPromise]).then(() => {
+            Promise.all([...wallPromises, floorPromise, floorCoinsPromise, floorCollapsedPromise, playerPromise]).then(() => {
                 render();
             });
         }
@@ -810,6 +896,7 @@
         renderCoinCounter();
         renderHealthCounter();
         renderManaCounter();
+        renderStabilityCounter();
         preloadSprites();
     </script>
 </body>

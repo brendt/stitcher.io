@@ -4,9 +4,11 @@ namespace App\Dungeon;
 
 use App\Dungeon\Entities\Tile;
 use App\Dungeon\Events\PlayerManaGained;
+use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\TileCoinsAdded;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\TileCoinsCollected;
+use App\Dungeon\Events\TileCollapsed;
 use function Tempest\EventBus\event;
 
 trait DungeonActions
@@ -20,6 +22,10 @@ trait DungeonActions
         $neighbourPosition = $this->playerPosition->getNeighbour($direction);
 
         $neighbourTile = $this->getTile($neighbourPosition);
+
+        if ($neighbourTile && $neighbourTile->isCollapsed) {
+            return;
+        }
 
         if ($neighbourTile && ! $neighbourTile->canMoveTo($direction->opposite())) {
             return;
@@ -70,5 +76,35 @@ trait DungeonActions
         }
 
         event(new PlayerManaGained($amount));
+    }
+
+    public function decreaseStability(int $amount): void
+    {
+        if ($this->stability <= 0) {
+            return;
+        }
+
+        $this->stability -= $amount;
+
+        if ($this->stability <= 0) {
+            $this->stability = 0;
+        }
+
+        if ($amount <= 0) {
+            return;
+        }
+
+        event(new PlayerStabilityDecreased($amount));
+    }
+
+    public function collapseTile(Tile $tile): void
+    {
+        if (! $tile->canCollapse()) {
+            return;
+        }
+
+        $tile->isCollapsed = true;
+
+        event(new TileCollapsed($tile));
     }
 }

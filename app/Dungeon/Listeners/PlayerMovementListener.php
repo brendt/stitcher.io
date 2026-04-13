@@ -2,6 +2,8 @@
 
 namespace App\Dungeon\Listeners;
 
+use App\Dungeon\Commands\ChangeStability;
+use App\Dungeon\Commands\CollapseTile;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Support\Random;
@@ -60,5 +62,52 @@ final readonly class PlayerMovementListener
         $amount = arr([0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 5])->random();
 
         $this->dungeon->gainMana($amount);
+    }
+
+    #[EventHandler]
+    public function decreaseStability(PlayerMoved $event): void
+    {
+        $tileCount = $this->dungeon->tileCount();
+
+        $amount = match (true) {
+            $tileCount > 700 => arr([
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2
+            ])->random(),
+            $tileCount > 400 => arr([
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+            ])->random(),
+            $tileCount > 100 => arr([
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+            ])->random(),
+            default => arr([
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+            ])->random(),
+        };
+
+        $this->dungeon->decreaseStability($amount);
+    }
+
+    #[EventHandler]
+    public function collapseTile(PlayerMoved $event): void
+    {
+        $chanceToCollapse = match (true) {
+            $this->dungeon->stability === 0 => 6,
+            $this->dungeon->stability < 10 => 3,
+            $this->dungeon->stability < 30 => 2,
+            $this->dungeon->stability < 60 => 1,
+            default => 0,
+        };
+
+        foreach ($this->dungeon->loopTiles() as $tile) {
+            if (! $tile->canCollapse()) {
+                continue;
+            }
+
+            if (rand(1, 1000) > $chanceToCollapse) {
+                continue;
+            }
+
+            $this->dungeon->collapseTile($tile);
+        }
     }
 }

@@ -13,16 +13,18 @@ final class Dungeon
 {
     use DungeonActions;
 
-    private(set) int $version = 0;
-    private(set) array $changes = [];
-    private(set) array $tiles = [];
-    private(set) Point $playerPosition;
-    private(set) bool $hasEnded = false;
-    private(set) int $coins = 0;
-    private(set) int $health = 100;
-    private(set) int $maxHealth = 100;
-    private(set) int $mana = 0;
-    private(set) int $maxMana = 150;
+    public int $version = 0;
+    public array $changes = [];
+    public array $tiles = [];
+    public Point $playerPosition;
+    public bool $hasEnded = false;
+    public int $coins = 0;
+    public int $health = 100;
+    public int $maxHealth = 100;
+    public int $mana = 0;
+    public int $maxMana = 150;
+    public int $stability = 100;
+    public int $maxStability = 100;
 
     public Tile $currentTile {
         get => $this->getTile($this->playerPosition);
@@ -47,6 +49,8 @@ final class Dungeon
             'maxMana' => $this->maxMana,
             'health' => $this->health,
             'maxHealth' => $this->maxHealth,
+            'stability' => $this->stability,
+            'maxStability' => $this->maxStability,
         ];
     }
 
@@ -130,5 +134,10 @@ final class Dungeon
                 yield $tile;
             }
         }
+    }
+
+    public function tileCount(): int
+    {
+        return iterator_count($this->loopTiles());
     }
 }
