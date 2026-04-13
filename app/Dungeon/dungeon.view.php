@@ -48,11 +48,50 @@
             padding: 10px 12px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            background: rgba(12, 13, 18, 0.9);
+            background: rgba(12, 13, 18, 0.5);
             color: #e5e7eb;
             font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
             white-space: pre-wrap;
+            pointer-events: auto;
+        }
+
+        .bottom-notch {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            z-index: 900;
+            min-width: 460px;
+            padding: 10px 18px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-bottom: none;
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
+            background: rgba(12, 13, 18, 0.9);
+            color: #e5e7eb;
+            font-family: ui-sans-serif, system-ui, sans-serif;
             pointer-events: none;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .bottom-notch-stat {
+            min-width: 110px;
+        }
+
+        .bottom-notch-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.7;
+        }
+
+        .bottom-notch-value {
+            margin-top: 2px;
+            font-size: 20px;
+            line-height: 1;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -60,6 +99,20 @@
 <body>
     <div id="viewport" class="viewport">
         <canvas id="dungeon-canvas"></canvas>
+    </div>
+    <div class="bottom-notch">
+        <div class="bottom-notch-stat">
+            <div class="bottom-notch-label">Health</div>
+            <div id="health-counter" class="bottom-notch-value">0</div>
+        </div>
+        <div class="bottom-notch-stat">
+            <div class="bottom-notch-label">Mana</div>
+            <div id="mana-counter" class="bottom-notch-value">0</div>
+        </div>
+        <div class="bottom-notch-stat">
+            <div class="bottom-notch-label">Coins</div>
+            <div id="coin-counter" class="bottom-notch-value">0</div>
+        </div>
     </div>
     <pre id="debug-popup" class="debug-popup"></pre>
 
@@ -69,13 +122,19 @@
         const viewport = document.getElementById('viewport');
         const canvas = document.getElementById('dungeon-canvas');
         const debugPopup = document.getElementById('debug-popup');
+        const coinCounter = document.getElementById('coin-counter');
+        const healthCounter = document.getElementById('health-counter');
+        const manaCounter = document.getElementById('mana-counter');
         const context = canvas.getContext('2d');
 
         const payload = JSON.parse(dataElement.textContent);
-        const tiles = normalizeTiles(payload.tiles ?? []);
+        const tiles = [];
         const tileIndex = new Map();
-        let playerPosition = payload.playerPosition ?? null;
-        let dungeonVersion = payload.version ?? null;
+        let playerPosition = null;
+        let dungeonVersion = null;
+        let collectedCoins = 0;
+        let health = 0;
+        let mana = 0;
         let latestChanges = [];
         const wallSpritePaths = {
             top: '/dungeon/wall-top.png',
@@ -84,32 +143,18 @@
             left: '/dungeon/wall-left.png',
         };
         const floorSpritePath = '/dungeon/tile-floor.png';
+        const floorCoinsSpritePath = '/dungeon/tile-floor-coins.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
         const wallSprites = {};
         let floorSprite = null;
+        let floorCoinsSprite = null;
         let playerSprite = null;
 
-        for (const tile of tiles) {
-            tileIndex.set(getTileKey(tile.point.x, tile.point.y), tile);
-        }
-
-        const boundsAccumulator = tiles.reduce((acc, tile) => {
-            const x = tile.point.x;
-            const y = tile.point.y;
-
-            acc.minX = Math.min(acc.minX, x);
-            acc.minY = Math.min(acc.minY, y);
-            acc.maxX = Math.max(acc.maxX, x);
-            acc.maxY = Math.max(acc.maxY, y);
-
-            return acc;
-        }, { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity });
-
         const bounds = {
-            minX: Number.isFinite(boundsAccumulator.minX) ? boundsAccumulator.minX : 0,
-            minY: Number.isFinite(boundsAccumulator.minY) ? boundsAccumulator.minY : 0,
-            maxX: Number.isFinite(boundsAccumulator.maxX) ? boundsAccumulator.maxX : 0,
-            maxY: Number.isFinite(boundsAccumulator.maxY) ? boundsAccumulator.maxY : 0,
+            minX: 0,
+            minY: 0,
+            maxX: 0,
+            maxY: 0,
         };
 
         const state = {
@@ -176,7 +221,7 @@
                 const y = state.paddingY + (tile.point.y - bounds.minY) * step;
                 const openDirections = new Set(tile.directions ?? []);
 
-                drawFloor(x, y, tileSize);
+                drawFloor(tile, x, y, tileSize);
 
                 if (!openDirections.has('top')) {
                     drawWall('top', x, y, tileSize);
@@ -198,9 +243,12 @@
             drawPlayer(tileSize, step);
         }
 
-        function drawFloor(x, y, tileSize) {
-            if (floorSprite) {
-                context.drawImage(floorSprite, x, y, tileSize, tileSize);
+        function drawFloor(tile, x, y, tileSize) {
+            const hasCoins = Number(tile?.coins ?? 0) > 0;
+            const sprite = hasCoins ? (floorCoinsSprite ?? floorSprite) : floorSprite;
+
+            if (sprite) {
+                context.drawImage(sprite, x, y, tileSize, tileSize);
                 return;
             }
 
@@ -294,6 +342,33 @@
             return `${x}:${y}`;
         }
 
+        function recomputeBoundsFromTiles() {
+            if (tiles.length === 0) {
+                bounds.minX = 0;
+                bounds.minY = 0;
+                bounds.maxX = 0;
+                bounds.maxY = 0;
+                return;
+            }
+
+            const nextBounds = tiles.reduce((acc, tile) => {
+                const x = tile.point.x;
+                const y = tile.point.y;
+
+                acc.minX = Math.min(acc.minX, x);
+                acc.minY = Math.min(acc.minY, y);
+                acc.maxX = Math.max(acc.maxX, x);
+                acc.maxY = Math.max(acc.maxY, y);
+
+                return acc;
+            }, { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity });
+
+            bounds.minX = nextBounds.minX;
+            bounds.minY = nextBounds.minY;
+            bounds.maxX = nextBounds.maxX;
+            bounds.maxY = nextBounds.maxY;
+        }
+
         function updateBoundsForPoint(point) {
             bounds.minX = Math.min(bounds.minX, point.x);
             bounds.minY = Math.min(bounds.minY, point.y);
@@ -327,41 +402,79 @@
         }
 
         function normalizeTiles(rawTiles) {
-            if (Array.isArray(rawTiles)) {
-                return rawTiles
-                    .filter((tile) => tile && tile.point)
-                    .map((tile) => ({
-                        ...tile,
-                        point: {
-                            x: Number(tile.point.x),
-                            y: Number(tile.point.y),
-                        },
-                    }));
+            const normalized = [];
+            collectTiles(rawTiles, normalized, null, null);
+
+            return normalized;
+        }
+
+        function collectTiles(node, out, fallbackX, fallbackY) {
+            if (!node || typeof node !== 'object') {
+                return;
             }
 
-            const normalized = [];
+            if (node.point && typeof node.point.x !== 'undefined' && typeof node.point.y !== 'undefined') {
+                out.push({
+                    ...node,
+                    point: {
+                        x: Number(node.point.x),
+                        y: Number(node.point.y),
+                    },
+                });
+                return;
+            }
 
-            for (const [xKey, column] of Object.entries(rawTiles ?? {})) {
-                if (!column || typeof column !== 'object') {
+            // Support keyed tile payloads where x/y are provided by array keys.
+            const looksLikeTile = (
+                fallbackX !== null
+                && fallbackY !== null
+                && (Array.isArray(node.directions) || typeof node.color !== 'undefined')
+            );
+
+            if (looksLikeTile) {
+                out.push({
+                    ...node,
+                    point: {
+                        x: Number(fallbackX),
+                        y: Number(fallbackY),
+                    },
+                });
+                return;
+            }
+
+            for (const [key, value] of Object.entries(node)) {
+                if (fallbackX === null) {
+                    collectTiles(value, out, Number(key), fallbackY);
                     continue;
                 }
 
-                for (const [yKey, tile] of Object.entries(column)) {
-                    if (!tile || typeof tile !== 'object') {
-                        continue;
-                    }
-
-                    normalized.push({
-                        ...tile,
-                        point: {
-                            x: Number(xKey),
-                            y: Number(yKey),
-                        },
-                    });
+                if (fallbackY === null) {
+                    collectTiles(value, out, fallbackX, Number(key));
+                    continue;
                 }
+
+                collectTiles(value, out, fallbackX, fallbackY);
+            }
+        }
+
+        function hydrateFromPayload(nextPayload) {
+            const normalizedTiles = normalizeTiles(nextPayload?.tiles ?? []);
+
+            tiles.length = 0;
+            tileIndex.clear();
+
+            for (const tile of normalizedTiles) {
+                tiles.push(tile);
+                tileIndex.set(getTileKey(tile.point.x, tile.point.y), tile);
             }
 
-            return normalized;
+            recomputeBoundsFromTiles();
+            playerPosition = toPoint(nextPayload?.playerPosition);
+            dungeonVersion = nextPayload?.version ?? null;
+            collectedCoins = Number(nextPayload?.coins ?? 0);
+            health = Number(nextPayload?.health ?? 0);
+            mana = Number(nextPayload?.mana ?? 0);
+            latestChanges = [];
         }
 
         function toPoint(value) {
@@ -373,6 +486,16 @@
                 x: Number(value.x),
                 y: Number(value.y),
             };
+        }
+
+        function findTileByPoint(pointValue) {
+            const point = toPoint(pointValue);
+
+            if (!point) {
+                return null;
+            }
+
+            return tileIndex.get(getTileKey(point.x, point.y)) ?? null;
         }
 
         function applyChanges(changes) {
@@ -388,6 +511,89 @@
                 if (change?.name === 'tile.generated') {
                     upsertTile(change.payload);
                 }
+
+                if (change?.name === 'tile.coinsAdded') {
+                    const tileFromPayload = change.payload?.tile ?? null;
+
+                    if (tileFromPayload) {
+                        upsertTile(tileFromPayload);
+                        continue;
+                    }
+
+                    const tile = findTileByPoint(change.payload?.point ?? change.payload?.position ?? change.payload?.to);
+
+                    if (!tile) {
+                        continue;
+                    }
+
+                    if (typeof change.payload?.coins !== 'undefined') {
+                        tile.coins = Number(change.payload.coins);
+                        continue;
+                    }
+
+                    if (typeof change.payload?.addedCoins !== 'undefined') {
+                        tile.coins = Number(tile.coins ?? 0) + Number(change.payload.addedCoins);
+                    }
+                }
+
+                if (change?.name === 'tile.coinsCollected') {
+                    const tileFromPayload = change.payload?.tile ?? null;
+                    const collectedAmount = Number(change.payload?.amount ?? 0);
+
+                    if (tileFromPayload) {
+                        upsertTile({
+                            ...tileFromPayload,
+                            coins: 0,
+                        });
+                        collectedCoins += collectedAmount;
+                        continue;
+                    }
+
+                    const tile = findTileByPoint(change.payload?.point ?? change.payload?.position ?? change.payload?.to);
+
+                    if (!tile) {
+                        continue;
+                    }
+
+                    tile.coins = 0;
+                    collectedCoins += collectedAmount;
+                }
+
+                if (change?.name === 'player.manaGained') {
+                    if (typeof change.payload?.mana !== 'undefined') {
+                        mana = Number(change.payload.mana);
+                        continue;
+                    }
+
+                    if (typeof change.payload?.manaGained !== 'undefined') {
+                        mana = Number(change.payload.manaGained);
+                        continue;
+                    }
+
+                    mana += Number(change.payload?.amount ?? 0);
+                }
+
+                if (
+                    change?.name === 'player.healthChanged'
+                    || change?.name === 'player.healthGained'
+                    || change?.name === 'player.healthLost'
+                ) {
+                    if (typeof change.payload?.health !== 'undefined') {
+                        health = Number(change.payload.health);
+                        continue;
+                    }
+
+                    if (typeof change.payload?.amount !== 'undefined') {
+                        const amount = Number(change.payload.amount);
+
+                        if (change?.name === 'player.healthLost') {
+                            health -= amount;
+                            continue;
+                        }
+
+                        health += amount;
+                    }
+                }
             }
         }
 
@@ -400,6 +606,30 @@
                 version: dungeonVersion,
                 changes: latestChanges,
             }, null, 2);
+        }
+
+        function renderCoinCounter() {
+            if (!coinCounter) {
+                return;
+            }
+
+            coinCounter.textContent = String(collectedCoins);
+        }
+
+        function renderHealthCounter() {
+            if (!healthCounter) {
+                return;
+            }
+
+            healthCounter.textContent = String(health);
+        }
+
+        function renderManaCounter() {
+            if (!manaCounter) {
+                return;
+            }
+
+            manaCounter.textContent = String(mana);
         }
 
         async function movePlayer(direction) {
@@ -429,6 +659,9 @@
                 applyChanges(moveResult.changes);
                 render();
                 renderDebugPopup();
+                renderCoinCounter();
+                renderHealthCounter();
+                renderManaCounter();
             } finally {
                 state.moveInFlight = false;
             }
@@ -467,11 +700,15 @@
                 floorSprite = image;
             });
 
+            const floorCoinsPromise = loadImage(floorCoinsSpritePath).then((image) => {
+                floorCoinsSprite = image;
+            });
+
             const playerPromise = loadImage(playerSpritePath).then((image) => {
                 playerSprite = image;
             });
 
-            Promise.all([...wallPromises, floorPromise, playerPromise]).then(() => {
+            Promise.all([...wallPromises, floorPromise, floorCoinsPromise, playerPromise]).then(() => {
                 render();
             });
         }
@@ -479,18 +716,6 @@
         function render() {
             resizeCanvas();
             draw();
-            centerOnPlayer();
-        }
-
-        function centerOnPlayer() {
-            const focusPoint = playerPosition ?? { x: 0, y: 0 };
-            const step = getStepSize();
-            const tileSize = state.baseTileSize * state.scale;
-            const tileCenterX = state.paddingX + (focusPoint.x - bounds.minX) * step + (tileSize / 2);
-            const tileCenterY = state.paddingY + (focusPoint.y - bounds.minY) * step + (tileSize / 2);
-
-            viewport.scrollLeft = Math.max(0, tileCenterX - (viewport.clientWidth / 2));
-            viewport.scrollTop = Math.max(0, tileCenterY - (viewport.clientHeight / 2));
         }
 
         viewport.addEventListener('wheel', (event) => {
@@ -579,8 +804,12 @@
             movePlayer(direction);
         });
 
+        hydrateFromPayload(payload);
         render();
         renderDebugPopup();
+        renderCoinCounter();
+        renderHealthCounter();
+        renderManaCounter();
         preloadSprites();
     </script>
 </body>

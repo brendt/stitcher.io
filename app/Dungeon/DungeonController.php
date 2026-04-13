@@ -14,19 +14,28 @@ use Tempest\Router\Post;
 use Tempest\Router\Stateless;
 use Tempest\View\View;
 use function Tempest\Router\uri;
+use function Tempest\Support\arr;
 use function Tempest\View\view;
 
 #[Stateless]
 final class DungeonController
 {
     #[Get('/dungeon/new')]
-    public function new(DungeonRepository $repository): Redirect
+    public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = new Dungeon();
 
         $repository->persist($dungeon);
 
-        $repository->persist($dungeon);
+        if ($request->has('demo')) {
+            $directions = arr(Direction::cases());
+
+            for ($i = 0; $i < 1000; $i++) {
+                $dungeon->move($directions->random());
+            }
+
+            $repository->persist($dungeon);
+        }
 
         return new Redirect(uri([self::class, 'dungeon']));
     }

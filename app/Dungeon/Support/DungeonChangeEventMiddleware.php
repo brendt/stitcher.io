@@ -27,6 +27,6 @@ final readonly class DungeonChangeEventMiddleware implements EventBusMiddleware
             return;
         }
 
-        $dungeon->addChange($event->name, $event->payload);
+        $dungeon->registerChange($event->name, $event->payload);
     }
 }

@@ -30,8 +30,8 @@ final readonly class Point
         return round(abs(
             sqrt(
                 (($other->x - $this->x) ** 2)
-                + (($other->y - $this->y) ** 2)
-            )
+                + (($other->y - $this->y) ** 2),
+            ),
         ), 2);
     }
 
@@ -67,7 +67,7 @@ final readonly class Point
 
     public function getNeighbour(Direction $direction): Point
     {
-        return match($direction) {
+        return match ($direction) {
             Direction::TOP => $this->translate(y: -1),
             Direction::LEFT => $this->translate(x: -1),
             Direction::RIGHT => $this->translate(x: 1),
@@ -91,5 +91,13 @@ final readonly class Point
             x: $this->x - $center->x + $radius,
             y: $this->y - $center->y + $radius,
         );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'x' => $this->x,
+            'y' => $this->y,
+        ];
     }
 }
