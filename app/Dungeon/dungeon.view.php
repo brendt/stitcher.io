@@ -137,10 +137,12 @@
         const viewport = document.getElementById('viewport');
         const canvas = document.getElementById('dungeon-canvas');
         const debugPopup = document.getElementById('debug-popup');
-        const coinCounter = document.getElementById('coin-counter');
-        const healthCounter = document.getElementById('health-counter');
-        const manaCounter = document.getElementById('mana-counter');
-        const stabilityCounter = document.getElementById('stability-counter');
+        const counters = {
+            coins: document.getElementById('coin-counter'),
+            health: document.getElementById('health-counter'),
+            mana: document.getElementById('mana-counter'),
+            stability: document.getElementById('stability-counter'),
+        };
         const context = canvas.getContext('2d');
 
         const payload = JSON.parse(dataElement.textContent);
@@ -148,13 +150,15 @@
         const tileIndex = new Map();
         let playerPosition = null;
         let dungeonVersion = null;
-        let collectedCoins = 0;
-        let health = 0;
-        let maxHealth = 0;
-        let mana = 0;
-        let maxMana = 0;
-        let stability = 0;
-        let maxStability = 0;
+        const stats = {
+            coins: 0,
+            health: 0,
+            maxHealth: 0,
+            mana: 0,
+            maxMana: 0,
+            stability: 0,
+            maxStability: 0,
+        };
         let latestChanges = [];
         const wallSpritePaths = {
             top: '/dungeon/wall-top.png',
@@ -367,6 +371,11 @@
             return `${x}:${y}`;
         }
 
+        function numberFrom(value, fallback = 0) {
+            const normalized = Number(value);
+            return Number.isFinite(normalized) ? normalized : fallback;
+        }
+
         function recomputeBoundsFromTiles() {
             if (tiles.length === 0) {
                 bounds.minX = 0;
@@ -496,13 +505,13 @@
             recomputeBoundsFromTiles();
             playerPosition = toPoint(nextPayload?.playerPosition);
             dungeonVersion = nextPayload?.version ?? null;
-            collectedCoins = Number(nextPayload?.coins ?? 0);
-            health = Number(nextPayload?.health ?? 0);
-            maxHealth = Number(nextPayload?.maxHealth ?? 0);
-            mana = Number(nextPayload?.mana ?? 0);
-            maxMana = Number(nextPayload?.maxMana ?? 0);
-            stability = Number(nextPayload?.stability ?? 0);
-            maxStability = Number(nextPayload?.maxStability ?? 0);
+            stats.coins = numberFrom(nextPayload?.coins);
+            stats.health = numberFrom(nextPayload?.health);
+            stats.maxHealth = numberFrom(nextPayload?.maxHealth);
+            stats.mana = numberFrom(nextPayload?.mana);
+            stats.maxMana = numberFrom(nextPayload?.maxMana);
+            stats.stability = numberFrom(nextPayload?.stability);
+            stats.maxStability = numberFrom(nextPayload?.maxStability);
             latestChanges = [];
         }
 
@@ -527,6 +536,65 @@
             return tileIndex.get(getTileKey(point.x, point.y)) ?? null;
         }
 
+        function applyTileCoinsAdded(payload) {
+            const tileFromPayload = payload?.tile ?? null;
+
+            if (tileFromPayload) {
+                upsertTile(tileFromPayload);
+                return;
+            }
+
+            const tile = findTileByPoint(payload?.point ?? payload?.position ?? payload?.to);
+
+            if (!tile) {
+                return;
+            }
+
+            if (typeof payload?.coins !== 'undefined') {
+                tile.coins = numberFrom(payload.coins);
+                return;
+            }
+
+            if (typeof payload?.addedCoins !== 'undefined') {
+                tile.coins = numberFrom(tile.coins) + numberFrom(payload.addedCoins);
+            }
+        }
+
+        function applyTileCoinsCollected(payload) {
+            const tileFromPayload = payload?.tile ?? null;
+            const collectedAmount = numberFrom(payload?.amount);
+
+            if (tileFromPayload) {
+                upsertTile({
+                    ...tileFromPayload,
+                    coins: 0,
+                });
+                stats.coins += collectedAmount;
+                return;
+            }
+
+            const tile = findTileByPoint(payload?.point ?? payload?.position ?? payload?.to);
+
+            if (!tile) {
+                return;
+            }
+
+            tile.coins = 0;
+            stats.coins += collectedAmount;
+        }
+
+        function applySignedStatChange(payload, statKey, isDecrease) {
+            const absoluteValue = payload?.[statKey];
+
+            if (typeof absoluteValue !== 'undefined') {
+                stats[statKey] = numberFrom(absoluteValue);
+                return;
+            }
+
+            const amount = numberFrom(payload?.amount);
+            stats[statKey] += isDecrease ? -amount : amount;
+        }
+
         function applyChanges(changes) {
             if (!Array.isArray(changes)) {
                 return;
@@ -535,84 +603,42 @@
             for (const change of changes) {
                 if (change?.name === 'player.moved') {
                     playerPosition = toPoint(change.payload?.to) ?? playerPosition;
+                    continue;
                 }
 
-                if (change?.name === 'tile.generated') {
+                if (change?.name === 'tile.generated' || change?.name === 'tile.collapsed') {
                     upsertTile(change.payload);
-                }
-
-                if (change?.name === 'tile.collapsed') {
-                    upsertTile(change.payload);
+                    continue;
                 }
 
                 if (change?.name === 'tile.coinsAdded') {
-                    const tileFromPayload = change.payload?.tile ?? null;
-
-                    if (tileFromPayload) {
-                        upsertTile(tileFromPayload);
-                        continue;
-                    }
-
-                    const tile = findTileByPoint(change.payload?.point ?? change.payload?.position ?? change.payload?.to);
-
-                    if (!tile) {
-                        continue;
-                    }
-
-                    if (typeof change.payload?.coins !== 'undefined') {
-                        tile.coins = Number(change.payload.coins);
-                        continue;
-                    }
-
-                    if (typeof change.payload?.addedCoins !== 'undefined') {
-                        tile.coins = Number(tile.coins ?? 0) + Number(change.payload.addedCoins);
-                    }
+                    applyTileCoinsAdded(change.payload);
+                    continue;
                 }
 
                 if (change?.name === 'tile.coinsCollected') {
-                    const tileFromPayload = change.payload?.tile ?? null;
-                    const collectedAmount = Number(change.payload?.amount ?? 0);
-
-                    if (tileFromPayload) {
-                        upsertTile({
-                            ...tileFromPayload,
-                            coins: 0,
-                        });
-                        collectedCoins += collectedAmount;
-                        continue;
-                    }
-
-                    const tile = findTileByPoint(change.payload?.point ?? change.payload?.position ?? change.payload?.to);
-
-                    if (!tile) {
-                        continue;
-                    }
-
-                    tile.coins = 0;
-                    collectedCoins += collectedAmount;
+                    applyTileCoinsCollected(change.payload);
+                    continue;
                 }
 
                 if (change?.name === 'player.manaGained') {
                     if (typeof change.payload?.mana !== 'undefined') {
-                        mana = Number(change.payload.mana);
+                        stats.mana = numberFrom(change.payload.mana);
                         continue;
                     }
 
                     if (typeof change.payload?.manaGained !== 'undefined') {
-                        mana = Number(change.payload.manaGained);
+                        stats.mana = numberFrom(change.payload.manaGained);
                         continue;
                     }
 
-                    mana += Number(change.payload?.amount ?? 0);
+                    stats.mana += numberFrom(change.payload?.amount);
+                    continue;
                 }
 
                 if (change?.name === 'player.manaLost') {
-                    if (typeof change.payload?.mana !== 'undefined') {
-                        mana = Number(change.payload.mana);
-                        continue;
-                    }
-
-                    mana -= Number(change.payload?.amount ?? 0);
+                    applySignedStatChange(change.payload, 'mana', true);
+                    continue;
                 }
 
                 if (
@@ -622,21 +648,9 @@
                     || change?.name === 'player.stabilityIncreased'
                     || change?.name === 'player.stabilityDecreased'
                 ) {
-                    if (typeof change.payload?.stability !== 'undefined') {
-                        stability = Number(change.payload.stability);
-                        continue;
-                    }
-
-                    if (typeof change.payload?.amount !== 'undefined') {
-                        const amount = Number(change.payload.amount);
-
-                        if (change?.name === 'player.stabilityLost' || change?.name === 'player.stabilityDecreased') {
-                            stability -= amount;
-                            continue;
-                        }
-
-                        stability += amount;
-                    }
+                    const decreasesStability = change?.name === 'player.stabilityLost' || change?.name === 'player.stabilityDecreased';
+                    applySignedStatChange(change.payload, 'stability', decreasesStability);
+                    continue;
                 }
 
                 if (
@@ -646,21 +660,8 @@
                     || change?.name === 'player.healthIncreased'
                     || change?.name === 'player.healthDecreased'
                 ) {
-                    if (typeof change.payload?.health !== 'undefined') {
-                        health = Number(change.payload.health);
-                        continue;
-                    }
-
-                    if (typeof change.payload?.amount !== 'undefined') {
-                        const amount = Number(change.payload.amount);
-
-                        if (change?.name === 'player.healthLost' || change?.name === 'player.healthDecreased') {
-                            health -= amount;
-                            continue;
-                        }
-
-                        health += amount;
-                    }
+                    const decreasesHealth = change?.name === 'player.healthLost' || change?.name === 'player.healthDecreased';
+                    applySignedStatChange(change.payload, 'health', decreasesHealth);
                 }
             }
         }
@@ -676,41 +677,27 @@
             }, null, 2);
         }
 
-        function renderCoinCounter() {
-            if (!coinCounter) {
-                return;
-            }
-
-            coinCounter.textContent = String(collectedCoins);
-        }
-
         function formatCurrentMax(current, max) {
             const safeMax = Number.isFinite(max) ? max : 0;
             return `${current}<span class="bottom-notch-max">/ ${safeMax}</span>`;
         }
 
-        function renderHealthCounter() {
-            if (!healthCounter) {
-                return;
+        function renderCounters() {
+            if (counters.coins) {
+                counters.coins.textContent = String(stats.coins);
             }
 
-            healthCounter.innerHTML = formatCurrentMax(health, maxHealth);
-        }
-
-        function renderManaCounter() {
-            if (!manaCounter) {
-                return;
+            if (counters.health) {
+                counters.health.innerHTML = formatCurrentMax(stats.health, stats.maxHealth);
             }
 
-            manaCounter.innerHTML = formatCurrentMax(mana, maxMana);
-        }
-
-        function renderStabilityCounter() {
-            if (!stabilityCounter) {
-                return;
+            if (counters.mana) {
+                counters.mana.innerHTML = formatCurrentMax(stats.mana, stats.maxMana);
             }
 
-            stabilityCounter.innerHTML = formatCurrentMax(stability, maxStability);
+            if (counters.stability) {
+                counters.stability.innerHTML = formatCurrentMax(stats.stability, stats.maxStability);
+            }
         }
 
         async function movePlayer(direction) {
@@ -740,10 +727,7 @@
                 applyChanges(moveResult.changes);
                 render();
                 renderDebugPopup();
-                renderCoinCounter();
-                renderHealthCounter();
-                renderManaCounter();
-                renderStabilityCounter();
+                renderCounters();
             } finally {
                 state.moveInFlight = false;
             }
@@ -893,10 +877,7 @@
         hydrateFromPayload(payload);
         render();
         renderDebugPopup();
-        renderCoinCounter();
-        renderHealthCounter();
-        renderManaCounter();
-        renderStabilityCounter();
+        renderCounters();
         preloadSprites();
     </script>
 </body>
