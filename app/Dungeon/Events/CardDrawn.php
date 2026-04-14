@@ -11,9 +11,7 @@ final class CardDrawn implements DungeonEvent
 
     public array $payload {
         get => [
-            'card' => [
-                'id' => $this->card->id
-            ],
+            'card' => $this->card->toArray(),
         ];
     }
 

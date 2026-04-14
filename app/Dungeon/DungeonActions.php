@@ -135,6 +135,10 @@ trait DungeonActions
             return;
         }
 
+        if ($this->deck === []) {
+            return;
+        }
+
         $card = arr($this->deck)->random();
 
         $this->hand[$card->id] = $card;

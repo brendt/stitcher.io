@@ -42,4 +42,6 @@ interface Card
     }
 
     public function play(Dungeon $dungeon): void;
+
+    public function toArray(): array;
 }
