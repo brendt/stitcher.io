@@ -2,7 +2,6 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Board;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\InteractsWithTile;

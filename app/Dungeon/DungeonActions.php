@@ -2,13 +2,12 @@
 
 namespace App\Dungeon;
 
-use App\Dungeon\Entities\Tile;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\PlayerManaGained;
+use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\TileCoinsAdded;
-use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\TileCollapsed;
 use function Tempest\EventBus\event;

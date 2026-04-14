@@ -1,9 +1,6 @@
 <?php
 
-namespace App\Dungeon\Entities;
-
-use App\Dungeon\Direction;
-use App\Dungeon\Point;
+namespace App\Dungeon;
 
 final class Tile
 {

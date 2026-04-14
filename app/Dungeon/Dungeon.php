@@ -2,7 +2,6 @@
 
 namespace App\Dungeon;
 
-use App\Dungeon\Entities\Tile;
 use App\Dungeon\Events\TileGenerated;
 use Generator;
 use function Tempest\EventBus\event;
@@ -37,11 +36,16 @@ final class Dungeon
         get => $this->getTile($this->playerPosition);
     }
 
-    public function __construct()
+    /** @param \App\Dungeon\Card[] $deck */
+    public function __construct(array $deck = [])
     {
         $this->playerPosition = new Point(0, 0);
         $this->addTile(new Tile(clone $this->playerPosition));
-//        event(new TileGenerated($this->currentTile));
+        $this->deck = $deck;
+
+        for ($i = 0; $i < $this->maxHandCount; $i++) {
+            $this->drawCard();
+        }
     }
 
     public function toArray(): array

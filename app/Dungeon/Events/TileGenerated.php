@@ -2,8 +2,8 @@
 
 namespace App\Dungeon\Events;
 
-use App\Dungeon\Entities\Tile;
 use App\Dungeon\Support\DungeonEvent;
+use App\Dungeon\Tile;
 
 final class TileGenerated implements DungeonEvent
 {

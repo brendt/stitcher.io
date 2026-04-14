@@ -2,10 +2,9 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Board;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\Cards\Support\HandlesEvents;
+use App\Dungeon\WithEvents;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeHealth;
@@ -13,7 +12,7 @@ use App\Dungeon\Events\DamageDealt;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class ProtectionMinor implements Card, HandlesEvents
+final class ProtectionMinor implements Card, WithEvents
 {
     use IsCard;
 
@@ -40,7 +39,7 @@ final class ProtectionMinor implements Card, HandlesEvents
         // $board->setPassiveCard($this);
     }
 
-    public function handle(Board $board, Tile $tile, object $event): void
+    public function handle(Dungeon $dungeon, Tile $tile, object $event): void
     {
         if (! $event instanceof DamageDealt) {
             return;

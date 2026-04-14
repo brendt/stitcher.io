@@ -2,10 +2,9 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Board;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\Cards\Support\HandlesEvents;
+use App\Dungeon\WithEvents;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeHealth;
@@ -17,7 +16,7 @@ use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class BeaconMinor implements Card, HandlesEvents
+final class BeaconMinor implements Card, WithEvents
 {
     use IsCard;
 
@@ -47,7 +46,7 @@ final class BeaconMinor implements Card, HandlesEvents
         // }
     }
 
-    public function handle(Board $board, Tile $tile, object $event): void
+    public function handle(Dungeon $dungeon, Tile $tile, object $event): void
     {
         if (! $event instanceof PlayerMoved) {
             return;

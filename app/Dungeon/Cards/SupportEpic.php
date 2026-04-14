@@ -2,7 +2,6 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Board;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
 use App\Dungeon\Card;

@@ -2,11 +2,10 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Board;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
 use App\Dungeon\Card;
-use App\Dungeon\Cards\Support\HandlesEvents;
+use App\Dungeon\WithEvents;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeStability;
@@ -15,7 +14,7 @@ use App\Dungeon\Events\StabilityForGeneratedTileDecreased;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class StabilityPerTilePermanent implements Card, HandlesEvents, CanBuyWithShards
+final class StabilityPerTilePermanent implements Card, WithEvents, CanBuyWithShards
 {
     use IsCard;
 
@@ -40,7 +39,7 @@ final class StabilityPerTilePermanent implements Card, HandlesEvents, CanBuyWith
         // $board->addPermanentCard($this);
     }
 
-    public function handle(Board $board, Tile $tile, object $event): void
+    public function handle(Dungeon $dungeon, Tile $tile, object $event): void
     {
         if (! $event instanceof StabilityForGeneratedTileDecreased) {
             return;

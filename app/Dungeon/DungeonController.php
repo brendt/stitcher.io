@@ -2,6 +2,7 @@
 
 namespace App\Dungeon;
 
+use App\Dungeon\Cards\BreakthroughMajor;
 use App\Dungeon\Support\DungeonAction;
 use App\Dungeon\Support\DungeonRepository;
 use Tempest\Http\Request;
@@ -23,7 +24,15 @@ final class DungeonController
     #[Get('/dungeon/new')]
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
-        $dungeon = new Dungeon();
+        $dungeon = new Dungeon([
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+        ]);
 
         $repository->persist($dungeon);
 
