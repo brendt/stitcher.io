@@ -3,7 +3,7 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
-use App\Dungeon\Cards\Support\CanBuyWithShards;
+use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
 use App\Dungeon\WithEvents;
 use App\Dungeon\Rarity;

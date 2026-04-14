@@ -4,7 +4,7 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\Cards\Support\CheckBeforePlaying;
+use App\Dungeon\CheckBeforePlaying;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Commands\RemoveDweller;
@@ -41,7 +41,7 @@ final class UpperHandMinor implements Card, CheckBeforePlaying
         // }
     }
 
-    public function canPlay(Board $board): bool
+    public function canPlay(Dungeon $dungeon): bool
     {
         return iterator_count($board->getVisibleDwellers()) > 0;
     }

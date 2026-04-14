@@ -4,7 +4,7 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\Cards\Support\InteractsWithTile;
+use App\Dungeon\InteractsWithTile;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Commands\DiscardActiveCard;
@@ -41,12 +41,12 @@ final class KillDwellerMajor implements Card, InteractsWithTile
         // $board->setActiveCard($this);
     }
 
-    public function canInteractWithTile(Board $board, Tile $tile): bool
+    public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
     {
         return $board->getDweller($tile->point) !== null;
     }
 
-    public function interactWithTile(Board $board, Tile $tile): void
+    public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
         command(new RemoveDweller($tile->point));
 

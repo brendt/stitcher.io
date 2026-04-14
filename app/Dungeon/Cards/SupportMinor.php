@@ -4,7 +4,7 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\Cards\Support\InteractsWithTile;
+use App\Dungeon\InteractsWithTile;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Commands\DiscardActiveCard;
@@ -40,7 +40,7 @@ final class SupportMinor implements Card, InteractsWithTile
         // $board->setActiveCard($this);
     }
 
-    public function canInteractWithTile(Board $board, Tile $tile): bool
+    public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
     {
         return ! $tile->isCollapsed
             && !$tile->isSupported
@@ -49,7 +49,7 @@ final class SupportMinor implements Card, InteractsWithTile
             && !$tile->isTrapped;
     }
 
-    public function interactWithTile(Board $board, Tile $tile): void
+    public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
         command(new SupportTile($tile->point));
 
