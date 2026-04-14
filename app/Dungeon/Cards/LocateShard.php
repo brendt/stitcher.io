@@ -3,73 +3,47 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Card;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Level;
 
-final readonly class LocateShard implements Card, CanBuyWithShards
+final class LocateShard implements Card, CanBuyWithShards
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
+    private(set) string $name = "Spyglass";
+
+    private(set) string $description = "Locate a Shard";
+
+    private(set) string $image = '/cards/spyglass.png';
+
+    private(set) int $mana = 175;
+
+    private(set) Rarity $rarity = Rarity::EPIC;
+
+    private(set) int $price = 20000;
+
+    private(set) Type $type = Type::IMMEDIATE;
+
+    private(set) Level $level = Level::GRANDMASTER;
+
+    public function play(Dungeon $dungeon): void
     {
-        return "Spyglass";
-    }
-
-    public function getDescription(): string
-    {
-        return "Locate a Shard";
-    }
-
-    public function play(Board $board): void
-    {
-        foreach ($board->shardPoints as $shardPoint) {
-            if ($board->getTile($shardPoint)) {
-                continue;
-            }
-
-            $board->generateTile(null, $shardPoint);
-
-            break;
-        }
-    }
-
-    public function getImage(): string
-    {
-        return '/cards/spyglass.png';
-    }
-
-    public function getMana(): int
-    {
-        return 175;
-    }
-
-    public function getRarity(): Rarity
-    {
-        return Rarity::EPIC;
-    }
-
-    public function getPrice(): int
-    {
-        return 20000;
-    }
-
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::GRANDMASTER;
+        // foreach ($board->shardPoints as $shardPoint) {
+        // if ($board->getTile($shardPoint)) {
+        // continue;
+        // }
+        // $board->generateTile(null, $shardPoint);
+        // break;
+        // }
     }
 
     public function getAdjustedPrice(): int
     {
-        return $this->getPrice();
+        return $this->price;
     }
 
     public function getShardPrice(): int

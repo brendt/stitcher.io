@@ -3,11 +3,11 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\InteractsWithTile;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\DiscardActiveCard;
 use App\Dungeon\Commands\RemoveDweller;
 use App\Dungeon\Level;
@@ -15,21 +15,27 @@ use App\Dungeon\Tile;
 
 final class KillDwellerMinor implements Card, InteractsWithTile
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return 'Slice and Dice';
-    }
+    private(set) string $name = 'Slice and Dice';
 
-    public function getDescription(): string
-    {
-        return "Kill 1 Dweller";
-    }
+    private(set) string $description = "Kill 1 Dweller";
 
-    public function play(Board $board): void
+    private(set) string $image = '/cards/kill-dweller-minor.png';
+
+    private(set) int $mana = 75;
+
+    private(set) Rarity $rarity = Rarity::COMMON;
+
+    private(set) int $price = 1000;
+
+    private(set) Type $type = Type::ACTIVE;
+
+    private(set) Level $level = Level::NOVICE;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->setActiveCard($this);
+        // $board->setActiveCard($this);
     }
 
     public function canInteractWithTile(Board $board, Tile $tile): bool
@@ -41,35 +47,5 @@ final class KillDwellerMinor implements Card, InteractsWithTile
     {
         command(new RemoveDweller($tile->point));
         command(new DiscardActiveCard());
-    }
-
-    public function getImage(): string
-    {
-        return '/cards/kill-dweller-minor.png';
-    }
-
-    public function getMana(): int
-    {
-        return 75;
-    }
-
-    public function getRarity(): Rarity
-    {
-        return Rarity::COMMON;
-    }
-
-    public function getPrice(): int
-    {
-        return 1000;
-    }
-
-    public function getType(): Type
-    {
-        return Type::ACTIVE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::NOVICE;
     }
 }

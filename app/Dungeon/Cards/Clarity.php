@@ -3,60 +3,36 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeStability;
 use App\Dungeon\Level;
 
-final readonly class Clarity implements Card
+final class Clarity implements Card
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Clarity";
-    }
+    private(set) string $name = "Clarity";
 
-    public function getDescription(): string
-    {
-        return "+1 visibility, +20 stability";
-    }
+    private(set) string $description = "+1 visibility, +20 stability";
 
-    public function play(Board $board): void
-    {
-        $board->visibilityRadius += 1;
-        command(new ChangeStability(20));
-    }
+    private(set) string $image = '/cards/clarity-major.png';
 
-    public function getImage(): string
-    {
-        return '/cards/clarity-major.png';
-    }
+    private(set) int $mana = 30;
 
-    public function getMana(): int
-    {
-        return 30;
-    }
+    private(set) Rarity $rarity = Rarity::COMMON;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::COMMON;
-    }
+    private(set) int $price = 100;
 
-    public function getPrice(): int
-    {
-        return 100;
-    }
+    private(set) Type $type = Type::IMMEDIATE;
 
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
+    private(set) Level $level = Level::NOOB;
 
-    public function getLevel(): Level
+    public function play(Dungeon $dungeon): void
     {
-        return Level::NOOB;
+        // $board->visibilityRadius += 1;
+        // command(new ChangeStability(20));
     }
 }

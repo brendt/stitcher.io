@@ -3,12 +3,12 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\HandlesEvents;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeHealth;
 use App\Dungeon\Events\DamageDealt;
 use App\Dungeon\Level;
@@ -16,41 +16,27 @@ use App\Dungeon\Tile;
 
 final class ChestplateMinorPermanent implements Card, HandlesEvents, CanBuyWithShards
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Chestplate";
-    }
+    private(set) string $name = "Chestplate";
 
-    public function getDescription(): string
-    {
-        return "-5 damage every hit";
-    }
+    private(set) string $description = "-5 damage every hit";
 
-    public function getMana(): int
-    {
-        return 100;
-    }
+    private(set) int $mana = 100;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getType(): Type
-    {
-        return Type::PERMANENT;
-    }
+    private(set) Type $type = Type::PERMANENT;
 
-    public function getImage(): string
-    {
-        return '/cards/chestplate-minor.png';
-    }
+    private(set) string $image = '/cards/chestplate-minor.png';
 
-    public function play(Board $board): void
+    private(set) Level $level = Level::MASTER;
+
+    private(set) int $price = 2000;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->addPermanentCard($this);
+        // $board->addPermanentCard($this);
     }
 
     public function handle(Board $board, Tile $tile, object $event): void
@@ -60,16 +46,6 @@ final class ChestplateMinorPermanent implements Card, HandlesEvents, CanBuyWithS
         }
 
         command(new ChangeHealth(min(5, $event->damage)));
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::MASTER;
-    }
-
-    public function getPrice(): int
-    {
-        return 2000;
     }
 
     public function getAdjustedPrice(): int

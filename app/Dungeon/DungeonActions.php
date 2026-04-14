@@ -3,6 +3,8 @@
 namespace App\Dungeon;
 
 use App\Dungeon\Entities\Tile;
+use App\Dungeon\Events\CardDrawn;
+use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\PlayerManaGained;
 use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\TileCoinsAdded;
@@ -10,6 +12,7 @@ use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\TileCollapsed;
 use function Tempest\EventBus\event;
+use function Tempest\Support\arr;
 
 trait DungeonActions
 {
@@ -110,5 +113,34 @@ trait DungeonActions
         $tile->isCollapsed = true;
 
         event(new TileCollapsed($tile));
+    }
+
+    public function playCard(Card $card): void
+    {
+        $card = $this->hand[$card->id] ?? null;
+
+        if (! $card) {
+            return;
+        }
+
+        $card->play($this);
+
+        unset($this->hand[$card->id]);
+
+        event(new CardPlayed($card));
+    }
+
+    public function drawCard(): void
+    {
+        if (count($this->hand) >= $this->maxHandCount) {
+            return;
+        }
+
+        $card = arr($this->deck)->random();
+
+        $this->hand[$card->id] = $card;
+        unset($this->deck[$card->id]);
+
+        event(new CardDrawn($card));
     }
 }

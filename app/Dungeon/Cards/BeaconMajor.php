@@ -3,11 +3,11 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\HandlesEvents;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\DiscardPassiveCard;
 use App\Dungeon\Commands\HideDweller;
 use App\Dungeon\Commands\ShowDweller;
@@ -21,23 +21,28 @@ final class BeaconMajor implements Card, HandlesEvents
 
     public int $count = 25;
 
-    public function getName(): string
-    {
-        return 'Beacon++';
-    }
+    private(set) string $name = 'Beacon++';
 
-    public function getDescription(): string
-    {
-        return "Illuminate the darkness for {$this->count} moves";
-    }
+    private(set) string $description = "Illuminate the darkness for 25 moves";
 
-    public function play(Board $board): void
-    {
-        $board->setPassiveCard($this);
+    private(set) string $image = '/cards/beacon-major.png';
 
-        foreach ($board->getAllDwellers() as $dweller) {
-            command(new ShowDweller($dweller->point));
-        }
+    private(set) int $mana = 75;
+
+    private(set) Rarity $rarity = Rarity::EPIC;
+
+    private(set) int $price = 10_000;
+
+    private(set) Type $type = Type::PASSIVE;
+
+    private(set) Level $level = Level::MASTER;
+
+    public function play(Dungeon $dungeon): void
+    {
+        // $board->setPassiveCard($this);
+        // foreach ($board->getAllDwellers() as $dweller) {
+        // command(new ShowDweller($dweller->point));
+        // }
     }
 
     public function handle(Board $board, Tile $tile, object $event): void
@@ -55,35 +60,5 @@ final class BeaconMajor implements Card, HandlesEvents
 
             command(new DiscardPassiveCard());
         }
-    }
-
-    public function getImage(): string
-    {
-        return '/cards/beacon-major.png';
-    }
-
-    public function getMana(): int
-    {
-        return 75;
-    }
-
-    public function getRarity(): Rarity
-    {
-        return Rarity::EPIC;
-    }
-
-    public function getPrice(): int
-    {
-        return 10_000;
-    }
-
-    public function getType(): Type
-    {
-        return Type::PASSIVE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::MASTER;
     }
 }

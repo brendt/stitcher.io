@@ -3,12 +3,12 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\CheckBeforePlaying;
 use App\Dungeon\Cards\Support\InteractsWithTile;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\RemoveTileTrap;
 use App\Dungeon\Direction;
 use App\Dungeon\Level;
@@ -18,25 +18,29 @@ use Illuminate\Support\Str;
 // TODO test
 final class TrapDisarmMajor implements Card, InteractsWithTile
 {
-    use CardTrait;
+    use IsCard;
 
     private int $count = 3;
 
-    public function getName(): string
-    {
-        return 'Trap Disarm++';
-    }
+    private(set) string $name = 'Trap Disarm++';
 
-    public function getDescription(): string
-    {
-        $traps = Str::plural('trap', $this->count);
+    private(set) string $description = "Clear 3 traps";
 
-        return "Clear {$this->count} {$traps}";
-    }
+    private(set) string $image = '/cards/trap-disarm-major.png';
 
-    public function play(Board $board): void
+    private(set) int $mana = 70;
+
+    private(set) Rarity $rarity = Rarity::COMMON;
+
+    private(set) int $price = 500;
+
+    private(set) Type $type = Type::ACTIVE;
+
+    private(set) Level $level = Level::MASTER;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->setActiveCard($this);
+        // $board->setActiveCard($this);
     }
 
     public function canInteractWithTile(Board $board, Tile $tile): bool
@@ -53,35 +57,5 @@ final class TrapDisarmMajor implements Card, InteractsWithTile
         if ($this->count === 0) {
             $board->discardActiveCard();
         }
-    }
-
-    public function getImage(): string
-    {
-        return '/cards/trap-disarm-major.png';
-    }
-
-    public function getMana(): int
-    {
-        return 70;
-    }
-
-    public function getRarity(): Rarity
-    {
-        return Rarity::COMMON;
-    }
-
-    public function getPrice(): int
-    {
-        return 500;
-    }
-
-    public function getType(): Type
-    {
-        return Type::ACTIVE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::MASTER;
     }
 }

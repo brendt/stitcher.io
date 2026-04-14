@@ -3,12 +3,12 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\InteractsWithTile;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeStability;
 use App\Dungeon\Commands\DiscardActiveCard;
 use App\Dungeon\Commands\SupportTile;
@@ -18,25 +18,29 @@ use Illuminate\Support\Str;
 
 final class SupportEpic implements Card, InteractsWithTile, CanBuyWithShards
 {
-    use CardTrait;
+    use IsCard;
 
     public int $count = 30;
 
-    public function getName(): string
-    {
-        return 'Support+++';
-    }
+    private(set) string $name = 'Support+++';
 
-    public function getDescription(): string
-    {
-        $tiles = Str::plural('tile', $this->count);
+    private(set) string $description = "Support 30 tiles, +5 stability per tile";
 
-        return "Support {$this->count} {$tiles}, +5 stability per tile";
-    }
+    private(set) string $image = '/cards/support-epic.png';
 
-    public function play(Board $board): void
+    private(set) int $mana = 120;
+
+    private(set) Rarity $rarity = Rarity::EPIC;
+
+    private(set) int $price = 7000;
+
+    private(set) Type $type = Type::ACTIVE;
+
+    private(set) Level $level = Level::GRANDMASTER;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->setActiveCard($this);
+        // $board->setActiveCard($this);
     }
 
     public function canInteractWithTile(Board $board, Tile $tile): bool
@@ -59,39 +63,9 @@ final class SupportEpic implements Card, InteractsWithTile, CanBuyWithShards
         }
     }
 
-    public function getImage(): string
-    {
-        return '/cards/support-epic.png';
-    }
-
-    public function getMana(): int
-    {
-        return 120;
-    }
-
-    public function getRarity(): Rarity
-    {
-        return Rarity::EPIC;
-    }
-
-    public function getPrice(): int
-    {
-        return 7000;
-    }
-
-    public function getType(): Type
-    {
-        return Type::ACTIVE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::GRANDMASTER;
-    }
-
     public function getAdjustedPrice(): int
     {
-        return round($this->getPrice() / 3);
+        return round($this->price / 3);
     }
 
     public function getShardPrice(): int

@@ -10,6 +10,8 @@ use App\Dungeon\Type;
 
 final class HealMajor implements Card
 {
+    use IsCard;
+
     private(set) string $name = 'Heal++';
 
     private(set) string $description = '+50 health';

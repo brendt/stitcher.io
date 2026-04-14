@@ -25,6 +25,13 @@ final class Dungeon
     public int $maxMana = 150;
     public int $stability = 100;
     public int $maxStability = 100;
+    public int $maxHandCount = 5;
+
+    /** @var \App\Dungeon\Card[] $hand */
+    public array $hand = [];
+
+    /** @var \App\Dungeon\Card[] $deck */
+    public array $deck = [];
 
     public Tile $currentTile {
         get => $this->getTile($this->playerPosition);

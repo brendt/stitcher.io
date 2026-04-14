@@ -3,12 +3,12 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\HandlesEvents;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeHealth;
 use App\Dungeon\Events\DamageDealt;
 use App\Dungeon\Level;
@@ -16,61 +16,23 @@ use App\Dungeon\Tile;
 
 final class ChestplateMajorPermanent implements Card, HandlesEvents, CanBuyWithShards
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Chestplate++";
-    }
+    private(set) string $name = "Chestplate++";
 
-    public function getDescription(): string
-    {
-        return "-10 damage every hit";
-    }
+    private(set) string $description = "-10 damage every hit";
 
-    public function getMana(): int
-    {
-        return 150;
-    }
+    private(set) int $mana = 150;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getType(): Type
-    {
-        return Type::PERMANENT;
-    }
+    private(set) Type $type = Type::PERMANENT;
 
-    public function getImage(): string
-    {
-        return '/cards/chestplate-major.png';
-    }
+    private(set) string $image = '/cards/chestplate-major.png';
 
-    public function play(Board $board): void
-    {
-        $board->addPermanentCard($this);
-    }
+    private(set) Level $level = Level::MASTER;
 
-    public function handle(Board $board, Tile $tile, object $event): void
-    {
-        if (! $event instanceof DamageDealt) {
-            return;
-        }
-
-        command(new ChangeHealth(min(10, $event->damage)));
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::MASTER;
-    }
-
-    public function getPrice(): int
-    {
-        return 4000;
-    }
+    private(set) int $price = 4000;
 
     public function getAdjustedPrice(): int
     {
@@ -80,5 +42,19 @@ final class ChestplateMajorPermanent implements Card, HandlesEvents, CanBuyWithS
     public function getShardPrice(): int
     {
         return 15;
+    }
+
+    public function play(Dungeon $dungeon): void
+    {
+        // $board->addPermanentCard($this);
+    }
+
+    public function handle(Board $board, Tile $tile, object $event): void
+    {
+        if (! $event instanceof DamageDealt) {
+            return;
+        }
+
+        command(new ChangeHealth(min(10, $event->damage)));
     }
 }

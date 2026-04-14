@@ -3,12 +3,12 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\HandlesEvents;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeMana;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Level;
@@ -16,41 +16,27 @@ use App\Dungeon\Tile;
 
 final class ManaPerMovePermanent implements Card, HandlesEvents, CanBuyWithShards
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Mana Stride";
-    }
+    private(set) string $name = "Mana Stride";
 
-    public function getDescription(): string
-    {
-        return "+1 mana per move";
-    }
+    private(set) string $description = "+1 mana per move";
 
-    public function getMana(): int
-    {
-        return 50;
-    }
+    private(set) int $mana = 50;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getType(): Type
-    {
-        return Type::PERMANENT;
-    }
+    private(set) Type $type = Type::PERMANENT;
 
-    public function getImage(): string
-    {
-        return '/cards/mana-per-move-permanent.png';
-    }
+    private(set) string $image = '/cards/mana-per-move-permanent.png';
 
-    public function play(Board $board): void
+    private(set) Level $level = Level::MASTER;
+
+    private(set) int $price = 4000;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->addPermanentCard($this);
+        // $board->addPermanentCard($this);
     }
 
     public function handle(Board $board, Tile $tile, object $event): void
@@ -60,16 +46,6 @@ final class ManaPerMovePermanent implements Card, HandlesEvents, CanBuyWithShard
         }
 
         command(new ChangeMana(1));
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::MASTER;
-    }
-
-    public function getPrice(): int
-    {
-        return 4000;
     }
 
     public function getAdjustedPrice(): int

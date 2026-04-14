@@ -3,72 +3,47 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Card;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeStability;
 use App\Dungeon\Commands\ResetTileCoins;
 use App\Dungeon\Level;
 
-final readonly class Greed implements Card, CanBuyWithShards
+final class Greed implements Card, CanBuyWithShards
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
+    private(set) string $name = 'Greed';
+
+    private(set) string $description = "+ all coins, -20 stability";
+
+    private(set) string $image = '/cards/greed.png';
+
+    private(set) int $mana = 140;
+
+    private(set) Rarity $rarity = Rarity::EPIC;
+
+    private(set) int $price = 10_000;
+
+    private(set) Type $type = Type::IMMEDIATE;
+
+    private(set) Level $level = Level::GRANDMASTER;
+
+    public function play(Dungeon $dungeon): void
     {
-        return 'Greed';
-    }
-
-    public function getDescription(): string
-    {
-        return "+ all coins, -20 stability";
-    }
-
-    public function getImage(): string
-    {
-        return '/cards/greed.png';
-    }
-
-    public function play(Board $board): void
-    {
-        foreach ($board->getTiles() as $tile) {
-            $board->coins += $tile->coins;
-            command(new ResetTileCoins($tile->point));
-        }
-
-        command(new ChangeStability(20));
-    }
-
-    public function getMana(): int
-    {
-        return 140;
-    }
-
-    public function getRarity(): Rarity
-    {
-        return Rarity::EPIC;
-    }
-
-    public function getPrice(): int
-    {
-        return 10_000;
-    }
-
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::GRANDMASTER;
+        // foreach ($board->getTiles() as $tile) {
+        // $board->coins += $tile->coins;
+        // command(new ResetTileCoins($tile->point));
+        // }
+        // command(new ChangeStability(20));
     }
 
     public function getAdjustedPrice(): int
     {
-        return round($this->getPrice() / 3);
+        return round($this->price / 3);
     }
 
     public function getShardPrice(): int

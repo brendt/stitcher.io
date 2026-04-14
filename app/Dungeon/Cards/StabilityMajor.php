@@ -3,59 +3,35 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeStability;
 use App\Dungeon\Level;
 
-final readonly class StabilityMajor implements Card
+final class StabilityMajor implements Card
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Stability++";
-    }
+    private(set) string $name = "Stability++";
 
-    public function getDescription(): string
-    {
-        return "+50 stability";
-    }
+    private(set) string $description = "+50 stability";
 
-    public function play(Board $board): void
-    {
-        command(new ChangeStability(50));
-    }
+    private(set) string $image = '/cards/stability-major.png';
 
-    public function getImage(): string
-    {
-        return '/cards/stability-major.png';
-    }
+    private(set) int $mana = 50;
 
-    public function getMana(): int
-    {
-        return 50;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) int $price = 1000;
 
-    public function getPrice(): int
-    {
-        return 1000;
-    }
+    private(set) Type $type = Type::IMMEDIATE;
 
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
+    private(set) Level $level = Level::NOVICE;
 
-    public function getLevel(): Level
+    public function play(Dungeon $dungeon): void
     {
-        return Level::NOVICE;
+        // command(new ChangeStability(50));
     }
 }

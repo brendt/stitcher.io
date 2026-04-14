@@ -3,12 +3,12 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Cards\Support\CanBuyWithShards;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\HandlesEvents;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeStability;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\StabilityForGeneratedTileDecreased;
@@ -17,41 +17,27 @@ use App\Dungeon\Tile;
 
 final class StabilityPerTilePermanent implements Card, HandlesEvents, CanBuyWithShards
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Stable Walk";
-    }
+    private(set) string $name = "Stable Walk";
 
-    public function getDescription(): string
-    {
-        return "+1 stability per discovered tile";
-    }
+    private(set) string $description = "+1 stability per discovered tile";
 
-    public function getMana(): int
-    {
-        return 100;
-    }
+    private(set) int $mana = 100;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getType(): Type
-    {
-        return Type::PERMANENT;
-    }
+    private(set) Type $type = Type::PERMANENT;
 
-    public function getImage(): string
-    {
-        return '/cards/stability-permanent.png';
-    }
+    private(set) string $image = '/cards/stability-permanent.png';
 
-    public function play(Board $board): void
+    private(set) Level $level = Level::MASTER;
+
+    private(set) int $price = 4000;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->addPermanentCard($this);
+        // $board->addPermanentCard($this);
     }
 
     public function handle(Board $board, Tile $tile, object $event): void
@@ -61,16 +47,6 @@ final class StabilityPerTilePermanent implements Card, HandlesEvents, CanBuyWith
         }
 
         command(new ChangeStability(1));
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::MASTER;
-    }
-
-    public function getPrice(): int
-    {
-        return 4000;
     }
 
     public function getAdjustedPrice(): int

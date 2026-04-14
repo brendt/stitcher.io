@@ -3,70 +3,46 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\CheckBeforePlaying;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\RemoveDweller;
 use App\Dungeon\Commands\SpawnDweller;
 use App\Dungeon\Level;
 
 // TODO test
-final readonly class UpperHandMajor implements Card, CheckBeforePlaying
+final class UpperHandMajor implements Card, CheckBeforePlaying
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return 'Upper Hands';
-    }
+    private(set) string $name = 'Upper Hands';
 
-    public function getDescription(): string
-    {
-        return 'Scare away all dwellers in sight';
-    }
+    private(set) string $description = 'Scare away all dwellers in sight';
 
-    public function getMana(): int
-    {
-        return 100;
-    }
+    private(set) int $mana = 100;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getImage(): string
-    {
-        return '/cards/upperhand-major.png';
-    }
+    private(set) string $image = '/cards/upperhand-major.png';
 
-    public function play(Board $board): void
+    private(set) int $price = 2500;
+
+    private(set) Type $type = Type::IMMEDIATE;
+
+    private(set) Level $level = Level::NOVICE;
+
+    public function play(Dungeon $dungeon): void
     {
-        foreach ($board->getVisibleDwellers() as $dweller) {
-            command(new RemoveDweller($dweller->point));
-            command(new SpawnDweller());
-        }
+        // foreach ($board->getVisibleDwellers() as $dweller) {
+        // command(new RemoveDweller($dweller->point));
+        // command(new SpawnDweller());
+        // }
     }
 
     public function canPlay(Board $board): bool
     {
         return iterator_count($board->getVisibleDwellers()) > 0;
-    }
-
-    public function getPrice(): int
-    {
-        return 2500;
-    }
-
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::NOVICE;
     }
 }

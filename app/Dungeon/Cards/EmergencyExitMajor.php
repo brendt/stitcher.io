@@ -3,59 +3,35 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Level;
 
-final readonly class EmergencyExitMajor implements Card
+final class EmergencyExitMajor implements Card
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Emergency Exit++";
-    }
+    private(set) string $name = "Emergency Exit++";
 
-    public function getDescription(): string
-    {
-        return "Exit the dungeon with 70% of collected coins.";
-    }
+    private(set) string $description = "Exit the dungeon with 70% of collected coins.";
 
-    public function getMana(): int
-    {
-        return 200;
-    }
+    private(set) int $mana = 200;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::EPIC;
-    }
+    private(set) Rarity $rarity = Rarity::EPIC;
 
-    public function getImage(): string
-    {
-        return "/cards/emergency-major.png";
-    }
+    private(set) string $image = "/cards/emergency-major.png";
 
-    public function getPrice(): int
-    {
-        return 10_000;
-    }
+    private(set) int $price = 10_000;
 
-    public function play(Board $board): void
-    {
-        $board->coins = $board->coins * 0.7;
-        $board->exitDungeon();
-    }
+    private(set) Type $type = Type::IMMEDIATE;
 
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
+    private(set) Level $level = Level::GRANDMASTER;
 
-    public function getLevel(): Level
+    public function play(Dungeon $dungeon): void
     {
-        return Level::GRANDMASTER;
+        // $board->coins = $board->coins * 0.7;
+        // $board->exitDungeon();
     }
 }

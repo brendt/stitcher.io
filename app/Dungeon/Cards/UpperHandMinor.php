@@ -3,71 +3,47 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\CheckBeforePlaying;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\RemoveDweller;
 use App\Dungeon\Commands\SpawnDweller;
 use App\Dungeon\Level;
 
 // TODO test
-final readonly class UpperHandMinor implements Card, CheckBeforePlaying
+final class UpperHandMinor implements Card, CheckBeforePlaying
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return 'Upper Hand';
-    }
+    private(set) string $name = 'Upper Hand';
 
-    public function getDescription(): string
-    {
-        return 'Scare away 1 dweller in sight';
-    }
+    private(set) string $description = 'Scare away 1 dweller in sight';
 
-    public function getMana(): int
-    {
-        return 50;
-    }
+    private(set) int $mana = 50;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::COMMON;
-    }
+    private(set) Rarity $rarity = Rarity::COMMON;
 
-    public function getImage(): string
-    {
-        return '/cards/upperhand-minor.png';
-    }
+    private(set) string $image = '/cards/upperhand-minor.png';
 
-    public function play(Board $board): void
+    private(set) int $price = 250;
+
+    private(set) Type $type = Type::IMMEDIATE;
+
+    private(set) Level $level = Level::NOOB;
+
+    public function play(Dungeon $dungeon): void
     {
-        foreach ($board->getVisibleDwellers() as $dweller) {
-            command(new RemoveDweller($dweller->point));
-            command(new SpawnDweller());
-            break;
-        }
+        // foreach ($board->getVisibleDwellers() as $dweller) {
+        // command(new RemoveDweller($dweller->point));
+        // command(new SpawnDweller());
+        // break;
+        // }
     }
 
     public function canPlay(Board $board): bool
     {
         return iterator_count($board->getVisibleDwellers()) > 0;
-    }
-
-    public function getPrice(): int
-    {
-        return 250;
-    }
-
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::NOOB;
     }
 }

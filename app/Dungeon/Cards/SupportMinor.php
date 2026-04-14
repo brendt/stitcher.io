@@ -3,11 +3,11 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\InteractsWithTile;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\DiscardActiveCard;
 use App\Dungeon\Commands\SupportTile;
 use App\Dungeon\Level;
@@ -16,25 +16,29 @@ use Illuminate\Support\Str;
 
 final class SupportMinor implements Card, InteractsWithTile
 {
-    use CardTrait;
+    use IsCard;
 
     public int $count = 10;
 
-    public function getName(): string
-    {
-        return 'Support';
-    }
+    private(set) string $name = 'Support';
 
-    public function getDescription(): string
-    {
-        $tiles = Str::plural('tile', $this->count);
+    private(set) string $description = "Support 10 tiles, preventing collapses";
 
-        return "Support {$this->count} {$tiles}, preventing collapses";
-    }
+    private(set) string $image = '/cards/support-minor.png';
 
-    public function play(Board $board): void
+    private(set) int $mana = 50;
+
+    private(set) Rarity $rarity = Rarity::COMMON;
+
+    private(set) int $price = 1500;
+
+    private(set) Type $type = Type::ACTIVE;
+
+    private(set) Level $level = Level::NOOB;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->setActiveCard($this);
+        // $board->setActiveCard($this);
     }
 
     public function canInteractWithTile(Board $board, Tile $tile): bool
@@ -55,35 +59,5 @@ final class SupportMinor implements Card, InteractsWithTile
         if ($this->count === 0) {
             command(new DiscardActiveCard());
         }
-    }
-
-    public function getImage(): string
-    {
-        return '/cards/support-minor.png';
-    }
-
-    public function getMana(): int
-    {
-        return 50;
-    }
-
-    public function getRarity(): Rarity
-    {
-        return Rarity::COMMON;
-    }
-
-    public function getPrice(): int
-    {
-        return 1500;
-    }
-
-    public function getType(): Type
-    {
-        return Type::ACTIVE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::NOOB;
     }
 }

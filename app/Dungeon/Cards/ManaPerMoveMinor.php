@@ -3,11 +3,11 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\HandlesEvents;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeMana;
 use App\Dungeon\Commands\DiscardPassiveCard;
 use App\Dungeon\Events\PlayerMoved;
@@ -16,48 +16,29 @@ use App\Dungeon\Tile;
 
 final class ManaPerMoveMinor implements Card, HandlesEvents
 {
-    use CardTrait;
+    use IsCard;
 
     public int $moves = 10;
 
-    public function getName(): string
-    {
-        return "Mana Steps";
-    }
+    private(set) string $name = "Mana Steps";
 
-    public function getDescription(): string
-    {
-        return "+10 mana per move for the next {$this->moves} moves";
-    }
+    private(set) string $description = "+10 mana per move for the next 10 moves";
 
-    public function getMana(): int
-    {
-        return 10;
-    }
+    private(set) int $mana = 10;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getType(): Type
-    {
-        return Type::PASSIVE;
-    }
+    private(set) Type $type = Type::PASSIVE;
 
-    public function getImage(): string
-    {
-        return '/cards/mana-per-move-minor.png';
-    }
+    private(set) string $image = '/cards/mana-per-move-minor.png';
 
-    public function getPrice(): int
-    {
-        return 2000;
-    }
+    private(set) int $price = 2000;
 
-    public function play(Board $board): void
+    private(set) Level $level = Level::MASTER;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->setPassiveCard($this);
+        // $board->setPassiveCard($this);
     }
 
     public function handle(Board $board, Tile $tile, object $event): void
@@ -72,10 +53,5 @@ final class ManaPerMoveMinor implements Card, HandlesEvents
         if ($this->moves <= 0) {
             command(new DiscardPassiveCard());
         }
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::MASTER;
     }
 }

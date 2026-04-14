@@ -3,60 +3,36 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeMaxMana;
 use App\Dungeon\Level;
 
 // TODO test
-final readonly class ManaIncreaseMajor implements Card
+final class ManaIncreaseMajor implements Card
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Large Mana Potion";
-    }
+    private(set) string $name = "Large Mana Potion";
 
-    public function getDescription(): string
-    {
-        return "+50 max mana";
-    }
+    private(set) string $description = "+50 max mana";
 
-    public function play(Board $board): void
-    {
-        command(new ChangeMaxMana(50));
-    }
+    private(set) string $image = '/cards/mana-increase-major.png';
 
-    public function getImage(): string
-    {
-        return '/cards/mana-increase-major.png';
-    }
+    private(set) int $mana = 150;
 
-    public function getMana(): int
-    {
-        return 150;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) int $price = 3000;
 
-    public function getPrice(): int
-    {
-        return 3000;
-    }
+    private(set) Type $type = Type::IMMEDIATE;
 
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
+    private(set) Level $level = Level::MASTER;
 
-    public function getLevel(): Level
+    public function play(Dungeon $dungeon): void
     {
-        return Level::MASTER;
+        // command(new ChangeMaxMana(50));
     }
 }

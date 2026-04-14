@@ -3,12 +3,12 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
 use App\Dungeon\Cards\Support\CheckBeforePlaying;
 use App\Dungeon\Cards\Support\InteractsWithTile;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeStability;
 use App\Dungeon\Commands\DiscardActiveCard;
 use App\Dungeon\Commands\DiscardPassiveCard;
@@ -21,25 +21,29 @@ use Illuminate\Support\Str;
 
 final class RumbleMajor implements Card, InteractsWithTile
 {
-    use CardTrait;
+    use IsCard;
 
     private int $count = 3;
 
-    public function getName(): string
-    {
-        return 'Rumble++';
-    }
+    private(set) string $name = 'Rumble++';
 
-    public function getDescription(): string
-    {
-        $collapses = Str::plural('collapse', $this->count);
+    private(set) string $description = "Clear 3 collapses, -10 stability/clear";
 
-        return "Clear {$this->count} {$collapses}, -10 stability/clear";
-    }
+    private(set) string $image = '/cards/rumble-major.png';
 
-    public function play(Board $board): void
+    private(set) int $mana = 70;
+
+    private(set) Rarity $rarity = Rarity::COMMON;
+
+    private(set) int $price = 750;
+
+    private(set) Type $type = Type::ACTIVE;
+
+    private(set) Level $level = Level::NOVICE;
+
+    public function play(Dungeon $dungeon): void
     {
-        $board->setActiveCard($this);
+        // $board->setActiveCard($this);
     }
 
     public function canInteractWithTile(Board $board, Tile $tile): bool
@@ -57,35 +61,5 @@ final class RumbleMajor implements Card, InteractsWithTile
         if ($this->count === 0) {
             command(new DiscardActiveCard());
         }
-    }
-
-    public function getImage(): string
-    {
-        return '/cards/rumble-major.png';
-    }
-
-    public function getMana(): int
-    {
-        return 70;
-    }
-
-    public function getRarity(): Rarity
-    {
-        return Rarity::COMMON;
-    }
-
-    public function getPrice(): int
-    {
-        return 750;
-    }
-
-    public function getType(): Type
-    {
-        return Type::ACTIVE;
-    }
-
-    public function getLevel(): Level
-    {
-        return Level::NOVICE;
     }
 }

@@ -3,61 +3,37 @@
 namespace App\Dungeon\Cards;
 
 use App\Dungeon\Board;
-use App\Dungeon\Cards\Support\Card;
-use App\Dungeon\Cards\Support\CardTrait;
-use App\Dungeon\Cards\Support\Rarity;
-use App\Dungeon\Cards\Support\Type;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
 use App\Dungeon\Commands\ChangeHealth;
 use App\Dungeon\Commands\ChangeMaxHealth;
 use App\Dungeon\Level;
 
-final readonly class HealthIncreaseMajor implements Card
+final class HealthIncreaseMajor implements Card
 {
-    use CardTrait;
+    use IsCard;
 
-    public function getName(): string
-    {
-        return "Large Health Potion";
-    }
+    private(set) string $name = "Large Health Potion";
 
-    public function getDescription(): string
-    {
-        return "+50 max health, +40 health";
-    }
+    private(set) string $description = "+50 max health, +40 health";
 
-    public function play(Board $board): void
-    {
-        command(new ChangeMaxHealth(50));
-        command(new ChangeHealth(40));
-    }
+    private(set) string $image = '/cards/health-increase-major.png';
 
-    public function getImage(): string
-    {
-        return '/cards/health-increase-major.png';
-    }
+    private(set) int $mana = 150;
 
-    public function getMana(): int
-    {
-        return 150;
-    }
+    private(set) Rarity $rarity = Rarity::RARE;
 
-    public function getRarity(): Rarity
-    {
-        return Rarity::RARE;
-    }
+    private(set) int $price = 2500;
 
-    public function getPrice(): int
-    {
-        return 2500;
-    }
+    private(set) Type $type = Type::IMMEDIATE;
 
-    public function getType(): Type
-    {
-        return Type::IMMEDIATE;
-    }
+    private(set) Level $level = Level::MASTER;
 
-    public function getLevel(): Level
+    public function play(Dungeon $dungeon): void
     {
-        return Level::MASTER;
+        // command(new ChangeMaxHealth(50));
+        // command(new ChangeHealth(40));
     }
 }
