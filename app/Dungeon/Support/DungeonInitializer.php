@@ -10,8 +10,17 @@ use Tempest\Container\Singleton;
 final class DungeonInitializer implements Initializer
 {
     #[Singleton]
-    public function initialize(Container $container): ?Dungeon
+    public function initialize(Container $container): Dungeon
     {
-        return $container->get(DungeonRepository::class)->get();
+        $repository = $container->get(DungeonRepository::class);
+
+        $dungeon = $repository->get();
+
+        if (!$dungeon) {
+            $dungeon = new Dungeon();
+            $repository->persist($dungeon);
+        }
+
+        return $dungeon;
     }
 }

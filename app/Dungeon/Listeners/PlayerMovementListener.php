@@ -20,23 +20,14 @@ final readonly class PlayerMovementListener
     #[EventHandler]
     public function spawnCoins(PlayerMoved $event): void
     {
-        $coinsAdded = 0;
-
         foreach ($this->dungeon->loopTiles() as $tile) {
-            if ($coinsAdded > 3) {
-                break;
-            }
-
             if ($this->random->chance(199 / 200)) {
                 continue;
             }
 
-            if ($tile->coins >= 10) {
-                continue;
-            }
-
             $this->dungeon->addCoinsToTile($tile, 1);
-            $coinsAdded += 1;
+
+            return;
         }
     }
 

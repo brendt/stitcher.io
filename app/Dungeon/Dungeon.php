@@ -34,7 +34,7 @@ final class Dungeon
     {
         $this->playerPosition = new Point(0, 0);
         $this->addTile(new Tile(clone $this->playerPosition));
-        event(new TileGenerated($this->currentTile));
+//        event(new TileGenerated($this->currentTile));
     }
 
     public function toArray(): array

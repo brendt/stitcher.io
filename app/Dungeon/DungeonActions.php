@@ -43,6 +43,10 @@ trait DungeonActions
 
     public function addCoinsToTile(Tile $tile, int $amount): void
     {
+        if ($tile->coins >= 10) {
+            return;
+        }
+
         $tile->coins += $amount;
 
         event(new TileCoinsAdded($tile, $amount));
