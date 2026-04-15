@@ -38,7 +38,6 @@ final class BeaconMajor implements Card, WithEvents
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setPassiveCard($this);
         // foreach ($board->getAllDwellers() as $dweller) {
         // command(new ShowDweller($dweller->point));
         // }

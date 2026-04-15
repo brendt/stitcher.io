@@ -4,8 +4,12 @@ namespace App\Dungeon\Listeners;
 
 use App\Dungeon\Commands\ChangeStability;
 use App\Dungeon\Commands\CollapseTile;
+use App\Dungeon\Commands\RemoveDweller;
 use App\Dungeon\Dungeon;
+use App\Dungeon\Dweller;
+use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Point;
 use App\Dungeon\Support\Random;
 use Tempest\EventBus\EventHandler;
 use function Tempest\Support\arr;

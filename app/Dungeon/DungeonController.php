@@ -4,6 +4,7 @@ namespace App\Dungeon;
 
 use App\Dungeon\Cards\BeaconMajor;
 use App\Dungeon\Cards\BreakthroughMajor;
+use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Cards\HealMajor;
 use App\Dungeon\Support\DungeonEndpoint;
@@ -27,11 +28,11 @@ final class DungeonController
     #[Get('/dungeon/new')]
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
-        $dungeon = new Dungeon(deck: [
-            new BeaconMajor(),
-            new BreakthroughMajor(),
-            new EmergencyExitMinor(),
-            new HealMajor(),
+        $dungeon = Dungeon::new(deck: [
+            new Clarity(),
+            new Clarity(),
+            new Clarity(),
+            new Clarity(),
         ]);
 
         $repository->persist($dungeon);
@@ -44,6 +45,11 @@ final class DungeonController
             for ($i = 0; $i < 1000; $i++) {
                 $dungeon->move($directions->random());
             }
+
+            $dungeon->spawnDweller();
+            $dungeon->spawnDweller();
+            $dungeon->spawnDweller();
+            $dungeon->spawnDweller();
 
             $repository->persist($dungeon);
         }

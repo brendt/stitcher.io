@@ -384,10 +384,13 @@
         const payload = JSON.parse(dataElement.textContent);
         const tiles = [];
         const tileIndex = new Map();
+        const dwellers = [];
+        const dwellerIndex = new Map();
         const hand = new Map();
         let activeCard = null;
         let passiveCard = null;
         let playerPosition = null;
+        let visibilityRadius = null;
         let dungeonVersion = null;
         const stats = {
             coins: 0,
@@ -409,11 +412,14 @@
         const floorCoinsSpritePath = '/dungeon/tile-floor-coins.png';
         const floorCollapsedSpritePath = '/dungeon/tile-collapsed.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
+        const dwellerSpritePath = '/dungeon/dweller-avater.png';
+        const dwellerFallbackSpritePath = '/dungeon/dweller-avatar.png';
         const wallSprites = {};
         let floorSprite = null;
         let floorCoinsSprite = null;
         let floorCollapsedSprite = null;
         let playerSprite = null;
+        let dwellerSprite = null;
 
         const bounds = {
             minX: 0,
@@ -507,8 +513,13 @@
                 if (!openDirections.has('left')) {
                     drawWall('left', x, y, tileSize);
                 }
+
+                if (isTileOutsideVisibility(tile)) {
+                    drawVisibilityOverlay(x, y, tileSize);
+                }
             }
 
+            drawDwellers(tileSize, step);
             drawPlayer(tileSize, step);
         }
 
@@ -572,6 +583,25 @@
             context.drawImage(sprite, drawX, drawY, drawWidth, drawHeight);
         }
 
+        function isTileOutsideVisibility(tile) {
+            if (!playerPosition || !Number.isFinite(visibilityRadius)) {
+                return false;
+            }
+
+            const dx = Number(tile.point.x) - Number(playerPosition.x);
+            const dy = Number(tile.point.y) - Number(playerPosition.y);
+            const distance = Math.hypot(dx, dy);
+
+            return distance > visibilityRadius;
+        }
+
+        function drawVisibilityOverlay(x, y, tileSize) {
+            context.save();
+            context.fillStyle = 'rgba(0, 0, 0, 0.68)';
+            context.fillRect(x, y, tileSize, tileSize);
+            context.restore();
+        }
+
         function drawPlayer(tileSize, step) {
             if (!playerPosition || !playerSprite) {
                 return;
@@ -606,6 +636,48 @@
             context.strokeStyle = '#27282e';
             context.stroke();
             context.restore();
+        }
+
+        function drawDwellers(tileSize, step) {
+            if (!dwellerSprite) {
+                return;
+            }
+
+            for (const dweller of dwellers) {
+                if (!dweller.isVisible) {
+                    continue;
+                }
+
+                const tileX = state.paddingX + (dweller.x - bounds.minX) * step;
+                const tileY = state.paddingY + (dweller.y - bounds.minY) * step;
+                const avatarSize = tileSize * 0.6;
+                const avatarX = tileX + ((tileSize - avatarSize) / 2);
+                const avatarY = tileY + ((tileSize - avatarSize) / 2);
+                const avatarRadius = avatarSize / 2;
+                const avatarCenterX = avatarX + avatarRadius;
+                const avatarCenterY = avatarY + avatarRadius;
+
+                context.save();
+                context.shadowColor = 'rgba(0, 0, 0, 0.35)';
+                context.shadowBlur = Math.max(3, tileSize * 0.15);
+                context.shadowOffsetY = Math.max(1, tileSize * 0.08);
+
+                context.beginPath();
+                context.arc(avatarCenterX, avatarCenterY, avatarRadius, 0, Math.PI * 2);
+                context.closePath();
+                context.clip();
+                context.drawImage(dwellerSprite, avatarX, avatarY, avatarSize, avatarSize);
+                context.restore();
+
+                context.save();
+                context.beginPath();
+                context.arc(avatarCenterX, avatarCenterY, avatarRadius - 1, 0, Math.PI * 2);
+                context.closePath();
+                context.lineWidth = 2;
+                context.strokeStyle = '#7f1d1d';
+                context.stroke();
+                context.restore();
+            }
         }
 
         function loadImage(src) {
@@ -747,12 +819,15 @@
 
         function hydrateFromPayload(nextPayload) {
             const normalizedTiles = normalizeTiles(nextPayload?.tiles ?? []);
+            const normalizedDwellers = normalizePoints(nextPayload?.dwellers ?? []);
             const normalizedHand = normalizeHand(nextPayload?.hand ?? []);
             const normalizedActiveCard = normalizeCard(nextPayload?.activeCard ?? null);
             const normalizedPassiveCard = normalizeCard(nextPayload?.passiveCard ?? null);
 
             tiles.length = 0;
             tileIndex.clear();
+            dwellers.length = 0;
+            dwellerIndex.clear();
             hand.clear();
 
             for (const tile of normalizedTiles) {
@@ -764,12 +839,21 @@
                 hand.set(card.id, card);
             }
 
+            for (const dweller of normalizedDwellers) {
+                const dwellerKey = getTileKey(dweller.x, dweller.y);
+                dwellers.push(dweller);
+                dwellerIndex.set(dwellerKey, dweller);
+            }
+
             activeCard = normalizedActiveCard;
             passiveCard = normalizedPassiveCard;
             state.hoveredTileKey = null;
 
             recomputeBoundsFromTiles();
             playerPosition = toPoint(nextPayload?.playerPosition);
+            visibilityRadius = Number.isFinite(Number(nextPayload?.visibilityRadius))
+                ? Number(nextPayload.visibilityRadius)
+                : null;
             dungeonVersion = nextPayload?.version ?? null;
             stats.coins = numberFrom(nextPayload?.coins);
             stats.health = numberFrom(nextPayload?.health);
@@ -800,6 +884,139 @@
                 mana: Number.isFinite(Number(value.mana)) ? Number(value.mana) : 0,
                 canInteractWithTile: Boolean(value.canInteractWithTile),
             };
+        }
+
+        function collectPoints(node, out, fallbackX, fallbackY) {
+            if (!node) {
+                return;
+            }
+
+            if (Array.isArray(node)) {
+                for (const item of node) {
+                    collectPoints(item, out, fallbackX, fallbackY);
+                }
+                return;
+            }
+
+            if (typeof node !== 'object') {
+                return;
+            }
+
+            if (typeof node.x !== 'undefined' && typeof node.y !== 'undefined') {
+                out.push({
+                    x: Number(node.x),
+                    y: Number(node.y),
+                });
+                return;
+            }
+
+            if (fallbackX !== null && fallbackY !== null) {
+                out.push({
+                    x: Number(fallbackX),
+                    y: Number(fallbackY),
+                });
+                return;
+            }
+
+            for (const [key, value] of Object.entries(node)) {
+                if (fallbackX === null) {
+                    collectPoints(value, out, Number(key), fallbackY);
+                    continue;
+                }
+
+                if (fallbackY === null) {
+                    collectPoints(value, out, fallbackX, Number(key));
+                    continue;
+                }
+
+                collectPoints(value, out, fallbackX, fallbackY);
+            }
+        }
+
+        function normalizePoints(value) {
+            const normalized = [];
+            collectPoints(value, normalized, null, null);
+
+            return normalized.filter((point) => Number.isFinite(point.x) && Number.isFinite(point.y));
+        }
+
+        function upsertDweller(pointValue) {
+            const point = toPoint(pointValue?.point ?? pointValue);
+
+            if (!point) {
+                return;
+            }
+
+            const dwellerKey = getTileKey(point.x, point.y);
+            const isVisible = Boolean(pointValue?.isVisible ?? pointValue?.point?.isVisible ?? true);
+            const existingDweller = dwellerIndex.get(dwellerKey);
+
+            if (existingDweller) {
+                existingDweller.isVisible = isVisible;
+                return;
+            }
+
+            const dweller = {
+                x: point.x,
+                y: point.y,
+                isVisible,
+            };
+
+            dwellers.push(dweller);
+            dwellerIndex.set(dwellerKey, dweller);
+        }
+
+        function removeDweller(pointValue) {
+            const point = toPoint(pointValue?.point ?? pointValue);
+
+            if (!point) {
+                return;
+            }
+
+            const dwellerKey = getTileKey(point.x, point.y);
+            const existingDweller = dwellerIndex.get(dwellerKey);
+
+            if (!existingDweller) {
+                return;
+            }
+
+            const index = dwellers.indexOf(existingDweller);
+
+            if (index !== -1) {
+                dwellers.splice(index, 1);
+            }
+
+            dwellerIndex.delete(dwellerKey);
+        }
+
+        function applyDwellerSpawned(payload) {
+            const point = payload?.dweller ?? payload?.point ?? payload?.position ?? payload;
+            if (!payload?.isVisible) {
+                removeDweller(point);
+                return;
+            }
+
+            upsertDweller({
+                ...(point && typeof point === 'object' ? point : {}),
+                isVisible: payload?.isVisible,
+            });
+        }
+
+        function applyDwellerMoved(payload) {
+            const from = payload?.from ?? payload?.oldPosition ?? payload?.previousPosition ?? null;
+            const to = payload?.to ?? payload?.position ?? payload?.point ?? payload?.dweller ?? null;
+
+            removeDweller(from);
+
+            if (!payload?.isVisible) {
+                removeDweller(to);
+                return;
+            }
+
+            upsertDweller({
+                ...(to && typeof to === 'object' ? to : {}),
+                isVisible: payload?.isVisible,
+            });
         }
 
         function isTileInteractionEnabled() {
@@ -1225,6 +1442,23 @@
                     continue;
                 }
 
+                if (change?.name === 'dweller.spawned') {
+                    applyDwellerSpawned(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'dweller.moved') {
+                    applyDwellerMoved(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'visibility.changed') {
+                    const nextRadius = Number(change?.payload?.visibilityRadius);
+
+                    visibilityRadius = Number.isFinite(nextRadius) ? nextRadius : visibilityRadius;
+                    continue;
+                }
+
                 if (change?.name === 'player.manaGained') {
                     if (typeof change.payload?.mana !== 'undefined') {
                         stats.mana = numberFrom(change.payload.mana);
@@ -1433,6 +1667,24 @@
             return null;
         }
 
+        function focusOnPlayer() {
+            if (!playerPosition) {
+                return;
+            }
+
+            const targetScale = Math.min(state.maxScale, Math.max(state.minScale, 3));
+            state.scale = targetScale;
+            render();
+
+            const step = getStepSize();
+            const tileSize = state.baseTileSize * state.scale;
+            const centerX = state.paddingX + ((playerPosition.x - bounds.minX) * step) + (tileSize / 2);
+            const centerY = state.paddingY + ((playerPosition.y - bounds.minY) * step) + (tileSize / 2);
+
+            viewport.scrollLeft = centerX - (viewport.clientWidth / 2);
+            viewport.scrollTop = centerY - (viewport.clientHeight / 2);
+        }
+
         function preloadSprites() {
             const wallPromises = Object.entries(wallSpritePaths).map(async ([direction, src]) => {
                 const image = await loadImage(src);
@@ -1458,7 +1710,16 @@
                 playerSprite = image;
             });
 
-            Promise.all([...wallPromises, floorPromise, floorCoinsPromise, floorCollapsedPromise, playerPromise]).then(() => {
+            const dwellerPromise = loadImage(dwellerSpritePath).then(async (image) => {
+                if (image) {
+                    dwellerSprite = image;
+                    return;
+                }
+
+                dwellerSprite = await loadImage(dwellerFallbackSpritePath);
+            });
+
+            Promise.all([...wallPromises, floorPromise, floorCoinsPromise, floorCollapsedPromise, playerPromise, dwellerPromise]).then(() => {
                 render();
             });
         }
@@ -1585,6 +1846,12 @@
         });
 
         window.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                focusOnPlayer();
+                return;
+            }
+
             const direction = getDirectionForKey(event.key);
 
             if (!direction) {

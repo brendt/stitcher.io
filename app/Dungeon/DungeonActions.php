@@ -6,6 +6,8 @@ use App\Dungeon\Events\ActiveCardSet;
 use App\Dungeon\Events\ActiveCardUnset;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
+use App\Dungeon\Events\DwellerMoved;
+use App\Dungeon\Events\DwellerSpawned;
 use App\Dungeon\Events\PassiveCardSet;
 use App\Dungeon\Events\PassiveCardUnset;
 use App\Dungeon\Events\PermanentCardAdded;
@@ -13,10 +15,12 @@ use App\Dungeon\Events\PlayerManaGained;
 use App\Dungeon\Events\PlayerManaLost;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\PlayerStabilityDecreased;
+use App\Dungeon\Events\PlayerStabilityIncreased;
 use App\Dungeon\Events\TileCoinsAdded;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\TileCollapsed;
 use App\Dungeon\Events\TileUpdated;
+use App\Dungeon\Events\VisibilityChanged;
 use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
@@ -129,6 +133,25 @@ trait DungeonActions
         event(new PlayerStabilityDecreased($amount));
     }
 
+    public function increaseStability(int $amount): void
+    {
+        if ($this->stability >= $this->maxStability) {
+            return;
+        }
+
+        if ($amount <= 0) {
+            return;
+        }
+
+        $this->stability += $amount;
+
+        if ($this->stability >= $this->maxStability) {
+            $this->stability = $this->maxStability;
+        }
+
+        event(new PlayerStabilityIncreased($amount));
+    }
+
     public function collapseTile(Tile $tile): void
     {
         if (! $tile->canCollapse()) {
@@ -183,9 +206,10 @@ trait DungeonActions
             return;
         }
 
-        $card = arr($this->deck)->random();
+        $id = array_rand($this->deck);
 
-        $this->hand[$card->id] = $card;
+        $card = $this->deck[$id];
+        $this->hand[$id] = $card;
         unset($this->deck[$card->id]);
 
         event(new CardDrawn($card));
@@ -287,5 +311,45 @@ trait DungeonActions
 
             event(new TileUpdated($neighbourTile));
         }
+    }
+
+    public function spawnDweller(?Point $point = null): void
+    {
+        $point ??= new Point(
+            x: random_int(-25, 25),
+            y: random_int(-25, 25),
+        );
+
+        $dweller = new Dweller($point);
+
+        $this->dwellers[$point->x][$point->y] = $dweller;
+
+        event(new DwellerSpawned(
+            dweller: $dweller,
+            isVisible: $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point),
+        ));
+    }
+
+    public function moveDweller(Dweller $dweller, Point $to): void
+    {
+        $from = $dweller->point;
+
+        $dweller->point = $to;
+        unset($this->dwellers[$from->x][$from->y]);
+        $this->dwellers[$to->x][$to->y] = $dweller;
+
+        event(new DwellerMoved(
+            dweller: $dweller,
+            from: $from,
+            to: $to,
+            isVisible: $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point),
+        ));
+    }
+
+    public function changeVisibility(int $visibilityRadius): void
+    {
+        $this->visibilityRadius = $visibilityRadius;
+
+        event(new VisibilityChanged($visibilityRadius));
     }
 }

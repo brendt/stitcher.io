@@ -5,6 +5,7 @@ namespace App\Dungeon\Support;
 use App\Dungeon\Dungeon;
 use Tempest\Cache\Cache;
 use Tempest\Container\Singleton;
+use Throwable;
 
 #[Singleton]
 final readonly class DungeonRepository

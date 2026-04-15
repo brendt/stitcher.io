@@ -6,7 +6,6 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\ChangeStability;
 use App\Dungeon\Level;
 
 final class Clarity implements Card
@@ -31,7 +30,7 @@ final class Clarity implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->visibilityRadius += 1;
-        // command(new ChangeStability(20));
+        $dungeon->changeVisibility($dungeon->visibilityRadius + 1);
+        $dungeon->increaseStability(20);
     }
 }

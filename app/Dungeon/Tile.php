@@ -126,4 +126,9 @@ final class Tile
             || $this->isSupported
         );
     }
+
+    public function hasBorder(Direction $direction): bool
+    {
+        return ! in_array($direction, $this->directions);
+    }
 }

@@ -15,7 +15,7 @@ final class Dungeon
     public int $version = 0;
     public array $changes = [];
     public array $tiles = [];
-    public Point $playerPosition;
+    public ?Point $playerPosition = null;
     public bool $hasEnded = false;
     public int $coins = 0;
     public int $health = 100;
@@ -39,20 +39,31 @@ final class Dungeon
 
     public ?Card $passiveCard = null;
 
+    /** @var \App\Dungeon\Dweller[] */
+    public array $dwellers = [];
+
+    public int $visibilityRadius = 5;
+
     public Tile $currentTile {
         get => $this->getTile($this->playerPosition);
     }
 
     /** @param \App\Dungeon\Card[] $deck */
-    public function __construct(array $deck = [])
+    public static function new(array $deck): self
     {
-        $this->playerPosition = new Point(0, 0);
-        $this->addTile(new Tile(clone $this->playerPosition));
-        $this->deck = $deck;
+        $self = new self();
 
-        for ($i = 0; $i < $this->maxHandCount; $i++) {
-            $this->drawCard();
+        $self->playerPosition = new Point(0, 0);
+        $self->addTile(new Tile(clone $self->playerPosition));
+        $self->deck = $deck;
+
+        for ($i = 0; $i < $self->maxHandCount; $i++) {
+            $self->drawCard();
         }
+
+        $self->spawnDweller();
+
+        return $self;
     }
 
     public function toArray(): array
@@ -61,6 +72,7 @@ final class Dungeon
             'version' => $this->version,
             'playerPosition' => $this->playerPosition,
             'tiles' => arr($this->tiles)->map(fn (array $tiles) => arr($tiles)->map(fn (Tile $tile) => $tile->toArray())->toArray())->toArray(),
+            'dwellers' => arr($this->dwellers)->map(fn (array $dwellers) => arr($dwellers)->map(fn (Dweller $dweller) => $dweller->toArray())->toArray())->toArray(),
             'hasEnded' => $this->hasEnded,
             'coins' => $this->coins,
             'mana' => $this->mana,
@@ -74,6 +86,7 @@ final class Dungeon
             'permanentCards' => arr($this->permanentCards)->map(fn (Card $card) => $card->toArray())->toArray(),
             'passiveCard' => $this->passiveCard?->toArray(),
             'activeCard' => $this->activeCard?->toArray(),
+            'visibilityRadius' => $this->visibilityRadius,
         ];
     }
 
@@ -88,6 +101,12 @@ final class Dungeon
         foreach ($data['tiles'] as $x => $row) {
             foreach ($row as $y => $tile) {
                 $data['tiles'][$x][$y] = Tile::fromArray($tile);
+            }
+        }
+
+        foreach ($data['dwellers'] as $x => $row) {
+            foreach ($row as $y => $dweller) {
+                $data['dwellers'][$x][$y] = Dweller::fromArray($dweller);
             }
         }
 
@@ -176,12 +195,40 @@ final class Dungeon
         return $this->tiles[$point->x][$point->y] ?? null;
     }
 
+    public function hasTile(Point $point): bool
+    {
+        return isset($this->tiles[$point->x][$point->y]);
+    }
+
+    public function withinVisibilityRange(Point $point): bool
+    {
+        if ($this->playerPosition === null) {
+            return false;
+        }
+
+        $dx = $point->x - $this->playerPosition->x;
+        $dy = $point->y - $this->playerPosition->y;
+        $distance = hypot($dx, $dy);
+
+        return $distance < $this->visibilityRadius;
+    }
+
     /** @return Generator<Tile> */
     public function loopTiles(): Generator
     {
         foreach ($this->tiles as $row) {
             foreach ($row as $tile) {
                 yield $tile;
+            }
+        }
+    }
+
+    /** @return Generator<\App\Dungeon\Dweller> */
+    public function loopDwellers(): Generator
+    {
+        foreach ($this->dwellers as $row) {
+            foreach ($row as $dweller) {
+                yield $dweller;
             }
         }
     }
