@@ -4,6 +4,7 @@ namespace App\Dungeon;
 
 use App\Dungeon\Events\TileGenerated;
 use Generator;
+use ReflectionClass;
 use function Tempest\EventBus\event;
 use function Tempest\Mapper\map;
 use function Tempest\Support\arr;
@@ -53,7 +54,7 @@ final class Dungeon
         return [
             'version' => $this->version,
             'playerPosition' => $this->playerPosition,
-            'tiles' => $this->tiles,
+            'tiles' => arr($this->tiles)->map(fn (array $tiles) => arr($tiles)->map(fn (Tile $tile) => $tile->toArray())->toArray())->toArray(),
             'hasEnded' => $this->hasEnded,
             'coins' => $this->coins,
             'mana' => $this->mana,
@@ -62,12 +63,29 @@ final class Dungeon
             'maxHealth' => $this->maxHealth,
             'stability' => $this->stability,
             'maxStability' => $this->maxStability,
+            'hand' => arr($this->hand)->map(fn (Card $card) => $card->toArray())->toArray(),
+            'deck' => arr($this->deck)->map(fn (Card $card) => $card->toArray())->toArray(),
         ];
     }
 
     public static function fromArray(array $data): self
     {
-        return map($data)->to(self::class);
+        $data['hand'] = arr($data['hand'])->map(fn (array $card) => $card['class']::fromArray($card))->toArray();
+        $data['deck'] = arr($data['deck'])->map(fn (array $card) => $card['class']::fromArray($card))->toArray();
+
+        foreach ($data['tiles'] as $x => $row) {
+            foreach ($row as $y => $tile) {
+                $data['tiles'][$x][$y] = Tile::fromArray($tile);
+            }
+        }
+
+        $self = new ReflectionClass(self::class)->newInstanceWithoutConstructor();
+
+        foreach ($data as $key => $value) {
+            $self->{$key} = $value;
+        }
+
+        return $self;
     }
 
     public function consumeChanges(): array

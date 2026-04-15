@@ -2,6 +2,9 @@
 
 namespace App\Dungeon;
 
+use function Tempest\Mapper\map;
+use function Tempest\Support\arr;
+
 final class Tile
 {
     public function __construct(
@@ -32,7 +35,7 @@ final class Tile
         return [
             'point' => $this->point,
             'color' => $this->color,
-            'directions' => $this->directions,
+            'directions' => arr($this->directions)->map(fn (Direction $direction) => $direction->value)->toArray(),
             'isOrigin' => $this->isOrigin,
             'isActive' => $this->isActive,
             'isCollapsed' => $this->isCollapsed,
@@ -50,6 +53,21 @@ final class Tile
             'coins' => $this->coins,
             'isSupported' => $this->isSupported,
         ];
+    }
+
+    public static function fromArray(array $data): self
+    {
+        $directions = [];
+
+        foreach($data['directions'] as $direction) {
+            $direction = Direction::tryFrom($direction);
+
+            $directions[] = $direction;
+        }
+
+        $data['directions'] = $directions;
+
+        return new self(...$data);
     }
 
     public static function initial(): self

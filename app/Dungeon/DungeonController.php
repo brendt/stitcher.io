@@ -2,7 +2,12 @@
 
 namespace App\Dungeon;
 
+use App\Dungeon\Cards\BeaconMajor;
 use App\Dungeon\Cards\BreakthroughMajor;
+use App\Dungeon\Cards\EmergencyExitMajor;
+use App\Dungeon\Cards\EmergencyExitMinor;
+use App\Dungeon\Cards\HealMajor;
+use App\Dungeon\Cards\KillDwellerMajor;
 use App\Dungeon\Cards\TestCard;
 use App\Dungeon\Support\DungeonAction;
 use App\Dungeon\Support\DungeonRepository;
@@ -26,14 +31,9 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = new Dungeon(deck: [
-            new TestCard(),
-            new TestCard(),
-            new TestCard(),
-            new TestCard(),
-            new TestCard(),
-            new TestCard(),
-            new TestCard(),
-            new TestCard(),
+            new BeaconMajor(),
+            new EmergencyExitMinor(),
+            new HealMajor(),
         ]);
 
         $repository->persist($dungeon);

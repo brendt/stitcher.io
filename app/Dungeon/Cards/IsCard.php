@@ -3,6 +3,7 @@
 namespace App\Dungeon\Cards;
 
 use function Tempest\Support\str;
+use function Tempest\Mapper\map;
 
 trait IsCard
 {
@@ -16,15 +17,21 @@ trait IsCard
     public function toArray(): array
     {
         return [
+            'class' => self::class,
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'mana' => $this->mana,
-            'rarity' => $this->rarity,
-            'type' => $this->type,
+            'rarity' => $this->rarity->name,
+            'type' => $this->type->value,
             'image' => $this->image,
             'price' => $this->price,
-            'level' => $this->level,
+            'level' => $this->level->value,
         ];
+    }
+
+    public static function fromArray(array $data): self
+    {
+        return map($data)->to(self::class);
     }
 }

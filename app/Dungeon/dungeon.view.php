@@ -2,10 +2,16 @@
 <head>
     <title>Dungeon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap" rel="stylesheet">
+
+
     <style>
         :root {
             --tile: #9ca3af;
             --tile-border: #6b7280;
+            --font-title: "Fontdiner Swanky", serif;
         }
 
         * {
@@ -58,15 +64,15 @@
         .bottom-notch {
             position: fixed;
             left: 50%;
-            bottom: 0;
+            top: 0;
             transform: translateX(-50%);
             z-index: 900;
             min-width: 620px;
-            padding: 10px 18px 14px;
+            padding: 12px 18px 10px;
             border: 1px solid rgba(255, 255, 255, 0.16);
-            border-bottom: none;
-            border-top-left-radius: 14px;
-            border-top-right-radius: 14px;
+            border-top: none;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
             background: rgba(12, 13, 18, 0.9);
             color: #e5e7eb;
             font-family: ui-sans-serif, system-ui, sans-serif;
@@ -87,6 +93,7 @@
             text-transform: uppercase;
             letter-spacing: 0.08em;
             opacity: 0.7;
+            font-family: var(--font-title);
         }
 
         .bottom-notch-value {
@@ -103,6 +110,126 @@
             font-weight: 500;
             opacity: 0.72;
             vertical-align: baseline;
+        }
+
+        .hand-notch {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            z-index: 900;
+            width: min(980px, calc(100vw - 24px));
+            border-bottom: none;
+            padding: 10px;
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
+            color: #e5e7eb;
+            font-family: ui-sans-serif, system-ui, sans-serif;
+            pointer-events: auto;
+        }
+
+        .hand-cards {
+            display: flex;
+            gap: 20px;
+            align-items: stretch;
+            justify-content: center;
+            padding-bottom: 2px;
+        }
+
+        .hand-empty {
+            opacity: 0.65;
+            font-size: 13px;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0 8px;
+        }
+
+        .hand-card {
+            width: 200px;
+            min-width: 200px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            overflow: hidden;
+            position: relative;
+            --card-accent: rgba(255, 255, 255, 0.42);
+            box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 55%, transparent), 0 0 22px color-mix(in srgb, var(--card-accent) 32%, transparent);
+        }
+
+        .hand-card-rarity-common {
+            --card-accent: rgba(255, 255, 255, 0.42);
+        }
+
+        .hand-card-rarity-rare {
+            --card-accent: rgba(45, 175, 255, 0.75);
+        }
+
+        .hand-card-rarity-epic {
+            --card-accent: rgba(189, 120, 255, 0.82);
+        }
+
+        .hand-card-rarity-meta {
+            --card-accent: rgba(255, 190, 64, 0.86);
+        }
+
+        .hand-card-mana {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            min-width: 36px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
+            background: color-mix(in srgb, var(--card-accent) 78%, black 22%);
+            color: #f8fafc;
+            font-family: var(--font-title), ui-serif, serif;
+            font-size: 13px;
+            line-height: 1;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hand-card-image {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hand-card-content {
+            padding: 8px 10px 10px;
+            background: color-mix(in srgb, var(--card-accent) 68%, black 32%);
+            border: 1px solid color-mix(in srgb, var(--card-accent) 72%, white 28%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 5px;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        .hand-card-name {
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.2;
+            padding-top: 2px;
+            text-align: center;
+            font-family: var(--font-title);
+        }
+
+        .hand-card-description {
+            display: none;
+            margin-top: 4px;
+            font-size: 11px;
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        .hand-card:hover .hand-card-description {
+            display: block;
         }
     </style>
 </head>
@@ -129,6 +256,9 @@
             <div id="coin-counter" class="bottom-notch-value">0</div>
         </div>
     </div>
+    <div class="hand-notch">
+        <div id="hand-cards" class="hand-cards"></div>
+    </div>
     <pre id="debug-popup" class="debug-popup"></pre>
 
     <script id="dungeon-data" type="application/json">{!! json_encode($dungeon->toArray()) !!}</script>
@@ -137,6 +267,7 @@
         const viewport = document.getElementById('viewport');
         const canvas = document.getElementById('dungeon-canvas');
         const debugPopup = document.getElementById('debug-popup');
+        const handCards = document.getElementById('hand-cards');
         const counters = {
             coins: document.getElementById('coin-counter'),
             health: document.getElementById('health-counter'),
@@ -148,6 +279,7 @@
         const payload = JSON.parse(dataElement.textContent);
         const tiles = [];
         const tileIndex = new Map();
+        const hand = new Map();
         let playerPosition = null;
         let dungeonVersion = null;
         const stats = {
@@ -493,13 +625,19 @@
 
         function hydrateFromPayload(nextPayload) {
             const normalizedTiles = normalizeTiles(nextPayload?.tiles ?? []);
+            const normalizedHand = normalizeHand(nextPayload?.hand ?? []);
 
             tiles.length = 0;
             tileIndex.clear();
+            hand.clear();
 
             for (const tile of normalizedTiles) {
                 tiles.push(tile);
                 tileIndex.set(getTileKey(tile.point.x, tile.point.y), tile);
+            }
+
+            for (const card of normalizedHand) {
+                hand.set(card.id, card);
             }
 
             recomputeBoundsFromTiles();
@@ -513,6 +651,157 @@
             stats.stability = numberFrom(nextPayload?.stability);
             stats.maxStability = numberFrom(nextPayload?.maxStability);
             latestChanges = [];
+        }
+
+        function normalizeCard(value) {
+            if (!value || typeof value !== 'object') {
+                return null;
+            }
+
+            if (typeof value.id !== 'string') {
+                return null;
+            }
+
+            return {
+                id: value.id,
+                name: typeof value.name === 'string' ? value.name : 'Unknown Card',
+                description: typeof value.description === 'string' ? value.description : '',
+                image: typeof value.image === 'string' ? value.image : '',
+                rarity: typeof value.rarity === 'string' ? value.rarity : '',
+                mana: Number.isFinite(Number(value.mana)) ? Number(value.mana) : 0,
+            };
+        }
+
+        function getCardRarityClass(rarity) {
+            if (typeof rarity !== 'string' || rarity.length === 0) {
+                return 'hand-card-rarity-common';
+            }
+
+            return `hand-card-rarity-${rarity.toLowerCase()}`;
+        }
+
+        function collectCards(value, out) {
+            if (!value) {
+                return;
+            }
+
+            if (Array.isArray(value)) {
+                for (const item of value) {
+                    collectCards(item, out);
+                }
+
+                return;
+            }
+
+            if (typeof value !== 'object') {
+                return;
+            }
+
+            const normalized = normalizeCard(value);
+
+            if (normalized) {
+                out.push(normalized);
+                return;
+            }
+
+            for (const nested of Object.values(value)) {
+                collectCards(nested, out);
+            }
+        }
+
+        function normalizeHand(value) {
+            const cards = [];
+            collectCards(value, cards);
+
+            return cards;
+        }
+
+        function applyCardDrawn(payload) {
+            const card = normalizeCard(payload?.card);
+
+            if (!card) {
+                return;
+            }
+
+            hand.set(card.id, card);
+        }
+
+        function applyCardPlayed(payload) {
+            const card = normalizeCard(payload?.card);
+
+            if (!card) {
+                return;
+            }
+
+            hand.delete(card.id);
+        }
+
+        function getCardImageUrl(image) {
+            if (!image) {
+                return '';
+            }
+
+            if (image.startsWith('/dungeon/')) {
+                return image;
+            }
+
+            if (image.startsWith('/')) {
+                return `/dungeon${image}`;
+            }
+
+            return `/dungeon/${image}`;
+        }
+
+        function renderHand() {
+            if (!handCards) {
+                return;
+            }
+
+            handCards.innerHTML = '';
+
+            if (hand.size === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'hand-empty';
+                empty.textContent = 'No cards in hand';
+                handCards.appendChild(empty);
+                return;
+            }
+
+            for (const card of hand.values()) {
+                const article = document.createElement('article');
+                article.className = 'hand-card';
+                article.dataset.cardId = card.id;
+                article.classList.add(getCardRarityClass(card.rarity));
+
+                const mana = document.createElement('div');
+                mana.className = 'hand-card-mana';
+                mana.textContent = String(card.mana);
+                article.appendChild(mana);
+
+                if (card.image) {
+                    const image = document.createElement('img');
+                    image.className = 'hand-card-image';
+                    image.alt = card.name;
+                    image.src = getCardImageUrl(card.image);
+                    article.appendChild(image);
+                }
+
+                const content = document.createElement('div');
+                content.className = 'hand-card-content';
+
+                const title = document.createElement('div');
+                title.className = 'hand-card-name';
+                title.textContent = card.name;
+
+                const description = document.createElement('div');
+                description.className = 'hand-card-description';
+                description.textContent = card.description;
+
+                content.appendChild(title);
+                content.appendChild(description);
+                article.appendChild(content);
+                handCards.appendChild(article);
+            }
         }
 
         function toPoint(value) {
@@ -618,6 +907,16 @@
 
                 if (change?.name === 'tile.coinsCollected') {
                     applyTileCoinsCollected(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'card.drawn') {
+                    applyCardDrawn(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'card.played') {
+                    applyCardPlayed(change.payload);
                     continue;
                 }
 
@@ -728,6 +1027,7 @@
                 render();
                 renderDebugPopup();
                 renderCounters();
+                renderHand();
             } finally {
                 state.moveInFlight = false;
             }
@@ -878,6 +1178,7 @@
         render();
         renderDebugPopup();
         renderCounters();
+        renderHand();
         preloadSprites();
     </script>
 </body>
