@@ -283,7 +283,9 @@ trait DungeonActions
                 continue;
             }
 
-            // TODO
+            $neighbourTile->directions[] = $direction->opposite();
+
+            event(new TileUpdated($neighbourTile));
         }
     }
 }

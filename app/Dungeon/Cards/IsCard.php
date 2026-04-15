@@ -17,19 +17,15 @@ trait IsCard
 
     public function toArray(): array
     {
-        return [
-            'class' => self::class,
-            'id' => $this->id,
-            'name' => $this->name,
-            'description' => $this->description,
-            'mana' => $this->mana,
-            'rarity' => $this->rarity->name,
-            'type' => $this->type->value,
-            'image' => $this->image,
-            'price' => $this->price,
-            'level' => $this->level->value,
-            'canInteractWithTile' => $this instanceof InteractsWithTile,
-        ];
+        $data = (array) $this;
+
+        $data['class'] = self::class;
+        $data['canInteractWithTile'] = $this instanceof InteractsWithTile;
+        $data['level'] = $this->level->value;
+        $data['rarity'] = $this->rarity->name;
+        $data['type'] = $this->type->value;
+
+        return $data;
     }
 
     public static function fromArray(array $data): self
