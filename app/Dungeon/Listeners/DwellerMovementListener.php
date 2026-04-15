@@ -18,22 +18,15 @@ final readonly class DwellerMovementListener
     ) {}
 
     #[EventHandler]
-    public function checkForDwellers(PlayerMoved $event): void
+    public function checkForDwellersOnPlayerMoved(PlayerMoved $event): void
     {
-        if (! $this->dungeon->playerPosition) {
-            return;
-        }
+        $this->checkForDweller();
+    }
 
-        $point = $this->dungeon->playerPosition;
-
-        if ($dweller = $this->dungeon->dwellers[$point->x][$point->y] ?? null) {
-            $this->dungeon->decreaseHealth(20);
-            $this->dungeon->despawnDweller($dweller);
-
-            for ($i = 0; $i < random_int(1, 3); $i++) {
-                $this->dungeon->spawnDweller();
-            }
-        }
+    #[EventHandler]
+    public function checkForDwellersOnDwellerMoved(DwellerMoved $event): void
+    {
+        $this->checkForDweller();
     }
 
     #[EventHandler]
@@ -103,5 +96,23 @@ final readonly class DwellerMovementListener
         }
 
         return true;
+    }
+
+    private function checkForDweller(): void
+    {
+        $point = $this->dungeon->playerPosition;
+
+        if (! $point) {
+            return;
+        }
+
+        if ($dweller = $this->dungeon->dwellers[$point->x][$point->y] ?? null) {
+            $this->dungeon->decreaseHealth(20);
+            $this->dungeon->despawnDweller($dweller);
+
+            for ($i = 0; $i < random_int(1, 3); $i++) {
+                $this->dungeon->spawnDweller();
+            }
+        }
     }
 }
