@@ -69,6 +69,46 @@
             pointer-events: auto;
         }
 
+        .debug-header {
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .debug-change {
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            margin-bottom: 6px;
+            overflow: hidden;
+        }
+
+        .debug-change-toggle {
+            width: 100%;
+            border: 0;
+            margin: 0;
+            padding: 7px 9px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.06);
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .debug-change-toggle:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .debug-change-payload {
+            display: none;
+            margin: 0;
+            padding: 8px 9px;
+            background: rgba(0, 0, 0, 0.28);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .debug-change.is-open .debug-change-payload {
+            display: block;
+        }
+
         .bottom-notch {
             position: fixed;
             left: 50%;
@@ -1019,6 +1059,11 @@
             });
         }
 
+        function applyDwellerDespawned(payload) {
+            const point = payload?.dweller ?? payload?.point ?? payload?.position ?? payload;
+            removeDweller(point);
+        }
+
         function isTileInteractionEnabled() {
             return Boolean(activeCard?.canInteractWithTile);
         }
@@ -1452,6 +1497,11 @@
                     continue;
                 }
 
+                if (change?.name === 'dweller.despawned') {
+                    applyDwellerDespawned(change.payload);
+                    continue;
+                }
+
                 if (change?.name === 'visibility.changed') {
                     const nextRadius = Number(change?.payload?.visibilityRadius);
 
@@ -1509,10 +1559,41 @@
                 return;
             }
 
-            debugPopup.textContent = JSON.stringify({
-                version: dungeonVersion,
-                changes: latestChanges,
-            }, null, 2);
+            debugPopup.innerHTML = '';
+
+            const header = document.createElement('div');
+            header.className = 'debug-header';
+            header.textContent = `version: ${dungeonVersion ?? 'n/a'}`;
+            debugPopup.appendChild(header);
+
+            if (!Array.isArray(latestChanges) || latestChanges.length === 0) {
+                const empty = document.createElement('div');
+                empty.textContent = 'No changes';
+                debugPopup.appendChild(empty);
+                return;
+            }
+
+            for (const change of latestChanges) {
+                const item = document.createElement('div');
+                item.className = 'debug-change';
+
+                const toggle = document.createElement('button');
+                toggle.type = 'button';
+                toggle.className = 'debug-change-toggle';
+                toggle.textContent = change?.name ?? 'unknown';
+
+                const payload = document.createElement('pre');
+                payload.className = 'debug-change-payload';
+                payload.textContent = JSON.stringify(change?.payload ?? null, null, 2);
+
+                toggle.addEventListener('click', () => {
+                    item.classList.toggle('is-open');
+                });
+
+                item.appendChild(toggle);
+                item.appendChild(payload);
+                debugPopup.appendChild(item);
+            }
         }
 
         function renderCurrentMaxCounter(element, current, max) {

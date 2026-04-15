@@ -33,6 +33,10 @@ final class DungeonController
             new Clarity(),
             new Clarity(),
             new Clarity(),
+            new Clarity(),
+            new Clarity(),
+            new Clarity(),
+            new Clarity(),
         ]);
 
         $repository->persist($dungeon);

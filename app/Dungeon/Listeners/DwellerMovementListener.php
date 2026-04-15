@@ -4,12 +4,13 @@ namespace App\Dungeon\Listeners;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Dweller;
+use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Point;
 use App\Dungeon\Support\Random;
 use Tempest\EventBus\EventHandler;
 
-final class DwellerMovementListener
+final readonly class DwellerMovementListener
 {
     public function __construct(
         private Dungeon $dungeon,
@@ -17,11 +18,30 @@ final class DwellerMovementListener
     ) {}
 
     #[EventHandler]
+    public function checkForDwellers(PlayerMoved $event): void
+    {
+        if (! $this->dungeon->playerPosition) {
+            return;
+        }
+
+        $point = $this->dungeon->playerPosition;
+
+        if ($dweller = $this->dungeon->dwellers[$point->x][$point->y] ?? null) {
+            $this->dungeon->decreaseHealth(20);
+            $this->dungeon->despawnDweller($dweller);
+
+            for ($i = 0; $i < random_int(1, 3); $i++) {
+                $this->dungeon->spawnDweller();
+            }
+        }
+    }
+
+    #[EventHandler]
     public function moveDwellers(PlayerMoved $event): void
     {
         foreach ($this->dungeon->loopDwellers() as $dweller) {
             for ($i = 1; $i <= 2; $i++) {
-                if ($this->random->chance(1/3)) {
+                if ($this->random->chance(1 / 3)) {
                     continue;
                 }
 

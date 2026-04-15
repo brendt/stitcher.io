@@ -6,11 +6,14 @@ use App\Dungeon\Events\ActiveCardSet;
 use App\Dungeon\Events\ActiveCardUnset;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
+use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\DwellerSpawned;
 use App\Dungeon\Events\PassiveCardSet;
 use App\Dungeon\Events\PassiveCardUnset;
 use App\Dungeon\Events\PermanentCardAdded;
+use App\Dungeon\Events\PlayerHealthDecreased;
+use App\Dungeon\Events\PlayerHealthIncreased;
 use App\Dungeon\Events\PlayerManaGained;
 use App\Dungeon\Events\PlayerManaLost;
 use App\Dungeon\Events\PlayerMoved;
@@ -22,7 +25,6 @@ use App\Dungeon\Events\TileCollapsed;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Events\VisibilityChanged;
 use function Tempest\EventBus\event;
-use function Tempest\Support\arr;
 
 trait DungeonActions
 {
@@ -112,6 +114,40 @@ trait DungeonActions
         }
 
         event(new PlayerManaLost($amount));
+    }
+
+    public function increaseHealth(int $amount): void
+    {
+        if ($this->health >= $this->maxHealth) {
+            return;
+        }
+
+        if ($amount <= 0) {
+            return;
+        }
+
+        $this->health += $amount;
+
+        if ($this->health >= $this->maxHealth) {
+            $this->health = $this->maxHealth;
+        }
+
+        event(new PlayerHealthIncreased($amount));
+    }
+
+    public function decreaseHealth(int $amount): void
+    {
+        if ($amount <= 0) {
+            return;
+        }
+
+        $this->health -= $amount;
+
+        if ($this->health <= 0) {
+            $this->health = 0;
+        }
+
+        event(new PlayerHealthDecreased($amount));
     }
 
     public function decreaseStability(int $amount): void
@@ -327,6 +363,15 @@ trait DungeonActions
         event(new DwellerSpawned(
             dweller: $dweller,
             isVisible: $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point),
+        ));
+    }
+
+    public function despawnDweller(Dweller $dweller): void
+    {
+        unset($this->dwellers[$dweller->point->x][$dweller->point->y]);
+
+        event(new DwellerDespawned(
+            dweller: $dweller,
         ));
     }
 

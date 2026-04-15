@@ -55,7 +55,10 @@ final class Dungeon
 
         $self->playerPosition = new Point(0, 0);
         $self->addTile(new Tile(clone $self->playerPosition));
-        $self->deck = $deck;
+
+        foreach ($deck as $card) {
+            $self->addToDeck($card);
+        }
 
         for ($i = 0; $i < $self->maxHandCount; $i++) {
             $self->drawCard();
@@ -147,6 +150,13 @@ final class Dungeon
     public function addTile(Tile $tile): self
     {
         $this->tiles[$tile->point->x][$tile->point->y] = $tile;
+
+        return $this;
+    }
+
+    public function addToDeck(Card $card): self
+    {
+        $this->deck[$card->id] = $card;
 
         return $this;
     }
