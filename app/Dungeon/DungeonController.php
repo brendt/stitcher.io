@@ -29,14 +29,13 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = Dungeon::new(deck: [
-            new Clarity(),
-            new Clarity(),
-            new Clarity(),
-            new Clarity(),
-            new Clarity(),
-            new Clarity(),
-            new Clarity(),
-            new Clarity(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
         ]);
 
         $repository->persist($dungeon);
@@ -54,6 +53,7 @@ final class DungeonController
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();
+//            $dungeon->spawnArtifact(new Point(0,0));
 
             $repository->persist($dungeon);
         }

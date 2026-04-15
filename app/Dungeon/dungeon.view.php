@@ -27,6 +27,7 @@
         }
 
         .viewport {
+            position: relative;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
@@ -49,6 +50,19 @@
         canvas {
             display: block;
             background: #27282e;
+        }
+
+        .artifact-compass {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #f5d0fe 0%, #c084fc 28%, #9333ea 62%, #6b21a8 100%);
+            box-shadow: 0 0 20px rgba(192, 132, 252, 1), 0 0 42px rgba(147, 51, 234, 0.92), 0 0 70px rgba(107, 33, 168, 0.72);
+            z-index: 2000;
+            pointer-events: none;
+            display: none;
+            transform: translate(-50%, -50%);
         }
 
         .debug-popup {
@@ -277,8 +291,11 @@
         }
 
         .hand-card-unplayable {
-            filter: grayscale(1);
             cursor: not-allowed;
+        }
+
+        .hand-card-unplayable .hand-card-image {
+            filter: grayscale(1) blur(0.6px);
         }
 
         .hand-card-mana {
@@ -371,6 +388,7 @@
     <div id="viewport" class="viewport">
         <canvas id="dungeon-canvas"></canvas>
     </div>
+    <div id="artifact-compass" class="artifact-compass"></div>
     <div class="bottom-notch">
         <div class="bottom-notch-stat">
             <div class="bottom-notch-label">Health</div>
@@ -409,6 +427,7 @@
         const dataElement = document.getElementById('dungeon-data');
         const viewport = document.getElementById('viewport');
         const canvas = document.getElementById('dungeon-canvas');
+        const artifactCompass = document.getElementById('artifact-compass');
         const debugPopup = document.getElementById('debug-popup');
         const handCards = document.getElementById('hand-cards');
         const activeCardSlot = document.getElementById('active-card-slot');
@@ -430,6 +449,7 @@
         let activeCard = null;
         let passiveCard = null;
         let playerPosition = null;
+        let artifactLocation = null;
         let visibilityRadius = null;
         let dungeonVersion = null;
         const stats = {
@@ -449,17 +469,21 @@
             left: '/dungeon/wall-left.png',
         };
         const floorSpritePath = '/dungeon/tile-floor.png';
-        const floorCoinsSpritePath = '/dungeon/tile-floor-coins.png';
         const floorCollapsedSpritePath = '/dungeon/tile-collapsed.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
         const dwellerSpritePath = '/dungeon/dweller-avater.png';
         const dwellerFallbackSpritePath = '/dungeon/dweller-avatar.png';
+        const coinMarkerSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" style="color:#facc15"><!-- Icon from Remix Icon by Remix Design - https://github.com/Remix-Design/RemixIcon/blob/master/License --><path fill="currentColor" d="M12.005 4.003c6.075 0 11 2.686 11 6v4c0 3.314-4.925 6-11 6c-5.967 0-10.824-2.591-10.995-5.823l-.005-.177v-4c0-3.314 4.925-6 11-6m0 12c-3.72 0-7.01-1.008-9-2.55v.55c0 1.882 3.883 4 9 4c5.01 0 8.838-2.03 8.995-3.882l.005-.118l.001-.55c-1.99 1.542-5.28 2.55-9.001 2.55m0-10c-5.117 0-9 2.118-9 4s3.883 4 9 4s9-2.118 9-4s-3.883-4-9-4"/></svg>`;
+        const artifactMarkerSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512" style="color:#a855f7"><path fill="currentColor" d="M54.6 25.88L41.4 38.12l62.5 67.28c3.8-6.87 6.5-11.92 9.1-16.72zm386.6.26l-46.6 54.33c2.4 4.36 5.4 9.94 9.2 17.01l51-59.62zm-272.9 2.32l-16.6 7.08l42.1 98.26c6.4 2.1 13.6 3.8 21.8 5.2zm143 1.07l-32 111.57c7.2-.6 13.8-1.5 19.8-2.6l29.6-104.03zM263 47.31L255.7 142h.3c6.3 0 12.2-.2 17.8-.5l7.2-92.81zM129.3 96.47c-6.2 11.73-15.1 28.33-31.76 57.13c-16.63 28.8-26.56 44.8-33.56 56.1c11.59-2.6 27.23-3.5 44.92 3.5c22.8 9 48 30.5 73.4 74.4c25.4 44 31.3 76.6 27.7 100.8c-2.7 18.9-11.4 32-19.4 40.7c13.3-.4 32.1-1 65.4-1c33.2 0 52 .6 65.3 1c-8-8.7-16.6-21.8-19.4-40.7c-3.6-24.2 2.4-56.8 27.8-100.8c25.4-43.9 50.6-65.3 73.4-74.4c17.7-7 33.4-6.1 44.9-3.5c-7-11.3-16.9-27.3-33.5-56.1s-25.5-45.4-31.8-57.08c-3.6 11.28-10.6 25.38-25.6 37.18C338 148.9 306.8 160 256 160s-82-11.2-101.1-26.3c-15-11.9-22-25.9-25.6-37.23m313.5 8.13l-25.3 17.9c2.7 4.8 5.7 10.1 9 15.8l26.7-18.9zM35.03 167.5l-6.06 17l24 8.6c2.77-4.5 6-9.8 9.63-15.8zM256 196a49.98 49.98 0 0 1 50 50a49.98 49.98 0 0 1-50 50a49.98 49.98 0 0 1-50-50a49.98 49.98 0 0 1 50-50m118.9 59.4c-4.6 4.9-9.3 10.6-14.1 17.2l118.6 8.4l1.2-18zm-231.2 7.5L30.73 279.1l2.54 17.8L156 279.4c-4.1-6.2-8.2-11.6-12.3-16.5m18.7 26.4L44.23 343.8l7.54 16.4L171.4 305c-1.5-2.7-3-5.5-4.7-8.4c-1.5-2.5-2.9-5-4.3-7.3m181.3 10.1c-3.1 5.6-5.9 10.9-8.4 16l124 76.3l9.4-15.4zm-166.4 17.3L25.88 457.4l12.24 13.2L184.8 334.4q-3-8.4-7.5-17.7m148.5 21.6q-4.2 12.45-5.7 22.8l88.6 124.1l14.6-10.4zM224.4 446.4c-7 .1-13 .2-18.5.4l-6.7 31.3l17.6 3.8zm77.1.2l9.8 35.8l17.4-4.8l-8.4-30.4c-5.4-.2-11.1-.4-18.8-.6"/></svg>`;
+        const coinMarkerSpritePath = `data:image/svg+xml;utf8,${encodeURIComponent(coinMarkerSvg)}`;
+        const artifactMarkerSpritePath = `data:image/svg+xml;utf8,${encodeURIComponent(artifactMarkerSvg)}`;
         const wallSprites = {};
         let floorSprite = null;
-        let floorCoinsSprite = null;
         let floorCollapsedSprite = null;
         let playerSprite = null;
         let dwellerSprite = null;
+        let coinMarkerSprite = null;
+        let artifactMarkerSprite = null;
 
         const bounds = {
             minX: 0,
@@ -554,27 +578,43 @@
                     drawWall('left', x, y, tileSize);
                 }
 
-                if (isTileOutsideVisibility(tile)) {
+                if (isTileOutsideVisibility(tile) && !isArtifactAtPoint(tile?.point) && !tile?.isCollapsed) {
                     drawVisibilityOverlay(x, y, tileSize);
                 }
             }
 
             drawDwellers(tileSize, step);
             drawPlayer(tileSize, step);
+            drawArtifactAtLocation(step, tileSize);
+            drawArtifactDirectionGlow(step, tileSize);
         }
 
         function drawFloor(tile, x, y, tileSize, isHovered = false) {
             const hasCoins = Number(tile?.coins ?? 0) > 0;
             const isCollapsed = Boolean(tile?.isCollapsed);
-            const sprite = isCollapsed
-                ? (floorCollapsedSprite ?? floorSprite)
-                : (hasCoins ? (floorCoinsSprite ?? floorSprite) : floorSprite);
+            const isOutsideVisibility = isTileOutsideVisibility(tile);
+            const sprite = isCollapsed ? (floorCollapsedSprite ?? floorSprite) : floorSprite;
 
             if (sprite) {
                 context.drawImage(sprite, x, y, tileSize, tileSize);
             } else {
                 context.fillStyle = '#9ca3af';
                 context.fillRect(x, y, tileSize, tileSize);
+            }
+
+            if (hasCoins && !isOutsideVisibility) {
+                const markerSize = Math.max(4, tileSize * 0.25);
+                const markerX = x + ((tileSize - markerSize) / 2);
+                const markerY = y + ((tileSize - markerSize) / 2);
+
+                if (coinMarkerSprite) {
+                    context.drawImage(coinMarkerSprite, markerX, markerY, markerSize, markerSize);
+                } else {
+                    context.save();
+                    context.fillStyle = '#facc15';
+                    context.fillRect(markerX, markerY, markerSize, markerSize);
+                    context.restore();
+                }
             }
 
             if (!isHovered) {
@@ -642,6 +682,143 @@
             context.restore();
         }
 
+        function isArtifactAtPoint(pointValue) {
+            const point = toPoint(pointValue);
+
+            if (!point || !artifactLocation) {
+                return false;
+            }
+
+            return point.x === artifactLocation.x && point.y === artifactLocation.y;
+        }
+
+        function getArtifactTargetPoint() {
+            return artifactLocation;
+        }
+
+        function isArtifactWithinVisibility() {
+            if (!artifactLocation || !playerPosition || !Number.isFinite(visibilityRadius)) {
+                return false;
+            }
+
+            const dx = Number(artifactLocation.x) - Number(playerPosition.x);
+            const dy = Number(artifactLocation.y) - Number(playerPosition.y);
+            const distance = Math.hypot(dx, dy);
+
+            return distance <= visibilityRadius;
+        }
+
+        function drawArtifactAtLocation(step, tileSize) {
+            if (!artifactLocation || !artifactMarkerSprite || !isArtifactWithinVisibility()) {
+                return;
+            }
+
+            const x = state.paddingX + (artifactLocation.x - bounds.minX) * step;
+            const y = state.paddingY + (artifactLocation.y - bounds.minY) * step;
+            const markerSize = Math.max(8, tileSize * 0.52);
+            const markerX = x + ((tileSize - markerSize) / 2);
+            const markerY = y + ((tileSize - markerSize) / 2);
+
+            context.drawImage(artifactMarkerSprite, markerX, markerY, markerSize, markerSize);
+        }
+
+        function drawArtifactDirectionGlow(step, tileSize) {
+            const artifactPoint = getArtifactTargetPoint();
+
+            if (!artifactPoint || !viewport || !playerPosition || !artifactCompass) {
+                if (artifactCompass) {
+                    artifactCompass.style.display = 'none';
+                }
+                return;
+            }
+
+            const playerX = state.paddingX + (playerPosition.x - bounds.minX) * step + (tileSize / 2);
+            const playerY = state.paddingY + (playerPosition.y - bounds.minY) * step + (tileSize / 2);
+            const artifactX = state.paddingX + (artifactPoint.x - bounds.minX) * step + (tileSize / 2);
+            const artifactY = state.paddingY + (artifactPoint.y - bounds.minY) * step + (tileSize / 2);
+            const viewportLeft = viewport.scrollLeft;
+            const viewportTop = viewport.scrollTop;
+            const viewportWidth = viewport.clientWidth;
+            const viewportHeight = viewport.clientHeight;
+            const viewportRight = viewportLeft + viewportWidth;
+            const viewportBottom = viewportTop + viewportHeight;
+            const vx = artifactX - playerX;
+            const vy = artifactY - playerY;
+
+            if (vx === 0 && vy === 0) {
+                artifactCompass.style.display = 'none';
+                return;
+            }
+
+            const tileDx = Number(artifactPoint.x) - Number(playerPosition.x);
+            const tileDy = Number(artifactPoint.y) - Number(playerPosition.y);
+            const distanceInTiles = Math.hypot(tileDx, tileDy);
+            const minCompassSize = 10;
+            const maxCompassSize = 40;
+            const maxDistanceForMinSize = 30;
+            const distanceRatio = Math.min(1, distanceInTiles / maxDistanceForMinSize);
+            const markerSize = maxCompassSize - ((maxCompassSize - minCompassSize) * distanceRatio);
+
+            let hitX = null;
+            let hitY = null;
+            let bestT = Infinity;
+
+            if (vx !== 0) {
+                const tLeft = (viewportLeft - playerX) / vx;
+                const yLeft = playerY + (tLeft * vy);
+
+                if (tLeft > 0 && yLeft >= viewportTop && yLeft <= viewportBottom && tLeft < bestT) {
+                    bestT = tLeft;
+                    hitX = viewportLeft;
+                    hitY = yLeft;
+                }
+
+                const tRight = (viewportRight - playerX) / vx;
+                const yRight = playerY + (tRight * vy);
+
+                if (tRight > 0 && yRight >= viewportTop && yRight <= viewportBottom && tRight < bestT) {
+                    bestT = tRight;
+                    hitX = viewportRight;
+                    hitY = yRight;
+                }
+            }
+
+            if (vy !== 0) {
+                const tTop = (viewportTop - playerY) / vy;
+                const xTop = playerX + (tTop * vx);
+
+                if (tTop > 0 && xTop >= viewportLeft && xTop <= viewportRight && tTop < bestT) {
+                    bestT = tTop;
+                    hitX = xTop;
+                    hitY = viewportTop;
+                }
+
+                const tBottom = (viewportBottom - playerY) / vy;
+                const xBottom = playerX + (tBottom * vx);
+
+                if (tBottom > 0 && xBottom >= viewportLeft && xBottom <= viewportRight && tBottom < bestT) {
+                    bestT = tBottom;
+                    hitX = xBottom;
+                    hitY = viewportBottom;
+                }
+            }
+
+            if (!Number.isFinite(bestT) || hitX === null || hitY === null) {
+                artifactCompass.style.display = 'none';
+                return;
+            }
+
+            const viewportRect = viewport.getBoundingClientRect();
+            const markerX = viewportRect.left + (hitX - viewportLeft);
+            const markerY = viewportRect.top + (hitY - viewportTop);
+
+            artifactCompass.style.width = `${markerSize}px`;
+            artifactCompass.style.height = `${markerSize}px`;
+            artifactCompass.style.left = `${markerX}px`;
+            artifactCompass.style.top = `${markerY}px`;
+            artifactCompass.style.display = 'block';
+        }
+
         function drawPlayer(tileSize, step) {
             if (!playerPosition || !playerSprite) {
                 return;
@@ -673,7 +850,7 @@
             context.arc(avatarCenterX, avatarCenterY, avatarRadius - 1, 0, Math.PI * 2);
             context.closePath();
             context.lineWidth = 2;
-            context.strokeStyle = '#27282e';
+            context.strokeStyle = '#3b82f6';
             context.stroke();
             context.restore();
         }
@@ -891,6 +1068,7 @@
 
             recomputeBoundsFromTiles();
             playerPosition = toPoint(nextPayload?.playerPosition);
+            artifactLocation = toPoint(nextPayload?.artifactLocation);
             visibilityRadius = Number.isFinite(Number(nextPayload?.visibilityRadius))
                 ? Number(nextPayload.visibilityRadius)
                 : null;
@@ -1415,6 +1593,24 @@
             stats.coins += collectedAmount;
         }
 
+        function applyArtifactSpawned(payload) {
+            artifactLocation = toPoint(
+                payload?.artifactLocation
+                ?? payload?.artifactPoint
+                ?? payload?.artifact
+                ?? payload?.location
+                ?? payload?.point
+                ?? payload?.position
+                ?? payload?.to
+                ?? payload?.tile?.point
+                ?? payload
+            );
+        }
+
+        function applyArtifactCollected(payload) {
+            artifactLocation = toPoint(payload?.artifactLocation ?? payload?.location ?? null);
+        }
+
         function applySignedStatChange(payload, statKey, isDecrease) {
             const absoluteValue = payload?.[statKey];
 
@@ -1454,6 +1650,21 @@
 
                 if (change?.name === 'tile.coinsCollected') {
                     applyTileCoinsCollected(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'artifact.spawned') {
+                    applyArtifactSpawned(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'artifact.collected') {
+                    applyArtifactCollected(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'player.coinsIncreased') {
+                    stats.coins += numberFrom(change?.payload?.amount);
                     continue;
                 }
 
@@ -1509,7 +1720,7 @@
                     continue;
                 }
 
-                if (change?.name === 'player.manaGained') {
+                if (change?.name === 'player.manaIncreased') {
                     if (typeof change.payload?.mana !== 'undefined') {
                         stats.mana = numberFrom(change.payload.mana);
                         continue;
@@ -1524,7 +1735,7 @@
                     continue;
                 }
 
-                if (change?.name === 'player.manaLost') {
+                if (change?.name === 'player.manaDecreased') {
                     applySignedStatChange(change.payload, 'mana', true);
                     continue;
                 }
@@ -1757,10 +1968,18 @@
             state.scale = targetScale;
             render();
 
+            centerViewportOnPoint(playerPosition);
+        }
+
+        function centerViewportOnPoint(point) {
+            if (!point) {
+                return;
+            }
+
             const step = getStepSize();
             const tileSize = state.baseTileSize * state.scale;
-            const centerX = state.paddingX + ((playerPosition.x - bounds.minX) * step) + (tileSize / 2);
-            const centerY = state.paddingY + ((playerPosition.y - bounds.minY) * step) + (tileSize / 2);
+            const centerX = state.paddingX + ((point.x - bounds.minX) * step) + (tileSize / 2);
+            const centerY = state.paddingY + ((point.y - bounds.minY) * step) + (tileSize / 2);
 
             viewport.scrollLeft = centerX - (viewport.clientWidth / 2);
             viewport.scrollTop = centerY - (viewport.clientHeight / 2);
@@ -1777,10 +1996,6 @@
 
             const floorPromise = loadImage(floorSpritePath).then((image) => {
                 floorSprite = image;
-            });
-
-            const floorCoinsPromise = loadImage(floorCoinsSpritePath).then((image) => {
-                floorCoinsSprite = image;
             });
 
             const floorCollapsedPromise = loadImage(floorCollapsedSpritePath).then((image) => {
@@ -1800,7 +2015,15 @@
                 dwellerSprite = await loadImage(dwellerFallbackSpritePath);
             });
 
-            Promise.all([...wallPromises, floorPromise, floorCoinsPromise, floorCollapsedPromise, playerPromise, dwellerPromise]).then(() => {
+            const coinMarkerPromise = loadImage(coinMarkerSpritePath).then((image) => {
+                coinMarkerSprite = image;
+            });
+
+            const artifactMarkerPromise = loadImage(artifactMarkerSpritePath).then((image) => {
+                artifactMarkerSprite = image;
+            });
+
+            Promise.all([...wallPromises, floorPromise, floorCollapsedPromise, playerPromise, dwellerPromise, coinMarkerPromise, artifactMarkerPromise]).then(() => {
                 render();
             });
         }
@@ -1842,6 +2065,10 @@
             viewport.scrollLeft = contentX - cursorX;
             viewport.scrollTop = contentY - cursorY;
         }, { passive: false });
+
+        viewport.addEventListener('scroll', () => {
+            drawArtifactDirectionGlow(getStepSize(), state.baseTileSize * state.scale);
+        });
 
         viewport.addEventListener('mousedown', (event) => {
             if (event.button !== 0) {
@@ -1945,6 +2172,7 @@
 
         hydrateFromPayload(payload);
         render();
+        centerViewportOnPoint(playerPosition);
         renderDebugPopup();
         renderCounters();
         renderCardSlots();

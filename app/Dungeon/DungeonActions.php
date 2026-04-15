@@ -4,6 +4,8 @@ namespace App\Dungeon;
 
 use App\Dungeon\Events\ActiveCardSet;
 use App\Dungeon\Events\ActiveCardUnset;
+use App\Dungeon\Events\ArtifactCollected;
+use App\Dungeon\Events\ArtifactSpawned;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\DwellerDespawned;
@@ -12,10 +14,11 @@ use App\Dungeon\Events\DwellerSpawned;
 use App\Dungeon\Events\PassiveCardSet;
 use App\Dungeon\Events\PassiveCardUnset;
 use App\Dungeon\Events\PermanentCardAdded;
+use App\Dungeon\Events\PlayerCoinsIncreased;
 use App\Dungeon\Events\PlayerHealthDecreased;
 use App\Dungeon\Events\PlayerHealthIncreased;
-use App\Dungeon\Events\PlayerManaGained;
-use App\Dungeon\Events\PlayerManaLost;
+use App\Dungeon\Events\PlayerManaIncreased;
+use App\Dungeon\Events\PlayerManaDecreased;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\PlayerStabilityIncreased;
@@ -82,7 +85,7 @@ trait DungeonActions
         event(new TileCoinsCollected($tile, $collected));
     }
 
-    public function gainMana(int $amount): void
+    public function increaseMana(int $amount): void
     {
         if ($this->mana >= $this->maxMana) {
             return;
@@ -98,10 +101,10 @@ trait DungeonActions
             $this->mana = $this->maxMana;
         }
 
-        event(new PlayerManaGained($amount));
+        event(new PlayerManaIncreased($amount));
     }
 
-    public function loseMana(int $amount): void
+    public function decreaseMana(int $amount): void
     {
         if ($amount <= 0) {
             return;
@@ -113,7 +116,14 @@ trait DungeonActions
             $this->mana = 0;
         }
 
-        event(new PlayerManaLost($amount));
+        event(new PlayerManaDecreased($amount));
+    }
+
+    public function increaseCoins(int $amount): void
+    {
+        $this->coins += $amount;
+
+        event(new PlayerCoinsIncreased($amount));
     }
 
     public function increaseHealth(int $amount): void
@@ -223,7 +233,7 @@ trait DungeonActions
             return;
         }
 
-        $this->loseMana($card->mana);
+        $this->decreaseMana($card->mana);
 
         unset($this->hand[$card->id]);
 
@@ -396,5 +406,43 @@ trait DungeonActions
         $this->visibilityRadius = $visibilityRadius;
 
         event(new VisibilityChanged($visibilityRadius));
+    }
+
+    public function spawnArtifact(?Point $point = null): void
+    {
+//        $max = match ($this->user->getLevel()) {
+//            Level::NOOB => 20,
+//            Level::NOVICE => 30,
+//            default => 50,
+//        };
+
+        $max = 20;
+
+        $this->artifactLocation = $point ?? new Point(rand(-1 * $max, $max), rand(-1 * $max, $max));
+
+        if ($tile = $this->tryTile($this->artifactLocation)) {
+            $tile->isTrapped = false;
+            $tile->isCollapsed = false;
+            $tile->directions = Direction::cases();
+
+            event(new TileUpdated($tile));
+        }
+
+        event(new ArtifactSpawned($this->artifactLocation));
+    }
+
+    public function collectArtifact(): void
+    {
+        if (! $this->playerPosition->equals($this->artifactLocation)) {
+            return;
+        }
+
+        $this->increaseCoins(random_int(100, 500));
+        $this->decreaseStability(random_int(10, 25));
+        $this->increaseMana(random_int(5, 20));
+
+        event(new ArtifactCollected($this->currentTile));
+
+        $this->spawnArtifact();
     }
 }

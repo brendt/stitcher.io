@@ -56,7 +56,7 @@ final readonly class PlayerMovementListener
     {
         $amount = arr([0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 5])->random();
 
-        $this->dungeon->gainMana($amount);
+        $this->dungeon->increaseMana($amount);
     }
 
     #[EventHandler]
@@ -103,6 +103,14 @@ final readonly class PlayerMovementListener
             }
 
             $this->dungeon->collapseTile($tile);
+        }
+    }
+
+    #[EventHandler]
+    public function collectArtifact(PlayerMoved $event): void
+    {
+        if ($event->to->equals($this->dungeon->artifactLocation)) {
+            $this->dungeon->collectArtifact();
         }
     }
 }

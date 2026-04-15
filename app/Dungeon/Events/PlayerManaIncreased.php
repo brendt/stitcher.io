@@ -5,9 +5,9 @@ namespace App\Dungeon\Events;
 use App\Dungeon\Point;
 use App\Dungeon\Support\DungeonEvent;
 
-final class PlayerManaLost implements DungeonEvent
+final class PlayerManaIncreased implements DungeonEvent
 {
-    public string $name = 'player.manaLost';
+    public string $name = 'player.manaIncreased';
 
     public array $payload {
         get => [

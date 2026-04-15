@@ -48,6 +48,8 @@ final class Dungeon
         get => $this->getTile($this->playerPosition);
     }
 
+    public ?Point $artifactLocation = null;
+
     /** @param \App\Dungeon\Card[] $deck */
     public static function new(array $deck): self
     {
@@ -65,6 +67,7 @@ final class Dungeon
         }
 
         $self->spawnDweller();
+        $self->spawnArtifact();
 
         return $self;
     }
@@ -74,6 +77,7 @@ final class Dungeon
         return [
             'version' => $this->version,
             'playerPosition' => $this->playerPosition,
+            'artifactLocation' => $this->artifactLocation,
             'tiles' => arr($this->tiles)->map(fn (array $tiles) => arr($tiles)->map(fn (Tile $tile) => $tile->toArray())->toArray())->toArray(),
             'dwellers' => arr($this->dwellers)->map(fn (array $dwellers) => arr($dwellers)->map(fn (Dweller $dweller) => $dweller->toArray())->toArray())->toArray(),
             'hasEnded' => $this->hasEnded,
@@ -161,7 +165,7 @@ final class Dungeon
         return $this;
     }
 
-    public function generateTile(Point $from, Point $to): void
+    public function generateTile(?Point $from, Point $to): void
     {
         if ($this->tryTile($to)) {
             return;
@@ -183,9 +187,13 @@ final class Dungeon
         }
 
         $directions = arr(Direction::cases())
-            ->filter(fn (Direction $direction, int $index) => in_array($index, $allowedDirections, strict: true))
-            ->add($to->directionTo($from))
-            ->unique()
+            ->filter(fn (Direction $direction, int $index) => in_array($index, $allowedDirections, strict: true));
+
+        if ($from) {
+            $directions = $directions->add($to->directionTo($from));
+        }
+
+        $directions = $directions->unique()
             ->values()
             ->toArray();
 
