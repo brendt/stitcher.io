@@ -205,7 +205,7 @@
         .hand-slot-empty {
             width: 145px;
             min-width: 145px;
-            height: 210px;
+            height: 165px;
             border-radius: 5px;
             border: 1px dashed rgba(255, 255, 255, 0.22);
             background: rgba(255, 255, 255, 0.04);
