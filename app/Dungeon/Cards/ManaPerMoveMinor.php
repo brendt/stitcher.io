@@ -50,7 +50,7 @@ final class ManaPerMoveMinor implements Card, WithEvents
         $this->moves -= 1;
 
         if ($this->moves <= 0) {
-            command(new DiscardPassiveCard());
+            $dungeon->unsetPassiveCard();
         }
     }
 }

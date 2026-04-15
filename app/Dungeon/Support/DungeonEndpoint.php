@@ -7,7 +7,7 @@ use Tempest\Router\Route;
 use Tempest\Router\RouteDecorator;
 
 #[Attribute(Attribute::TARGET_METHOD|Attribute::TARGET_CLASS)]
-final class DungeonAction implements RouteDecorator
+final class DungeonEndpoint implements RouteDecorator
 {
     public function decorate(Route $route): Route
     {

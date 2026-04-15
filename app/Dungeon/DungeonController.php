@@ -4,12 +4,9 @@ namespace App\Dungeon;
 
 use App\Dungeon\Cards\BeaconMajor;
 use App\Dungeon\Cards\BreakthroughMajor;
-use App\Dungeon\Cards\EmergencyExitMajor;
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Cards\HealMajor;
-use App\Dungeon\Cards\KillDwellerMajor;
-use App\Dungeon\Cards\TestCard;
-use App\Dungeon\Support\DungeonAction;
+use App\Dungeon\Support\DungeonEndpoint;
 use App\Dungeon\Support\DungeonRepository;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
@@ -32,6 +29,7 @@ final class DungeonController
     {
         $dungeon = new Dungeon(deck: [
             new BeaconMajor(),
+            new BreakthroughMajor(),
             new EmergencyExitMinor(),
             new HealMajor(),
         ]);
@@ -39,6 +37,8 @@ final class DungeonController
         $repository->persist($dungeon);
 
         if ($request->has('demo')) {
+            $dungeon->mana = 150;
+
             $directions = arr(Direction::cases());
 
             for ($i = 0; $i < 1000; $i++) {
@@ -63,7 +63,7 @@ final class DungeonController
         return new Ok($dungeon->toArray());
     }
 
-    #[DungeonAction, Post('/dungeon/move')]
+    #[DungeonEndpoint, Post('/dungeon/move')]
     public function move(Dungeon $dungeon, Request $request): Response
     {
         $direction = Direction::tryFrom($request->get('direction'));
@@ -73,6 +73,35 @@ final class DungeonController
         }
 
         $dungeon->move($direction);
+
+        return new Ok();
+    }
+
+    #[DungeonEndpoint, Post('/dungeon/play-card')]
+    public function playCard(Dungeon $dungeon, Request $request): Response
+    {
+        $card = $request->get('card');
+
+        if (! $card) {
+            return new NotAcceptable();
+        }
+
+        $dungeon->playCard($card);
+
+        return new Ok();
+    }
+
+    #[DungeonEndpoint, Post('/dungeon/interact-with-tile')]
+    public function interactWithTile(Dungeon $dungeon, Request $request): Response
+    {
+        $x = $request->get('x');
+        $y = $request->get('y');
+
+        if ($x === null || $y === null) {
+            return new NotAcceptable();
+        }
+
+        $dungeon->interactWithTile(new Point($x, $y));
 
         return new Ok();
     }

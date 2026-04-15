@@ -38,6 +38,14 @@
             cursor: grabbing;
         }
 
+        .viewport.is-interact-mode {
+            cursor: default;
+        }
+
+        .viewport.is-interact-mode.has-hovered-tile {
+            cursor: pointer;
+        }
+
         canvas {
             display: block;
             background: #27282e;
@@ -114,18 +122,43 @@
 
         .hand-notch {
             position: fixed;
-            left: 50%;
+            left: 0;
             bottom: 0;
-            transform: translateX(-50%);
+            transform: none;
             z-index: 900;
-            width: min(980px, calc(100vw - 24px));
+            width: 100vw;
             border-bottom: none;
-            padding: 10px;
+            padding: 10px 12px;
             border-top-left-radius: 14px;
             border-top-right-radius: 14px;
             color: #e5e7eb;
             font-family: ui-sans-serif, system-ui, sans-serif;
             pointer-events: auto;
+        }
+
+        .hand-layout {
+            display: block;
+            position: relative;
+            width: 100%;
+        }
+
+        .hand-side-slots {
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            width: auto;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transform: none;
+            z-index: 901;
+        }
+
+        .hand-side-slot {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
         }
 
         .hand-cards {
@@ -151,8 +184,40 @@
             border: 1px solid rgba(255, 255, 255, 0.18);
             overflow: hidden;
             position: relative;
+            cursor: pointer;
             --card-accent: rgba(255, 255, 255, 0.42);
             box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 55%, transparent), 0 0 22px color-mix(in srgb, var(--card-accent) 32%, transparent);
+        }
+
+        .hand-card-small {
+            width: 145px;
+            min-width: 145px;
+        }
+
+        .hand-card-small .hand-card-image {
+            height: 165px;
+        }
+
+        .hand-card-small .hand-card-name {
+            font-size: 12px;
+        }
+
+        .hand-slot-empty {
+            width: 145px;
+            min-width: 145px;
+            height: 210px;
+            border-radius: 5px;
+            border: 1px dashed rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(229, 231, 235, 0.75);
+        }
+
+        .hand-slot-empty svg {
+            width: 26px;
+            height: 26px;
         }
 
         .hand-card-rarity-common {
@@ -169,6 +234,11 @@
 
         .hand-card-rarity-meta {
             --card-accent: rgba(255, 190, 64, 0.86);
+        }
+
+        .hand-card-unplayable {
+            filter: grayscale(1);
+            cursor: not-allowed;
         }
 
         .hand-card-mana {
@@ -189,6 +259,29 @@
             letter-spacing: 0.02em;
             z-index: 2;
             pointer-events: none;
+        }
+
+        .hand-card-type {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            min-width: 36px;
+            min-height: 25px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
+            background: color-mix(in srgb, var(--card-accent) 78%, black 22%);
+            color: #f8fafc;
+            z-index: 2;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hand-card-type svg {
+            width: 14px;
+            height: 14px;
         }
 
         .hand-card-image {
@@ -257,7 +350,17 @@
         </div>
     </div>
     <div class="hand-notch">
-        <div id="hand-cards" class="hand-cards"></div>
+        <div class="hand-layout">
+            <div class="hand-side-slots">
+                <div class="hand-side-slot">
+                    <div id="active-card-slot"></div>
+                </div>
+                <div class="hand-side-slot">
+                    <div id="passive-card-slot"></div>
+                </div>
+            </div>
+            <div id="hand-cards" class="hand-cards"></div>
+        </div>
     </div>
     <pre id="debug-popup" class="debug-popup"></pre>
 
@@ -268,6 +371,8 @@
         const canvas = document.getElementById('dungeon-canvas');
         const debugPopup = document.getElementById('debug-popup');
         const handCards = document.getElementById('hand-cards');
+        const activeCardSlot = document.getElementById('active-card-slot');
+        const passiveCardSlot = document.getElementById('passive-card-slot');
         const counters = {
             coins: document.getElementById('coin-counter'),
             health: document.getElementById('health-counter'),
@@ -280,6 +385,8 @@
         const tiles = [];
         const tileIndex = new Map();
         const hand = new Map();
+        let activeCard = null;
+        let passiveCard = null;
         let playerPosition = null;
         let dungeonVersion = null;
         const stats = {
@@ -330,6 +437,8 @@
             scrollStartLeft: 0,
             scrollStartTop: 0,
             moveInFlight: false,
+            hoveredTileKey: null,
+            suppressTileClick: false,
         };
 
         function getStepSize() {
@@ -371,6 +480,7 @@
         function draw() {
             const step = getStepSize();
             const tileSize = state.baseTileSize * state.scale;
+            const hoveredTileKey = isTileInteractionEnabled() ? state.hoveredTileKey : null;
 
             context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -378,8 +488,9 @@
                 const x = state.paddingX + (tile.point.x - bounds.minX) * step;
                 const y = state.paddingY + (tile.point.y - bounds.minY) * step;
                 const openDirections = new Set(tile.directions ?? []);
+                const tileKey = getTileKey(tile.point.x, tile.point.y);
 
-                drawFloor(tile, x, y, tileSize);
+                drawFloor(tile, x, y, tileSize, tileKey === hoveredTileKey);
 
                 if (!openDirections.has('top')) {
                     drawWall('top', x, y, tileSize);
@@ -401,7 +512,7 @@
             drawPlayer(tileSize, step);
         }
 
-        function drawFloor(tile, x, y, tileSize) {
+        function drawFloor(tile, x, y, tileSize, isHovered = false) {
             const hasCoins = Number(tile?.coins ?? 0) > 0;
             const isCollapsed = Boolean(tile?.isCollapsed);
             const sprite = isCollapsed
@@ -410,11 +521,22 @@
 
             if (sprite) {
                 context.drawImage(sprite, x, y, tileSize, tileSize);
+            } else {
+                context.fillStyle = '#9ca3af';
+                context.fillRect(x, y, tileSize, tileSize);
+            }
+
+            if (!isHovered) {
                 return;
             }
 
-            context.fillStyle = '#9ca3af';
+            context.save();
+            context.fillStyle = 'rgba(250, 204, 21, 0.22)';
+            context.strokeStyle = 'rgba(250, 204, 21, 0.9)';
+            context.lineWidth = Math.max(1, Math.round(state.scale));
             context.fillRect(x, y, tileSize, tileSize);
+            context.strokeRect(x + 0.5, y + 0.5, tileSize - 1, tileSize - 1);
+            context.restore();
         }
 
         function drawWall(direction, x, y, tileSize) {
@@ -626,6 +748,8 @@
         function hydrateFromPayload(nextPayload) {
             const normalizedTiles = normalizeTiles(nextPayload?.tiles ?? []);
             const normalizedHand = normalizeHand(nextPayload?.hand ?? []);
+            const normalizedActiveCard = normalizeCard(nextPayload?.activeCard ?? null);
+            const normalizedPassiveCard = normalizeCard(nextPayload?.passiveCard ?? null);
 
             tiles.length = 0;
             tileIndex.clear();
@@ -639,6 +763,10 @@
             for (const card of normalizedHand) {
                 hand.set(card.id, card);
             }
+
+            activeCard = normalizedActiveCard;
+            passiveCard = normalizedPassiveCard;
+            state.hoveredTileKey = null;
 
             recomputeBoundsFromTiles();
             playerPosition = toPoint(nextPayload?.playerPosition);
@@ -668,8 +796,52 @@
                 description: typeof value.description === 'string' ? value.description : '',
                 image: typeof value.image === 'string' ? value.image : '',
                 rarity: typeof value.rarity === 'string' ? value.rarity : '',
+                type: typeof value.type === 'string' ? value.type : '',
                 mana: Number.isFinite(Number(value.mana)) ? Number(value.mana) : 0,
+                canInteractWithTile: Boolean(value.canInteractWithTile),
             };
+        }
+
+        function isTileInteractionEnabled() {
+            return Boolean(activeCard?.canInteractWithTile);
+        }
+
+        function updateViewportCursorState() {
+            const isInteractMode = isTileInteractionEnabled();
+            const hasHoveredTile = isInteractMode && Boolean(state.hoveredTileKey);
+
+            viewport.classList.toggle('is-interact-mode', isInteractMode);
+            viewport.classList.toggle('has-hovered-tile', hasHoveredTile);
+        }
+
+        function setHoveredTile(tile) {
+            const nextKey = tile ? getTileKey(tile.point.x, tile.point.y) : null;
+
+            if (state.hoveredTileKey === nextKey) {
+                updateViewportCursorState();
+                return;
+            }
+
+            state.hoveredTileKey = nextKey;
+            updateViewportCursorState();
+            render();
+        }
+
+        function clearHoveredTile() {
+            setHoveredTile(null);
+        }
+
+        function getTileAtViewportPosition(clientX, clientY) {
+            const rect = viewport.getBoundingClientRect();
+            const viewportX = clientX - rect.left;
+            const viewportY = clientY - rect.top;
+            const step = getStepSize();
+            const worldX = viewport.scrollLeft + viewportX - state.paddingX;
+            const worldY = viewport.scrollTop + viewportY - state.paddingY;
+            const tileX = Math.floor(worldX / step) + bounds.minX;
+            const tileY = Math.floor(worldY / step) + bounds.minY;
+
+            return tileIndex.get(getTileKey(tileX, tileY)) ?? null;
         }
 
         function getCardRarityClass(rarity) {
@@ -736,6 +908,38 @@
             hand.delete(card.id);
         }
 
+        function applyActiveCardSet(payload) {
+            const card = normalizeCard(payload?.card);
+
+            if (!card) {
+                return;
+            }
+
+            activeCard = card;
+            hand.delete(card.id);
+            state.hoveredTileKey = null;
+        }
+
+        function applyActiveCardUnset() {
+            activeCard = null;
+            state.hoveredTileKey = null;
+        }
+
+        function applyPassiveCardSet(payload) {
+            const card = normalizeCard(payload?.card);
+
+            if (!card) {
+                return;
+            }
+
+            passiveCard = card;
+            hand.delete(card.id);
+        }
+
+        function applyPassiveCardUnset() {
+            passiveCard = null;
+        }
+
         function getCardImageUrl(image) {
             if (!image) {
                 return '';
@@ -750,6 +954,109 @@
             }
 
             return `/dungeon/${image}`;
+        }
+
+        function createCardElement(card, options = {}) {
+            const article = document.createElement('article');
+            article.className = 'hand-card';
+            article.dataset.cardId = card.id;
+            article.classList.add(getCardRarityClass(card.rarity));
+
+            if (options.small) {
+                article.classList.add('hand-card-small');
+            }
+
+            if (options.unplayable) {
+                article.classList.add('hand-card-unplayable');
+            }
+
+            const mana = document.createElement('div');
+            mana.className = 'hand-card-mana';
+            mana.textContent = String(card.mana);
+            article.appendChild(mana);
+
+            if (options.showTypeBadge && (card.type === 'active' || card.type === 'passive')) {
+                const type = document.createElement('div');
+                type.className = 'hand-card-type';
+                type.appendChild(createSlotIcon(card.type));
+                article.appendChild(type);
+            }
+
+            if (card.image) {
+                const image = document.createElement('img');
+                image.className = 'hand-card-image';
+                image.alt = card.name;
+                image.src = getCardImageUrl(card.image);
+                article.appendChild(image);
+            }
+
+            const content = document.createElement('div');
+            content.className = 'hand-card-content';
+
+            const title = document.createElement('div');
+            title.className = 'hand-card-name';
+            title.textContent = card.name;
+
+            const description = document.createElement('div');
+            description.className = 'hand-card-description';
+            description.textContent = card.description;
+
+            content.appendChild(title);
+            content.appendChild(description);
+            article.appendChild(content);
+
+            if (typeof options.onClick === 'function') {
+                article.addEventListener('click', options.onClick);
+            }
+
+            return article;
+        }
+
+        function renderSideCardSlot(slotElement, card) {
+            if (!slotElement) {
+                return;
+            }
+
+            slotElement.innerHTML = '';
+
+            if (!card) {
+                const empty = document.createElement('div');
+                empty.className = 'hand-slot-empty';
+                empty.appendChild(createSlotIcon(slotElement === activeCardSlot ? 'active' : 'passive'));
+                slotElement.appendChild(empty);
+                return;
+            }
+
+            slotElement.appendChild(createCardElement(card, { small: true }));
+        }
+
+        function createSlotIcon(slotType) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('stroke-width', '1.5');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('aria-hidden', 'true');
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('stroke-linecap', 'round');
+            path.setAttribute('stroke-linejoin', 'round');
+
+            if (slotType === 'active') {
+                path.setAttribute('d', 'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z');
+            } else {
+                path.setAttribute('d', 'M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5');
+            }
+
+            svg.appendChild(path);
+
+            return svg;
+        }
+
+        function renderCardSlots() {
+            renderSideCardSlot(activeCardSlot, activeCard);
+            renderSideCardSlot(passiveCardSlot, passiveCard);
         }
 
         function renderHand() {
@@ -768,38 +1075,12 @@
             }
 
             for (const card of hand.values()) {
-                const article = document.createElement('article');
-                article.className = 'hand-card';
-                article.dataset.cardId = card.id;
-                article.classList.add(getCardRarityClass(card.rarity));
-
-                const mana = document.createElement('div');
-                mana.className = 'hand-card-mana';
-                mana.textContent = String(card.mana);
-                article.appendChild(mana);
-
-                if (card.image) {
-                    const image = document.createElement('img');
-                    image.className = 'hand-card-image';
-                    image.alt = card.name;
-                    image.src = getCardImageUrl(card.image);
-                    article.appendChild(image);
-                }
-
-                const content = document.createElement('div');
-                content.className = 'hand-card-content';
-
-                const title = document.createElement('div');
-                title.className = 'hand-card-name';
-                title.textContent = card.name;
-
-                const description = document.createElement('div');
-                description.className = 'hand-card-description';
-                description.textContent = card.description;
-
-                content.appendChild(title);
-                content.appendChild(description);
-                article.appendChild(content);
+                const isPlayable = card.mana <= stats.mana;
+                const article = createCardElement(card, {
+                    unplayable: !isPlayable,
+                    showTypeBadge: true,
+                    onClick: isPlayable ? () => playCard(card.id) : null,
+                });
                 handCards.appendChild(article);
             }
         }
@@ -895,7 +1176,11 @@
                     continue;
                 }
 
-                if (change?.name === 'tile.generated' || change?.name === 'tile.collapsed') {
+                if (
+                    change?.name === 'tile.generated'
+                    || change?.name === 'tile.collapsed'
+                    || change?.name === 'tile.updated'
+                ) {
                     upsertTile(change.payload);
                     continue;
                 }
@@ -917,6 +1202,26 @@
 
                 if (change?.name === 'card.played') {
                     applyCardPlayed(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'card.activeSet') {
+                    applyActiveCardSet(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'card.activeUnset') {
+                    applyActiveCardUnset();
+                    continue;
+                }
+
+                if (change?.name === 'card.passiveSet' || change?.name === 'card.passsiveSet') {
+                    applyPassiveCardSet(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'card.passiveUnset' || change?.name === 'card.passsiveUnset') {
+                    applyPassiveCardUnset();
                     continue;
                 }
 
@@ -976,9 +1281,18 @@
             }, null, 2);
         }
 
-        function formatCurrentMax(current, max) {
+        function renderCurrentMaxCounter(element, current, max) {
+            if (!element) {
+                return;
+            }
+
             const safeMax = Number.isFinite(max) ? max : 0;
-            return `${current}<span class="bottom-notch-max">/ ${safeMax}</span>`;
+            element.textContent = String(current);
+
+            const maxSpan = document.createElement('span');
+            maxSpan.className = 'bottom-notch-max';
+            maxSpan.textContent = `/ ${safeMax}`;
+            element.appendChild(maxSpan);
         }
 
         function renderCounters() {
@@ -986,17 +1300,9 @@
                 counters.coins.textContent = String(stats.coins);
             }
 
-            if (counters.health) {
-                counters.health.innerHTML = formatCurrentMax(stats.health, stats.maxHealth);
-            }
-
-            if (counters.mana) {
-                counters.mana.innerHTML = formatCurrentMax(stats.mana, stats.maxMana);
-            }
-
-            if (counters.stability) {
-                counters.stability.innerHTML = formatCurrentMax(stats.stability, stats.maxStability);
-            }
+            renderCurrentMaxCounter(counters.health, stats.health, stats.maxHealth);
+            renderCurrentMaxCounter(counters.mana, stats.mana, stats.maxMana);
+            renderCurrentMaxCounter(counters.stability, stats.stability, stats.maxStability);
         }
 
         async function movePlayer(direction) {
@@ -1027,6 +1333,80 @@
                 render();
                 renderDebugPopup();
                 renderCounters();
+                renderCardSlots();
+                renderHand();
+            } finally {
+                state.moveInFlight = false;
+            }
+        }
+
+        async function playCard(cardId) {
+            if (state.moveInFlight) {
+                return;
+            }
+
+            state.moveInFlight = true;
+
+            try {
+                const response = await fetch('/dungeon/play-card', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ card: cardId }),
+                });
+
+                if (!response.ok) {
+                    return;
+                }
+
+                const playResult = await response.json();
+                dungeonVersion = playResult.version ?? dungeonVersion;
+                latestChanges = Array.isArray(playResult.changes) ? playResult.changes : [];
+                applyChanges(playResult.changes);
+                render();
+                renderDebugPopup();
+                renderCounters();
+                renderCardSlots();
+                renderHand();
+            } finally {
+                state.moveInFlight = false;
+            }
+        }
+
+        async function interactWithTile(point) {
+            if (state.moveInFlight) {
+                return;
+            }
+
+            state.moveInFlight = true;
+
+            try {
+                const response = await fetch('/dungeon/interact-with-tile', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        x: point.x,
+                        y: point.y,
+                    }),
+                });
+
+                if (!response.ok) {
+                    return;
+                }
+
+                const interactResult = await response.json();
+                dungeonVersion = interactResult.version ?? dungeonVersion;
+                latestChanges = Array.isArray(interactResult.changes) ? interactResult.changes : [];
+                applyChanges(interactResult.changes);
+                render();
+                renderDebugPopup();
+                renderCounters();
+                renderCardSlots();
                 renderHand();
             } finally {
                 state.moveInFlight = false;
@@ -1086,6 +1466,7 @@
         function render() {
             resizeCanvas();
             draw();
+            updateViewportCursorState();
         }
 
         viewport.addEventListener('wheel', (event) => {
@@ -1126,11 +1507,43 @@
             }
 
             state.isDragging = true;
+            state.suppressTileClick = false;
             state.dragStartX = event.clientX;
             state.dragStartY = event.clientY;
             state.scrollStartLeft = viewport.scrollLeft;
             state.scrollStartTop = viewport.scrollTop;
             viewport.classList.add('is-dragging');
+        });
+
+        viewport.addEventListener('mousemove', (event) => {
+            if (!isTileInteractionEnabled()) {
+                if (state.hoveredTileKey !== null) {
+                    clearHoveredTile();
+                }
+                return;
+            }
+
+            const tile = getTileAtViewportPosition(event.clientX, event.clientY);
+            setHoveredTile(tile);
+        });
+
+        viewport.addEventListener('click', (event) => {
+            if (event.button !== 0 || !isTileInteractionEnabled()) {
+                return;
+            }
+
+            if (state.suppressTileClick) {
+                state.suppressTileClick = false;
+                return;
+            }
+
+            const tile = getTileAtViewportPosition(event.clientX, event.clientY);
+
+            if (!tile) {
+                return;
+            }
+
+            interactWithTile(tile.point);
         });
 
         window.addEventListener('mousemove', (event) => {
@@ -1140,6 +1553,10 @@
 
             const deltaX = event.clientX - state.dragStartX;
             const deltaY = event.clientY - state.dragStartY;
+
+            if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) {
+                state.suppressTileClick = true;
+            }
 
             viewport.scrollLeft = state.scrollStartLeft - deltaX;
             viewport.scrollTop = state.scrollStartTop - deltaY;
@@ -1155,6 +1572,10 @@
         });
 
         viewport.addEventListener('mouseleave', () => {
+            if (state.hoveredTileKey !== null) {
+                clearHoveredTile();
+            }
+
             if (!state.isDragging) {
                 return;
             }
@@ -1178,6 +1599,7 @@
         render();
         renderDebugPopup();
         renderCounters();
+        renderCardSlots();
         renderHand();
         preloadSprites();
     </script>

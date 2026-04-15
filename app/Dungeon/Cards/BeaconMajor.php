@@ -56,8 +56,8 @@ final class BeaconMajor implements Card, WithEvents
             foreach ($board->getAllDwellers() as $dweller) {
                 command(new HideDweller($dweller->point));
             }
-
-            command(new DiscardPassiveCard());
+            
+            $dungeon->unsetPassiveCard();
         }
     }
 }

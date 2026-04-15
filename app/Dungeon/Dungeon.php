@@ -6,7 +6,6 @@ use App\Dungeon\Events\TileGenerated;
 use Generator;
 use ReflectionClass;
 use function Tempest\EventBus\event;
-use function Tempest\Mapper\map;
 use function Tempest\Support\arr;
 
 final class Dungeon
@@ -32,6 +31,13 @@ final class Dungeon
 
     /** @var \App\Dungeon\Card[] $deck */
     public array $deck = [];
+
+    /** @var \App\Dungeon\Card[] */
+    public array $permanentCards = [];
+
+    public ?Card $activeCard = null;
+
+    public ?Card $passiveCard = null;
 
     public Tile $currentTile {
         get => $this->getTile($this->playerPosition);
@@ -65,6 +71,9 @@ final class Dungeon
             'maxStability' => $this->maxStability,
             'hand' => arr($this->hand)->map(fn (Card $card) => $card->toArray())->toArray(),
             'deck' => arr($this->deck)->map(fn (Card $card) => $card->toArray())->toArray(),
+            'permanentCards' => arr($this->permanentCards)->map(fn (Card $card) => $card->toArray())->toArray(),
+            'passiveCard' => $this->passiveCard?->toArray(),
+            'activeCard' => $this->activeCard?->toArray(),
         ];
     }
 
@@ -72,6 +81,9 @@ final class Dungeon
     {
         $data['hand'] = arr($data['hand'])->map(fn (array $card) => $card['class']::fromArray($card))->toArray();
         $data['deck'] = arr($data['deck'])->map(fn (array $card) => $card['class']::fromArray($card))->toArray();
+        $data['permanentCards'] = arr($data['permanentCards'])->map(fn (array $card) => $card['class']::fromArray($card))->toArray();
+        $data['passiveCard'] = $data['passiveCard'] ? $data['passiveCard']['class']::fromArray($data['passiveCard']) : null;
+        $data['activeCard'] = $data['activeCard'] ? $data['activeCard']['class']::fromArray($data['activeCard']) : null;
 
         foreach ($data['tiles'] as $x => $row) {
             foreach ($row as $y => $tile) {
@@ -90,6 +102,10 @@ final class Dungeon
 
     public function consumeChanges(): array
     {
+        if ($this->changes === []) {
+            return [];
+        }
+
         $this->version++;
 
         $changes = $this->changes;
@@ -118,7 +134,7 @@ final class Dungeon
 
     public function generateTile(Point $from, Point $to): void
     {
-        if ($this->getTile($to)) {
+        if ($this->tryTile($to)) {
             return;
         }
 
@@ -150,7 +166,12 @@ final class Dungeon
         event(new TileGenerated($tile));
     }
 
-    public function getTile(Point $point): ?Tile
+    public function getTile(Point $point): Tile
+    {
+        return $this->tiles[$point->x][$point->y];
+    }
+
+    public function tryTile(Point $point): ?Tile
     {
         return $this->tiles[$point->x][$point->y] ?? null;
     }

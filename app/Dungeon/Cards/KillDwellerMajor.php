@@ -53,7 +53,7 @@ final class KillDwellerMajor implements Card, InteractsWithTile
         $this->count -= 1;
 
         if ($this->count === 0) {
-            command(new DiscardActiveCard());
+            $dungeon->unsetActiveCard();
         }
     }
 }

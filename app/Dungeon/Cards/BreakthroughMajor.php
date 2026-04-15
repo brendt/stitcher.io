@@ -47,12 +47,13 @@ final class BreakthroughMajor implements Card, InteractsWithTile
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
-        command(new RemoveTileWalls($tile->point));
-        command(new ChangeStability(-10));
+        $dungeon->removeTileWalls($tile);
+        $dungeon->decreaseStability(10);
+
         $this->count -= 1;
 
         if ($this->count === 0) {
-            $board->discardActiveCard();
+            $dungeon->unsetActiveCard();
         }
     }
 }

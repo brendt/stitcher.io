@@ -59,7 +59,7 @@ final class BeaconMinor implements Card, WithEvents
                 command(new HideDweller($dweller->point));
             }
 
-            command(new DiscardPassiveCard());
+            $dungeon->unsetPassiveCard();
         }
     }
 }

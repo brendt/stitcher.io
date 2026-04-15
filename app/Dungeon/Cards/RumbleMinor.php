@@ -49,6 +49,6 @@ final class RumbleMinor implements Card, InteractsWithTile
         command(new RemoveTileWalls($tile->point));
         command(new RemoveTileCollapse($tile->point));
         command(new ChangeStability(-10));
-        command(new DiscardActiveCard());
+        $dungeon->unsetActiveCard();
     }
 }

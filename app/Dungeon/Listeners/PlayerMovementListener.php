@@ -34,7 +34,7 @@ final readonly class PlayerMovementListener
     #[EventHandler]
     public function collectCoins(PlayerMoved $event): void
     {
-        $tile = $this->dungeon->getTile($event->to);
+        $tile = $this->dungeon->tryTile($event->to);
 
         if (! $tile) {
             return;

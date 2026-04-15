@@ -45,6 +45,6 @@ final class KillDwellerMinor implements Card, InteractsWithTile
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
         command(new RemoveDweller($tile->point));
-        command(new DiscardActiveCard());
+        $dungeon->unsetActiveCard();
     }
 }

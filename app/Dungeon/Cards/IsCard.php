@@ -2,6 +2,7 @@
 
 namespace App\Dungeon\Cards;
 
+use App\Dungeon\InteractsWithTile;
 use function Tempest\Support\str;
 use function Tempest\Mapper\map;
 
@@ -27,6 +28,7 @@ trait IsCard
             'image' => $this->image,
             'price' => $this->price,
             'level' => $this->level->value,
+            'canInteractWithTile' => $this instanceof InteractsWithTile,
         ];
     }
 

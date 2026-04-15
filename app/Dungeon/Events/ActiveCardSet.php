@@ -5,9 +5,9 @@ namespace App\Dungeon\Events;
 use App\Dungeon\Card;
 use App\Dungeon\Support\DungeonEvent;
 
-final class CardPlayed implements DungeonEvent
+final class ActiveCardSet implements DungeonEvent
 {
-    public string $name = 'card.played';
+    public string $name = 'card.activeSet';
 
     public array $payload {
         get => [
