@@ -32,7 +32,7 @@ final class HealthIncreaseMinor implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // command(new ChangeMaxHealth(25));
-        // command(new ChangeHealth(15));
+        $dungeon->increaseMaxHealth(25);
+        $dungeon->increaseHealth(15);
     }
 }

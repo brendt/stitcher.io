@@ -34,17 +34,20 @@ final class KillDwellerMinor implements Card, InteractsWithTile
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setActiveCard($this);
+        // Nothing on play
     }
 
     public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
     {
-        return $board->getDweller($tile->point) !== null;
+        return $dungeon->getDweller($tile->point) !== null;
     }
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
-        command(new RemoveDweller($tile->point));
+        $dweller = $dungeon->getDweller($tile->point);
+
+        $dungeon->despawnDweller($dweller);
+
         $dungeon->unsetActiveCard();
     }
 }

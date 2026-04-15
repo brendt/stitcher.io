@@ -31,6 +31,6 @@ final class HealMinor implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // command(new ChangeHealth(25));
+        $dungeon->increaseHealth(25);
     }
 }

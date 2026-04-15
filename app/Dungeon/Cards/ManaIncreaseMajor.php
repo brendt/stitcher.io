@@ -32,6 +32,6 @@ final class ManaIncreaseMajor implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // command(new ChangeMaxMana(50));
+        $dungeon->increaseMaxMana(50);
     }
 }

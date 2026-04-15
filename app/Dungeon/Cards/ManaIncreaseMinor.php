@@ -31,6 +31,6 @@ final class ManaIncreaseMinor implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // command(new ChangeMaxMana(25));
+        $dungeon->increaseMaxMana(25);
     }
 }

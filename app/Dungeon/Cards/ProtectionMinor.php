@@ -4,6 +4,7 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Events\PlayerHealthDecreased;
 use App\Dungeon\WithEvents;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
@@ -36,22 +37,24 @@ final class ProtectionMinor implements Card, WithEvents
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setPassiveCard($this);
+        // Nothing on play
     }
 
     public function handle(Dungeon $dungeon, Tile $tile, object $event): void
     {
-        if (! $event instanceof DamageDealt) {
+        if (! $event instanceof PlayerHealthDecreased) {
             return;
         }
 
-        if ($this->toAbsorb > $event->damage) {
-            command(new ChangeHealth($event->damage));
-            $this->toAbsorb -= $event->damage;
+        $damage = $event->amount;
+
+        if ($this->toAbsorb > $damage) {
+            $dungeon->increaseHealth($damage);
+            $this->toAbsorb -= $damage;
         } else {
-            $board->discardPassiveCard();
-            $overflow = $event->damage - $this->toAbsorb;
-            command(new ChangeHealth($event->damage - $overflow));
+            $overflow = $damage - $this->toAbsorb;
+            $dungeon->increaseHealth($damage - $overflow);
+            $dungeon->unsetPassiveCard();
         }
     }
 }

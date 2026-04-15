@@ -34,7 +34,7 @@ final class BreakthroughMinor implements Card, InteractsWithTile
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setActiveCard($this);
+        // Nothing on play
     }
 
     public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
@@ -44,8 +44,8 @@ final class BreakthroughMinor implements Card, InteractsWithTile
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
-        command(new RemoveTileWalls($tile->point));
-        command(new ChangeStability(-20));
-        $board->discardActiveCard();
+        $dungeon->removeTileWalls($tile);
+        $dungeon->decreaseStability(20);
+        $dungeon->unsetActiveCard();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Dungeon\Cards;
 use App\Dungeon\Dungeon;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
+use App\Dungeon\Events\PlayerHealthDecreased;
 use App\Dungeon\WithEvents;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
@@ -35,16 +36,16 @@ final class ChestplateMinorPermanent implements Card, WithEvents, CanBuyWithShar
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->addPermanentCard($this);
+        // Nothing on play
     }
 
     public function handle(Dungeon $dungeon, Tile $tile, object $event): void
     {
-        if (! $event instanceof DamageDealt) {
+        if (! $event instanceof PlayerHealthDecreased) {
             return;
         }
 
-        command(new ChangeHealth(min(5, $event->damage)));
+        $dungeon->increaseHealth(min(5, $event->amount));
     }
 
     public function getAdjustedPrice(): int

@@ -8,6 +8,7 @@ use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 
+// TODO
 final class LocateStabilityAltar implements Card
 {
     use IsCard;

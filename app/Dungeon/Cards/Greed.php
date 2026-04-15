@@ -7,8 +7,6 @@ use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\ChangeStability;
-use App\Dungeon\Commands\ResetTileCoins;
 use App\Dungeon\Level;
 
 final class Greed implements Card, CanBuyWithShards
@@ -33,11 +31,11 @@ final class Greed implements Card, CanBuyWithShards
 
     public function play(Dungeon $dungeon): void
     {
-        // foreach ($board->getTiles() as $tile) {
-        // $board->coins += $tile->coins;
-        // command(new ResetTileCoins($tile->point));
-        // }
-        // command(new ChangeStability(20));
+        foreach ($dungeon->loopTiles() as $tile) {
+            $dungeon->collectCoins($tile);
+        }
+
+        $dungeon->decreaseStability(20);
     }
 
     public function getAdjustedPrice(): int

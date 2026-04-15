@@ -11,7 +11,7 @@ use App\Dungeon\Commands\RemoveTileTrap;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-// TODO test
+// TODO
 final class TrapDisarmMinor implements Card, InteractsWithTile
 {
     use IsCard;

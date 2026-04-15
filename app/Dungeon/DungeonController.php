@@ -7,6 +7,7 @@ use App\Dungeon\Cards\BreakthroughMajor;
 use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Cards\HealMajor;
+use App\Dungeon\Cards\KillDwellerMajor;
 use App\Dungeon\Support\DungeonEndpoint;
 use App\Dungeon\Support\DungeonRepository;
 use Tempest\Http\Request;
@@ -33,9 +34,7 @@ final class DungeonController
             new BeaconMajor(),
             new BeaconMajor(),
             new BeaconMajor(),
-            new BeaconMajor(),
-            new BeaconMajor(),
-            new BeaconMajor(),
+            new KillDwellerMajor(),
         ]);
 
         $repository->persist($dungeon);

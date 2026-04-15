@@ -22,6 +22,8 @@ use App\Dungeon\Events\PlayerHealthDecreased;
 use App\Dungeon\Events\PlayerHealthIncreased;
 use App\Dungeon\Events\PlayerManaIncreased;
 use App\Dungeon\Events\PlayerManaDecreased;
+use App\Dungeon\Events\PlayerMaxHealthIncreased;
+use App\Dungeon\Events\PlayerMaxManaIncreased;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\PlayerStabilityIncreased;
@@ -88,6 +90,13 @@ trait DungeonActions
         event(new TileCoinsCollected($tile, $collected));
     }
 
+    public function increaseMaxMana(int $amount): void
+    {
+        $this->maxMana += $amount;
+
+        event(new PlayerMaxManaIncreased($amount));
+    }
+
     public function increaseMana(int $amount): void
     {
         if ($this->mana >= $this->maxMana) {
@@ -127,6 +136,13 @@ trait DungeonActions
         $this->coins += $amount;
 
         event(new PlayerCoinsIncreased($amount));
+    }
+
+    public function increaseMaxHealth(int $amount): void
+    {
+        $this->maxHealth += $amount;
+
+        event(new PlayerMaxHealthIncreased($amount));
     }
 
     public function increaseHealth(int $amount): void
@@ -339,6 +355,19 @@ trait DungeonActions
         }
 
         $card->interactWithTile($this, $tile);
+
+        // TODO: update card
+    }
+
+    public function removeTileCollapse(Tile $tile): void
+    {
+        if (! $tile->isCollapsed) {
+            return;
+        }
+
+        $tile->isCollapsed = false;
+
+        event(new TileUpdated($tile));
     }
 
     public function removeTileWalls(Tile $tile): void

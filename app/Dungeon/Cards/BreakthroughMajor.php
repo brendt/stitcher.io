@@ -37,7 +37,7 @@ final class BreakthroughMajor implements Card, InteractsWithTile
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setActiveCard($this);
+        // Nothing on play
     }
 
     public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool

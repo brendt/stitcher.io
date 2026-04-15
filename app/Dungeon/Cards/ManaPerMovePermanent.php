@@ -35,7 +35,7 @@ final class ManaPerMovePermanent implements Card, WithEvents, CanBuyWithShards
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->addPermanentCard($this);
+        // Nothing on play
     }
 
     public function handle(Dungeon $dungeon, Tile $tile, object $event): void
@@ -44,7 +44,7 @@ final class ManaPerMovePermanent implements Card, WithEvents, CanBuyWithShards
             return;
         }
 
-        command(new ChangeMana(1));
+        $dungeon->increaseMana(1);
     }
 
     public function getAdjustedPrice(): int

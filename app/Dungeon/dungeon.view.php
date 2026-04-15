@@ -1703,6 +1703,26 @@
                     continue;
                 }
 
+                if (change?.name === 'player.maxHealthIncreased') {
+                    if (typeof change.payload?.maxHealth !== 'undefined') {
+                        stats.maxHealth = numberFrom(change.payload.maxHealth);
+                        continue;
+                    }
+
+                    stats.maxHealth += numberFrom(change.payload?.amount);
+                    continue;
+                }
+
+                if (change?.name === 'player.maxManaIncreased') {
+                    if (typeof change.payload?.maxMana !== 'undefined') {
+                        stats.maxMana = numberFrom(change.payload.maxMana);
+                        continue;
+                    }
+
+                    stats.maxMana += numberFrom(change.payload?.amount);
+                    continue;
+                }
+
                 if (change?.name === 'card.drawn') {
                     applyCardDrawn(change.payload);
                     continue;

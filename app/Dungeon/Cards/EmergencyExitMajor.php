@@ -8,6 +8,7 @@ use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 
+// TODO
 final class EmergencyExitMajor implements Card
 {
     use IsCard;

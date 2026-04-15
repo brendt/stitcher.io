@@ -37,7 +37,7 @@ final class ManaPerMoveMinor implements Card, WithEvents
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setPassiveCard($this);
+        // Nothing on play
     }
 
     public function handle(Dungeon $dungeon, Tile $tile, object $event): void
@@ -46,7 +46,8 @@ final class ManaPerMoveMinor implements Card, WithEvents
             return;
         }
 
-        command(new ChangeMana(10));
+        $dungeon->increaseMana(10);
+
         $this->moves -= 1;
 
         if ($this->moves <= 0) {

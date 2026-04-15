@@ -11,7 +11,7 @@ use App\Dungeon\Commands\RemoveDweller;
 use App\Dungeon\Commands\SpawnDweller;
 use App\Dungeon\Level;
 
-// TODO test
+// TODO
 final class UpperHandMinor implements Card, CheckBeforePlaying
 {
     use IsCard;

@@ -7,13 +7,9 @@ use App\Dungeon\Card;
 use App\Dungeon\InteractsWithTile;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\DiscardActiveCard;
-use App\Dungeon\Commands\RemoveDweller;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
-use Illuminate\Support\Str;
 
-// TODO test
 final class KillDwellerMajor implements Card, InteractsWithTile
 {
     use IsCard;
@@ -38,17 +34,17 @@ final class KillDwellerMajor implements Card, InteractsWithTile
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setActiveCard($this);
+        // Nothing on play
     }
 
     public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
     {
-        return $board->getDweller($tile->point) !== null;
+        return $dungeon->getDweller($tile->point) !== null;
     }
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
-        command(new RemoveDweller($tile->point));
+        $dungeon->despawnDweller($dungeon->getDweller($tile->point));
 
         $this->count -= 1;
 

@@ -40,10 +40,9 @@ final class BeaconMinor implements Card, WithEvents
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setPassiveCard($this);
-        // foreach ($board->getAllDwellers() as $dweller) {
-        // command(new ShowDweller($dweller->point));
-        // }
+        foreach ($dungeon->loopDwellers() as $dweller) {
+            $dungeon->showDweller($dweller);
+        }
     }
 
     public function handle(Dungeon $dungeon, Tile $tile, object $event): void
@@ -54,12 +53,16 @@ final class BeaconMinor implements Card, WithEvents
 
         $this->count -= 1;
 
-        if ($this->count === 0) {
-            foreach ($board->getAllDwellers() as $dweller) {
-                command(new HideDweller($dweller->point));
-            }
+        foreach ($dungeon->loopDwellers() as $dweller) {
+            if ($this->count > 0) {
+                $dungeon->showDweller($dweller);
+            } else {
+                if (! $dungeon->withinVisibilityRange($dweller->point)) {
+                    $dungeon->hideDweller($dweller);
+                }
 
-            $dungeon->unsetPassiveCard();
+                $dungeon->unsetPassiveCard();
+            }
         }
     }
 }

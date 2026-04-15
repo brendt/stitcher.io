@@ -13,6 +13,7 @@ use App\Dungeon\Level;
 use App\Dungeon\Tile;
 use Illuminate\Support\Str;
 
+// TODO
 final class SupportMajor implements Card, InteractsWithTile
 {
     use IsCard;

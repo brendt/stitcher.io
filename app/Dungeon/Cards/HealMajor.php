@@ -30,7 +30,6 @@ final class HealMajor implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // TODO
-//        command(new ChangeHealth(50));
+        $dungeon->increaseHealth(50);
     }
 }

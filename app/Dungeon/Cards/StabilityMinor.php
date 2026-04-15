@@ -31,6 +31,6 @@ final class StabilityMinor implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // command(new ChangeStability(25));
+        $dungeon->increaseStability(25);
     }
 }

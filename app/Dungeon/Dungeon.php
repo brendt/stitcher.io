@@ -255,4 +255,9 @@ final class Dungeon
     {
         return iterator_count($this->loopTiles());
     }
+
+    public function getDweller(Point $point): ?Dweller
+    {
+        return $this->dwellers[$point->x][$point->y] ?? null;
+    }
 }

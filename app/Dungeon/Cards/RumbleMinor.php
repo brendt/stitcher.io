@@ -7,10 +7,6 @@ use App\Dungeon\Card;
 use App\Dungeon\InteractsWithTile;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\ChangeStability;
-use App\Dungeon\Commands\DiscardActiveCard;
-use App\Dungeon\Commands\RemoveTileCollapse;
-use App\Dungeon\Commands\RemoveTileWalls;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
@@ -36,7 +32,7 @@ final class RumbleMinor implements Card, InteractsWithTile
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setActiveCard($this);
+        // Nothing on play
     }
 
     public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
@@ -46,9 +42,10 @@ final class RumbleMinor implements Card, InteractsWithTile
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
-        command(new RemoveTileWalls($tile->point));
-        command(new RemoveTileCollapse($tile->point));
-        command(new ChangeStability(-10));
+        $dungeon->removeTileWalls($tile);
+        $dungeon->removeTileCollapse($tile);
+        $dungeon->decreaseStability(10);
+
         $dungeon->unsetActiveCard();
     }
 }
