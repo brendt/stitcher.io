@@ -29,13 +29,13 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = Dungeon::new(deck: [
-            new BreakthroughMajor(),
-            new BreakthroughMajor(),
-            new BreakthroughMajor(),
-            new BreakthroughMajor(),
-            new BreakthroughMajor(),
-            new BreakthroughMajor(),
-            new BreakthroughMajor(),
+            new BeaconMajor(),
+            new BeaconMajor(),
+            new BeaconMajor(),
+            new BeaconMajor(),
+            new BeaconMajor(),
+            new BeaconMajor(),
+            new BeaconMajor(),
         ]);
 
         $repository->persist($dungeon);

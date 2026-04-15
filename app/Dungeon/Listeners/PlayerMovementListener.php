@@ -109,6 +109,10 @@ final readonly class PlayerMovementListener
     #[EventHandler]
     public function collectArtifact(PlayerMoved $event): void
     {
+        if (! $this->dungeon->artifactLocation) {
+            return;
+        }
+
         if ($event->to->equals($this->dungeon->artifactLocation)) {
             $this->dungeon->collectArtifact();
         }

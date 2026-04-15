@@ -1036,7 +1036,7 @@
 
         function hydrateFromPayload(nextPayload) {
             const normalizedTiles = normalizeTiles(nextPayload?.tiles ?? []);
-            const normalizedDwellers = normalizePoints(nextPayload?.dwellers ?? []);
+            const normalizedDwellers = normalizeDwellers(nextPayload?.dwellers ?? []);
             const normalizedHand = normalizeHand(nextPayload?.hand ?? []);
             const normalizedActiveCard = normalizeCard(nextPayload?.activeCard ?? null);
             const normalizedPassiveCard = normalizeCard(nextPayload?.passiveCard ?? null);
@@ -1104,14 +1104,14 @@
             };
         }
 
-        function collectPoints(node, out, fallbackX, fallbackY) {
+        function collectDwellers(node, out, fallbackX, fallbackY) {
             if (!node) {
                 return;
             }
 
             if (Array.isArray(node)) {
                 for (const item of node) {
-                    collectPoints(item, out, fallbackX, fallbackY);
+                    collectDwellers(item, out, fallbackX, fallbackY);
                 }
                 return;
             }
@@ -1122,40 +1122,59 @@
 
             if (typeof node.x !== 'undefined' && typeof node.y !== 'undefined') {
                 out.push({
+                    ...node,
                     x: Number(node.x),
                     y: Number(node.y),
+                    isVisible: typeof node.isVisible === 'boolean' ? node.isVisible : Boolean(node.isVisible ?? true),
+                });
+                return;
+            }
+
+            if (node.point && typeof node.point.x !== 'undefined' && typeof node.point.y !== 'undefined') {
+                out.push({
+                    ...node,
+                    x: Number(node.point.x),
+                    y: Number(node.point.y),
+                    isVisible: typeof node.isVisible === 'boolean' ? node.isVisible : Boolean(node.isVisible ?? true),
                 });
                 return;
             }
 
             if (fallbackX !== null && fallbackY !== null) {
                 out.push({
+                    ...node,
                     x: Number(fallbackX),
                     y: Number(fallbackY),
+                    isVisible: typeof node.isVisible === 'boolean' ? node.isVisible : Boolean(node.isVisible ?? true),
                 });
                 return;
             }
 
             for (const [key, value] of Object.entries(node)) {
                 if (fallbackX === null) {
-                    collectPoints(value, out, Number(key), fallbackY);
+                    collectDwellers(value, out, Number(key), fallbackY);
                     continue;
                 }
 
                 if (fallbackY === null) {
-                    collectPoints(value, out, fallbackX, Number(key));
+                    collectDwellers(value, out, fallbackX, Number(key));
                     continue;
                 }
 
-                collectPoints(value, out, fallbackX, fallbackY);
+                collectDwellers(value, out, fallbackX, fallbackY);
             }
         }
 
-        function normalizePoints(value) {
+        function normalizeDwellers(value) {
             const normalized = [];
-            collectPoints(value, normalized, null, null);
+            collectDwellers(value, normalized, null, null);
 
-            return normalized.filter((point) => Number.isFinite(point.x) && Number.isFinite(point.y));
+            return normalized
+                .filter((dweller) => Number.isFinite(dweller.x) && Number.isFinite(dweller.y))
+                .map((dweller) => ({
+                    ...dweller,
+                    isVisible: typeof dweller.isVisible === 'boolean' ? dweller.isVisible : true,
+                }));
         }
 
         function upsertDweller(pointValue) {
@@ -1170,11 +1189,16 @@
             const existingDweller = dwellerIndex.get(dwellerKey);
 
             if (existingDweller) {
-                existingDweller.isVisible = isVisible;
+                Object.assign(existingDweller, pointValue ?? {}, {
+                    x: point.x,
+                    y: point.y,
+                    isVisible,
+                });
                 return;
             }
 
             const dweller = {
+                ...(pointValue ?? {}),
                 x: point.x,
                 y: point.y,
                 isVisible,
@@ -1208,33 +1232,44 @@
         }
 
         function applyDwellerSpawned(payload) {
-            const point = payload?.dweller ?? payload?.point ?? payload?.position ?? payload;
-            if (!payload?.isVisible) {
-                removeDweller(point);
+            const dweller = payload?.dweller ?? payload?.point ?? payload?.position ?? payload;
+
+            if (dweller && typeof dweller === 'object' && typeof dweller.isVisible !== 'undefined' && !Boolean(dweller.isVisible)) {
+                removeDweller(dweller);
                 return;
             }
 
-            upsertDweller({
-                ...(point && typeof point === 'object' ? point : {}),
-                isVisible: payload?.isVisible,
-            });
+            upsertDweller(dweller);
         }
 
         function applyDwellerMoved(payload) {
             const from = payload?.from ?? payload?.oldPosition ?? payload?.previousPosition ?? null;
-            const to = payload?.to ?? payload?.position ?? payload?.point ?? payload?.dweller ?? null;
+            const to = payload?.dweller ?? payload?.to ?? payload?.position ?? payload?.point ?? null;
 
             removeDweller(from);
 
-            if (!payload?.isVisible) {
+            if (to && typeof to === 'object' && typeof to.isVisible !== 'undefined' && !Boolean(to.isVisible)) {
                 removeDweller(to);
                 return;
             }
 
-            upsertDweller({
-                ...(to && typeof to === 'object' ? to : {}),
-                isVisible: payload?.isVisible,
-            });
+            upsertDweller(to);
+        }
+
+        function applyDwellerUpdated(payload) {
+            const from = payload?.from ?? payload?.oldPosition ?? payload?.previousPosition ?? null;
+            const dweller = payload?.dweller ?? payload?.to ?? payload?.position ?? payload?.point ?? payload;
+
+            if (from) {
+                removeDweller(from);
+            }
+
+            if (dweller && typeof dweller === 'object' && typeof dweller.isVisible !== 'undefined' && !Boolean(dweller.isVisible)) {
+                removeDweller(dweller);
+                return;
+            }
+
+            upsertDweller(dweller);
         }
 
         function applyDwellerDespawned(payload) {
@@ -1705,6 +1740,11 @@
 
                 if (change?.name === 'dweller.moved') {
                     applyDwellerMoved(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'dweller.updated') {
+                    applyDwellerUpdated(change.payload);
                     continue;
                 }
 

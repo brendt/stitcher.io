@@ -3,24 +3,19 @@
 namespace App\Dungeon\Events;
 
 use App\Dungeon\Dweller;
-use App\Dungeon\Point;
 use App\Dungeon\Support\DungeonEvent;
 
-final class DwellerMoved implements DungeonEvent
+final class DwellerUpdated implements DungeonEvent
 {
-    public string $name = 'dweller.moved';
+    public string $name = 'dweller.updated';
 
     public array $payload {
         get => [
             'dweller' => $this->dweller->toArray(),
-            'from' => $this->from->toArray(),
-            'to' => $this->to->toArray(),
         ];
     }
 
     public function __construct(
         public readonly Dweller $dweller,
-        public readonly Point $from,
-        public readonly Point $to,
     ) {}
 }

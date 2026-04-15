@@ -9,8 +9,11 @@ use App\Dungeon\Events\ArtifactSpawned;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\DwellerDespawned;
+use App\Dungeon\Events\DwellerHidden;
 use App\Dungeon\Events\DwellerMoved;
+use App\Dungeon\Events\DwellerShowed;
 use App\Dungeon\Events\DwellerSpawned;
+use App\Dungeon\Events\DwellerUpdated;
 use App\Dungeon\Events\PassiveCardSet;
 use App\Dungeon\Events\PassiveCardUnset;
 use App\Dungeon\Events\PermanentCardAdded;
@@ -166,14 +169,14 @@ trait DungeonActions
             return;
         }
 
-        $this->stability -= $amount;
-
-        if ($this->stability <= 0) {
-            $this->stability = 0;
-        }
-
         if ($amount <= 0) {
             return;
+        }
+
+        $this->stability -= $amount;
+
+        if ($this->stability < 0) {
+            $this->stability = 0;
         }
 
         event(new PlayerStabilityDecreased($amount));
@@ -367,13 +370,10 @@ trait DungeonActions
         );
 
         $dweller = new Dweller($point);
-
         $this->dwellers[$point->x][$point->y] = $dweller;
+        $dweller->isVisible = $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point);
 
-        event(new DwellerSpawned(
-            dweller: $dweller,
-            isVisible: $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point),
-        ));
+        event(new DwellerSpawned($dweller));
     }
 
     public function despawnDweller(Dweller $dweller): void
@@ -392,13 +392,35 @@ trait DungeonActions
         $dweller->point = $to;
         unset($this->dwellers[$from->x][$from->y]);
         $this->dwellers[$to->x][$to->y] = $dweller;
+        $dweller->isVisible = $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point);
 
         event(new DwellerMoved(
             dweller: $dweller,
             from: $from,
             to: $to,
-            isVisible: $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point),
         ));
+    }
+
+    public function showDweller(Dweller $dweller): void
+    {
+        if ($dweller->isVisible) {
+            return;
+        }
+
+        $dweller->isVisible = true;
+
+        event(new DwellerUpdated($dweller));
+    }
+
+    public function hideDweller(Dweller $dweller): void
+    {
+        if (! $dweller->isVisible) {
+            return;
+        }
+
+        $dweller->isVisible = false;
+
+        event(new DwellerUpdated($dweller));
     }
 
     public function changeVisibility(int $visibilityRadius): void

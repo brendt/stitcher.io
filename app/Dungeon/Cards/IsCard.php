@@ -24,6 +24,7 @@ trait IsCard
         $data['level'] = $this->level->value;
         $data['rarity'] = $this->rarity->name;
         $data['type'] = $this->type->value;
+        $data['description'] = $this->description;
 
         return $data;
     }

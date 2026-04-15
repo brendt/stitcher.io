@@ -7,9 +7,6 @@ use App\Dungeon\Card;
 use App\Dungeon\WithEvents;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\DiscardPassiveCard;
-use App\Dungeon\Commands\HideDweller;
-use App\Dungeon\Commands\ShowDweller;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
@@ -22,7 +19,9 @@ final class BeaconMajor implements Card, WithEvents
 
     private(set) string $name = 'Beacon++';
 
-    private(set) string $description = "Illuminate the darkness for 25 moves";
+    public string $description {
+        get => "Illuminate the darkness for {$this->count} moves";
+    }
 
     private(set) string $image = '/cards/beacon-major.png';
 
@@ -38,9 +37,9 @@ final class BeaconMajor implements Card, WithEvents
 
     public function play(Dungeon $dungeon): void
     {
-        // foreach ($board->getAllDwellers() as $dweller) {
-        // command(new ShowDweller($dweller->point));
-        // }
+         foreach ($dungeon->loopDwellers() as $dweller) {
+            $dungeon->showDweller($dweller);
+         }
     }
 
     public function handle(Dungeon $dungeon, Tile $tile, object $event): void
@@ -51,12 +50,16 @@ final class BeaconMajor implements Card, WithEvents
 
         $this->count -= 1;
 
-        if ($this->count === 0) {
-            foreach ($board->getAllDwellers() as $dweller) {
-                command(new HideDweller($dweller->point));
+        foreach ($dungeon->loopDwellers() as $dweller) {
+            if ($this->count > 0) {
+                $dungeon->showDweller($dweller);
+            } else {
+                if (! $dungeon->withinVisibilityRange($dweller->point)) {
+                    $dungeon->hideDweller($dweller);
+                }
+
+                $dungeon->unsetPassiveCard();
             }
-            
-            $dungeon->unsetPassiveCard();
         }
     }
 }

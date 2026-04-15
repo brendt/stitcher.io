@@ -6,14 +6,14 @@ final class Dweller
 {
     public function __construct(
         public Point $point,
-        public bool $alwaysVisible = false,
+        public bool $isVisible = false,
     ) {}
 
     public function toArray(): array
     {
         return [
             'point' => $this->point,
-            'alwaysVisible' => $this->alwaysVisible,
+            'isVisible' => $this->isVisible,
         ];
     }
 
