@@ -11,7 +11,7 @@ final class DungeonEndpoint implements RouteDecorator
 {
     public function decorate(Route $route): Route
     {
-        $route->middleware[] = DungeonActionMiddleware::class;
+        $route->middleware[] = DungeonEndpointMiddleware::class;
 
         return $route;
     }

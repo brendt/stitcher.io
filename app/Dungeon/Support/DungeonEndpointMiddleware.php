@@ -11,7 +11,7 @@ use Tempest\Router\HttpMiddleware;
 use Tempest\Router\HttpMiddlewareCallable;
 
 #[SkipDiscovery]
-final readonly class DungeonActionMiddleware implements HttpMiddleware
+final readonly class DungeonEndpointMiddleware implements HttpMiddleware
 {
     public function __construct(
         private Dungeon $dungeon,
