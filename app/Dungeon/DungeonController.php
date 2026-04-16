@@ -5,6 +5,7 @@ namespace App\Dungeon;
 use App\Dungeon\Cards\BeaconMajor;
 use App\Dungeon\Cards\BreakthroughMajor;
 use App\Dungeon\Cards\Clarity;
+use App\Dungeon\Cards\EmergencyExitMajor;
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Cards\HealMajor;
 use App\Dungeon\Cards\KillDwellerMajor;
@@ -35,8 +36,8 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = Dungeon::new(deck: [
-            new SupportMajor(),
-            new SupportMinor(),
+            new EmergencyExitMinor(),
+            new EmergencyExitMajor(),
         ]);
 
         $repository->persist($dungeon);
@@ -115,6 +116,14 @@ final class DungeonController
         }
 
         $dungeon->interactWithTile(new Point($x, $y));
+
+        return new Ok();
+    }
+
+    #[DungeonEndpoint, Post('/dungeon/exit')]
+    public function exit(Dungeon $dungeon): Response
+    {
+        $dungeon->exit();
 
         return new Ok();
     }

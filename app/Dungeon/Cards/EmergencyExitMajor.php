@@ -8,14 +8,13 @@ use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 
-// TODO
 final class EmergencyExitMajor implements Card
 {
     use IsCard;
 
     private(set) string $name = "Emergency Exit++";
 
-    private(set) string $description = "Exit the dungeon with 70% of collected coins.";
+    private(set) string $description = "Exit the dungeon with 65% of collected coins.";
 
     private(set) int $mana = 200;
 
@@ -31,7 +30,7 @@ final class EmergencyExitMajor implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->coins = $board->coins * 0.7;
-        // $board->exitDungeon();
+        $dungeon->coins = $dungeon->coins * 0.65;
+        $dungeon->exit(requiresOrigin: false);
     }
 }

@@ -8,6 +8,7 @@ use App\Dungeon\Events\ArtifactCollected;
 use App\Dungeon\Events\ArtifactSpawned;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
+use App\Dungeon\Events\PlayerExited;
 use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\DwellerSpawned;
@@ -81,7 +82,7 @@ trait DungeonActions
 
     public function move(Direction $direction): void
     {
-        if (!$this->cheat && ! $this->currentTile->canMoveTo($direction)) {
+        if (! $this->cheat && ! $this->currentTile->canMoveTo($direction)) {
             return;
         }
 
@@ -546,5 +547,16 @@ trait DungeonActions
         event(new ArtifactCollected($this->currentTile));
 
         $this->spawnArtifact();
+    }
+
+    public function exit(bool $requiresOrigin = true): void
+    {
+        if ($requiresOrigin && ! $this->currentTile->isOrigin) {
+            return;
+        }
+
+        $this->hasEnded = true;
+
+        event(new PlayerExited());
     }
 }

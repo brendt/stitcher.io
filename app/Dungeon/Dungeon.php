@@ -2,10 +2,7 @@
 
 namespace App\Dungeon;
 
-use App\Dungeon\Events\TileGenerated;
 use Generator;
-use ReflectionClass;
-use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
 final class Dungeon
@@ -58,7 +55,7 @@ final class Dungeon
         $self = new self();
 
         $self->playerPosition = new Point(0, 0);
-        $self->addTile(new Tile(clone $self->playerPosition));
+        $self->addTile(new Tile(clone $self->playerPosition, isOrigin: true));
 
         foreach ($deck as $card) {
             $self->addToDeck($card);

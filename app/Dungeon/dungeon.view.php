@@ -65,6 +65,99 @@
             transform: translate(-50%, -50%);
         }
 
+        .exit-dungeon-button {
+            position: fixed;
+            z-index: 2100;
+            display: none;
+            transform: translateX(-50%);
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: rgba(15, 23, 42, 0.9);
+            color: #f8fafc;
+            font: 700 11px/1 var(--font-title);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .exit-dungeon-button:hover {
+            background: rgba(30, 41, 59, 0.95);
+        }
+
+        .exit-dungeon-button:disabled {
+            opacity: 0.7;
+            cursor: default;
+        }
+
+        .death-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 4000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(69, 10, 10, 0.52);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #fee2e2;
+            pointer-events: auto;
+        }
+
+        .death-overlay-message {
+            font-family: var(--font-title);
+            font-size: clamp(34px, 7vw, 68px);
+            line-height: 1;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .overlay-coins {
+            font: 700 16px/1.2 var(--font-title);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            opacity: 0.95;
+        }
+
+        .death-overlay-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .death-overlay-exit {
+            border: 1px solid rgba(255, 255, 255, 0.42);
+            background: rgba(17, 24, 39, 0.78);
+            color: #fee2e2;
+            border-radius: 999px;
+            padding: 8px 14px;
+            font: 700 12px/1 var(--font-title);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .death-overlay-exit:hover {
+            background: rgba(31, 41, 55, 0.9);
+        }
+
+        .exited-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 4000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(20, 83, 45, 0.52);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #dcfce7;
+            pointer-events: auto;
+        }
+
         .debug-popup {
             position: fixed;
             right: 12px;
@@ -389,6 +482,20 @@
         <canvas id="dungeon-canvas"></canvas>
     </div>
     <div id="artifact-compass" class="artifact-compass"></div>
+    <button id="exit-dungeon-button" class="exit-dungeon-button" type="button">Exit</button>
+    <div id="death-overlay" class="death-overlay">
+        <div class="death-overlay-content">
+            <div class="death-overlay-message">You Died</div>
+            <button id="death-overlay-exit-button" class="death-overlay-exit" type="button">Exit</button>
+        </div>
+    </div>
+    <div id="exited-overlay" class="exited-overlay">
+        <div class="death-overlay-content">
+            <div class="death-overlay-message">You've made it out!</div>
+            <div class="overlay-coins">Coins: <span id="exited-overlay-coins">0</span></div>
+            <button id="exited-overlay-exit-button" class="death-overlay-exit" type="button">Exit</button>
+        </div>
+    </div>
     <div class="bottom-notch">
         <div class="bottom-notch-stat">
             <div class="bottom-notch-label">Health</div>
@@ -428,6 +535,12 @@
         const viewport = document.getElementById('viewport');
         const canvas = document.getElementById('dungeon-canvas');
         const artifactCompass = document.getElementById('artifact-compass');
+        const exitDungeonButton = document.getElementById('exit-dungeon-button');
+        const deathOverlay = document.getElementById('death-overlay');
+        const deathOverlayExitButton = document.getElementById('death-overlay-exit-button');
+        const exitedOverlay = document.getElementById('exited-overlay');
+        const exitedOverlayExitButton = document.getElementById('exited-overlay-exit-button');
+        const exitedOverlayCoins = document.getElementById('exited-overlay-coins');
         const debugPopup = document.getElementById('debug-popup');
         const handCards = document.getElementById('hand-cards');
         const activeCardSlot = document.getElementById('active-card-slot');
@@ -452,6 +565,9 @@
         let artifactLocation = null;
         let visibilityRadius = null;
         let dungeonVersion = null;
+        let isPlayerDead = false;
+        let hasPlayerExited = false;
+        let exitedCoinsAmount = null;
         const stats = {
             coins: 0,
             health: 0,
@@ -469,6 +585,7 @@
             left: '/dungeon/wall-left.png',
         };
         const floorSpritePath = '/dungeon/tile-floor.png';
+        const floorOriginSpritePath = '/dungeon/tile-floor-origin.png';
         const floorSupportSpritePath = '/dungeon/tile-floor-support.png';
         const floorCollapsedSpritePath = '/dungeon/tile-collapsed.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
@@ -482,6 +599,7 @@
         const artifactMarkerSpritePath = `data:image/svg+xml;utf8,${encodeURIComponent(artifactMarkerSvg)}`;
         const wallSprites = {};
         let floorSprite = null;
+        let floorOriginSprite = null;
         let floorSupportSprite = null;
         let floorCollapsedSprite = null;
         let playerSprite = null;
@@ -600,9 +718,12 @@
         function drawFloor(tile, x, y, tileSize, isHovered = false) {
             const hasCoins = Number(tile?.coins ?? 0) > 0;
             const isCollapsed = Boolean(tile?.isCollapsed);
+            const isOrigin = Boolean(tile?.isOrigin);
             const isSupported = Boolean(tile?.isSupported);
             const isOutsideVisibility = isTileOutsideVisibility(tile);
-            const sprite = isCollapsed
+            const sprite = isOrigin
+                ? (floorOriginSprite ?? floorSprite)
+                : isCollapsed
                 ? (floorCollapsedSprite ?? floorSprite)
                 : (isSupported ? (floorSupportSprite ?? floorSprite) : floorSprite);
 
@@ -772,6 +893,11 @@
                 return;
             }
 
+            if (isArtifactWithinVisibility()) {
+                artifactCompass.style.display = 'none';
+                return;
+            }
+
             const playerX = state.paddingX + (playerPosition.x - bounds.minX) * step + (tileSize / 2);
             const playerY = state.paddingY + (playerPosition.y - bounds.minY) * step + (tileSize / 2);
             const artifactX = state.paddingX + (artifactPoint.x - bounds.minX) * step + (tileSize / 2);
@@ -895,6 +1021,72 @@
             context.restore();
         }
 
+        function isPlayerOnOriginTile() {
+            if (!playerPosition) {
+                return false;
+            }
+
+            const tile = findTileByPoint(playerPosition);
+            return Boolean(tile?.isOrigin);
+        }
+
+        function updateExitDungeonButton() {
+            if (!exitDungeonButton || isGameBlocked() || !playerPosition || !isPlayerOnOriginTile()) {
+                if (exitDungeonButton) {
+                    exitDungeonButton.style.display = 'none';
+                }
+                return;
+            }
+
+            const step = getStepSize();
+            const tileSize = state.baseTileSize * state.scale;
+            const tileX = state.paddingX + (playerPosition.x - bounds.minX) * step;
+            const tileY = state.paddingY + (playerPosition.y - bounds.minY) * step;
+            const avatarSize = tileSize * 0.6;
+            const avatarX = tileX + ((tileSize - avatarSize) / 2);
+            const avatarY = tileY + ((tileSize - avatarSize) / 2);
+            const localX = avatarX - viewport.scrollLeft + (avatarSize / 2);
+            const localY = avatarY - viewport.scrollTop;
+
+            if (localX < 0 || localX > viewport.clientWidth || localY + avatarSize < 0 || localY > viewport.clientHeight) {
+                exitDungeonButton.style.display = 'none';
+                return;
+            }
+
+            const viewportRect = viewport.getBoundingClientRect();
+            const minLeft = viewportRect.left + 12;
+            const maxLeft = viewportRect.right - 12;
+            const rawLeft = viewportRect.left + localX;
+            const left = Math.min(maxLeft, Math.max(minLeft, rawLeft));
+            const top = viewportRect.top + localY + avatarSize + Math.max(6, tileSize * 0.15);
+
+            exitDungeonButton.style.left = `${left}px`;
+            exitDungeonButton.style.top = `${top}px`;
+            exitDungeonButton.style.display = 'inline-flex';
+            exitDungeonButton.disabled = state.moveInFlight;
+        }
+
+        function updateDeathOverlay() {
+            if (!deathOverlay) {
+                return;
+            }
+
+            deathOverlay.style.display = isPlayerDead && !hasPlayerExited ? 'flex' : 'none';
+        }
+
+        function updateExitedOverlay() {
+            if (!exitedOverlay) {
+                return;
+            }
+
+            if (exitedOverlayCoins) {
+                const coins = exitedCoinsAmount !== null ? exitedCoinsAmount : numberFrom(stats.coins);
+                exitedOverlayCoins.textContent = String(coins);
+            }
+
+            exitedOverlay.style.display = hasPlayerExited ? 'flex' : 'none';
+        }
+
         function drawDwellers(tileSize, step) {
             if (!dwellerSprite) {
                 return;
@@ -957,6 +1149,16 @@
         function numberFrom(value, fallback = 0) {
             const normalized = Number(value);
             return Number.isFinite(normalized) ? normalized : fallback;
+        }
+
+        function clampStatMinimum(statKey, value) {
+            const normalized = numberFrom(value);
+
+            if ((statKey === 'health' || statKey === 'stability') && normalized < 0) {
+                return 0;
+            }
+
+            return normalized;
         }
 
         function recomputeBoundsFromTiles() {
@@ -1114,12 +1316,16 @@
                 : null;
             dungeonVersion = nextPayload?.version ?? null;
             stats.coins = numberFrom(nextPayload?.coins);
-            stats.health = numberFrom(nextPayload?.health);
+            stats.health = clampStatMinimum('health', nextPayload?.health);
             stats.maxHealth = numberFrom(nextPayload?.maxHealth);
             stats.mana = numberFrom(nextPayload?.mana);
             stats.maxMana = numberFrom(nextPayload?.maxMana);
-            stats.stability = numberFrom(nextPayload?.stability);
+            stats.stability = clampStatMinimum('stability', nextPayload?.stability);
             stats.maxStability = numberFrom(nextPayload?.maxStability);
+            const hasEnded = Boolean(nextPayload?.hasEnded);
+            isPlayerDead = hasEnded && numberFrom(nextPayload?.health) <= 0;
+            hasPlayerExited = hasEnded && !isPlayerDead;
+            exitedCoinsAmount = hasPlayerExited ? numberFrom(nextPayload?.coins) : null;
             latestChanges = [];
         }
 
@@ -1318,7 +1524,11 @@
         }
 
         function isTileInteractionEnabled() {
-            return Boolean(activeCard?.canInteractWithTile);
+            return !isGameBlocked() && Boolean(activeCard?.canInteractWithTile);
+        }
+
+        function isGameBlocked() {
+            return isPlayerDead || hasPlayerExited;
         }
 
         function updateViewportCursorState() {
@@ -1690,12 +1900,13 @@
             const absoluteValue = payload?.[statKey];
 
             if (typeof absoluteValue !== 'undefined') {
-                stats[statKey] = numberFrom(absoluteValue);
+                stats[statKey] = clampStatMinimum(statKey, absoluteValue);
                 return;
             }
 
             const amount = numberFrom(payload?.amount);
-            stats[statKey] += isDecrease ? -amount : amount;
+            const nextValue = stats[statKey] + (isDecrease ? -amount : amount);
+            stats[statKey] = clampStatMinimum(statKey, nextValue);
         }
 
         function applyChanges(changes) {
@@ -1704,6 +1915,23 @@
             }
 
             for (const change of changes) {
+                if (change?.name === 'player.died') {
+                    isPlayerDead = true;
+                    activeCard = null;
+                    state.hoveredTileKey = null;
+                    continue;
+                }
+
+                if (change?.name === 'player.exited' || change?.name === 'dungeon.exited') {
+                    hasPlayerExited = true;
+                    exitedCoinsAmount = typeof change?.payload?.coins !== 'undefined'
+                        ? numberFrom(change.payload.coins)
+                        : numberFrom(stats.coins);
+                    activeCard = null;
+                    state.hoveredTileKey = null;
+                    continue;
+                }
+
                 if (change?.name === 'player.moved') {
                     playerPosition = toPoint(change.payload?.to) ?? playerPosition;
                     continue;
@@ -1938,11 +2166,12 @@
         }
 
         async function movePlayer(direction) {
-            if (state.moveInFlight) {
+            if (state.moveInFlight || isGameBlocked()) {
                 return;
             }
 
             state.moveInFlight = true;
+            updateExitDungeonButton();
 
             try {
                 const response = await fetch('/dungeon/move', {
@@ -1969,15 +2198,17 @@
                 renderHand();
             } finally {
                 state.moveInFlight = false;
+                updateExitDungeonButton();
             }
         }
 
         async function playCard(cardId) {
-            if (state.moveInFlight) {
+            if (state.moveInFlight || isGameBlocked()) {
                 return;
             }
 
             state.moveInFlight = true;
+            updateExitDungeonButton();
 
             try {
                 const response = await fetch('/dungeon/play-card', {
@@ -2004,11 +2235,12 @@
                 renderHand();
             } finally {
                 state.moveInFlight = false;
+                updateExitDungeonButton();
             }
         }
 
         async function interactWithTile(point) {
-            if (state.moveInFlight) {
+            if (state.moveInFlight || isGameBlocked()) {
                 return;
             }
 
@@ -2019,6 +2251,7 @@
             }
 
             state.moveInFlight = true;
+            updateExitDungeonButton();
 
             try {
                 const response = await fetch('/dungeon/interact-with-tile', {
@@ -2048,6 +2281,53 @@
                 renderHand();
             } finally {
                 state.moveInFlight = false;
+                updateExitDungeonButton();
+            }
+        }
+
+        async function exitDungeon() {
+            if (state.moveInFlight || isGameBlocked()) {
+                return;
+            }
+
+            state.moveInFlight = true;
+            updateExitDungeonButton();
+
+            try {
+                const response = await fetch('/dungeon/exit', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                });
+
+                if (response.redirected) {
+                    window.location.assign(response.url);
+                    return;
+                }
+
+                if (!response.ok) {
+                    return;
+                }
+
+                const contentType = response.headers.get('content-type') ?? '';
+
+                if (!contentType.includes('application/json')) {
+                    return;
+                }
+
+                const exitResult = await response.json();
+                dungeonVersion = exitResult.version ?? dungeonVersion;
+                latestChanges = Array.isArray(exitResult.changes) ? exitResult.changes : [];
+                applyChanges(exitResult.changes);
+                render();
+                renderDebugPopup();
+                renderCounters();
+                renderCardSlots();
+                renderHand();
+            } finally {
+                state.moveInFlight = false;
+                updateExitDungeonButton();
             }
         }
 
@@ -2072,7 +2352,7 @@
         }
 
         function focusOnPlayer() {
-            if (!playerPosition) {
+            if (isGameBlocked() || !playerPosition) {
                 return;
             }
 
@@ -2110,6 +2390,10 @@
                 floorSprite = image;
             });
 
+            const floorOriginPromise = loadImage(floorOriginSpritePath).then((image) => {
+                floorOriginSprite = image;
+            });
+
             const floorSupportPromise = loadImage(floorSupportSpritePath).then((image) => {
                 floorSupportSprite = image;
             });
@@ -2139,7 +2423,7 @@
                 artifactMarkerSprite = image;
             });
 
-            Promise.all([...wallPromises, floorPromise, floorSupportPromise, floorCollapsedPromise, playerPromise, dwellerPromise, coinMarkerPromise, artifactMarkerPromise]).then(() => {
+            Promise.all([...wallPromises, floorPromise, floorOriginPromise, floorSupportPromise, floorCollapsedPromise, playerPromise, dwellerPromise, coinMarkerPromise, artifactMarkerPromise]).then(() => {
                 render();
             });
         }
@@ -2148,6 +2432,9 @@
             resizeCanvas();
             draw();
             updateViewportCursorState();
+            updateExitDungeonButton();
+            updateDeathOverlay();
+            updateExitedOverlay();
         }
 
         viewport.addEventListener('wheel', (event) => {
@@ -2184,6 +2471,25 @@
 
         viewport.addEventListener('scroll', () => {
             drawArtifactDirectionGlow(getStepSize(), state.baseTileSize * state.scale);
+            updateExitDungeonButton();
+        });
+
+        exitDungeonButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            exitDungeon();
+        });
+
+        deathOverlayExitButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            // Intentionally no-op for now; this will navigate away in a future update.
+        });
+
+        exitedOverlayExitButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            // Intentionally no-op for now; this will navigate away in a future update.
         });
 
         viewport.addEventListener('mousedown', (event) => {
@@ -2270,6 +2576,10 @@
         });
 
         window.addEventListener('keydown', (event) => {
+            if (isGameBlocked()) {
+                return;
+            }
+
             if (event.code === 'Space') {
                 event.preventDefault();
                 focusOnPlayer();
