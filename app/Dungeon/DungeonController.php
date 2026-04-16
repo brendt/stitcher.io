@@ -63,7 +63,7 @@ final class DungeonController
         return new Redirect(uri([self::class, 'dungeon']));
     }
 
-    #[Get('/dungeon')]
+    #[Get('/dungeon/game')]
     public function dungeon(Dungeon $dungeon): View
     {
         return view('dungeon.view.php', dungeon: $dungeon);

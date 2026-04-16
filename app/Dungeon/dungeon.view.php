@@ -66,6 +66,15 @@
             transform: translate(-50%, -50%);
         }
 
+        .damage-flash {
+            position: fixed;
+            inset: 0;
+            z-index: 3500;
+            pointer-events: none;
+            background: rgba(220, 38, 38, 0.22);
+            opacity: 0;
+        }
+
         .exit-dungeon-button {
             position: fixed;
             z-index: 2100;
@@ -494,6 +503,7 @@
     <div id="viewport" class="viewport">
         <canvas id="dungeon-canvas"></canvas>
     </div>
+    <div id="damage-flash" class="damage-flash"></div>
     <div id="artifact-compass" class="artifact-compass"></div>
     <button id="exit-dungeon-button" class="exit-dungeon-button" type="button">Exit</button>
     <div id="death-overlay" class="death-overlay">
@@ -555,6 +565,7 @@
         const dataElement = document.getElementById('dungeon-data');
         const viewport = document.getElementById('viewport');
         const canvas = document.getElementById('dungeon-canvas');
+        const damageFlash = document.getElementById('damage-flash');
         const titleFontFamily = getComputedStyle(document.documentElement).getPropertyValue('--title-font').trim() || '"Fontdiner Swanky", serif';
         const artifactCompass = document.getElementById('artifact-compass');
         const exitDungeonButton = document.getElementById('exit-dungeon-button');
@@ -2051,6 +2062,18 @@
             stats[statKey] = clampStatMinimum(statKey, nextValue);
         }
 
+        function triggerDamageFlash() {
+            if (!damageFlash) {
+                return;
+            }
+
+            damageFlash.style.transition = 'none';
+            damageFlash.style.opacity = '0.22';
+            void damageFlash.offsetWidth;
+            damageFlash.style.transition = 'opacity 2s ease-out';
+            damageFlash.style.opacity = '0';
+        }
+
         function applyChanges(changes) {
             if (!Array.isArray(changes)) {
                 return;
@@ -2239,8 +2262,13 @@
                     || change?.name === 'player.healthIncreased'
                     || change?.name === 'player.healthDecreased'
                 ) {
+                    const previousHealth = numberFrom(stats.health);
                     const decreasesHealth = change?.name === 'player.healthLost' || change?.name === 'player.healthDecreased';
                     applySignedStatChange(change.payload, 'health', decreasesHealth);
+
+                    if (numberFrom(stats.health) < previousHealth) {
+                        triggerDamageFlash();
+                    }
                 }
             }
         }
