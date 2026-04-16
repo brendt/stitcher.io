@@ -4,6 +4,7 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\InteractsWithTile;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
@@ -12,6 +13,7 @@ use App\Dungeon\Commands\SupportTile;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 use Illuminate\Support\Str;
+use function Tempest\EventBus\event;
 
 // TODO
 final class SupportMinor implements Card, InteractsWithTile
@@ -38,7 +40,7 @@ final class SupportMinor implements Card, InteractsWithTile
 
     public function play(Dungeon $dungeon): void
     {
-        // $board->setActiveCard($this);
+        // Nothing on play
     }
 
     public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
@@ -52,7 +54,9 @@ final class SupportMinor implements Card, InteractsWithTile
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
-        command(new SupportTile($tile->point));
+        $tile->isSupported = true;
+
+        event(new TileUpdated($tile));
 
         $this->count -= 1;
 

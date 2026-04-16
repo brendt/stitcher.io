@@ -385,6 +385,10 @@ trait DungeonActions
 
     public function interactWithTile(Point $point): void
     {
+        if (! $this->withinVisibilityRadius($point)) {
+            return;
+        }
+
         $card = $this->activeCard;
 
         if (! $card instanceof InteractsWithTile) {
@@ -447,7 +451,7 @@ trait DungeonActions
 
         $dweller = new Dweller($point);
         $this->dwellers[$point->x][$point->y] = $dweller;
-        $dweller->isVisible = $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point);
+        $dweller->isVisible = $this->hasTile($dweller->point) && $this->withinVisibilityRadius($dweller->point);
 
         event(new DwellerSpawned($dweller));
     }
@@ -468,7 +472,7 @@ trait DungeonActions
         $dweller->point = $to;
         unset($this->dwellers[$from->x][$from->y]);
         $this->dwellers[$to->x][$to->y] = $dweller;
-        $dweller->isVisible = $this->hasTile($dweller->point) && $this->withinVisibilityRange($dweller->point);
+        $dweller->isVisible = $this->hasTile($dweller->point) && $this->withinVisibilityRadius($dweller->point);
 
         event(new DwellerMoved(
             dweller: $dweller,

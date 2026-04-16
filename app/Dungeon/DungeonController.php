@@ -8,6 +8,8 @@ use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Cards\HealMajor;
 use App\Dungeon\Cards\KillDwellerMajor;
+use App\Dungeon\Cards\SupportMajor;
+use App\Dungeon\Cards\SupportMinor;
 use App\Dungeon\Cards\TrapDisarmMajor;
 use App\Dungeon\Cards\TrapDisarmMinor;
 use App\Dungeon\Cards\UpperHandMajor;
@@ -33,8 +35,8 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = Dungeon::new(deck: [
-            new TrapDisarmMajor(),
-            new TrapDisarmMinor(),
+            new SupportMajor(),
+            new SupportMinor(),
         ]);
 
         $repository->persist($dungeon);
@@ -45,7 +47,7 @@ final class DungeonController
 
             $directions = arr(Direction::cases());
 
-            for ($i = 0; $i < 1000; $i++) {
+            for ($i = 0; $i < 100; $i++) {
                 $dungeon->move($directions->random());
             }
 

@@ -469,6 +469,7 @@
             left: '/dungeon/wall-left.png',
         };
         const floorSpritePath = '/dungeon/tile-floor.png';
+        const floorSupportSpritePath = '/dungeon/tile-floor-support.png';
         const floorCollapsedSpritePath = '/dungeon/tile-collapsed.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
         const dwellerSpritePath = '/dungeon/dweller-avater.png';
@@ -481,6 +482,7 @@
         const artifactMarkerSpritePath = `data:image/svg+xml;utf8,${encodeURIComponent(artifactMarkerSvg)}`;
         const wallSprites = {};
         let floorSprite = null;
+        let floorSupportSprite = null;
         let floorCollapsedSprite = null;
         let playerSprite = null;
         let dwellerSprite = null;
@@ -598,8 +600,11 @@
         function drawFloor(tile, x, y, tileSize, isHovered = false) {
             const hasCoins = Number(tile?.coins ?? 0) > 0;
             const isCollapsed = Boolean(tile?.isCollapsed);
+            const isSupported = Boolean(tile?.isSupported);
             const isOutsideVisibility = isTileOutsideVisibility(tile);
-            const sprite = isCollapsed ? (floorCollapsedSprite ?? floorSprite) : floorSprite;
+            const sprite = isCollapsed
+                ? (floorCollapsedSprite ?? floorSprite)
+                : (isSupported ? (floorSupportSprite ?? floorSprite) : floorSprite);
 
             if (sprite) {
                 context.drawImage(sprite, x, y, tileSize, tileSize);
@@ -670,15 +675,21 @@
         }
 
         function isTileOutsideVisibility(tile) {
-            if (!playerPosition || !Number.isFinite(visibilityRadius)) {
+            return !isTileWithinVisibility(tile);
+        }
+
+        function isTileWithinVisibility(tile) {
+            const point = tile?.point ?? tile;
+
+            if (!point || playerPosition === null) {
                 return false;
             }
 
-            const dx = Number(tile.point.x) - Number(playerPosition.x);
-            const dy = Number(tile.point.y) - Number(playerPosition.y);
+            const dx = Number(point.x) - Number(playerPosition.x);
+            const dy = Number(point.y) - Number(playerPosition.y);
             const distance = Math.hypot(dx, dy);
 
-            return distance > visibilityRadius;
+            return distance < visibilityRadius;
         }
 
         function drawVisibilityOverlay(x, y, tileSize) {
@@ -2001,6 +2012,12 @@
                 return;
             }
 
+            const tile = findTileByPoint(point);
+
+            if (!isTileWithinVisibility(tile)) {
+                return;
+            }
+
             state.moveInFlight = true;
 
             try {
@@ -2093,6 +2110,10 @@
                 floorSprite = image;
             });
 
+            const floorSupportPromise = loadImage(floorSupportSpritePath).then((image) => {
+                floorSupportSprite = image;
+            });
+
             const floorCollapsedPromise = loadImage(floorCollapsedSpritePath).then((image) => {
                 floorCollapsedSprite = image;
             });
@@ -2118,7 +2139,7 @@
                 artifactMarkerSprite = image;
             });
 
-            Promise.all([...wallPromises, floorPromise, floorCollapsedPromise, playerPromise, dwellerPromise, coinMarkerPromise, artifactMarkerPromise]).then(() => {
+            Promise.all([...wallPromises, floorPromise, floorSupportPromise, floorCollapsedPromise, playerPromise, dwellerPromise, coinMarkerPromise, artifactMarkerPromise]).then(() => {
                 render();
             });
         }
@@ -2188,7 +2209,7 @@
             }
 
             const tile = getTileAtViewportPosition(event.clientX, event.clientY);
-            setHoveredTile(tile);
+            setHoveredTile(isTileWithinVisibility(tile) ? tile : null);
         });
 
         viewport.addEventListener('click', (event) => {
@@ -2203,7 +2224,7 @@
 
             const tile = getTileAtViewportPosition(event.clientX, event.clientY);
 
-            if (!tile) {
+            if (!isTileWithinVisibility(tile)) {
                 return;
             }
 

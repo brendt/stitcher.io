@@ -153,7 +153,7 @@ final class Dungeon
         return isset($this->tiles[$point->x][$point->y]);
     }
 
-    public function withinVisibilityRange(Point $point): bool
+    public function withinVisibilityRadius(Point $point): bool
     {
         if ($this->playerPosition === null) {
             return false;
@@ -189,7 +189,7 @@ final class Dungeon
     public function loopVisibleDwellers(): Generator
     {
         foreach ($this->loopDwellers() as $dweller) {
-            if ($this->withinVisibilityRange($dweller->point)) {
+            if ($this->withinVisibilityRadius($dweller->point)) {
                 yield $dweller;
             }
         }

@@ -54,7 +54,7 @@ final class BeaconMajor implements Card, WithEvents
             if ($this->count > 0) {
                 $dungeon->showDweller($dweller);
             } else {
-                if (! $dungeon->withinVisibilityRange($dweller->point)) {
+                if (! $dungeon->withinVisibilityRadius($dweller->point)) {
                     $dungeon->hideDweller($dweller);
                 }
 
