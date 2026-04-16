@@ -3,6 +3,7 @@
 namespace App\Dungeon;
 
 use App\Dungeon\Cards\BeaconMajor;
+use App\Dungeon\Cards\ChestplateMajorPermanent;
 use App\Dungeon\Cards\LocateHealthAltar;
 use App\Dungeon\Cards\LocateManaAltar;
 use App\Dungeon\Cards\LocateStabilityAltar;
@@ -28,10 +29,7 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = Dungeon::new(deck: [
-            new BeaconMajor(),
-            new BeaconMajor(),
-            new BeaconMajor(),
-            new BeaconMajor(),
+            new ChestplateMajorPermanent(),
         ]);
 
         $repository->persist($dungeon);
