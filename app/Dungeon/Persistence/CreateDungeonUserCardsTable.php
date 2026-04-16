@@ -16,7 +16,7 @@ final class CreateDungeonUserCardsTable implements MigratesUp
             ->primary()
             ->integer('userId', unsigned: true)
             ->integer('campaignId', unsigned: true)
-            ->string('card')
+            ->string('cardName')
             ->boolean('isActive')
             ->index('userId', 'campaignId');
     }

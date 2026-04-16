@@ -14,13 +14,13 @@ use App\Support\Authentication\User;
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
 
-final class DeckRepository
+final readonly class DeckRepository
 {
     public function __construct(
-        private readonly CardRepository $cardRepository,
+        private CardRepository $cardRepository,
     ) {}
 
-    /** @return \App\Dungeon\Card[] */
+    /** @return \App\Dungeon\Persistence\DungeonUserCard[] */
     public function forUser(User $user): array
     {
         $deckItems = query(DungeonUserCard::class)
@@ -51,14 +51,15 @@ final class DeckRepository
                     userId: $user->id->value,
                     campaignId: Dungeon::CURRENT_CAMPAIGN,
                     isActive: true,
-                    card: $card->name,
+                    cardName: $card->name,
                 );
             }
         }
 
-        return arr($deckItems)
-            ->map(fn (DungeonUserCard $item) => $this->cardRepository->findByName($item->card))
-            ->filter()
-            ->toArray();
+        foreach ($deckItems as $item) {
+            $item->card = $this->cardRepository->findByName($item->cardName);
+        }
+
+        return $deckItems;
     }
 }

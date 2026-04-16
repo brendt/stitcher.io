@@ -2,7 +2,9 @@
 
 namespace App\Dungeon\Persistence;
 
+use App\Dungeon\Card;
 use Tempest\Database\IsDatabaseModel;
+use Tempest\Database\Virtual;
 
 final class DungeonUserShop
 {
@@ -10,5 +12,8 @@ final class DungeonUserShop
 
     public int $userId;
     public int $campaignId;
-    public string $card;
+    public string $cardName;
+
+    #[Virtual]
+    public ?Card $card = null;
 }

@@ -16,7 +16,7 @@ final class CreateDungeonUserShopTable implements MigratesUp
             ->primary()
             ->integer('userId', unsigned: true)
             ->integer('campaignId', unsigned: true)
-            ->string('card')
+            ->string('cardName')
             ->index('userId', 'campaignId');
     }
 }

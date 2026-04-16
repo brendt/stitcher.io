@@ -7,7 +7,6 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\Persistence\DungeonUserShop;
 use App\Support\Authentication\User;
 use function Tempest\Database\query;
-use function Tempest\Support\arr;
 
 final readonly class ShopRepository
 {
@@ -15,7 +14,7 @@ final readonly class ShopRepository
         private CardRepository $cardRepository,
     ) {}
 
-    /** @return Card[] */
+    /** @return DungeonUserShop[] */
     public function forUser(User $user): array
     {
         $shopItems = query(DungeonUserShop::class)
@@ -30,14 +29,15 @@ final readonly class ShopRepository
                 $shopItems[] = query(DungeonUserShop::class)->create(
                     userId: $user->id->value,
                     campaignId: Dungeon::CURRENT_CAMPAIGN,
-                    card: $this->cardRepository->random()->name,
+                    cardName: $this->cardRepository->random()->name,
                 );
             }
         }
 
-        return arr($shopItems)
-            ->map(fn (DungeonUserShop $item) => $this->cardRepository->findByName($item->card))
-            ->filter()
-            ->toArray();
+        foreach ($shopItems as $item) {
+            $item->card = $this->cardRepository->findByName($item->cardName);
+        }
+
+        return $shopItems;
     }
 }

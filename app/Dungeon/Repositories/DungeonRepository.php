@@ -19,12 +19,22 @@ final readonly class DungeonRepository
             return null;
         }
 
-        return igbinary_unserialize($this->redis->get('dungeon'));
+        $payload = $this->redis->get('dungeon');
+
+        if (function_exists('igbinary_unserialize')) {
+            return igbinary_unserialize($payload);
+        } else {
+            return unserialize($payload);
+        }
     }
 
     public function persist(Dungeon $dungeon): void
     {
-        $serialized = igbinary_serialize($dungeon);
+        if (function_exists('igbinary_serialize')) {
+            $serialized = igbinary_serialize($dungeon);
+        } else {
+            $serialized = serialize($dungeon);
+        }
 
         $this->redis->set('dungeon', $serialized);
     }
