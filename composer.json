@@ -11,7 +11,8 @@
         "league/oauth2-github": "^3.0",
         "wohali/oauth2-discord-new": "^1.2",
         "chrome-php/chrome": "^1.14",
-        "codewithkyrian/transformers": "^0.6.2"
+        "codewithkyrian/transformers": "^0.6.2",
+        "predis/predis": "^3.4"
     },
     "repositories": [
     ],

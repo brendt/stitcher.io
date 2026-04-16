@@ -3,28 +3,30 @@
 namespace App\Dungeon\Support;
 
 use App\Dungeon\Dungeon;
-use Tempest\Cache\Cache;
+use App\Support\Authentication\User;
 use Tempest\Container\Singleton;
-use Throwable;
+use Tempest\KeyValue\Redis\Redis;
 
 #[Singleton]
 final readonly class DungeonRepository
 {
     public function __construct(
-        private Cache $cache,
+        private Redis $redis,
     ) {}
 
     public function get(): ?Dungeon
     {
-        if (! $this->cache->has('dungeon')) {
+        if (! $this->redis->get("dungeon")) {
             return null;
         }
 
-        return Dungeon::fromArray($this->cache->get('dungeon'));
+        return igbinary_unserialize($this->redis->get('dungeon'));
     }
 
     public function persist(Dungeon $dungeon): void
     {
-        $this->cache->put('dungeon', $dungeon->toArray());
+        $serialized = igbinary_serialize($dungeon);
+
+        $this->redis->set('dungeon', $serialized);
     }
 }
