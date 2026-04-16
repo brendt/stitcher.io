@@ -1837,6 +1837,12 @@
             header.textContent = `version: ${dungeonVersion ?? 'n/a'}`;
             debugPopup.appendChild(header);
 
+            const playerCoordinates = document.createElement('div');
+            const playerX = Number.isFinite(playerPosition?.x) ? playerPosition.x : 'n/a';
+            const playerY = Number.isFinite(playerPosition?.y) ? playerPosition.y : 'n/a';
+            playerCoordinates.textContent = `player: (${playerX}, ${playerY})`;
+            debugPopup.appendChild(playerCoordinates);
+
             if (!Array.isArray(latestChanges) || latestChanges.length === 0) {
                 const empty = document.createElement('div');
                 empty.textContent = 'No changes';

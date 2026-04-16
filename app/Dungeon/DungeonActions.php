@@ -38,7 +38,7 @@ trait DungeonActions
 {
     public function move(Direction $direction): void
     {
-        if (! $this->currentTile->canMoveTo($direction)) {
+        if (!$this->cheat && ! $this->currentTile->canMoveTo($direction)) {
             return;
         }
 
@@ -46,11 +46,11 @@ trait DungeonActions
 
         $neighbourTile = $this->tryTile($neighbourPosition);
 
-        if ($neighbourTile && $neighbourTile->isCollapsed) {
+        if (! $this->cheat && $neighbourTile && $neighbourTile->isCollapsed) {
             return;
         }
 
-        if ($neighbourTile && ! $neighbourTile->canMoveTo($direction->opposite())) {
+        if (! $this->cheat && $neighbourTile && ! $neighbourTile->canMoveTo($direction->opposite())) {
             return;
         }
 
@@ -237,6 +237,10 @@ trait DungeonActions
         }
 
         if (! $card) {
+            return;
+        }
+
+        if ($card instanceof CheckBeforePlaying && ! $card->canPlay($this)) {
             return;
         }
 

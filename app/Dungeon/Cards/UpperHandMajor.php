@@ -11,7 +11,6 @@ use App\Dungeon\Commands\RemoveDweller;
 use App\Dungeon\Commands\SpawnDweller;
 use App\Dungeon\Level;
 
-// TODO
 final class UpperHandMajor implements Card, CheckBeforePlaying
 {
     use IsCard;
@@ -34,14 +33,14 @@ final class UpperHandMajor implements Card, CheckBeforePlaying
 
     public function play(Dungeon $dungeon): void
     {
-        // foreach ($board->getVisibleDwellers() as $dweller) {
-        // command(new RemoveDweller($dweller->point));
-        // command(new SpawnDweller());
-        // }
+        foreach ($dungeon->loopVisibleDwellers() as $dweller) {
+            $dungeon->despawnDweller($dweller);
+            $dungeon->spawnDweller();
+        }
     }
 
     public function canPlay(Dungeon $dungeon): bool
     {
-        return iterator_count($board->getVisibleDwellers()) > 0;
+        return iterator_count($dungeon->loopVisibleDwellers()) > 0;
     }
 }

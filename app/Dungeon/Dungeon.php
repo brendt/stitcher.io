@@ -44,6 +44,8 @@ final class Dungeon
 
     public int $visibilityRadius = 5;
 
+    public bool $cheat = false;
+
     public Tile $currentTile {
         get => $this->getTile($this->playerPosition);
     }
@@ -95,35 +97,6 @@ final class Dungeon
             'activeCard' => $this->activeCard?->toArray(),
             'visibilityRadius' => $this->visibilityRadius,
         ];
-    }
-
-    public static function fromArray(array $data): self
-    {
-        $data['hand'] = arr($data['hand'])->map(fn (array $card) => $card['class']::fromArray($card))->toArray();
-        $data['deck'] = arr($data['deck'])->map(fn (array $card) => $card['class']::fromArray($card))->toArray();
-        $data['permanentCards'] = arr($data['permanentCards'])->map(fn (array $card) => $card['class']::fromArray($card))->toArray();
-        $data['passiveCard'] = $data['passiveCard'] ? $data['passiveCard']['class']::fromArray($data['passiveCard']) : null;
-        $data['activeCard'] = $data['activeCard'] ? $data['activeCard']['class']::fromArray($data['activeCard']) : null;
-
-        foreach ($data['tiles'] as $x => $row) {
-            foreach ($row as $y => $tile) {
-                $data['tiles'][$x][$y] = Tile::fromArray($tile);
-            }
-        }
-
-        foreach ($data['dwellers'] as $x => $row) {
-            foreach ($row as $y => $dweller) {
-                $data['dwellers'][$x][$y] = Dweller::fromArray($dweller);
-            }
-        }
-
-        $self = new ReflectionClass(self::class)->newInstanceWithoutConstructor();
-
-        foreach ($data as $key => $value) {
-            $self->{$key} = $value;
-        }
-
-        return $self;
     }
 
     public function consumeChanges(): array
@@ -246,6 +219,15 @@ final class Dungeon
     {
         foreach ($this->dwellers as $row) {
             foreach ($row as $dweller) {
+                yield $dweller;
+            }
+        }
+    }
+
+    public function loopVisibleDwellers(): Generator
+    {
+        foreach ($this->loopDwellers() as $dweller) {
+            if ($this->withinVisibilityRange($dweller->point)) {
                 yield $dweller;
             }
         }

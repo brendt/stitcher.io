@@ -2,9 +2,9 @@
 
 namespace App\Dungeon\Cards;
 
+use App\Dungeon\CheckBeforePlaying;
 use App\Dungeon\InteractsWithTile;
 use function Tempest\Support\str;
-use function Tempest\Mapper\map;
 
 trait IsCard
 {
@@ -27,10 +27,5 @@ trait IsCard
         $data['description'] = $this->description;
 
         return $data;
-    }
-
-    public static function fromArray(array $data): self
-    {
-        return map($data)->to(self::class);
     }
 }

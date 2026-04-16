@@ -8,6 +8,7 @@ use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Cards\HealMajor;
 use App\Dungeon\Cards\KillDwellerMajor;
+use App\Dungeon\Cards\UpperHandMajor;
 use App\Dungeon\Support\DungeonEndpoint;
 use App\Dungeon\Support\DungeonRepository;
 use Tempest\Http\Request;
@@ -34,13 +35,14 @@ final class DungeonController
             new BeaconMajor(),
             new BeaconMajor(),
             new BeaconMajor(),
-            new KillDwellerMajor(),
+            new UpperHandMajor(),
         ]);
 
         $repository->persist($dungeon);
 
         if ($request->has('demo')) {
-            $dungeon->mana = 150;
+            $dungeon->cheat = true;
+            $dungeon->mana = 1000;
 
             $directions = arr(Direction::cases());
 
@@ -48,7 +50,7 @@ final class DungeonController
                 $dungeon->move($directions->random());
             }
 
-            $dungeon->spawnDweller();
+            $dungeon->spawnDweller(new Point(10, 10));
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();

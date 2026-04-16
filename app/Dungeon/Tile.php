@@ -55,21 +55,6 @@ final class Tile
         ];
     }
 
-    public static function fromArray(array $data): self
-    {
-        $directions = [];
-
-        foreach($data['directions'] as $direction) {
-            $direction = Direction::tryFrom($direction);
-
-            $directions[] = $direction;
-        }
-
-        $data['directions'] = $directions;
-
-        return new self(...$data);
-    }
-
     public static function initial(): self
     {
         $point = new Point(rand(1, 3), rand(1, 3));

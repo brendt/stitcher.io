@@ -16,9 +16,4 @@ final class Dweller
             'isVisible' => $this->isVisible,
         ];
     }
-
-    public static function fromArray(array $data): self
-    {
-        return new self(...$data);
-    }
 }

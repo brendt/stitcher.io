@@ -7,11 +7,8 @@ use App\Dungeon\Card;
 use App\Dungeon\CheckBeforePlaying;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\RemoveDweller;
-use App\Dungeon\Commands\SpawnDweller;
 use App\Dungeon\Level;
 
-// TODO
 final class UpperHandMinor implements Card, CheckBeforePlaying
 {
     use IsCard;
@@ -34,15 +31,15 @@ final class UpperHandMinor implements Card, CheckBeforePlaying
 
     public function play(Dungeon $dungeon): void
     {
-        // foreach ($board->getVisibleDwellers() as $dweller) {
-        // command(new RemoveDweller($dweller->point));
-        // command(new SpawnDweller());
-        // break;
-        // }
+        foreach ($dungeon->loopVisibleDwellers() as $dweller) {
+            $dungeon->despawnDweller($dweller);
+            $dungeon->spawnDweller();
+            break;
+        }
     }
 
     public function canPlay(Dungeon $dungeon): bool
     {
-        return iterator_count($board->getVisibleDwellers()) > 0;
+        return iterator_count($dungeon->loopVisibleDwellers()) > 0;
     }
 }
