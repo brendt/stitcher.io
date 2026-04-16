@@ -138,44 +138,6 @@ final class Dungeon
         return $this;
     }
 
-    public function generateTile(?Point $from, Point $to): void
-    {
-        if ($this->tryTile($to)) {
-            return;
-        }
-
-        $absX = abs($to->x);
-        $absY = abs($to->y);
-
-        $minimumDirectionCount = match (true) {
-            $absX < 1 && $absY < 1 => 3,
-            $absX < 6 && $absY < 6 => 2,
-            default => 1,
-        };
-
-        $allowedDirections = array_rand(Direction::cases(), rand($minimumDirectionCount, 4));
-
-        if (! is_array($allowedDirections)) {
-            $allowedDirections = [$allowedDirections];
-        }
-
-        $directions = arr(Direction::cases())
-            ->filter(fn (Direction $direction, int $index) => in_array($index, $allowedDirections, strict: true));
-
-        if ($from) {
-            $directions = $directions->add($to->directionTo($from));
-        }
-
-        $directions = $directions->unique()
-            ->values()
-            ->toArray();
-
-        $tile = new Tile($to, directions: $directions);
-        $this->addTile($tile);
-
-        event(new TileGenerated($tile));
-    }
-
     public function getTile(Point $point): Tile
     {
         return $this->tiles[$point->x][$point->y];

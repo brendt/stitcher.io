@@ -9,9 +9,7 @@ use App\Dungeon\Events\ArtifactSpawned;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\DwellerDespawned;
-use App\Dungeon\Events\DwellerHidden;
 use App\Dungeon\Events\DwellerMoved;
-use App\Dungeon\Events\DwellerShowed;
 use App\Dungeon\Events\DwellerSpawned;
 use App\Dungeon\Events\DwellerUpdated;
 use App\Dungeon\Events\PassiveCardSet;
@@ -30,12 +28,57 @@ use App\Dungeon\Events\PlayerStabilityIncreased;
 use App\Dungeon\Events\TileCoinsAdded;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\TileCollapsed;
+use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Events\VisibilityChanged;
 use function Tempest\EventBus\event;
+use function Tempest\Support\arr;
 
 trait DungeonActions
 {
+    public function generateTile(?Point $from, Point $to): void
+    {
+        if ($this->tryTile($to)) {
+            return;
+        }
+
+        $absX = abs($to->x);
+        $absY = abs($to->y);
+
+        $minimumDirectionCount = match (true) {
+            $absX < 1 && $absY < 1 => 3,
+            $absX < 6 && $absY < 6 => 2,
+            default => 1,
+        };
+
+        $allowedDirections = array_rand(Direction::cases(), rand($minimumDirectionCount, 4));
+
+        if (! is_array($allowedDirections)) {
+            $allowedDirections = [$allowedDirections];
+        }
+
+        $directions = arr(Direction::cases())
+            ->filter(fn (Direction $direction, int $index) => in_array($index, $allowedDirections, strict: true));
+
+        if ($from) {
+            $directions = $directions->add($to->directionTo($from));
+        }
+
+        $directions = $directions->unique()
+            ->values()
+            ->toArray();
+
+        $tile = new Tile($to, directions: $directions);
+
+        if (random_int(1, 100) === 1) {
+            $tile->isTrapped = true;
+        }
+
+        $this->addTile($tile);
+
+        event(new TileGenerated($tile));
+    }
+
     public function move(Direction $direction): void
     {
         if (!$this->cheat && ! $this->currentTile->canMoveTo($direction)) {

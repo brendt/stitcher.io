@@ -111,4 +111,18 @@ final readonly class PlayerMovementListener
             $this->dungeon->collectArtifact();
         }
     }
+
+    #[EventHandler]
+    public function checkForTraps(PlayerMoved $event): void
+    {
+        $tile = $this->dungeon->tryTile($event->to);
+
+        if (! $tile) {
+            return;
+        }
+
+        if ($tile->isTrapped) {
+            $this->dungeon->decreaseHealth(15);
+        }
+    }
 }

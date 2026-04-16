@@ -8,6 +8,8 @@ use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Cards\HealMajor;
 use App\Dungeon\Cards\KillDwellerMajor;
+use App\Dungeon\Cards\TrapDisarmMajor;
+use App\Dungeon\Cards\TrapDisarmMinor;
 use App\Dungeon\Cards\UpperHandMajor;
 use App\Dungeon\Support\DungeonEndpoint;
 use App\Dungeon\Support\DungeonRepository;
@@ -31,11 +33,8 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = Dungeon::new(deck: [
-            new BeaconMajor(),
-            new BeaconMajor(),
-            new BeaconMajor(),
-            new BeaconMajor(),
-            new UpperHandMajor(),
+            new TrapDisarmMajor(),
+            new TrapDisarmMinor(),
         ]);
 
         $repository->persist($dungeon);
@@ -50,6 +49,7 @@ final class DungeonController
                 $dungeon->move($directions->random());
             }
 
+            $dungeon->addTile(new Tile(new Point(5, 5), isTrapped: true));
             $dungeon->spawnDweller(new Point(10, 10));
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();
