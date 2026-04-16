@@ -7,8 +7,6 @@ use App\Dungeon\Card;
 use App\Dungeon\InteractsWithTile;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\ChangeStability;
-use App\Dungeon\Commands\RemoveTileWalls;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 

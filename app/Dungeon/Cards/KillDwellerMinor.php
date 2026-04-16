@@ -7,8 +7,6 @@ use App\Dungeon\Card;
 use App\Dungeon\InteractsWithTile;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\DiscardActiveCard;
-use App\Dungeon\Commands\RemoveDweller;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 

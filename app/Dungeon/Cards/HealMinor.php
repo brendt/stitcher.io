@@ -6,7 +6,6 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\ChangeHealth;
 use App\Dungeon\Level;
 
 final class HealMinor implements Card

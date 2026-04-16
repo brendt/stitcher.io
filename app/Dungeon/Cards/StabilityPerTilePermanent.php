@@ -9,9 +9,6 @@ use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\WithEvents;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\ChangeStability;
-use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Events\StabilityForGeneratedTileDecreased;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 

@@ -6,10 +6,8 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\ChangeMaxMana;
 use App\Dungeon\Level;
 
-// TODO test
 final class ManaIncreaseMajor implements Card
 {
     use IsCard;

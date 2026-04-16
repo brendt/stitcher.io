@@ -9,7 +9,6 @@ use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
-use Illuminate\Support\Str;
 
 final class RumbleMajor implements Card, InteractsWithTile
 {
