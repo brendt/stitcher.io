@@ -234,7 +234,7 @@
             font-family: ui-sans-serif, system-ui, sans-serif;
             pointer-events: none;
             display: flex;
-            gap: 24px;
+            gap: 12px;
             justify-content: center;
             align-items: flex-end;
             flex-wrap: wrap;
@@ -257,6 +257,18 @@
             font-size: 20px;
             line-height: 1;
             font-weight: 700;
+        }
+
+        #coin-counter,
+        #shard-counter,
+        #victory-point-counter {
+            text-align: right;
+        }
+
+        #coin-label,
+        #shard-label,
+        #victory-point-label {
+            text-align: right;
         }
 
         .bottom-notch-max {
@@ -499,7 +511,7 @@
     </div>
     <div class="bottom-notch">
         <div class="bottom-notch-stat">
-            <div class="bottom-notch-label">Health</div>
+            <div id="health-label" class="bottom-notch-label">Health</div>
             <div id="health-counter" class="bottom-notch-value">0</div>
         </div>
         <div class="bottom-notch-stat">
@@ -511,8 +523,16 @@
             <div id="stability-counter" class="bottom-notch-value">0</div>
         </div>
         <div class="bottom-notch-stat">
-            <div class="bottom-notch-label">Coins</div>
+            <div id="coin-label" class="bottom-notch-label">Coins</div>
             <div id="coin-counter" class="bottom-notch-value">0</div>
+        </div>
+        <div class="bottom-notch-stat">
+            <div id="shard-label" class="bottom-notch-label">Shards</div>
+            <div id="shard-counter" class="bottom-notch-value">0</div>
+        </div>
+        <div class="bottom-notch-stat">
+            <div id="victory-point-label" class="bottom-notch-label">Victory Points</div>
+            <div id="victory-point-counter" class="bottom-notch-value">0</div>
         </div>
     </div>
     <div class="hand-notch">
@@ -549,6 +569,8 @@
         const passiveCardSlot = document.getElementById('passive-card-slot');
         const counters = {
             coins: document.getElementById('coin-counter'),
+            shards: document.getElementById('shard-counter'),
+            victoryPoints: document.getElementById('victory-point-counter'),
             health: document.getElementById('health-counter'),
             mana: document.getElementById('mana-counter'),
             stability: document.getElementById('stability-counter'),
@@ -572,6 +594,8 @@
         let exitedCoinsAmount = null;
         const stats = {
             coins: 0,
+            shards: 0,
+            victoryPoints: 0,
             health: 0,
             maxHealth: 0,
             mana: 0,
@@ -595,6 +619,8 @@
         const floorHealthAltarCooldownSpritePath = '/dungeon/tile-floor-health-cooldown.png';
         const floorManaAltarCooldownSpritePath = '/dungeon/tile-floor-mana-cooldown.png';
         const floorStabilityAltarCooldownSpritePath = '/dungeon/tile-floor-stability-cooldown.png';
+        const floorVictoryPointSpritePath = '/dungeon/tile-victory-point.png';
+        const floorShardSpritePath = '/dungeon/tile-shard.png';
         const floorCollapsedSpritePath = '/dungeon/tile-collapsed.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
         const dwellerSpritePath = '/dungeon/dweller-avater.png';
@@ -615,6 +641,8 @@
         let floorHealthAltarCooldownSprite = null;
         let floorManaAltarCooldownSprite = null;
         let floorStabilityAltarCooldownSprite = null;
+        let floorVictoryPointSprite = null;
+        let floorShardSprite = null;
         let floorCollapsedSprite = null;
         let playerSprite = null;
         let dwellerSprite = null;
@@ -743,6 +771,8 @@
             const isHealthAltar = Boolean(tile?.isHealthAltar);
             const isManaAltar = Boolean(tile?.isManaAltar);
             const isStabilityAltar = Boolean(tile?.isStabilityAltar);
+            const isVictoryPoint = Boolean(tile?.isVictoryPoint);
+            const isShard = Boolean(tile?.isShard);
             const altarOnCooldown = numberFrom(tile?.altarCooldown) > 0;
             const altarCooldown = Math.max(0, Math.floor(numberFrom(tile?.altarCooldown)));
             const isOutsideVisibility = isTileOutsideVisibility(tile);
@@ -755,6 +785,10 @@
                 : null;
             const sprite = isCollapsed
                 ? (floorCollapsedSprite ?? floorSprite)
+                : isVictoryPoint
+                ? (floorVictoryPointSprite ?? floorSprite)
+                : isShard
+                ? (floorShardSprite ?? floorSprite)
                 : altarSprite
                 ? (altarSprite ?? floorSprite)
                 : isOrigin
@@ -1415,6 +1449,8 @@
                 : null;
             dungeonVersion = nextPayload?.version ?? null;
             stats.coins = numberFrom(nextPayload?.coins);
+            stats.shards = numberFrom(nextPayload?.shards);
+            stats.victoryPoints = numberFrom(nextPayload?.victoryPoints);
             stats.health = clampStatMinimum('health', nextPayload?.health);
             stats.maxHealth = numberFrom(nextPayload?.maxHealth);
             stats.mana = numberFrom(nextPayload?.mana);
@@ -1562,18 +1598,25 @@
 
             const dwellerKey = getTileKey(point.x, point.y);
             const existingDweller = dwellerIndex.get(dwellerKey);
-
-            if (!existingDweller) {
-                return;
-            }
-
-            const index = dwellers.indexOf(existingDweller);
-
-            if (index !== -1) {
-                dwellers.splice(index, 1);
-            }
-
             dwellerIndex.delete(dwellerKey);
+
+            if (existingDweller) {
+                const index = dwellers.indexOf(existingDweller);
+
+                if (index !== -1) {
+                    dwellers.splice(index, 1);
+                    return;
+                }
+            }
+
+            // Keep array and index in sync even when index lookup missed.
+            for (let i = dwellers.length - 1; i >= 0; i -= 1) {
+                const dweller = dwellers[i];
+
+                if (Number(dweller?.x) === point.x && Number(dweller?.y) === point.y) {
+                    dwellers.splice(i, 1);
+                }
+            }
         }
 
         function applyDwellerSpawned(payload) {
@@ -2070,6 +2113,16 @@
                     continue;
                 }
 
+                if (change?.name === 'player.shardsIncreased') {
+                    stats.shards += numberFrom(change?.payload?.amount);
+                    continue;
+                }
+
+                if (change?.name === 'player.victoryPointsIncreased') {
+                    stats.victoryPoints += numberFrom(change?.payload?.amount);
+                    continue;
+                }
+
                 if (change?.name === 'player.maxHealthIncreased') {
                     if (typeof change.payload?.maxHealth !== 'undefined') {
                         stats.maxHealth = numberFrom(change.payload.maxHealth);
@@ -2257,6 +2310,14 @@
         function renderCounters() {
             if (counters.coins) {
                 counters.coins.textContent = String(stats.coins);
+            }
+
+            if (counters.shards) {
+                counters.shards.textContent = String(stats.shards);
+            }
+
+            if (counters.victoryPoints) {
+                counters.victoryPoints.textContent = String(stats.victoryPoints);
             }
 
             renderCurrentMaxCounter(counters.health, stats.health, stats.maxHealth);
@@ -2521,6 +2582,14 @@
                 floorStabilityAltarCooldownSprite = image;
             });
 
+            const floorVictoryPointPromise = loadImage(floorVictoryPointSpritePath).then((image) => {
+                floorVictoryPointSprite = image;
+            });
+
+            const floorShardPromise = loadImage(floorShardSpritePath).then((image) => {
+                floorShardSprite = image;
+            });
+
             const floorCollapsedPromise = loadImage(floorCollapsedSpritePath).then((image) => {
                 floorCollapsedSprite = image;
             });
@@ -2557,6 +2626,8 @@
                 floorHealthAltarCooldownPromise,
                 floorManaAltarCooldownPromise,
                 floorStabilityAltarCooldownPromise,
+                floorVictoryPointPromise,
+                floorShardPromise,
                 floorCollapsedPromise,
                 playerPromise,
                 dwellerPromise,

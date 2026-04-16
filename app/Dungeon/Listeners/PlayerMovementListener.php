@@ -185,6 +185,50 @@ final readonly class PlayerMovementListener
     }
 
     #[EventHandler]
+    public function checkForShard(PlayerMoved $event): void
+    {
+        $tile = $this->dungeon->tryTile($event->to);
+
+        if (! $tile) {
+            return;
+        }
+
+        if (! $tile->isShard) {
+            return;
+        }
+
+        if ($tile->isShardCollected) {
+            return;
+        }
+
+        $tile->isShardCollected = true;
+        $this->dungeon->updateTile($tile);
+        $this->dungeon->increaseShards(1);
+    }
+
+    #[EventHandler]
+    public function checkForVictoryPoint(PlayerMoved $event): void
+    {
+        $tile = $this->dungeon->tryTile($event->to);
+
+        if (! $tile) {
+            return;
+        }
+
+        if (! $tile->isVictoryPoint) {
+            return;
+        }
+
+        if ($tile->isVictoryPointCollected) {
+            return;
+        }
+
+        $tile->isVictoryPointCollected = true;
+        $this->dungeon->updateTile($tile);
+        $this->dungeon->increaseVictoryPoints(1);
+    }
+
+    #[EventHandler]
     public function handleAltarCooldowns(PlayerMoved $event): void
     {
         foreach ($this->dungeon->loopTiles() as $tile) {

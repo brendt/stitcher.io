@@ -3,20 +3,9 @@
 namespace App\Dungeon;
 
 use App\Dungeon\Cards\BeaconMajor;
-use App\Dungeon\Cards\BreakthroughMajor;
-use App\Dungeon\Cards\Clarity;
-use App\Dungeon\Cards\EmergencyExitMajor;
-use App\Dungeon\Cards\EmergencyExitMinor;
-use App\Dungeon\Cards\HealMajor;
-use App\Dungeon\Cards\KillDwellerMajor;
 use App\Dungeon\Cards\LocateHealthAltar;
 use App\Dungeon\Cards\LocateManaAltar;
 use App\Dungeon\Cards\LocateStabilityAltar;
-use App\Dungeon\Cards\SupportMajor;
-use App\Dungeon\Cards\SupportMinor;
-use App\Dungeon\Cards\TrapDisarmMajor;
-use App\Dungeon\Cards\TrapDisarmMinor;
-use App\Dungeon\Cards\UpperHandMajor;
 use App\Dungeon\Support\DungeonEndpoint;
 use App\Dungeon\Support\DungeonRepository;
 use Tempest\Http\Request;
@@ -39,12 +28,10 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = Dungeon::new(deck: [
-            new LocateHealthAltar(),
-            new LocateHealthAltar(),
-            new LocateManaAltar(),
-            new LocateManaAltar(),
-            new LocateStabilityAltar(),
-            new LocateStabilityAltar(),
+            new BeaconMajor(),
+            new BeaconMajor(),
+            new BeaconMajor(),
+            new BeaconMajor(),
         ]);
 
         $repository->persist($dungeon);
@@ -64,6 +51,8 @@ final class DungeonController
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();
+            $dungeon->spawnVictoryPoint(new Point(5, 5));
+            $dungeon->spawnShard(new Point(5, 6));
 //            $dungeon->spawnHealthAltar(new Point(10, 8));
 //            $dungeon->spawnStabilityAltar(new Point(10, 10));
 //            $dungeon->spawnManaAltar(new Point(10, 12));

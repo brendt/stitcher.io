@@ -24,8 +24,10 @@ use App\Dungeon\Events\PlayerManaDecreased;
 use App\Dungeon\Events\PlayerMaxHealthIncreased;
 use App\Dungeon\Events\PlayerMaxManaIncreased;
 use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Events\PlayerShardsIncreased;
 use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\PlayerStabilityIncreased;
+use App\Dungeon\Events\PlayerVictoryPointsIncreased;
 use App\Dungeon\Events\TileCoinsAdded;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\TileCollapsed;
@@ -71,7 +73,11 @@ trait DungeonActions
 
         $tile = new Tile($to, directions: $directions);
 
-        if (isset($this->healthAltars[$to->x][$to->y])) {
+        if (isset($this->victoryPointLocations[$to->x][$to->y])) {
+            $tile->isVictoryPoint = true;
+        } elseif (isset($this->shardLocations[$to->x][$to->y])) {
+            $tile->isShard = true;
+        } elseif (isset($this->healthAltars[$to->x][$to->y])) {
             $tile->isHealthAltar = true;
             $tile->directions = Direction::cases();
         } elseif(isset($this->manaAltars[$to->x][$to->y])) {
@@ -573,6 +579,26 @@ trait DungeonActions
         $this->stabilityAltars[$point->x][$point->y] = $point;
     }
 
+    public function spawnVictoryPoint(?Point $point = null): void
+    {
+        $point ??= new Point(
+            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+        );
+
+        $this->victoryPointLocations[$point->x][$point->y] = $point;
+    }
+
+    public function spawnShard(?Point $point = null): void
+    {
+        $point ??= new Point(
+            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+        );
+
+        $this->shardLocations[$point->x][$point->y] = $point;
+    }
+
     public function collectArtifact(): void
     {
         if (! $this->playerPosition->equals($this->artifactLocation)) {
@@ -602,5 +628,19 @@ trait DungeonActions
     public function updateTile(Tile $tile): void
     {
         event(new TileUpdated($tile));
+    }
+
+    public function increaseVictoryPoints(int $amount): void
+    {
+        $this->victoryPoints += $amount;
+
+        event(new PlayerVictoryPointsIncreased($amount));
+    }
+
+    public function increaseShards(int $amount): void
+    {
+        $this->shards += $amount;
+
+        event(new PlayerShardsIncreased($amount));
     }
 }

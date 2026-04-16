@@ -14,6 +14,8 @@ final class Dungeon
     public ?Point $playerPosition = null;
     public bool $hasEnded = false;
     public int $coins = 0;
+    public int $victoryPoints = 0;
+    public int $shards = 0;
     public int $health = 100;
     public int $maxHealth = 100;
     public int $mana = 0;
@@ -60,6 +62,12 @@ final class Dungeon
     /** @var \App\Dungeon\Point[][] */
     public array $stabilityAltars = [];
 
+    /** @var \App\Dungeon\Point[][] */
+    public array $victoryPointLocations = [];
+
+    /** @var \App\Dungeon\Point[][] */
+    public array $shardLocations = [];
+
     /** @param \App\Dungeon\Card[] $deck */
     public static function new(array $deck): self
     {
@@ -98,6 +106,8 @@ final class Dungeon
             'dwellers' => arr($this->dwellers)->map(fn (array $dwellers) => arr($dwellers)->map(fn (Dweller $dweller) => $dweller->toArray())->toArray())->toArray(),
             'hasEnded' => $this->hasEnded,
             'coins' => $this->coins,
+            'victoryPoints' => $this->victoryPoints,
+            'shards' => $this->shards,
             'mana' => $this->mana,
             'maxMana' => $this->maxMana,
             'health' => $this->health,
