@@ -12,6 +12,7 @@
             --tile: #9ca3af;
             --tile-border: #6b7280;
             --font-title: "Fontdiner Swanky", serif;
+            --title-font: var(--font-title);
         }
 
         * {
@@ -534,6 +535,7 @@
         const dataElement = document.getElementById('dungeon-data');
         const viewport = document.getElementById('viewport');
         const canvas = document.getElementById('dungeon-canvas');
+        const titleFontFamily = getComputedStyle(document.documentElement).getPropertyValue('--title-font').trim() || '"Fontdiner Swanky", serif';
         const artifactCompass = document.getElementById('artifact-compass');
         const exitDungeonButton = document.getElementById('exit-dungeon-button');
         const deathOverlay = document.getElementById('death-overlay');
@@ -587,6 +589,12 @@
         const floorSpritePath = '/dungeon/tile-floor.png';
         const floorOriginSpritePath = '/dungeon/tile-floor-origin.png';
         const floorSupportSpritePath = '/dungeon/tile-floor-support.png';
+        const floorHealthAltarSpritePath = '/dungeon/tile-floor-health.png';
+        const floorManaAltarSpritePath = '/dungeon/tile-floor-mana.png';
+        const floorStabilityAltarSpritePath = '/dungeon/tile-floor-stability.png';
+        const floorHealthAltarCooldownSpritePath = '/dungeon/tile-floor-health-cooldown.png';
+        const floorManaAltarCooldownSpritePath = '/dungeon/tile-floor-mana-cooldown.png';
+        const floorStabilityAltarCooldownSpritePath = '/dungeon/tile-floor-stability-cooldown.png';
         const floorCollapsedSpritePath = '/dungeon/tile-collapsed.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
         const dwellerSpritePath = '/dungeon/dweller-avater.png';
@@ -601,6 +609,12 @@
         let floorSprite = null;
         let floorOriginSprite = null;
         let floorSupportSprite = null;
+        let floorHealthAltarSprite = null;
+        let floorManaAltarSprite = null;
+        let floorStabilityAltarSprite = null;
+        let floorHealthAltarCooldownSprite = null;
+        let floorManaAltarCooldownSprite = null;
+        let floorStabilityAltarCooldownSprite = null;
         let floorCollapsedSprite = null;
         let playerSprite = null;
         let dwellerSprite = null;
@@ -681,6 +695,8 @@
                 const y = state.paddingY + (tile.point.y - bounds.minY) * step;
                 const openDirections = new Set(tile.directions ?? []);
                 const tileKey = getTileKey(tile.point.x, tile.point.y);
+                const isOutsideVisibility = isTileOutsideVisibility(tile);
+                const altarGlowColor = getAltarGlowColor(tile);
 
                 drawFloor(tile, x, y, tileSize, tileKey === hoveredTileKey);
 
@@ -700,12 +716,16 @@
                     drawWall('left', x, y, tileSize);
                 }
 
-                if (Boolean(tile?.isTrapped) && !isTileOutsideVisibility(tile)) {
+                if (Boolean(tile?.isTrapped) && !isOutsideVisibility) {
                     drawTrapMarker(x, y, tileSize);
                 }
 
-                if (isTileOutsideVisibility(tile) && !isArtifactAtPoint(tile?.point) && !tile?.isCollapsed) {
+                if (isOutsideVisibility && !isArtifactAtPoint(tile?.point) && !tile?.isCollapsed) {
                     drawVisibilityOverlay(x, y, tileSize);
+                }
+
+                if (isOutsideVisibility && altarGlowColor) {
+                    drawAltarVisibilityGlow(x, y, tileSize, altarGlowColor);
                 }
             }
 
@@ -720,11 +740,25 @@
             const isCollapsed = Boolean(tile?.isCollapsed);
             const isOrigin = Boolean(tile?.isOrigin);
             const isSupported = Boolean(tile?.isSupported);
+            const isHealthAltar = Boolean(tile?.isHealthAltar);
+            const isManaAltar = Boolean(tile?.isManaAltar);
+            const isStabilityAltar = Boolean(tile?.isStabilityAltar);
+            const altarOnCooldown = numberFrom(tile?.altarCooldown) > 0;
+            const altarCooldown = Math.max(0, Math.floor(numberFrom(tile?.altarCooldown)));
             const isOutsideVisibility = isTileOutsideVisibility(tile);
-            const sprite = isOrigin
-                ? (floorOriginSprite ?? floorSprite)
-                : isCollapsed
+            const altarSprite = isHealthAltar
+                ? (altarOnCooldown ? floorHealthAltarCooldownSprite : floorHealthAltarSprite)
+                : isManaAltar
+                ? (altarOnCooldown ? floorManaAltarCooldownSprite : floorManaAltarSprite)
+                : isStabilityAltar
+                ? (altarOnCooldown ? floorStabilityAltarCooldownSprite : floorStabilityAltarSprite)
+                : null;
+            const sprite = isCollapsed
                 ? (floorCollapsedSprite ?? floorSprite)
+                : altarSprite
+                ? (altarSprite ?? floorSprite)
+                : isOrigin
+                ? (floorOriginSprite ?? floorSprite)
                 : (isSupported ? (floorSupportSprite ?? floorSprite) : floorSprite);
 
             if (sprite) {
@@ -732,6 +766,15 @@
             } else {
                 context.fillStyle = '#9ca3af';
                 context.fillRect(x, y, tileSize, tileSize);
+            }
+
+            if ((isHealthAltar || isManaAltar || isStabilityAltar) && altarCooldown > 0 && !isOutsideVisibility) {
+                const cooldownColor = isHealthAltar
+                    ? '#22c55e'
+                    : isManaAltar
+                    ? '#3b82f6'
+                    : '#f97316';
+                drawAltarCooldownBadge(x, y, tileSize, altarCooldown, cooldownColor);
             }
 
             if (hasCoins && !isOutsideVisibility) {
@@ -759,6 +802,18 @@
             context.lineWidth = Math.max(1, Math.round(state.scale));
             context.fillRect(x, y, tileSize, tileSize);
             context.strokeRect(x + 0.5, y + 0.5, tileSize - 1, tileSize - 1);
+            context.restore();
+        }
+
+        function drawAltarCooldownBadge(x, y, tileSize, cooldown, textColor) {
+            context.save();
+            context.fillStyle = textColor;
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.font = `700 ${Math.max(8, Math.floor(tileSize * 0.20))}px ${titleFontFamily}`;
+            context.shadowColor = 'rgba(0, 0, 0, 0.48)';
+            context.shadowBlur = Math.max(1, tileSize * 0.1);
+            context.fillText(String(cooldown), x + (tileSize / 2), y + (tileSize / 2) + 0.5);
             context.restore();
         }
 
@@ -817,6 +872,50 @@
             context.save();
             context.fillStyle = 'rgba(0, 0, 0, 0.68)';
             context.fillRect(x, y, tileSize, tileSize);
+            context.restore();
+        }
+
+        function getAltarGlowColor(tile) {
+            if (tile?.isHealthAltar) {
+                return '#22c55e';
+            }
+
+            if (tile?.isManaAltar) {
+                return '#3b82f6';
+            }
+
+            if (tile?.isStabilityAltar) {
+                return '#f97316';
+            }
+
+            return null;
+        }
+
+        function drawAltarVisibilityGlow(x, y, tileSize, glowColor) {
+            context.save();
+            const glowSpread = Math.max(8, tileSize * 0.5);
+            const centerX = x + (tileSize / 2);
+            const centerY = y + (tileSize / 2);
+            const gradient = context.createRadialGradient(
+                centerX,
+                centerY,
+                tileSize * 0.32,
+                centerX,
+                centerY,
+                tileSize * 0.95
+            );
+
+            gradient.addColorStop(0, `${glowColor}00`);
+            gradient.addColorStop(0.62, `${glowColor}00`);
+            gradient.addColorStop(0.86, `${glowColor}cc`);
+            gradient.addColorStop(1, `${glowColor}00`);
+            context.fillStyle = gradient;
+            context.fillRect(
+                x - glowSpread,
+                y - glowSpread,
+                tileSize + (glowSpread * 2),
+                tileSize + (glowSpread * 2)
+            );
             context.restore();
         }
 
@@ -2398,6 +2497,30 @@
                 floorSupportSprite = image;
             });
 
+            const floorHealthAltarPromise = loadImage(floorHealthAltarSpritePath).then((image) => {
+                floorHealthAltarSprite = image;
+            });
+
+            const floorManaAltarPromise = loadImage(floorManaAltarSpritePath).then((image) => {
+                floorManaAltarSprite = image;
+            });
+
+            const floorStabilityAltarPromise = loadImage(floorStabilityAltarSpritePath).then((image) => {
+                floorStabilityAltarSprite = image;
+            });
+
+            const floorHealthAltarCooldownPromise = loadImage(floorHealthAltarCooldownSpritePath).then((image) => {
+                floorHealthAltarCooldownSprite = image;
+            });
+
+            const floorManaAltarCooldownPromise = loadImage(floorManaAltarCooldownSpritePath).then((image) => {
+                floorManaAltarCooldownSprite = image;
+            });
+
+            const floorStabilityAltarCooldownPromise = loadImage(floorStabilityAltarCooldownSpritePath).then((image) => {
+                floorStabilityAltarCooldownSprite = image;
+            });
+
             const floorCollapsedPromise = loadImage(floorCollapsedSpritePath).then((image) => {
                 floorCollapsedSprite = image;
             });
@@ -2423,7 +2546,23 @@
                 artifactMarkerSprite = image;
             });
 
-            Promise.all([...wallPromises, floorPromise, floorOriginPromise, floorSupportPromise, floorCollapsedPromise, playerPromise, dwellerPromise, coinMarkerPromise, artifactMarkerPromise]).then(() => {
+            Promise.all([
+                ...wallPromises,
+                floorPromise,
+                floorOriginPromise,
+                floorSupportPromise,
+                floorHealthAltarPromise,
+                floorManaAltarPromise,
+                floorStabilityAltarPromise,
+                floorHealthAltarCooldownPromise,
+                floorManaAltarCooldownPromise,
+                floorStabilityAltarCooldownPromise,
+                floorCollapsedPromise,
+                playerPromise,
+                dwellerPromise,
+                coinMarkerPromise,
+                artifactMarkerPromise,
+            ]).then(() => {
                 render();
             });
         }
@@ -2604,6 +2743,12 @@
         renderCardSlots();
         renderHand();
         preloadSprites();
+
+        if (document.fonts?.ready) {
+            document.fonts.ready.then(() => {
+                render();
+            });
+        }
     </script>
 </body>
 </html>

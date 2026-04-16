@@ -9,6 +9,9 @@ use App\Dungeon\Cards\EmergencyExitMajor;
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Cards\HealMajor;
 use App\Dungeon\Cards\KillDwellerMajor;
+use App\Dungeon\Cards\LocateHealthAltar;
+use App\Dungeon\Cards\LocateManaAltar;
+use App\Dungeon\Cards\LocateStabilityAltar;
 use App\Dungeon\Cards\SupportMajor;
 use App\Dungeon\Cards\SupportMinor;
 use App\Dungeon\Cards\TrapDisarmMajor;
@@ -36,8 +39,12 @@ final class DungeonController
     public function new(DungeonRepository $repository, Request $request): Redirect
     {
         $dungeon = Dungeon::new(deck: [
-            new EmergencyExitMinor(),
-            new EmergencyExitMajor(),
+            new LocateHealthAltar(),
+            new LocateHealthAltar(),
+            new LocateManaAltar(),
+            new LocateManaAltar(),
+            new LocateStabilityAltar(),
+            new LocateStabilityAltar(),
         ]);
 
         $repository->persist($dungeon);
@@ -45,6 +52,7 @@ final class DungeonController
         if ($request->has('demo')) {
             $dungeon->cheat = true;
             $dungeon->mana = 1000;
+            $dungeon->health = 1000;
 
             $directions = arr(Direction::cases());
 
@@ -52,11 +60,14 @@ final class DungeonController
                 $dungeon->move($directions->random());
             }
 
-            $dungeon->addTile(new Tile(new Point(5, 5), isTrapped: true));
             $dungeon->spawnDweller(new Point(10, 10));
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();
             $dungeon->spawnDweller();
+//            $dungeon->spawnHealthAltar(new Point(10, 8));
+//            $dungeon->spawnStabilityAltar(new Point(10, 10));
+//            $dungeon->spawnManaAltar(new Point(10, 12));
+
 //            $dungeon->spawnArtifact(new Point(0,0));
 
             $repository->persist($dungeon);

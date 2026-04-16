@@ -8,7 +8,6 @@ use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 
-// TODO
 final class LocateManaAltar implements Card
 {
     use IsCard;
@@ -31,12 +30,16 @@ final class LocateManaAltar implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // foreach ($board->manaAltarPoints as $manaAltarPoint) {
-        // if ($board->getTile($manaAltarPoint)) {
-        // continue;
-        // }
-        // $board->generateTile(null, $manaAltarPoint);
-        // break;
-        // }
+        foreach ($dungeon->loopManaAltar() as $altar) {
+            $tile = $dungeon->tryTile($altar);
+
+            if ($tile) {
+                continue;
+            }
+
+            $dungeon->generateTile(null, $altar);
+
+            break;
+        }
     }
 }

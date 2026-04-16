@@ -31,12 +31,16 @@ final class LocateHealthAltar implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // foreach ($board->healthAltarPoints as $healthAltarPoint) {
-        // if ($board->getTile($healthAltarPoint)) {
-        // continue;
-        // }
-        // $board->generateTile(null, $healthAltarPoint);
-        // break;
-        // }
+        foreach ($dungeon->loopHealthAltar() as $altar) {
+            $tile = $dungeon->tryTile($altar);
+
+            if ($tile) {
+                continue;
+            }
+
+            $dungeon->generateTile(null, $altar);
+
+            break;
+        }
     }
 }

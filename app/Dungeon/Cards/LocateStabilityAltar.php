@@ -31,12 +31,16 @@ final class LocateStabilityAltar implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        // foreach ($board->stabilityAltarPoints as $stabilityAltarPoint) {
-        // if ($board->getTile($stabilityAltarPoint)) {
-        // continue;
-        // }
-        // $board->generateTile(null, $stabilityAltarPoint);
-        // break;
-        // }
+        foreach ($dungeon->loopStabilityAltar() as $altar) {
+            $tile = $dungeon->tryTile($altar);
+
+            if ($tile) {
+                continue;
+            }
+
+            $dungeon->generateTile(null, $altar);
+
+            break;
+        }
     }
 }

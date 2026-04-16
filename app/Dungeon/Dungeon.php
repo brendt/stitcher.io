@@ -11,7 +11,6 @@ final class Dungeon
 
     public int $version = 0;
     public array $changes = [];
-    public array $tiles = [];
     public ?Point $playerPosition = null;
     public bool $hasEnded = false;
     public int $coins = 0;
@@ -22,6 +21,9 @@ final class Dungeon
     public int $stability = 100;
     public int $maxStability = 100;
     public int $maxHandCount = 5;
+
+    /** @var \App\Dungeon\Tile[][] */
+    public array $tiles = [];
 
     /** @var \App\Dungeon\Card[] $hand */
     public array $hand = [];
@@ -36,7 +38,7 @@ final class Dungeon
 
     public ?Card $passiveCard = null;
 
-    /** @var \App\Dungeon\Dweller[] */
+    /** @var \App\Dungeon\Dweller[][] */
     public array $dwellers = [];
 
     public int $visibilityRadius = 5;
@@ -48,6 +50,15 @@ final class Dungeon
     }
 
     public ?Point $artifactLocation = null;
+
+    /** @var \App\Dungeon\Point[][] */
+    public array $healthAltars = [];
+
+    /** @var \App\Dungeon\Point[][] */
+    public array $manaAltars = [];
+
+    /** @var \App\Dungeon\Point[][] */
+    public array $stabilityAltars = [];
 
     /** @param \App\Dungeon\Card[] $deck */
     public static function new(array $deck): self
@@ -67,6 +78,12 @@ final class Dungeon
 
         $self->spawnDweller();
         $self->spawnArtifact();
+        $self->spawnHealthAltar();
+        $self->spawnHealthAltar();
+        $self->spawnManaAltar();
+        $self->spawnManaAltar();
+        $self->spawnStabilityAltar();
+        $self->spawnStabilityAltar();
 
         return $self;
     }
@@ -93,6 +110,9 @@ final class Dungeon
             'passiveCard' => $this->passiveCard?->toArray(),
             'activeCard' => $this->activeCard?->toArray(),
             'visibilityRadius' => $this->visibilityRadius,
+            'healthAltars' => $this->healthAltars,
+            'manaAltars' => $this->manaAltars,
+            'stabilityAltars' => $this->stabilityAltars,
         ];
     }
 
@@ -179,6 +199,36 @@ final class Dungeon
         foreach ($this->dwellers as $row) {
             foreach ($row as $dweller) {
                 yield $dweller;
+            }
+        }
+    }
+
+    /** @return Generator<\App\Dungeon\Point> */
+    public function loopHealthAltar(): Generator
+    {
+        foreach ($this->healthAltars as $row) {
+            foreach ($row as $altar) {
+                yield $altar;
+            }
+        }
+    }
+
+    /** @return Generator<\App\Dungeon\Point> */
+    public function loopStabilityAltar(): Generator
+    {
+        foreach ($this->stabilityAltars as $row) {
+            foreach ($row as $altar) {
+                yield $altar;
+            }
+        }
+    }
+
+    /** @return Generator<\App\Dungeon\Point> */
+    public function loopManaAltar(): Generator
+    {
+        foreach ($this->manaAltars as $row) {
+            foreach ($row as $altar) {
+                yield $altar;
             }
         }
     }

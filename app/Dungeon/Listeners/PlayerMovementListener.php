@@ -4,8 +4,10 @@ namespace App\Dungeon\Listeners;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Support\Random;
 use Tempest\EventBus\EventHandler;
+use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
 final readonly class PlayerMovementListener
@@ -121,8 +123,75 @@ final readonly class PlayerMovementListener
             return;
         }
 
-        if ($tile->isTrapped) {
-            $this->dungeon->decreaseHealth(15);
+        if (! $tile->isTrapped) {
+            return;
+        }
+
+        $this->dungeon->decreaseHealth(15);
+    }
+
+    #[EventHandler]
+    public function checkForManaAltar(PlayerMoved $event): void
+    {
+        $tile = $this->dungeon->tryTile($event->to);
+
+        if (! $tile) {
+            return;
+        }
+
+        if (! $tile->isManaAltar) {
+            return;
+        }
+
+        $tile->altarCooldown = random_int(80, 120);
+        $this->dungeon->updateTile($tile);
+        $this->dungeon->increaseMana(random_int(50, 100));
+    }
+
+    #[EventHandler]
+    public function checkForHealthAltar(PlayerMoved $event): void
+    {
+        $tile = $this->dungeon->tryTile($event->to);
+
+        if (! $tile) {
+            return;
+        }
+
+        if (! $tile->isHealthAltar) {
+            return;
+        }
+
+        $tile->altarCooldown = random_int(80, 120);
+        $this->dungeon->updateTile($tile);
+        $this->dungeon->increaseHealth(random_int(30, 50));
+    }
+
+    #[EventHandler]
+    public function checkForStabilityAltar(PlayerMoved $event): void
+    {
+        $tile = $this->dungeon->tryTile($event->to);
+
+        if (! $tile) {
+            return;
+        }
+
+        if (! $tile->isStabilityAltar) {
+            return;
+        }
+
+        $tile->altarCooldown = random_int(80, 120);
+        $this->dungeon->updateTile($tile);
+        $this->dungeon->increaseStability(random_int(30, 50));
+    }
+
+    #[EventHandler]
+    public function handleAltarCooldowns(PlayerMoved $event): void
+    {
+        foreach ($this->dungeon->loopTiles() as $tile) {
+            if ($tile->altarCooldown > 0) {
+                $tile->altarCooldown -= 1;
+                $this->dungeon->updateTile($tile);
+            }
         }
     }
 }

@@ -71,7 +71,16 @@ trait DungeonActions
 
         $tile = new Tile($to, directions: $directions);
 
-        if (random_int(1, 100) === 1) {
+        if (isset($this->healthAltars[$to->x][$to->y])) {
+            $tile->isHealthAltar = true;
+            $tile->directions = Direction::cases();
+        } elseif(isset($this->manaAltars[$to->x][$to->y])) {
+            $tile->isManaAltar = true;
+            $tile->directions = Direction::cases();
+        } elseif(isset($this->stabilityAltars[$to->x][$to->y])) {
+            $tile->isStabilityAltar = true;
+            $tile->directions = Direction::cases();
+        } elseif (random_int(1, 100) === 1) {
             $tile->isTrapped = true;
         }
 
@@ -534,6 +543,36 @@ trait DungeonActions
         event(new ArtifactSpawned($this->artifactLocation));
     }
 
+    public function spawnManaAltar(?Point $point = null): void
+    {
+        $point ??= new Point(
+            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+        );
+
+        $this->manaAltars[$point->x][$point->y] = $point;
+    }
+
+    public function spawnHealthAltar(?Point $point = null): void
+    {
+        $point ??= new Point(
+            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+        );
+
+        $this->healthAltars[$point->x][$point->y] = $point;
+    }
+
+    public function spawnStabilityAltar(?Point $point = null): void
+    {
+        $point ??= new Point(
+            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+        );
+
+        $this->stabilityAltars[$point->x][$point->y] = $point;
+    }
+
     public function collectArtifact(): void
     {
         if (! $this->playerPosition->equals($this->artifactLocation)) {
@@ -558,5 +597,10 @@ trait DungeonActions
         $this->hasEnded = true;
 
         event(new PlayerExited());
+    }
+
+    public function updateTile(Tile $tile): void
+    {
+        event(new TileUpdated($tile));
     }
 }
