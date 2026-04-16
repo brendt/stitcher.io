@@ -7,6 +7,7 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\Point;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\DungeonRepository;
+use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
@@ -24,9 +25,9 @@ use function Tempest\View\view;
 final class DungeonGameController
 {
     #[Get('/dungeon/new')]
-    public function new(DungeonRepository $repository, DeckRepository $deckRepository, User $user, Request $request): Redirect
+    public function new(DungeonRepository $repository, DeckRepository $deckRepository, StatsRepository $statsRepository, User $user, Request $request): Redirect
     {
-        $dungeon = Dungeon::new($user, $deckRepository);
+        $dungeon = Dungeon::new($user, $deckRepository, $statsRepository);
 
         $repository->persist($dungeon);
 

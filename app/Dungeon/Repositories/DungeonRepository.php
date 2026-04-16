@@ -3,8 +3,10 @@
 namespace App\Dungeon\Repositories;
 
 use App\Dungeon\Dungeon;
+use ErrorException;
 use Tempest\Container\Singleton;
 use Tempest\KeyValue\Redis\Redis;
+use Throwable;
 
 #[Singleton]
 final readonly class DungeonRepository

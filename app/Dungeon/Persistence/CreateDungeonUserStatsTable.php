@@ -25,6 +25,7 @@ final class CreateDungeonUserStatsTable implements MigratesUp
             ->integer('games', unsigned: true)
             ->integer('shards', unsigned: true)
             ->integer('runPrice', unsigned: true)
+            ->string('avatarUrl', nullable: true)
             ->unique('userId', 'campaignId');
     }
 }

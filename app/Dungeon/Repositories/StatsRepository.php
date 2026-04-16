@@ -9,6 +9,21 @@ use function Tempest\Database\query;
 
 final class StatsRepository
 {
+    public function increaseStats(
+        User $user,
+        int $coins = 0,
+        int $experience = 0,
+        int $victoryPoints = 0,
+    ): void {
+        $stats = $this->forUser($user);
+
+        $stats->coins += $coins;
+        $stats->experience += $experience;
+        $stats->victoryPoints += $victoryPoints;
+
+        $stats->save();
+    }
+
     public function forUser(User $user): DungeonUserStats
     {
         $stats = query(DungeonUserStats::class)

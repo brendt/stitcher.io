@@ -23,10 +23,9 @@ final readonly class DungeonDeckController
     public function index(User $user): View
     {
         $stats = $this->statsRepository->forUser($user);
-        $shopCards = $this->shopRepository->forUser($user);
+        $shop = $this->shopRepository->forUser($user);
         $deck = $this->deckRepository->forUser($user);
-        ld($deck);
 
-        return view('dungeon-deck.view.php');
+        return view('dungeon-deck.view.php', stats: $stats, shop: $shop, deck: $deck);
     }
 }

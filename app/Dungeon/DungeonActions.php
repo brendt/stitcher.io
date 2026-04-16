@@ -34,6 +34,7 @@ use App\Dungeon\Events\TileCollapsed;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Events\VisibilityChanged;
+use App\Dungeon\Repositories\StatsRepository;
 use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
@@ -621,6 +622,12 @@ trait DungeonActions
         }
 
         $this->hasEnded = true;
+
+        $this->statsRepository->increaseStats(
+            user: $this->user,
+            coins: $this->coins,
+            victoryPoints: $this->victoryPoints + 1,
+        );
 
         event(new PlayerExited());
     }

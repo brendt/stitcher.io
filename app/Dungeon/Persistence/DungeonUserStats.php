@@ -20,4 +20,5 @@ final class DungeonUserStats
     public int $games;
     public int $shards;
     public int $runPrice;
+    public int $avatarUrl;
 }
