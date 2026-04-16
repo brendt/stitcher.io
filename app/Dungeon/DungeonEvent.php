@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dungeon\Support;
+namespace App\Dungeon;
 
 interface DungeonEvent
 {

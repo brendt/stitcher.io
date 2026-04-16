@@ -2,9 +2,9 @@
 
 namespace App\Dungeon\Events;
 
+use App\Dungeon\DungeonEvent;
 use App\Dungeon\Dweller;
 use App\Dungeon\Point;
-use App\Dungeon\Support\DungeonEvent;
 
 final class DwellerMoved implements DungeonEvent
 {

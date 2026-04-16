@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+
+:root {
+    --tile: #9ca3af;
+    --tile-border: #6b7280;
+    --font-title: "Fontdiner Swanky", serif;
+}
+
+.title {
+    font-family: var(--font-title);
+}
+
+.card {
+
+}

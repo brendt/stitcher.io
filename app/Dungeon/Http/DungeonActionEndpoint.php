@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Dungeon\Support;
+namespace App\Dungeon\Http;
 
 use Attribute;
 use Tempest\Router\Route;
 use Tempest\Router\RouteDecorator;
 
 #[Attribute(Attribute::TARGET_METHOD|Attribute::TARGET_CLASS)]
-final class DungeonEndpoint implements RouteDecorator
+final class DungeonActionEndpoint implements RouteDecorator
 {
     public function decorate(Route $route): Route
     {
-        $route->middleware[] = DungeonEndpointMiddleware::class;
+        $route->middleware[] = DungeonActionEndpointMiddleware::class;
 
         return $route;
     }

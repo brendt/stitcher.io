@@ -1,36 +1,31 @@
 <?php
 
-namespace App\Dungeon;
+namespace App\Dungeon\Http;
 
-use App\Dungeon\Cards\BeaconMajor;
-use App\Dungeon\Cards\ChestplateMajorPermanent;
-use App\Dungeon\Cards\LocateHealthAltar;
-use App\Dungeon\Cards\LocateManaAltar;
-use App\Dungeon\Cards\LocateStabilityAltar;
-use App\Dungeon\Support\DungeonEndpoint;
-use App\Dungeon\Support\DungeonRepository;
+use App\Dungeon\Direction;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Point;
+use App\Dungeon\Repositories\DungeonRepository;
+use App\Support\Authentication\User;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
-use Tempest\Http\Responses\Ok;
 use Tempest\Http\Responses\NotAcceptable;
+use Tempest\Http\Responses\Ok;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
-use Tempest\Router\Stateless;
 use Tempest\View\View;
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
 use function Tempest\View\view;
 
-#[Stateless]
-final class DungeonController
+#[DungeonAuth]
+final class DungeonGameController
 {
     #[Get('/dungeon/new')]
-    public function new(DungeonRepository $repository, Request $request): Redirect
+    public function new(DungeonRepository $repository, User $user, Request $request): Redirect
     {
-        $dungeon = Dungeon::new(deck: [
-            new ChestplateMajorPermanent(),
-        ]);
+        $dungeon = Dungeon::new($user);
 
         $repository->persist($dungeon);
 
@@ -66,7 +61,7 @@ final class DungeonController
     #[Get('/dungeon/game')]
     public function dungeon(Dungeon $dungeon): View
     {
-        return view('dungeon.view.php', dungeon: $dungeon);
+        return view('dungeon-game.view.php', dungeon: $dungeon);
     }
 
     #[Get('/dungeon/state')]
@@ -75,7 +70,7 @@ final class DungeonController
         return new Ok($dungeon->toArray());
     }
 
-    #[DungeonEndpoint, Post('/dungeon/move')]
+    #[DungeonActionEndpoint, Post('/dungeon/move')]
     public function move(Dungeon $dungeon, Request $request): Response
     {
         $direction = Direction::tryFrom($request->get('direction'));
@@ -89,7 +84,7 @@ final class DungeonController
         return new Ok();
     }
 
-    #[DungeonEndpoint, Post('/dungeon/play-card')]
+    #[DungeonActionEndpoint, Post('/dungeon/play-card')]
     public function playCard(Dungeon $dungeon, Request $request): Response
     {
         $card = $request->get('card');
@@ -103,7 +98,7 @@ final class DungeonController
         return new Ok();
     }
 
-    #[DungeonEndpoint, Post('/dungeon/interact-with-tile')]
+    #[DungeonActionEndpoint, Post('/dungeon/interact-with-tile')]
     public function interactWithTile(Dungeon $dungeon, Request $request): Response
     {
         $x = $request->get('x');
@@ -118,7 +113,7 @@ final class DungeonController
         return new Ok();
     }
 
-    #[DungeonEndpoint, Post('/dungeon/exit')]
+    #[DungeonActionEndpoint, Post('/dungeon/exit')]
     public function exit(Dungeon $dungeon): Response
     {
         $dungeon->exit();

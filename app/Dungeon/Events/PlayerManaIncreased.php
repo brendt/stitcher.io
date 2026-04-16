@@ -2,8 +2,7 @@
 
 namespace App\Dungeon\Events;
 
-use App\Dungeon\Point;
-use App\Dungeon\Support\DungeonEvent;
+use App\Dungeon\DungeonEvent;
 
 final class PlayerManaIncreased implements DungeonEvent
 {

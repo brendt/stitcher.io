@@ -2,8 +2,8 @@
 
 namespace App\Dungeon\Events;
 
+use App\Dungeon\DungeonEvent;
 use App\Dungeon\Point;
-use App\Dungeon\Support\DungeonEvent;
 
 final class ArtifactSpawned implements DungeonEvent
 {

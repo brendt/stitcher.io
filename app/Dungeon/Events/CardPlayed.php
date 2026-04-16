@@ -3,7 +3,7 @@
 namespace App\Dungeon\Events;
 
 use App\Dungeon\Card;
-use App\Dungeon\Support\DungeonEvent;
+use App\Dungeon\DungeonEvent;
 
 final class CardPlayed implements DungeonEvent
 {

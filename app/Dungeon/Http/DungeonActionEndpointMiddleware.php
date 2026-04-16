@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Dungeon\Support;
+namespace App\Dungeon\Http;
 
 use App\Dungeon\Dungeon;
+use App\Dungeon\Repositories\DungeonRepository;
 use Tempest\Discovery\SkipDiscovery;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
@@ -11,7 +12,7 @@ use Tempest\Router\HttpMiddleware;
 use Tempest\Router\HttpMiddlewareCallable;
 
 #[SkipDiscovery]
-final readonly class DungeonEndpointMiddleware implements HttpMiddleware
+final readonly class DungeonActionEndpointMiddleware implements HttpMiddleware
 {
     public function __construct(
         private Dungeon $dungeon,

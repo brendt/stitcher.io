@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Dungeon\Support;
+namespace App\Dungeon\Repositories;
 
 use App\Dungeon\Dungeon;
-use App\Support\Authentication\User;
 use Tempest\Container\Singleton;
 use Tempest\KeyValue\Redis\Redis;
 

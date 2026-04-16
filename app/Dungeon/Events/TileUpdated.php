@@ -2,7 +2,7 @@
 
 namespace App\Dungeon\Events;
 
-use App\Dungeon\Support\DungeonEvent;
+use App\Dungeon\DungeonEvent;
 use App\Dungeon\Tile;
 
 final class TileUpdated implements DungeonEvent

@@ -3,6 +3,7 @@
 namespace App\Dungeon\Support;
 
 use App\Dungeon\Dungeon;
+use App\Dungeon\Repositories\DungeonRepository;
 use Tempest\Container\Container;
 use Tempest\Container\Initializer;
 use Tempest\Container\Singleton;

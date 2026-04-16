@@ -3,6 +3,7 @@
 namespace App\Dungeon\Support;
 
 use App\Dungeon\Dungeon;
+use App\Dungeon\DungeonEvent;
 use Tempest\Container\Container;
 use Tempest\EventBus\EventBusMiddleware;
 use Tempest\EventBus\EventBusMiddlewareCallable;

@@ -2,13 +2,18 @@
 
 namespace App\Dungeon;
 
+use App\Dungeon\Persistence\DungeonUserCard;
+use App\Support\Authentication\User;
 use Generator;
 use function Tempest\Support\arr;
 
 final class Dungeon
 {
+    public const int CURRENT_CAMPAIGN = 1;
+
     use DungeonActions;
 
+    public User $user;
     public int $version = 0;
     public array $changes = [];
     public ?Point $playerPosition = null;
@@ -69,12 +74,15 @@ final class Dungeon
     public array $shardLocations = [];
 
     /** @param \App\Dungeon\Card[] $deck */
-    public static function new(array $deck): self
+    public static function new(User $user): self
     {
         $self = new self();
+        $self->user = $user;
 
         $self->playerPosition = new Point(0, 0);
         $self->addTile(new Tile(clone $self->playerPosition, isOrigin: true));
+
+        $deck = DungeonUserCard::deckForUser($user);
 
         foreach ($deck as $card) {
             $self->addToDeck($card);
