@@ -27,7 +27,6 @@ final readonly class DeckRepository
             ->select()
             ->where('userId', $user->id->value)
             ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
-            ->where('isActive', true)
             ->all();
 
         if ($deckItems === []) {
@@ -61,5 +60,33 @@ final readonly class DeckRepository
         }
 
         return $deckItems;
+    }
+
+    public function activeCardsForUser(User $user): array
+    {
+        $deckItems = query(DungeonUserCard::class)
+            ->select()
+            ->where('userId', $user->id->value)
+            ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
+            ->where('isActive', true)
+            ->all();
+
+        foreach ($deckItems as $item) {
+            $item->card = $this->cardRepository->findByName($item->cardName);
+        }
+
+        return $deckItems;
+    }
+
+    public function markActive(DungeonUserCard $card): void
+    {
+        $card->isActive = true;
+        $card->save();
+    }
+
+    public function markInactive(DungeonUserCard $card): void
+    {
+        $card->isActive = false;
+        $card->save();
     }
 }

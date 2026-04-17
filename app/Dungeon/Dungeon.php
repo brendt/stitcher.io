@@ -88,7 +88,7 @@ final class Dungeon
         $self->playerPosition = new Point(0, 0);
         $self->addTile(new Tile(clone $self->playerPosition, isOrigin: true));
 
-        $deck = $self->deckRepository->forUser($user);
+        $deck = $self->deckRepository->activeCardsForUser($user);
 
         foreach ($deck as $card) {
             $self->addToDeck($card->card);

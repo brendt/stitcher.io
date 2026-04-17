@@ -12,7 +12,7 @@
             </div>
 
             <div class="flex justify-end">
-                <div class="card-stat">{{ $card->mana }}</div>
+                <div class="card-stat mana">{{ $card->mana }}</div>
             </div>
         </div>
     </div>
