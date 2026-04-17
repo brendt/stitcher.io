@@ -1,3 +1,4 @@
 - Shard shop
 - Lakes
+- Card hard limitations
 - Port the test suite
