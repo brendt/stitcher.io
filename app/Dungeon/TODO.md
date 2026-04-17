@@ -1,4 +1,5 @@
 - Shard shop
 - Lakes
-- Card hard limitations
+- Metadata in stats
+- Card hand limitations
 - Port the test suite
