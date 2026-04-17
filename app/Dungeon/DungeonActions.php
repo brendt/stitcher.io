@@ -34,7 +34,6 @@ use App\Dungeon\Events\TileCollapsed;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Events\VisibilityChanged;
-use App\Dungeon\Repositories\StatsRepository;
 use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
@@ -600,6 +599,11 @@ trait DungeonActions
         $this->shardLocations[$point->x][$point->y] = $point;
     }
 
+    public function increaseExperience(int $amount): void
+    {
+        $this->experience += $amount;
+    }
+
     public function collectArtifact(): void
     {
         if (! $this->playerPosition->equals($this->artifactLocation)) {
@@ -623,13 +627,13 @@ trait DungeonActions
 
         $this->hasEnded = true;
 
-        $this->statsRepository->increaseStats(
+        event(new PlayerExited(
             user: $this->user,
             coins: $this->coins,
-            victoryPoints: $this->victoryPoints + 1,
-        );
-
-        event(new PlayerExited());
+            victoryPoints: $this->victoryPoints,
+            shards: $this->shards,
+            experience: $this->experience,
+        ));
     }
 
     public function updateTile(Tile $tile): void

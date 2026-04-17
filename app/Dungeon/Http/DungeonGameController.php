@@ -25,8 +25,19 @@ use function Tempest\View\view;
 final class DungeonGameController
 {
     #[Get('/dungeon/new')]
-    public function new(DungeonRepository $repository, DeckRepository $deckRepository, StatsRepository $statsRepository, User $user, Request $request): Redirect
-    {
+    public function new(
+        DungeonRepository $repository,
+        DeckRepository $deckRepository,
+        StatsRepository $statsRepository,
+        User $user,
+        Request $request
+    ): Redirect {
+        if ($statsRepository->forUser($user)->tokens < 1) {
+            return new Redirect(uri([DungeonHomeController::class, 'index']));
+        }
+
+        $statsRepository->decreaseTokens($user, 1);
+
         $dungeon = Dungeon::new($user, $deckRepository, $statsRepository);
 
         $repository->persist($dungeon);

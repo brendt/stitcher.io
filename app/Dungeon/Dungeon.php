@@ -2,7 +2,6 @@
 
 namespace App\Dungeon;
 
-use App\Dungeon\Persistence\DungeonUserCard;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
@@ -12,6 +11,7 @@ use function Tempest\Support\arr;
 final class Dungeon
 {
     public const int CURRENT_CAMPAIGN = 1;
+    public const int MAX_HAND_COUNT = 20;
 
     use DungeonActions;
 
@@ -78,6 +78,11 @@ final class Dungeon
     /** @var \App\Dungeon\Point[][] */
     public array $shardLocations = [];
 
+
+//($this->artifactsGathered * 20)
+//+ round($this->tileCount() / 20);
+    public int $experience = 0;
+
     public static function new(User $user, DeckRepository $deckRepository, StatsRepository $statsRepository): self
     {
         $self = new self();
@@ -137,6 +142,7 @@ final class Dungeon
             'healthAltars' => $this->healthAltars,
             'manaAltars' => $this->manaAltars,
             'stabilityAltars' => $this->stabilityAltars,
+            'experience' => $this->experience,
         ];
     }
 

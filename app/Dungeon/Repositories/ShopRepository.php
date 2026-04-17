@@ -2,11 +2,12 @@
 
 namespace App\Dungeon\Repositories;
 
-use App\Dungeon\Card;
 use App\Dungeon\Dungeon;
-use App\Dungeon\Persistence\DungeonUserShop;
+use App\Dungeon\Events\UserShopInitialized;
+use App\Dungeon\Persistence\DungeonShopCard;
 use App\Support\Authentication\User;
 use function Tempest\Database\query;
+use function Tempest\EventBus\event;
 
 final readonly class ShopRepository
 {
@@ -14,30 +15,48 @@ final readonly class ShopRepository
         private CardRepository $cardRepository,
     ) {}
 
-    /** @return DungeonUserShop[] */
-    public function forUser(User $user): array
+    public function truncateForUser(User $user): void
     {
-        $shopItems = query(DungeonUserShop::class)
-            ->select()
+        query(DungeonShopCard::class)
+            ->delete()
             ->where('userId', $user->id->value)
             ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
-            ->all();
+            ->execute();
+    }
 
-        if ($shopItems === []) {
-            for ($i = 0; $i < 5; $i++) {
-                // TODO: improve
-                $shopItems[] = query(DungeonUserShop::class)->create(
-                    userId: $user->id->value,
-                    campaignId: Dungeon::CURRENT_CAMPAIGN,
-                    cardName: $this->cardRepository->random()->name,
-                );
-            }
+    /** @return DungeonShopCard[] */
+    public function forUser(User $user): array
+    {
+        $query = query(DungeonShopCard::class)
+            ->select()
+            ->where('userId', $user->id->value)
+            ->where('campaignId', Dungeon::CURRENT_CAMPAIGN);
+
+        $shopCards = $query->all();
+
+        foreach ($shopCards as $shopCard) {
+            $shopCard->card = $this->cardRepository->findByName($shopCard->cardName);
         }
 
-        foreach ($shopItems as $item) {
-            $item->card = $this->cardRepository->findByName($item->cardName);
+        return $shopCards;
+    }
+
+    public function findForUser(User $user, int $id): ?DungeonShopCard
+    {
+        $shopCard = DungeonShopCard::select()
+            ->where('id', $id)
+            ->where('userId', $user->id->value)
+            ->first();
+
+        if ($shopCard) {
+            $shopCard->card = $this->cardRepository->findByName($shopCard->cardName);
         }
 
-        return $shopItems;
+        return $shopCard;
+    }
+
+    public function remove(DungeonShopCard $dungeonShopCard): void
+    {
+        $dungeonShopCard->delete();
     }
 }

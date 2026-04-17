@@ -14,12 +14,14 @@ final class StatsRepository
         int $coins = 0,
         int $experience = 0,
         int $victoryPoints = 0,
+        int $tokens = 0,
     ): void {
         $stats = $this->forUser($user);
 
         $stats->coins += $coins;
         $stats->experience += $experience;
         $stats->victoryPoints += $victoryPoints;
+        $stats->tokens += $tokens;
 
         $stats->save();
     }
@@ -50,5 +52,23 @@ final class StatsRepository
         }
 
         return $stats;
+    }
+
+    public function decreaseCoins(User $user, int $amount): void
+    {
+        $stats = $this->forUser($user);
+
+        $stats->coins = $stats->coins - $amount;
+
+        $stats->save();
+    }
+
+    public function decreaseTokens(User $user, int $amount): void
+    {
+        $stats = $this->forUser($user);
+
+        $stats->tokens = $stats->tokens - $amount;
+
+        $stats->save();
     }
 }

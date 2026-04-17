@@ -2,8 +2,8 @@
 
 namespace App\Dungeon\Persistence;
 
+use App\Dungeon\Level;
 use Tempest\Database\IsDatabaseModel;
-use Tempest\Database\PrimaryKey;
 
 final class DungeonUserStats
 {
@@ -21,4 +21,21 @@ final class DungeonUserStats
     public int $shards;
     public int $runPrice;
     public int $avatarUrl;
+
+    public Level $level {
+        get => Level::forExperience($this->experience);
+    }
+
+    public function canBuy(DungeonShopCard $dungeonShopCard): bool
+    {
+        if (! $this->level->hasAccessTo($dungeonShopCard->card->level)) {
+            return false;
+        }
+
+        if ($this->coins < $dungeonShopCard->card->price) {
+            return false;
+        }
+
+        return true;
+    }
 }

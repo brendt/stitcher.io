@@ -14,9 +14,9 @@ final readonly class TileGenerationListener
     ) {}
 
     #[EventHandler]
-    public function decreaseStability(TileGenerated $tileGenerated): void
+    public function decreaseStability(TileGenerated $event): void
     {
-        if ($tileGenerated->tile->isOrigin) {
+        if ($event->tile->isOrigin) {
             return;
         }
 
