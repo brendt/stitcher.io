@@ -357,7 +357,7 @@
             width: 100vw;
             border-bottom: none;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 10px 12px;
+            padding: 4px 12px 10px;
             border-top-left-radius: 16px;
             border-top-right-radius: 16px;
             background: rgba(9, 10, 15, 0.88);
@@ -369,22 +369,113 @@
             box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
         }
 
+        .hand-notch.is-collapsed {
+            padding-bottom: 4px;
+        }
+
+        .hand-notch.is-collapsed .hand-layout {
+            display: none;
+        }
+
+        .toggle-hand-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 4px;
+            padding: 5px 18px;
+            border-radius: 10px;
+            border: 2px solid rgba(217, 119, 6, 0.65);
+            background: rgba(120, 53, 15, 0.92);
+            color: #fef3c7;
+            cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease;
+            line-height: 1;
+        }
+
+        .toggle-hand-button:hover {
+            background: rgba(146, 64, 14, 0.95);
+            border-color: rgba(245, 158, 11, 0.8);
+        }
+
+        .toggle-hand-button svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s ease;
+        }
+
+        .hand-notch.is-collapsed .toggle-hand-button svg {
+            transform: rotate(180deg);
+        }
+
         .hand-layout {
             display: block;
             position: relative;
             width: 100%;
         }
 
+        .card-slots-corner {
+            position: fixed;
+            top: 70px;
+            left: 8px;
+            z-index: 1000;
+            pointer-events: auto;
+        }
+
         .hand-side-slots {
             display: flex;
             flex-direction: row;
-            gap: 12px;
-            width: auto;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            transform: none;
-            z-index: 901;
+            gap: 6px;
+        }
+
+        @media (pointer: coarse) {
+            .card-slots-corner .hand-slot-empty {
+                width: 52px;
+                min-width: 52px;
+                height: 72px;
+            }
+
+            .card-slots-corner .hand-slot-empty svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .card-slots-corner .hand-card-small {
+                width: 52px;
+                min-width: 52px;
+            }
+
+            .card-slots-corner .hand-card-small .hand-card-image {
+                height: 72px;
+            }
+
+            .card-slots-corner .hand-card-small .hand-card-name {
+                display: none;
+            }
+
+            .card-slots-corner .hand-card-small .hand-card-content {
+                display: none;
+            }
+
+            .card-slots-corner .hand-card-small .hand-card-mana {
+                font-size: 9px;
+                min-width: 16px;
+                padding: 2px 3px;
+                top: 3px;
+                right: 3px;
+            }
+
+            .card-slots-corner .hand-card-small .hand-card-type {
+                top: 3px;
+                left: 3px;
+                min-width: 16px;
+                min-height: 16px;
+                padding: 2px;
+            }
+
+            .card-slots-corner .hand-card-small .hand-card-type svg {
+                width: 9px;
+                height: 9px;
+            }
         }
 
         .hand-side-slot {
@@ -480,7 +571,7 @@
         }
 
         .hand-card-unplayable .hand-card-image {
-            filter: grayscale(1) blur(0.6px);
+            filter: grayscale(1);
         }
 
         .hand-card-mana {
@@ -566,6 +657,59 @@
         .hand-card:hover .hand-card-description {
             display: block;
         }
+
+        @media (pointer: coarse) {
+            .bottom-notch {
+                min-width: unset;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                transform: none;
+                left: 0;
+            }
+
+            .bottom-notch-stat {
+                flex-shrink: 0;
+                min-width: 70px;
+                padding: 0 10px;
+            }
+
+            .bottom-notch-value {
+                font-size: 15px;
+            }
+
+            .hand-notch {
+                max-height: 52vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .hand-cards {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+                padding: 0 16px 2px;
+            }
+
+            .hand-card {
+                width: 130px;
+                min-width: 130px;
+            }
+
+            .hand-card-image {
+                height: 148px;
+            }
+
+            .hand-card-name {
+                font-size: 11px;
+            }
+
+        }
     </style>
 </head>
 
@@ -622,16 +766,23 @@
             <div id="victory-point-counter" class="bottom-notch-value">0</div>
         </div>
     </div>
-    <div class="hand-notch">
-        <div class="hand-layout">
-            <div class="hand-side-slots">
-                <div class="hand-side-slot">
-                    <div id="active-card-slot"></div>
-                </div>
-                <div class="hand-side-slot">
-                    <div id="passive-card-slot"></div>
-                </div>
+    <div class="card-slots-corner">
+        <div class="hand-side-slots">
+            <div class="hand-side-slot">
+                <div id="active-card-slot"></div>
             </div>
+            <div class="hand-side-slot">
+                <div id="passive-card-slot"></div>
+            </div>
+        </div>
+    </div>
+    <div id="hand-notch" class="hand-notch">
+        <button id="toggle-hand-button" class="toggle-hand-button" type="button" aria-label="Toggle hand">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 15l-6-6-6 6"/>
+            </svg>
+        </button>
+        <div class="hand-layout">
             <div id="hand-cards" class="hand-cards"></div>
         </div>
     </div>
@@ -654,6 +805,12 @@
         const resignedOverlay = document.getElementById('resigned-overlay');
         const resignedOverlayExitButton = document.getElementById('resigned-overlay-exit-button');
         const resignButton = document.getElementById('resign-button');
+        const handNotch = document.getElementById('hand-notch');
+        const toggleHandButton = document.getElementById('toggle-hand-button');
+
+        function isMobile() {
+            return window.matchMedia('(pointer: coarse)').matches;
+        }
         const debugPopup = document.getElementById('debug-popup');
         const handCards = document.getElementById('hand-cards');
         const activeCardSlot = document.getElementById('active-card-slot');
@@ -1133,6 +1290,17 @@
             const viewportHeight = viewport.clientHeight;
             const viewportRight = viewportLeft + viewportWidth;
             const viewportBottom = viewportTop + viewportHeight;
+            const viewportRect = viewport.getBoundingClientRect();
+            const statsNotchEl = document.querySelector('.bottom-notch');
+            const topInset = statsNotchEl
+                ? Math.max(0, statsNotchEl.getBoundingClientRect().bottom - viewportRect.top)
+                : 70;
+            const handNotchEl = document.getElementById('hand-notch');
+            const bottomInset = handNotchEl
+                ? Math.max(0, viewportRect.bottom - handNotchEl.getBoundingClientRect().top)
+                : 0;
+            const effectiveTop = viewportTop + topInset;
+            const effectiveBottom = viewportBottom - bottomInset;
             const vx = artifactX - playerX;
             const vy = artifactY - playerY;
 
@@ -1158,7 +1326,7 @@
                 const tLeft = (viewportLeft - playerX) / vx;
                 const yLeft = playerY + (tLeft * vy);
 
-                if (tLeft > 0 && yLeft >= viewportTop && yLeft <= viewportBottom && tLeft < bestT) {
+                if (tLeft > 0 && yLeft >= effectiveTop && yLeft <= effectiveBottom && tLeft < bestT) {
                     bestT = tLeft;
                     hitX = viewportLeft;
                     hitY = yLeft;
@@ -1167,7 +1335,7 @@
                 const tRight = (viewportRight - playerX) / vx;
                 const yRight = playerY + (tRight * vy);
 
-                if (tRight > 0 && yRight >= viewportTop && yRight <= viewportBottom && tRight < bestT) {
+                if (tRight > 0 && yRight >= effectiveTop && yRight <= effectiveBottom && tRight < bestT) {
                     bestT = tRight;
                     hitX = viewportRight;
                     hitY = yRight;
@@ -1175,22 +1343,22 @@
             }
 
             if (vy !== 0) {
-                const tTop = (viewportTop - playerY) / vy;
+                const tTop = (effectiveTop - playerY) / vy;
                 const xTop = playerX + (tTop * vx);
 
                 if (tTop > 0 && xTop >= viewportLeft && xTop <= viewportRight && tTop < bestT) {
                     bestT = tTop;
                     hitX = xTop;
-                    hitY = viewportTop;
+                    hitY = effectiveTop;
                 }
 
-                const tBottom = (viewportBottom - playerY) / vy;
+                const tBottom = (effectiveBottom - playerY) / vy;
                 const xBottom = playerX + (tBottom * vx);
 
                 if (tBottom > 0 && xBottom >= viewportLeft && xBottom <= viewportRight && tBottom < bestT) {
                     bestT = tBottom;
                     hitX = xBottom;
-                    hitY = viewportBottom;
+                    hitY = effectiveBottom;
                 }
             }
 
@@ -1199,7 +1367,6 @@
                 return;
             }
 
-            const viewportRect = viewport.getBoundingClientRect();
             const markerX = viewportRect.left + (hitX - viewportLeft);
             const markerY = viewportRect.top + (hitY - viewportTop);
 
@@ -2515,6 +2682,10 @@
                 renderCounters();
                 renderCardSlots();
                 renderHand();
+
+                if (isMobile() && playerPosition) {
+                    centerViewportOnPoint(playerPosition);
+                }
             } finally {
                 state.moveInFlight = false;
                 updateExitDungeonButton();
@@ -3006,6 +3177,90 @@
             event.preventDefault();
             movePlayer(direction);
         });
+
+        // Toggle hand visibility
+        toggleHandButton?.addEventListener('click', (event) => {
+            event.stopPropagation();
+            handNotch?.classList.toggle('is-collapsed');
+        });
+
+        // Touch: swipe to move, drag to pan, pinch to zoom
+        let touchStartX = null;
+        let touchStartY = null;
+        let touchStartTime = null;
+        let pinchStartDistance = null;
+        let pinchStartScale = null;
+        const SWIPE_MIN_DISTANCE = 40;
+        const SWIPE_MAX_TIME = 350;
+
+        viewport.addEventListener('touchstart', (event) => {
+            if (event.touches.length === 2) {
+                const dx = event.touches[0].clientX - event.touches[1].clientX;
+                const dy = event.touches[0].clientY - event.touches[1].clientY;
+                pinchStartDistance = Math.hypot(dx, dy);
+                pinchStartScale = state.scale;
+                return;
+            }
+
+            if (event.touches.length !== 1) {
+                return;
+            }
+
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+            touchStartTime = Date.now();
+        }, { passive: true });
+
+        viewport.addEventListener('touchmove', (event) => {
+            event.preventDefault();
+
+            if (event.touches.length === 2 && pinchStartDistance !== null) {
+                const dx = event.touches[0].clientX - event.touches[1].clientX;
+                const dy = event.touches[0].clientY - event.touches[1].clientY;
+                const distance = Math.hypot(dx, dy);
+                const ratio = distance / pinchStartDistance;
+                state.scale = Math.min(state.maxScale, Math.max(state.minScale, pinchStartScale * ratio));
+                render();
+                if (playerPosition) {
+                    centerViewportOnPoint(playerPosition);
+                }
+            }
+        }, { passive: false });
+
+        viewport.addEventListener('touchend', (event) => {
+            const wasPinching = pinchStartDistance !== null;
+            pinchStartDistance = null;
+            pinchStartScale = null;
+
+            if (wasPinching) {
+                if (playerPosition) {
+                    centerViewportOnPoint(playerPosition);
+                }
+                return;
+            }
+
+            if (touchStartX === null || event.changedTouches.length !== 1) {
+                return;
+            }
+
+            const touch = event.changedTouches[0];
+            const dx = touch.clientX - touchStartX;
+            const dy = touch.clientY - touchStartY;
+            const elapsed = Date.now() - touchStartTime;
+            const absDx = Math.abs(dx);
+            const absDy = Math.abs(dy);
+
+            touchStartX = null;
+            touchStartY = null;
+            touchStartTime = null;
+
+            if (elapsed <= SWIPE_MAX_TIME && Math.max(absDx, absDy) >= SWIPE_MIN_DISTANCE) {
+                const direction = absDx > absDy
+                    ? (dx > 0 ? 'right' : 'left')
+                    : (dy > 0 ? 'bottom' : 'top');
+                movePlayer(direction);
+            }
+        }, { passive: true });
 
         hydrateFromPayload(payload);
         render();
