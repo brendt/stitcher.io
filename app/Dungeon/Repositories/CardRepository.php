@@ -26,7 +26,9 @@ final readonly class CardRepository
     {
         foreach ($this->cardConfig->cards as $card) {
             if ($card->name === $name) {
-                return $card;
+                $class = $card::class;
+
+                return new $class();
             }
         }
     }
