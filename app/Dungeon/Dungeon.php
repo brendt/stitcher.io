@@ -78,9 +78,6 @@ final class Dungeon
     /** @var \App\Dungeon\Point[][] */
     public array $shardLocations = [];
 
-
-//($this->artifactsGathered * 20)
-//+ round($this->tileCount() / 20);
     public int $experience = 0;
 
     public static function new(User $user, DeckRepository $deckRepository, StatsRepository $statsRepository): self

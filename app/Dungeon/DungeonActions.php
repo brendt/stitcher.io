@@ -24,6 +24,7 @@ use App\Dungeon\Events\PlayerManaDecreased;
 use App\Dungeon\Events\PlayerMaxHealthIncreased;
 use App\Dungeon\Events\PlayerMaxManaIncreased;
 use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Events\PlayerResigned;
 use App\Dungeon\Events\PlayerShardsIncreased;
 use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\PlayerStabilityIncreased;
@@ -634,6 +635,13 @@ trait DungeonActions
             shards: $this->shards,
             experience: $this->experience,
         ));
+    }
+
+    public function resign(): void
+    {
+        $this->hasEnded = true;
+
+        event(new PlayerResigned($this->user));
     }
 
     public function updateTile(Tile $tile): void

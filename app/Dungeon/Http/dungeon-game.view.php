@@ -5,13 +5,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap" rel="stylesheet">
-
+    <x-vite-tags entrypoint="app/Dungeon/Http/dungeon.entrypoint.css"/>
 
     <style>
         :root {
-            --tile: #9ca3af;
-            --tile-border: #6b7280;
-            --font-title: "Fontdiner Swanky", serif;
             --title-font: var(--font-title);
         }
 
@@ -80,24 +77,26 @@
             z-index: 2100;
             display: none;
             transform: translateX(-50%);
-            padding: 6px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            background: rgba(15, 23, 42, 0.9);
-            color: #f8fafc;
+            padding: 8px 18px;
+            border-radius: 10px;
+            border: 2px solid rgba(217, 119, 6, 0.65);
+            background: rgba(120, 53, 15, 0.92);
+            color: #fef3c7;
             font: 700 11px/1 var(--font-title);
-            letter-spacing: 0.04em;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             cursor: pointer;
             pointer-events: auto;
+            transition: background 0.15s ease, border-color 0.15s ease;
         }
 
         .exit-dungeon-button:hover {
-            background: rgba(30, 41, 59, 0.95);
+            background: rgba(146, 64, 14, 0.95);
+            border-color: rgba(245, 158, 11, 0.8);
         }
 
         .exit-dungeon-button:disabled {
-            opacity: 0.7;
+            opacity: 0.55;
             cursor: default;
         }
 
@@ -139,19 +138,21 @@
         }
 
         .death-overlay-exit {
-            border: 1px solid rgba(255, 255, 255, 0.42);
-            background: rgba(17, 24, 39, 0.78);
-            color: #fee2e2;
-            border-radius: 999px;
-            padding: 8px 14px;
-            font: 700 12px/1 var(--font-title);
-            letter-spacing: 0.05em;
+            border: 2px solid rgba(217, 119, 6, 0.65);
+            background: rgba(120, 53, 15, 0.88);
+            color: #fef3c7;
+            border-radius: 10px;
+            padding: 10px 22px;
+            font: 700 13px/1 var(--font-title);
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease;
         }
 
         .death-overlay-exit:hover {
-            background: rgba(31, 41, 55, 0.9);
+            background: rgba(146, 64, 14, 0.95);
+            border-color: rgba(245, 158, 11, 0.8);
         }
 
         .exited-overlay {
@@ -168,7 +169,56 @@
             pointer-events: auto;
         }
 
+        .resigned-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 4000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #cbd5e1;
+            pointer-events: auto;
+        }
+
+        .resign-button {
+            position: fixed;
+            z-index: 2100;
+            top: 12px;
+            right: 12px;
+            padding: 8px 18px;
+            border-radius: 10px;
+            border: 2px solid rgba(217, 119, 6, 0.65);
+            background: rgba(120, 53, 15, 0.92);
+            color: #fef3c7;
+            font: 700 11px/1 var(--font-title);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .resign-button:hover {
+            background: rgba(146, 64, 14, 0.95);
+            border-color: rgba(245, 158, 11, 0.8);
+        }
+
+        .resign-button.is-confirming {
+            background: rgba(127, 29, 29, 0.92);
+            border-color: rgba(239, 68, 68, 0.7);
+            color: #fecaca;
+        }
+
+        .resign-button.is-confirming:hover {
+            background: rgba(153, 27, 27, 0.95);
+            border-color: rgba(248, 113, 113, 0.85);
+        }
+
         .debug-popup {
+            display: none;
             position: fixed;
             right: 12px;
             bottom: 12px;
@@ -233,37 +283,46 @@
             transform: translateX(-50%);
             z-index: 900;
             min-width: 620px;
-            padding: 12px 18px 10px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
+            padding: 12px 24px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
             border-top: none;
-            border-bottom-left-radius: 14px;
-            border-bottom-right-radius: 14px;
-            background: rgba(12, 13, 18, 0.9);
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            background: rgba(9, 10, 15, 0.90);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #e5e7eb;
             font-family: ui-sans-serif, system-ui, sans-serif;
             pointer-events: none;
             display: flex;
-            gap: 12px;
+            gap: 0;
             justify-content: center;
-            align-items: flex-end;
+            align-items: center;
             flex-wrap: wrap;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
         }
 
         .bottom-notch-stat {
-            min-width: 110px;
+            min-width: 90px;
+            padding: 0 16px;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .bottom-notch-stat:last-child {
+            border-right: none;
         }
 
         .bottom-notch-label {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            opacity: 0.7;
+            letter-spacing: 0.1em;
+            color: rgba(156, 163, 175, 0.75);
             font-family: var(--font-title);
         }
 
         .bottom-notch-value {
-            margin-top: 2px;
-            font-size: 20px;
+            margin-top: 3px;
+            font-size: 18px;
             line-height: 1;
             font-weight: 700;
         }
@@ -297,12 +356,17 @@
             z-index: 900;
             width: 100vw;
             border-bottom: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding: 10px 12px;
-            border-top-left-radius: 14px;
-            border-top-right-radius: 14px;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            background: rgba(9, 10, 15, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #e5e7eb;
             font-family: ui-sans-serif, system-ui, sans-serif;
             pointer-events: auto;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
         }
 
         .hand-layout {
@@ -356,6 +420,12 @@
             cursor: pointer;
             --card-accent: rgba(255, 255, 255, 0.42);
             box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 55%, transparent), 0 0 22px color-mix(in srgb, var(--card-accent) 32%, transparent);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .hand-card:not(.hand-card-unplayable):hover {
+            transform: translateY(-4px) scale(1.015);
+            box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 80%, transparent), 0 8px 32px color-mix(in srgb, var(--card-accent) 45%, transparent);
         }
 
         .hand-card-small {
@@ -519,6 +589,13 @@
             <button id="exited-overlay-exit-button" class="death-overlay-exit" type="button">Exit</button>
         </div>
     </div>
+    <div id="resigned-overlay" class="resigned-overlay">
+        <div class="death-overlay-content">
+            <div class="death-overlay-message">You Resigned</div>
+            <button id="resigned-overlay-exit-button" class="death-overlay-exit" type="button">Exit</button>
+        </div>
+    </div>
+    <button id="resign-button" class="resign-button" type="button">Resign</button>
     <div class="bottom-notch">
         <div class="bottom-notch-stat">
             <div id="health-label" class="bottom-notch-label">Health</div>
@@ -574,6 +651,9 @@
         const exitedOverlay = document.getElementById('exited-overlay');
         const exitedOverlayExitButton = document.getElementById('exited-overlay-exit-button');
         const exitedOverlayCoins = document.getElementById('exited-overlay-coins');
+        const resignedOverlay = document.getElementById('resigned-overlay');
+        const resignedOverlayExitButton = document.getElementById('resigned-overlay-exit-button');
+        const resignButton = document.getElementById('resign-button');
         const debugPopup = document.getElementById('debug-popup');
         const handCards = document.getElementById('hand-cards');
         const activeCardSlot = document.getElementById('active-card-slot');
@@ -602,6 +682,7 @@
         let dungeonVersion = null;
         let isPlayerDead = false;
         let hasPlayerExited = false;
+        let hasPlayerResigned = false;
         let exitedCoinsAmount = null;
         const stats = {
             coins: 0,
@@ -1231,6 +1312,47 @@
             exitedOverlay.style.display = hasPlayerExited ? 'flex' : 'none';
         }
 
+        function updateResignedOverlay() {
+            if (!resignedOverlay) {
+                return;
+            }
+
+            resignedOverlay.style.display = hasPlayerResigned ? 'flex' : 'none';
+        }
+
+        async function resign() {
+            if (state.moveInFlight || isGameBlocked()) {
+                return;
+            }
+
+            state.moveInFlight = true;
+
+            try {
+                const response = await fetch('/dungeon/resign', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    return;
+                }
+
+                const resignResult = await response.json();
+                dungeonVersion = resignResult.version ?? dungeonVersion;
+                latestChanges = Array.isArray(resignResult.changes) ? resignResult.changes : [];
+                applyChanges(resignResult.changes);
+                render();
+                renderDebugPopup();
+                renderCounters();
+                renderCardSlots();
+                renderHand();
+            } finally {
+                state.moveInFlight = false;
+            }
+        }
+
         function drawDwellers(tileSize, step) {
             if (!dwellerSprite) {
                 return;
@@ -1681,7 +1803,7 @@
         }
 
         function isGameBlocked() {
-            return isPlayerDead || hasPlayerExited;
+            return isPlayerDead || hasPlayerExited || hasPlayerResigned;
         }
 
         function updateViewportCursorState() {
@@ -2097,6 +2219,13 @@
                     continue;
                 }
 
+                if (change?.name === 'player.resigned') {
+                    hasPlayerResigned = true;
+                    activeCard = null;
+                    state.hoveredTileKey = null;
+                    continue;
+                }
+
                 if (change?.name === 'player.moved') {
                     playerPosition = toPoint(change.payload?.to) ?? playerPosition;
                     continue;
@@ -2274,9 +2403,11 @@
         }
 
         function renderDebugPopup() {
-            if (!debugPopup) {
+            if (!debugPopup || !new URLSearchParams(window.location.search).has('debug')) {
                 return;
             }
+
+            debugPopup.style.display = 'block';
 
             debugPopup.innerHTML = '';
 
@@ -2673,6 +2804,7 @@
             updateExitDungeonButton();
             updateDeathOverlay();
             updateExitedOverlay();
+            updateResignedOverlay();
         }
 
         viewport.addEventListener('wheel', (event) => {
@@ -2728,6 +2860,47 @@
             event.preventDefault();
             event.stopPropagation();
             window.location.assign('/dungeon');
+        });
+
+        resignedOverlayExitButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            window.location.assign('/dungeon');
+        });
+
+        let resignConfirmPending = false;
+        let resignConfirmTimer = null;
+
+        function resetResignButton() {
+            resignConfirmPending = false;
+            clearTimeout(resignConfirmTimer);
+            resignConfirmTimer = null;
+
+            if (resignButton) {
+                resignButton.textContent = 'Resign';
+                resignButton.classList.remove('is-confirming');
+            }
+        }
+
+        resignButton?.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (!resignConfirmPending) {
+                resignConfirmPending = true;
+                resignButton.textContent = 'Sure?';
+                resignButton.classList.add('is-confirming');
+                resignConfirmTimer = setTimeout(resetResignButton, 3000);
+            } else {
+                resetResignButton();
+                resign();
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (resignConfirmPending && event.target !== resignButton) {
+                resetResignButton();
+            }
         });
 
         viewport.addEventListener('mousedown', (event) => {

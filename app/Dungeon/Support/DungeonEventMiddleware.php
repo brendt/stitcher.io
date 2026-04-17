@@ -8,7 +8,7 @@ use Tempest\Container\Container;
 use Tempest\EventBus\EventBusMiddleware;
 use Tempest\EventBus\EventBusMiddlewareCallable;
 
-final readonly class DungeonChangeEventMiddleware implements EventBusMiddleware
+final readonly class DungeonEventMiddleware implements EventBusMiddleware
 {
     public function __construct(
         private Container $container,

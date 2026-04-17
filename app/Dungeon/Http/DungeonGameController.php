@@ -133,4 +133,12 @@ final class DungeonGameController
 
         return new Ok();
     }
+
+    #[DungeonActionEndpoint, Post('/dungeon/resign')]
+    public function resign(Dungeon $dungeon): Response
+    {
+        $dungeon->resign();
+
+        return new Ok();
+    }
 }
