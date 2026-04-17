@@ -2721,13 +2721,13 @@
         deathOverlayExitButton?.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
-            // Intentionally no-op for now; this will navigate away in a future update.
+            window.location.assign('/dungeon');
         });
 
         exitedOverlayExitButton?.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
-            // Intentionally no-op for now; this will navigate away in a future update.
+            window.location.assign('/dungeon');
         });
 
         viewport.addEventListener('mousedown', (event) => {

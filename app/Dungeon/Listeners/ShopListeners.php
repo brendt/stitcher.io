@@ -70,9 +70,9 @@ final readonly class ShopListeners
             $cardsForShop[] = new Token();
         }
 
-//        if ($this->random->chance(1/10)) {
+        if ($this->random->chance(1/10)) {
             $cardsForShop[] = new VictoryPoint();
-//        }
+        }
 
         // Fill the rest with buyable cards
         while (count($cardsForShop) < 5) {
