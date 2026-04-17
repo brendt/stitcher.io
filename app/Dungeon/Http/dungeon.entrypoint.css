@@ -41,7 +41,13 @@
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 55%, transparent), 0 0 22px color-mix(in srgb, var(--card-accent) 32%, transparent);
+
+    &:not(.card-disabled):hover {
+        transform: translateY(-3px) scale(1.015);
+        box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 80%, transparent), 0 6px 32px color-mix(in srgb, var(--card-accent) 45%, transparent);
+    }
 
     & > img {
         width: 100%;
