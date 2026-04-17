@@ -15,6 +15,7 @@ final class StatsRepository
         int $experience = 0,
         int $victoryPoints = 0,
         int $tokens = 0,
+        int $shards = 0,
     ): void {
         $stats = $this->forUser($user);
 
@@ -22,7 +23,8 @@ final class StatsRepository
         $stats->experience += $experience;
         $stats->victoryPoints += $victoryPoints;
         $stats->tokens += $tokens;
-
+        $stats->shards += $shards;
+ll($stats);
         $stats->save();
     }
 

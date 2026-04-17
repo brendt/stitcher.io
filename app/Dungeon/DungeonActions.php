@@ -661,5 +661,7 @@ trait DungeonActions
         $this->shards += $amount;
 
         event(new PlayerShardsIncreased($amount));
+
+        $this->statsRepository->increaseStats($this->user, shards: 1);
     }
 }

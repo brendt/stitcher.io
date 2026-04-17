@@ -1,0 +1,4 @@
+- Shard shop
+- Immediately persist shards when collected
+- Lakes
+- Port the test suite

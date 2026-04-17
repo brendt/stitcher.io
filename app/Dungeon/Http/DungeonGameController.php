@@ -29,8 +29,7 @@ final class DungeonGameController
         DungeonRepository $repository,
         DeckRepository $deckRepository,
         StatsRepository $statsRepository,
-        User $user,
-        Request $request
+        User $user
     ): Redirect {
         if ($statsRepository->forUser($user)->tokens < 1) {
             return new Redirect(uri([DungeonHomeController::class, 'index']));
@@ -42,33 +41,46 @@ final class DungeonGameController
 
         $repository->persist($dungeon);
 
-        if ($request->has('demo')) {
-            $dungeon->cheat = true;
-            $dungeon->mana = 1000;
-            $dungeon->health = 1000;
+        return new Redirect(uri([self::class, 'dungeon']));
+    }
 
-            $directions = arr(Direction::cases());
+    #[Get('/dungeon/demo')]
+    public function demo(
+        DungeonRepository $repository,
+        DeckRepository $deckRepository,
+        StatsRepository $statsRepository,
+        User $user,
+    ): Redirect
+    {
+        $dungeon = Dungeon::new($user, $deckRepository, $statsRepository);
 
-            for ($i = 0; $i < 100; $i++) {
-                $dungeon->move($directions->random());
-            }
+        $repository->persist($dungeon);
 
-            $dungeon->spawnDweller(new Point(10, 10));
-            $dungeon->spawnDweller();
-            $dungeon->spawnDweller();
-            $dungeon->spawnDweller();
-            $dungeon->spawnVictoryPoint(new Point(5, 5));
-            $dungeon->spawnShard(new Point(5, 6));
+        $dungeon->cheat = true;
+        $dungeon->mana = 1000;
+        $dungeon->health = 1000;
+
+//        $directions = arr(Direction::cases());
+
+        for ($i = 0; $i < 100; $i++) {
+//            $dungeon->move($directions->random());
+        }
+
+        $dungeon->spawnDweller();
+        $dungeon->spawnDweller();
+        $dungeon->spawnDweller();
+        $dungeon->spawnVictoryPoint(new Point(5, 5));
+        $dungeon->spawnShard(new Point(5, 6));
 //            $dungeon->spawnHealthAltar(new Point(10, 8));
 //            $dungeon->spawnStabilityAltar(new Point(10, 10));
 //            $dungeon->spawnManaAltar(new Point(10, 12));
 
-//            $dungeon->spawnArtifact(new Point(0,0));
+        $dungeon->spawnShard(new Point(0,1));
 
-            $repository->persist($dungeon);
-        }
+        $repository->persist($dungeon);
 
-        return new Redirect(uri([self::class, 'dungeon']));
+
+        return new Redirect(uri([self::class, 'dungeon']) . '?debug');
     }
 
     #[Get('/dungeon/game')]

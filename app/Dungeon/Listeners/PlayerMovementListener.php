@@ -4,10 +4,9 @@ namespace App\Dungeon\Listeners;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Events\TileUpdated;
+use App\Dungeon\Repositories\StatsRepository;
 use App\Dungeon\Support\Random;
 use Tempest\EventBus\EventHandler;
-use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
 final readonly class PlayerMovementListener
