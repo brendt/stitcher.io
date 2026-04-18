@@ -2300,13 +2300,15 @@
         function applyTileCoinsCollected(payload) {
             const tileFromPayload = payload?.tile ?? null;
             const collectedAmount = numberFrom(payload?.amount);
+            const hasTotal = typeof payload?.total !== 'undefined';
+            const totalCoins = numberFrom(payload?.total);
 
             if (tileFromPayload) {
                 upsertTile({
                     ...tileFromPayload,
                     coins: 0,
                 });
-                stats.coins += collectedAmount;
+                stats.coins = hasTotal ? totalCoins : stats.coins + collectedAmount;
                 return;
             }
 
@@ -2317,7 +2319,7 @@
             }
 
             tile.coins = 0;
-            stats.coins += collectedAmount;
+            stats.coins = hasTotal ? totalCoins : stats.coins + collectedAmount;
         }
 
         function applyArtifactSpawned(payload) {
@@ -2339,6 +2341,11 @@
         }
 
         function applySignedStatChange(payload, statKey, isDecrease) {
+            if (typeof payload?.total !== 'undefined') {
+                stats[statKey] = clampStatMinimum(statKey, payload.total);
+                return;
+            }
+
             const absoluteValue = payload?.[statKey];
 
             if (typeof absoluteValue !== 'undefined') {
@@ -2433,11 +2440,21 @@
                 }
 
                 if (change?.name === 'player.shardsIncreased') {
+                    if (typeof change?.payload?.total !== 'undefined') {
+                        stats.shards = numberFrom(change.payload.total);
+                        continue;
+                    }
+
                     stats.shards += numberFrom(change?.payload?.amount);
                     continue;
                 }
 
                 if (change?.name === 'player.victoryPointsIncreased') {
+                    if (typeof change?.payload?.total !== 'undefined') {
+                        stats.victoryPoints = numberFrom(change.payload.total);
+                        continue;
+                    }
+
                     stats.victoryPoints += numberFrom(change?.payload?.amount);
                     continue;
                 }
@@ -2520,6 +2537,11 @@
                 }
 
                 if (change?.name === 'player.manaIncreased') {
+                    if (typeof change.payload?.total !== 'undefined') {
+                        stats.mana = numberFrom(change.payload.total);
+                        continue;
+                    }
+
                     if (typeof change.payload?.mana !== 'undefined') {
                         stats.mana = numberFrom(change.payload.mana);
                         continue;

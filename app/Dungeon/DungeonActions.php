@@ -147,7 +147,7 @@ trait DungeonActions
 
         $tile->coins = 0;
 
-        event(new TileCoinsCollected($tile, $collected));
+        event(new TileCoinsCollected($tile, $collected, $this->coins));
     }
 
     public function increaseMaxMana(int $amount): void
@@ -163,39 +163,41 @@ trait DungeonActions
             return;
         }
 
+        if ($this->mana + $amount > $this->maxMana) {
+            $overflow = $this->mana + $amount - $this->maxMana;
+            $amount -= $overflow;
+        }
+
         if ($amount <= 0) {
             return;
         }
 
         $this->mana += $amount;
 
-        if ($this->mana >= $this->maxMana) {
-            $this->mana = $this->maxMana;
-        }
-
-        event(new PlayerManaIncreased($amount));
+        event(new PlayerManaIncreased($amount, $this->mana));
     }
 
     public function decreaseMana(int $amount): void
     {
+        if ($this->mana - $amount < 0) {
+            $overflow = -1 * ($this->mana - $amount);
+            $amount -= $overflow;
+        }
+
         if ($amount <= 0) {
             return;
         }
 
         $this->mana -= $amount;
 
-        if ($this->mana <= 0) {
-            $this->mana = 0;
-        }
-
-        event(new PlayerManaDecreased($amount));
+        event(new PlayerManaDecreased($amount, $this->mana));
     }
 
     public function increaseCoins(int $amount): void
     {
         $this->coins += $amount;
 
-        event(new PlayerCoinsIncreased($amount));
+        event(new PlayerCoinsIncreased($amount, $this->coins));
     }
 
     public function increaseMaxHealth(int $amount): void
@@ -211,38 +213,41 @@ trait DungeonActions
             return;
         }
 
+        if ($this->health + $amount > $this->maxHealth) {
+            $overflow = $this->health + $amount - $this->maxHealth;
+            $amount -= $overflow;
+        }
+
         if ($amount <= 0) {
             return;
         }
 
         $this->health += $amount;
 
-        if ($this->health >= $this->maxHealth) {
-            $this->health = $this->maxHealth;
-        }
-
-        event(new PlayerHealthIncreased($amount));
+        event(new PlayerHealthIncreased($amount, $this->health));
     }
 
     public function decreaseHealth(int $amount): void
     {
+        if ($this->health - $amount < 0) {
+            $overflow = -1 * ($this->health - $amount);
+            $amount -= $overflow;
+        }
+
         if ($amount <= 0) {
             return;
         }
 
         $this->health -= $amount;
 
-        if ($this->health <= 0) {
-            $this->health = 0;
-        }
-
-        event(new PlayerHealthDecreased($amount));
+        event(new PlayerHealthDecreased($amount, $this->health));
     }
 
     public function decreaseStability(int $amount): void
     {
-        if ($this->stability <= 0) {
-            return;
+        if ($this->stability - $amount < 0) {
+            $overflow = -1 * ($this->stability - $amount);
+            $amount -= $overflow;
         }
 
         if ($amount <= 0) {
@@ -255,7 +260,7 @@ trait DungeonActions
             $this->stability = 0;
         }
 
-        event(new PlayerStabilityDecreased($amount));
+        event(new PlayerStabilityDecreased($amount, $this->stability));
     }
 
     public function increaseStability(int $amount): void
@@ -264,17 +269,18 @@ trait DungeonActions
             return;
         }
 
+        if ($this->stability + $amount > $this->maxStability) {
+            $overflow = $this->stability + $amount - $this->maxStability;
+            $amount -= $overflow;
+        }
+
         if ($amount <= 0) {
             return;
         }
 
         $this->stability += $amount;
 
-        if ($this->stability >= $this->maxStability) {
-            $this->stability = $this->maxStability;
-        }
-
-        event(new PlayerStabilityIncreased($amount));
+        event(new PlayerStabilityIncreased($amount, $this->stability));
     }
 
     public function collapseTile(Tile $tile): void
@@ -653,14 +659,14 @@ trait DungeonActions
     {
         $this->victoryPoints += $amount;
 
-        event(new PlayerVictoryPointsIncreased($amount));
+        event(new PlayerVictoryPointsIncreased($amount, $this->victoryPoints));
     }
 
     public function increaseShards(int $amount): void
     {
         $this->shards += $amount;
 
-        event(new PlayerShardsIncreased($amount));
+        event(new PlayerShardsIncreased($amount, $this->shards));
 
         $this->statsRepository->increaseStats($this->user, shards: 1);
     }

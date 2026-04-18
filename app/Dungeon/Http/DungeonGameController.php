@@ -2,6 +2,8 @@
 
 namespace App\Dungeon\Http;
 
+use App\Dungeon\Cards\BreakthroughMajor;
+use App\Dungeon\Cards\StabilityMajor;
 use App\Dungeon\Direction;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Point;
@@ -59,13 +61,20 @@ final class DungeonGameController
             return new NotFound();
         }
 
-        $dungeon = Dungeon::new($user, $deckRepository, $statsRepository);
+        $dungeon = Dungeon::new($user, $deckRepository, $statsRepository, deck: [
+            new StabilityMajor(),
+            new StabilityMajor(),
+            new StabilityMajor(),
+            new StabilityMajor(),
+            new BreakthroughMajor(),
+        ]);
 
         $repository->persist($dungeon);
 
         $dungeon->cheat = true;
         $dungeon->mana = 1000;
         $dungeon->health = 1000;
+        $dungeon->stability = 10;
 
 //        $directions = arr(Direction::cases());
 

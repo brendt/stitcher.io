@@ -11,10 +11,12 @@ final class PlayerCoinsIncreased implements DungeonEvent
     public array $payload {
         get => [
             'amount' => $this->amount,
+            'total' => $this->total,
         ];
     }
 
     public function __construct(
         public readonly int $amount,
+        public readonly int $total,
     ) {}
 }

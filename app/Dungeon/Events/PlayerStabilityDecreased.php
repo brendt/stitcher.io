@@ -11,10 +11,12 @@ final class PlayerStabilityDecreased implements DungeonEvent
     public array $payload {
         get => [
             'amount' => $this->amount,
+            'total' => $this->total,
         ];
     }
 
     public function __construct(
-        public int $amount,
+        public readonly int $amount,
+        public readonly int $total,
     ) {}
 }

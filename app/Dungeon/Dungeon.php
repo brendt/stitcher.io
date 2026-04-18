@@ -2,6 +2,7 @@
 
 namespace App\Dungeon;
 
+use App\Dungeon\Persistence\DungeonUserCard;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
@@ -81,8 +82,12 @@ final class Dungeon
 
     public int $experience = 0;
 
-    public static function new(User $user, DeckRepository $deckRepository, StatsRepository $statsRepository): self
-    {
+    public static function new(
+        User $user,
+        DeckRepository $deckRepository,
+        StatsRepository $statsRepository,
+        ?array $deck = null,
+    ): self {
         $self = new self();
         $self->user = $user;
         $self->deckRepository = $deckRepository;
@@ -91,10 +96,14 @@ final class Dungeon
         $self->playerPosition = new Point(0, 0);
         $self->addTile(new Tile(clone $self->playerPosition, isOrigin: true));
 
-        $deck = $self->deckRepository->activeCardsForUser($user);
+        $deck ??= $self->deckRepository->activeCardsForUser($user);
 
         foreach ($deck as $card) {
-            $self->addToDeck($card->card);
+            if ($card instanceof DungeonUserCard) {
+                $card = $card->card;
+            }
+
+            $self->addToDeck($card);
         }
 
         for ($i = 0; $i < $self->maxHandCount; $i++) {

@@ -13,11 +13,13 @@ final class TileCoinsCollected implements DungeonEvent
         get => [
             'tile' => $this->tile->toArray(),
             'amount' => $this->amount,
+            'total' => $this->total,
         ];
     }
 
     public function __construct(
-        public Tile $tile,
-        public int $amount,
+        public readonly Tile $tile,
+        public readonly int $amount,
+        public readonly int $total,
     ) {}
 }
