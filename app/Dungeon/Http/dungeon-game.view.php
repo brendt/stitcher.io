@@ -100,6 +100,17 @@
             cursor: default;
         }
 
+        .exit-dungeon-button.is-confirming {
+            background: rgba(127, 29, 29, 0.92);
+            border-color: rgba(239, 68, 68, 0.7);
+            color: #fecaca;
+        }
+
+        .exit-dungeon-button.is-confirming:hover {
+            background: rgba(153, 27, 27, 0.95);
+            border-color: rgba(248, 113, 113, 0.85);
+        }
+
         .death-overlay {
             position: fixed;
             inset: 0;
@@ -349,39 +360,32 @@
 
         .hand-notch {
             position: fixed;
-            left: 0;
+            left: 50%;
             bottom: 0;
-            transform: none;
+            transform: translateX(-50%);
             z-index: 900;
-            width: 100vw;
-            border-bottom: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 4px 12px 10px;
-            border-top-left-radius: 16px;
-            border-top-right-radius: 16px;
-            background: rgba(9, 10, 15, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            width: auto;
+            border: none;
+            padding: 8px 12px 16px;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             color: #e5e7eb;
             font-family: ui-sans-serif, system-ui, sans-serif;
             pointer-events: auto;
-            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
-        }
-
-        .hand-notch.is-collapsed {
-            padding-bottom: 4px;
+            box-shadow: none;
         }
 
         .hand-notch.is-collapsed .hand-layout {
-            display: none;
+            display: block;
         }
 
         .toggle-hand-button {
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             margin: 0 auto 4px;
-            padding: 5px 18px;
+            padding: 9px 32px;
             border-radius: 10px;
             border: 2px solid rgba(217, 119, 6, 0.65);
             background: rgba(120, 53, 15, 0.92);
@@ -397,8 +401,8 @@
         }
 
         .toggle-hand-button svg {
-            width: 14px;
-            height: 14px;
+            width: 18px;
+            height: 18px;
             transition: transform 0.2s ease;
         }
 
@@ -689,10 +693,37 @@
             }
 
             .hand-notch {
+                left: 0;
+                transform: none;
+                width: 100vw;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+                background: rgba(9, 10, 15, 0.88);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.35);
+                padding: 12px 12px 10px;
                 max-height: 52vh;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
-                padding-top: 12px;
+            }
+
+            .hand-notch.is-collapsed {
+                padding-bottom: 10px;
+            }
+
+            .hand-notch.is-collapsed .hand-layout {
+                display: none;
+            }
+
+            .toggle-hand-button {
+                display: flex;
+                margin-bottom: 10px;
+            }
+
+            .hand-notch.is-collapsed .toggle-hand-button {
+                margin-bottom: 0;
             }
 
             .hand-cards {
@@ -2906,8 +2937,12 @@
             const centerX = state.paddingX + ((point.x - bounds.minX) * step) + (tileSize / 2);
             const centerY = state.paddingY + ((point.y - bounds.minY) * step) + (tileSize / 2);
 
+            const topNotchHeight = document.querySelector('.bottom-notch')?.offsetHeight ?? 0;
+            const bottomNotchHeight = handNotch?.offsetHeight ?? 0;
+            const availableHeight = viewport.clientHeight - topNotchHeight - bottomNotchHeight;
+
             viewport.scrollLeft = centerX - (viewport.clientWidth / 2);
-            viewport.scrollTop = centerY - (viewport.clientHeight / 2);
+            viewport.scrollTop = centerY - topNotchHeight - (availableHeight / 2);
         }
 
         function preloadSprites() {
@@ -3058,10 +3093,39 @@
             updateExitDungeonButton();
         });
 
+        let exitConfirmPending = false;
+        let exitConfirmTimer = null;
+
+        function resetExitButton() {
+            exitConfirmPending = false;
+            clearTimeout(exitConfirmTimer);
+            exitConfirmTimer = null;
+
+            if (exitDungeonButton) {
+                exitDungeonButton.textContent = 'Exit';
+                exitDungeonButton.classList.remove('is-confirming');
+            }
+        }
+
         exitDungeonButton?.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
-            exitDungeon();
+
+            if (!exitConfirmPending) {
+                exitConfirmPending = true;
+                exitDungeonButton.textContent = 'Sure?';
+                exitDungeonButton.classList.add('is-confirming');
+                exitConfirmTimer = setTimeout(resetExitButton, 3000);
+            } else {
+                resetExitButton();
+                exitDungeon();
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            if (exitConfirmPending && event.target !== exitDungeonButton) {
+                resetExitButton();
+            }
         });
 
         deathOverlayExitButton?.addEventListener('click', (event) => {
@@ -3225,6 +3289,7 @@
         toggleHandButton?.addEventListener('click', (event) => {
             event.stopPropagation();
             handNotch?.classList.toggle('is-collapsed');
+            requestAnimationFrame(() => requestAnimationFrame(() => centerViewportOnPoint(playerPosition)));
         });
 
         // Touch: swipe to move, drag to pan, pinch to zoom
