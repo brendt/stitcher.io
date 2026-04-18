@@ -17,8 +17,9 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
     {{-- Stats HUD --}}
     <div class="sticky top-0 z-20 flex justify-center">
         <div class="bg-gray-950/90 backdrop-blur-md border-x border-b border-white/10 px-4 sm:px-8 py-3 shadow-2xl rounded-b-2xl flex flex-wrap justify-center gap-y-2 gap-x-4 sm:gap-x-8">
-            <a :href="uri([DungeonHomeController::class, 'leaderboard'])"  class="flex items-center gap-2 px-2 sm:px-0">
-                <span class="title bg-amber-800 border-2 border-amber-600 rounded-full px-2 py-1 text-xs">{{ $rank }}</span><span class="title text-xs  uppercase tracking-widest">{{ $stats->nickname }}</span>
+            <a :href="uri([DungeonHomeController::class, 'leaderboard'])" class="flex flex-col items-center gap-0.5 px-2 sm:px-0 group">
+                <span class="title text-xs text-gray-200 tracking-wide group-hover:text-amber-300 transition-colors">{{ $stats->nickname }}</span>
+                <span class="title text-xs bg-amber-800/60 border border-amber-600/60 rounded-full px-2 py-0.5 text-amber-300 group-hover:bg-amber-800 group-hover:border-amber-600 transition-all">#{{ $rank }}</span>
             </a>
             <div class="w-px bg-white/10 hidden sm:block"></div>
             <div class="flex flex-col items-center gap-0.5 px-2 sm:px-0">
