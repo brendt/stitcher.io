@@ -9,9 +9,11 @@ use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\DungeonRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
+use Tempest\Core\Environment;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\NotAcceptable;
+use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
@@ -50,8 +52,13 @@ final class DungeonGameController
         DeckRepository $deckRepository,
         StatsRepository $statsRepository,
         User $user,
-    ): Redirect
+        Environment $environment,
+    ): Redirect|NotFound
     {
+        if (! $environment->isLocal()) {
+            return new NotFound();
+        }
+
         $dungeon = Dungeon::new($user, $deckRepository, $statsRepository);
 
         $repository->persist($dungeon);
