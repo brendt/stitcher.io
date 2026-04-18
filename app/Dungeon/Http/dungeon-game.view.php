@@ -658,6 +658,11 @@
         }
 
         @media (pointer: coarse) {
+            .death-overlay-content {
+                text-align: center;
+                padding: 0 24px;
+            }
+
             .bottom-notch {
                 min-width: unset;
                 width: 100%;
