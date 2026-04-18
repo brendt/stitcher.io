@@ -9,6 +9,8 @@
     <x-slot name="head" />
 </head>
 <body class="bg-gray-700 text-white">
+
+<div class="fixed p-2 px-4 bg-purple-800 shadow-xl rounded-lg border-2 border-purple-600 title m-2">Beta</div>
 <x-slot/>
 </body>
 </html>
