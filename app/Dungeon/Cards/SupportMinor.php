@@ -32,7 +32,7 @@ final class SupportMinor implements Card, InteractsWithTile
 
     private(set) Type $type = Type::ACTIVE;
 
-    private(set) Level $level = Level::NOOB;
+    private(set) Level $level = Level::NOVICE;
 
     public function play(Dungeon $dungeon): void
     {

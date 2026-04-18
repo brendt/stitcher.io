@@ -33,7 +33,7 @@ final class SupportMajor implements Card, InteractsWithTile
 
     private(set) Type $type = Type::ACTIVE;
 
-    private(set) Level $level = Level::NOVICE;
+    private(set) Level $level = Level::MASTER;
 
     public function play(Dungeon $dungeon): void
     {
