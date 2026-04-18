@@ -50,7 +50,7 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
            :href="uri([DungeonGameController::class, 'new'])"
            class="title bg-amber-800 border-2 border-amber-600 hover:bg-amber-700 hover:border-amber-500 px-8 py-3 rounded-xl shadow-lg shadow-amber-950/60 text-amber-100 hover:text-white transition-all text-lg text-center">
             Enter the Dungeon
-            <span class="text-sm text-amber-400 ml-2">(costs 1 token)</span>
+            <span class="text-sm text-amber-400 ml-2 sm:inline block">(costs 1 token)</span>
         </a>
         <div :else class="flex flex-col items-center gap-1">
             <div class="title bg-amber-800/20 border-2 border-amber-700/25 px-8 py-3 rounded-xl text-amber-200/40 text-lg cursor-not-allowed select-none">
