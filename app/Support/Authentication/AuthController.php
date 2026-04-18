@@ -7,7 +7,6 @@ use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Auth\OAuth\OAuthClient;
 use Tempest\Auth\OAuth\OAuthUser;
 use Tempest\Container\Container;
-use Tempest\Core\AppConfig;
 use Tempest\Core\Environment;
 use Tempest\Database\PrimaryKey;
 use Tempest\Http\Request;
@@ -39,6 +38,8 @@ final readonly class AuthController
     #[Get('/auth/{?type}')]
     public function auth(?string $type, Request $request): Response
     {
+        $this->session->set('back', $request->get('back'));
+
         if ($response = $this->autoLogin()) {
             return $response;
         }
@@ -50,8 +51,6 @@ final readonly class AuthController
         $code = $request->get('code');
 
         if ($code === null) {
-            $this->session->set('back', $request->get('back'));
-
             return $oauth->createRedirect();
         }
 
@@ -88,7 +87,9 @@ final readonly class AuthController
         ) {
             $this->authenticator->authenticate($user);
 
-            return new Redirect('/');
+            $back = $this->session->consume('back', '/');
+
+            return new Redirect($back);
         }
 
         return null;

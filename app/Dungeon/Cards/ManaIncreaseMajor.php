@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Dungeon\Cards;
+
+use App\Dungeon\Dungeon;
+use App\Dungeon\Card;
+use App\Dungeon\Rarity;
+use App\Dungeon\Type;
+use App\Dungeon\Level;
+
+final class ManaIncreaseMajor implements Card
+{
+    use IsCard;
+
+    private(set) string $name = "Large Mana Potion";
+
+    private(set) string $description = "+50 max mana";
+
+    private(set) string $image = '/cards/mana-increase-major.png';
+
+    private(set) int $mana = 150;
+
+    private(set) Rarity $rarity = Rarity::RARE;
+
+    private(set) int $price = 10_000;
+
+    private(set) Type $type = Type::IMMEDIATE;
+
+    private(set) Level $level = Level::MASTER;
+
+    public function play(Dungeon $dungeon): void
+    {
+        $dungeon->increaseMaxMana(50);
+    }
+}
