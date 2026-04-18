@@ -671,6 +671,7 @@
                 justify-content: flex-start;
                 transform: none;
                 left: 0;
+                pointer-events: auto;
             }
 
             .bottom-notch-stat {
@@ -683,10 +684,18 @@
                 font-size: 15px;
             }
 
+            .resign-button {
+                position: static;
+                flex-shrink: 0;
+                margin-left: 15px;
+                align-self: center;
+            }
+
             .hand-notch {
                 max-height: 52vh;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
+                padding-top: 12px;
             }
 
             .hand-cards {
@@ -739,7 +748,6 @@
             <button id="resigned-overlay-exit-button" class="death-overlay-exit" type="button">Exit</button>
         </div>
     </div>
-    <button id="resign-button" class="resign-button" type="button">Resign</button>
     <div class="bottom-notch">
         <div class="bottom-notch-stat">
             <div id="health-label" class="bottom-notch-label">Health</div>
@@ -765,6 +773,7 @@
             <div id="victory-point-label" class="bottom-notch-label">Victory Points</div>
             <div id="victory-point-counter" class="bottom-notch-value">0</div>
         </div>
+        <button id="resign-button" class="resign-button" type="button">Resign</button>
     </div>
     <div class="card-slots-corner">
         <div class="hand-side-slots">
