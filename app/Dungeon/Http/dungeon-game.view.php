@@ -876,6 +876,7 @@
         let dungeonVersion = null;
         let isPlayerDead = false;
         let hasPlayerExited = false;
+        let hasPlayerMoved = false;
         let hasPlayerResigned = false;
         let exitedCoinsAmount = null;
         const stats = {
@@ -1460,7 +1461,7 @@
         }
 
         function updateExitDungeonButton() {
-            if (!exitDungeonButton || isGameBlocked() || !playerPosition || !isPlayerOnOriginTile()) {
+            if (!exitDungeonButton || isGameBlocked() || !playerPosition || !hasPlayerMoved || !isPlayerOnOriginTile()) {
                 if (exitDungeonButton) {
                     exitDungeonButton.style.display = 'none';
                 }
@@ -2439,6 +2440,7 @@
 
                 if (change?.name === 'player.moved') {
                     playerPosition = toPoint(change.payload?.to) ?? playerPosition;
+                    hasPlayerMoved = true;
                     continue;
                 }
 

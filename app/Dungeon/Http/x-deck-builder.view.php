@@ -34,17 +34,17 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
             <div class="w-px bg-white/10 hidden sm:block"></div>
             <div class="flex flex-col items-center gap-0.5 px-2 sm:px-0">
                 <span class="title text-xs text-gray-500 uppercase tracking-widest">Coins</span>
-                <span class="text-sm text-gray-200">{{ $stats->coins }}</span>
+                <span class="text-sm text-gray-200">{{ number_format($stats->coins) }}</span>
             </div>
             <div class="w-px bg-white/10 hidden sm:block"></div>
             <div class="flex flex-col items-center gap-0.5 px-2 sm:px-0">
                 <span class="title text-xs text-gray-500 uppercase tracking-widest">Victory Points</span>
-                <span class="text-sm text-gray-200">{{ $stats->victoryPoints }}</span>
+                <span class="text-sm text-gray-200">{{ number_format($stats->victoryPoints) }}</span>
             </div>
             <div class="w-px bg-white/10 hidden sm:block"></div>
             <div class="flex flex-col items-center gap-0.5 px-2 sm:px-0">
                 <span class="title text-xs text-gray-500 uppercase tracking-widest">Shards</span>
-                <span class="text-sm text-gray-200">{{ $stats->shards }}</span>
+                <span class="text-sm text-gray-200">{{ number_format($stats->shards) }}</span>
             </div>
         </div>
     </div>
@@ -77,15 +77,24 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
         <div class="bg-gray-900/70 px-4 sm:px-8 pb-8 pt-4 shadow-2xl rounded-2xl border border-white/5 grid gap-3">
             <h2 class="title text-center text-lg tracking-wide">Shop</h2>
             <div class="flex gap-4 flex-wrap justify-center">
-                <div
-                        :foreach="$shop as $card"
-                        :if="$stats->canBuy($card)"
-                        hx-trigger="click"
-                        :hx-post="uri([DungeonHomeController::class, 'buyCard'], id: $card->id)"
-                        hx-target="#deck-builder"
-                        hx-swap="outerHTML"
-                >
+                <div class="card-action" :foreach="$shop as $card" :if="$stats->canBuy($card)">
                     <x-dungeon-card :card="$card->card" :include-level="! $stats->level->hasAccessTo($card->card->level)" :price="$card->price"/>
+                    <div class="card-confirm-overlay">
+                        <div class="card-confirm-info">
+                            <div class="card-confirm-name">{{ $card->card->name }}</div>
+                            <div class="card-confirm-description">{{ $card->card->description }}</div>
+                        </div>
+                        <div class="card-confirm-actions">
+                            <button
+                                hx-trigger="click"
+                                :hx-post="uri([DungeonHomeController::class, 'buyCard'], id: $card->id)"
+                                hx-target="#deck-builder"
+                                hx-swap="outerHTML"
+                                class="card-confirm-btn"
+                            >Buy for {{ $card->price }} coins</button>
+                            <button type="button" class="card-cancel-btn">Cancel</button>
+                        </div>
+                    </div>
                 </div>
                 <div :else>
                     <x-dungeon-card :card="$card->card" :disabled :include-level="! $stats->level->hasAccessTo($card->card->level)" :price="$card->price"/>
@@ -99,14 +108,24 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
         <div class="flex flex-col gap-3 w-full md:w-1/2 bg-gray-900/70 px-4 sm:px-6 pb-8 pt-4 shadow-2xl rounded-2xl border border-white/5">
             <h2 class="title text-center text-base tracking-wide text-gray-300">Available Cards</h2>
             <div class="flex gap-4 flex-wrap justify-center">
-                <div
-                        :foreach="$inactiveCards as $card"
-                        hx-trigger="click"
-                        :hx-post="uri([DungeonHomeController::class, 'activateCard'], id: $card->id)"
-                        hx-target="#deck-builder"
-                        hx-swap="outerHTML"
-                >
+                <div class="card-action" :foreach="$inactiveCards as $card">
                     <x-dungeon-card :card="$card->card"/>
+                    <div class="card-confirm-overlay">
+                        <div class="card-confirm-info">
+                            <div class="card-confirm-name">{{ $card->card->name }}</div>
+                            <div class="card-confirm-description">{{ $card->card->description }}</div>
+                        </div>
+                        <div class="card-confirm-actions">
+                            <button
+                                hx-trigger="click"
+                                :hx-post="uri([DungeonHomeController::class, 'activateCard'], id: $card->id)"
+                                hx-target="#deck-builder"
+                                hx-swap="outerHTML"
+                                class="card-confirm-btn"
+                            >Add to hand</button>
+                            <button type="button" class="card-cancel-btn">Cancel</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,17 +136,53 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
                 <span class="text-sm text-gray-500 ml-1">({{ $activeCards->count() }}&thinsp;/&thinsp;{{ Dungeon::MAX_HAND_COUNT }})</span>
             </h2>
             <div class="flex gap-4 flex-wrap justify-center">
-                <div
-                        :foreach="$activeCards as $card"
-                        hx-trigger="click"
-                        :hx-post="uri([DungeonHomeController::class, 'deactivateCard'], id: $card->id)"
-                        hx-target="#deck-builder"
-                        hx-swap="outerHTML"
-                >
+                <div class="card-action" :foreach="$activeCards as $card">
                     <x-dungeon-card :card="$card->card"/>
+                    <div class="card-confirm-overlay">
+                        <div class="card-confirm-info">
+                            <div class="card-confirm-name">{{ $card->card->name }}</div>
+                            <div class="card-confirm-description">{{ $card->card->description }}</div>
+                        </div>
+                        <div class="card-confirm-actions">
+                            <button
+                                hx-trigger="click"
+                                :hx-post="uri([DungeonHomeController::class, 'deactivateCard'], id: $card->id)"
+                                hx-target="#deck-builder"
+                                hx-swap="outerHTML"
+                                class="card-confirm-btn"
+                            >Remove from hand</button>
+                            <button type="button" class="card-cancel-btn">Cancel</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+if (!window._cardActionListenerAttached) {
+    window._cardActionListenerAttached = true;
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.card-cancel-btn')) {
+            e.target.closest('.card-action').classList.remove('is-pending');
+            e.stopPropagation();
+            return;
+        }
+
+        if (e.target.closest('.card-confirm-btn')) {
+            return; // let htmx handle it; DOM will be swapped anyway
+        }
+
+        document.querySelectorAll('.card-action.is-pending').forEach(function (el) {
+            el.classList.remove('is-pending');
+        });
+
+        var action = e.target.closest('.card-action');
+        if (action) {
+            action.classList.add('is-pending');
+        }
+    });
+}
+</script>
