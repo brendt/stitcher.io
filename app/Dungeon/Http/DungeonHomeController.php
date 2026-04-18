@@ -2,9 +2,7 @@
 
 namespace App\Dungeon\Http;
 
-use App\Dungeon\Card;
 use App\Dungeon\Persistence\DungeonUserCard;
-use App\Dungeon\Repositories\CardRepository;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\ShopRepository;
 use App\Dungeon\Repositories\StatsRepository;
@@ -12,7 +10,6 @@ use App\Support\Authentication\User;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\View\View;
-use function Tempest\Support\arr;
 use function Tempest\View\view;
 
 #[DungeonAuth]
@@ -25,14 +22,8 @@ final readonly class DungeonHomeController
     ) {}
 
     #[Get('/dungeon')]
-    public function index(User $user, CardRepository $cardRepository): View
+    public function index(User $user): View
     {
-        $cards = arr($cardRepository->getCards())
-            ->map(fn (Card $card) => $card->name . ',' . $card->price)
-            ->implode('<br>')
-        ;
-
-        die($cards);
         $stats = $this->statsRepository->forUser($user);
         $shop = $this->shopRepository->forUser($user);
         $deck = $this->deckRepository->forUser($user);

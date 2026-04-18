@@ -1,9 +1,11 @@
-- Shard shop
-- Metadata in stats
-- Card hand limitations
 - Port the test suite
+- Card hand limitations
 
-1.1:
+## 1.1
+
+- Shard shop
+
+## 1.2:
 
 - Lakes
 - New cards:
