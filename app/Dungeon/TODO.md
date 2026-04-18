@@ -2,6 +2,7 @@
 
 - Port the test suite
 - Card hand limitations
+- Broken login redirect
 
 ## 1.1
 

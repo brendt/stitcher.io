@@ -38,8 +38,6 @@ final readonly class AuthController
     #[Get('/auth/{?type}')]
     public function auth(?string $type, Request $request): Response
     {
-        $this->session->set('back', $request->get('back'));
-
         if ($response = $this->autoLogin()) {
             return $response;
         }
