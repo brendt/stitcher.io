@@ -120,3 +120,100 @@
         font-size: 13px;
     }
 }
+
+.card-action {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    --card-accent: rgba(150, 150, 150, 0.6);
+
+    &:has(.rarity-rare)  { --card-accent: rgba(45, 175, 255, 0.75); }
+    &:has(.rarity-epic)  { --card-accent: rgba(189, 120, 255, 0.82); }
+    &:has(.rarity-meta)  { --card-accent: rgba(255, 190, 64, 0.86); }
+}
+
+.card-confirm-overlay {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--card-accent) 45%, black 55%);
+    backdrop-filter: blur(3px);
+    border-radius: 5px;
+    border: 1px solid color-mix(in srgb, var(--card-accent) 60%, transparent);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 10px 18px;
+    gap: 8px;
+    z-index: 10;
+}
+
+.card-action.is-pending .card-confirm-overlay {
+    display: flex;
+}
+
+.card-action.is-pending .card {
+    transform: translateY(-3px) scale(1.015);
+}
+
+.card-confirm-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.card-confirm-name {
+    font-family: var(--font-title);
+    font-size: 13px;
+    font-weight: 700;
+    color: #f1f5f9;
+    line-height: 1.2;
+}
+
+.card-confirm-description {
+    font-size: 11px;
+    line-height: 1.35;
+    color: rgba(203, 213, 225, 0.85);
+}
+
+.card-confirm-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-confirm-btn {
+    font-family: var(--font-title);
+    background: #92400e;
+    border: 2px solid #d97706;
+    color: #fde68a;
+    padding: 8px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    box-shadow: 0 4px 14px rgba(120, 53, 15, 0.5);
+    transition: background 0.12s ease, border-color 0.12s ease;
+
+    &:hover {
+        background: #78350f;
+        border-color: #f59e0b;
+        color: #fff;
+    }
+}
+
+.card-cancel-btn {
+    font-family: var(--font-title);
+    background: none;
+    border: none;
+    color: rgba(156, 163, 175, 0.8);
+    cursor: pointer;
+    font-size: 11px;
+    padding: 2px 8px;
+
+    &:hover {
+        color: #e5e7eb;
+    }
+}

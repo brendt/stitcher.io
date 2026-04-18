@@ -4,6 +4,7 @@ namespace App\Dungeon\Persistence;
 
 use App\Dungeon\Level;
 use Tempest\Database\IsDatabaseModel;
+use Tempest\Database\Virtual;
 
 final class DungeonUserStats
 {
@@ -25,6 +26,10 @@ final class DungeonUserStats
 
     public Level $level {
         get => Level::forExperience($this->experience);
+    }
+
+    public ?string $nickname {
+        get => $this->extra['nickname'] ?? null;
     }
 
     public function canBuy(DungeonShopCard $dungeonShopCard): bool

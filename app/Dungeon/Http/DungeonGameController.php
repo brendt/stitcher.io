@@ -40,6 +40,7 @@ final class DungeonGameController
         }
 
         $statsRepository->decreaseTokens($user, 1);
+        $statsRepository->increaseStats($user, games: 1);
 
         $dungeon = Dungeon::new($user, $deckRepository, $statsRepository);
 

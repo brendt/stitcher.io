@@ -8,7 +8,7 @@ use App\Dungeon\Events\PlayerHealthDecreased;
 use Tempest\EventBus\EventHandler;
 use function Tempest\EventBus\event;
 
-final class HealthListeners
+final readonly class HealthListeners
 {
     public function __construct(
         private Dungeon $dungeon,
@@ -17,12 +17,12 @@ final class HealthListeners
     #[EventHandler]
     public function checkForDeath(PlayerHealthDecreased $event): void
     {
-        if ($this->dungeon->health - $event->amount > 0) {
+        if ($this->dungeon->health > 0) {
             return;
         }
 
         $this->dungeon->hasEnded = true;
 
-        event(new PlayerDied());
+        event(new PlayerDied($this->dungeon->user));
     }
 }

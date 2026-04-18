@@ -9,11 +9,11 @@ use Tempest\Console\HasConsole;
 use Tempest\Console\Schedule;
 use Tempest\Console\Scheduler\Every;
 
-final class AddTokensCommand
+final class DungeonTokensCommand
 {
     use HasConsole;
 
-    #[ConsoleCommand(name: 'dungeon:tokens'), Schedule(Every::DAY)]
+    #[ConsoleCommand, Schedule(Every::DAY)]
     public function __invoke(): void
     {
         $stats = DungeonUserStats::select()
@@ -22,9 +22,15 @@ final class AddTokensCommand
             ->all();
 
         foreach ($stats as $stat) {
-            $stat->tokens += 5;
+            if ($stat->tokens < 5) {
+                $stat->tokens += 5;
+            } elseif ($stat->tokens < 10) {
+                $stat->tokens = 10;
+            }
+
             $stat->save();
-            $this->info("Added 5 tokens to user {$stat->userId}");
+
+            $this->info("Added tokens to user {$stat->userId}");
         }
 
         $this->success('Done');

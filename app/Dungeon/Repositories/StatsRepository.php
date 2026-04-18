@@ -16,6 +16,9 @@ final class StatsRepository
         int $victoryPoints = 0,
         int $tokens = 0,
         int $shards = 0,
+        int $wins = 0,
+        int $games = 0,
+        int $losses = 0,
     ): void
     {
         $stats = $this->forUser($user);
@@ -25,6 +28,9 @@ final class StatsRepository
         $stats->victoryPoints += $victoryPoints;
         $stats->tokens += $tokens;
         $stats->shards += $shards;
+        $stats->wins += $wins;
+        $stats->games += $games;
+        $stats->losses += $losses;
 
         $stats->save();
     }
@@ -56,6 +62,27 @@ final class StatsRepository
         }
 
         return $stats;
+    }
+
+    public function getRank(User $user): int
+    {
+        $stats = $this->forUser($user);
+
+        return query(DungeonUserStats::class)
+            ->count()
+            ->where('victoryPoints > ?', $stats->victoryPoints)
+            ->execute() + 1;
+    }
+
+    /** @return array<DungeonUserStats> */
+    public function getLeaderboard(): array
+    {
+        return query(DungeonUserStats::class)
+            ->select()
+            ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
+            ->orderBy('victoryPoints DESC')
+            ->limit(100)
+            ->all();
     }
 
     public function decreaseCoins(User $user, int $amount): void
