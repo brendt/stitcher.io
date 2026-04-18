@@ -3,7 +3,6 @@
 namespace App\Dungeon\Repositories;
 
 use App\Dungeon\Cards\BreakthroughMinor;
-use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\Cards\KillDwellerMinor;
 use App\Dungeon\Cards\RumbleMinor;
@@ -31,6 +30,7 @@ final readonly class DeckRepository
             ->select()
             ->where('userId', $user->id->value)
             ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
+            ->orderBy('cardName')
             ->all();
 
         if ($deckCards === []) {
@@ -73,6 +73,7 @@ final readonly class DeckRepository
             ->where('userId', $user->id->value)
             ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
             ->where('isActive', true)
+            ->orderBy('cardName')
             ->all();
 
         foreach ($deckItems as $item) {
