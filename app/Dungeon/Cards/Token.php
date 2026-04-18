@@ -24,7 +24,7 @@ final class Token implements Card
 
     public string $image = '/cards/token.png';
 
-    public int $price = 100;
+    public int $price = 2500;
 
     public Level $level = Level::NOOB;
 

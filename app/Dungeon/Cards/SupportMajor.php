@@ -29,7 +29,7 @@ final class SupportMajor implements Card, InteractsWithTile
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 1000;
+    private(set) int $price = 5000;
 
     private(set) Type $type = Type::ACTIVE;
 

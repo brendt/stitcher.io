@@ -16,7 +16,8 @@ final class StatsRepository
         int $victoryPoints = 0,
         int $tokens = 0,
         int $shards = 0,
-    ): void {
+    ): void
+    {
         $stats = $this->forUser($user);
 
         $stats->coins += $coins;
@@ -24,7 +25,7 @@ final class StatsRepository
         $stats->victoryPoints += $victoryPoints;
         $stats->tokens += $tokens;
         $stats->shards += $shards;
-ll($stats);
+
         $stats->save();
     }
 
@@ -42,7 +43,7 @@ ll($stats);
                     userId: $user->id->value,
                     campaignId: Dungeon::CURRENT_CAMPAIGN,
                     coins: 0,
-                    tokens: 5,
+                    tokens: 10,
                     victoryPoints: 0,
                     experience: 0,
                     wins: 0,
@@ -50,6 +51,7 @@ ll($stats);
                     games: 0,
                     shards: 0,
                     runPrice: 2500,
+                    extra: [Dungeon::HAS_SEEN_SHARD_SHOP => false],
                 );
         }
 

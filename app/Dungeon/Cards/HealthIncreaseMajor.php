@@ -22,7 +22,7 @@ final class HealthIncreaseMajor implements Card
 
     private(set) Rarity $rarity = Rarity::RARE;
 
-    private(set) int $price = 2500;
+    private(set) int $price = 10_000;
 
     private(set) Type $type = Type::IMMEDIATE;
 

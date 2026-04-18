@@ -8,7 +8,6 @@ use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 
-// TODO
 final class LocateStabilityAltar implements Card
 {
     use IsCard;
@@ -23,7 +22,7 @@ final class LocateStabilityAltar implements Card
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 5000;
+    private(set) int $price = 20_000;
 
     private(set) Type $type = Type::IMMEDIATE;
 

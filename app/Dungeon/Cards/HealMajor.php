@@ -22,7 +22,7 @@ final class HealMajor implements Card
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 1_000;
+    private(set) int $price = 1500;
 
     private(set) Type $type = Type::IMMEDIATE;
 

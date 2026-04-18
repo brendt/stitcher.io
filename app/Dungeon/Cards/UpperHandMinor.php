@@ -23,7 +23,7 @@ final class UpperHandMinor implements Card, CheckBeforePlaying
 
     private(set) string $image = '/cards/upperhand-minor.png';
 
-    private(set) int $price = 250;
+    private(set) int $price = 1000;
 
     private(set) Type $type = Type::IMMEDIATE;
 

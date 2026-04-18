@@ -8,14 +8,10 @@ use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\InteractsWithTile;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\DiscardActiveCard;
-use App\Dungeon\Commands\SupportTile;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
-use Illuminate\Support\Str;
 use function Tempest\EventBus\event;
 
-// TODO
 final class SupportMinor implements Card, InteractsWithTile
 {
     use IsCard;
@@ -32,7 +28,7 @@ final class SupportMinor implements Card, InteractsWithTile
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 1500;
+    private(set) int $price = 2500;
 
     private(set) Type $type = Type::ACTIVE;
 

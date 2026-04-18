@@ -24,7 +24,7 @@ final class VictoryPoint implements Card
 
     public string $image = '/cards/victory.png';
 
-    public int $price = 1000;
+    public int $price = 5000;
 
     public Level $level = Level::NOVICE;
 

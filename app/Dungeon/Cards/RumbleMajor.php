@@ -26,7 +26,7 @@ final class RumbleMajor implements Card, InteractsWithTile
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 750;
+    private(set) int $price = 1250;
 
     private(set) Type $type = Type::ACTIVE;
 

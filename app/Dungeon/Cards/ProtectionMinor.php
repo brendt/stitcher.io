@@ -27,7 +27,7 @@ final class ProtectionMinor implements Card, WithEvents
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 500;
+    private(set) int $price = 2000;
 
     private(set) Type $type = Type::PASSIVE;
 

@@ -32,7 +32,7 @@ final class SupportEpic implements Card, InteractsWithTile, CanBuyWithShards
 
     private(set) Rarity $rarity = Rarity::EPIC;
 
-    private(set) int $price = 7000;
+    private(set) int $price = 10_000;
 
     private(set) Type $type = Type::ACTIVE;
 

@@ -26,7 +26,7 @@ final class TrapDisarmMinor implements Card, InteractsWithTile
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 100;
+    private(set) int $price = 2000;
 
     private(set) Type $type = Type::ACTIVE;
 

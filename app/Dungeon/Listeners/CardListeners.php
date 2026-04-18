@@ -3,7 +3,9 @@
 namespace App\Dungeon\Listeners;
 
 use App\Dungeon\Dungeon;
+use App\Dungeon\Events\ActiveCardUnset;
 use App\Dungeon\Events\CardPlayed;
+use App\Dungeon\Events\PassiveCardSet;
 use Tempest\EventBus\EventHandler;
 
 final readonly class CardListeners
@@ -50,5 +52,17 @@ final readonly class CardListeners
         }
 
         $this->dungeon->addPermanentCard($event->card);
+    }
+
+    #[EventHandler]
+    public function drawAfterUnsetActiveCard(ActiveCardUnset $event): void
+    {
+        $this->dungeon->drawCard();
+    }
+
+    #[EventHandler]
+    public function drawAfterUnsetPassiveCard(PassiveCardSet $event): void
+    {
+        $this->dungeon->drawCard();
     }
 }

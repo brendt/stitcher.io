@@ -21,6 +21,7 @@ final class DungeonUserStats
     public int $shards;
     public int $runPrice;
     public int $avatarUrl;
+    public array $extra;
 
     public Level $level {
         get => Level::forExperience($this->experience);

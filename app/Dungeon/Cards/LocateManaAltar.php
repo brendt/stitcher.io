@@ -22,7 +22,7 @@ final class LocateManaAltar implements Card
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 5000;
+    private(set) int $price = 20_000;
 
     private(set) Type $type = Type::IMMEDIATE;
 

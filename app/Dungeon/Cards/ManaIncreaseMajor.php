@@ -22,7 +22,7 @@ final class ManaIncreaseMajor implements Card
 
     private(set) Rarity $rarity = Rarity::RARE;
 
-    private(set) int $price = 3000;
+    private(set) int $price = 10_000;
 
     private(set) Type $type = Type::IMMEDIATE;
 

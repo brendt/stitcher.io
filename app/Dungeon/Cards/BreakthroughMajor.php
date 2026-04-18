@@ -27,7 +27,7 @@ final class BreakthroughMajor implements Card, InteractsWithTile
 
     private(set) Rarity $rarity = Rarity::COMMON;
 
-    private(set) int $price = 500;
+    private(set) int $price = 2500;
 
     private(set) Type $type = Type::ACTIVE;
 
