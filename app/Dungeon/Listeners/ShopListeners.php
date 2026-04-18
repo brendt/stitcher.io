@@ -89,11 +89,15 @@ final readonly class ShopListeners
         foreach ($cardsForShop as $card) {
             $priceVariation = (int) round($card->price * 0.1);
 
+            $basePrice = $card->price + random_int(-1 * $priceVariation, $priceVariation);
+
+            $modifiedPrice = (int) round($basePrice * $stats->level->getPriceModifier());
+
             DungeonShopCard::create(
                 userId: $user->id->value,
                 campaignId: Dungeon::CURRENT_CAMPAIGN,
                 cardName: $card->name,
-                price: $card->price + random_int(-1 * $priceVariation, $priceVariation),
+                price: $modifiedPrice,
             );
         }
     }

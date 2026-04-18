@@ -48,13 +48,14 @@ enum Level: int
         return $this->value >= $other->value;
     }
 
-    public function freeTokenAmount(): int
+    public function getPriceModifier(): float
     {
         return match ($this) {
-            self::NOOB => 20,
-            self::NOVICE => 15,
-            self::MASTER => 10,
-            self::GRANDMASTER, self::LEGENDARY => 5,
+            self::NOOB => 0.5,
+            self::NOVICE => 1.0,
+            self::MASTER => 1.5,
+            self::GRANDMASTER => 2.0,
+            self::LEGENDARY => 2.5,
         };
     }
 }

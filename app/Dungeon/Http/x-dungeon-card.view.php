@@ -24,7 +24,7 @@ if ($disabled ?? false) {
                 </div>
             </div>
 
-            <div class="flex justify-end">
+            <div class="flex justify-end" :if="$card->mana">
                 <div class="card-stat mana">{{ $card->mana }}</div>
             </div>
         </div>
