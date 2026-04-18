@@ -3,11 +3,9 @@
 namespace App\Dungeon\Repositories;
 
 use App\Dungeon\Dungeon;
-use App\Dungeon\Events\UserShopInitialized;
 use App\Dungeon\Persistence\DungeonShopCard;
 use App\Support\Authentication\User;
 use function Tempest\Database\query;
-use function Tempest\EventBus\event;
 
 final readonly class ShopRepository
 {

@@ -33,7 +33,7 @@ final class DungeonUserStats
             return false;
         }
 
-        if ($this->coins < $dungeonShopCard->card->price) {
+        if ($this->coins < $dungeonShopCard->price) {
             return false;
         }
 
