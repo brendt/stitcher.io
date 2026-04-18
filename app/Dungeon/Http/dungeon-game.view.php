@@ -2435,6 +2435,11 @@
                 }
 
                 if (change?.name === 'player.coinsIncreased') {
+                    if (typeof change?.payload?.total !== 'undefined') {
+                        stats.coins = numberFrom(change.payload.total);
+                        continue;
+                    }
+
                     stats.coins += numberFrom(change?.payload?.amount);
                     continue;
                 }
@@ -2460,6 +2465,11 @@
                 }
 
                 if (change?.name === 'player.maxHealthIncreased') {
+                    if (typeof change.payload?.total !== 'undefined') {
+                        stats.maxHealth = numberFrom(change.payload.total);
+                        continue;
+                    }
+
                     if (typeof change.payload?.maxHealth !== 'undefined') {
                         stats.maxHealth = numberFrom(change.payload.maxHealth);
                         continue;
@@ -2470,6 +2480,11 @@
                 }
 
                 if (change?.name === 'player.maxManaIncreased') {
+                    if (typeof change.payload?.total !== 'undefined') {
+                        stats.maxMana = numberFrom(change.payload.total);
+                        continue;
+                    }
+
                     if (typeof change.payload?.maxMana !== 'undefined') {
                         stats.maxMana = numberFrom(change.payload.maxMana);
                         continue;
