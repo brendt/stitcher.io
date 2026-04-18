@@ -4,6 +4,7 @@
 ## 1.1
 
 - Shard shop
+- Permanent cards
 
 ## 1.2:
 
