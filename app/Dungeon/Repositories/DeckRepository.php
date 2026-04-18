@@ -42,7 +42,6 @@ final readonly class DeckRepository
                 RumbleMinor::class,
                 HealMinor::class,
                 HealMinor::class,
-                Clarity::class,
                 KillDwellerMinor::class,
                 UpperHandMinor::class,
                 StabilityMinor::class,
