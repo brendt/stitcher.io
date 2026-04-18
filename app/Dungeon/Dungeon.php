@@ -14,6 +14,7 @@ final class Dungeon
     public const int CURRENT_CAMPAIGN = 1;
     public const int MAX_HAND_COUNT = 20;
     public const string HAS_SEEN_SHARD_SHOP = 'has_seen_shard_shop';
+    public const string NICKNAME = 'nickname';
 
     use DungeonActions;
 

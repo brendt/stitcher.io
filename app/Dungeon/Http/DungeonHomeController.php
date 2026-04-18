@@ -2,15 +2,18 @@
 
 namespace App\Dungeon\Http;
 
+use App\Dungeon\Dungeon;
 use App\Dungeon\Persistence\DungeonUserCard;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\DungeonRepository;
 use App\Dungeon\Repositories\ShopRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
+use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\View\View;
+use function Tempest\Router\uri;
 use function Tempest\View\view;
 
 #[DungeonAuth]
@@ -24,9 +27,14 @@ final readonly class DungeonHomeController
     ) {}
 
     #[Get('/dungeon')]
-    public function index(User $user): View
+    public function index(User $user): View|Redirect
     {
         $stats = $this->statsRepository->forUser($user);
+
+        if (! $stats->nickname) {
+            return new Redirect(uri([self::class, 'nickname']));
+        }
+
         $shop = $this->shopRepository->forUser($user);
         $deck = $this->deckRepository->forUser($user);
         $dungeon = $this->dungeonRepository->forUser($user);
@@ -37,6 +45,7 @@ final readonly class DungeonHomeController
             shop: $shop,
             deck: $deck,
             dungeon: $dungeon,
+            rank: $this->statsRepository->getRank($user),
         );
     }
 
@@ -102,6 +111,31 @@ final readonly class DungeonHomeController
         return $this->renderDeckBuilder($user);
     }
 
+    #[Get('/dungeon/nickname')]
+    public function nickname(): View
+    {
+        return view('dungeon-nickname.view.php');
+    }
+
+    #[Post('/dungeon/nickname')]
+    public function storeNickname(User $user, NicknameRequest $request): Redirect
+    {
+        $stats = $this->statsRepository->forUser($user);
+        $stats->extra[Dungeon::NICKNAME] = $request->nickname;
+        $stats->save();
+
+        return new Redirect(uri([self::class, 'index']));
+    }
+
+    #[Get('/dungeon/leaderboard')]
+    public function leaderboard(): View
+    {
+        return view(
+            'dungeon-leaderboard.view.php',
+            leaderboard: $this->statsRepository->getLeaderboard(),
+        );
+    }
+
     private function renderDeckBuilder(User $user): View
     {
         return view(
@@ -109,6 +143,7 @@ final readonly class DungeonHomeController
             deck: $this->deckRepository->forUser($user),
             shop: $this->shopRepository->forUser($user),
             stats: $this->statsRepository->forUser($user),
+            rank: $this->statsRepository->getRank($user),
             dungeon: $this->dungeonRepository->forUser($user),
         );
     }

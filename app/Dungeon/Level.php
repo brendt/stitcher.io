@@ -2,6 +2,8 @@
 
 namespace App\Dungeon;
 
+use function Tempest\Support\str;
+
 enum Level: int
 {
     case NOOB = 0;
@@ -57,5 +59,16 @@ enum Level: int
             self::GRANDMASTER => 2.0,
             self::LEGENDARY => 2.5,
         };
+    }
+
+    public function nextMilestone(): string
+    {
+        $xp = $this->nextLevel()->value;
+
+        if ($xp <= 1000) {
+            return $xp;
+        }
+
+        return (int) round($xp / 1000) . 'k';
     }
 }
