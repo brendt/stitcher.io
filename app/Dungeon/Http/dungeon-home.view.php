@@ -11,6 +11,6 @@ use function Tempest\Router\uri;
     </x-slot>
 
     <div class="grid gap-8 pb-8">
-        <x-deck-builder :deck="$deck" :shop="$shop" :stats="$stats" />
+        <x-deck-builder :deck="$deck" :shop="$shop" :stats="$stats" :dungeon="$dungeon" />
     </div>
 </x-dungeon>

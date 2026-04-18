@@ -184,10 +184,9 @@
         }
 
         .resign-button {
-            position: fixed;
-            z-index: 2100;
-            top: 12px;
-            right: 12px;
+            flex-shrink: 0;
+            align-self: center;
+            margin-left: 16px;
             padding: 8px 18px;
             border-radius: 10px;
             border: 2px solid rgba(217, 119, 6, 0.65);
@@ -682,13 +681,6 @@
 
             .bottom-notch-value {
                 font-size: 15px;
-            }
-
-            .resign-button {
-                position: static;
-                flex-shrink: 0;
-                margin-left: 15px;
-                align-self: center;
             }
 
             .hand-notch {

@@ -4,6 +4,7 @@ namespace App\Dungeon\Http;
 
 use App\Dungeon\Persistence\DungeonUserCard;
 use App\Dungeon\Repositories\DeckRepository;
+use App\Dungeon\Repositories\DungeonRepository;
 use App\Dungeon\Repositories\ShopRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
@@ -19,6 +20,7 @@ final readonly class DungeonHomeController
         private StatsRepository $statsRepository,
         private ShopRepository $shopRepository,
         private DeckRepository $deckRepository,
+        private DungeonRepository $dungeonRepository,
     ) {}
 
     #[Get('/dungeon')]
@@ -27,12 +29,14 @@ final readonly class DungeonHomeController
         $stats = $this->statsRepository->forUser($user);
         $shop = $this->shopRepository->forUser($user);
         $deck = $this->deckRepository->forUser($user);
+        $dungeon = $this->dungeonRepository->forUser($user);
 
         return view(
             'dungeon-home.view.php',
             stats: $stats,
             shop: $shop,
             deck: $deck,
+            dungeon: $dungeon,
         );
     }
 
@@ -100,15 +104,12 @@ final readonly class DungeonHomeController
 
     private function renderDeckBuilder(User $user): View
     {
-        $deck = $this->deckRepository->forUser($user);
-        $shop = $this->shopRepository->forUser($user);
-        $stats = $this->statsRepository->forUser($user);
-
         return view(
             'x-deck-builder.view.php',
-            deck: $deck,
-            shop: $shop,
-            stats: $stats,
+            deck: $this->deckRepository->forUser($user),
+            shop: $this->shopRepository->forUser($user),
+            stats: $this->statsRepository->forUser($user),
+            dungeon: $this->dungeonRepository->forUser($user),
         );
     }
 }
