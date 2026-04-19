@@ -22,6 +22,7 @@
             width: 100vw;
             height: 100vh;
             overflow: hidden;
+            background-color: #374151;
         }
 
         .viewport {
@@ -47,7 +48,7 @@
 
         canvas {
             display: block;
-            background: #27282e;
+            background: oklch(20% 0 0);
         }
 
         .artifact-compass {
