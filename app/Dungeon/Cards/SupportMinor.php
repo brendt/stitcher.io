@@ -26,7 +26,7 @@ final class SupportMinor implements Card, ActiveCard
 
     private(set) int $mana = 50;
 
-    private(set) Rarity $rarity = Rarity::COMMON;
+    private(set) Rarity $rarity = Rarity::RARE;
 
     private(set) int $price = 2500;
 

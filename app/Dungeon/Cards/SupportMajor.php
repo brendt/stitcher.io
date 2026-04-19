@@ -26,7 +26,7 @@ final class SupportMajor implements Card, ActiveCard
 
     private(set) int $mana = 75;
 
-    private(set) Rarity $rarity = Rarity::COMMON;
+    private(set) Rarity $rarity = Rarity::EPIC;
 
     private(set) int $price = 5000;
 

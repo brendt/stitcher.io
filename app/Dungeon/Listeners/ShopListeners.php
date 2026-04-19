@@ -53,16 +53,16 @@ final readonly class ShopListeners
 
         // Split into buyable and unbuyable cards
         $buyableCards = $availableCards->filter(fn (Card $card) => $stats->level->hasAccessTo($card->level));
-        $unbuyableCards = $availableCards->filter(fn (Card $card) => ! $stats->level->hasAccessTo($card->level));
+        $unbuyableCards = $availableCards->filter(fn (Card $card) => $stats->level->nextLevel() === $card->level);
 
         $cardsForShop = arr();
 
         // Add some fixed cards by chance
-        if ($this->random->chance(1/3)) {
+        if ($unbuyableCards->isNotEmpty() && $this->random->chance(1/3)) {
             $cardsForShop[] = $unbuyableCards->random();
         }
 
-        if ($this->random->chance(1/3)) {
+        if ($unbuyableCards->isNotEmpty() && $this->random->chance(1/3)) {
             $cardsForShop[] = $unbuyableCards->random();
         }
 
