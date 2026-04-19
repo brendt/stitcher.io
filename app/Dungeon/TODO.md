@@ -5,6 +5,7 @@
 - Dweller movement on card play and active card effect
 - Messages
 - Protection is broken
+- Sometimes, a dweller doesn't get removed after hit
 
 ## 1.1
 
