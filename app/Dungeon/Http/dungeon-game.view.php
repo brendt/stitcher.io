@@ -416,6 +416,27 @@
             width: 100%;
         }
 
+        .deck-counter {
+            flex-shrink: 0;
+            align-self: center;
+            padding: 0 20px;
+            text-align: center;
+            font: 700 22px/1 var(--font-title);
+            color: rgba(229, 231, 235, 0.7);
+            letter-spacing: 0.02em;
+        }
+
+        .deck-counter::after {
+            display: block;
+            content: 'cards remaining';
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(156, 163, 175, 0.6);
+            margin-top: 3px;
+            font-family: var(--font-title);
+        }
+
         .card-slots-corner {
             position: fixed;
             top: 70px;
@@ -820,7 +841,9 @@
             </svg>
         </button>
         <div class="hand-layout">
-            <div id="hand-cards" class="hand-cards"></div>
+            <div id="hand-cards" class="hand-cards">
+                <div id="deck-counter" class="deck-counter"></div>
+            </div>
         </div>
     </div>
     <pre id="debug-popup" class="debug-popup"></pre>
@@ -850,6 +873,7 @@
         }
         const debugPopup = document.getElementById('debug-popup');
         const handCards = document.getElementById('hand-cards');
+        const deckCounter = document.getElementById('deck-counter');
         const activeCardSlot = document.getElementById('active-card-slot');
         const passiveCardSlot = document.getElementById('passive-card-slot');
         const counters = {
@@ -868,6 +892,7 @@
         const dwellers = [];
         const dwellerIndex = new Map();
         const hand = new Map();
+        let deckSize = 0;
         let activeCard = null;
         let passiveCard = null;
         let playerPosition = null;
@@ -1799,6 +1824,7 @@
             isPlayerDead = hasEnded && numberFrom(nextPayload?.health) <= 0;
             hasPlayerExited = hasEnded && !isPlayerDead;
             exitedCoinsAmount = hasPlayerExited ? numberFrom(nextPayload?.coins) : null;
+            deckSize = nextPayload?.deck ? Object.keys(nextPayload.deck).length : 0;
             latestChanges = [];
         }
 
@@ -2101,6 +2127,7 @@
             }
 
             hand.set(card.id, card);
+            deckSize = Math.max(0, deckSize - 1);
         }
 
         function applyCardPlayed(payload) {
@@ -2276,17 +2303,21 @@
                 empty.className = 'hand-empty';
                 empty.textContent = 'No cards in hand';
                 handCards.appendChild(empty);
-                return;
+            } else {
+                for (const card of hand.values()) {
+                    const isPlayable = card.mana <= stats.mana;
+                    const article = createCardElement(card, {
+                        unplayable: !isPlayable,
+                        showTypeBadge: true,
+                        onClick: isPlayable ? () => playCard(card.id) : null,
+                    });
+                    handCards.appendChild(article);
+                }
             }
 
-            for (const card of hand.values()) {
-                const isPlayable = card.mana <= stats.mana;
-                const article = createCardElement(card, {
-                    unplayable: !isPlayable,
-                    showTypeBadge: true,
-                    onClick: isPlayable ? () => playCard(card.id) : null,
-                });
-                handCards.appendChild(article);
+            if (deckCounter) {
+                deckCounter.textContent = deckSize;
+                handCards.appendChild(deckCounter);
             }
         }
 

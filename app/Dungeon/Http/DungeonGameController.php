@@ -67,6 +67,10 @@ final class DungeonGameController
             new StabilityMajor(),
             new StabilityMajor(),
             new StabilityMajor(),
+            new StabilityMajor(),
+            new StabilityMajor(),
+            new StabilityMajor(),
+            new StabilityMajor(),
             new BreakthroughMajor(),
         ]);
 
