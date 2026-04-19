@@ -6,13 +6,13 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
 use App\Dungeon\Events\PlayerHealthDecreased;
-use App\Dungeon\WithEvents;
+use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class ChestplateMajorPermanent implements Card, WithEvents, CanBuyWithShards
+final class ChestplateMajorPermanent implements Card, PassiveCard, CanBuyWithShards
 {
     use IsCard;
 
@@ -31,6 +31,10 @@ final class ChestplateMajorPermanent implements Card, WithEvents, CanBuyWithShar
     private(set) Level $level = Level::MASTER;
 
     private(set) int $price = 4000;
+
+    public ?string $label {
+        get => null;
+    }
 
     public function getAdjustedPrice(): int
     {
@@ -53,6 +57,7 @@ final class ChestplateMajorPermanent implements Card, WithEvents, CanBuyWithShar
             return;
         }
 
+        $dungeon->updateCard($this);
         $dungeon->increaseHealth(min(10, $event->amount));
     }
 }

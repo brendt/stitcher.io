@@ -4,13 +4,13 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\InteractsWithTile;
+use App\Dungeon\ActiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class BreakthroughMinor implements Card, InteractsWithTile
+final class BreakthroughMinor implements Card, ActiveCard
 {
     use IsCard;
 
@@ -30,6 +30,10 @@ final class BreakthroughMinor implements Card, InteractsWithTile
 
     private(set) Level $level = Level::NOOB;
 
+    public ?string $label {
+        get => null;
+    }
+
     public function play(Dungeon $dungeon): void
     {
         // Nothing on play
@@ -44,6 +48,7 @@ final class BreakthroughMinor implements Card, InteractsWithTile
     {
         $dungeon->removeTileWalls($tile);
         $dungeon->decreaseStability(20);
+        $dungeon->updateCard($this);
         $dungeon->unsetActiveCard();
     }
 }

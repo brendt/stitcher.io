@@ -4,14 +4,14 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\WithEvents;
+use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class BeaconMinor implements Card, WithEvents
+final class BeaconMinor implements Card, PassiveCard
 {
     use IsCard;
 
@@ -33,6 +33,10 @@ final class BeaconMinor implements Card, WithEvents
 
     private(set) Level $level = Level::NOVICE;
 
+    public ?string $label {
+        get => $this->count;
+    }
+
     public function play(Dungeon $dungeon): void
     {
         foreach ($dungeon->loopDwellers() as $dweller) {
@@ -47,6 +51,8 @@ final class BeaconMinor implements Card, WithEvents
         }
 
         $this->count -= 1;
+
+        $dungeon->updateCard($this);
 
         foreach ($dungeon->loopDwellers() as $dweller) {
             if ($this->count > 0) {

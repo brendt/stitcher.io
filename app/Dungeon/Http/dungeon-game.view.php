@@ -682,6 +682,27 @@
             display: block;
         }
 
+        .hand-card-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
+            background: color-mix(in srgb, var(--card-accent) 30%, rgba(0, 0, 0, 0.55));
+            color: #f8fafc;
+            font-family: var(--font-title), ui-serif, serif;
+            font-size: 16px;
+            line-height: 1;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            z-index: 2;
+            pointer-events: none;
+        }
+
         @media (pointer: coarse) {
             .death-overlay-content {
                 text-align: center;
@@ -1846,6 +1867,7 @@
                 type: typeof value.type === 'string' ? value.type : '',
                 mana: Number.isFinite(Number(value.mana)) ? Number(value.mana) : 0,
                 canInteractWithTile: Boolean(value.canInteractWithTile),
+                label: typeof value.label === 'string' ? value.label : '',
             };
         }
 
@@ -2172,6 +2194,26 @@
             passiveCard = null;
         }
 
+        function applyCardUpdated(payload) {
+            const card = normalizeCard(payload?.card);
+
+            if (!card) {
+                return;
+            }
+
+            if (hand.has(card.id)) {
+                hand.set(card.id, card);
+            }
+
+            if (activeCard?.id === card.id) {
+                activeCard = card;
+            }
+
+            if (passiveCard?.id === card.id) {
+                passiveCard = card;
+            }
+        }
+
         function getCardImageUrl(image) {
             if (!image) {
                 return '';
@@ -2236,6 +2278,13 @@
             content.appendChild(title);
             content.appendChild(description);
             article.appendChild(content);
+
+            if (options.small && card.label) {
+                const label = document.createElement('div');
+                label.className = 'hand-card-label';
+                label.textContent = card.label;
+                article.appendChild(label);
+            }
 
             if (typeof options.onClick === 'function') {
                 article.addEventListener('click', options.onClick);
@@ -2591,6 +2640,11 @@
 
                 if (change?.name === 'card.passiveUnset' || change?.name === 'card.passsiveUnset') {
                     applyPassiveCardUnset();
+                    continue;
+                }
+
+                if (change?.name === 'card.updated') {
+                    applyCardUpdated(change.payload);
                     continue;
                 }
 

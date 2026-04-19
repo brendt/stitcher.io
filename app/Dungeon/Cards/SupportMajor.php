@@ -5,15 +5,14 @@ namespace App\Dungeon\Cards;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\Events\TileUpdated;
-use App\Dungeon\InteractsWithTile;
+use App\Dungeon\ActiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
-use Illuminate\Support\Str;
 use function Tempest\EventBus\event;
 
-final class SupportMajor implements Card, InteractsWithTile
+final class SupportMajor implements Card, ActiveCard
 {
     use IsCard;
 
@@ -34,6 +33,10 @@ final class SupportMajor implements Card, InteractsWithTile
     private(set) Type $type = Type::ACTIVE;
 
     private(set) Level $level = Level::MASTER;
+
+    public ?string $label {
+        get => $this->count;
+    }
 
     public function play(Dungeon $dungeon): void
     {
@@ -56,6 +59,8 @@ final class SupportMajor implements Card, InteractsWithTile
         event(new TileUpdated($tile));
 
         $this->count -= 1;
+
+        $dungeon->updateCard($this);
 
         if ($this->count === 0) {
             $dungeon->unsetActiveCard();

@@ -5,15 +5,14 @@ namespace App\Dungeon\Cards;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\Events\TileUpdated;
-use App\Dungeon\InteractsWithTile;
+use App\Dungeon\ActiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\RemoveTileTrap;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 use function Tempest\EventBus\event;
 
-final class TrapDisarmMajor implements Card, InteractsWithTile
+final class TrapDisarmMajor implements Card, ActiveCard
 {
     use IsCard;
 
@@ -35,6 +34,10 @@ final class TrapDisarmMajor implements Card, InteractsWithTile
 
     private(set) Level $level = Level::MASTER;
 
+    public ?string $label {
+        get => $this->count;
+    }
+
     public function play(Dungeon $dungeon): void
     {
         // Nothing on play
@@ -52,6 +55,8 @@ final class TrapDisarmMajor implements Card, InteractsWithTile
         event(new TileUpdated($tile));
 
         $this->count -= 1;
+
+        $dungeon->updateCard($this);
 
         if ($this->count === 0) {
             $dungeon->unsetActiveCard();

@@ -1,10 +1,10 @@
 ## 1.0
 
 - Port the test suite
-- Show count for active and passive cards
 - Hand card limitations (max 3 of this type of card, etc.)
 - Dweller movement on card play and active card effect
 - Messages
+- Protection is broken
 
 ## 1.1
 

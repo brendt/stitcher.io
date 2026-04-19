@@ -5,13 +5,13 @@ namespace App\Dungeon\Cards;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\Events\PlayerHealthDecreased;
-use App\Dungeon\WithEvents;
+use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class ProtectionMinor implements Card, WithEvents
+final class ProtectionMinor implements Card, PassiveCard
 {
     use IsCard;
 
@@ -32,6 +32,10 @@ final class ProtectionMinor implements Card, WithEvents
     private(set) Type $type = Type::PASSIVE;
 
     private(set) Level $level = Level::NOVICE;
+
+    public ?string $label {
+        get => $this->toAbsorb;
+    }
 
     public function play(Dungeon $dungeon): void
     {
@@ -54,5 +58,7 @@ final class ProtectionMinor implements Card, WithEvents
             $dungeon->increaseHealth($damage - $overflow);
             $dungeon->unsetPassiveCard();
         }
+
+        $dungeon->updateCard($this);
     }
 }

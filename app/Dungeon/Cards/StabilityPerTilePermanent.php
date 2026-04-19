@@ -6,13 +6,13 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
 use App\Dungeon\Events\TileGenerated;
-use App\Dungeon\WithEvents;
+use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class StabilityPerTilePermanent implements Card, WithEvents, CanBuyWithShards
+final class StabilityPerTilePermanent implements Card, PassiveCard, CanBuyWithShards
 {
     use IsCard;
 
@@ -32,6 +32,10 @@ final class StabilityPerTilePermanent implements Card, WithEvents, CanBuyWithSha
 
     private(set) int $price = 4000;
 
+    public ?string $label {
+        get => null;
+    }
+
     public function play(Dungeon $dungeon): void
     {
         // Nothing on play
@@ -43,6 +47,7 @@ final class StabilityPerTilePermanent implements Card, WithEvents, CanBuyWithSha
             return;
         }
 
+        $dungeon->updateCard($this);
         $dungeon->increaseStability(1);
     }
 

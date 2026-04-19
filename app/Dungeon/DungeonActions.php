@@ -8,6 +8,7 @@ use App\Dungeon\Events\ArtifactCollected;
 use App\Dungeon\Events\ArtifactSpawned;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
+use App\Dungeon\Events\CardUpdated;
 use App\Dungeon\Events\PlayerExited;
 use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Events\DwellerMoved;
@@ -389,18 +390,18 @@ trait DungeonActions
     {
         $activeCard = $this->activeCard;
 
-        if ($activeCard instanceof WithEvents) {
+        if ($activeCard instanceof PassiveCard) {
             $activeCard->handle($this, $targetTile, $event);
         }
 
         $passiveCard = $this->passiveCard;
 
-        if ($passiveCard instanceof WithEvents) {
+        if ($passiveCard instanceof PassiveCard) {
             $passiveCard->handle($this, $targetTile, $event);
         }
 
         foreach ($this->permanentCards as $permanentCard) {
-            if ($permanentCard instanceof WithEvents) {
+            if ($permanentCard instanceof PassiveCard) {
                 $permanentCard->handle($this, $targetTile, $event);
             }
         }
@@ -414,7 +415,7 @@ trait DungeonActions
 
         $card = $this->activeCard;
 
-        if (! $card instanceof InteractsWithTile) {
+        if (! $card instanceof ActiveCard) {
             return;
         }
 
@@ -680,5 +681,10 @@ trait DungeonActions
         event(new PlayerShardsIncreased($amount, $this->shards));
 
         $this->statsRepository->increaseStats($this->user, shards: 1);
+    }
+
+    public function updateCard(Card $card): void
+    {
+        event(new CardUpdated($card));
     }
 }

@@ -4,14 +4,13 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\InteractsWithTile;
+use App\Dungeon\ActiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
-use Illuminate\Support\Str;
 
-final class BreakthroughMajor implements Card, InteractsWithTile
+final class BreakthroughMajor implements Card, ActiveCard
 {
     use IsCard;
 
@@ -33,6 +32,10 @@ final class BreakthroughMajor implements Card, InteractsWithTile
 
     private(set) Level $level = Level::NOVICE;
 
+    public ?string $label {
+        get => $this->count;
+    }
+
     public function play(Dungeon $dungeon): void
     {
         // Nothing on play
@@ -49,6 +52,8 @@ final class BreakthroughMajor implements Card, InteractsWithTile
         $dungeon->decreaseStability(10);
 
         $this->count -= 1;
+
+        $dungeon->updateCard($this);
 
         if ($this->count === 0) {
             $dungeon->unsetActiveCard();

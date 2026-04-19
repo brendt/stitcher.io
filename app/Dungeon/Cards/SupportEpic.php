@@ -5,18 +5,14 @@ namespace App\Dungeon\Cards;
 use App\Dungeon\Dungeon;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
-use App\Dungeon\InteractsWithTile;
+use App\Dungeon\ActiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\ChangeStability;
-use App\Dungeon\Commands\DiscardActiveCard;
-use App\Dungeon\Commands\SupportTile;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
-use Illuminate\Support\Str;
 
 // TODO
-final class SupportEpic implements Card, InteractsWithTile, CanBuyWithShards
+final class SupportEpic implements Card, ActiveCard, CanBuyWithShards
 {
     use IsCard;
 
@@ -38,6 +34,10 @@ final class SupportEpic implements Card, InteractsWithTile, CanBuyWithShards
 
     private(set) Level $level = Level::GRANDMASTER;
 
+    public ?string $label {
+        get => $this->count;
+    }
+
     public function play(Dungeon $dungeon): void
     {
         // $board->setActiveCard($this);
@@ -54,13 +54,14 @@ final class SupportEpic implements Card, InteractsWithTile, CanBuyWithShards
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
-        command(new SupportTile($tile->point));
-        command(new ChangeStability(5));
-        $this->count -= 1;
-
-        if ($this->count === 0) {
-            $dungeon->unsetActiveCard();
-        }
+//        command(new SupportTile($tile->point));
+//        command(new ChangeStability(5));
+//        $this->count -= 1;
+//        $dungeon->cardUpdated($this);
+//
+//        if ($this->count === 0) {
+//            $dungeon->unsetActiveCard();
+//        }
     }
 
     public function getAdjustedPrice(): int

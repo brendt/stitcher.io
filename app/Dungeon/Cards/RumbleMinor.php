@@ -4,13 +4,13 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\InteractsWithTile;
+use App\Dungeon\ActiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class RumbleMinor implements Card, InteractsWithTile
+final class RumbleMinor implements Card, ActiveCard
 {
     use IsCard;
 
@@ -30,6 +30,10 @@ final class RumbleMinor implements Card, InteractsWithTile
 
     private(set) Level $level = Level::NOOB;
 
+    public ?string $label {
+        get => null;
+    }
+
     public function play(Dungeon $dungeon): void
     {
         // Nothing on play
@@ -46,6 +50,7 @@ final class RumbleMinor implements Card, InteractsWithTile
         $dungeon->removeTileCollapse($tile);
         $dungeon->decreaseStability(10);
 
+        $dungeon->updateCard($this);
         $dungeon->unsetActiveCard();
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Dungeon;
 
-interface WithEvents
+interface PassiveCard
 {
+    public ?string $label { get; }
+
     public function handle(Dungeon $dungeon, Tile $tile, object $event): void;
 }

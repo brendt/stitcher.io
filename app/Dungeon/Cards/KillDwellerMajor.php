@@ -4,13 +4,13 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
-use App\Dungeon\InteractsWithTile;
+use App\Dungeon\ActiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Level;
 use App\Dungeon\Tile;
 
-final class KillDwellerMajor implements Card, InteractsWithTile
+final class KillDwellerMajor implements Card, ActiveCard
 {
     use IsCard;
 
@@ -32,6 +32,10 @@ final class KillDwellerMajor implements Card, InteractsWithTile
 
     private(set) Level $level = Level::MASTER;
 
+    public ?string $label {
+        get => $this->count;
+    }
+
     public function play(Dungeon $dungeon): void
     {
         // Nothing on play
@@ -47,6 +51,8 @@ final class KillDwellerMajor implements Card, InteractsWithTile
         $dungeon->despawnDweller($dungeon->getDweller($tile->point));
 
         $this->count -= 1;
+
+        $dungeon->updateCard($this);
 
         if ($this->count === 0) {
             $dungeon->unsetActiveCard();
