@@ -6,6 +6,7 @@
 - Messages
 - Sometimes, a dweller doesn't get removed after hit
 - Sellable cards
+- Increased amount of coins per tile
 
 ## 1.1
 
