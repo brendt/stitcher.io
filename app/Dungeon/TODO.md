@@ -1,8 +1,9 @@
 ## 1.0
 
 - Port the test suite
-- Card hand limitations
-- Broken login redirect
+- Hand card limitations (max 3 of this type of card, etc.)
+- Dweller movement on card play and active card effect
+- Show count for active and passive cards
 
 ## 1.1
 
@@ -17,9 +18,14 @@
   - Fusion
   - Discard 1 draw 2
   - Increase hand size
+  - Increase deck size (Shard shop)
+  - Restore one random discarded card
+  - Restore one discarded card by choice
 
 ## 1.3 Golem boss fight
 
 - [ ] Summon with an item found in the dungeon
 - [ ] Needs multiple hits 
 - [ ] Moves towards the player
+
+
