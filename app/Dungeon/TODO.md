@@ -11,7 +11,7 @@
 - Shard shop
 - Permanent cards
 
-## 1.2:
+## 1.2
 
 - Lakes
 - New cards:
