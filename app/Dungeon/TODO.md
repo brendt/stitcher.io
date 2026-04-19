@@ -7,11 +7,11 @@
 - Sometimes, a dweller doesn't get removed after hit
 - Sellable cards
 - Increased amount of coins per tile
-- auto camera movement near edges
 - Messages on events
 - Q for active card action
 - Collapse on player tile deals damage
 - Smooth movements in the dungeon
+- Screenshots of dungeon maps as throphies
 
 ## 1.1
 

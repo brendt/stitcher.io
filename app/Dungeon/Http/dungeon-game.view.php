@@ -349,6 +349,27 @@
             text-align: right;
         }
 
+        @keyframes stat-pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.45; }
+        }
+
+        .stat-critical {
+            animation: stat-pulse 1.1s ease-in-out infinite;
+        }
+
+        .bottom-notch-stat {
+            --stat-color: #e5e7eb;
+        }
+
+        .bottom-notch-stat .bottom-notch-value {
+            color: var(--stat-color);
+        }
+
+        .bottom-notch-stat .bottom-notch-label {
+            color: color-mix(in srgb, var(--stat-color) 60%, rgba(156, 163, 175, 0.75));
+        }
+
         .bottom-notch-max {
             margin-left: 6px;
             font-size: 12px;
@@ -2781,6 +2802,55 @@
             }
         }
 
+        function getStatColor(statKey, ratio, current) {
+            const r = Math.max(0, Math.min(1, ratio));
+
+            if (statKey === 'health') {
+                if (r <= 0.25) return '#ef4444';
+                if (r <= 0.5)  return '#facc15';
+                if (r <= 0.75) return '#86efac';
+                return '#4ade80';
+            }
+
+            if (statKey === 'stability') {
+                if (r <= 0.25) return '#ef4444';
+                if (r <= 0.5)  return '#f97316';
+                if (r <= 0.75) return '#fdba74';
+                return '#fb923c';
+            }
+
+            if (statKey === 'mana') {
+                if (current <= 20) return '#e5e7eb';
+                if (r >= 0.75) return '#38bdf8';
+                if (r >= 0.5)  return '#60a5fa';
+                return '#93c5fd';
+            }
+
+            return null;
+        }
+
+        function applyStatColor(element, statKey, current, max) {
+            if (!element) {
+                return;
+            }
+
+            const ratio = max > 0 ? current / max : 0;
+            const color = getStatColor(statKey, ratio, current);
+            const stat = element.closest('.bottom-notch-stat');
+
+            if (stat) {
+                stat.style.setProperty('--stat-color', color ?? '#e5e7eb');
+                const isCritical = (statKey === 'health' || statKey === 'stability') && ratio <= 0.25;
+                stat.classList.toggle('stat-critical', isCritical);
+            }
+
+            if (statKey === 'mana' && stat) {
+                stat.style.filter = current > 125
+                    ? 'drop-shadow(0 0 6px rgba(56, 189, 248, 0.75)) drop-shadow(0 0 16px rgba(56, 189, 248, 0.35))'
+                    : '';
+            }
+        }
+
         function renderCurrentMaxCounter(element, current, max) {
             if (!element) {
                 return;
@@ -2809,8 +2879,13 @@
             }
 
             renderCurrentMaxCounter(counters.health, stats.health, stats.maxHealth);
+            applyStatColor(counters.health, 'health', stats.health, stats.maxHealth);
+
             renderCurrentMaxCounter(counters.mana, stats.mana, stats.maxMana);
+            applyStatColor(counters.mana, 'mana', stats.mana, stats.maxMana);
+
             renderCurrentMaxCounter(counters.stability, stats.stability, stats.maxStability);
+            applyStatColor(counters.stability, 'stability', stats.stability, stats.maxStability);
         }
 
         async function movePlayer(direction) {

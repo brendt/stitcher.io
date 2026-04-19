@@ -47,9 +47,9 @@ final readonly class DemoController
         $repository->persist($dungeon);
 
         $dungeon->cheat = true;
-        $dungeon->mana = 1000;
+        $dungeon->mana = 125;
 //        $dungeon->health = 1000;
-        $dungeon->stability = 10;
+        $dungeon->stability = 100;
 
         $dungeon->addTile(new Tile(new Point(1, 1), isTrapped: true));
 
