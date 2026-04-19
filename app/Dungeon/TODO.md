@@ -5,7 +5,6 @@
 - Hand card limitations (max 3 of this type of card, etc.)
 - Dweller movement on card play and active card effect
 - Messages
-- Loading screen
 
 ## 1.1
 
