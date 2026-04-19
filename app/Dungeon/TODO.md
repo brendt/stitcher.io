@@ -9,6 +9,7 @@
 - Increased amount of coins per tile
 - auto camera movement near edges
 - Messages on events
+- Q for active card action
 
 ## 1.1
 
