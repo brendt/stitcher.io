@@ -11,6 +11,7 @@
 - Messages on events
 - Q for active card action
 - Collapse on player tile deals damage
+- Smooth movements in the dungeon
 
 ## 1.1
 

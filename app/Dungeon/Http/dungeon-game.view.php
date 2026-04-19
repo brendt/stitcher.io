@@ -2844,10 +2844,7 @@
                 renderCounters();
                 renderCardSlots();
                 renderHand();
-
-                if (isMobile() && playerPosition) {
-                    centerViewportOnPoint(playerPosition);
-                }
+                nudgeCameraToPlayer();
             } finally {
                 state.moveInFlight = false;
                 updateExitDungeonButton();
@@ -2885,6 +2882,7 @@
                 renderCounters();
                 renderCardSlots();
                 renderHand();
+                nudgeCameraToPlayer();
             } finally {
                 state.moveInFlight = false;
                 updateExitDungeonButton();
@@ -2931,6 +2929,7 @@
                 renderCounters();
                 renderCardSlots();
                 renderHand();
+                nudgeCameraToPlayer();
             } finally {
                 state.moveInFlight = false;
                 updateExitDungeonButton();
@@ -3013,6 +3012,44 @@
             render();
 
             centerViewportOnPoint(playerPosition);
+        }
+
+        function nudgeCameraToPlayer() {
+            if (!playerPosition) {
+                return;
+            }
+
+            const step = getStepSize();
+            const tileSize = state.baseTileSize * state.scale;
+            const playerPixelX = state.paddingX + (playerPosition.x - bounds.minX) * step + (tileSize / 2);
+            const playerPixelY = state.paddingY + (playerPosition.y - bounds.minY) * step + (tileSize / 2);
+
+            const topNotchHeight = document.querySelector('.bottom-notch')?.offsetHeight ?? 0;
+            const bottomNotchHeight = handNotch?.offsetHeight ?? 0;
+            const margin = step * 3;
+
+            const viewLeft = viewport.scrollLeft;
+            const viewTop = viewport.scrollTop + topNotchHeight;
+            const viewRight = viewport.scrollLeft + viewport.clientWidth;
+            const viewBottom = viewport.scrollTop + viewport.clientHeight - bottomNotchHeight;
+
+            let newScrollLeft = viewport.scrollLeft;
+            let newScrollTop = viewport.scrollTop;
+
+            if (playerPixelX - margin < viewLeft) {
+                newScrollLeft = playerPixelX - margin;
+            } else if (playerPixelX + margin > viewRight) {
+                newScrollLeft = playerPixelX + margin - viewport.clientWidth;
+            }
+
+            if (playerPixelY - margin < viewTop) {
+                newScrollTop = playerPixelY - margin - topNotchHeight;
+            } else if (playerPixelY + margin > viewBottom) {
+                newScrollTop = playerPixelY + margin + bottomNotchHeight - viewport.clientHeight;
+            }
+
+            viewport.scrollLeft = newScrollLeft;
+            viewport.scrollTop = newScrollTop;
         }
 
         function centerViewportOnPoint(point) {
