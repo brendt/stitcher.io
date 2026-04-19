@@ -3,6 +3,7 @@
 namespace App\Dungeon;
 
 use App\Dungeon\Persistence\DungeonUserCard;
+use App\Dungeon\Persistence\DungeonUserStats;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
@@ -83,6 +84,10 @@ final class Dungeon
 
     public int $experience = 0;
 
+    private DungeonUserStats $stats;
+
+    private Level $level;
+
     public static function new(
         User $user,
         DeckRepository $deckRepository,
@@ -93,6 +98,8 @@ final class Dungeon
         $self->user = $user;
         $self->deckRepository = $deckRepository;
         $self->statsRepository = $statsRepository;
+        $self->stats = $statsRepository->forUser($user);
+        $self->level = $self->stats->level;
 
         $self->playerPosition = new Point(0, 0);
         $self->addTile(new Tile(clone $self->playerPosition, isOrigin: true));
@@ -111,8 +118,12 @@ final class Dungeon
             $self->drawCard();
         }
 
-        $self->spawnDweller();
+        for ($i = 0; $i < $self->level->initialDwellerCount(); $i++) {
+            $self->spawnDweller();
+        }
+
         $self->spawnArtifact();
+
         $self->spawnHealthAltar();
         $self->spawnHealthAltar();
         $self->spawnManaAltar();

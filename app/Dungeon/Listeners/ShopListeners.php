@@ -91,7 +91,7 @@ final readonly class ShopListeners
 
             $basePrice = $card->price + random_int(-1 * $priceVariation, $priceVariation);
 
-            $modifiedPrice = (int) round($basePrice * $stats->level->getPriceModifier());
+            $modifiedPrice = (int) round($basePrice * $stats->level->priceModifier());
 
             DungeonShopCard::create(
                 userId: $user->id->value,

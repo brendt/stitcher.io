@@ -87,7 +87,7 @@ trait DungeonActions
         } elseif(isset($this->stabilityAltars[$to->x][$to->y])) {
             $tile->isStabilityAltar = true;
             $tile->directions = Direction::cases();
-        } elseif (random_int(1, 100) === 1) {
+        } elseif ($this->level->shouldSpawnTrap()) {
             $tile->isTrapped = true;
         }
 
@@ -467,9 +467,11 @@ trait DungeonActions
 
     public function spawnDweller(?Point $point = null): void
     {
+        $maxDistance = $this->level->maxDwellerDistance();
+
         $point ??= new Point(
-            x: random_int(-25, 25),
-            y: random_int(-25, 25),
+            x: random_int(-1 * $maxDistance, $maxDistance),
+            y: random_int(-1 * $maxDistance, $maxDistance),
         );
 
         $dweller = new Dweller($point);
@@ -535,13 +537,7 @@ trait DungeonActions
 
     public function spawnArtifact(?Point $point = null): void
     {
-//        $max = match ($this->user->getLevel()) {
-//            Level::NOOB => 20,
-//            Level::NOVICE => 30,
-//            default => 50,
-//        };
-
-        $max = 20;
+        $max = $this->level->maxArtifactDistance();
 
         $this->artifactLocation = $point ?? new Point(rand(-1 * $max, $max), rand(-1 * $max, $max));
 
@@ -558,9 +554,12 @@ trait DungeonActions
 
     public function spawnManaAltar(?Point $point = null): void
     {
+        $minDistance = $this->level->minAltarDistance();
+        $maxDistance = $this->level->maxAltarDistance();
+
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
-            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->manaAltars[$point->x][$point->y] = $point;
@@ -568,9 +567,12 @@ trait DungeonActions
 
     public function spawnHealthAltar(?Point $point = null): void
     {
+        $minDistance = $this->level->minAltarDistance();
+        $maxDistance = $this->level->maxAltarDistance();
+
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
-            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->healthAltars[$point->x][$point->y] = $point;
@@ -578,9 +580,12 @@ trait DungeonActions
 
     public function spawnStabilityAltar(?Point $point = null): void
     {
+        $minDistance = $this->level->minAltarDistance();
+        $maxDistance = $this->level->maxAltarDistance();
+
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
-            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->stabilityAltars[$point->x][$point->y] = $point;
@@ -588,9 +593,12 @@ trait DungeonActions
 
     public function spawnVictoryPoint(?Point $point = null): void
     {
+        $minDistance = $this->level->minTreasureDistance();
+        $maxDistance = $this->level->maxTreasureDistance();
+
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
-            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->victoryPointLocations[$point->x][$point->y] = $point;
@@ -598,9 +606,12 @@ trait DungeonActions
 
     public function spawnShard(?Point $point = null): void
     {
+        $minDistance = $this->level->minTreasureDistance();
+        $maxDistance = $this->level->maxTreasureDistance();
+
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
-            y: random_int(0,1) ? random_int(-30, -10) : random_int(10, 30),
+            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->shardLocations[$point->x][$point->y] = $point;
