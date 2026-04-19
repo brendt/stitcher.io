@@ -12,6 +12,49 @@ $activeCards = arr($deck)->filter(fn (DungeonUserCard $card) => $card->isActive)
 $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isActive);
 ?>
 
+<style>
+    #enter-dungeon-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9000;
+        background: rgba(0, 0, 0, 0.88);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    #enter-dungeon-overlay.active {
+        display: flex;
+    }
+
+    .enter-dungeon-spinner {
+        width: 48px;
+        height: 48px;
+        border: 3px solid rgba(217, 119, 6, 0.2);
+        border-top-color: rgb(217, 119, 6);
+        border-radius: 50%;
+        animation: dungeon-spin 0.8s linear infinite;
+    }
+
+    @keyframes dungeon-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    .enter-dungeon-overlay-text {
+        font-family: var(--font-title, serif);
+        color: rgb(252, 211, 77);
+        font-size: 1.125rem;
+        letter-spacing: 0.05em;
+    }
+</style>
+
+<div id="enter-dungeon-overlay" aria-live="polite" aria-label="Loading dungeon…">
+    <div class="enter-dungeon-spinner"></div>
+    <div class="enter-dungeon-overlay-text">Entering the Dungeon…</div>
+</div>
+
 <div id="deck-builder" class="grid gap-8">
 
     {{-- Stats HUD --}}
@@ -58,12 +101,14 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
             >
             Continue your run
         </a>
-        <a :elseif="$stats->tokens >= 1"
-           :href="uri([DungeonGameController::class, 'new'])"
-           class="title bg-amber-800 border-2 border-amber-600 hover:bg-amber-700 hover:border-amber-500 px-8 py-3 rounded-xl shadow-lg shadow-amber-950/60 text-amber-100 hover:text-white transition-all text-lg text-center">
+        <button :elseif="$stats->tokens >= 1"
+                id="enter-dungeon-btn"
+                data-href="{{ uri([DungeonGameController::class, 'new']) }}"
+                type="button"
+                class="title cursor-pointer bg-amber-800 border-2 border-amber-600 hover:bg-amber-700 hover:border-amber-500 px-8 py-3 rounded-xl shadow-lg shadow-amber-950/60 text-amber-100 hover:text-white transition-all text-lg text-center">
             Enter the Dungeon
             <span class="text-sm text-amber-400 ml-2 sm:inline block">(costs 1 token)</span>
-        </a>
+        </button>
         <div :else class="flex flex-col items-center gap-1">
             <div class="title bg-amber-800/20 border-2 border-amber-700/25 px-8 py-3 rounded-xl text-amber-200/40 text-lg cursor-not-allowed select-none">
                 Enter the Dungeon
@@ -185,4 +230,25 @@ if (!window._cardActionListenerAttached) {
         }
     });
 }
+</script>
+
+<script>
+(function () {
+    var btn = document.getElementById('enter-dungeon-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', async function () {
+        var overlay = document.getElementById('enter-dungeon-overlay');
+        var href = btn.dataset.href;
+
+        overlay.classList.add('active');
+        btn.disabled = true;
+
+        var minDelay = new Promise(function (resolve) { setTimeout(resolve, 1000); });
+        var redirectUrl = fetch(href, { redirect: 'follow' }).then(function (r) { return r.url; });
+
+        var results = await Promise.all([minDelay, redirectUrl]);
+        window.location.assign(results[1]);
+    });
+}());
 </script>
