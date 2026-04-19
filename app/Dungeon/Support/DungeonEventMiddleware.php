@@ -22,6 +22,7 @@ final readonly class DungeonEventMiddleware implements EventBusMiddleware
             return;
         }
 
+        /** @var Dungeon $dungeon */
         $dungeon = $this->container->get(Dungeon::class);
 
         if (! $dungeon) {
@@ -29,5 +30,6 @@ final readonly class DungeonEventMiddleware implements EventBusMiddleware
         }
 
         $dungeon->registerChange($event->name, $event->payload);
+        $dungeon->notifyCards($event);
     }
 }

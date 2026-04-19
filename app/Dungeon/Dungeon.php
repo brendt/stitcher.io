@@ -19,12 +19,12 @@ final class Dungeon
 
     use DungeonActions;
 
+    public bool $cheat = false;
     private StatsRepository $statsRepository;
     private DeckRepository $deckRepository;
-
+    public array $changes = [];
     public User $user;
     public int $version = 0;
-    public array $changes = [];
     public ?Point $playerPosition = null;
     public bool $hasEnded = false;
     public int $coins = 0;
@@ -37,6 +37,12 @@ final class Dungeon
     public int $stability = 100;
     public int $maxStability = 100;
     public int $maxHandCount = 5;
+    public int $experience = 0;
+    private DungeonUserStats $stats;
+    private Level $level;
+    public int $visibilityRadius = 5;
+    public ?Card $activeCard = null;
+    public ?Card $passiveCard = null;
 
     /** @var \App\Dungeon\Tile[][] */
     public array $tiles = [];
@@ -50,16 +56,8 @@ final class Dungeon
     /** @var \App\Dungeon\Card[] */
     public array $permanentCards = [];
 
-    public ?Card $activeCard = null;
-
-    public ?Card $passiveCard = null;
-
     /** @var \App\Dungeon\Dweller[][] */
     public array $dwellers = [];
-
-    public int $visibilityRadius = 5;
-
-    public bool $cheat = false;
 
     public Tile $currentTile {
         get => $this->getTile($this->playerPosition);
@@ -81,12 +79,6 @@ final class Dungeon
 
     /** @var \App\Dungeon\Point[][] */
     public array $shardLocations = [];
-
-    public int $experience = 0;
-
-    private DungeonUserStats $stats;
-
-    private Level $level;
 
     public static function new(
         User $user,

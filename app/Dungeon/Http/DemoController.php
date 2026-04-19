@@ -12,6 +12,7 @@ use App\Dungeon\Point;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\DungeonRepository;
 use App\Dungeon\Repositories\StatsRepository;
+use App\Dungeon\Tile;
 use App\Support\Authentication\User;
 use Tempest\Core\Environment;
 use Tempest\Http\Responses\Redirect;
@@ -36,18 +37,21 @@ final readonly class DemoController
         }
 
         $dungeon = Dungeon::new($user, $deckRepository, $statsRepository, deck: [
-            new BeaconMajor(),
             new ProtectionMinor(),
-            new BreakthroughMajor(),
-            new SupportMinor(),
+            new ProtectionMinor(),
+            new ProtectionMinor(),
+            new ProtectionMinor(),
+            new ProtectionMinor(),
         ]);
 
         $repository->persist($dungeon);
 
         $dungeon->cheat = true;
         $dungeon->mana = 1000;
-        $dungeon->health = 1000;
+//        $dungeon->health = 1000;
         $dungeon->stability = 10;
+
+        $dungeon->addTile(new Tile(new Point(1, 1), isTrapped: true));
 
 //        $directions = arr(Direction::cases());
 
@@ -55,7 +59,7 @@ final readonly class DemoController
 //            $dungeon->move($directions->random());
         }
 
-        $dungeon->spawnDweller(new Point(2,2));
+//        $dungeon->spawnDweller(new Point(2,2));
 //        $dungeon->spawnDweller();
 //        $dungeon->spawnDweller();
 //        $dungeon->spawnVictoryPoint(new Point(5, 5));

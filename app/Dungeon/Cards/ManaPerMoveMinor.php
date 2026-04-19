@@ -4,12 +4,12 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\DungeonEvent;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Level;
-use App\Dungeon\Tile;
 
 final class ManaPerMoveMinor implements Card, PassiveCard
 {
@@ -42,7 +42,7 @@ final class ManaPerMoveMinor implements Card, PassiveCard
         // Nothing on play
     }
 
-    public function handle(Dungeon $dungeon, Tile $tile, object $event): void
+    public function handle(Dungeon $dungeon, DungeonEvent $event): void
     {
         if (! $event instanceof PlayerMoved) {
             return;

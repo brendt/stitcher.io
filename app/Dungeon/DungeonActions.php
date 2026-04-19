@@ -94,7 +94,9 @@ trait DungeonActions
 
         $this->addTile($tile);
 
-        event(new TileGenerated($tile));
+        $event = new TileGenerated($tile);
+
+        event($event);
     }
 
     public function move(Direction $direction): void
@@ -125,8 +127,6 @@ trait DungeonActions
         $event = new PlayerMoved($oldPosition, $this->playerPosition);
 
         event($event);
-
-        $this->notifyCards($this->getTile($event->to), $event);
     }
 
     public function addCoinsToTile(Tile $tile, int $amount): void
@@ -241,7 +241,9 @@ trait DungeonActions
 
         $this->health -= $amount;
 
-        event(new PlayerHealthDecreased($amount, $this->health));
+        $event = new PlayerHealthDecreased($amount, $this->health);
+
+        event($event);
     }
 
     public function decreaseStability(int $amount): void
@@ -386,23 +388,19 @@ trait DungeonActions
         event(new PermanentCardAdded($card));
     }
 
-    public function notifyCards(Tile $targetTile, object $event): void
+    public function notifyCards(DungeonEvent $event): void
     {
-        $activeCard = $this->activeCard;
-
-        if ($activeCard instanceof PassiveCard) {
-            $activeCard->handle($this, $targetTile, $event);
+        if ($this->activeCard instanceof PassiveCard) {
+            $this->activeCard->handle($this, $event);
         }
 
-        $passiveCard = $this->passiveCard;
-
-        if ($passiveCard instanceof PassiveCard) {
-            $passiveCard->handle($this, $targetTile, $event);
+        if ($this->passiveCard instanceof PassiveCard) {
+            $this->passiveCard->handle($this, $event);
         }
 
         foreach ($this->permanentCards as $permanentCard) {
             if ($permanentCard instanceof PassiveCard) {
-                $permanentCard->handle($this, $targetTile, $event);
+                $permanentCard->handle($this, $event);
             }
         }
     }
