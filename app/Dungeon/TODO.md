@@ -10,6 +10,7 @@
 - auto camera movement near edges
 - Messages on events
 - Q for active card action
+- Collapse on player tile deals damage
 
 ## 1.1
 
