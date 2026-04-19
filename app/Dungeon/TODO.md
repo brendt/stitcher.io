@@ -7,6 +7,7 @@
 - Sometimes, a dweller doesn't get removed after hit
 - Sellable cards
 - Increased amount of coins per tile
+- auto camera movement near edges
 
 ## 1.1
 
