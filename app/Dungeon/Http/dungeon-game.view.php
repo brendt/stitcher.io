@@ -659,6 +659,7 @@
             margin: 5px;
             border-radius: 5px;
             pointer-events: none;
+            color: #f8fafc;
         }
 
         .hand-card-name {

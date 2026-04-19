@@ -19,9 +19,7 @@ final class BeaconMajor implements Card, PassiveCard
 
     private(set) string $name = 'Beacon++';
 
-    public string $description {
-        get => "Illuminate the darkness for {$this->count} moves";
-    }
+    public string $description = "Illuminate the darkness for 25 moves";
 
     public ?string $label {
         get => $this->count;
@@ -41,9 +39,9 @@ final class BeaconMajor implements Card, PassiveCard
 
     public function play(Dungeon $dungeon): void
     {
-         foreach ($dungeon->loopDwellers() as $dweller) {
+        foreach ($dungeon->loopDwellers() as $dweller) {
             $dungeon->showDweller($dweller);
-         }
+        }
     }
 
     public function handle(Dungeon $dungeon, Tile $tile, object $event): void
