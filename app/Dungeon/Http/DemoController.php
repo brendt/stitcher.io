@@ -3,8 +3,6 @@
 namespace App\Dungeon\Http;
 
 use App\Dungeon\Cards\BeaconMajor;
-use App\Dungeon\Cards\BreakthroughMajor;
-use App\Dungeon\Cards\StabilityMajor;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Point;
 use App\Dungeon\Repositories\DeckRepository;
@@ -12,10 +10,11 @@ use App\Dungeon\Repositories\DungeonRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
 use Tempest\Core\Environment;
-use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
+use Tempest\View\View;
 use function Tempest\Router\uri;
+use function Tempest\View\view;
 
 final readonly class DemoController
 {
@@ -26,10 +25,10 @@ final readonly class DemoController
         StatsRepository $statsRepository,
         User $user,
         Environment $environment,
-    ): Redirect|NotFound
+    ): Redirect|View
     {
         if (! $environment->isLocal()) {
-            return new NotFound();
+            return view('dungeon-aidan.view.php');
         }
 
         $dungeon = Dungeon::new($user, $deckRepository, $statsRepository, deck: [
