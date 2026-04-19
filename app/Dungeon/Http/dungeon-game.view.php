@@ -1488,8 +1488,9 @@
                 return;
             }
 
-            const tileX = state.paddingX + (playerPosition.x - bounds.minX) * step;
-            const tileY = state.paddingY + (playerPosition.y - bounds.minY) * step;
+            const visualPos = getVisualPlayerPosition() ?? playerPosition;
+            const tileX = state.paddingX + (visualPos.x - bounds.minX) * step;
+            const tileY = state.paddingY + (visualPos.y - bounds.minY) * step;
             const avatarSize = tileSize * 0.6;
             const avatarX = tileX + ((tileSize - avatarSize) / 2);
             const avatarY = tileY + ((tileSize - avatarSize) / 2);
@@ -2895,6 +2896,7 @@
 
             state.moveInFlight = true;
             updateExitDungeonButton();
+            startPlayerMoveAnimation(direction);
 
             try {
                 const response = await fetch('/dungeon/move', {
@@ -2907,13 +2909,21 @@
                 });
 
                 if (!response.ok) {
+                    confirmPlayerAnimation(false);
                     return;
                 }
 
+                const positionBeforeMove = playerPosition ? { ...playerPosition } : null;
                 const moveResult = await response.json();
                 dungeonVersion = moveResult.version ?? dungeonVersion;
                 latestChanges = Array.isArray(moveResult.changes) ? moveResult.changes : [];
                 applyChanges(moveResult.changes);
+                const playerMoved = playerPosition !== null && (
+                    positionBeforeMove === null ||
+                    playerPosition.x !== positionBeforeMove.x ||
+                    playerPosition.y !== positionBeforeMove.y
+                );
+                confirmPlayerAnimation(playerMoved);
                 render();
                 renderDebugPopup();
                 renderCounters();
@@ -3087,6 +3097,102 @@
             render();
 
             centerViewportOnPoint(playerPosition);
+        }
+
+        const playerAnim = {
+            active: false,
+            held: false,
+            forward: true,
+            from: null,
+            to: null,
+            visualFrom: null,
+            startTime: null,
+            duration: 500,
+        };
+
+        const directionOffsets = {
+            top:    { x:  0, y: -1 },
+            bottom: { x:  0, y:  1 },
+            left:   { x: -1, y:  0 },
+            right:  { x:  1, y:  0 },
+        };
+
+        function getVisualPlayerPosition() {
+            if (!playerAnim.active && !playerAnim.held) {
+                return playerPosition;
+            }
+
+            if (playerAnim.held) {
+                return playerAnim.forward ? playerAnim.to : playerAnim.from;
+            }
+
+            const elapsed = performance.now() - playerAnim.startTime;
+            const t = Math.min(1, elapsed / playerAnim.duration);
+            const eased = 1 - Math.pow(1 - t, 2); // ease-out quad
+
+            const from = playerAnim.forward ? playerAnim.from : playerAnim.visualFrom;
+            const to   = playerAnim.forward ? playerAnim.to   : playerAnim.from;
+
+            return {
+                x: from.x + (to.x - from.x) * eased,
+                y: from.y + (to.y - from.y) * eased,
+            };
+        }
+
+        function tickPlayerAnimation(timestamp) {
+            if (!playerAnim.active) {
+                return;
+            }
+
+            const elapsed = timestamp - playerAnim.startTime;
+
+            if (elapsed >= playerAnim.duration) {
+                playerAnim.active = false;
+                playerAnim.held = true;
+                draw();
+                return;
+            }
+
+            draw();
+            requestAnimationFrame(tickPlayerAnimation);
+        }
+
+        function startPlayerMoveAnimation(direction) {
+            if (!playerPosition) {
+                return;
+            }
+
+            const offset = directionOffsets[direction];
+
+            if (!offset) {
+                return;
+            }
+
+            playerAnim.active = false;
+            playerAnim.held = false;
+            playerAnim.active = true;
+            playerAnim.forward = true;
+            playerAnim.from = { ...playerPosition };
+            playerAnim.to = { x: playerPosition.x + offset.x, y: playerPosition.y + offset.y };
+            playerAnim.startTime = performance.now();
+
+            requestAnimationFrame(tickPlayerAnimation);
+        }
+
+        function confirmPlayerAnimation(playerMoved) {
+            if (playerMoved) {
+                playerAnim.active = false;
+                playerAnim.held = false;
+                draw();
+            } else {
+                const currentVisual = getVisualPlayerPosition() ?? playerPosition;
+                playerAnim.active = true;
+                playerAnim.held = false;
+                playerAnim.forward = false;
+                playerAnim.visualFrom = { ...currentVisual };
+                playerAnim.startTime = performance.now();
+                requestAnimationFrame(tickPlayerAnimation);
+            }
         }
 
         function nudgeCameraToPlayer() {

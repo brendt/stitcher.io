@@ -1,17 +1,17 @@
 ## 1.0
 
 - Port the test suite
-- Hand card limitations (max 3 of this type of card, etc.)
-- Dweller movement on card play and active card effect
-- Messages
-- Sometimes, a dweller doesn't get removed after hit
-- Sellable cards
-- Increased amount of coins per tile
-- Messages on events
-- Q for active card action
-- Collapse on player tile deals damage
-- Smooth movements in the dungeon
-- Screenshots of dungeon maps as throphies
+- [back & front] Hand card limitations (max 3 of this type of card, etc.)
+- [back] Dweller movement on card play and active card effect
+- [back & front] Messages
+- [front] Sometimes, a dweller doesn't get removed after hit
+- [back & front] Sellable cards
+- [back] Increased amount of coins per tile
+- [back & front] Messages on events
+- [front] Q for active card action
+- [back] Collapse on player tile deals damage
+- [front] Smooth movements in the dungeon
+- [back & front] Screenshots of dungeon maps as throphies
 
 ## 1.1
 
