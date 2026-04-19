@@ -8,6 +8,7 @@
 - Sellable cards
 - Increased amount of coins per tile
 - auto camera movement near edges
+- Messages on events
 
 ## 1.1
 
