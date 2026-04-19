@@ -109,6 +109,16 @@ enum Level: int
         };
     }
 
+    public function altarCount(): int {
+        return match ($this) {
+            self::NOOB => 0,
+            self::NOVICE => 1,
+            self::MASTER => 2,
+            self::GRANDMASTER => 2,
+            self::LEGENDARY => 3,
+        };
+    }
+
     public function maxTreasureDistance(): int
     {
         return match ($this) {

@@ -116,12 +116,13 @@ final class Dungeon
 
         $self->spawnArtifact();
 
-        $self->spawnHealthAltar();
-        $self->spawnHealthAltar();
-        $self->spawnManaAltar();
-        $self->spawnManaAltar();
-        $self->spawnStabilityAltar();
-        $self->spawnStabilityAltar();
+
+
+        for ($i = 0; $i < $self->level->altarCount(); $i++) {
+            $self->spawnHealthAltar();
+            $self->spawnManaAltar();
+            $self->spawnStabilityAltar();
+        }
 
         return $self;
     }
