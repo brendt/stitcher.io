@@ -1074,6 +1074,25 @@
 
             context.clearRect(0, 0, canvas.width, canvas.height);
 
+            const dpr = window.devicePixelRatio || 1;
+            const canvasW = canvas.width / dpr;
+            const canvasH = canvas.height / dpr;
+            const gridOffsetX = state.paddingX % step;
+            const gridOffsetY = state.paddingY % step;
+
+            context.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+            context.lineWidth = 0.5;
+            context.beginPath();
+            for (let x = gridOffsetX; x < canvasW; x += step) {
+                context.moveTo(x, 0);
+                context.lineTo(x, canvasH);
+            }
+            for (let y = gridOffsetY; y < canvasH; y += step) {
+                context.moveTo(0, y);
+                context.lineTo(canvasW, y);
+            }
+            context.stroke();
+
             for (const tile of tiles) {
                 const x = state.paddingX + (tile.point.x - bounds.minX) * step;
                 const y = state.paddingY + (tile.point.y - bounds.minY) * step;
