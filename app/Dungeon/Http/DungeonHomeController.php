@@ -119,6 +119,27 @@ final readonly class DungeonHomeController
         return $this->renderDeckBuilder($user);
     }
 
+    #[Post('/dungeon/deck/{id}/sell')]
+    public function sellCard(int $id, User $user, CardRepository $cardRepository): View
+    {
+        $dungeonUserCard = DungeonUserCard::select()
+            ->where('id', $id)
+            ->where('userId', $user->id->value)
+            ->where('isActive', false)
+            ->first();
+
+        if (! $dungeonUserCard) {
+            return $this->renderDeckBuilder($user);
+        }
+
+        $dungeonUserCard->card = $cardRepository->findByName($dungeonUserCard->cardName);
+
+        $this->statsRepository->increaseStats($user, coins: $dungeonUserCard->card->sellPrice);
+        $dungeonUserCard->delete();
+
+        return $this->renderDeckBuilder($user);
+    }
+
     #[Get('/dungeon/nickname')]
     public function nickname(): View
     {

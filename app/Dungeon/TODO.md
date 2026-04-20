@@ -1,13 +1,11 @@
 ## 1.0
 
 - Port the test suite
-- [back & front] Hand card limitations (max 3 of this type of card, etc.)
 - [back & front] Sellable cards
-- [back & front] Screenshots of dungeon maps as throphies
-- [front] Sometimes, a dweller doesn't get removed after hit
 
 ## 1.1
 
+- [back & front] Screenshots of dungeon maps as throphies
 - Shard shop
 - Permanent cards
 

@@ -175,6 +175,14 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
                                 hx-swap="outerHTML swap:350ms"
                                 class="card-confirm-btn"
                             >Add to deck</button>
+                            <button
+                                hx-trigger="sell-confirmed"
+                                hx-post="/dungeon/deck/{{ $card->id }}/sell"
+                                hx-target="#deck-builder"
+                                hx-swap="outerHTML swap:350ms"
+                                class="card-sell-btn"
+                                data-label="Sell for {{ $card->card->sellPrice }}"
+                            >Sell for {{ $card->card->sellPrice }}</button>
                             <button type="button" class="card-cancel-btn">Cancel</button>
                         </div>
                     </div>
@@ -228,6 +236,10 @@ if (!window._cardActionListenerAttached) {
             return; // let htmx handle it; DOM will be swapped anyway
         }
 
+        if (e.target.closest('.card-sell-btn')) {
+            return; // handled by sell confirm listener
+        }
+
         document.querySelectorAll('.card-action.is-pending').forEach(function (el) {
             el.classList.remove('is-pending');
         });
@@ -235,6 +247,42 @@ if (!window._cardActionListenerAttached) {
         var action = e.target.closest('.card-action');
         if (action) {
             action.classList.add('is-pending');
+        }
+    });
+}
+
+if (!window._sellConfirmListenerAttached) {
+    window._sellConfirmListenerAttached = true;
+
+    var _sellBtn = null;
+    var _sellTimer = null;
+
+    function resetSellBtn(btn) {
+        btn.textContent = btn.dataset.label;
+        btn.classList.remove('is-confirming');
+        if (_sellBtn === btn) _sellBtn = null;
+        clearTimeout(_sellTimer);
+        _sellTimer = null;
+    }
+
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.card-sell-btn');
+
+        if (!btn) {
+            if (_sellBtn) resetSellBtn(_sellBtn);
+            return;
+        }
+
+        if (_sellBtn && _sellBtn !== btn) resetSellBtn(_sellBtn);
+
+        if (!btn.classList.contains('is-confirming')) {
+            btn.textContent = 'Sure?';
+            btn.classList.add('is-confirming');
+            _sellBtn = btn;
+            _sellTimer = setTimeout(function () { resetSellBtn(btn); }, 3000);
+        } else {
+            resetSellBtn(btn);
+            btn.dispatchEvent(new Event('sell-confirmed'));
         }
     });
 }

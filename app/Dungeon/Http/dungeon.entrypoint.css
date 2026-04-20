@@ -156,6 +156,24 @@
     transform: translateY(-3px) scale(1.015);
 }
 
+.card-sell-btn {
+    font-family: var(--font-title);
+    background: rgba(60, 20, 20, 0.75);
+    border: 2px solid rgba(185, 28, 28, 0.5);
+    color: #fca5a5;
+    padding: 6px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.12s ease, border-color 0.12s ease;
+
+    &:hover {
+        background: rgba(127, 29, 29, 0.9);
+        border-color: rgba(239, 68, 68, 0.75);
+        color: #fecaca;
+    }
+}
+
 .card-confirm-info {
     display: flex;
     flex-direction: column;

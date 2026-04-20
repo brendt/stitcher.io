@@ -37,6 +37,10 @@ interface Card
         get;
     }
 
+    public int $sellPrice {
+        get;
+    }
+
     public Level $level {
         get;
     }

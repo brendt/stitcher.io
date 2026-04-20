@@ -2,15 +2,17 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\CheckBeforePlaying;
 use App\Dungeon\ActiveCard;
 use App\Dungeon\PassiveCard;
-use PhpParser\Node\Stmt\Label;
 use function Tempest\Support\str;
 
 trait IsCard
 {
     private(set) string $id;
+
+    public int $sellPrice {
+        get => (int) round($this->price / 4);
+    }
 
     public function __construct()
     {
