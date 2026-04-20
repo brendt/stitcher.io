@@ -1,14 +1,10 @@
 ## 1.0
 
-- [back & front] Messages on events
 - Port the test suite
-- [back] Dweller movement on card play and active card effect
-- [back] Increased amount of coins per tile
 - [back & front] Hand card limitations (max 3 of this type of card, etc.)
 - [back & front] Sellable cards
 - [back & front] Screenshots of dungeon maps as throphies
 - [front] Sometimes, a dweller doesn't get removed after hit
-- [front] darker background the further away from origin
 
 ## 1.1
 

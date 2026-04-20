@@ -1195,7 +1195,7 @@
             );
 
             const gradient = context.createRadialGradient(
-                originX, originY, tileSize * 1.5,
+                originX, originY, tileSize * 3,
                 originX, originY, maxDist,
             );
             gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');

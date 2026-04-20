@@ -156,4 +156,15 @@ enum Level: int
 
         return (int)round($xp / 1000) . 'k';
     }
+
+    public function maxCoinCount(): int
+    {
+        return match ($this) {
+            self::NOOB => 20,
+            self::NOVICE => 40,
+            self::MASTER => 50,
+            self::GRANDMASTER => 75,
+            self::LEGENDARY => 100,
+        };
+    }
 }

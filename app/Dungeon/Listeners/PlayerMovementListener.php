@@ -24,7 +24,7 @@ final readonly class PlayerMovementListener
                 continue;
             }
 
-            $this->dungeon->addCoinsToTile($tile, 1);
+            $this->dungeon->addCoinsToTile($tile, random_int(1, 3));
 
             return;
         }

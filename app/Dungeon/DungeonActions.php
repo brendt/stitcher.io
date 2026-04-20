@@ -131,7 +131,7 @@ trait DungeonActions
 
     public function addCoinsToTile(Tile $tile, int $amount): void
     {
-        if ($tile->coins >= 10) {
+        if ($tile->coins >= $this->level->maxCoinCount()) {
             return;
         }
 
