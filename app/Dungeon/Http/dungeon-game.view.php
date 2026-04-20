@@ -2462,7 +2462,6 @@
             if (hand.size === 0) {
                 const empty = document.createElement('div');
                 empty.className = 'hand-empty';
-                empty.textContent = 'No cards in hand';
                 handCards.appendChild(empty);
             } else {
                 for (const card of hand.values()) {
