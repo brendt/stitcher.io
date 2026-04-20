@@ -96,16 +96,9 @@ final readonly class EventsReplayCommand
         $currentEps = 0;
 
         $lastId = 0;
-        $limit = 30_000;
+        $limit = 250_000;
 
-        while ($data = query('stored_events')->select('id', 'eventClass', 'payload')->where('id > ?', $lastId)->limit($limit)->all()) {
-            // Setup
-            $events = arr($data)
-                ->map(function (array $item) {
-                    return $item['eventClass']::unserialize($item['payload']);
-                })
-                ->toArray();
-
+        while ($events = query('stored_events')->select('id', 'createdAt')->where('id > ?', $lastId)->limit($limit)->all()) {
             $this->database->withinTransaction(function () use ($projectors, $events) {
                 // Loop
                 foreach ($projectors as $projector) {
@@ -137,7 +130,7 @@ final readonly class EventsReplayCommand
                 $timeRemaining > 0 ? $timeRemaining : '0',
             ));
 
-            $lastId = array_last($data)['id'];
+            $lastId = array_last($events)['id'];
         }
 
         $this->success('Done');
