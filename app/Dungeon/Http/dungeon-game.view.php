@@ -484,273 +484,6 @@
             font-family: var(--font-title);
         }
 
-        .card-slots-corner {
-            position: fixed;
-            top: 70px;
-            left: 8px;
-            z-index: 1000;
-            pointer-events: auto;
-        }
-
-        .hand-side-slots {
-            display: flex;
-            flex-direction: row;
-            gap: 6px;
-        }
-
-        @media (pointer: coarse) {
-            .card-slots-corner .hand-slot-empty {
-                width: 52px;
-                min-width: 52px;
-                height: 72px;
-            }
-
-            .card-slots-corner .hand-slot-empty svg {
-                width: 16px;
-                height: 16px;
-            }
-
-            .card-slots-corner .hand-card-small {
-                width: 52px;
-                min-width: 52px;
-            }
-
-            .card-slots-corner .hand-card-small .hand-card-image {
-                height: 72px;
-            }
-
-            .card-slots-corner .hand-card-small .hand-card-name {
-                display: none;
-            }
-
-            .card-slots-corner .hand-card-small .hand-card-content {
-                display: none;
-            }
-
-            .card-slots-corner .hand-card-small .hand-card-mana {
-                font-size: 9px;
-                min-width: 16px;
-                padding: 2px 3px;
-                top: 3px;
-                right: 3px;
-            }
-
-            .card-slots-corner .hand-card-small .hand-card-type {
-                top: 3px;
-                left: 3px;
-                min-width: 16px;
-                min-height: 16px;
-                padding: 2px;
-            }
-
-            .card-slots-corner .hand-card-small .hand-card-type svg {
-                width: 9px;
-                height: 9px;
-            }
-        }
-
-        .hand-side-slot {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .hand-cards {
-            display: flex;
-            gap: 20px;
-            align-items: stretch;
-            justify-content: center;
-            padding-bottom: 2px;
-        }
-
-        .hand-empty {
-            opacity: 0.65;
-            font-size: 13px;
-            text-align: center;
-            width: 100%;
-            padding: 10px 0 8px;
-        }
-
-        .hand-card {
-            width: 200px;
-            min-width: 200px;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            --card-accent: rgba(255, 255, 255, 0.42);
-            box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 55%, transparent), 0 0 22px color-mix(in srgb, var(--card-accent) 32%, transparent);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .hand-card:not(.hand-card-unplayable):hover {
-            transform: translateY(-4px) scale(1.015);
-            box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 80%, transparent), 0 8px 32px color-mix(in srgb, var(--card-accent) 45%, transparent);
-        }
-
-        .hand-card-small {
-            width: 145px;
-            min-width: 145px;
-        }
-
-        .hand-card-small .hand-card-image {
-            height: 165px;
-        }
-
-        .hand-card-small .hand-card-name {
-            font-size: 12px;
-        }
-
-        .hand-slot-empty {
-            width: 145px;
-            min-width: 145px;
-            height: 165px;
-            border-radius: 5px;
-            border: 1px dashed rgba(255, 255, 255, 0.22);
-            background: rgba(255, 255, 255, 0.04);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(229, 231, 235, 0.75);
-        }
-
-        .hand-slot-empty svg {
-            width: 26px;
-            height: 26px;
-        }
-
-        .hand-card-rarity-common {
-            --card-accent: rgba(255, 255, 255, 0.42);
-        }
-
-        .hand-card-rarity-rare {
-            --card-accent: rgba(45, 175, 255, 0.75);
-        }
-
-        .hand-card-rarity-epic {
-            --card-accent: rgba(189, 120, 255, 0.82);
-        }
-
-        .hand-card-rarity-meta {
-            --card-accent: rgba(255, 190, 64, 0.86);
-        }
-
-        .hand-card-unplayable {
-            cursor: not-allowed;
-        }
-
-        .hand-card-unplayable .hand-card-image {
-            filter: grayscale(1);
-        }
-
-        .hand-card-mana {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            min-width: 36px;
-            padding: 4px 8px;
-            border-radius: 999px;
-            border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
-            background: color-mix(in srgb, var(--card-accent) 78%, black 22%);
-            color: #f8fafc;
-            font-family: var(--font-title), ui-serif, serif;
-            font-size: 13px;
-            line-height: 1;
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .hand-card-type {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            min-width: 36px;
-            min-height: 25px;
-            padding: 4px 8px;
-            border-radius: 999px;
-            border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
-            background: color-mix(in srgb, var(--card-accent) 78%, black 22%);
-            color: #f8fafc;
-            z-index: 2;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hand-card-type svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .hand-card-image {
-            width: 100%;
-            height: 230px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .hand-card-content {
-            padding: 8px 10px 10px;
-            background: color-mix(in srgb, var(--card-accent) 68%, black 32%);
-            border: 1px solid color-mix(in srgb, var(--card-accent) 72%, white 28%);
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: 5px;
-            border-radius: 5px;
-            pointer-events: none;
-            color: #f8fafc;
-        }
-
-        .hand-card-name {
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1.2;
-            padding-top: 2px;
-            text-align: center;
-            font-family: var(--font-title);
-        }
-
-        .hand-card-description {
-            display: none;
-            margin-top: 4px;
-            font-size: 11px;
-            line-height: 1.3;
-            text-align: center;
-        }
-
-        .hand-card:hover .hand-card-description {
-            display: block;
-        }
-
-        .hand-card-label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 4px 10px;
-            border-radius: 999px;
-            border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
-            background: color-mix(in srgb, var(--card-accent) 30%, rgba(0, 0, 0, 0.55));
-            color: #f8fafc;
-            font-family: var(--font-title), ui-serif, serif;
-            font-size: 16px;
-            line-height: 1;
-            text-align: center;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-            z-index: 2;
-            pointer-events: none;
-        }
-
         @media (max-width: 1600px) {
             .bottom-notch {
                 min-width: unset;
@@ -843,26 +576,6 @@
                 margin-bottom: 0;
             }
 
-            .hand-cards {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                justify-content: flex-start;
-                padding: 0 16px 2px;
-            }
-
-            .hand-card {
-                width: 130px;
-                min-width: 130px;
-            }
-
-            .hand-card-image {
-                height: 148px;
-            }
-
-            .hand-card-name {
-                font-size: 11px;
-            }
-
         }
     </style>
 </head>
@@ -895,26 +608,35 @@
     </div>
     <div class="bottom-notch">
         <div class="bottom-notch-stat">
-            <div id="health-label" class="bottom-notch-label">Health</div>
+            <div id="health-label" class="bottom-notch-label" style="display:flex;align-items:center;gap:3px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23 6v5h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-1v1h-2v-1h-1v-1H9v-1H8v-1H7v-1H6v-1H5v-1H4v-1H3v-1H2v-1H1V6h1V5h1V4h1V3h6v1h1v1h2V4h1V3h6v1h1v1h1v1z"/></svg>
+                Health
+            </div>
             <div id="health-counter" class="bottom-notch-value">0</div>
         </div>
         <div class="bottom-notch-stat">
-            <div class="bottom-notch-label">Mana</div>
+            <div class="bottom-notch-label" style="display:flex;align-items:center;gap:3px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23 18v2h-2v1h-1v2h-2v-2h-1v-1h-2v-2h2v-1h1v-2h2v2h1v1zm0-14v2h-2v1h-1v2h-2V7h-1V6h-2V4h2V3h1V1h2v2h1v1zm-6 7v2h-2v1h-2v1h-1v1h-1v2h-1v2H8v-2H7v-2H6v-1H5v-1H3v-1H1v-2h2v-1h2V9h1V8h1V6h1V4h2v2h1v2h1v1h1v1h2v1z"/></svg>
+                Mana
+            </div>
             <div id="mana-counter" class="bottom-notch-value">0</div>
         </div>
         <div class="bottom-notch-stat">
-            <div class="bottom-notch-label">Stability</div>
+            <div class="bottom-notch-label" style="display:flex;align-items:center;gap:3px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.505 17.503v2h-1v1.001h-6.002v1h-1v1h-1v1h-4.001v-1h-1v-1h-1v-1H2.5v-1h-1v-2zm0-2v1h-2v-2h1v1zm-3.001-7.001v8.001h-1v-4h-1v-1h-3v-1.001h3v-1h-3v-2h-1.001v-1h-1V5.5h-1v-2h1v-2h1v1h1v1h1v1h1v3.001h2.001v1zm-14.003 4v4.001H1.5v-1h1v-2h1v-1z"/><path fill="currentColor" d="M18.504 12.503v4H7.5v-4h-1v-1h-2V4.5h1v-3h3v14.003h1V3.5h1.001v1h1v1h1v1.001h1v1h1.001v8.002h1v-3z"/></svg>
+                Stability
+            </div>
             <div id="stability-counter" class="bottom-notch-value">0</div>
         </div>
-        <div class="bottom-notch-stat">
+        <div class="bottom-notch-stat" style="display:none">
             <div id="coin-label" class="bottom-notch-label">Coins</div>
             <div id="coin-counter" class="bottom-notch-value">0</div>
         </div>
-        <div class="bottom-notch-stat">
+        <div class="bottom-notch-stat" style="display:none">
             <div id="shard-label" class="bottom-notch-label">Shards</div>
             <div id="shard-counter" class="bottom-notch-value">0</div>
         </div>
-        <div class="bottom-notch-stat">
+        <div class="bottom-notch-stat" style="display:none">
             <div id="victory-point-label" class="bottom-notch-label">Victory Points</div>
             <div id="victory-point-counter" class="bottom-notch-value">0</div>
         </div>
@@ -1046,9 +768,9 @@
         const playerSpritePath = '/dungeon/player-avatar.png';
         const dwellerSpritePath = '/dungeon/dweller-avater.png';
         const dwellerFallbackSpritePath = '/dungeon/dweller-avatar.png';
-        const coinMarkerSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" style="color:#facc15"><!-- Icon from Remix Icon by Remix Design - https://github.com/Remix-Design/RemixIcon/blob/master/License --><path fill="currentColor" d="M12.005 4.003c6.075 0 11 2.686 11 6v4c0 3.314-4.925 6-11 6c-5.967 0-10.824-2.591-10.995-5.823l-.005-.177v-4c0-3.314 4.925-6 11-6m0 12c-3.72 0-7.01-1.008-9-2.55v.55c0 1.882 3.883 4 9 4c5.01 0 8.838-2.03 8.995-3.882l.005-.118l.001-.55c-1.99 1.542-5.28 2.55-9.001 2.55m0-10c-5.117 0-9 2.118-9 4s3.883 4 9 4s9-2.118 9-4s-3.883-4-9-4"/></svg>`;
+        const coinMarkerSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path fill="#facc15" d="M256 23.05C127.5 23.05 23.05 127.5 23.05 256S127.5 488.9 256 488.9S488.9 384.5 488.9 256S384.5 23.05 256 23.05"/></svg>`;
         const artifactMarkerSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512" style="color:#a855f7"><path fill="currentColor" d="M54.6 25.88L41.4 38.12l62.5 67.28c3.8-6.87 6.5-11.92 9.1-16.72zm386.6.26l-46.6 54.33c2.4 4.36 5.4 9.94 9.2 17.01l51-59.62zm-272.9 2.32l-16.6 7.08l42.1 98.26c6.4 2.1 13.6 3.8 21.8 5.2zm143 1.07l-32 111.57c7.2-.6 13.8-1.5 19.8-2.6l29.6-104.03zM263 47.31L255.7 142h.3c6.3 0 12.2-.2 17.8-.5l7.2-92.81zM129.3 96.47c-6.2 11.73-15.1 28.33-31.76 57.13c-16.63 28.8-26.56 44.8-33.56 56.1c11.59-2.6 27.23-3.5 44.92 3.5c22.8 9 48 30.5 73.4 74.4c25.4 44 31.3 76.6 27.7 100.8c-2.7 18.9-11.4 32-19.4 40.7c13.3-.4 32.1-1 65.4-1c33.2 0 52 .6 65.3 1c-8-8.7-16.6-21.8-19.4-40.7c-3.6-24.2 2.4-56.8 27.8-100.8c25.4-43.9 50.6-65.3 73.4-74.4c17.7-7 33.4-6.1 44.9-3.5c-7-11.3-16.9-27.3-33.5-56.1s-25.5-45.4-31.8-57.08c-3.6 11.28-10.6 25.38-25.6 37.18C338 148.9 306.8 160 256 160s-82-11.2-101.1-26.3c-15-11.9-22-25.9-25.6-37.23m313.5 8.13l-25.3 17.9c2.7 4.8 5.7 10.1 9 15.8l26.7-18.9zM35.03 167.5l-6.06 17l24 8.6c2.77-4.5 6-9.8 9.63-15.8zM256 196a49.98 49.98 0 0 1 50 50a49.98 49.98 0 0 1-50 50a49.98 49.98 0 0 1-50-50a49.98 49.98 0 0 1 50-50m118.9 59.4c-4.6 4.9-9.3 10.6-14.1 17.2l118.6 8.4l1.2-18zm-231.2 7.5L30.73 279.1l2.54 17.8L156 279.4c-4.1-6.2-8.2-11.6-12.3-16.5m18.7 26.4L44.23 343.8l7.54 16.4L171.4 305c-1.5-2.7-3-5.5-4.7-8.4c-1.5-2.5-2.9-5-4.3-7.3m181.3 10.1c-3.1 5.6-5.9 10.9-8.4 16l124 76.3l9.4-15.4zm-166.4 17.3L25.88 457.4l12.24 13.2L184.8 334.4q-3-8.4-7.5-17.7m148.5 21.6q-4.2 12.45-5.7 22.8l88.6 124.1l14.6-10.4zM224.4 446.4c-7 .1-13 .2-18.5.4l-6.7 31.3l17.6 3.8zm77.1.2l9.8 35.8l17.4-4.8l-8.4-30.4c-5.4-.2-11.1-.4-18.8-.6"/></svg>`;
-        const trapMarkerPathData = 'm106 113.773l-32.963 74.375a99 99 0 0 0-3.12.704c-5.293 1.296-9.95 2.918-14.044 4.79l-8.266-53.435l-25.037 87.277a108 108 0 0 0-3.338 11.635l-.26.905l.07-.04c-3.632 16.665-3.56 35.726 3.597 55.818c3.306 14.022 15.515 30.355 40.24 48.135c29.193 20.992 75.05 42.954 138.495 63.86a39 39 0 0 1-.393-5.486c0-12.21 5.637-23.185 14.432-30.447l-4.07-42.73l-31.54 37.69a621 621 0 0 1-27.896-11.3l-2.95-78.177l-33.57 60.615c-9.068-4.85-17.496-9.773-25.294-14.75l-4.627-90.04l-28.932 65.057c-7.485-6.607-13.957-13.243-19.45-19.86c-4.244-20.016-.412-38.063 6.145-52.42l4.483-2.602c15.852-5.496 35.514-7.645 58.504-6.182c32.732 2.084 72.51 11.748 118.152 30.803c.098-13.092 7.704-24.51 18.692-30.142l-5.597-52.59l-30.14 42.78c-9.68-3.6-19.025-6.73-28.012-9.41l-4.26-68.73l-32.567 59.774c-11.784-2.163-22.712-3.436-32.716-3.91l-3.77-71.97zm323.08 29.936l-15.973 70.28c-9.928-1.244-20.884-1.876-32.837-1.777l-19.58-66.443l-18.075 68.964c-9.342 1.12-19.127 2.635-29.316 4.55l-19.015-44.84l-16.422 45.742c8.9 6.183 14.768 16.47 14.768 28.04c0 2.407-.257 4.758-.74 7.03c47.224-10.57 87.28-13.166 119.37-9.7c22.9 2.47 41.908 7.938 56.592 16.05l3.978 3.332c4.016 15.265 4.72 33.704-2.873 52.707c-6.54 5.582-14.047 11.016-22.547 16.25l-17.43-69.034l-19.89 87.94c-8.51 3.565-17.626 6.972-27.356 10.198l-19.724-61.576l-19.274 72.674a623 623 0 0 1-29.326 6.37l-22.605-45.43l-14.87 49.995a39.1 39.1 0 0 1 4.02 17.283a39 39 0 0 1-3.476 16.107c70.416-9.85 122.176-24.18 155.893-40.565c27.394-13.31 42.205-27.326 47.852-40.582c10.472-18.58 13.79-37.348 13.048-54.388l.063.053l-.102-.942a108 108 0 0 0-1.308-12.035l-9.81-90.26l-17.243 51.245c-3.714-2.54-8.03-4.93-13.023-7.11c-.96-.417-1.95-.822-2.954-1.222L429.08 143.71zm-170.584 89.07c-8.642 0-15.443 6.802-15.443 15.445c0 3.53 1.15 6.74 3.084 9.318a161 161 0 0 1 23.101 1.844c2.91-2.793 4.705-6.733 4.705-11.162c0-8.64-6.806-15.446-15.447-15.446zm-12.652 43.468q-1.53-.005-3.033.025c-12.016.244-22.59 2.134-30.23 4.98c-5.094 1.9-8.82 4.23-10.85 6.22s-2.375 3.155-2.375 4.37c0 2.426 3.81 8.437 14.258 13.844c10.448 5.408 25.905 9.714 42.992 10.954c17.088 1.24 32.486-.854 42.674-4.65c5.093-1.898 8.82-4.23 10.85-6.22c2.03-1.987 2.374-3.154 2.374-4.368c0-2.43-3.81-8.44-14.258-13.847c-10.447-5.408-25.904-9.712-42.992-10.95a135 135 0 0 0-9.41-.357zm-5.688 57.215l-2.96 29.51c1.08-.09 2.17-.15 3.273-.15c5.382 0 10.524 1.1 15.214 3.077l3.05-30.406a160 160 0 0 1-18.578-2.032zm.313 48.05c-11.6 0-20.798 9.2-20.798 20.8c0 11.595 9.2 20.796 20.797 20.796c11.594 0 20.798-9.203 20.798-20.798s-9.202-20.798-20.8-20.798z';
+        const trapMarkerPathData = 'M19.188 17.406L74.624 68.72l4.938 2.155L119 88.03l48.844-70.624zm171.406 0L136.5 95.626l38.063 16.53l1.875.813l1.343 1.5l62.157 69.218l25.532 25.968l8-25.53l-.095-.032L303.97 82.72l-19.626-65.314zm113.28 0l17.407 58.063l105.345-21.5l-7.313-36.564H303.875zm134.5 0l8.407 42.032l1.814 9.124l-9.125 1.844l-119.626 24.406l-16.47 54.626l47.72 56.062l142.625-95.938V17.406zM18.907 42.594v168.03l69.03-26.03L68 87.75l-.156.188l-48.938-45.344zm69.72 52.593l18.468 89.626l51.22 19.312l35.624-43.656l-28.72-32l-76.593-33.282zm405.093 36.876L337.53 237.188l-13.717 10.53l169.906 105.845v-221.5zm-396.533 69l-78.28 29.53v166.938l181.5-103.874l47.124-33.344l-37.843-16.968l-.03.094l-57.47-21.657l-4.03-1.155l-2.282-1.22l-48.688-18.343zm242.875 78.78l-5.406 5.782l-44.5 47.625l-4.844 57.313l68.813 92.562L493.72 423v-47.406zm-151.375 42.094l-65.593 37.532L224.28 492.22h113.314l-69.375-93.376l-2.095-2.813l.28-3.53l4.033-47.72l-81.75-22.842zm-81.968 46.875l-87.814 50.25v73.157H200.78L106.72 368.81zm387 74.532L380.25 492.22h113.47v-48.876z';
         const trapMarkerPath = typeof Path2D === 'function' ? new Path2D(trapMarkerPathData) : null;
         const coinMarkerSpritePath = `data:image/svg+xml;utf8,${encodeURIComponent(coinMarkerSvg)}`;
         const artifactMarkerSpritePath = `data:image/svg+xml;utf8,${encodeURIComponent(artifactMarkerSvg)}`;
@@ -2385,12 +2107,21 @@
 
             const mana = document.createElement('div');
             mana.className = 'hand-card-mana';
-            mana.textContent = String(card.mana);
+            const manaSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            manaSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            manaSvg.setAttribute('viewBox', '0 0 24 24');
+            manaSvg.setAttribute('aria-hidden', 'true');
+            const manaPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            manaPath.setAttribute('fill', 'currentColor');
+            manaPath.setAttribute('d', 'M23 18v2h-2v1h-1v2h-2v-2h-1v-1h-2v-2h2v-1h1v-2h2v2h1v1zm0-14v2h-2v1h-1v2h-2V7h-1V6h-2V4h2V3h1V1h2v2h1v1zm-6 7v2h-2v1h-2v1h-1v1h-1v2h-1v2H8v-2H7v-2H6v-1H5v-1H3v-1H1v-2h2v-1h2V9h1V8h1V6h1V4h2v2h1v2h1v1h1v1h2v1z');
+            manaSvg.appendChild(manaPath);
+            mana.appendChild(manaSvg);
+            mana.appendChild(document.createTextNode(String(card.mana)));
             article.appendChild(mana);
 
             if (options.showTypeBadge && (card.type === 'active' || card.type === 'passive')) {
                 const type = document.createElement('div');
-                type.className = 'hand-card-type';
+                type.className = `hand-card-type hand-card-type-${card.type}`;
                 type.appendChild(createSlotIcon(card.type));
                 article.appendChild(type);
             }
@@ -2453,20 +2184,16 @@
         function createSlotIcon(slotType) {
             const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-            svg.setAttribute('fill', 'none');
             svg.setAttribute('viewBox', '0 0 24 24');
-            svg.setAttribute('stroke-width', '1.5');
-            svg.setAttribute('stroke', 'currentColor');
             svg.setAttribute('aria-hidden', 'true');
 
             const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            path.setAttribute('stroke-linecap', 'round');
-            path.setAttribute('stroke-linejoin', 'round');
+            path.setAttribute('fill', 'currentColor');
 
             if (slotType === 'active') {
-                path.setAttribute('d', 'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z');
+                path.setAttribute('d', 'M15.75 16v-2.8l-1.9-3.475q-.5.25-.8.725t-.3 1.05v8l1.425 2.5H22L21 9.5l-7-8l-.325.325q-.725.725-.862 1.7t.362 1.85L17.25 12.8V16zm-9 0v-3.2l4.075-7.425q.5-.875.338-1.85t-.863-1.7L10 1.5l-7 8L2 22h7.825l1.425-2.5v-8q0-.575-.312-1.05t-.788-.725L8.25 13.2V16z');
             } else {
-                path.setAttribute('d', 'M4.5 12.75l7.5-7.5 7.5 7.5m-15 6l7.5-7.5 7.5 7.5');
+                path.setAttribute('d', 'M20.5 22L7.4 9.5H1.9l5.8-7.775l3.3 1.65V6.65l3.675-.875l2.2 6.675L22 17.575L21.25 22zm-7.875 0L1.075 11.5h5.55L17.575 22z');
             }
 
             svg.appendChild(path);
@@ -3002,14 +2729,17 @@
         function renderCounters() {
             if (counters.coins) {
                 counters.coins.textContent = String(stats.coins);
+                counters.coins.closest('.bottom-notch-stat').style.display = stats.coins > 0 ? '' : 'none';
             }
 
             if (counters.shards) {
                 counters.shards.textContent = String(stats.shards);
+                counters.shards.closest('.bottom-notch-stat').style.display = stats.shards > 0 ? '' : 'none';
             }
 
             if (counters.victoryPoints) {
                 counters.victoryPoints.textContent = String(stats.victoryPoints);
+                counters.victoryPoints.closest('.bottom-notch-stat').style.display = stats.victoryPoints > 0 ? '' : 'none';
             }
 
             renderCurrentMaxCounter(counters.health, stats.health, stats.maxHealth);

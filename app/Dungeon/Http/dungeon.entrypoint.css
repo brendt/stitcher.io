@@ -92,8 +92,8 @@
     }
 
     & .card-stat {
-        border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
-        background: color-mix(in srgb, var(--card-accent) 78%, black 22%);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: rgba(30, 30, 40, 0.85);
         color: #f8fafc;
         border-radius: 999px;
         min-width: 20px;
@@ -111,7 +111,19 @@
         }
 
         &.mana {
-            padding-top: 2px;
+            gap: 4px;
+        }
+
+        &.card-stat-active {
+            border-color: rgba(60, 160, 90, 0.35);
+            background: rgba(15, 60, 25, 0.60);
+            color: rgba(110, 210, 140, 0.85);
+        }
+
+        &.card-stat-passive {
+            border-color: rgba(210, 90, 140, 0.35);
+            background: rgba(85, 15, 40, 0.60);
+            color: rgba(230, 130, 175, 0.85);
         }
     }
 
@@ -245,5 +257,326 @@
 
     &:hover {
         color: #e5e7eb;
+    }
+}
+
+/* ===== Hand / game card styles ===== */
+
+.card-slots-corner {
+    position: fixed;
+    top: 70px;
+    left: 8px;
+    z-index: 1000;
+    pointer-events: auto;
+}
+
+.hand-side-slots {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+}
+
+.hand-side-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+
+.hand-cards {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    justify-content: center;
+    padding-bottom: 2px;
+}
+
+.hand-empty {
+    opacity: 0.65;
+    font-size: 13px;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0 8px;
+}
+
+.hand-card {
+    width: 200px;
+    min-width: 200px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    --card-accent: rgba(255, 255, 255, 0.42);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 55%, transparent), 0 0 22px color-mix(in srgb, var(--card-accent) 32%, transparent);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hand-card:not(.hand-card-unplayable):hover {
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent) 80%, transparent), 0 8px 32px color-mix(in srgb, var(--card-accent) 45%, transparent);
+}
+
+.hand-card-small {
+    width: 145px;
+    min-width: 145px;
+}
+
+.hand-card-small .hand-card-image {
+    height: 165px;
+}
+
+.hand-card-small .hand-card-name {
+    font-size: 12px;
+}
+
+.hand-slot-empty {
+    width: 145px;
+    min-width: 145px;
+    height: 165px;
+    border-radius: 5px;
+    border: 1px dashed rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(229, 231, 235, 0.75);
+}
+
+.hand-slot-empty svg {
+    width: 26px;
+    height: 26px;
+}
+
+.hand-card-rarity-common {
+    --card-accent: rgba(255, 255, 255, 0.42);
+}
+
+.hand-card-rarity-rare {
+    --card-accent: rgba(45, 175, 255, 0.75);
+}
+
+.hand-card-rarity-epic {
+    --card-accent: rgba(189, 120, 255, 0.82);
+}
+
+.hand-card-rarity-meta {
+    --card-accent: rgba(255, 190, 64, 0.86);
+}
+
+.hand-card-unplayable {
+    cursor: not-allowed;
+}
+
+.hand-card-unplayable .hand-card-image {
+    filter: grayscale(1);
+}
+
+.hand-card-mana {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    min-width: 36px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
+    background: color-mix(in srgb, var(--card-accent) 78%, black 22%);
+    color: #f8fafc;
+    font-family: var(--font-title), ui-serif, serif;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hand-card-mana svg {
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+}
+
+.hand-card-type {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    min-width: 36px;
+    min-height: 25px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(30, 30, 40, 0.85);
+    color: #f8fafc;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hand-card-type-active {
+    border-color: rgba(60, 160, 90, 0.35);
+    background: rgba(15, 60, 25, 0.60);
+    color: rgba(110, 210, 140, 0.85);
+}
+
+.hand-card-type-passive {
+    border-color: rgba(210, 90, 140, 0.35);
+    background: rgba(85, 15, 40, 0.60);
+    color: rgba(230, 130, 175, 0.85);
+}
+
+.hand-card-type svg {
+    width: 14px;
+    height: 14px;
+}
+
+#active-card-slot .hand-slot-empty {
+    border-color: rgba(60, 160, 90, 0.25);
+    background: rgba(15, 60, 25, 0.20);
+    color: rgba(90, 190, 120, 0.55);
+}
+
+#passive-card-slot .hand-slot-empty {
+    border-color: rgba(210, 90, 140, 0.25);
+    background: rgba(85, 15, 40, 0.20);
+    color: rgba(215, 110, 160, 0.55);
+}
+
+.hand-card-image {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+}
+
+.hand-card-content {
+    padding: 8px 10px 10px;
+    background: color-mix(in srgb, var(--card-accent) 68%, black 32%);
+    border: 1px solid color-mix(in srgb, var(--card-accent) 72%, white 28%);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 5px;
+    border-radius: 5px;
+    pointer-events: none;
+    color: #f8fafc;
+}
+
+.hand-card-name {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding-top: 2px;
+    text-align: center;
+    font-family: var(--font-title);
+}
+
+.hand-card-description {
+    display: none;
+    margin-top: 4px;
+    font-size: 11px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.hand-card:hover .hand-card-description {
+    display: block;
+}
+
+.hand-card-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--card-accent) 70%, white 30%);
+    background: color-mix(in srgb, var(--card-accent) 30%, rgba(0, 0, 0, 0.55));
+    color: #f8fafc;
+    font-family: var(--font-title), ui-serif, serif;
+    font-size: 16px;
+    line-height: 1;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    z-index: 2;
+    pointer-events: none;
+}
+
+@media (pointer: coarse) {
+    .card-slots-corner .hand-slot-empty {
+        width: 52px;
+        min-width: 52px;
+        height: 72px;
+    }
+
+    .card-slots-corner .hand-slot-empty svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .card-slots-corner .hand-card-small {
+        width: 52px;
+        min-width: 52px;
+    }
+
+    .card-slots-corner .hand-card-small .hand-card-image {
+        height: 72px;
+    }
+
+    .card-slots-corner .hand-card-small .hand-card-name {
+        display: none;
+    }
+
+    .card-slots-corner .hand-card-small .hand-card-content {
+        display: none;
+    }
+
+    .card-slots-corner .hand-card-small .hand-card-mana {
+        font-size: 9px;
+        min-width: 16px;
+        padding: 2px 3px;
+        top: 3px;
+        right: 3px;
+    }
+
+    .card-slots-corner .hand-card-small .hand-card-type {
+        top: 3px;
+        left: 3px;
+        min-width: 16px;
+        min-height: 16px;
+        padding: 2px;
+    }
+
+    .card-slots-corner .hand-card-small .hand-card-type svg {
+        width: 9px;
+        height: 9px;
+    }
+
+    .hand-cards {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        padding: 0 16px 2px;
+    }
+
+    .hand-card {
+        width: 130px;
+        min-width: 130px;
+    }
+
+    .hand-card-image {
+        height: 148px;
+    }
+
+    .hand-card-name {
+        font-size: 11px;
     }
 }
