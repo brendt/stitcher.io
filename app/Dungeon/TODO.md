@@ -11,6 +11,7 @@
 - [back & front] Screenshots of dungeon maps as throphies
 - [front] Sometimes, a dweller doesn't get removed after hit
 - [front] Q for active card action
+- [front] darker background the further away from origin
 
 ## 1.1
 
