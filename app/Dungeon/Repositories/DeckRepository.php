@@ -10,17 +10,20 @@ use App\Dungeon\Cards\StabilityMinor;
 use App\Dungeon\Cards\Token;
 use App\Dungeon\Cards\UpperHandMinor;
 use App\Dungeon\Cards\VictoryPoint;
+use App\Dungeon\DeckValidator;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Persistence\DungeonShopCard;
 use App\Dungeon\Persistence\DungeonUserCard;
 use App\Support\Authentication\User;
 use function Tempest\Database\query;
+use function Tempest\Support\arr;
 
 final readonly class DeckRepository
 {
     public function __construct(
         private CardRepository $cardRepository,
         private StatsRepository $statsRepository,
+        private DeckValidator $deckValidator,
     ) {}
 
     /** @return \App\Dungeon\Persistence\DungeonUserCard[] */
@@ -99,17 +102,20 @@ final readonly class DeckRepository
     {
         $user = User::findById($shopCard->userId);
 
+        $deck = arr($this->activeCardsForUser($user))->map(fn (DungeonUserCard $card) => $card->card);
+
+        $isActive = $this->deckValidator->validate($shopCard->card, $deck) === null;
+
         if ($shopCard->card instanceof Token) {
             $this->statsRepository->increaseStats($user, tokens : 1);
         } elseif ($shopCard->card instanceof VictoryPoint) {
             $this->statsRepository->increaseStats($user, victoryPoints: 1);
         } else {
-            $activeCards = $this->activeCardsForUser($user);
 
             DungeonUserCard::create(
                 userId: $shopCard->userId,
                 campaignId: Dungeon::CURRENT_CAMPAIGN,
-                isActive: count($activeCards) < Dungeon::MAX_HAND_COUNT,
+                isActive: $isActive,
                 cardName: $shopCard->card->name,
             );
         }
