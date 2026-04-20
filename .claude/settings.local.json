@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /Users/brentroose/Dev/stitcher.io -name *x-dungeon* -o -name dungeon*component*)"
+    ]
+  }
+}

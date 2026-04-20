@@ -1,6 +1,9 @@
 ## 1.0
 
 - Port the test suite
+- Color mana cost and card type
+- Fix top notch styling on smaller screens
+- Tutorial
 
 ## 1.1
 

@@ -165,6 +165,14 @@ final readonly class DungeonHomeController
         );
     }
 
+    #[Get('/dungeon/tutorial')]
+    public function tutorial(): View
+    {
+        return view(
+            'dungeon-tutorial.view.php',
+        );
+    }
+
     private function renderDeckBuilder(User $user, ...$data): View
     {
         $data['deck'] = $this->deckRepository->forUser($user);

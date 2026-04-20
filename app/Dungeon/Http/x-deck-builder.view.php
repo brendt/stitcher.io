@@ -89,6 +89,10 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
                 <span class="title text-xs text-gray-500 uppercase tracking-widest">Shards</span>
                 <span class="text-sm text-gray-200">{{ number_format($stats->shards) }}</span>
             </div>
+            <div class="w-px bg-white/10 hidden sm:block"></div>
+            <a :href="uri([DungeonHomeController::class, 'tutorial'])" class="flex flex-col items-center justify-center gap-0.5 px-2 sm:px-0 group">
+                <span class="title text-xs text-amber-400 uppercase tracking-widest group-hover:text-amber-300 transition-colors">How to play</span>
+            </a>
         </div>
     </div>
 
