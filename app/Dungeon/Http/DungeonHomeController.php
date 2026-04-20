@@ -2,8 +2,10 @@
 
 namespace App\Dungeon\Http;
 
+use App\Dungeon\DeckValidator;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Persistence\DungeonUserCard;
+use App\Dungeon\Repositories\CardRepository;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\DungeonRepository;
 use App\Dungeon\Repositories\ShopRepository;
@@ -14,6 +16,7 @@ use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\View\View;
 use function Tempest\Router\uri;
+use function Tempest\Support\arr;
 use function Tempest\View\view;
 
 #[DungeonAuth]
@@ -50,7 +53,7 @@ final readonly class DungeonHomeController
     }
 
     #[Post('/dungeon/deck/{id}/activate')]
-    public function activateCard(int $id, User $user): View
+    public function activateCard(int $id, User $user, CardRepository $cardRepository, DeckValidator $deckValidator): View
     {
         $dungeonUserCard = DungeonUserCard::select()
             ->where('id', $id)
@@ -58,12 +61,17 @@ final readonly class DungeonHomeController
             ->where('isActive', false)
             ->first();
 
+        $dungeonUserCard->card = $cardRepository->findByName($dungeonUserCard->cardName);
+
         if (! $dungeonUserCard) {
             return $this->renderDeckBuilder($user);
         }
 
-        if (count($this->deckRepository->activeCardsForUser($user)) >= 20) {
-            return $this->renderDeckBuilder($user);
+        $deck = arr($this->deckRepository->activeCardsForUser($user))
+            ->map(fn (DungeonUserCard $dungeonUserCard) => $dungeonUserCard->card);
+
+        if (($validationResult = $deckValidator->validate($dungeonUserCard->card, $deck)) !== null) {
+            return $this->renderDeckBuilder($user, deckValidationFailed: $validationResult);
         }
 
         $this->deckRepository->markActive($dungeonUserCard);
@@ -136,15 +144,17 @@ final readonly class DungeonHomeController
         );
     }
 
-    private function renderDeckBuilder(User $user): View
+    private function renderDeckBuilder(User $user, ...$data): View
     {
+        $data['deck'] = $this->deckRepository->forUser($user);
+        $data['shop'] = $this->shopRepository->forUser($user);
+        $data['stats'] = $this->statsRepository->forUser($user);
+        $data['rank'] = $this->statsRepository->getRank($user);
+        $data['dungeon'] = $this->dungeonRepository->forUser($user);
+
         return view(
             'x-deck-builder.view.php',
-            deck: $this->deckRepository->forUser($user),
-            shop: $this->shopRepository->forUser($user),
-            stats: $this->statsRepository->forUser($user),
-            rank: $this->statsRepository->getRank($user),
-            dungeon: $this->dungeonRepository->forUser($user),
+            ...$data,
         );
     }
 }

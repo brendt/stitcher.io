@@ -204,6 +204,18 @@
     }
 }
 
+.deck-validation-error {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+
+    @starting-style {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+
 .card-cancel-btn {
     font-family: var(--font-title);
     background: none;

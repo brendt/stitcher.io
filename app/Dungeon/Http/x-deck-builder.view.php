@@ -149,7 +149,14 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
     </div>
 
     {{-- Deck Builder: Available Cards + Hand --}}
-    <div class="flex flex-col md:flex-row justify-center gap-6 px-4">
+    <div class="relative">
+        <div :isset="$deckValidationFailed" class="deck-validation-error absolute inset-x-0 -top-4 flex justify-center px-4 z-10">
+            <div class="bg-gray-900/70 border border-amber-700/40 px-6 py-3 rounded-2xl shadow-2xl text-center">
+                <span class="title text-amber-400 text-sm">{{ $deckValidationFailed->message }}</span>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-center gap-6 px-4">
         <div class="flex flex-col gap-3 w-full md:w-1/2 bg-gray-900/70 px-4 sm:px-6 pb-8 pt-4 shadow-2xl rounded-2xl border border-white/5">
             <h2 class="title text-center text-base tracking-wide text-gray-300">Available Cards</h2>
             <div class="flex gap-4 flex-wrap justify-center">
@@ -165,9 +172,9 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
                                 hx-trigger="click"
                                 :hx-post="uri([DungeonHomeController::class, 'activateCard'], id: $card->id)"
                                 hx-target="#deck-builder"
-                                hx-swap="outerHTML"
+                                hx-swap="outerHTML swap:350ms"
                                 class="card-confirm-btn"
-                            >Add to hand</button>
+                            >Add to deck</button>
                             <button type="button" class="card-cancel-btn">Cancel</button>
                         </div>
                     </div>
@@ -177,7 +184,7 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
 
         <div class="flex flex-col gap-3 w-full md:w-1/2 bg-gray-900/70 px-4 sm:px-6 pb-8 pt-4 shadow-2xl rounded-2xl border border-white/5">
             <h2 class="title text-center text-base tracking-wide text-gray-300">
-                Hand
+                Deck
                 <span class="text-sm text-gray-500 ml-1">({{ $activeCards->count() }}&thinsp;/&thinsp;{{ Dungeon::MAX_HAND_COUNT }})</span>
             </h2>
             <div class="flex gap-4 flex-wrap justify-center">
@@ -193,7 +200,7 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
                                 hx-trigger="click"
                                 :hx-post="uri([DungeonHomeController::class, 'deactivateCard'], id: $card->id)"
                                 hx-target="#deck-builder"
-                                hx-swap="outerHTML"
+                                hx-swap="outerHTML swap:350ms"
                                 class="card-confirm-btn"
                             >Remove from hand</button>
                             <button type="button" class="card-cancel-btn">Cancel</button>
@@ -202,6 +209,7 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 </div>
