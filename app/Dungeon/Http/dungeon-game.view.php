@@ -751,6 +751,33 @@
             pointer-events: none;
         }
 
+        @media (max-width: 1600px) {
+            .bottom-notch {
+                min-width: unset;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border-left: none;
+                border-right: none;
+                border-radius: 0;
+                flex-wrap: nowrap;
+                justify-content: safe center;
+                transform: none;
+                left: 0;
+                pointer-events: auto;
+            }
+
+            .bottom-notch-stat {
+                flex-shrink: 0;
+                min-width: 70px;
+                padding: 0 10px;
+            }
+
+            .bottom-notch-value {
+                font-size: 15px;
+            }
+        }
+
         @media (pointer: coarse) {
             .death-overlay-content {
                 text-align: center;
@@ -766,7 +793,7 @@
                 border-right: none;
                 border-radius: 0;
                 flex-wrap: nowrap;
-                justify-content: flex-start;
+                justify-content: safe center;
                 transform: none;
                 left: 0;
                 pointer-events: auto;
@@ -3002,7 +3029,7 @@
 
             state.moveInFlight = true;
             updateExitDungeonButton();
-            startPlayerMoveAnimation(direction);
+            const positionBeforeMove = playerPosition ? { ...playerPosition } : null;
 
             try {
                 const response = await fetch('/dungeon/move', {
@@ -3015,11 +3042,10 @@
                 });
 
                 if (!response.ok) {
-                    confirmPlayerAnimation(false);
+                    draw();
                     return;
                 }
 
-                const positionBeforeMove = playerPosition ? { ...playerPosition } : null;
                 const moveResult = await response.json();
                 dungeonVersion = moveResult.version ?? dungeonVersion;
                 latestChanges = Array.isArray(moveResult.changes) ? moveResult.changes : [];
@@ -3029,13 +3055,14 @@
                     playerPosition.x !== positionBeforeMove.x ||
                     playerPosition.y !== positionBeforeMove.y
                 );
-                confirmPlayerAnimation(playerMoved);
+                if (playerMoved && positionBeforeMove) {
+                    startPlayerMoveAnimationFromTo(positionBeforeMove, playerPosition);
+                }
                 render();
                 renderDebugPopup();
                 renderCounters();
                 renderCardSlots();
                 renderHand();
-                nudgeCameraToPlayer();
             } finally {
                 state.moveInFlight = false;
                 updateExitDungeonButton();
@@ -3256,10 +3283,24 @@
                 playerAnim.active = false;
                 playerAnim.held = true;
                 draw();
+                nudgeCameraToPlayer();
                 return;
             }
 
             draw();
+            nudgeCameraToPlayer();
+            requestAnimationFrame(tickPlayerAnimation);
+        }
+
+        function startPlayerMoveAnimationFromTo(from, to) {
+            playerAnim.active = false;
+            playerAnim.held = false;
+            playerAnim.active = true;
+            playerAnim.forward = true;
+            playerAnim.from = { ...from };
+            playerAnim.to = { ...to };
+            playerAnim.startTime = performance.now();
+
             requestAnimationFrame(tickPlayerAnimation);
         }
 
@@ -3302,14 +3343,15 @@
         }
 
         function nudgeCameraToPlayer() {
-            if (!playerPosition) {
+            const pos = getVisualPlayerPosition() ?? playerPosition;
+            if (!pos) {
                 return;
             }
 
             const step = getStepSize();
             const tileSize = state.baseTileSize * state.scale;
-            const playerPixelX = state.paddingX + (playerPosition.x - bounds.minX) * step + (tileSize / 2);
-            const playerPixelY = state.paddingY + (playerPosition.y - bounds.minY) * step + (tileSize / 2);
+            const playerPixelX = state.paddingX + (pos.x - bounds.minX) * step + (tileSize / 2);
+            const playerPixelY = state.paddingY + (pos.y - bounds.minY) * step + (tileSize / 2);
 
             const topNotchHeight = document.querySelector('.bottom-notch')?.offsetHeight ?? 0;
             const bottomNotchHeight = handNotch?.offsetHeight ?? 0;

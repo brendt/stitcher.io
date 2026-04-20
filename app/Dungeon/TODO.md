@@ -3,7 +3,8 @@
 - Port the test suite
 - Color mana cost and card type
 - Fix top notch styling on smaller screens
-- Tutorial
+- Explore all actions being event driven
+- Artifact on collapsed tile
 
 ## 1.1
 
