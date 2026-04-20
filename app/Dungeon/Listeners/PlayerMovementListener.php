@@ -4,6 +4,7 @@ namespace App\Dungeon\Listeners;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Events\TileCollapsed;
 use App\Dungeon\Support\Random;
 use Tempest\EventBus\EventHandler;
 use function Tempest\Support\arr;
@@ -101,6 +102,18 @@ final readonly class PlayerMovementListener
     }
 
     #[EventHandler]
+    public function onTileCollapsed(TileCollapsed $event): void
+    {
+        if ($event->tile->point->equals($this->dungeon->playerPosition))
+        {
+            $this->dungeon->decreaseHealth(
+                25,
+                'The tile you were standing on collapsed! (-25 health)',
+            );
+        }
+    }
+
+    #[EventHandler]
     public function collectArtifact(PlayerMoved $event): void
     {
         if (! $this->dungeon->artifactLocation) {
@@ -125,7 +138,7 @@ final readonly class PlayerMovementListener
             return;
         }
 
-        $this->dungeon->decreaseHealth(15);
+        $this->dungeon->decreaseHealth(15, 'You stepped on a trap! (-15 health)');
     }
 
     #[EventHandler]

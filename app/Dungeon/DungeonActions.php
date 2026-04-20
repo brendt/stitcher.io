@@ -228,7 +228,7 @@ trait DungeonActions
         event(new PlayerHealthIncreased($amount, $this->health));
     }
 
-    public function decreaseHealth(int $amount): void
+    public function decreaseHealth(int $amount, ?string $reason = null): void
     {
         if ($this->health - $amount < 0) {
             $overflow = -1 * ($this->health - $amount);
@@ -241,7 +241,7 @@ trait DungeonActions
 
         $this->health -= $amount;
 
-        $event = new PlayerHealthDecreased($amount, $this->health);
+        $event = new PlayerHealthDecreased($amount, $this->health, $reason);
 
         event($event);
     }

@@ -107,7 +107,7 @@ final readonly class DwellerMovementListener
         }
 
         if ($dweller = $this->dungeon->dwellers[$point->x][$point->y] ?? null) {
-            $this->dungeon->decreaseHealth(20);
+            $this->dungeon->decreaseHealth(20, 'You were hit by a Dweller (-20 health)');
             $this->dungeon->despawnDweller($dweller);
 
             for ($i = 0; $i < random_int(1, 3); $i++) {

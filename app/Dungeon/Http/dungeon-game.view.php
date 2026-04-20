@@ -112,6 +112,31 @@
             border-color: rgba(248, 113, 113, 0.85);
         }
 
+        #dungeon-message {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            background: rgba(15, 15, 20, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: #e2e8f0;
+            font: 13px/1.4 var(--font-title);
+            letter-spacing: 0.04em;
+            text-align: center;
+            max-width: min(360px, calc(100vw - 48px));
+            backdrop-filter: blur(6px);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        #dungeon-message.is-visible {
+            opacity: 1;
+        }
+
         .death-overlay {
             position: fixed;
             inset: 0;
@@ -868,6 +893,7 @@
         </div>
         <button id="resign-button" class="resign-button" type="button">Resign</button>
     </div>
+    <div id="dungeon-message" aria-live="polite"></div>
     <div class="card-slots-corner">
         <div class="hand-side-slots">
             <div class="hand-side-slot">
@@ -920,6 +946,18 @@
         const deckCounter = document.getElementById('deck-counter');
         const activeCardSlot = document.getElementById('active-card-slot');
         const passiveCardSlot = document.getElementById('passive-card-slot');
+        const dungeonMessage = document.getElementById('dungeon-message');
+        const statsNotch = document.querySelector('.bottom-notch');
+        let messageHideTimeout = null;
+
+        function positionDungeonMessage() {
+            if (!dungeonMessage || !statsNotch) return;
+            const bottom = statsNotch.getBoundingClientRect().bottom;
+            dungeonMessage.style.top = (bottom + 10) + 'px';
+        }
+
+        positionDungeonMessage();
+        window.addEventListener('resize', positionDungeonMessage);
         const counters = {
             coins: document.getElementById('coin-counter'),
             shards: document.getElementById('shard-counter'),
@@ -2537,6 +2575,10 @@
             }
 
             for (const change of changes) {
+                if (change?.payload?.message) {
+                    showDungeonMessage(change.payload.message);
+                }
+
                 if (change?.name === 'player.died') {
                     isPlayerDead = true;
                     activeCard = null;
@@ -2771,6 +2813,20 @@
                     }
                 }
             }
+        }
+
+        function showDungeonMessage(text) {
+            if (!dungeonMessage || !text) {
+                return;
+            }
+
+            clearTimeout(messageHideTimeout);
+            dungeonMessage.textContent = text;
+            dungeonMessage.classList.add('is-visible');
+
+            messageHideTimeout = setTimeout(() => {
+                dungeonMessage.classList.remove('is-visible');
+            }, 10000);
         }
 
         function renderDebugPopup() {
@@ -3598,6 +3654,12 @@
             if (event.code === 'Space') {
                 event.preventDefault();
                 focusOnPlayer();
+                return;
+            }
+
+            if (event.code === 'KeyQ' && playerPosition && isTileInteractionEnabled()) {
+                event.preventDefault();
+                interactWithTile(playerPosition);
                 return;
             }
 

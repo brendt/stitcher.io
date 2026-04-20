@@ -2,11 +2,8 @@
 
 namespace App\Dungeon\Http;
 
-use App\Dungeon\Cards\BeaconMajor;
 use App\Dungeon\Cards\BreakthroughMajor;
-use App\Dungeon\Cards\BreakthroughMinor;
 use App\Dungeon\Cards\ProtectionMinor;
-use App\Dungeon\Cards\SupportMinor;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Point;
 use App\Dungeon\Repositories\DeckRepository;
@@ -37,11 +34,7 @@ final readonly class DemoController
         }
 
         $dungeon = Dungeon::new($user, $deckRepository, $statsRepository, deck: [
-            new ProtectionMinor(),
-            new ProtectionMinor(),
-            new ProtectionMinor(),
-            new ProtectionMinor(),
-            new ProtectionMinor(),
+            new BreakthroughMajor(),
         ]);
 
         $repository->persist($dungeon);
