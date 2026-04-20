@@ -4,6 +4,8 @@ namespace App\Dungeon\Listeners;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Dweller;
+use App\Dungeon\Events\CardDrawn;
+use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Point;
@@ -30,7 +32,18 @@ final readonly class DwellerMovementListener
     }
 
     #[EventHandler]
-    public function moveDwellers(PlayerMoved $event): void
+    public function moveDwellersOnPlayerMoved(PlayerMoved $event): void
+    {
+        $this->moveDwellers();
+    }
+
+    #[EventHandler]
+    public function moveDwellersOnCardPlayed(CardPlayed $event): void
+    {
+        $this->moveDwellers();
+    }
+
+    private function moveDwellers(): void
     {
         foreach ($this->dungeon->loopDwellers() as $dweller) {
             for ($i = 1; $i <= 2; $i++) {

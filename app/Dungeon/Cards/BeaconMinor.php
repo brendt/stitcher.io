@@ -5,6 +5,7 @@ namespace App\Dungeon\Cards;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\DungeonEvent;
+use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
@@ -46,11 +47,13 @@ final class BeaconMinor implements Card, PassiveCard
 
     public function handle(Dungeon $dungeon, DungeonEvent $event): void
     {
-        if (! $event instanceof PlayerMoved) {
+        if (! $event instanceof PlayerMoved && ! $event instanceof CardPlayed) {
             return;
         }
 
-        $this->count -= 1;
+        if ($event instanceof PlayerMoved) {
+            $this->count -= 1;
+        }
 
         $dungeon->updateCard($this);
 

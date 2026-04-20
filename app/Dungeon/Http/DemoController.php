@@ -2,8 +2,10 @@
 
 namespace App\Dungeon\Http;
 
+use App\Dungeon\Cards\BeaconMajor;
 use App\Dungeon\Cards\BreakthroughMajor;
 use App\Dungeon\Cards\ProtectionMinor;
+use App\Dungeon\Cards\StabilityMajor;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Point;
 use App\Dungeon\Repositories\DeckRepository;
@@ -34,13 +36,17 @@ final readonly class DemoController
         }
 
         $dungeon = Dungeon::new($user, $deckRepository, $statsRepository, deck: [
-            new BreakthroughMajor(),
+            new BeaconMajor(),
+            new StabilityMajor(),
+            new StabilityMajor(),
+            new StabilityMajor(),
+            new StabilityMajor(),
         ]);
 
         $repository->persist($dungeon);
 
         $dungeon->cheat = true;
-        $dungeon->mana = 125;
+        $dungeon->mana = 1000;
 //        $dungeon->health = 1000;
         $dungeon->stability = 100;
 
@@ -52,7 +58,7 @@ final readonly class DemoController
 //            $dungeon->move($directions->random());
         }
 
-//        $dungeon->spawnDweller(new Point(2,2));
+        $dungeon->spawnDweller(new Point(2,2));
 //        $dungeon->spawnDweller();
 //        $dungeon->spawnDweller();
 //        $dungeon->spawnVictoryPoint(new Point(5, 5));

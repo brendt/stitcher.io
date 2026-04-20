@@ -1170,10 +1170,41 @@
                 }
             }
 
+            drawDistanceDarkening(tileSize, step);
             drawDwellers(tileSize, step);
             drawPlayer(tileSize, step);
             drawArtifactAtLocation(step, tileSize);
             drawArtifactDirectionGlow(step, tileSize);
+        }
+
+        function drawDistanceDarkening(tileSize, step) {
+            if (!bounds || bounds.minX === Infinity) {
+                return;
+            }
+
+            const dpr = window.devicePixelRatio || 1;
+            const canvasW = canvas.width / dpr;
+            const canvasH = canvas.height / dpr;
+
+            const originX = state.paddingX + (0 - bounds.minX) * step + tileSize / 2;
+            const originY = state.paddingY + (0 - bounds.minY) * step + tileSize / 2;
+
+            const maxDist = Math.sqrt(
+                Math.max(originX, canvasW - originX) ** 2 +
+                Math.max(originY, canvasH - originY) ** 2
+            );
+
+            const gradient = context.createRadialGradient(
+                originX, originY, tileSize * 1.5,
+                originX, originY, maxDist,
+            );
+            gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0.72)');
+
+            context.save();
+            context.fillStyle = gradient;
+            context.fillRect(0, 0, canvasW, canvasH);
+            context.restore();
         }
 
         function drawFloor(tile, x, y, tileSize, isHovered = false) {
