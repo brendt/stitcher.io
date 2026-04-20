@@ -1,11 +1,11 @@
 ## 1.0
 
 - Port the test suite
-- [back & front] Sellable cards
 
 ## 1.1
 
 - [back & front] Screenshots of dungeon maps as throphies
+- Chat
 - Shard shop
 - Permanent cards
 
