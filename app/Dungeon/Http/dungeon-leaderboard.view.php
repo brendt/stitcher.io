@@ -37,7 +37,7 @@ use function Tempest\Router\uri;
                             <span :elseif="$i === 2" class="text-lg">🥉</span>
                             {{ $i + 1 }}
                         </td>
-                        <td class="px-6 py-4 title">{{ $stats->nickname }}</td>
+                        <td class="px-6 py-4 title">{{ $stats->nickname ?? 'Anonymous' }}</td>
                         <td class="px-6 py-4 text-right">{{ number_format($stats->victoryPoints) }}</td>
                         <td class="px-6 py-4 text-right">{{ number_format($stats->wins)}}&thinsp;/&thinsp;{{number_format($stats->games) }}</td>
                     </tr>
