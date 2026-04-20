@@ -69,9 +69,10 @@ final class StatsRepository
         $stats = $this->forUser($user);
 
         return query(DungeonUserStats::class)
-            ->count()
-            ->where('victoryPoints > ?', $stats->victoryPoints)
-            ->execute() + 1;
+                ->count()
+                ->where('victoryPoints > ?', $stats->victoryPoints)
+                ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
+                ->execute() + 1;
     }
 
     /** @return array<DungeonUserStats> */
