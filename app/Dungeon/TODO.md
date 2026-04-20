@@ -3,7 +3,6 @@
 - Port the test suite
 - Explore all actions being event driven
 - Artifact on collapsed tile
-- Hide coin, shard, and VP stats in the top notch when 0
 
 ## 1.1
 
