@@ -38,9 +38,11 @@ use App\Dungeon\Events\TileCollapsed;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Events\VisibilityChanged;
+use App\Dungeon\Listeners\PlayerMovementListener;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
 use PHPUnit\Framework\Attributes\Test;
+use function Tempest\EventBus\event;
 
 final class DungeonActionsTest extends DungeonTest
 {
@@ -1193,5 +1195,104 @@ final class DungeonActionsTest extends DungeonTest
         $this->eventBus->assertDispatched(CardUpdated::class, function (CardUpdated $event) use ($card) {
             $this->assertSame($card->id, $event->card->id);
         });
+    }
+
+
+    #[Test]
+    public function mana_altar_grants_mana_when_cooldown_is_zero(): void
+    {
+        $point = new Point(1, 0);
+        $tile = new Tile($point, isManaAltar: true, altarCooldown: 0);
+        $this->dungeon->addTile($tile);
+        $manaBefore = $this->dungeon->mana;
+
+        $event = new PlayerMoved(from: new Point(0, 0), to: $point);
+        $this->container->get(PlayerMovementListener::class)->checkForManaAltar($event);
+
+        $this->assertGreaterThan($manaBefore, $this->dungeon->mana);
+        $this->eventBus->assertDispatched(PlayerManaIncreased::class);
+    }
+
+    #[Test]
+    public function mana_altar_does_not_grant_mana_when_on_cooldown(): void
+    {
+        $this->dungeon->mana = 0;
+        $point = new Point(1, 0);
+        $tile = new Tile($point, isManaAltar: true, altarCooldown: 50);
+        $this->dungeon->addTile($tile);
+
+        $event = new PlayerMoved(from: new Point(0, 0), to: $point);
+        $this->container->get(PlayerMovementListener::class)->checkForManaAltar($event);
+
+        $this->assertSame(0, $this->dungeon->mana);
+        $this->eventBus->assertNotDispatched(PlayerManaIncreased::class);
+    }
+
+    // -------------------------------------------------------------------------
+    // Health altar
+    // -------------------------------------------------------------------------
+
+    #[Test]
+    public function health_altar_grants_health_when_cooldown_is_zero(): void
+    {
+        $this->dungeon->health = 50;
+        $point = new Point(1, 0);
+        $tile = new Tile($point, isHealthAltar: true, altarCooldown: 0);
+        $this->dungeon->addTile($tile);
+
+        $event = new PlayerMoved(from: new Point(0, 0), to: $point);
+        $this->container->get(PlayerMovementListener::class)->checkForHealthAltar($event);
+
+        $this->assertGreaterThan(50, $this->dungeon->health);
+        $this->eventBus->assertDispatched(PlayerHealthIncreased::class);
+    }
+
+    #[Test]
+    public function health_altar_does_not_grant_health_when_on_cooldown(): void
+    {
+        $this->dungeon->health = 50;
+        $point = new Point(1, 0);
+        $tile = new Tile($point, isHealthAltar: true, altarCooldown: 50);
+        $this->dungeon->addTile($tile);
+
+        $event = new PlayerMoved(from: new Point(0, 0), to: $point);
+        $this->container->get(PlayerMovementListener::class)->checkForHealthAltar($event);
+
+        $this->assertSame(50, $this->dungeon->health);
+        $this->eventBus->assertNotDispatched(PlayerHealthIncreased::class);
+    }
+
+    // -------------------------------------------------------------------------
+    // Stability altar
+    // -------------------------------------------------------------------------
+
+    #[Test]
+    public function stability_altar_grants_stability_when_cooldown_is_zero(): void
+    {
+        $this->dungeon->stability = 50;
+        $point = new Point(1, 0);
+        $tile = new Tile($point, isStabilityAltar: true, altarCooldown: 0);
+        $this->dungeon->addTile($tile);
+
+        $event = new PlayerMoved(from: new Point(0, 0), to: $point);
+        $this->container->get(PlayerMovementListener::class)->checkForStabilityAltar($event);
+
+        $this->assertGreaterThan(50, $this->dungeon->stability);
+        $this->eventBus->assertDispatched(PlayerStabilityIncreased::class);
+    }
+
+    #[Test]
+    public function stability_altar_does_not_grant_stability_when_on_cooldown(): void
+    {
+        $this->dungeon->stability = 50;
+        $point = new Point(1, 0);
+        $tile = new Tile($point, isStabilityAltar: true, altarCooldown: 50);
+        $this->dungeon->addTile($tile);
+
+        $event = new PlayerMoved(from: new Point(0, 0), to: $point);
+        $this->container->get(PlayerMovementListener::class)->checkForStabilityAltar($event);
+
+        $this->assertLessThanOrEqual(50, $this->dungeon->stability);
+        $this->eventBus->assertNotDispatched(PlayerStabilityIncreased::class);
     }
 }
