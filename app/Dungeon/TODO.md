@@ -1,7 +1,6 @@
 ## 1.0
 
 - Port the test suite
-- Explore all actions being event driven
 - Artifact on collapsed tile
 
 ## 1.1

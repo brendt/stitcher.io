@@ -798,6 +798,8 @@
             maxX: 0,
             maxY: 0,
         };
+        let lastRenderedMinX = 0;
+        let lastRenderedMinY = 0;
 
         const state = {
             baseTileSize: 20,
@@ -3231,6 +3233,11 @@
         }
 
         function render() {
+            const step = getStepSize();
+            viewport.scrollLeft += (lastRenderedMinX - bounds.minX) * step;
+            viewport.scrollTop += (lastRenderedMinY - bounds.minY) * step;
+            lastRenderedMinX = bounds.minX;
+            lastRenderedMinY = bounds.minY;
             resizeCanvas();
             draw();
             updateViewportCursorState();
@@ -3561,6 +3568,8 @@
         }, { passive: true });
 
         hydrateFromPayload(payload);
+        lastRenderedMinX = bounds.minX;
+        lastRenderedMinY = bounds.minY;
         render();
         centerViewportOnPoint(playerPosition);
         renderDebugPopup();
