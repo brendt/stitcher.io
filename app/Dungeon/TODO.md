@@ -1,6 +1,5 @@
 ## 1.0
 
-- Port the test suite
 - Artifact on collapsed tile
 
 ## 1.1

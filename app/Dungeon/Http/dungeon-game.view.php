@@ -888,6 +888,8 @@
             }
             context.stroke();
 
+            drawDistanceDarkening(tileSize, step);
+
             for (const tile of tiles) {
                 const x = state.paddingX + (tile.point.x - bounds.minX) * step;
                 const y = state.paddingY + (tile.point.y - bounds.minY) * step;
@@ -919,7 +921,7 @@
                 }
 
                 if (isOutsideVisibility && !isArtifactAtPoint(tile?.point) && !tile?.isCollapsed) {
-                    drawVisibilityOverlay(x, y, tileSize);
+                    drawVisibilityOverlay(x, y, tileSize, step);
                 }
 
                 if (isOutsideVisibility && altarGlowColor) {
@@ -927,7 +929,6 @@
                 }
             }
 
-            drawDistanceDarkening(tileSize, step);
             drawDwellers(tileSize, step);
             drawPlayer(tileSize, step);
             drawArtifactAtLocation(step, tileSize);
@@ -1103,9 +1104,30 @@
             return distance < visibilityRadius;
         }
 
-        function drawVisibilityOverlay(x, y, tileSize) {
+        function drawVisibilityOverlay(x, y, tileSize, step) {
+            const dpr = window.devicePixelRatio || 1;
+            const canvasW = canvas.width / dpr;
+            const canvasH = canvas.height / dpr;
+
+            const originX = state.paddingX + (0 - bounds.minX) * step + tileSize / 2;
+            const originY = state.paddingY + (0 - bounds.minY) * step + tileSize / 2;
+
+            const maxDist = Math.sqrt(
+                Math.max(originX, canvasW - originX) ** 2 +
+                Math.max(originY, canvasH - originY) ** 2
+            );
+
+            const cx = x + tileSize / 2;
+            const cy = y + tileSize / 2;
+            const dist = Math.hypot(cx - originX, cy - originY);
+            const innerRadius = tileSize * 3;
+            const distanceAlpha = Math.max(0, (dist - innerRadius) / (maxDist - innerRadius)) * 0.72;
+
+            const baseAlpha = 0.68;
+            const combined = 1 - (1 - baseAlpha) * (1 - distanceAlpha);
+
             context.save();
-            context.fillStyle = 'rgba(0, 0, 0, 0.68)';
+            context.fillStyle = `rgba(0, 0, 0, ${combined})`;
             context.fillRect(x, y, tileSize, tileSize);
             context.restore();
         }
