@@ -67,7 +67,7 @@ $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isAct
             <div class="w-px bg-white/10 hidden sm:block"></div>
             <div class="flex flex-col items-center gap-0.5 px-2 sm:px-0">
                 <span class="title text-xs text-gray-500 uppercase tracking-widest">Level</span>
-                <span class="text-sm text-gray-200">{{ $stats->level->getName() }} <span :if="$stats->level->nextLevel()" class="text-xs text-gray-500">({{ $stats->experience }}&thinsp;/&thinsp;{{ $stats->level->nextMilestone() }})</span></span>
+                <span class="text-sm text-gray-200">{{ $stats->level->getName() }} <span :if="$stats->level->nextLevel()" class="text-xs text-gray-500">({{ $stats->formattedExperience }}&thinsp;/&thinsp;{{ $stats->level->nextMilestone() }})</span></span>
             </div>
             <div class="w-px bg-white/10 hidden sm:block"></div>
             <div class="flex flex-col items-center gap-0.5 px-2 sm:px-0">

@@ -32,6 +32,16 @@ final class DungeonUserStats
         get => $this->extra['nickname'] ?? null;
     }
 
+    public string $formattedExperience {
+        get {
+            if ($this->experience < 1000) {
+                return "$this->experience";
+            }
+
+            return number_format($this->experience / 1000, 1) . 'k';
+        }
+    }
+
     public function canBuy(DungeonShopCard $dungeonShopCard): bool
     {
         if (! $this->level->hasAccessTo($dungeonShopCard->card->level)) {
