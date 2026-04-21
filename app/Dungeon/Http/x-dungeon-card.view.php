@@ -35,7 +35,7 @@ if ($disabled ?? false) {
 
     <div class="card-content">
         <div class="card-name">{{ $card->name }}</div>
-        <div class="card-price" :isset="$price">{{ $price }} coins</div>
+        <div class="card-price" :isset="$price">{{ number_format($price) }} coins</div>
         <div class="card-description gap-1">
             <span>{{ $card->description }}</span>
             <span :if="$includeLevel ?? false">Required level: {{ $card->level->getName() }}</span>
