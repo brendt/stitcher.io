@@ -156,7 +156,8 @@ final readonly class PlayerMovementListener
 
         $tile->altarCooldown = random_int(80, 120);
         $this->dungeon->updateTile($tile);
-        $this->dungeon->increaseMana(random_int(50, 100));
+        $mana = random_int(50, 100);
+        $this->dungeon->increaseMana($mana, "You found a mana altar (+{$mana} mana)");
     }
 
     #[EventHandler]
@@ -174,7 +175,8 @@ final readonly class PlayerMovementListener
 
         $tile->altarCooldown = random_int(80, 120);
         $this->dungeon->updateTile($tile);
-        $this->dungeon->increaseHealth(random_int(30, 50));
+        $health = random_int(30, 50);
+        $this->dungeon->increaseHealth($health, "You found a health altar (+{$health} health)");
     }
 
     #[EventHandler]
@@ -192,7 +194,8 @@ final readonly class PlayerMovementListener
 
         $tile->altarCooldown = random_int(80, 120);
         $this->dungeon->updateTile($tile);
-        $this->dungeon->increaseStability(random_int(30, 50));
+        $stability = random_int(30, 50);
+        $this->dungeon->increaseStability($stability, "You found a stability altar (+{$stability} stability)");
     }
 
     #[EventHandler]

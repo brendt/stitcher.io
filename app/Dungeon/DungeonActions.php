@@ -155,10 +155,10 @@ trait DungeonActions
     {
         $this->maxMana += $amount;
 
-        event(new PlayerMaxManaIncreased($amount));
+        event(new PlayerMaxManaIncreased($amount, $this->maxMana));
     }
 
-    public function increaseMana(int $amount): void
+    public function increaseMana(int $amount, ?string $reason = null): void
     {
         if ($this->mana >= $this->maxMana) {
             return;
@@ -175,7 +175,7 @@ trait DungeonActions
 
         $this->mana += $amount;
 
-        event(new PlayerManaIncreased($amount, $this->mana));
+        event(new PlayerManaIncreased($amount, $this->mana, $reason));
     }
 
     public function decreaseMana(int $amount): void
@@ -205,10 +205,10 @@ trait DungeonActions
     {
         $this->maxHealth += $amount;
 
-        event(new PlayerMaxHealthIncreased($amount));
+        event(new PlayerMaxHealthIncreased($amount, $this->maxHealth));
     }
 
-    public function increaseHealth(int $amount): void
+    public function increaseHealth(int $amount, ?string $reason = null): void
     {
         if ($this->health >= $this->maxHealth) {
             return;
@@ -225,7 +225,7 @@ trait DungeonActions
 
         $this->health += $amount;
 
-        event(new PlayerHealthIncreased($amount, $this->health));
+        event(new PlayerHealthIncreased($amount, $this->health, $reason));
     }
 
     public function decreaseHealth(int $amount, ?string $reason = null): void
@@ -266,7 +266,7 @@ trait DungeonActions
         event(new PlayerStabilityDecreased($amount, $this->stability));
     }
 
-    public function increaseStability(int $amount): void
+    public function increaseStability(int $amount, ?string $reason = null): void
     {
         if ($this->stability >= $this->maxStability) {
             return;
@@ -283,7 +283,7 @@ trait DungeonActions
 
         $this->stability += $amount;
 
-        event(new PlayerStabilityIncreased($amount, $this->stability));
+        event(new PlayerStabilityIncreased($amount, $this->stability, $reason));
     }
 
     public function collapseTile(Tile $tile): void

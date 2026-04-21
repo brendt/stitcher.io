@@ -12,11 +12,13 @@ final class PlayerManaIncreased implements DungeonEvent
         get => [
             'amount' => $this->amount,
             'total' => $this->total,
+            'message' => $this->reason,
         ];
     }
 
     public function __construct(
         public readonly int $amount,
         public readonly int $total,
+        public readonly ?string $reason = null,
     ) {}
 }

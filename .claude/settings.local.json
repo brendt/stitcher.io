@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find /Users/brentroose/Dev/stitcher.io -name *x-dungeon* -o -name dungeon*component*)"
+      "Bash(find /Users/brentroose/Dev/stitcher.io -name *x-dungeon* -o -name dungeon*component*)",
+      "Bash(php vendor/bin/phpunit tests/Dungeon/DungeonActionsTest.php)",
+      "Bash(./vendor/bin/phpunit tests/Dungeon/DungeonActionsTest.php)"
     ]
   }
 }
