@@ -154,6 +154,10 @@ final readonly class PlayerMovementListener
             return;
         }
 
+        if ($tile->altarCooldown > 0) {
+            return;
+        }
+
         $tile->altarCooldown = random_int(80, 120);
         $this->dungeon->updateTile($tile);
         $mana = random_int(50, 100);
@@ -173,6 +177,10 @@ final readonly class PlayerMovementListener
             return;
         }
 
+        if ($tile->altarCooldown > 0) {
+             return;
+        }
+
         $tile->altarCooldown = random_int(80, 120);
         $this->dungeon->updateTile($tile);
         $health = random_int(30, 50);
@@ -189,6 +197,10 @@ final readonly class PlayerMovementListener
         }
 
         if (! $tile->isStabilityAltar) {
+            return;
+        }
+
+        if ($tile->altarCooldown > 0) {
             return;
         }
 

@@ -234,6 +234,26 @@ final class DungeonActionsTest extends DungeonTest
     }
 
     #[Test]
+    public function increase_mana_includes_reason_in_event(): void
+    {
+        $this->dungeon->increaseMana(30, 'You found a mana altar (+30 mana)');
+
+        $this->eventBus->assertDispatched(PlayerManaIncreased::class, function (PlayerManaIncreased $event) {
+            $this->assertSame('You found a mana altar (+30 mana)', $event->reason);
+        });
+    }
+
+    #[Test]
+    public function increase_mana_reason_is_null_by_default(): void
+    {
+        $this->dungeon->increaseMana(30);
+
+        $this->eventBus->assertDispatched(PlayerManaIncreased::class, function (PlayerManaIncreased $event) {
+            $this->assertNull($event->reason);
+        });
+    }
+
+    #[Test]
     public function decrease_mana(): void
     {
         $this->dungeon->mana = 100;
@@ -337,6 +357,30 @@ final class DungeonActionsTest extends DungeonTest
 
         $this->assertSame(100, $this->dungeon->health);
         $this->eventBus->assertNotDispatched(PlayerHealthIncreased::class);
+    }
+
+    #[Test]
+    public function increase_health_includes_reason_in_event(): void
+    {
+        $this->dungeon->health = 50;
+
+        $this->dungeon->increaseHealth(30, 'You found a health altar (+30 health)');
+
+        $this->eventBus->assertDispatched(PlayerHealthIncreased::class, function (PlayerHealthIncreased $event) {
+            $this->assertSame('You found a health altar (+30 health)', $event->reason);
+        });
+    }
+
+    #[Test]
+    public function increase_health_reason_is_null_by_default(): void
+    {
+        $this->dungeon->health = 50;
+
+        $this->dungeon->increaseHealth(30);
+
+        $this->eventBus->assertDispatched(PlayerHealthIncreased::class, function (PlayerHealthIncreased $event) {
+            $this->assertNull($event->reason);
+        });
     }
 
     #[Test]
@@ -445,6 +489,30 @@ final class DungeonActionsTest extends DungeonTest
 
         $this->assertSame(100, $this->dungeon->stability);
         $this->eventBus->assertNotDispatched(PlayerStabilityIncreased::class);
+    }
+
+    #[Test]
+    public function increase_stability_includes_reason_in_event(): void
+    {
+        $this->dungeon->stability = 50;
+
+        $this->dungeon->increaseStability(30, 'You found a stability altar (+30 stability)');
+
+        $this->eventBus->assertDispatched(PlayerStabilityIncreased::class, function (PlayerStabilityIncreased $event) {
+            $this->assertSame('You found a stability altar (+30 stability)', $event->reason);
+        });
+    }
+
+    #[Test]
+    public function increase_stability_reason_is_null_by_default(): void
+    {
+        $this->dungeon->stability = 50;
+
+        $this->dungeon->increaseStability(30);
+
+        $this->eventBus->assertDispatched(PlayerStabilityIncreased::class, function (PlayerStabilityIncreased $event) {
+            $this->assertNull($event->reason);
+        });
     }
 
     // -------------------------------------------------------------------------

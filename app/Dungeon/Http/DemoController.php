@@ -46,8 +46,8 @@ final readonly class DemoController
         $repository->persist($dungeon);
 
         $dungeon->cheat = true;
-        $dungeon->mana = 1000;
-//        $dungeon->health = 1000;
+        $dungeon->mana = 50;
+        $dungeon->health = 50;
         $dungeon->stability = 100;
 
         $dungeon->addTile(new Tile(new Point(1, 1), isTrapped: true));
@@ -63,9 +63,9 @@ final readonly class DemoController
 //        $dungeon->spawnDweller();
 //        $dungeon->spawnVictoryPoint(new Point(5, 5));
 //        $dungeon->spawnShard(new Point(5, 6));
-//            $dungeon->spawnHealthAltar(new Point(10, 8));
-//            $dungeon->spawnStabilityAltar(new Point(10, 10));
-//            $dungeon->spawnManaAltar(new Point(10, 12));
+            $dungeon->spawnHealthAltar(new Point(10, 8));
+            $dungeon->spawnStabilityAltar(new Point(10, 10));
+            $dungeon->spawnManaAltar(new Point(10, 12));
 
         $dungeon->spawnShard(new Point(0,1));
 
