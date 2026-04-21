@@ -17,12 +17,13 @@ use function Tempest\Router\uri;
                 </a>
             </div>
 
-            <div class="bg-gray-950/90 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
-                <table class="w-full">
+            <div class="bg-gray-950/90 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl overflow-x-auto">
+                <table class="w-full min-w-full">
                     <thead>
                     <tr class="border-b border-white/10 text-xs text-gray-500 uppercase tracking-widest">
                         <th class="text-left px-6 py-4 w-12">#</th>
                         <th class="text-left px-6 py-4">Player</th>
+                        <th class="text-left px-6 py-4">Level</th>
                         <th class="text-right px-6 py-4">Victory Points</th>
                         <th class="text-right px-6 py-4">Wins/Games</th>
                     </tr>
@@ -38,6 +39,7 @@ use function Tempest\Router\uri;
                             {{ $i + 1 }}
                         </td>
                         <td class="px-6 py-4 title">{{ $stats->nickname ?? 'Anonymous' }}</td>
+                        <td class="px-6 py-4">{{ $stats->level->getName() }}</td>
                         <td class="px-6 py-4 text-right">{{ number_format($stats->victoryPoints) }}</td>
                         <td class="px-6 py-4 text-right">{{ number_format($stats->wins)}}&thinsp;/&thinsp;{{number_format($stats->games) }}</td>
                     </tr>
