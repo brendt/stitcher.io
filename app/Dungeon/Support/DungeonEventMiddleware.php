@@ -25,6 +25,10 @@ final readonly class DungeonEventMiddleware implements EventBusMiddleware
         /** @var Dungeon $dungeon */
         $dungeon = $this->container->get(Dungeon::class);
 
+        if (! $dungeon) {
+            return;
+        }
+
         $dungeon->registerChange($event->name, $event->payload);
 
         $next($event);
