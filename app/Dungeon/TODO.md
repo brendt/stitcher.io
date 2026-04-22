@@ -1,19 +1,14 @@
 ## 1.0
 
-- Artifact on collapsed tile
-
 ## 1.1
 
-- [back & front] Screenshots of dungeon maps as throphies
 - Chat
 - Shard shop
 - Permanent cards
 
 ## 1.2
 
-- Lakes
 - New cards:
-  - Water walker
   - Fusion
   - Discard 1 draw 2
   - Increase hand size

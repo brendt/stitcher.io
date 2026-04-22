@@ -35,9 +35,13 @@ use App\Dungeon\Events\PlayerVictoryPointsIncreased;
 use App\Dungeon\Events\TileCoinsAdded;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\TileCollapsed;
+use App\Dungeon\Events\LakeDiscovered;
+use App\Dungeon\Events\RelicCollected;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Events\VisibilityChanged;
+use App\Dungeon\Lake;
+use App\Dungeon\LakePoint;
 use App\Dungeon\Listeners\PlayerMovementListener;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
@@ -136,6 +140,203 @@ final class DungeonActionsTest extends DungeonTest
 
         $this->assertTrue($this->dungeon->playerPosition->equals(new Point(0, 0)));
         $this->eventBus->assertNotDispatched(PlayerMoved::class);
+    }
+
+    #[Test]
+    public function move_does_not_move_onto_lake_tile(): void
+    {
+        $this->dungeon->addTile(new Tile(new Point(1, 0), isLake: true));
+
+        $this->dungeon->move(Direction::RIGHT);
+
+        $this->assertTrue($this->dungeon->playerPosition->equals(new Point(0, 0)));
+        $this->eventBus->assertNotDispatched(PlayerMoved::class);
+    }
+
+    #[Test]
+    public function move_can_move_onto_lake_tile_when_can_walk_on_water(): void
+    {
+        $this->dungeon->addTile(new Tile(new Point(1, 0), isLake: true));
+        $this->dungeon->canWalkOnWater = true;
+
+        $this->dungeon->move(Direction::RIGHT);
+
+        $this->assertTrue($this->dungeon->playerPosition->equals(new Point(1, 0)));
+        $this->eventBus->assertDispatched(PlayerMoved::class);
+    }
+
+    // -------------------------------------------------------------------------
+    // generateTile (lake)
+    // -------------------------------------------------------------------------
+
+    #[Test]
+    public function generate_tile_on_lake_point_marks_tile_as_lake(): void
+    {
+        $lakePoint = new Point(5, 5);
+        $lake = new Lake($lakePoint);
+        $lake->addLakePoint(new LakePoint($lakePoint, depth: 2));
+        $this->dungeon->lakes[] = $lake;
+
+        $this->dungeon->generateTile(from: null, to: $lakePoint);
+
+        $tile = $this->dungeon->tryTile($lakePoint);
+        $this->assertTrue($tile->isLake);
+        $this->assertSame(2, $tile->depth);
+    }
+
+    #[Test]
+    public function generate_tile_on_lake_point_opens_all_directions(): void
+    {
+        $lakePoint = new Point(5, 5);
+        $lake = new Lake($lakePoint);
+        $lake->addLakePoint(new LakePoint($lakePoint, depth: 1));
+        $this->dungeon->lakes[] = $lake;
+
+        $this->dungeon->generateTile(from: null, to: $lakePoint);
+
+        $tile = $this->dungeon->tryTile($lakePoint);
+        $this->assertSame(Direction::cases(), $tile->directions);
+    }
+
+    #[Test]
+    public function generate_tile_on_lake_relic_point_marks_tile_as_relic(): void
+    {
+        $lakePoint = new Point(5, 5);
+        $lake = new Lake($lakePoint);
+        $lake->addLakePoint(new LakePoint($lakePoint, depth: 3));
+        $lake->relic = $lakePoint;
+        $this->dungeon->lakes[] = $lake;
+
+        $this->dungeon->generateTile(from: null, to: $lakePoint);
+
+        $tile = $this->dungeon->tryTile($lakePoint);
+        $this->assertTrue($tile->isLake);
+        $this->assertTrue($tile->isRelic);
+    }
+
+    #[Test]
+    public function generate_tile_on_non_relic_lake_point_does_not_mark_tile_as_relic(): void
+    {
+        $lakePoint = new Point(5, 5);
+        $relicPoint = new Point(6, 5);
+        $lake = new Lake($lakePoint);
+        $lake->addLakePoint(new LakePoint($lakePoint, depth: 3));
+        $lake->relic = $relicPoint;
+        $this->dungeon->lakes[] = $lake;
+
+        $this->dungeon->generateTile(from: null, to: $lakePoint);
+
+        $tile = $this->dungeon->tryTile($lakePoint);
+        $this->assertFalse($tile->isRelic);
+    }
+
+    #[Test]
+    public function generate_tile_on_lake_edge_opens_all_directions(): void
+    {
+        $origin = new Point(5, 5);
+        $edgePoint = new Point(5, 4);
+        $lake = new Lake($origin);
+        $lake->addEdge($edgePoint);
+        $this->dungeon->lakes[] = $lake;
+
+        $this->dungeon->generateTile(from: null, to: $edgePoint);
+
+        $tile = $this->dungeon->tryTile($edgePoint);
+        $this->assertFalse($tile->isLake);
+        $this->assertSame(Direction::cases(), $tile->directions);
+    }
+
+    #[Test]
+    public function generate_tile_on_lake_edge_dispatches_lake_discovered(): void
+    {
+        $origin = new Point(5, 5);
+        $edgePoint = new Point(5, 4);
+        $lake = new Lake($origin);
+        $lake->addEdge($edgePoint);
+        $this->dungeon->lakes[] = $lake;
+
+        $this->dungeon->generateTile(from: null, to: $edgePoint);
+
+        $this->eventBus->assertDispatched(LakeDiscovered::class, function (LakeDiscovered $event) use ($edgePoint) {
+            $this->assertTrue($event->tile->point->equals($edgePoint));
+            $this->assertTrue($event->lake->isDiscovered);
+        });
+    }
+
+    #[Test]
+    public function generate_tile_on_already_discovered_lake_edge_does_not_dispatch_lake_discovered(): void
+    {
+        $origin = new Point(5, 5);
+        $edgePoint = new Point(5, 4);
+        $lake = new Lake($origin, isDiscovered: true);
+        $lake->addEdge($edgePoint);
+        $this->dungeon->lakes[] = $lake;
+
+        $this->dungeon->generateTile(from: null, to: $edgePoint);
+
+        $this->eventBus->assertNotDispatched(LakeDiscovered::class);
+    }
+
+    // -------------------------------------------------------------------------
+    // collectRelic
+    // -------------------------------------------------------------------------
+
+    #[Test]
+    public function collect_relic_marks_tile_as_not_relic(): void
+    {
+        $tile = new Tile(new Point(1, 0), isRelic: true);
+        $this->dungeon->addTile($tile);
+
+        $this->dungeon->collectRelic($tile);
+
+        $this->assertFalse($tile->isRelic);
+    }
+
+    #[Test]
+    public function collect_relic_dispatches_relic_collected_event(): void
+    {
+        $tile = new Tile(new Point(1, 0), isRelic: true);
+        $this->dungeon->addTile($tile);
+
+        $this->dungeon->collectRelic($tile);
+
+        $this->eventBus->assertDispatched(RelicCollected::class, function (RelicCollected $event) use ($tile) {
+            $this->assertTrue($event->tile->point->equals($tile->point));
+        });
+    }
+
+    #[Test]
+    public function collect_relic_increases_coins(): void
+    {
+        $tile = new Tile(new Point(1, 0), isRelic: true);
+        $this->dungeon->addTile($tile);
+
+        $this->dungeon->collectRelic($tile);
+
+        $this->assertGreaterThan(0, $this->dungeon->coins);
+    }
+
+    #[Test]
+    public function collect_relic_increases_mana(): void
+    {
+        $tile = new Tile(new Point(1, 0), isRelic: true);
+        $this->dungeon->addTile($tile);
+
+        $this->dungeon->collectRelic($tile);
+
+        $this->assertGreaterThan(0, $this->dungeon->mana);
+    }
+
+    #[Test]
+    public function collect_relic_does_nothing_when_tile_is_not_relic(): void
+    {
+        $tile = new Tile(new Point(1, 0), isRelic: false);
+        $this->dungeon->addTile($tile);
+
+        $this->dungeon->collectRelic($tile);
+
+        $this->assertSame(0, $this->dungeon->coins);
+        $this->eventBus->assertNotDispatched(RelicCollected::class);
     }
 
     // -------------------------------------------------------------------------

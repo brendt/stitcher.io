@@ -43,6 +43,4 @@ final readonly class DungeonRepository
 
         $this->redis->set($key, $serialized);
     }
-
-    // TODO remove dungeon
 }

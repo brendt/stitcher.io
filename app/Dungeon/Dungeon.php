@@ -126,6 +126,8 @@ final class Dungeon
             $self->spawnStabilityAltar();
         }
 
+        $self->spawnLake();
+
         return $self;
     }
 
