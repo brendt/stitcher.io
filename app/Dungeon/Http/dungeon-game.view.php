@@ -3055,7 +3055,7 @@
             to: null,
             visualFrom: null,
             startTime: null,
-            duration: 500,
+            duration: 200,
         };
 
         const directionOffsets = {

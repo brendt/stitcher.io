@@ -148,7 +148,14 @@ trait DungeonActions
 
         if (! $neighbourTile) {
             $this->generateTile($oldPosition, $this->playerPosition);
+            // Maybe with an explorer card?
+//            $neighbourTile = $this->tryTile($neighbourPosition);
         }
+
+        // Maybe with an explorer card?
+//        foreach ($neighbourTile->directions as $direction) {
+//            $this->generateTile(from: $neighbourPosition, to: $neighbourPosition->getNeighbour($direction));
+//        }
 
         $event = new PlayerMoved($oldPosition, $this->playerPosition);
 
