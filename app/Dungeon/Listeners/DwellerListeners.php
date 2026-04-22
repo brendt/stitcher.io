@@ -4,7 +4,6 @@ namespace App\Dungeon\Listeners;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Dweller;
-use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\PlayerMoved;
@@ -12,7 +11,7 @@ use App\Dungeon\Point;
 use App\Dungeon\Support\Random;
 use Tempest\EventBus\EventHandler;
 
-final readonly class DwellerMovementListener
+final readonly class DwellerListeners
 {
     public function __construct(
         private Dungeon $dungeon,
@@ -93,7 +92,7 @@ final readonly class DwellerMovementListener
         $fromTile = $this->dungeon->tryTile($dweller->point);
         $toTile = $this->dungeon->tryTile($to);
 
-        if ($toTile && $toTile->isCollapsed) {
+        if ($toTile && ! $toTile->canHostDweller()) {
             return false;
         }
 
@@ -120,7 +119,7 @@ final readonly class DwellerMovementListener
         }
 
         if ($dweller = $this->dungeon->dwellers[$point->x][$point->y] ?? null) {
-            $this->dungeon->decreaseHealth(20, 'You were hit by a Dweller (-20 health)');
+            $this->dungeon->decreaseHealth(20, 'You were hit by a Dweller!');
             $this->dungeon->despawnDweller($dweller);
 
             for ($i = 0; $i < random_int(1, 3); $i++) {

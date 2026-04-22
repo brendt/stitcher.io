@@ -771,6 +771,10 @@
         const floorVictoryPointSpritePath = '/dungeon/tile-victory-point.png';
         const floorShardSpritePath = '/dungeon/tile-shard.png';
         const floorCollapsedSpritePath = '/dungeon/tile-collapsed.png';
+        const floorLakeSpritePath = '/dungeon/tile-floor-lake.png';
+        const floorLake1SpritePath = '/dungeon/tile-lake-1.png';
+        const floorLake2SpritePath = '/dungeon/tile-lake-2.png';
+        const floorLake3SpritePath = '/dungeon/tile-lake-3.png';
         const playerSpritePath = '/dungeon/player-avatar.png';
         const dwellerSpritePath = '/dungeon/dweller-avater.png';
         const dwellerFallbackSpritePath = '/dungeon/dweller-avatar.png';
@@ -793,6 +797,10 @@
         let floorVictoryPointSprite = null;
         let floorShardSprite = null;
         let floorCollapsedSprite = null;
+        let floorLakeSprite = null;
+        let floorLake1Sprite = null;
+        let floorLake2Sprite = null;
+        let floorLake3Sprite = null;
         let playerSprite = null;
         let dwellerSprite = null;
         let coinMarkerSprite = null;
@@ -977,6 +985,8 @@
             const isShard = Boolean(tile?.isShard);
             const altarOnCooldown = numberFrom(tile?.altarCooldown) > 0;
             const altarCooldown = Math.max(0, Math.floor(numberFrom(tile?.altarCooldown)));
+            const isLake = Boolean(tile?.isLake);
+            const lakeDepth = tile?.depth ?? null;
             const isOutsideVisibility = isTileOutsideVisibility(tile);
             const altarSprite = isHealthAltar
                 ? (altarOnCooldown ? floorHealthAltarCooldownSprite : floorHealthAltarSprite)
@@ -997,7 +1007,18 @@
                 ? (floorOriginSprite ?? floorSprite)
                 : (isSupported ? (floorSupportSprite ?? floorSprite) : floorSprite);
 
-            if (sprite) {
+            if (isLake) {
+                const lakeSprite = lakeDepth === 1 ? floorLake1Sprite
+                    : lakeDepth === 2 ? floorLake2Sprite
+                    : lakeDepth === 3 ? floorLake3Sprite
+                    : floorLakeSprite;
+                if (lakeSprite) {
+                    context.drawImage(lakeSprite, x, y, tileSize, tileSize);
+                } else {
+                    context.fillStyle = '#3b82f6';
+                    context.fillRect(x, y, tileSize, tileSize);
+                }
+            } else if (sprite) {
                 context.drawImage(sprite, x, y, tileSize, tileSize);
             } else {
                 context.fillStyle = '#9ca3af';
@@ -3216,6 +3237,22 @@
                 floorCollapsedSprite = image;
             });
 
+            const floorLakePromise = loadImage(floorLakeSpritePath).then((image) => {
+                floorLakeSprite = image;
+            });
+
+            const floorLake1Promise = loadImage(floorLake1SpritePath).then((image) => {
+                floorLake1Sprite = image;
+            });
+
+            const floorLake2Promise = loadImage(floorLake2SpritePath).then((image) => {
+                floorLake2Sprite = image;
+            });
+
+            const floorLake3Promise = loadImage(floorLake3SpritePath).then((image) => {
+                floorLake3Sprite = image;
+            });
+
             const playerPromise = loadImage(playerSpritePath).then((image) => {
                 playerSprite = image;
             });
@@ -3251,6 +3288,10 @@
                 floorVictoryPointPromise,
                 floorShardPromise,
                 floorCollapsedPromise,
+                floorLakePromise,
+                floorLake1Promise,
+                floorLake2Promise,
+                floorLake3Promise,
                 playerPromise,
                 dwellerPromise,
                 coinMarkerPromise,

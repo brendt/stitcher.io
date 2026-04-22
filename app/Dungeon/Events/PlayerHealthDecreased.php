@@ -12,7 +12,7 @@ final class PlayerHealthDecreased implements DungeonEvent
         get => [
             'amount' => $this->amount,
             'total' => $this->total,
-            'message' => $this->reason,
+            'message' => $this->reason . " (-{$this->amount} health)",
         ];
     }
 

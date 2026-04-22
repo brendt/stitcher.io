@@ -43,6 +43,7 @@ final class Dungeon
     public int $visibilityRadius = 5;
     public ?Card $activeCard = null;
     public ?Card $passiveCard = null;
+    public bool $canWalkOnWater = false;
 
     /** @var \App\Dungeon\Tile[][] */
     public array $tiles = [];
@@ -79,6 +80,9 @@ final class Dungeon
 
     /** @var \App\Dungeon\Point[][] */
     public array $shardLocations = [];
+
+    /** @var \App\Dungeon\Lake[] */
+    public array $lakes = [];
 
     public static function new(
         User $user,
@@ -208,6 +212,28 @@ final class Dungeon
     public function hasTile(Point $point): bool
     {
         return isset($this->tiles[$point->x][$point->y]);
+    }
+
+    public function getLake(Point $point): ?Lake
+    {
+        foreach ($this->lakes as $lake) {
+            if ($lake->hasLakePoint($point)) {
+                return $lake;
+            }
+        }
+
+        return null;
+    }
+
+    public function getLakeForEdge(Point $point): ?Lake
+    {
+        foreach ($this->lakes as $lake) {
+            if ($lake->hasEdge($point)) {
+                return $lake;
+            }
+        }
+
+        return null;
     }
 
     public function withinVisibilityRadius(Point $point): bool

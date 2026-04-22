@@ -24,6 +24,10 @@ final readonly class PlayerMovementListener
                 continue;
             }
 
+            if (! $tile->canContainCoins()) {
+                continue;
+            }
+
             $this->dungeon->addCoinsToTile($tile, random_int(1, 3));
 
             return;
@@ -108,7 +112,7 @@ final readonly class PlayerMovementListener
         {
             $this->dungeon->decreaseHealth(
                 25,
-                'The tile you were standing on collapsed! (-25 health)',
+                'The tile you were standing on collapsed!',
             );
         }
     }
@@ -138,7 +142,7 @@ final readonly class PlayerMovementListener
             return;
         }
 
-        $this->dungeon->decreaseHealth(15, 'You stepped on a trap! (-15 health)');
+        $this->dungeon->decreaseHealth(15, 'You stepped on a trap!');
     }
 
     #[EventHandler]

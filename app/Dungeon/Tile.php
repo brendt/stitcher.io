@@ -2,7 +2,6 @@
 
 namespace App\Dungeon;
 
-use function Tempest\Mapper\map;
 use function Tempest\Support\arr;
 
 final class Tile
@@ -28,6 +27,8 @@ final class Tile
         public int $altarCooldown = 0,
         public int $coins = 0,
         public bool $isSupported = false,
+        public bool $isLake = false,
+        public ?int $depth = null,
     ) {}
 
     public function toArray(): array
@@ -52,6 +53,8 @@ final class Tile
             'altarCooldown' => $this->altarCooldown,
             'coins' => $this->coins,
             'isSupported' => $this->isSupported,
+            'isLake' => $this->isLake,
+            'depth' => $this->depth,
         ];
     }
 
@@ -77,7 +80,6 @@ final class Tile
             color: 'skyblue',
             directions: $directions,
             isOrigin: true,
-            isActive: true,
         );
     }
 
@@ -98,6 +100,44 @@ final class Tile
             || $this->isManaAltar;
     }
 
+    public function canContainCoins(): bool
+    {
+        return ! (
+            $this->isOrigin
+            || $this->isAltar()
+            || $this->isCollapsed
+            || $this->isTrapped
+            || $this->isArtifact
+            || $this->isShard
+            || $this->isShop
+            || $this->isSupported
+            || $this->isLake
+        );
+    }
+
+    public function canBeTrapped(): bool
+    {
+        return ! (
+            $this->isOrigin
+            || $this->isAltar()
+            || $this->isCollapsed
+            || $this->isTrapped
+            || $this->isArtifact
+            || $this->isShard
+            || $this->isShop
+            || $this->isSupported
+            || $this->isLake
+        );
+    }
+
+    public function canHostDweller(): bool
+    {
+        return ! (
+            $this->isCollapsed
+            || $this->isLake
+        );
+    }
+
     public function canCollapse(): bool
     {
         return ! (
@@ -109,6 +149,7 @@ final class Tile
             || $this->isShard
             || $this->isShop
             || $this->isSupported
+            || $this->isLake
         );
     }
 

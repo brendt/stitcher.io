@@ -9,6 +9,7 @@ use App\Dungeon\Events\ArtifactSpawned;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\CardUpdated;
+use App\Dungeon\Events\LakeDiscovered;
 use App\Dungeon\Events\PlayerExited;
 use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Events\DwellerMoved;
@@ -75,24 +76,38 @@ trait DungeonActions
 
         $tile = new Tile($to, directions: $directions);
 
-        if (isset($this->victoryPointLocations[$to->x][$to->y])) {
+        $discoveredLakeForEdge = $this->getLakeForEdge($to);
+
+        if ($discoveredLakeForEdge) {
+            $tile->directions = Direction::cases();
+        } elseif ($lake = $this->getLake($to)) {
+            $depth = $lake->getLakePoint($to)?->depth;
+            $tile->isLake = true;
+            $tile->depth = $depth;
+            $tile->directions = Direction::cases();
+        } elseif (isset($this->victoryPointLocations[$to->x][$to->y])) {
             $tile->isVictoryPoint = true;
         } elseif (isset($this->shardLocations[$to->x][$to->y])) {
             $tile->isShard = true;
         } elseif (isset($this->healthAltars[$to->x][$to->y])) {
             $tile->isHealthAltar = true;
             $tile->directions = Direction::cases();
-        } elseif(isset($this->manaAltars[$to->x][$to->y])) {
+        } elseif (isset($this->manaAltars[$to->x][$to->y])) {
             $tile->isManaAltar = true;
             $tile->directions = Direction::cases();
-        } elseif(isset($this->stabilityAltars[$to->x][$to->y])) {
+        } elseif (isset($this->stabilityAltars[$to->x][$to->y])) {
             $tile->isStabilityAltar = true;
             $tile->directions = Direction::cases();
-        } elseif ($this->level->shouldSpawnTrap()) {
+        } elseif ($this->level->shouldSpawnTrap() && $tile->canBeTrapped()) {
             $tile->isTrapped = true;
         }
 
         $this->addTile($tile);
+
+        if ($discoveredLakeForEdge && ! $discoveredLakeForEdge->isDiscovered) {
+            $discoveredLakeForEdge->isDiscovered = true;
+            event(new LakeDiscovered($discoveredLakeForEdge, $tile));
+        }
 
         $event = new TileGenerated($tile);
 
@@ -109,11 +124,18 @@ trait DungeonActions
 
         $neighbourTile = $this->tryTile($neighbourPosition);
 
+        // Collapsed tiles
         if (! $this->cheat && $neighbourTile && $neighbourTile->isCollapsed) {
             return;
         }
 
+        // Walls
         if (! $this->cheat && $neighbourTile && ! $neighbourTile->canMoveTo($direction->opposite())) {
+            return;
+        }
+
+        // Lakes
+        if (! $this->cheat && $neighbourTile && $neighbourTile->isLake && ! $this->canWalkOnWater) {
             return;
         }
 
@@ -557,8 +579,8 @@ trait DungeonActions
         $maxDistance = $this->level->maxAltarDistance();
 
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
-            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            x: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->manaAltars[$point->x][$point->y] = $point;
@@ -570,8 +592,8 @@ trait DungeonActions
         $maxDistance = $this->level->maxAltarDistance();
 
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
-            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            x: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->healthAltars[$point->x][$point->y] = $point;
@@ -583,8 +605,8 @@ trait DungeonActions
         $maxDistance = $this->level->maxAltarDistance();
 
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
-            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            x: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->stabilityAltars[$point->x][$point->y] = $point;
@@ -596,8 +618,8 @@ trait DungeonActions
         $maxDistance = $this->level->maxTreasureDistance();
 
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
-            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            x: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->victoryPointLocations[$point->x][$point->y] = $point;
@@ -609,11 +631,51 @@ trait DungeonActions
         $maxDistance = $this->level->maxTreasureDistance();
 
         $point ??= new Point(
-            x: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
-            y: random_int(0,1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            x: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
         );
 
         $this->shardLocations[$point->x][$point->y] = $point;
+    }
+
+    public function spawnLake(?Point $point = null): void
+    {
+        $shape = Lake::randomShape($this->level);
+
+        if (! $shape) {
+            return;
+        }
+
+        $minDistance = $this->level->minTreasureDistance();
+        $maxDistance = $this->level->maxTreasureDistance();
+
+        $point ??= new Point(
+            x: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+            y: random_int(0, 1) ? random_int(-1 * $maxDistance, -1 * $minDistance) : random_int($minDistance, $maxDistance),
+        );
+
+        $lake = new Lake($point);
+
+        foreach ($shape as $yOffset => $row) {
+            foreach ($row as $xOffset => $depth) {
+                if ($depth === ' ') {
+                    continue;
+                }
+
+                $depth = intval($depth);
+
+                if ($depth === 0) {
+                    $lake->addEdge($point->translate($xOffset, $yOffset));
+                } else {
+                    $lake->addLakePoint(new LakePoint(
+                        point: $point->translate($xOffset, $yOffset),
+                        depth: $depth,
+                    ));
+                }
+            }
+        }
+
+        $this->lakes[] = $lake;
     }
 
     public function increaseExperience(int $amount): void

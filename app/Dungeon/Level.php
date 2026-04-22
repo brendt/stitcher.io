@@ -137,6 +137,24 @@ enum Level: int
         };
     }
 
+    public function maxLakeDistance(): int
+    {
+        return match ($this) {
+            self::LEGENDARY => 60,
+            self::GRANDMASTER, self::MASTER => 50,
+            default => 40,
+        };
+    }
+
+    public function minLakeDistance(): int
+    {
+        return match ($this) {
+            self::LEGENDARY => 25,
+            self::GRANDMASTER, self::MASTER => 15,
+            default => 10,
+        };
+    }
+
     public function maxDwellerDistance(): int
     {
         return match ($this) {

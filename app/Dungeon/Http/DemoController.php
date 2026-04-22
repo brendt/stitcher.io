@@ -2,10 +2,9 @@
 
 namespace App\Dungeon\Http;
 
-use App\Dungeon\Cards\BeaconMajor;
 use App\Dungeon\Cards\BreakthroughMajor;
-use App\Dungeon\Cards\ProtectionMinor;
-use App\Dungeon\Cards\StabilityMajor;
+use App\Dungeon\Cards\WaterWalkerMajor;
+use App\Dungeon\Cards\WaterWalkerMinor;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Point;
 use App\Dungeon\Repositories\DeckRepository;
@@ -36,19 +35,21 @@ final readonly class DemoController
         }
 
         $dungeon = Dungeon::new($user, $deckRepository, $statsRepository, deck: [
-            new BeaconMajor(),
-            new StabilityMajor(),
-            new StabilityMajor(),
-            new StabilityMajor(),
-            new StabilityMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new WaterWalkerMajor(),
+            new WaterWalkerMinor(),
         ]);
 
         $repository->persist($dungeon);
 
-        $dungeon->cheat = true;
-        $dungeon->mana = 50;
-        $dungeon->health = 50;
+        $dungeon->cheat = false;
+        $dungeon->mana = 1000;
+        $dungeon->health = 1000;
         $dungeon->stability = 100;
+
+        $dungeon->spawnLake(new Point(2, 0));
 
         $dungeon->addTile(new Tile(new Point(1, 1), isTrapped: true));
 
