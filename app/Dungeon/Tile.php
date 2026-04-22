@@ -106,6 +106,7 @@ final class Tile
     {
         return ! (
             $this->isOrigin
+            || $this->isRelic
             || $this->isAltar()
             || $this->isCollapsed
             || $this->isTrapped

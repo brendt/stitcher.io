@@ -179,7 +179,7 @@ enum Level: int
     {
         return match ($this) {
             self::NOOB => 1000,
-            self::NOVICE => 200,
+            self::NOVICE => 2000,
             self::MASTER => 3000,
             self::GRANDMASTER => 5000,
             self::LEGENDARY => 8000,

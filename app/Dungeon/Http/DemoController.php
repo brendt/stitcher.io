@@ -38,13 +38,16 @@ final readonly class DemoController
             new BreakthroughMajor(),
             new BreakthroughMajor(),
             new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
+            new BreakthroughMajor(),
             new WaterWalkerMajor(),
             new WaterWalkerMinor(),
         ]);
 
         $repository->persist($dungeon);
 
-//        $dungeon->cheat = true;
+        $dungeon->cheat = true;
         $dungeon->mana = 1000;
         $dungeon->health = 1000;
         $dungeon->stability = 100;

@@ -344,11 +344,11 @@ trait DungeonActions
         }
 
         if ($card->type->isActive() && $this->activeCard) {
-            return;
+            $this->unsetActiveCard();
         }
 
         if ($card->type->isPassive() && $this->passiveCard) {
-            return;
+            $this->unsetPassiveCard();
         }
 
         $this->decreaseMana($card->mana);
@@ -714,7 +714,7 @@ trait DungeonActions
             return;
         }
 
-        $artifactCoins = $this->level->relicCoins();
+        $artifactCoins = $this->level->artifactCoins();
         $variation = (int)round($artifactCoins * 0.1);
         $coins = random_int($artifactCoins - $variation, $artifactCoins + $variation);
         $this->increaseCoins($coins);
