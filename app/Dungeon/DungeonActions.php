@@ -31,6 +31,7 @@ use App\Dungeon\Events\PlayerShardsIncreased;
 use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\PlayerStabilityIncreased;
 use App\Dungeon\Events\PlayerVictoryPointsIncreased;
+use App\Dungeon\Events\RelicCollected;
 use App\Dungeon\Events\TileCoinsAdded;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\TileCollapsed;
@@ -85,6 +86,9 @@ trait DungeonActions
             $tile->isLake = true;
             $tile->depth = $depth;
             $tile->directions = Direction::cases();
+            if ($to->equals($lake->relic)) {
+                $tile->isRelic = true;
+            }
         } elseif (isset($this->victoryPointLocations[$to->x][$to->y])) {
             $tile->isVictoryPoint = true;
         } elseif (isset($this->shardLocations[$to->x][$to->y])) {
@@ -560,17 +564,28 @@ trait DungeonActions
     {
         $max = $this->level->maxArtifactDistance();
 
-        $this->artifactLocation = $point ?? new Point(rand(-1 * $max, $max), rand(-1 * $max, $max));
+        $tries = 25;
 
-        if ($tile = $this->tryTile($this->artifactLocation)) {
-            $tile->isTrapped = false;
-            $tile->isCollapsed = false;
-            $tile->directions = Direction::cases();
+        while (! $point && $tries > 0) {
+            $randomPoint = new Point(rand(-1 * $max, $max), rand(-1 * $max, $max));
 
-            event(new TileUpdated($tile));
+            if ($this->tryTile($randomPoint)) {
+                $tries--;
+                continue;
+            }
+
+            if ($this->getLake($randomPoint)) {
+                $tries--;
+                continue;
+            }
+
+            $point = $randomPoint;
         }
 
-        event(new ArtifactSpawned($this->artifactLocation));
+        if ($point) {
+            $this->artifactLocation = $point;
+            event(new ArtifactSpawned($this->artifactLocation));
+        }
     }
 
     public function spawnManaAltar(?Point $point = null): void
@@ -656,6 +671,8 @@ trait DungeonActions
 
         $lake = new Lake($point);
 
+        $relicPoints = [];
+
         foreach ($shape as $yOffset => $row) {
             foreach ($row as $xOffset => $depth) {
                 if ($depth === ' ') {
@@ -672,7 +689,15 @@ trait DungeonActions
                         depth: $depth,
                     ));
                 }
+
+                if ($depth === 3) {
+                    $relicPoints[] = $point->translate($xOffset, $yOffset);
+                }
             }
+        }
+
+        if ($relicPoints !== []) {
+            $lake->relic = $relicPoints[array_rand($relicPoints)];
         }
 
         $this->lakes[] = $lake;
@@ -689,11 +714,32 @@ trait DungeonActions
             return;
         }
 
-        $this->increaseCoins(random_int(100, 500));
+        $artifactCoins = $this->level->relicCoins();
+        $variation = (int)round($artifactCoins * 0.1);
+        $coins = random_int($artifactCoins - $variation, $artifactCoins + $variation);
+        $this->increaseCoins($coins);
         $this->decreaseStability(random_int(10, 25));
         $this->increaseMana(random_int(5, 20));
 
-        event(new ArtifactCollected($this->currentTile));
+        event(new ArtifactCollected($this->currentTile, $coins));
+
+        $this->spawnArtifact();
+    }
+
+    public function collectRelic(Tile $tile): void
+    {
+        if (! $tile->isRelic) {
+            return;
+        }
+
+        $relicCoins = $this->level->relicCoins();
+        $variation = (int)round($relicCoins * 0.1);
+        $coins = random_int($relicCoins - $variation, $relicCoins + $variation);
+        $this->increaseCoins($coins);
+        $this->increaseMana(random_int(20, 40));
+        $tile->isRelic = false;
+
+        event(new RelicCollected($tile, $coins));
 
         $this->spawnArtifact();
     }

@@ -44,7 +44,7 @@ final readonly class DemoController
 
         $repository->persist($dungeon);
 
-        $dungeon->cheat = false;
+        $dungeon->cheat = true;
         $dungeon->mana = 1000;
         $dungeon->health = 1000;
         $dungeon->stability = 100;

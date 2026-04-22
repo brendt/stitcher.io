@@ -28,6 +28,7 @@ final class Tile
         public int $coins = 0,
         public bool $isSupported = false,
         public bool $isLake = false,
+        public bool $isRelic = false,
         public ?int $depth = null,
     ) {}
 
@@ -54,6 +55,7 @@ final class Tile
             'coins' => $this->coins,
             'isSupported' => $this->isSupported,
             'isLake' => $this->isLake,
+            'isRelic' => $this->isRelic,
             'depth' => $this->depth,
         ];
     }

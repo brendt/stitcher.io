@@ -6,6 +6,8 @@ use Generator;
 
 final class Lake
 {
+    public ?Point $relic = null;
+
     public function __construct(
         public Point $origin,
         /** @var \App\Dungeon\LakePoint[][] */

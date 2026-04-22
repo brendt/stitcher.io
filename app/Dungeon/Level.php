@@ -85,17 +85,17 @@ enum Level: int
         return match ($this) {
             self::NOOB => 20,
             self::NOVICE => 30,
-            self::MASTER => 40,
-            self::GRANDMASTER => 50,
-            self::LEGENDARY => 60,
+            self::MASTER => 32,
+            self::GRANDMASTER => 34,
+            self::LEGENDARY => 38,
         };
     }
 
     public function maxAltarDistance(): int
     {
         return match ($this) {
-            self::LEGENDARY => 50,
-            self::GRANDMASTER, self::MASTER => 40,
+            self::LEGENDARY => 40,
+            self::GRANDMASTER, self::MASTER => 35,
             default => 30,
         };
     }
@@ -122,9 +122,9 @@ enum Level: int
     public function maxTreasureDistance(): int
     {
         return match ($this) {
-            self::LEGENDARY => 60,
-            self::GRANDMASTER, self::MASTER => 50,
-            default => 40,
+            self::LEGENDARY => 40,
+            self::GRANDMASTER, self::MASTER => 25,
+            default => 30,
         };
     }
 
@@ -140,9 +140,9 @@ enum Level: int
     public function maxLakeDistance(): int
     {
         return match ($this) {
-            self::LEGENDARY => 60,
-            self::GRANDMASTER, self::MASTER => 50,
-            default => 40,
+            self::LEGENDARY => 40,
+            self::GRANDMASTER, self::MASTER => 35,
+            default => 30,
         };
     }
 
@@ -158,9 +158,31 @@ enum Level: int
     public function maxDwellerDistance(): int
     {
         return match ($this) {
-            self::LEGENDARY => 60,
-            self::GRANDMASTER, self::MASTER => 50,
-            default => 40,
+            self::LEGENDARY => 50,
+            self::GRANDMASTER, self::MASTER => 40,
+            default => 30,
+        };
+    }
+
+    public function artifactCoins(): int
+    {
+        return match ($this) {
+            self::NOOB => 300,
+            self::NOVICE => 500,
+            self::MASTER => 1000,
+            self::GRANDMASTER => 2000,
+            self::LEGENDARY => 4000,
+        };
+    }
+
+    public function relicCoins(): int
+    {
+        return match ($this) {
+            self::NOOB => 1000,
+            self::NOVICE => 200,
+            self::MASTER => 3000,
+            self::GRANDMASTER => 5000,
+            self::LEGENDARY => 8000,
         };
     }
 

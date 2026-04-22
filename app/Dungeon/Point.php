@@ -19,8 +19,12 @@ final readonly class Point
         return "{$this->x},{$this->y}";
     }
 
-    public function equals(self $other): bool
+    public function equals(?self $other): bool
     {
+        if (! $other) {
+            return false;
+        }
+
         return $this->x === $other->x
             && $this->y === $other->y;
     }

@@ -14,6 +14,6 @@ final class ArtifactSpawned implements DungeonEvent
     }
 
     public function __construct(
-        public readonly Point $point
+        public readonly Point $point,
     ) {}
 }

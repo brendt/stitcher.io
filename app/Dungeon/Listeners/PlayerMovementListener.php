@@ -108,8 +108,7 @@ final readonly class PlayerMovementListener
     #[EventHandler]
     public function onTileCollapsed(TileCollapsed $event): void
     {
-        if ($event->tile->point->equals($this->dungeon->playerPosition))
-        {
+        if ($event->tile->point->equals($this->dungeon->playerPosition)) {
             $this->dungeon->decreaseHealth(
                 25,
                 'The tile you were standing on collapsed!',
@@ -126,6 +125,20 @@ final readonly class PlayerMovementListener
 
         if ($event->to->equals($this->dungeon->artifactLocation)) {
             $this->dungeon->collectArtifact();
+        }
+    }
+
+    #[EventHandler]
+    public function collectRelic(PlayerMoved $event): void
+    {
+        $tile = $this->dungeon->tryTile($event->to);
+
+        if (! $tile) {
+            return;
+        }
+
+        if ($tile->isRelic) {
+            $this->dungeon->collectRelic($tile);
         }
     }
 
@@ -182,7 +195,7 @@ final readonly class PlayerMovementListener
         }
 
         if ($tile->altarCooldown > 0) {
-             return;
+            return;
         }
 
         $tile->altarCooldown = random_int(80, 120);
