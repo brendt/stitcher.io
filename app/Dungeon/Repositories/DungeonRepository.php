@@ -6,6 +6,7 @@ use App\Dungeon\Dungeon;
 use App\Support\Authentication\User;
 use Tempest\Container\Singleton;
 use Tempest\KeyValue\Redis\Redis;
+use Throwable;
 
 #[Singleton]
 final readonly class DungeonRepository
@@ -24,10 +25,24 @@ final readonly class DungeonRepository
 
         $payload = $this->redis->get($key);
 
-        if (function_exists('igbinary_unserialize')) {
-            return igbinary_unserialize($payload);
-        } else {
-            return unserialize($payload);
+        try {
+            set_error_handler(fn () => null);
+
+            if (function_exists('igbinary_unserialize')) {
+                $dungeon = igbinary_unserialize($payload);
+            } else {
+                $dungeon = unserialize($payload);
+            }
+
+            restore_error_handler();
+
+            if (! $dungeon instanceof Dungeon) {
+                return null;
+            }
+
+            return $dungeon;
+        } catch (Throwable) {
+            return null;
         }
     }
 
