@@ -2,6 +2,8 @@
 
 namespace Tests\Dungeon\Cards;
 
+use App\Dungeon\Events\TileGenerated;
+use App\Dungeon\Tile;
 use Tests\Dungeon\DungeonTest;
 
 use App\Dungeon\Cards\ManaPerMoveMinor;
@@ -58,8 +60,8 @@ final class ManaPerMoveMinorTest extends DungeonTest
     {
         $card = new ManaPerMoveMinor();
 
-        $card->handle($this->dungeon, new \App\Dungeon\Events\TileGenerated(
-            new \App\Dungeon\Tile(new Point(1, 0))
+        $card->handle($this->dungeon, new TileGenerated(
+            new Tile(new Point(1, 0))
         ));
 
         $this->assertSame(10, $card->moves);

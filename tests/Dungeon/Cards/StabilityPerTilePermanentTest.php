@@ -2,6 +2,7 @@
 
 namespace Tests\Dungeon\Cards;
 
+use App\Dungeon\Events\PlayerMoved;
 use Tests\Dungeon\DungeonTest;
 
 use App\Dungeon\Cards\StabilityPerTilePermanent;
@@ -36,7 +37,7 @@ final class StabilityPerTilePermanentTest extends DungeonTest
         $this->dungeon->stability = 50;
         $card = new StabilityPerTilePermanent();
 
-        $card->handle($this->dungeon, new \App\Dungeon\Events\PlayerMoved(
+        $card->handle($this->dungeon, new PlayerMoved(
             from: new Point(0, 0),
             to: new Point(1, 0),
         ));

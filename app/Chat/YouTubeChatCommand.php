@@ -2,6 +2,7 @@
 
 namespace App\Chat;
 
+use RuntimeException;
 use DateTimeImmutable;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
@@ -341,7 +342,7 @@ final class YouTubeChatCommand
             $response = match ($method) {
                 'GET' => $this->http->get($url, $headers),
                 'POST' => $this->http->post($url, $headers),
-                default => throw new \RuntimeException("Unsupported method {$method}"),
+                default => throw new RuntimeException("Unsupported method {$method}"),
             };
         } catch (Throwable $throwable) {
             $this->logError("HTTP request failed: {$throwable->getMessage()}");

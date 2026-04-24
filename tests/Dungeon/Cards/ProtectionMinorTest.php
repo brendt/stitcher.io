@@ -2,6 +2,8 @@
 
 namespace Tests\Dungeon\Cards;
 
+use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Point;
 use Tests\Dungeon\DungeonTest;
 
 use App\Dungeon\Cards\ProtectionMinor;
@@ -55,9 +57,9 @@ final class ProtectionMinorTest extends DungeonTest
     {
         $card = new ProtectionMinor();
 
-        $card->handle($this->dungeon, new \App\Dungeon\Events\PlayerMoved(
-            from: new \App\Dungeon\Point(0, 0),
-            to: new \App\Dungeon\Point(1, 0),
+        $card->handle($this->dungeon, new PlayerMoved(
+            from: new Point(0, 0),
+            to: new Point(1, 0),
         ));
 
         $this->assertSame(50, $card->toAbsorb);

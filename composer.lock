@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69f6f4b9e86238818e22f8370a875981",
+    "content-hash": "4bd7284cea8dc658a3dfc0ab2cea9ea3",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -2769,11 +2769,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.48",
+            "version": "2.1.51",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/231397213efb7c0a066ee024b5c3c87f2d3adfa0",
-                "reference": "231397213efb7c0a066ee024b5c3c87f2d3adfa0",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc3b523c45e714c70de2ac5113b958223b55dc59",
+                "reference": "dc3b523c45e714c70de2ac5113b958223b55dc59",
                 "shasum": ""
             },
             "require": {
@@ -2818,7 +2818,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-15T20:24:19+00:00"
+            "time": "2026-04-21T18:22:01+00:00"
         },
         {
             "name": "predis/predis",
@@ -5777,16 +5777,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v3.9.0",
+            "version": "v3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "263ef281876ce88a19eea6c6936fa5dfae9047be"
+                "reference": "d1c33fe968181dc0c75a5ef08b72c3fac1869a0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/263ef281876ce88a19eea6c6936fa5dfae9047be",
-                "reference": "263ef281876ce88a19eea6c6936fa5dfae9047be",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/d1c33fe968181dc0c75a5ef08b72c3fac1869a0e",
+                "reference": "d1c33fe968181dc0c75a5ef08b72c3fac1869a0e",
                 "shasum": ""
             },
             "require": {
@@ -5899,7 +5899,7 @@
                 "phpat/phpat": "^0.11.0",
                 "phpbench/phpbench": "^1.4",
                 "phpstan/phpstan": "2.1.40",
-                "phpunit/phpunit": "^12.5.8",
+                "phpunit/phpunit": "^12.5.22",
                 "predis/predis": "^3.0.0",
                 "riskio/oauth2-auth0": "^2.4",
                 "smolblog/oauth2-twitter": "^1.0",
@@ -6003,7 +6003,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.9.0"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.10.0"
             },
             "funding": [
                 {
@@ -6011,20 +6011,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-01T06:15:40+00:00"
+            "time": "2026-04-23T11:47:44+00:00"
         },
         {
             "name": "tempest/highlight",
-            "version": "2.21.0",
+            "version": "2.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/highlight.git",
-                "reference": "d499fe38255ff37622fe3b5954591d82265b0210"
+                "reference": "b966e3d747888e94990934533d8ca4c368f667a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/d499fe38255ff37622fe3b5954591d82265b0210",
-                "reference": "d499fe38255ff37622fe3b5954591d82265b0210",
+                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/b966e3d747888e94990934533d8ca4c368f667a9",
+                "reference": "b966e3d747888e94990934533d8ca4c368f667a9",
                 "shasum": ""
             },
             "require": {
@@ -6062,7 +6062,7 @@
             "description": "Fast, extensible, server-side code highlighting",
             "support": {
                 "issues": "https://github.com/tempestphp/highlight/issues",
-                "source": "https://github.com/tempestphp/highlight/tree/2.21.0"
+                "source": "https://github.com/tempestphp/highlight/tree/2.22.0"
             },
             "funding": [
                 {
@@ -6070,7 +6070,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-07T09:43:06+00:00"
+            "time": "2026-04-21T06:27:04+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -6158,23 +6158,23 @@
         },
         {
             "name": "voku/portable-ascii",
-            "version": "2.0.3",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "b1d923f88091c6bf09699efcd7c8a1b1bfd7351d"
+                "reference": "d870a33f0f79d2b4579740b0620200221ee44aeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/b1d923f88091c6bf09699efcd7c8a1b1bfd7351d",
-                "reference": "b1d923f88091c6bf09699efcd7c8a1b1bfd7351d",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/d870a33f0f79d2b4579740b0620200221ee44aeb",
+                "reference": "d870a33f0f79d2b4579740b0620200221ee44aeb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
+                "phpunit/phpunit": "~8.5 || ~9.6 || ~10.5 || ~11.5"
             },
             "suggest": {
                 "ext-intl": "Use Intl for transliterator_transliterate() support"
@@ -6204,7 +6204,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/portable-ascii/issues",
-                "source": "https://github.com/voku/portable-ascii/tree/2.0.3"
+                "source": "https://github.com/voku/portable-ascii/tree/2.1.0"
             },
             "funding": [
                 {
@@ -6228,7 +6228,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-21T01:49:47+00:00"
+            "time": "2026-04-16T23:10:39+00:00"
         },
         {
             "name": "wohali/oauth2-discord-new",
@@ -6881,16 +6881,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.5.21",
+            "version": "12.5.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1b7bd4788966bf1533901808657850b6c7876ec7"
+                "reference": "c54fcf3d6bcb6e96ac2f7e40097dc37b5f139969"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1b7bd4788966bf1533901808657850b6c7876ec7",
-                "reference": "1b7bd4788966bf1533901808657850b6c7876ec7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c54fcf3d6bcb6e96ac2f7e40097dc37b5f139969",
+                "reference": "c54fcf3d6bcb6e96ac2f7e40097dc37b5f139969",
                 "shasum": ""
             },
             "require": {
@@ -6959,7 +6959,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.21"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.23"
             },
             "funding": [
                 {
@@ -6967,7 +6967,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-04-16T04:56:04+00:00"
+            "time": "2026-04-18T06:12:49+00:00"
         },
         {
             "name": "sebastian/cli-parser",

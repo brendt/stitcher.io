@@ -2,7 +2,7 @@
 
 namespace App\Support;
 
-use Tempest\Core\Priority;
+use Tempest\Support\Priority;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\Redirect;

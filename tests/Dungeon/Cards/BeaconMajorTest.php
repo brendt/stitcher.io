@@ -2,6 +2,8 @@
 
 namespace Tests\Dungeon\Cards;
 
+use App\Dungeon\Events\TileGenerated;
+use App\Dungeon\Tile;
 use Tests\Dungeon\DungeonTest;
 
 use App\Dungeon\Cards\BeaconMajor;
@@ -165,8 +167,8 @@ final class BeaconMajorTest extends DungeonTest
     {
         $card = new BeaconMajor();
 
-        $card->handle($this->dungeon, new \App\Dungeon\Events\TileGenerated(
-            new \App\Dungeon\Tile(new Point(1, 0))
+        $card->handle($this->dungeon, new TileGenerated(
+            new Tile(new Point(1, 0))
         ));
 
         $this->assertSame(25, $card->count);

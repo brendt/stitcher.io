@@ -10,4 +10,4 @@ return RectorConfig::configure()
         __DIR__ . '/app',
         __DIR__ . '/tests',
     ])
-    ->withSets([TempestSetList::TEMPEST_30]);
+    ->withSets([TempestSetList::TEMPEST_310]);
