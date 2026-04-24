@@ -4,6 +4,7 @@ namespace App\Dungeon\DeckValidators;
 
 use App\Dungeon\Card;
 use App\Dungeon\Cards\LocateHealthAltar;
+use App\Dungeon\Cards\LocateLake;
 use App\Dungeon\Cards\LocateManaAltar;
 use App\Dungeon\Cards\LocateShard;
 use App\Dungeon\Cards\LocateStabilityAltar;
@@ -22,6 +23,7 @@ final class LocateDeckValidator implements DeckValidator
             LocateHealthAltar::class,
             LocateShard::class,
             LocateVictoryPoint::class,
+            LocateLake::class,
         ];
 
         if (! in_array($card::class, $cardsToCheck)) {
@@ -30,8 +32,8 @@ final class LocateDeckValidator implements DeckValidator
 
         $count = $deck->filter(fn(Card $card) => in_array($card::class, $cardsToCheck))->count();
 
-        if ($count >= 3) {
-            return new DeckValidationFailed('You can only have 3 locate cards in your deck');
+        if ($count >= 4) {
+            return new DeckValidationFailed('You can only have 4 locate cards in your deck');
         }
 
         return null;

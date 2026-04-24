@@ -52,6 +52,7 @@ final class DungeonGameController
     #[Get('/dungeon/game')]
     public function dungeon(Dungeon $dungeon): View
     {
+//        ld($dungeon->discardedCards);
         return view('dungeon-game.view.php', dungeon: $dungeon);
     }
 

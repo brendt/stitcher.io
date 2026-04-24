@@ -2149,6 +2149,18 @@
             }
         }
 
+        function applyHandUpdated(payload) {
+            hand.clear();
+
+            for (const card of normalizeHand(payload?.hand ?? payload)) {
+                hand.set(card.id, card);
+            }
+        }
+
+        function applyDeckUpdated(payload) {
+            deckSize = normalizeHand(payload?.deck ?? payload?.hand ?? payload).length;
+        }
+
         function getCardImageUrl(image) {
             if (!image) {
                 return '';
@@ -2599,6 +2611,16 @@
 
                 if (change?.name === 'card.updated') {
                     applyCardUpdated(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'hand.updated') {
+                    applyHandUpdated(change.payload);
+                    continue;
+                }
+
+                if (change?.name === 'deck.updated') {
+                    applyDeckUpdated(change.payload);
                     continue;
                 }
 

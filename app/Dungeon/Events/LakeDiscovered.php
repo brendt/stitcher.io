@@ -12,7 +12,7 @@ final class LakeDiscovered implements DungeonEvent
 
     public array $payload {
         get => [
-            'message' => 'You discovered a lake!'
+            'message' => 'You\'ve discovered a lake!'
         ];
     }
 

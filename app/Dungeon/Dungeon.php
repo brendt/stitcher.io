@@ -54,6 +54,9 @@ final class Dungeon
     /** @var \App\Dungeon\Card[] $deck */
     public array $deck = [];
 
+    /** @var \App\Dungeon\Card[] $deck */
+    public array $discardedCards = [];
+
     /** @var \App\Dungeon\Card[] */
     public array $permanentCards = [];
 
@@ -121,12 +124,12 @@ final class Dungeon
         $self->spawnArtifact();
 
         for ($i = 0; $i < $self->level->altarCount(); $i++) {
-            $self->spawnHealthAltar();
-            $self->spawnManaAltar();
-            $self->spawnStabilityAltar();
+            $self->spawnAltar();
         }
 
-        $self->spawnLake();
+        for ($i = 0; $i < $self->level->lakeCount(); $i++) {
+            $self->spawnLake();
+        }
 
         return $self;
     }
@@ -151,6 +154,7 @@ final class Dungeon
             'maxStability' => $this->maxStability,
             'hand' => arr($this->hand)->map(fn (Card $card) => $card->toArray())->toArray(),
             'deck' => arr($this->deck)->map(fn (Card $card) => $card->toArray())->toArray(),
+            'playedCards' => arr($this->discardedCards)->map(fn (Card $card) => $card->toArray())->toArray(),
             'permanentCards' => arr($this->permanentCards)->map(fn (Card $card) => $card->toArray())->toArray(),
             'passiveCard' => $this->passiveCard?->toArray(),
             'activeCard' => $this->activeCard?->toArray(),

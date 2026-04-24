@@ -79,9 +79,7 @@ trait DungeonActions
 
         $discoveredLakeForEdge = $this->getLakeForEdge($to);
 
-        if ($discoveredLakeForEdge) {
-            $tile->directions = Direction::cases();
-        } elseif ($lake = $this->getLake($to)) {
+        if ($lake = $this->getLake($to)) {
             $depth = $lake->getLakePoint($to)?->depth;
             $tile->isLake = true;
             $tile->depth = $depth;
@@ -89,7 +87,9 @@ trait DungeonActions
             if ($to->equals($lake->relic)) {
                 $tile->isRelic = true;
             }
-        } elseif (isset($this->victoryPointLocations[$to->x][$to->y])) {
+        } elseif ($discoveredLakeForEdge) {
+            $tile->directions = Direction::cases();
+        }  elseif (isset($this->victoryPointLocations[$to->x][$to->y])) {
             $tile->isVictoryPoint = true;
         } elseif (isset($this->shardLocations[$to->x][$to->y])) {
             $tile->isShard = true;
@@ -156,6 +156,16 @@ trait DungeonActions
 //        foreach ($neighbourTile->directions as $direction) {
 //            $this->generateTile(from: $neighbourPosition, to: $neighbourPosition->getNeighbour($direction));
 //        }
+
+        $event = new PlayerMoved($oldPosition, $this->playerPosition);
+
+        event($event);
+    }
+
+    public function placePlayer(Point $point): void
+    {
+        $oldPosition = $this->playerPosition;
+        $this->playerPosition = $point;
 
         $event = new PlayerMoved($oldPosition, $this->playerPosition);
 
@@ -360,7 +370,7 @@ trait DungeonActions
 
         $this->decreaseMana($card->mana);
 
-        unset($this->hand[$card->id]);
+        $this->discard($card);
 
         $card->play($this);
 
@@ -395,7 +405,11 @@ trait DungeonActions
 
     public function unsetPassiveCard(): void
     {
-        $this->passiveCard = null;
+        if (! $this->passiveCard) {
+            return;
+        }
+
+        $this->discard($this->passiveCard);
 
         event(new PassiveCardUnset());
     }
@@ -409,7 +423,11 @@ trait DungeonActions
 
     public function unsetActiveCard(): void
     {
-        $this->activeCard = null;
+        if (! $this->activeCard) {
+            return;
+        }
+
+        $this->discard($this->activeCard);
 
         event(new ActiveCardUnset());
     }
@@ -593,6 +611,15 @@ trait DungeonActions
             $this->artifactLocation = $point;
             event(new ArtifactSpawned($this->artifactLocation));
         }
+    }
+
+    public function spawnAltar(?Point $point = null): void
+    {
+        $methods = ['spawnManaAltar', 'spawnHealthAltar', 'spawnStabilityAltar'];
+
+        $method = $methods[array_rand($methods)];
+
+        $this->$method($point);
     }
 
     public function spawnManaAltar(?Point $point = null): void
@@ -799,5 +826,20 @@ trait DungeonActions
     public function updateCard(Card $card): void
     {
         event(new CardUpdated($card));
+    }
+
+    public function discard(Card $card): void
+    {
+        $this->discardedCards[$card->id] = $card;
+        unset($this->hand[$card->id]);
+        unset($this->deck[$card->id]);
+
+        if ($this->activeCard && $this->activeCard->id === $card->id) {
+            unset($this->activeCard);
+        }
+
+        if ($this->passiveCard && $this->passiveCard->id === $card->id) {
+            unset($this->passiveCard);
+        }
     }
 }

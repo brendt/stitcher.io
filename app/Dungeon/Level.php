@@ -111,11 +111,22 @@ enum Level: int
 
     public function altarCount(): int {
         return match ($this) {
+            self::NOOB => 2,
+            self::NOVICE => random_int(1, 3),
+            self::MASTER => random_int(1, 4),
+            self::GRANDMASTER => random_int(2, 4),
+            self::LEGENDARY => random_int(3, 6),
+        };
+    }
+
+    public function lakeCount(): int
+    {
+        return match ($this) {
             self::NOOB => 0,
-            self::NOVICE => 1,
-            self::MASTER => 2,
-            self::GRANDMASTER => 2,
-            self::LEGENDARY => 3,
+            self::NOVICE => 0,
+            self::MASTER => random_int(1, 2),
+            self::GRANDMASTER => random_int(2, 3),
+            self::LEGENDARY => random_int(5, 10),
         };
     }
 
