@@ -16,6 +16,12 @@ code {
     /*break-after: left;*/
 }
 
+.book-title {
+    color: var(--color-primary);
+    font-weight: bold;
+    line-height: 1em;
+}
+
 .chapter-title {
     color: var(--color-primary);
     font-weight: bold;
@@ -145,6 +151,11 @@ iframe {
 
 .credits {
     margin-top: 6in;
+    text-align: center;
+}
+
+.intro {
+    margin-top: 3in;
     text-align: center;
 }
 

@@ -49,16 +49,12 @@
 <!--    <img src="/img/front.png">-->
 <!--</section>-->
 
-<!--<section class="chapter intro clean">-->
-<!--    <div>-->
-<!--        <div>-->
-<!--            <h1>-->
-<!--                stitcher.io — the book-->
-<!--            </h1>-->
-<!--            <span class="author">Brent Roose</span>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
+<section class="chapter intro clean">
+    <div class="flex flex-col items-center justify-center">
+        <h1 class="book-title">stitcher.io</h1>
+        <span class="mt-4 author">by Brent Roose</span>
+    </div>
+</section>
 
 <section class="chapter credits clean">
     <div class="revision">
