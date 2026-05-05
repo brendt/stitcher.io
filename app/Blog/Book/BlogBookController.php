@@ -14,11 +14,27 @@ final class BlogBookController
     {
         $chapters = $repository->all($request->get('filter'), $request->get('collection'));
 
+        $toc = [];
+        $currentTocPage = 0;
+
+        foreach ($chapters as $chapter) {
+            $toc[$currentTocPage] ??= [];
+            $toc[$currentTocPage][] = $chapter;
+
+            if (count($toc[$currentTocPage]) >= 30) {
+                $currentTocPage++;
+            }
+        }
+
+        $pageOffset = count($toc) - 1;
+
         return view(
             'blog-book.view.php',
             chapters: $chapters,
             title: 'pdf-stitcher-book',
             wordCount: $repository->wordCount(),
+            toc: $toc,
+            pageOffset: $pageOffset,
         );
     }
 }

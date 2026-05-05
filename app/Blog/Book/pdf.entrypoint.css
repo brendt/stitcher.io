@@ -23,6 +23,24 @@ code {
     line-height: 1em;
 }
 
+.toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.toc-divider {
+    flex-grow: 1;
+    border-bottom: 1px dotted #888;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.toc-page-number {
+    font-size: 0.8em;
+}
+
 .chapter-date {
     font-size: 1em;
     margin-top: .5em;
@@ -125,28 +143,15 @@ iframe {
     page: cover;
 }
 
-@page :nth(3) {
-    @bottom-left {
-        display: none;
-    }
-    @bottom-right {
-        display: none;
-    }
-}
-
-@page :nth(5) {
-    @bottom-left {
-        display: none;
-    }
-    @bottom-right {
-        display: none;
-    }
-}
-
 .credits {
-    margin-top: 1in;
+    margin-top: 6in;
+    text-align: center;
 }
 
 .notes {
     display: block;
+}
+
+hr {
+    display: none;
 }

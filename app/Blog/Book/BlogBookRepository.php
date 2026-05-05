@@ -4,6 +4,7 @@ namespace App\Blog\Book;
 
 use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
+use Tempest\Cache\Cache;
 use Tempest\Container\Tag;
 use Tempest\Support\Arr\ImmutableArray;
 use function Tempest\Support\arr;
@@ -13,6 +14,7 @@ final readonly class BlogBookRepository
 {
     public function __construct(
         #[Tag('book')] private MarkdownConverter $markdown,
+        private Cache $cache,
     ) {}
 
     /** @return ImmutableArray<array-key, \App\Blog\Book\Chapter> */
@@ -292,7 +294,6 @@ final readonly class BlogBookRepository
         ];
 
         $data = arr(glob(__DIR__ . '/../Content/*.md'))
-//            ->slice(0, 60)
             ->filter(function (string $path) use ($ignore, $filter, $collection) {
                 if ($filter && ! str_contains($path, $filter)) {
                     return false;
@@ -311,6 +312,12 @@ final readonly class BlogBookRepository
                 return true;
             })
             ->map(function (string $path) {
+                $cacheKey = crc32($path);
+
+                if ($this->cache->has($cacheKey)) {
+                    return $this->cache->get($cacheKey);
+                }
+
                 preg_match('/(?<date>\d+-\d+-\d+)-(?<slug>.*)\.md/', $path, $matches);
 
                 $content = $path
@@ -322,12 +329,16 @@ final readonly class BlogBookRepository
 
                 $slug = $matches['slug'];
 
-                return new Chapter(
+                $chapter = new Chapter(
                     slug: $slug,
                     index: $matches['date'],
                     title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
                     body: $markdown->getContent(),
                 );
+
+                $this->cache->put($cacheKey, $chapter);
+
+                return $chapter;
             })
             ->filter()
             ->filter(function (Chapter $chapter) use ($collection) {

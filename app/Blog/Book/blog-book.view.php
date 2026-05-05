@@ -5,71 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <script>
-        function createTocItem(title, pageNumber) {
-            const row = document.createElement('div');
-            row.classList.add('toc-row');
-            //
-            // const chapterDiv = document.createElement('div');
-            // chapterDiv.classList.add('toc-chapter');
-            // chapterDiv.innerHTML = title.match(/^\d+/)[0];
-            // row.appendChild(chapterDiv);
-
-            const titleDiv = document.createElement('div');
-            titleDiv.classList.add('toc-title');
-            titleDiv.innerHTML = title;
-            row.appendChild(titleDiv);
-
-            const leaderDiv = document.createElement('div');
-            leaderDiv.classList.add('toc-leader');
-            leaderDiv.innerHTML = '';
-            row.appendChild(leaderDiv);
-
-            const pageNumberDiv = document.createElement('div');
-            pageNumberDiv.classList.add('toc-page');
-            pageNumberDiv.innerHTML = pageNumber;
-            row.appendChild(pageNumberDiv);
-
-            return row;
-        }
-    </script>
-
     <x-vite-tags entrypoint="app/main.entrypoint.css"/>
     <x-vite-tags entrypoint="app/Blog/Book/pdf.entrypoint.css"/>
     <x-vite-tags entrypoint="app/Blog/Book/pdf-ui.entrypoint.css"/>
     <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
-
     <script>
-        class MyHandler extends Paged.Handler {
+        class TocPageNumberHandler extends Paged.Handler {
             constructor(chunker, polisher, caller) {
                 super(chunker, polisher, caller);
+                this.tocIndex = 0;
             }
 
-            afterPageLayout(pageFragment, page) {
-                const toc = document.getElementById('toc');
+            afterPageLayout(pageFragment) {
+                const chapterTitle = pageFragment.querySelector('.chapter-title');
 
-                if (!toc) {
+                if (!chapterTitle) {
                     return;
                 }
 
-                const title = pageFragment.querySelector('.chapter-title');
+                const offset = parseInt(
+                    document.body.getAttribute('page-offset') ?? document.body.getAttribute(':page-offset') ?? '0',
+                    10,
+                );
 
-                if (!title) {
-                    return;
+                const pageNumber = parseInt(pageFragment.getAttribute('data-page-number'), 10) + offset;
+                const tocPageNumbers = document.querySelectorAll('.toc-page-number');
+                const tocPageNumber = tocPageNumbers[this.tocIndex];
+
+                if (tocPageNumber) {
+                    tocPageNumber.textContent = pageNumber.toString();
                 }
 
-                const offset = document.body.getAttribute('page-offset');
-
-                const pageNumber = parseInt(pageFragment.getAttribute('data-page-number')) - offset;
-
-                toc.appendChild(createTocItem(title.innerHTML, pageNumber));
+                this.tocIndex++;
             }
         }
 
-        Paged.registerHandlers(MyHandler);
+        Paged.registerHandlers(TocPageNumberHandler);
     </script>
 </head>
-<body :page-offset="6">
+<body :page-offset="$pageOffset">
 
 <!--<section class="chapter cover clean">-->
 <!--    <img src="/img/front.png">-->
@@ -86,19 +60,24 @@
 <!--    </div>-->
 <!--</section>-->
 
-<!--<section class="chapter credits clean">-->
-<!--    <div class="revision">-->
-<!--        <em>"Opinions are my own"</em> — Me<br/>-->
-<!--        https://stitcher.io<br/>-->
-<!--        Revision {{ \Tempest\DateTime\DateTime::now()->format('YYY-MM-dd') }}<br/>-->
-<!--        &copy; {{ \Tempest\DateTime\DateTime::now()->format('YYY') }} Brent Roose-->
-<!--    </div>-->
-<!--</section>-->
+<section class="chapter credits clean">
+    <div class="revision">
+        <em>"Opinions are my own"</em> — Me<br/>
+        https://stitcher.io<br/>
+        Revision {{ \Tempest\DateTime\DateTime::now()->format('YYY-MM-dd') }}<br/>
+        &copy; {{ \Tempest\DateTime\DateTime::now()->format('YYY') }} Brent Roose
+    </div>
+</section>
 
-<!--<section class="chapter toc clean">-->
-<!--    <h1>Table of Contents</h1>-->
-<!--    <div id="toc"></div>-->
-<!--</section>-->
+<section :foreach="$toc as $tocPage => $tocChapter">
+    <h1 :if="$tocPage === 0" class="chapter-title mb-4">Table of Contents</h1>
+
+    <a :foreach="$tocChapter as $tocChapter" class="toc-item" :href="'#' . $tocChapter->slug">
+        <span class="toc-title">{{ $tocChapter->title }}</span>
+        <span class="toc-divider"></span>
+        <span class="toc-page-number">0</span>
+    </a>
+</section>
 
 <x-chapter :foreach="$chapters as $chapter"/>
 
