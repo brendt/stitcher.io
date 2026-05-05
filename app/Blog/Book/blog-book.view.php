@@ -45,10 +45,6 @@
 </head>
 <body :page-offset="$pageOffset">
 
-<!--<section class="chapter cover clean">-->
-<!--    <img src="/img/front.png">-->
-<!--</section>-->
-
 <section class="chapter intro clean">
     <div class="flex flex-col items-center justify-center">
         <h1 class="book-title">stitcher.io</h1>
@@ -65,8 +61,8 @@
     </div>
 </section>
 
-<section :foreach="$toc as $tocPage => $tocChapter">
-    <h1 :if="$tocPage === 0" class="chapter-title mb-4">Table of Contents</h1>
+<section :foreach="$toc as $tocPage => $tocChapter" class="chapter">
+    <h1 :if="$tocPage === 0" class="toc-heading mb-4">Table of Contents</h1>
 
     <a :foreach="$tocChapter as $tocChapter" class="toc-item" :href="'#' . $tocChapter->slug">
         <span class="toc-title">{{ $tocChapter->title }}</span>

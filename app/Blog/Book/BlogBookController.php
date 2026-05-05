@@ -21,12 +21,12 @@ final class BlogBookController
             $toc[$currentTocPage] ??= [];
             $toc[$currentTocPage][] = $chapter;
 
-            if (count($toc[$currentTocPage]) >= 30) {
+            if (count($toc[$currentTocPage]) >= 34) {
                 $currentTocPage++;
             }
         }
 
-        $pageOffset = count($toc) - 1;
+        $pageOffset = 0;
 
         return view(
             'blog-book.view.php',
