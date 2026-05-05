@@ -199,7 +199,7 @@ class Collection implements Iterator, ArrayAccess
     public function rewind(): void {
         $this-><hljs prop>position</hljs> = 0;
     }
-
+    
     public function offsetExists($offset): bool {
         return <hljs prop>array_key_exists</hljs>($offset, $this-><hljs prop>array</hljs>);
     }

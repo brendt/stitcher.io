@@ -1,0 +1,152 @@
+body {
+    font-size: 10pt;
+}
+
+pre, code {
+    font-size: 9pt;
+}
+
+code {
+    break-inside: avoid;
+}
+
+.chapter {
+    page: chapter;
+    break-before: page;
+    /*break-after: left;*/
+}
+
+.chapter-title {
+    color: var(--color-primary);
+    font-weight: bold;
+    margin-left: -0.3in;
+    line-height: 1em;
+}
+
+.chapter-date {
+    font-size: 1em;
+    margin-top: .5em;
+    color: #4b5563;
+    font-family: var(--font-mono);
+    font-weight: normal;
+    margin-left: -0.3in;
+    padding-left: 5px;
+}
+
+
+.chapter-date + * {
+    margin-top: 2em;
+}
+
+pre {
+    margin: 1.5em -0.5in 0;
+}
+
+pre + * {
+    margin-top: 1.5em;
+}
+
+p, blockquote, img {
+    margin-top: 0.5em;
+}
+
+blockquote {
+    & > *:first-child {
+        margin-top: 0;
+    }
+
+    margin-left: -0.2in;
+}
+
+ul {
+    margin-top: 0.5em;
+
+    & > li {
+        margin-top: 0.2em !important;
+    }
+}
+
+iframe {
+    display: none;
+}
+
+@page {
+    /*size: 6in 9in;*/
+    size: 7.5in 9.25in;
+    margin: 0.8in;
+}
+
+@page :right {
+    @bottom-right {
+        content: counter(page);
+        font-size: 0.8em;
+    }
+}
+
+@page :left {
+    @bottom-left {
+        content: counter(page);
+        font-size: 0.8em;
+    }
+}
+
+@page clean {
+    @bottom-left {
+        display: none;
+    }
+    @bottom-right {
+        display: none;
+    }
+}
+
+.clean {
+    page: clean;
+}
+
+@page toc {
+    counter-set: page;
+    @bottom-left {
+        display: none;
+    }
+    @bottom-right {
+        display: none;
+    }
+}
+
+.toc {
+    page: toc;
+}
+
+@page cover {
+    margin: 0;
+}
+
+.cover {
+    page: cover;
+}
+
+@page :nth(3) {
+    @bottom-left {
+        display: none;
+    }
+    @bottom-right {
+        display: none;
+    }
+}
+
+@page :nth(5) {
+    @bottom-left {
+        display: none;
+    }
+    @bottom-right {
+        display: none;
+    }
+}
+
+.credits {
+    margin-top: 1in;
+}
+
+.notes {
+    display: block;
+}
