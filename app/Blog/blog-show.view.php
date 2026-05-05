@@ -2,6 +2,16 @@
     <x-container class="grid gap-4">
         <x-menu />
 
+        <a href="https://jb.gg/7ne1ba" class="
+            bg-[#ffe822] p-4 rounded-full  text-center font-bold group
+           shadow-[0px_0px_0px_4px_#ffe822]
+            hover:bg-[#9b81fa]
+        ">
+            <span class="border-b-4 border-[#9b81fa] group-hover:border-[#ffe822] group-hover:text-[#ffe822]">
+                Join PHPverse 2026 on June 9 2026!
+            </span>
+        </a>
+
         <x-article>
             <div>
                 <h1 class="text-4xl font-bold text-primary">{{ $post->title }}</h1>
