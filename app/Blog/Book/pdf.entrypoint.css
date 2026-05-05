@@ -10,6 +10,18 @@ code {
     break-inside: avoid;
 }
 
+pre {
+    margin: 1.5em -0.5in 0;
+}
+
+pre + * {
+    margin-top: 1.5em;
+}
+
+h2 {
+    break-after: avoid;
+}
+
 .chapter {
     page: chapter;
     break-before: page;
@@ -60,14 +72,6 @@ code {
 
 .chapter-date + * {
     margin-top: 2em;
-}
-
-pre {
-    margin: 1.5em -0.5in 0;
-}
-
-pre + * {
-    margin-top: 1.5em;
 }
 
 p, blockquote, img {
