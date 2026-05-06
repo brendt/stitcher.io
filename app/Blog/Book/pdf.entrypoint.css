@@ -55,7 +55,7 @@ img {
 .chapter {
     page: chapter;
     break-before: page;
-    break-after: left;
+    /*break-after: left;*/
 }
 
 table {
