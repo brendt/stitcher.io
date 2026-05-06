@@ -96,10 +96,10 @@ table {
 }
 
 .chapter-date {
-    font-size: 1em;
+    font-size: 0.8em;
     margin-top: .5em;
     color: #4b5563;
-    font-family: var(--font-mono);
+    font-family: var(--font-serif);
     font-weight: normal;
     margin-left: -0.3in;
     padding-left: 5px;
