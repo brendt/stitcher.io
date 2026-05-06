@@ -29,8 +29,8 @@ Here's a quick recap of what (part of) our enum class looked like:
 ```php
 abstract class Boundaries
 {
-    private <hljs type>bool</hljs> $startIncluded = false;
-    private <hljs type>bool</hljs> $endIncluded = false;
+    private bool $startIncluded = false;
+    private bool $endIncluded = false;
 
     public function startIncluded(): bool 
     {
@@ -60,10 +60,10 @@ Nevertheless, it's a cool, geeky thing to know, and possible in PHP.
 
 So let's store these two flags in one variable.
 
-```txt
-<hljs keyword>abstract</hljs> <hljs keyword>class</hljs> <hljs type>Boundaries</hljs>
+```php
+abstract class Boundaries
 {
-    <hljs keyword>protected</hljs> <hljs type>int</hljs> $inclusionMask = <hljs textgrey>0b</hljs>00;
+    protected int $inclusionMask = 0b00;
 }
 ```
 
@@ -79,22 +79,22 @@ Here's where [bitwise operators](*https://www.php.net/manual/en/language.operato
 
 Take the following two binary values:
 
-```txt
-<hljs textgrey>0b</hljs>0100101;
-<hljs textgrey>0b</hljs>1010101;
+```php
+0b0100101;
+0b1010101;
 ```
 
 What happens when we apply an `and` operation on both of these values? The result will have all bits set to `1` wherever both bits were `1` in the two original values:
 
-```txt
-<hljs textgrey>0b</hljs>0<hljs type>1</hljs>00<hljs green>1</hljs>0<hljs green>1</hljs>;
-<hljs textgrey>0b</hljs><hljs type>1</hljs>0<hljs type>1</hljs>0<hljs green>1</hljs>0<hljs green>1</hljs>;
+```php
+0b0100<hljs green>10<hljs green>1;
+0b1010<hljs green>10<hljs green>1;
 ```
 
 This is the end result:
 
-```txt
-<hljs textgrey>0b</hljs>0000<hljs green>1</hljs>0<hljs green>1</hljs>;
+```php
+0b0000<hljs green>10<hljs green>1;
 ```
 
 Back to our boundaries example. How can we know whether the start is included or not? Since the start boundary is represented by the leftmost bit, we can apply a bitmask on our inclusion variable. If we want to know whether the start bit is set, we simply need to do an `and` operation between the inclusion mask, and the binary value `0b10`.
@@ -103,49 +103,49 @@ How so? Since we're only interested in knowing the value of the start boundary, 
 
 Here's an example where the start bit is `0`:
 
-```txt
-<hljs textgrey>0b</hljs><hljs type>1</hljs>0; <hljs textgrey>// The mask we're applying</hljs>
-<hljs textgrey>0b</hljs>0<hljs type>1</hljs>; <hljs textgrey>// The inclusion mask</hljs>
+```php
+0b10; // The mask we're applying
+0b01; // The inclusion mask
 
-<hljs textgrey>0b</hljs>00; <hljs textgrey>// The result</hljs>
+0b00; // The result
 ```
 
 And here's one where the start bit is `1`:
 
-```txt
-<hljs textgrey>0b</hljs><hljs green>1</hljs>0; <hljs textgrey>// The mask we're applying</hljs>
-<hljs textgrey>0b</hljs><hljs green>1</hljs>0; <hljs textgrey>// The inclusion mask</hljs>
+```php
+0b<hljs green>10; // The mask we're applying
+0b<hljs green>10; // The inclusion mask
 
-<hljs textgrey>0b</hljs><hljs green>1</hljs>0; <hljs textgrey>// The result</hljs>
+0b<hljs green>10; // The result
 ```
 
 The end bit will always be `0` in this case, because the mask we're applying has it set to `0`. Hence, whatever value is stored for the end boundary in the inclusion mask, will always result in `0`.
 
 So how to do this in PHP? By using the binary `and` operator, which is a single `&`:
 
-```txt
-<hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>startIncluded</hljs>(): <hljs type>bool</hljs> 
+```php
+public function startIncluded(): bool 
 {
-    <hljs keyword>return</hljs> <hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>10;
+    return $this->inclusionMask & 0b10;
 }
 
-<hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>endIncluded</hljs>(): <hljs type>bool</hljs> 
+public function endIncluded(): bool 
 {
-    <hljs keyword>return</hljs> <hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>01;
+    return $this->inclusionMask & 0b01;
 }
 ```
 
 PHP's dynamic type system will automatically cast the result, `0` or a numeric value, to a boolean. If you want to be more explicit though, you can write it like so:
 
-```txt
-<hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>startIncluded</hljs>(): <hljs type>bool</hljs> 
+```php
+public function startIncluded(): bool 
 {
-    <hljs keyword>return</hljs> (<hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>10) !== 0;
+    return ($this->inclusionMask & 0b10) !== 0;
 }
 
-<hljs keyword>public</hljs> <hljs keyword>function</hljs> <hljs prop>endIncluded</hljs>(): <hljs type>bool</hljs> 
+public function endIncluded(): bool 
 {
-    <hljs keyword>return</hljs> (<hljs keyword>$this</hljs>->inclusionMask & <hljs textgrey>0b</hljs>01) !== 0;
+    return ($this->inclusionMask & 0b01) !== 0;
 }
 ```
 

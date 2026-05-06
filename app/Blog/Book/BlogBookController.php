@@ -26,7 +26,7 @@ final class BlogBookController
             }
         }
 
-        $pageOffset = 0;
+        $pageOffset = -1 * count($toc) - 2;
 
         return view(
             'blog-book.view.php',

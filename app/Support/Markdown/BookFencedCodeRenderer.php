@@ -13,7 +13,7 @@ use Tempest\Highlight\Highlighter;
 
 final readonly class BookFencedCodeRenderer implements NodeRendererInterface
 {
-    private const int MAX_LINES = 25;
+    private const int MAX_LINES = 10;
 
     public function __construct(
         private Highlighter $highlighter,

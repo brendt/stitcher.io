@@ -6,6 +6,11 @@ pre, code {
     font-size: 9pt;
 }
 
+p {
+    orphans: 3;
+    widows: 3;
+}
+
 code {
     break-inside: avoid;
 }
@@ -18,15 +23,45 @@ pre + * {
     margin-top: 1.5em;
 }
 
+pre + pre {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+pre:has(+ pre) {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 h2 {
     margin-top: 1.5em;
     break-after: avoid;
 }
 
+img {
+    max-width: 75%;
+    max-height: 6in;
+    margin: 1.5em auto !important;
+    border-radius: 5px;
+    /*box-shadow: 1px 5px 10px 2px #00000033;*/
+}
+
+.credits,
+.toc {
+    page: chapter;
+    break-before: page;
+}
+
 .chapter {
     page: chapter;
     break-before: page;
-    /*break-after: left;*/
+    break-after: left;
+}
+
+table {
+    margin: 1.5em -0.2in;
+    font-size: 10pt;
+    width: calc(100% + 0.4in);
 }
 
 .book-title {

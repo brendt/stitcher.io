@@ -52,7 +52,7 @@
     </div>
 </section>
 
-<section class="chapter credits clean">
+<section class="credits clean">
     <div class="revision">
         <em>"Opinions are my own"</em> — Me<br/>
         https://stitcher.io<br/>
@@ -61,7 +61,7 @@
     </div>
 </section>
 
-<section :foreach="$toc as $tocPage => $tocChapter" class="chapter">
+<section :foreach="$toc as $tocPage => $tocChapter" class="toc">
     <h1 :if="$tocPage === 0" class="toc-heading mb-4">Table of Contents</h1>
 
     <a :foreach="$tocChapter as $tocChapter" class="toc-item" :href="'#' . $tocChapter->slug">
