@@ -8,7 +8,7 @@ PHP's biggest problem is none of the above. It's marketing. It's such a boring t
 
 Marketing is crucial. Here's an example: Laravel. You may like, dislike, love, or hate it; but no one can deny it's the single most successful PHP project (maybe second if we count WordPress). Laravel has nailed the marketing machine. It has done so from the very beginning and has proven to be effective.
 
-Working at JetBrains now for more than four years, I've learned a lot about marketing myself. It's not my cup of tea — which is why I'm a developer advocate, not a marketing manager — but effective marketing works. It's crucial for any kind of project; that includes open source programming languages.
+Working at JetBrains now for more than four years, I've learned a lot about marketing myself. It's not my primary area of interest — which is why I'm a developer advocate, not a marketing manager — but effective marketing works. It's crucial for any kind of project; that includes open source programming languages.
 
 Personally, I think this is a task the Foundation should take upon themselves if [their mission](https://thephp.foundation/#our-mission) truly is:
 
