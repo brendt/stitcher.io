@@ -2,6 +2,8 @@
 title: PHP's biggest problem
 ---
 
+<iframe width="560" height="345" src="https://www.youtube.com/embed/XPFCbkKVTOQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The language itself is solid. The ecosystem is incredibly rich. Tooling has seen significant growth in the past decade. The Foundation ensures sustainable development. AI adoption is high compared to other languages (possibly to the vast amounts of online PHP code that models are trained on). Design by committee isn't ideal, but still the language continues to evolve — so even that is not _the_ issue.
 
 PHP's biggest problem is none of the above. It's marketing. It's such a boring thing to say as someone who's passionate about programming; but it is the truth. We can continue to do all the previously mentioned things, but nothing will have as big an impact as properly marketing the language.
