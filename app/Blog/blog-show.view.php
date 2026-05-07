@@ -8,7 +8,7 @@
             hover:bg-[#9b81fa]
         ">
             <span class="border-b-4 border-[#9b81fa] group-hover:border-[#ffe822] group-hover:text-[#ffe822]">
-                Join PHPverse 2026 on June 9 2026!
+                Join PHPverse on June 9 2026!
             </span>
         </a>
 
