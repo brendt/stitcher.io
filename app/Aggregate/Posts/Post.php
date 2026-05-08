@@ -11,6 +11,7 @@ use Tempest\DateTime\FormatPattern;
 use Tempest\Router\Bindable;
 use function Tempest\Database\query;
 use function Tempest\Container\get;
+use function Tempest\Support\str;
 
 final class Post implements Bindable
 {
@@ -24,6 +25,9 @@ final class Post implements Bindable
     public PostState $state = PostState::PENDING;
     public int $visits = 0;
     public int $rank = 0;
+    public string $sourceName {
+        get => $this->source->isAggregation ? parse_url($this->uri, PHP_URL_HOST) : $this->source->name;
+    }
 
     #[Virtual]
     public string $cleanUri {

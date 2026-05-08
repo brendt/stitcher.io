@@ -68,7 +68,7 @@ use App\Aggregate\Suggestions\SuggestionController;
                 <x-template :if="$post->source">
                     <br class="inline sm:hidden">
                     <span class="hidden sm:inline">&nbsp;</span>
-                    <span class="text-sm block overflow-hidden">{{ $post->source->shortName }}</span>
+                    <span class="text-sm block overflow-hidden">{{ $post->sourceName }}</span>
                 </x-template>
             </a>
 

@@ -16,6 +16,7 @@ final class Source implements Bindable
     public int $visits = 0;
     public int $rank = 0;
     public int $publicationRatio = 0;
+    public bool $isAggregation = false;
 
     public SourceState $state = SourceState::PENDING;
 

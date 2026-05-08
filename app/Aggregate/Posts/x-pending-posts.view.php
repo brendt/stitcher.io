@@ -10,7 +10,7 @@ use App\Aggregate\Posts\PostsController;
             class="p-2 pl-4 rounded-lg shadow-sm bg-gray-200 flex gap-2 flex-col sm:flex-row items-center justify-between"
     >
         <span class="text-gray-500">
-            <span class="font-bold wrap-anywhere">{{ $pendingPost->title }}</span>&nbsp;<span class="text-sm break-all">–&nbsp;{{ $pendingPost->source->name }}</span>
+            <span class="font-bold wrap-anywhere">{{ $pendingPost->title }}</span>&nbsp;<span class="text-sm break-all">–&nbsp;{{ $pendingPost->sourceName }}</span>
         </span>
 
         <div class="flex gap-8 sm:gap-2">
