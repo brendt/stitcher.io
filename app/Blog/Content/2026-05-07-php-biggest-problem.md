@@ -23,4 +23,6 @@ Here are my concrete suggestions:
 - Make internals accessible (read: no more mailing list), and have someone blog and vlog about what's happening behind the scenes. Show people how much the language is being worked on. Draw them into the story.
 - Invest in high-impact features that can be marketed. And actually market them once they are added in the language.
 
-What I'm listing here is probably three to four full-time jobs. At least within my frame of reference at JetBrains, it is. If we really want PHP to thrive in the coming decades, I say we invest in what matters most. 
+What I'm listing here is probably three to four full-time jobs. At least within my frame of reference at JetBrains, it is. If we really want PHP to thrive in the coming decades, I say we invest in what matters most.
+
+<iframe width="560" height="345" src="https://www.youtube.com/embed/XPFCbkKVTOQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
