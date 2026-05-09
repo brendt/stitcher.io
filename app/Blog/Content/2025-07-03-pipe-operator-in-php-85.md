@@ -48,8 +48,8 @@ I would say this is already a lot better and solves all the issues I listed prev
 ```php
 $output = $input 
     |> trim(...)
-    |> fn (string $string) => str_replace(' ', '-', $string)
-    |> fn (string $string) => str_replace(['.', '/', '…'], '', $string)
+    |> (fn (string $string) => str_replace(' ', '-', $string))
+    |> (fn (string $string) => str_replace(['.', '/', '…'], '', $string))
     |> strtolower(...);
 ```
 
@@ -74,7 +74,7 @@ $output = trim($input);
 But what if you want to pass the input to a function that takes _multiple arguments_? This is where you need to use a callable. These callables can be short or full closures, invokable classes; they can even be string or array references to callable functions — as long as they only take one input argument. Personally, I prefer to use short closures:
 
 ```php
-$output = $input |> fn (string $string) => str_replace(' ', '-', $string);
+$output = $input |> (fn (string $string) => str_replace(' ', '-', $string));
 ```
 
 The fact that you need to use a closure does feel a little clunky — it's even more verbose than our `$temp` example! However, I still prefer using the pipe operator over `$temp` variables, because a "block of pipes" feels more like "code that belongs together" than when you'd use `$temp`.

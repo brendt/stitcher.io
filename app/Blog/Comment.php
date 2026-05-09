@@ -2,7 +2,7 @@
 
 namespace App\Blog;
 
-use App\Authentication\User;
+use App\Support\Authentication\User;
 use Tempest\Database\IsDatabaseModel;
 use Tempest\DateTime\DateTime;
 use function Tempest\Router\uri;

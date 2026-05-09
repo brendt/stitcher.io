@@ -2,7 +2,7 @@
 
 namespace App\Support;
 
-use Tempest\Core\Priority;
+use Tempest\Support\Priority;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\Redirect;
@@ -15,6 +15,7 @@ final class RedirectMiddleware implements HttpMiddleware
     public function __invoke(Request $request, HttpMiddlewareCallable $next): Response
     {
         $redirects = [
+            '/blog/more-depedency-considerations' => '/blog/dependency-hygiene',
             '/timeline-taxi' => 'https://timeline-taxi.com/',
             '/discord' => 'https://discord.gg/pPhpTGUMPQ',
             '/blog' => '/',
@@ -28,7 +29,6 @@ final class RedirectMiddleware implements HttpMiddleware
             '/the-road-to-php-81/unsub' => 'https://road-to-php.com/unsub',
             '/the-road-to-php-81/success' => 'https://road-to-php.com/success',
             '/blogs-for-devs' => '/blogs-for-devs/01-intro',
-            '/feed' => '/rss',
             '/feed.xml' => '/rss',
             '/rss.xml' => '/rss',
             '/games' => '/games/all',

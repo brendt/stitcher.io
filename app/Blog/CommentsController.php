@@ -2,7 +2,7 @@
 
 namespace App\Blog;
 
-use App\Authentication\AuthMiddleware;
+use App\Support\Authentication\AuthMiddleware;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\DateTime\DateTime;
 use Tempest\Http\Session\Session;
@@ -33,10 +33,11 @@ final readonly class CommentsController
     {
         $post = $this->repository->find($slug);
 
-        if (strlen($request->comment) < 5 || strlen($request->comment) > 1000) {
+        if (strlen($request->comment) < 5) {
             return $this->render(
                 $post,
-                commentError: 'Your comment must be between 5 and 1000 characters long.',
+                commentError: 'Your comment must be more than 5 characters long',
+                currentComment: $request->comment,
             );
         }
 
@@ -87,7 +88,7 @@ final readonly class CommentsController
             ->orderBy('createdAt DESC')
             ->all();
 
-        return \Tempest\view(
+        return \Tempest\View\view(
             __DIR__ . '/../ViewComponents/x-comments.view.php',
             ...$data,
             post: $post,

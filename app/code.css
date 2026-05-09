@@ -112,7 +112,9 @@
 
 .hl-deletion {
     min-width: 100%;
-    background-color: var(--code-deletion);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--code-type);
 }
 
 .hl-gutter {
@@ -157,4 +159,8 @@
 
 .hl-qualified-phrase {
     background-color: var(--code-qualified);
+}
+
+.hl-striped {
+    border-bottom: 1px solid red;
 }

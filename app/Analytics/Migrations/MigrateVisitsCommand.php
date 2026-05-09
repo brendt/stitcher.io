@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Analytics\Migrations;
+
+use App\Analytics\PageVisited;
+use App\Support\StoredEvents\StoredEvent;
+use DateTimeImmutable;
+use Tempest\Console\ConsoleCommand;
+use Tempest\Console\HasConsole;
+use Tempest\Database\Query;
+use function Tempest\Database\query;
+use function Tempest\Support\arr;
+
+final class MigrateVisitsCommand
+{
+    use HasConsole;
+
+    #[ConsoleCommand]
+    public function __invoke(): void
+    {
+        return;
+        $this->writeln('Preparing…');
+
+        $lastId = 0;
+
+        if (is_file(__DIR__ . '/last-id')) {
+            $lastId = file_get_contents(__DIR__ . '/last-id');
+        }
+
+        $totalCount = query('visits')
+            ->count()
+            ->where('id > ?', $lastId)
+            ->where('url NOT IN ("/rss/de-job", "/wp-login.php", "/.well-known/traffic-advice", "/resources/img/favicon/safari-pinned-tab.svg", "/ads.txt")')
+            ->execute();
+
+        $currentCount = 0;
+
+        query('visits')
+            ->select()
+            ->where('id > ?', $lastId)
+            ->where('url NOT IN ("/rss/de-job", "/wp-login.php", "/.well-known/traffic-advice", "/resources/img/favicon/safari-pinned-tab.svg", "/ads.txt")')
+            ->chunk(function (array $visits) use ($totalCount, &$currentCount) {
+                $lastId = 0;
+
+                foreach ($visits as $visit) {
+                    $event = new PageVisited(
+                        url: $visit['url'],
+                        visitedAt: new DateTimeImmutable($visit['date']),
+                        ip: $visit['ip'],
+                        userAgent: $visit['user_agent'] ?? '',
+                        raw: $visit['payload'],
+                    );
+
+                    query(StoredEvent::class)
+                        ->insert(
+                            uuid: $event->uuid,
+                            eventClass: $event::class,
+                            payload: $event->serialize(),
+                            createdAt: $event->createdAt,
+                        )
+                        ->execute();
+
+                    $lastId = $visit['id'];
+                }
+
+                $currentCount += count($visits);
+
+                $this->writeln(sprintf(
+                    '%s (%s/%s) %s',
+                    floor($currentCount / $totalCount * 100) . '%',
+                    number_format($currentCount),
+                    number_format($totalCount),
+                    $this->memory(),
+                ));
+
+                file_put_contents(__DIR__ . '/last-id', $lastId);
+            }, 1000);
+    }
+
+    private function memory(): string
+    {
+        $memory = memory_get_usage(true);
+
+        $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
+
+        return @round($memory / pow(1024, ($i = floor(log($memory, 1024)))), 2) . ' ' . $unit[$i];
+    }
+}

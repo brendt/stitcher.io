@@ -4,12 +4,13 @@
 . ~/.nvm/nvm.sh
 
 # Dependencies
-php8.4 /usr/local/bin/composer install --no-dev
+php8.5 /usr/local/bin/composer install --no-dev
 
 # Tempest
-php8.4 tempest cache:clear --force --internal --all
-php8.4 tempest discovery:generate
-php8.4 tempest migrate:up --force
+php8.5 tempest cache:clear --internal --all --force
+php8.5 tempest cache:clear default --force
+php8.5 tempest discovery:generate
+php8.5 tempest migrate:up --force
 
 # Supervisor
 sudo supervisorctl restart all

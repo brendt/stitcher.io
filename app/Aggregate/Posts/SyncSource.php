@@ -1,0 +1,160 @@
+<?php
+
+namespace App\Aggregate\Posts;
+
+use App\Aggregate\Posts\Actions\ResolveTitle;
+use App\Aggregate\Posts\Events\PostSynced;
+use App\Aggregate\Posts\Events\SourceSynced;
+use App\Aggregate\Posts\Events\SourceSyncFailed;
+use Tempest\Cache\Cache;
+use Tempest\DateTime\DateTime;
+use Tempest\DateTime\Duration;
+use Tempest\HttpClient\HttpClient;
+use Tempest\Support\Arr\ImmutableArray;
+use Throwable;
+use function Tempest\EventBus\event;
+use function Tempest\Support\arr;
+
+final readonly class SyncSource
+{
+    public function __construct(
+        private Cache $cache,
+        private ResolveTitle $resolveTitle,
+        private HttpClient $http,
+    ) {}
+
+    public function __invoke(Source $source): void
+    {
+        try {
+            $xml = $this->cache->resolve(
+                'source_' . $source->id,
+                fn () => $this->http->get($source->uri, [
+                    'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1'
+                ])->body ?? '',
+                Duration::minutes(10),
+            );
+        } catch (Throwable) {
+            event(new SourceSyncFailed($source->uri));
+
+            return;
+        }
+
+        if ($xml === false) {
+            event(new SourceSyncFailed($source->uri));
+
+            return;
+        }
+
+        try {
+            $this->parseXml($xml, $source)
+                ->each(function (RssEntry $entry) use ($source) {
+                    $post = Post::select()
+                        ->where('posts.uri = ?', $entry->uri)
+                        ->with('source')
+                        ->first();
+
+                    if (! $post) {
+                        $post = Post::new(
+                            uri: $entry->uri,
+                            source: $source,
+                        );
+                    }
+
+                    $post->title = $entry->title;
+                    $post->createdAt = $entry->createdAt;
+
+                    $post->save();
+
+                    event(new PostSynced($post->uri));
+                });
+            event(new SourceSynced($source->uri));
+        } catch (Throwable) {
+            event(new SourceSyncFailed($source->uri));
+        }
+    }
+
+    private function parseXml(string $input, Source $source): ImmutableArray
+    {
+        $xml = simplexml_load_string($input, "SimpleXMLElement", LIBXML_NOCDATA | LIBXML_NOWARNING | LIBXML_NOERROR);
+
+        if (! $xml) {
+            return arr();
+        }
+
+        $json = json_encode($xml);
+        $array = json_decode($json, true, flags: JSON_THROW_ON_ERROR);
+
+        return $this->resolveItems($array)
+            ->map(function (array $item) use ($source) {
+                return new RssEntry(
+                    uri: $this->resolveUrl($source, $item),
+                    title: $this->resolveTitle($item),
+                    createdAt: $this->resolveCreatedAt($item),
+                    payload: $item,
+                );
+            });
+    }
+
+    private function resolveTitle(array $item): string
+    {
+        return $item['title'] ?? ($this->resolveTitle)(
+            $item['link']['@attributes']['href']
+            ?? $item['id']
+        );
+    }
+
+    private function resolveUrl(Source $source, $item): string
+    {
+        if ($source->isExternals) {
+            return $this->resolveUrlForExternals($source, $item);
+        }
+
+        $id = $item['id'] ?? null;
+
+        if (filter_var($id, FILTER_VALIDATE_URL)) {
+            return $id;
+        }
+
+        return $item['link']['@attributes']['href'] ?? $item['link'];
+    }
+
+    private function resolveCreatedAt(array $item): ?DateTime
+    {
+        $updated = $item['published']
+            ?? $item['pubDate']
+            ?? $item['updated']
+            ?? $item['timestamp'];
+
+        return DateTime::parse($updated);
+    }
+
+    public function resolveUrlForExternals(Source $source, $item): string
+    {
+        $existingPost = Post::select()
+            ->where('title', $item['title'])
+            ->where('source_id', $source->id)
+            ->first();
+
+        if ($existingPost) {
+            return $existingPost->uri;
+        }
+
+        return $item['link'];
+    }
+
+    private function resolveItems(mixed $array): ImmutableArray
+    {
+        if (! is_array($array)) {
+            return arr();
+        }
+
+        return arr(
+            $array['entry']
+            ?? $array['entries']
+            ?? $array['item']
+            ?? $array['items']
+            ?? $array['channel']['item']
+            ?? [],
+        );
+    }
+}

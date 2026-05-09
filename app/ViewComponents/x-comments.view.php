@@ -1,17 +1,16 @@
 <?php
 
 use Tempest\Http\Request;
-use function Tempest\get;
-use function Tempest\Router\uri;
-use App\Authentication\AuthController;
-use App\Blog\BlogController;
-use App\Blog\CommentsController;
+use function Tempest\Container\get;
 use function Tempest\Support\str;
+use function Tempest\Router\uri;
+use App\Blog\CommentsController;
+use App\Support\Authentication\AuthController;
 
 $user ??= null;
 $comments ??= [];
 $confirm ??= null;
-$back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
+$back ??= str(\Tempest\Container\get(Request::class)->path)->beforeLast('/comments')->toString();
 ?>
 
 <div id="comments" class="grid gap-4">
@@ -40,7 +39,7 @@ $back ??= str(get(Request::class)->path)->beforeLast('/comments')->toString();
     </div>
 
     <form :else :hx-post="uri([CommentsController::class, 'comment'], slug: $post->slug)" hx-target="#comments" class="grid gap-2 bg-gray-100 p-4 rounded">
-        <x-input name="comment" label="Leave a comment:" type="textarea" required></x-input>
+        <x-input name="comment" label="Leave a comment:" type="textarea" :value="$currentComment ?? ''" required></x-input>
         <div :if="$commentError ?? null" class="text-red-500">
             {{ $commentError }}
         </div>

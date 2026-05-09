@@ -12,7 +12,7 @@ use function Tempest\Support\str;
 
 final  class BlogPostRepository
 {
-    private ?ImmutableArray $posts = null ;
+    private static ?ImmutableArray $posts = null;
 
     public function __construct(
         private readonly MarkdownConverter $converter,
@@ -30,23 +30,23 @@ final  class BlogPostRepository
 
         $frontMatter = YamlFrontMatter::parse($content)->matter();
 
-        $meta = [
-            'image' => uri([BlogController::class, 'metaPng'], slug: $slug),
-            ...($frontMatter['meta'] ?? []),
-        ];
+        $meta = $frontMatter['meta'] ?? [];
 
         unset($frontMatter['meta'], $frontMatter['next']);
 
-        $data = [
-            'slug' => $slug,
-            'title' => str($slug)->replace('-', ' ')->upperFirst()->toString(),
-            'date' => $this->parseDate($path),
-            'content' => $this->converter->convert($content)->getContent(),
-            'meta' => $meta,
-            ...$frontMatter,
-        ];
-
-        $post = \Tempest\map($data)->to(BlogPost::class);
+        $post = new BlogPost(
+            slug: $slug,
+            title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
+            content: $this->converter->convert($content)->getContent(),
+            date: $this->parseDate($path),
+            meta: new Meta(
+                title: $meta['title'] ?? $frontMatter['title'] ?? null,
+                description: $meta['description'] ?? $frontMatter['description'] ?? null,
+                image: uri([BlogController::class, 'metaPng'], slug: $slug),
+                author: $meta['author'] ?? null,
+                canonical: $meta['canonical'] ?? null,
+            ),
+        );
 
         $allPosts = $this->all();
         $currentIndex = null;
@@ -64,16 +64,17 @@ final  class BlogPostRepository
     }
 
     /**
-     * @return ImmutableArray<array-key, \App\Blog\BlogPost>
+     * @return ImmutableArray<array-key, BlogPost>
      */
     public function all(): ImmutableArray
     {
-        if ($this->posts !== null) {
-            return $this->posts;
+        if (self::$posts !== null) {
+            return self::$posts;
         }
 
         $posts = arr(glob(__DIR__ . "/Content/*.md"))
             ->reverse()
+            ->filter(fn (string $path) => ! str_starts_with($path, __DIR__ . '/Content/_'))
             ->map(function (string $path) {
                 $content = file_get_contents($path);
                 preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
@@ -81,22 +82,24 @@ final  class BlogPostRepository
 
                 $slug = $matches['slug'];
 
-                $meta = [
-                    'image' => uri([BlogController::class, 'metaPng'], slug: $slug),
-                    ...($frontMatter['meta'] ?? []),
-                ];
+                $meta = $frontMatter['meta'] ?? [];
 
                 unset($frontMatter['meta']);
 
-                return [
-                    'slug' => $slug,
-                    'title' => str($slug)->replace('-', ' ')->upperFirst()->toString(),
-                    'date' => $this->parseDate($path),
-                    'meta' => $meta,
-                    ...$frontMatter,
-                ];
+                return new BlogPost(
+                    slug: $slug,
+                    title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
+                    content: '',
+                    date: $this->parseDate($path),
+                    meta: new Meta(
+                        title: $meta['title'] ?? $frontMatter['title'] ?? null,
+                        description: $meta['description'] ?? $frontMatter['description'] ?? null,
+                        image: uri([BlogController::class, 'metaPng'], slug: $slug),
+                        author: $meta['author'] ?? null,
+                        canonical: $meta['canonical'] ?? null,
+                    ),
+                );
             })
-            ->mapTo(BlogPost::class)
             ->sortByCallback(fn (BlogPost $a, BlogPost $b) => $b->date <=> $a->date);
 
         foreach ($posts as $i => $post) {
@@ -109,9 +112,9 @@ final  class BlogPostRepository
             $post->next = $next;
         }
 
-        $this->posts = $posts;
+        self::$posts = $posts;
 
-        return $this->posts;
+        return self::$posts;
     }
 
     private function parseDate(string $path): DateTime

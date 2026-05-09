@@ -2,19 +2,25 @@
     "name": "tempest/app",
     "type": "project",
     "require": {
-        "tempest/framework": "^2.4",
+        "php": "^8.5",
+        "tempest/framework": "^3.10",
         "symfony/yaml": "^7.3",
         "spatie/yaml-front-matter": "^2.1",
         "intervention/image": "^3.11",
         "league/oauth2-google": "^4.0",
         "league/oauth2-github": "^3.0",
         "wohali/oauth2-discord-new": "^1.2",
-        "chrome-php/chrome": "^1.14"
+        "chrome-php/chrome": "^1.14",
+        "codewithkyrian/transformers": "^0.6.2",
+        "predis/predis": "^3.4"
     },
+    "repositories": [
+    ],
     "require-dev": {
         "phpunit/phpunit": "^12.3.10",
         "symfony/var-dumper": "^7.3.3",
-        "carthage-software/mago": "1.0.0-beta.13"
+        "carthage-software/mago": "1.0.0-beta.13",
+        "rector/rector": "^2.3"
     },
     "autoload": {
         "psr-4": {
@@ -50,7 +56,8 @@
     "config": {
         "allow-plugins": {
             "php-http/discovery": true,
-            "carthage-software/mago": true
+            "carthage-software/mago": true,
+            "codewithkyrian/platform-package-installer": true
         }
     }
 }

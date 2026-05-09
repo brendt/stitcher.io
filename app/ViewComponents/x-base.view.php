@@ -4,21 +4,29 @@
  */
 
 use App\Blog\Meta;
-use function Tempest\get;
-use function Tempest\Http\csrf_token;
+use Tempest\Auth\Authentication\Authenticator;
+use Tempest\Core\Environment;
+use function Tempest\Container\get;
 use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
 
 $title ??= null;
 $meta ??= new Meta();
-$meta->title ??= 'Stitcher.io';
+if (($meta->title ?? null) === null) {
+    $meta->title ??= $title ?? 'stitcher.io';
+} else {
+    $meta->title .= ' | stitcher.io';
+}
 $meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
-$meta->image ??= uri('/meta/meta_small.png');
+//$meta->image ??= uri('/meta/meta_small.png');
+$meta->image = uri('/meta/meta_lg.png');
 $meta->canonical ??= null;
+$isProduction = get(Environment::class)->isProduction();
+$isLoggedIn = get(Authenticator::class)->current() !== null;
 ?>
 
 <!doctype html>
-<html lang="en" class="h-dvh flex flex-col md:p-4 bg-primary">
+<html lang="en" class="h-dvh flex flex-col md:p-4 bg-gray-100" :class="$isProduction ? 'sm:bg-primary' : 'sm:bg-green-600'">
 <head>
     <!-- General -->
     <title :if="$title">{{ $title }} | Stitcher.io</title>
@@ -60,35 +68,36 @@ $meta->canonical ??= null;
 
     <!-- Assets -->
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
-    <x-vite-tags/>
+    <x-vite-tags entrypoint="app/main.entrypoint.css"/>
+    <x-vite-tags entrypoint="app/main.entrypoint.ts"/>
     <x-slot name="head"/>
 </head>
 <body class="antialiased relative">
-<div class="bg-primary sm:bg-gray-100 m-2 sm:m-0 p-0 sm:p-2 md:p-4 rounded-md sm:shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
+<div class="bg-gray-100 m-2 sm:m-0 p-0 sm:p-2 md:p-4 rounded-md sm:shadow-lg z-[10] mb-[30vh] md:mb-[20vh] relative">
     <x-slot/>
 </div>
 
-<div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-white font-bold font-sm grid gap-4">
+<div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-primary sm:text-white font-bold font-sm grid gap-4">
     <div class="flex justify-center">
             <span>
                 Noticed a tpyo? You can <a href="https://github.com/brendt/stitcher.io">submit a PR</a> to fix it.
             </span>
     </div>
     <div class="flex flex-wrap gap-8 items-center justify-center">
-        <a href="/">Home</a>
-        <a href="/rss">RSS</a>
-        <a href="/mail">Newsletter</a>
-        <a href="https://tempestphp.com/discord">Discord</a>
+        <a class="underline hover:no-underline" href="/">Home</a>
+        <a class="underline hover:no-underline" href="/rss">RSS</a>
+        <a class="underline hover:no-underline" href="/mail">Newsletter</a>
+        <a class="underline hover:no-underline" href="https://tempestphp.com/discord">Discord</a>
+
         <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
+
+        <a :if="!$isLoggedIn" class="underline hover:no-underline" href="/login">Login</a>
+        <a :else class="underline hover:no-underline" href="/logout">Logout</a>
     </div>
 </div>
 
 <x-slot name="scripts"/>
 <script>
-    document.body.addEventListener('htmx:configRequest', function (evt) {
-        evt.detail.headers['x-xsrf-token'] = '{{ csrf_token() }}';
-    });
-
     document.body.addEventListener('htmx:beforeOnLoad', function (evt) {
         if (evt.detail.xhr.status === 500) {
             document.querySelector('#htmx-error').innerHTML = evt.detail.xhr.statusText;

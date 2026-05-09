@@ -1,7 +1,6 @@
 User-Agent: *
 Disallow: /mails-*
 Disallow: /mails*
-Disallow: /favicon
 Disallow: /public/reveal/*
 Disallow: /present*
 Disallow: /novel*

@@ -5,7 +5,7 @@ namespace App\Mail;
 use Tempest\Router\Get;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
-use function Tempest\view;
+use function Tempest\View\view;
 
 final class MailController
 {
@@ -13,7 +13,7 @@ final class MailController
     #[Get('/newsletter/subscribe')]
     public function subscribe(): View
     {
-        return view('mail-subscribe.view.php');
+        return \Tempest\View\view('mail-subscribe.view.php');
     }
 
     #[Get('/mail/archive')]
@@ -22,7 +22,7 @@ final class MailController
     {
         $mails = $repository->all();
 
-        return view('mail-overview.view.php', mails: $mails);
+        return \Tempest\View\view('mail-overview.view.php', mails: $mails);
     }
 
     #[Get('/mail/archive/{slug}')]
@@ -31,7 +31,7 @@ final class MailController
     {
         $mail = $repository->find($slug);
 
-        return view('mail-show.view.php', mail: $mail);
+        return \Tempest\View\view('mail-show.view.php', mail: $mail);
     }
 
     #[Get('/mail/export/{slug}')]
@@ -39,6 +39,6 @@ final class MailController
     {
         $mail = $repository->find($slug);
 
-        return view('mail-export.view.php', mail: $mail);
+        return \Tempest\View\view('mail-export.view.php', mail: $mail);
     }
 }

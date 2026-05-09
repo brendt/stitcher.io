@@ -4,7 +4,7 @@
 
         <x-book-card title="Things I wish I knew when I started programming" img="/img/static/books/things-cover.png" href="https://things-i-wish-i-knew.com/">
             <p>
-                This is my newest book aimed at program mers of any skill level. This book isn't about patterns, principles, or best practices; there's actually barely any code in it. It's about the many things I've learned along the way being a professional programmer, and about the many, many mistakes I made along that way as well. It's what I wish someone would have told me years ago, and I hope it might inspire you.
+                This is my newest book aimed at programmers of any skill level. This book isn't about patterns, principles, or best practices; there's actually barely any code in it. It's about the many things I've learned along the way being a professional programmer, and about the many, many mistakes I made along that way as well. It's what I wish someone would have told me years ago, and I hope it might inspire you.
             </p>
         </x-book-card>
 

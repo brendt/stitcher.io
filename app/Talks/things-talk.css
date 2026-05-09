@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Schoolbell&display=swap');
+
+:root, html {
+    --color-primary: #2853a2;
+    --color-secondary: #0c417e;
+}
+
+body {
+    color: #fff;
+}
+
+h1 {
+    font-family: "Schoolbell", cursive;
+    font-size: 4rem;
+}
+
+* a,
+p a,
+a {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-decoration-color: #fff;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.things-stick {
+    max-width: 30%;
+    filter: blur(3px);
+    z-index: 0;
+}

@@ -15,11 +15,11 @@ document.addEventListener('keydown', (e) => {
     if (e.key !== 'k') {
         return;
     }
-    
+
     if (! e.metaKey && ! e.ctrlKey) {
         return;
     }
-    
+
     e.preventDefault();
     e.stopPropagation();
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         e.preventDefault();
         e.stopPropagation();
-        
+
         const results = document.querySelectorAll('.search-result');
 
         let selectedIndex = null;
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             window.location.href = results[selectedIndex].getAttribute('href');
-            
+
             return;
         }
 
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectedIndex !== null) {
             results[selectedIndex].removeAttribute('data-selected');
         }
-        
+
         results[nextIndex].setAttribute('data-selected', '');
     });
 

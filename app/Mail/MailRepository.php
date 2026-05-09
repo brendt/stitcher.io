@@ -29,7 +29,7 @@ final readonly class MailRepository
     }
 
     /**
-     * @return ImmutableArray<array-key, \App\Mail\Mail>
+     * @return ImmutableArray<array-key, Mail>
      */
     public function all(): ImmutableArray
     {

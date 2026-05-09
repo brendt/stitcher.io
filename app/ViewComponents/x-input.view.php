@@ -7,14 +7,15 @@
  * @var string|null $default
  */
 
+use Tempest\Http\Session\FormSession;
 use Tempest\Http\Session\Session;
 use Tempest\Validation\Validator;
 
-use function Tempest\get;
+use function Tempest\Container\get;
 use function Tempest\Support\str;
 
-/** @var Session $session */
-$session = get(Session::class);
+/** @var FormSession $session */
+$session = get(FormSession::class);
 
 /** @var Validator $validator */
 $validator = get(Validator::class);
@@ -29,9 +30,11 @@ $original = $session->getOriginalValueFor($name, $default);
 ?>
 
 <div class="grid gap-1">
-    <label :for="$id">{{ $label }}</label>
+    <label :for="$id">
+        <x-slot name="label">{{ $label }}</x-slot>
+    </label>
 
-    <textarea :if="$type === 'textarea'" :name="$name" :id="$id" class="border bg-white border-gray-500 p-2 rounded-md">{{ $original }}</textarea>
+    <textarea :if="$type === 'textarea'" :name="$name" :id="$id" class="border bg-white border-gray-500 p-2 rounded-md">{{ $original ?? $value }}</textarea>
     <input :else :type="$type" :name="$name" :id="$id" :value="$original" class="border bg-white border-gray-500 p-2 rounded-md"/>
 
     <div>

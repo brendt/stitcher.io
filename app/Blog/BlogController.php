@@ -12,12 +12,14 @@ use Tempest\Http\Responses\File;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
+use Tempest\Router\SetCurrentUrlMiddleware;
+use Tempest\Router\Stateless;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
 use Tempest\View\ViewRenderer;
 use function Tempest\root_path;
 use function Tempest\Router\uri;
-use function Tempest\view;
+use function Tempest\View\view;
 
 final class BlogController
 {
@@ -27,7 +29,7 @@ final class BlogController
     {
         $posts = $repository->all();
 
-        return \Tempest\view('blog-overview.view.php', posts: $posts);
+        return \Tempest\View\view('blog-overview.view.php', posts: $posts);
     }
 
     #[Get('/blog/{slug}')]
@@ -44,22 +46,16 @@ final class BlogController
             return new NotFound();
         }
 
-        $comments = Comment::select()
-            ->with('user')
-            ->where('for', $post->slug)
-            ->orderBy('createdAt DESC')
-            ->all();
-
-        return \Tempest\view(
+        return \Tempest\View\view(
             'blog-show.view.php',
             post: $post,
-            comments: $comments,
+            comments: [],
             user: $authenticator->current(),
         );
     }
 
+    #[Stateless]
     #[Get('/rss')]
-    #[Get('/feed')]
     #[Get('/atom')]
     public function rss(
         ViewRenderer $viewRenderer,
@@ -68,15 +64,15 @@ final class BlogController
     ): Response
     {
         $xml = $cache->resolve(
-            key: 'rss',
-            callback: fn () => $viewRenderer->render(view('blog-rss.view.php', posts: $repository->all())),
+            key: 'blog-rss',
+            callback: fn () => $viewRenderer->render(\Tempest\View\view('blog-rss.view.php', posts: $repository->all())),
             expiration: DateTime::now()->plusHours(1),
         );
 
         return new Ok($xml)->addHeader('Content-Type', 'application/xml;charset=UTF-8');
     }
 
-    #[Get('/blog/{slug}/meta.png')]
+    #[Stateless, Get('/blog/{slug}/meta.png')]
     public function metaPng(
         string $slug,
         Request $request,
@@ -87,8 +83,7 @@ final class BlogController
         return $this->meta($slug, $request, $repository, $viewRenderer);
     }
 
-
-    #[Get('/blog/{slug}/meta')]
+    #[Stateless, Get('/blog/{slug}/meta')]
     public function meta(
         string $slug,
         Request $request,
@@ -103,7 +98,7 @@ final class BlogController
         }
 
         if ($request->has('html')) {
-            $html = $viewRenderer->render(view('blog-meta.view.php', post: $post));
+            $html = $viewRenderer->render(\Tempest\View\view('blog-meta.view.php', post: $post));
 
             return new Ok($html);
         }

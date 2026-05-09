@@ -1,7 +1,8 @@
 <html lang="en">
 <head>
     <title>Meta</title>
-    <x-vite-tags/>
+    <x-vite-tags entrypoint="app/main.entrypoint.css"/>
+    <x-vite-tags entrypoint="app/main.entrypoint.ts"/>
     <style>
         :root {
             font-size: 40px;
