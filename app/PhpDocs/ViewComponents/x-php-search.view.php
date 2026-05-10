@@ -1,3 +1,7 @@
+<?php
+use App\PhpDocs\PhpDocsController;
+?>
+
 <div
         id="search-popup"
         class="

@@ -22,11 +22,13 @@
             <a href="/php" class="mx-4">
                 <x-icon name="logos:php-alt" class="size-10 fill-white"/>
             </a>
-            <x-template :foreach="$breadcrumbs->loop() as $href => $name">
-                <span :if="$breadcrumbs->isLast" class="text-(--ui-white) border-(--ui-php-light) border-b-2 p-1 mx-1 text-sm cursor-default font-bold hidden md:block">{{ $name }}</span>
-                <a :else :href="$href" class="text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold">
-                    {{ $name }}
-                </a>
+            <x-template :isset="$breadcrumbs">
+                <x-template :foreach="$breadcrumbs->loop() as $href => $name">
+                    <span :if="$breadcrumbs->isLast" class="text-(--ui-white) border-(--ui-php-light) border-b-2 p-1 mx-1 text-sm cursor-default font-bold hidden md:block">{{ $name }}</span>
+                    <a :else :href="$href" class="text-(--ui-white) bg-(--ui-php) p-2 rounded-md text-sm hover:bg-(--ui-php-light) cursor-pointer font-bold">
+                        {{ $name }}
+                    </a>
+                </x-template>
             </x-template>
         </div>
 

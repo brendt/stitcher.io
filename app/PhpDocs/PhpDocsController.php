@@ -9,14 +9,14 @@ use Tempest\Router\Post;
 use Tempest\View\View;
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
-use function Tempest\Support\path;
+use function Tempest\View\view;
 
 final class PhpDocsController
 {
     #[Get('/php')]
     public function index(): View
     {
-        return $this->directory('');
+        return view('php-docs-home.view.php');
     }
 
     #[Get('/php/{slug:.*}')]
@@ -57,7 +57,7 @@ final class PhpDocsController
 //            ->where('title <> ""')
 //            ->paginate(10)->data;
 
-        return \Tempest\view(
+        return view(
             'php-docs-directory.view.php',
             files: $files,
             breadcrumbs: $breadcrumbs,
@@ -90,7 +90,7 @@ final class PhpDocsController
 
         $index = Index::select()->where('uri', $slug)->first();
 
-        return \Tempest\view(
+        return view(
             'php-docs-show.view.php',
             content: $markdown,
             breadcrumbs: $breadcrumbs,
@@ -119,7 +119,7 @@ final class PhpDocsController
                 ->paginate(10)->data;
         }
 
-        return \Tempest\view(
+        return view(
             'x-php-search-results.view.php',
             keyword: $keyword,
             matches: $matches,
