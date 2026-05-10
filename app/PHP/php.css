@@ -9,6 +9,66 @@
    HEADER
 ============================================================ */
 
+#header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        var(--ui-php) 30%,
+        color-mix(in srgb, var(--ui-php) 70%, #a78bfa) 60%,
+        transparent 100%
+    );
+}
+
+.php-header-logo {
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: opacity 0.15s ease;
+}
+
+.php-header-logo:hover {
+    opacity: 0.8;
+}
+
+.php-header-logo::before {
+    content: '';
+    position: absolute;
+    inset: -0.75rem;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--ui-php) 35%, transparent) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+#search-trigger {
+    color: #fff;
+    background: var(--ui-php);
+    border: 1px solid transparent;
+    box-shadow: 0 2px 12px color-mix(in srgb, var(--ui-php) 40%, transparent);
+}
+
+#search-trigger:hover {
+    color: #fff;
+    background: var(--ui-php);
+    filter: brightness(1.12);
+    box-shadow: 0 4px 18px color-mix(in srgb, var(--ui-php) 55%, transparent);
+}
+
+#search-trigger .php-header-kbd {
+    background: color-mix(in srgb, #fff 15%, transparent);
+    border-color: color-mix(in srgb, #fff 25%, transparent);
+    color: rgba(255,255,255,0.8);
+}
+
 .php-header-btn {
     display: inline-flex;
     align-items: center;
@@ -286,6 +346,76 @@
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
     justify-self: start;
+}
+
+/* ============================================================
+   DOCS DIRECTORY PAGE
+============================================================ */
+
+nav:has(.php-dir-row) {
+    counter-reset: dir-counter;
+}
+
+.php-dir-row {
+    counter-increment: dir-counter;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--ui-text) 8%, transparent);
+    text-decoration: none;
+    transition: gap 0.18s ease;
+}
+
+.php-dir-row:first-child {
+    border-top: 1px solid color-mix(in srgb, var(--ui-text) 8%, transparent);
+}
+
+.php-dir-row:hover {
+    gap: 2rem;
+}
+
+.php-dir-row::before {
+    content: counter(dir-counter, decimal-leading-zero);
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-weight: 500;
+    color: var(--ui-text-muted);
+    opacity: 0.45;
+    min-width: 1.5rem;
+    flex-shrink: 0;
+    transition: opacity 0.18s ease, color 0.18s ease;
+}
+
+.php-dir-row:hover::before {
+    opacity: 1;
+    color: var(--ui-php);
+}
+
+.php-dir-row-name {
+    flex: 1;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--ui-text);
+    transition: color 0.18s ease;
+    line-height: 1.2;
+}
+
+.php-dir-row:hover .php-dir-row-name {
+    color: var(--ui-php);
+}
+
+.php-dir-row-arrow {
+    font-size: 1rem;
+    color: var(--ui-text-muted);
+    transition: transform 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+    opacity: 0;
+}
+
+.php-dir-row:hover .php-dir-row-arrow {
+    color: var(--ui-php);
+    transform: translateX(4px);
+    opacity: 1;
 }
 
 /* ============================================================

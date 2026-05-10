@@ -1,13 +1,22 @@
 <x-php-base>
-    <nav class="grid border-l-2 border-(--ui-php) pl-4 mb-16">
-        <a
-                :foreach="$files as $href => $file"
-                :href="$href"
-                class="
-                    p-2 py-3
-                    font-bold
-                    hover:underline
-                "
-        >{{ $file }}</a>
-    </nav>
+    <x-php-header/>
+
+    <x-docs-container>
+        <div class="py-10 pb-20 max-w-2xl">
+
+            <nav>
+                <a
+                    :foreach="$files as $href => $file"
+                    :href="$href"
+                    class="php-dir-row"
+                >
+                    <span class="php-dir-row-name">
+                        <?= ucwords(str_replace(['-', '_'], ' ', basename($file))) ?>
+                    </span>
+                    <span class="php-dir-row-arrow">→</span>
+                </a>
+            </nav>
+
+        </div>
+    </x-docs-container>
 </x-php-base>

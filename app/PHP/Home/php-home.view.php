@@ -28,7 +28,7 @@
                 <a href="#get-started" class="php-home-cta php-home-cta--primary">
                     Get started
                 </a>
-                <a href="/php/funcref" class="php-home-cta php-home-cta--ghost flex gap-2">
+                <a href="/php/docs" class="php-home-cta php-home-cta--ghost flex gap-2">
                     Browse the docs
                 </a>
             </div>

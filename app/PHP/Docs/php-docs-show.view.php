@@ -15,7 +15,9 @@
                 ">{{ $name }}</a>
         </nav>
     </x-slot>
-    <div class="php-content">
-        {!! $content !!}
-    </div>
+    <x-docs-container>
+        <div class="php-content">
+            {!! $content !!}
+        </div>
+    </x-docs-container>
 </x-php-base>

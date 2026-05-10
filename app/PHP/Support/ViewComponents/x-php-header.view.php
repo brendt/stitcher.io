@@ -8,13 +8,12 @@
         flex items-center justify-between gap-4
         px-4 md:px-8 h-(--ui-header-height)
         bg-(--ui-bg)/90 backdrop-blur-md
-        border-b border-(--ui-text)/8
         transition-shadow duration-200
     "
 >
     <!-- Left: logo + breadcrumbs -->
     <div class="flex items-center gap-2">
-        <a href="/php" class="flex items-center gap-2 hover:opacity-75 transition-opacity shrink-0">
+        <a href="/php" class="php-header-logo shrink-0 mr-2">
             <x-icon name="logos:php-alt" class="size-9"/>
         </a>
 

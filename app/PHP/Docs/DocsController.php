@@ -28,7 +28,7 @@ final class DocsController
             return $this->file($slug);
         }
 
-        return new Redirect('/php');
+        return new Redirect('/php/docs');
     }
 
     private function directory(string $slug): View
@@ -44,7 +44,7 @@ final class DocsController
 
         $breadcrumbs = new Breadcrumbs(
             path: $slug,
-            base: '/php/',
+            base: '/php/docs/',
         );
 
 //        $keyword = 'array';
@@ -74,7 +74,7 @@ final class DocsController
 
         $breadcrumbs = new Breadcrumbs(
             path: $slug,
-            base: '/php/',
+            base: '/php/docs',
         );
 
         $related = arr(glob(pathinfo($path, PATHINFO_DIRNAME) . '/*'))
