@@ -5,6 +5,6 @@ use Tempest\Vite\ViteConfig;
 return new ViteConfig(
     entrypoints: [
         'app/Talks/things-talk.css',
-        'app/PhpDocs/php-docs.css',
+        'app/PhpDocs/php.css',
     ],
 );

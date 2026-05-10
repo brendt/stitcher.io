@@ -25,5 +25,5 @@ last-id
 app/Mail/input
 app/Mail/output.sql
 /.claude/
-/app/PhpDocs/md/
-/app/PhpDocs/xml/
+/app/Php/Docs/md/
+/app/Php/Docs/xml/

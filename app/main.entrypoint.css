@@ -4,6 +4,8 @@
 @theme {
     --color-primary: #fe2977;
     --color-pastel: #fcf4f5;
+    --color-php: var(--ui-php);
+    --color-php-light: var(--ui-php-light);
 
     --font-sans: "Avenir", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-serif: Menlo, Monaco, "Ubuntu Mono", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;

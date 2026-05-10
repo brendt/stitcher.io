@@ -1,0 +1,682 @@
+@import url('https://fonts.googleapis.com/css2?family=Science+Gothic:wght@100..900&display=swap');
+
+:root {
+    --color-primary: var(--ui-php);
+    --font-title: "Science Gothic", system-ui;
+}
+
+/* ============================================================
+   HEADER
+============================================================ */
+
+.php-header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.625rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--ui-text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.15s ease, background 0.15s ease;
+    white-space: nowrap;
+}
+
+.php-header-btn:hover {
+    color: var(--ui-text);
+    background: color-mix(in srgb, var(--ui-text) 6%, transparent);
+}
+
+.php-header-kbd {
+    font-size: 0.7rem;
+    font-family: inherit;
+    background: color-mix(in srgb, var(--ui-text) 7%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ui-text) 12%, transparent);
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.4rem;
+    color: var(--ui-text-muted);
+    line-height: 1.5;
+}
+
+/* ============================================================
+   HOME PAGE — HERO
+============================================================ */
+
+.php-home-hero {
+    background:
+        radial-gradient(ellipse 100% 70% at 50% -10%,
+            color-mix(in srgb, var(--ui-php) 14%, transparent),
+            transparent 65%);
+}
+
+/* Floating decorative code snippets */
+.php-home-float-code {
+    position: absolute;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.72rem;
+    line-height: 1.7;
+    pointer-events: none;
+    opacity: 0;
+    display: none;
+    text-align: left;
+}
+
+@media (min-width: 1100px) {
+    .php-home-float-code {
+        display: block;
+        opacity: 0.18;
+    }
+
+    .dark .php-home-float-code {
+        opacity: 0.12;
+    }
+
+    .php-home-float-code--left {
+        left: 2rem;
+        top: 50%;
+        transform: translateY(-60%) rotate(-4deg);
+    }
+
+    .php-home-float-code--right {
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-40%) rotate(3deg);
+    }
+}
+
+/* PHP logo glow */
+.php-home-logo-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.php-home-logo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -2rem;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--ui-php) 35%, transparent) 0%,
+        transparent 70%
+    );
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* "Anything." — massive, screen-filling headline */
+.php-home-h1 {
+    font-family: var(--font-title);
+    font-size: 8em;
+    font-weight: 900;
+    background: linear-gradient(
+        140deg,
+        var(--ui-php) 0%,
+        color-mix(in srgb, var(--ui-php) 55%, #a78bfa) 60%,
+        #a78bfa 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* CTA Buttons */
+.php-home-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.75rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 0.975rem;
+    text-decoration: none;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+}
+
+.php-home-cta--primary {
+    background: var(--ui-php);
+    color: #fff;
+    box-shadow: 0 4px 18px color-mix(in srgb, var(--ui-php) 45%, transparent);
+}
+
+.php-home-cta--primary:hover {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px color-mix(in srgb, var(--ui-php) 55%, transparent);
+}
+
+.php-home-cta--secondary {
+    background: color-mix(in srgb, var(--ui-php) 12%, transparent);
+    color: var(--ui-php);
+    border: 2px solid color-mix(in srgb, var(--ui-php) 35%, transparent);
+}
+
+.php-home-cta--secondary:hover {
+    background: color-mix(in srgb, var(--ui-php) 20%, transparent);
+    border-color: var(--ui-php);
+}
+
+.php-home-cta--ghost {
+    background: transparent;
+    color: var(--ui-text-muted);
+    border: 2px solid color-mix(in srgb, var(--ui-text) 15%, transparent);
+}
+
+.php-home-cta--ghost:hover {
+    color: var(--ui-text);
+    border-color: color-mix(in srgb, var(--ui-text) 35%, transparent);
+}
+
+/* PHP version badge */
+.php-home-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: color-mix(in srgb, var(--ui-php) 12%, transparent);
+    color: var(--ui-php);
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.875rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--ui-php) 25%, transparent);
+}
+
+/* ============================================================
+   HOME PAGE — CODE WINDOW
+============================================================ */
+
+.php-home-code-window {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+/* Syntax tokens */
+.php-tok-kw   { color: #cba6f7; }   /* purple — keywords */
+.php-tok-cls  { color: #89b4fa; }   /* blue   — class names */
+.php-tok-fn   { color: #89dceb; }   /* cyan   — function names */
+.php-tok-type { color: #fab387; }   /* peach  — scalar types */
+.php-tok-str  { color: #a6e3a1; }   /* green  — strings */
+.php-tok-var  { color: #f38ba8; }   /* red    — variables */
+.php-tok-prop { color: #f38ba8; }   /* red    — properties */
+
+/* ============================================================
+   HOME PAGE — PROJECTS SECTION
+============================================================ */
+
+.php-home-projects {
+    background: color-mix(in srgb, var(--ui-bg) 96%, var(--ui-php));
+}
+
+.php-home-card {
+    background: var(--ui-bg);
+    border: 1px solid color-mix(in srgb, var(--ui-text) 8%, transparent);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+}
+
+.php-home-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--ui-php);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
+}
+
+.php-home-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--ui-text) 10%, transparent);
+    border-color: color-mix(in srgb, var(--ui-php) 30%, transparent);
+}
+
+.php-home-card:hover::before {
+    transform: scaleX(1);
+}
+
+.php-home-card h3 {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--ui-text);
+    margin-top: 0.75rem;
+}
+
+.php-home-card p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--ui-text-muted);
+    margin: 0;
+}
+
+.php-home-card-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    background: oklch(65% 0.15 var(--card-hue, 280) / 0.12);
+    color: oklch(60% 0.18 var(--card-hue, 280));
+}
+
+.php-home-card-stat {
+    display: inline-flex;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ui-php);
+    background: color-mix(in srgb, var(--ui-php) 10%, transparent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    justify-self: start;
+}
+
+/* ============================================================
+   HOME PAGE — GETTING STARTED SECTION
+============================================================ */
+
+.php-home-step {
+    margin-bottom: 2.5rem;
+    display: grid;
+    gap: 0.875rem;
+}
+
+.php-home-step-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ui-php);
+}
+
+.php-home-os-tab-list {
+    display: flex;
+    gap: 0;
+    background: color-mix(in srgb, var(--ui-text) 6%, transparent);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    width: fit-content;
+}
+
+.php-home-os-tab {
+    padding: 0.375rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ui-text-muted);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: all 0.15s ease;
+    line-height: 1.5;
+}
+
+.php-home-os-tab:hover {
+    color: var(--ui-text);
+}
+
+.php-home-os-tab.active {
+    background: var(--ui-bg);
+    color: var(--ui-text);
+    box-shadow: 0 1px 4px color-mix(in srgb, var(--ui-text) 10%, transparent);
+}
+
+.php-home-install-block {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #1e1e2e;
+    border-radius: 0.625rem;
+    padding: 1rem 1.25rem;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 1rem;
+}
+
+.php-home-install-block::before {
+    content: '$';
+    color: #a6e3a1;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.php-home-install-block code {
+    background: transparent;
+    color: #cdd6f4;
+    font-size: inherit;
+    flex: 1;
+}
+
+.php-home-copy-btn {
+    background: color-mix(in srgb, #cdd6f4 8%, transparent);
+    border: 1px solid color-mix(in srgb, #cdd6f4 18%, transparent);
+    color: #6c7086;
+    border-radius: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    line-height: 1.5;
+}
+
+.php-home-copy-btn:hover {
+    color: #cdd6f4;
+    background: color-mix(in srgb, #cdd6f4 14%, transparent);
+}
+
+/* ============================================================
+   DOCS INDEX PAGE — SEARCH TRIGGER & QUICK NAV
+============================================================ */
+
+.php-docs-index-search {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    background: color-mix(in srgb, var(--ui-text) 4%, transparent);
+    border: 1.5px solid color-mix(in srgb, var(--ui-text) 10%, transparent);
+    border-radius: 0.625rem;
+    color: var(--ui-text-muted);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    font-size: 0.975rem;
+    text-align: left;
+    font-family: inherit;
+}
+
+.php-docs-index-search:hover {
+    border-color: var(--ui-php);
+    background: color-mix(in srgb, var(--ui-php) 4%, transparent);
+}
+
+.php-docs-index-search span {
+    flex: 1;
+}
+
+.php-docs-index-search kbd {
+    margin-left: auto;
+    background: color-mix(in srgb, var(--ui-text) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ui-text) 12%, transparent);
+    border-radius: 0.3rem;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.75rem;
+    font-family: inherit;
+    color: var(--ui-text-muted);
+    white-space: nowrap;
+}
+
+.php-docs-index-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.875rem 1.25rem;
+    background: var(--ui-bg);
+    border: 1.5px solid color-mix(in srgb, var(--ui-text) 8%, transparent);
+    border-radius: 0.625rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ui-text);
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.php-docs-index-card:hover {
+    border-color: var(--ui-php);
+    color: var(--ui-php);
+    background: color-mix(in srgb, var(--ui-php) 4%, transparent);
+}
+
+.php-varlistentry {
+    display: grid;
+    gap: .5em;
+}
+
+body {
+    color: #000;
+}
+
+.php-varlistentry .php-term {
+    font-weight: bold;
+}
+
+.php-member,
+.php-listitem {
+    display: grid;
+    gap: .5em;
+    margin-left: 1em;
+}
+
+ul > a,
+ul .php-member,
+ul .php-listitem {
+    display: list-item;
+    list-style-type: disc;
+
+    & + a,
+    & + .php-member,
+    & + .php-listitem {
+        margin-top: .4em;
+    }
+}
+
+code {
+    background-color: var(--ui-bg-secondary);
+    font-size: 0.9em;
+}
+
+
+.php-content {
+    display: grid;
+    gap: 1em;
+
+    & h1 {
+        font-weight: bold;
+        font-size: 2.5rem;
+    }
+}
+
+.php-refpurpose {
+    font-style: italic;
+}
+
+.php-seealso,
+.php-examples,
+.php-returnvalues,
+.php-refpurpose,
+.php-description,
+.php-parameters {
+    display: grid;
+    gap: .5em;
+
+    & > h2 {
+        margin-top: 0;
+    }
+
+    & + div {
+        margin-top: 1.5em;
+    }
+}
+
+.php-seealso {
+
+    & ul {
+        padding-left: 2em;
+    }
+}
+
+.php-seealso a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+
+    &:hover {
+        text-decoration: none;
+
+        & code {
+            background-color: var(--ui-php-light);
+        }
+    }
+
+    & span {
+        color: inherit;
+    }
+}
+
+ul {
+    margin-left: 2em;
+}
+
+/* ============================================================
+   LEARN PAGE
+============================================================ */
+
+.php-learn-layout {
+    display: flex;
+    gap: 3.5rem;
+    padding: 2.5rem 0 4rem;
+    align-items: start;
+}
+
+.php-learn-sidebar {
+    width: 13rem;
+    flex-shrink: 0;
+    position: sticky;
+    top: 1.5rem;
+}
+
+.php-learn-sidebar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ui-text-muted);
+    margin-bottom: 0.625rem;
+    padding-left: 0.75rem;
+}
+
+.php-learn-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    color: var(--ui-text-muted);
+    text-decoration: none;
+    transition: color 0.15s ease, background 0.15s ease;
+    line-height: 1.4;
+}
+
+.php-learn-nav-item:hover {
+    color: var(--ui-text);
+    background: color-mix(in srgb, var(--ui-text) 5%, transparent);
+}
+
+.php-learn-nav-item.active {
+    color: var(--ui-php);
+    background: color-mix(in srgb, var(--ui-php) 8%, transparent);
+    font-weight: 600;
+}
+
+.php-learn-nav-number {
+    width: 1.375rem;
+    height: 1.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: color-mix(in srgb, var(--ui-text) 8%, transparent);
+    color: var(--ui-text-muted);
+    flex-shrink: 0;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.php-learn-nav-item.active .php-learn-nav-number {
+    background: var(--ui-php);
+    color: #fff;
+}
+
+.php-learn-content {
+    flex: 1;
+    min-width: 0;
+    max-width: 68ch;
+}
+
+.php-learn-pagination {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid color-mix(in srgb, var(--ui-text) 10%, transparent);
+}
+
+.php-learn-pagination a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.875rem 1.25rem;
+    border: 1.5px solid color-mix(in srgb, var(--ui-text) 10%, transparent);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ui-text);
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease;
+    max-width: 48%;
+}
+
+.php-learn-pagination a:hover {
+    border-color: var(--ui-php);
+    color: var(--ui-php);
+}
+
+.php-learn-pagination-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ui-text-muted);
+}
+
+.php-learn-pagination-next {
+    text-align: right;
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .php-learn-layout {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1.5rem 0 3rem;
+    }
+
+    .php-learn-sidebar {
+        width: 100%;
+        position: static;
+    }
+
+    .php-learn-content {
+        max-width: none;
+    }
+}
