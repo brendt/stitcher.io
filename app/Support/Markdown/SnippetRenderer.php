@@ -11,12 +11,15 @@ use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
 use Tempest\View\Exceptions\ViewNotFound;
 use Tempest\View\Renderers\TempestViewRenderer;
+use Tempest\View\ViewConfig;
+use Throwable;
 use function Tempest\Support\str;
 
 final readonly class SnippetRenderer implements NodeRendererInterface
 {
     public function __construct(
         private TempestViewRenderer $renderer,
+        private ViewConfig $config,
     ) {}
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer): string|HtmlElement
@@ -42,6 +45,12 @@ final readonly class SnippetRenderer implements NodeRendererInterface
         try {
             return $this->renderer->render(__DIR__ . "/../../Blog/Snippets/{$snippet}.view.php");
         } catch (ViewNotFound) {
+            if (str_starts_with($snippet, 'x-')) {
+                return $this->renderer->render("<{$snippet} />");
+            } else {
+                return '';
+            }
+        } catch (Throwable) {
             return '';
         }
     }

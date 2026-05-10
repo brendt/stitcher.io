@@ -22,27 +22,8 @@
         {{-- --------------------------------
              MAIN — chapter content
         -------------------------------- --}}
-        <div class="php-learn-content php-content">
+        <div class="php-learn-content php-content px-4">
             {!! $chapter->content !!}
-
-            {{-- Prev / Next --}}
-<!--            <div class="php-learn-pagination">-->
-<!--                --><?php //if ($prevChapter): ?>
-<!--                <a href="--><?php //= $prevChapter->uri ?><!--" class="php-learn-pagination-prev">-->
-<!--                    <span class="php-learn-pagination-label">← Previous</span>-->
-<!--                    <span>--><?php //= htmlspecialchars($prevChapter->title) ?><!--</span>-->
-<!--                </a>-->
-<!--                --><?php //else: ?>
-<!--                <div></div>-->
-<!--                --><?php //endif; ?>
-<!---->
-<!--                --><?php //if ($nextChapter): ?>
-<!--                <a href="--><?php //= $nextChapter->uri ?><!--" class="php-learn-pagination-next">-->
-<!--                    <span class="php-learn-pagination-label">Next →</span>-->
-<!--                    <span>--><?php //= htmlspecialchars($nextChapter->title) ?><!--</span>-->
-<!--                </a>-->
-<!--                --><?php //endif; ?>
-<!--            </div>-->
         </div>
 
     </div>
