@@ -10,8 +10,8 @@ use function Tempest\Router\uri;
 $title ??= null;
 $noPadding ??= false;
 $meta ??= new Meta();
-$meta->title ??= 'Stitcher.io';
-$meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
+$meta->title ??= 'PHP Docs — Learn, Build, and Ship with PHP';
+$meta->description ??= 'PHP is a general-purpose interpreted programming language for web and console development. It powers everything from personal blogs to platforms serving billions.';
 $meta->image ??= uri('/meta/meta_small.png');
 $meta->canonical ??= null;
 ?>
@@ -20,10 +20,24 @@ $meta->canonical ??= null;
 <html lang="en" class="h-dvh">
 <head>
     <!-- General -->
-    <title :if="$title">{{ $title }} | PHP docs (unofficial)</title>
-    <title :else>PHP docs (unofficial)</title>
+    <title>{{ $meta->title }}</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+    <meta name="description" :content="$meta->description"/>
+    <link :if="$meta->canonical" rel="canonical" :href="$meta->canonical"/>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" :content="$meta->title"/>
+    <meta property="og:description" :content="$meta->description"/>
+    <meta property="og:image" :content="$meta->image"/>
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@brendt_gd"/>
+    <meta name="twitter:title" :content="$meta->title"/>
+    <meta name="twitter:description" :content="$meta->description"/>
+    <meta name="twitter:image" :content="$meta->image"/>
 
     <!-- Dark mode -->
     <script>

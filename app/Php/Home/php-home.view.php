@@ -3,6 +3,42 @@
 ?>
 
 <x-php-base>
+    <x-slot name="head">
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "WebSite",
+                    "name": "PHP Docs",
+                    "url": "https://stitcher.io/php",
+                    "description": "PHP is a general-purpose interpreted programming language for web and console development.",
+                    "potentialAction": {
+                        "@type": "SearchAction",
+                        "target": {
+                            "@type": "EntryPoint",
+                            "urlTemplate": "https://stitcher.io/php/docs?q={search_term_string}"
+                        },
+                        "query-input": "required name=search_term_string"
+                    }
+                },
+                {
+                    "@type": "SoftwareApplication",
+                    "name": "PHP",
+                    "applicationCategory": "DeveloperApplication",
+                    "operatingSystem": "Windows, macOS, Linux",
+                    "url": "https://php.net",
+                    "description": "PHP is a popular general-purpose scripting language that powers web development at every scale.",
+                    "offers": {
+                        "@type": "Offer",
+                        "price": "0",
+                        "priceCurrency": "USD"
+                    }
+                }
+            ]
+        }
+        </script>
+    </x-slot>
 
     {{-- -----------------------------------
          HERO SECTION
@@ -12,11 +48,11 @@
         <div class="relative z-10 flex flex-col justify-between w-full h-full">
             {{-- Headline --}}
             <div class="w-full text-center grid gap-8">
-                <p class="text-base md:text-lg font-semibold tracking-[0.2em] uppercase text-(--ui-text-muted)">
-                    PHP can do
-                </p>
-                <h1 class="php-home-h1">
-                    anything.
+                <h1 class="php-home-h1 grid gap-8">
+                    <span class="text-base md:text-lg font-semibold tracking-[0.2em] uppercase text-(--ui-text-muted)">
+                        PHP can do
+                    </span>
+                    <span>anything.</span>
                 </h1>
                 <p class="text-lg md:text-xl text-(--ui-text-muted) max-w-2xl leading-relaxed mx-auto">
                     PHP is a <span class="font-bold">general-purpose interpreted programming language</span> for web and console development. It powers anything from personal blogs to platforms serving billions.
