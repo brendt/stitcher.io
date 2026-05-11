@@ -59,7 +59,7 @@ $meta->canonical ??= null;
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
 
     <x-vite-tags entrypoint="app/main.entrypoint.css"/>
-    <x-vite-tags entrypoint="app/Talks/things-talk.css"/>
+    <x-vite-tags entrypoint="app/Talks/things-talk.entrypoint.css"/>
 </head>
 <body class="antialiased relative">
 
