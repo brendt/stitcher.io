@@ -10,7 +10,7 @@ final class DocsFetchCommand
 {
     use HasConsole;
 
-    #[ConsoleCommand]
+    #[ConsoleCommand(name: 'php:fetch', aliases: ['docs:fetch'])]
     public function __invoke(): void
     {
         $path = __DIR__ . '/xml';

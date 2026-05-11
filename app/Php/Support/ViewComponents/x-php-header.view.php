@@ -7,7 +7,7 @@
         fixed top-0 inset-x-0 z-50
         flex items-center justify-between gap-4
         px-4 md:px-8 h-(--ui-header-height)
-        bg-(--ui-bg)/90 backdrop-blur-md
+        bg-(--ui-bg)/20 backdrop-blur-md
         transition-shadow duration-200
     "
 >

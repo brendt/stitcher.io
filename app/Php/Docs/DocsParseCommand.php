@@ -18,7 +18,7 @@ final class DocsParseCommand
         private readonly PhpDocsParser $parser,
     ) {}
 
-    #[ConsoleCommand]
+    #[ConsoleCommand(name: 'php:parse', aliases: ['docs:parse'])]
     public function __invoke(?string $filter = null): void
     {
         $outputBase = __DIR__ . '/md/';
@@ -55,10 +55,10 @@ final class DocsParseCommand
                 mkdir(dirname($outputPath), recursive: true);
             }
 
-            $this->index(
-                $outputPath->replaceStart($outputBase, '/')->replaceEnd('.md', ''),
-                $parsed,
-            );
+//            $this->index(
+//                $outputPath->replaceStart($outputBase, '/')->replaceEnd('.md', ''),
+//                $parsed,
+//            );
 
             file_put_contents($outputPath, $parsed);
 
@@ -67,19 +67,5 @@ final class DocsParseCommand
         }
 
         $this->info("Parsed {$success} files, {$failed} failed");
-    }
-
-    private function index(string $slug, string $parsed): void
-    {
-        $title = str($parsed)->afterFirst('<h1>')->before('</h1>')->before(PHP_EOL)->trim()->toString();
-
-        Index::updateOrCreate(
-            [
-                'uri' => uri([DocsController::class, 'show'], slug: ltrim($slug, '/')),
-            ],
-            [
-                'title' => $title,
-            ],
-        );
     }
 }

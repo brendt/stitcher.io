@@ -170,7 +170,6 @@
     pointer-events: none;
 }
 
-/* "Anything." — massive, screen-filling headline */
 .php-home-h1 {
     font-family: var(--font-title);
     font-size: 8em;
@@ -472,23 +471,14 @@ nav:has(.php-dir-row) {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: #1e1e2e;
-    border-radius: 0.625rem;
+    background: var(--ui-bg-secondary);
     padding: 1rem 1.25rem;
-    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
-    font-size: 1rem;
-}
-
-.php-home-install-block::before {
-    content: '$';
-    color: #a6e3a1;
-    font-weight: 700;
-    flex-shrink: 0;
+    font-family: var(--font-mono);
 }
 
 .php-home-install-block code {
     background: transparent;
-    color: #cdd6f4;
+    color: var(--code-value);
     font-size: inherit;
     flex: 1;
 }
