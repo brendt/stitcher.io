@@ -9,6 +9,7 @@ use Tempest\Router\Get;
 use Tempest\View\View;
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
+use function Tempest\Support\str;
 use function Tempest\View\view;
 
 final class DocsController
@@ -22,10 +23,16 @@ final class DocsController
     #[Get('/php/docs/{slug:.*}')]
     public function show(string $slug): View|Redirect
     {
-        if (is_dir(__DIR__ . '/md/' . $slug)) {
+        if (is_dir(__DIR__ . '/xml/' . $slug)) {
             return $this->directory($slug);
         } elseif (is_file(__DIR__ . '/md/' . $slug . '.md')) {
             return $this->file($slug);
+        } elseif (is_file(__DIR__ . '/xml/' . $slug . '.xml')) {
+            $content = str(file_get_contents(__DIR__ . '/xml/' . $slug . '.xml'));
+
+            $slug = $content->afterFirst('xml:id="')->before('"')->trim()->toString();
+
+            return new Redirect('https://php.net/manual/en/' . $slug . '.php');
         }
 
         return new Redirect('/php/docs');
@@ -33,9 +40,9 @@ final class DocsController
 
     private function directory(string $slug): View
     {
-        $files = arr(glob(__DIR__ . '/md/' . $slug . '/*'))
+        $files = arr(glob(__DIR__ . '/xml/' . $slug . '/*'))
             ->mapWithKeys(function (string $path) {
-                $slug = str_replace([__DIR__ . '/md/', '.md'], '', $path);
+                $slug = str_replace([__DIR__ . '/xml/', '.xml'], '', $path);
 
                 $slug = ltrim($slug, '/');
 

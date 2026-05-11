@@ -10,6 +10,7 @@ final class Index
 {
     use IsDatabaseModel;
 
+    public int $priority;
     public string $title;
     public string $uri;
 }

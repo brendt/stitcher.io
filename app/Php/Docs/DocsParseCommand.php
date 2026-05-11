@@ -3,10 +3,8 @@
 namespace App\Php\Docs;
 
 use App\Php\Docs\Parser\PhpDocsParser;
-use App\Php\Search\Index;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
-use function Tempest\Router\uri;
 use function Tempest\Support\Filesystem\delete;
 use function Tempest\Support\str;
 
@@ -37,9 +35,16 @@ final class DocsParseCommand
 
         $success = 0;
         $failed = 0;
+        $skipped = 0;
 
         foreach ($files as $inputPath) {
             $slug = str_replace([$inputBase, '.xml'], '', $inputPath);
+
+            if (! $this->shouldParse($slug)) {
+                $this->error('Skipped: ' . $inputPath);
+                $skipped++;
+                continue;
+            }
 
             $parsed = $this->parser->parse($slug, $inputPath);
 
@@ -66,6 +71,15 @@ final class DocsParseCommand
             $this->success($outputPath);
         }
 
-        $this->info("Parsed {$success} files, {$failed} failed");
+        $this->info("Parsed {$success} files, {$failed} failed, {$skipped} skipped");
+    }
+
+    private function shouldParse(mixed $slug): bool
+    {
+        if (str_starts_with($slug, 'reference/array')) {
+            return true;
+        }
+
+        return false;
     }
 }

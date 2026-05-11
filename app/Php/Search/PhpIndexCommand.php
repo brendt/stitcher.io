@@ -16,7 +16,7 @@ final class PhpIndexCommand
         private readonly Container $container,
     ) {}
 
-    #[ConsoleCommand('php:index')]
+    #[ConsoleCommand('php:index', aliases: ['docs:index'])]
     public function __invoke(bool $clean = false): void
     {
         if ($clean) {

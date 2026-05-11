@@ -14,6 +14,7 @@ final class CreateDocsIndexTable implements MigratesUp
     {
         return new CreateTableStatement('index')
             ->primary()
+            ->integer('priority', unsigned: true)
             ->string('title')
             ->string('uri')
             ->unique('uri');
