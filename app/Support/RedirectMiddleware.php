@@ -15,6 +15,7 @@ final class RedirectMiddleware implements HttpMiddleware
     public function __invoke(Request $request, HttpMiddlewareCallable $next): Response
     {
         $redirects = [
+            '/blog/dependency-hygien' => '/blog/dependency-hygiene',
             '/blog/more-depedency-considerations' => '/blog/dependency-hygiene',
             '/timeline-taxi' => 'https://timeline-taxi.com/',
             '/discord' => 'https://discord.gg/pPhpTGUMPQ',
