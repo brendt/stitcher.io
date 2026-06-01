@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04cea5bc79f2af80e9051c4e58130812",
+    "content-hash": "9b9f410328a9e5fb378eb95226a079ef",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -6190,16 +6190,10 @@
         {
             "name": "tempest/markdown",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tempestphp/markdown.git",
-                "reference": "08cb718cdd2c20bd5f6975832c8c0104cf79b861"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/markdown/zipball/08cb718cdd2c20bd5f6975832c8c0104cf79b861",
-                "reference": "08cb718cdd2c20bd5f6975832c8c0104cf79b861",
-                "shasum": ""
+                "type": "path",
+                "url": "../tempest-markdown",
+                "reference": "08cb718cdd2c20bd5f6975832c8c0104cf79b861"
             },
             "require": {
                 "php": "^8.5",
@@ -6216,14 +6210,56 @@
                 "phpunit/phpunit": "^12.0",
                 "tempest/debug": "^3.10"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Tempest\\Markdown\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Tempest\\Markdown\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "bench": [
+                    "vendor/bin/phpbench run --report=aggregate"
+                ],
+                "bench:tempest": [
+                    "vendor/bin/phpbench run tests/Bench/MarkdownBench.php --filter=benchTempest --report=aggregate"
+                ],
+                "fmt": [
+                    "vendor/bin/mago fmt"
+                ],
+                "lint": [
+                    "vendor/bin/mago lint --reporting-format=rich && vendor/bin/mago lint --fix --format-after-fix"
+                ],
+                "analyse": [
+                    "vendor/bin/mago analyse"
+                ],
+                "test": [
+                    "vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices"
+                ],
+                "qa": [
+                    "composer fmt",
+                    "composer lint",
+                    "composer analyse",
+                    "composer test",
+                    "composer bench:tempest"
+                ],
+                "github:lint": [
+                    "vendor/bin/mago lint --potentially-unsafe --minimum-fail-level=note --reporting-format=github"
+                ],
+                "github:fmt": [
+                    "vendor/bin/mago fmt --check"
+                ],
+                "github:analyse": [
+                    "vendor/bin/mago analyse"
+                ],
+                "github:test": [
+                    "vendor/bin/phpunit"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -6234,31 +6270,17 @@
                 }
             ],
             "description": "Fast and extensible Markdown in PHP",
-            "support": {
-                "issues": "https://github.com/tempestphp/markdown/issues",
-                "source": "https://github.com/tempestphp/markdown/tree/main"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/brendt",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-06-01T07:30:39+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "tempest/responsive-image",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tempestphp/responsive-image.git",
-                "reference": "a0059b6129650771ccbbb8210147d664bed489fa"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/responsive-image/zipball/a0059b6129650771ccbbb8210147d664bed489fa",
-                "reference": "a0059b6129650771ccbbb8210147d664bed489fa",
-                "shasum": ""
+                "type": "path",
+                "url": "../responsive-images",
+                "reference": "a0059b6129650771ccbbb8210147d664bed489fa"
             },
             "require": {
                 "intervention/image": "^4.1",
@@ -6271,14 +6293,52 @@
                 "tempest/command-bus": "^3.11",
                 "tempest/debug": "^3.11"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Tempest\\ResponsiveImage\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Tempest\\ResponsiveImage\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "bench": [
+                    "vendor/bin/phpbench run --report=aggregate"
+                ],
+                "fmt": [
+                    "vendor/bin/mago fmt"
+                ],
+                "lint": [
+                    "vendor/bin/mago lint --reporting-format=rich && vendor/bin/mago lint --fix --format-after-fix"
+                ],
+                "analyse": [
+                    "vendor/bin/mago analyse"
+                ],
+                "test": [
+                    "vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices"
+                ],
+                "qa": [
+                    "composer fmt",
+                    "composer lint",
+                    "composer analyse",
+                    "composer test"
+                ],
+                "github:lint": [
+                    "vendor/bin/mago lint --potentially-unsafe --minimum-fail-level=note --reporting-format=github"
+                ],
+                "github:fmt": [
+                    "vendor/bin/mago fmt --check"
+                ],
+                "github:analyse": [
+                    "vendor/bin/mago analyse"
+                ],
+                "github:test": [
+                    "vendor/bin/phpunit"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -6289,17 +6349,9 @@
                 }
             ],
             "description": "Server-side responsive images with PHP",
-            "support": {
-                "issues": "https://github.com/tempestphp/responsive-image/issues",
-                "source": "https://github.com/tempestphp/responsive-image/tree/main"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/brendt",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-05-29T12:38:09+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "vlucas/phpdotenv",

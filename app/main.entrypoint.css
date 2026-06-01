@@ -27,6 +27,14 @@ code {
     word-break: break-word;
 }
 
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+    word-break: normal;
+}
+
 h1 > a {
     text-decoration: none;
     word-break: break-word;

@@ -1,6 +1,18 @@
 {
     "name": "tempest/app",
     "type": "project",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../tempest-markdown",
+            "symlink": true
+        },
+        {
+            "type": "path",
+            "url": "../responsive-images",
+            "symlink": true
+        }
+    ],
     "require": {
         "php": "^8.5",
         "tempest/framework": "^3.11.2",
@@ -14,8 +26,6 @@
         "tempest/responsive-image": "dev-main",
         "spatie/yaml-front-matter": "^2.1"
     },
-    "repositories": [
-    ],
     "require-dev": {
         "phpunit/phpunit": "^12.3.10",
         "symfony/var-dumper": "^7.3.3",
