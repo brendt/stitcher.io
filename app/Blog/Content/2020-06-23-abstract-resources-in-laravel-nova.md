@@ -69,20 +69,20 @@ abstract resource.
 On your abstract Resource write this code:
 
 ```php
-public static function indexQuery(<hljs type>NovaRequest</hljs> $request, $query)
+public static function indexQuery(NovaRequest $request, $query)
 {
-    $uriKey = static::<hljs prop>uriKey</hljs>();
+    $uriKey = static::uriKey();
     
-    if (($request-><hljs prop>orderByDirection</hljs> ?? null) !== null) {
+    if (($request->orderByDirection ?? null) !== null) {
         return $query;
     }
     
-    if (! empty(static::<hljs prop>$indexDefaultOrder</hljs>)) {
-        $query-><hljs prop>getQuery</hljs>()-><hljs prop>orders</hljs> = [];
+    if (! empty(static::$indexDefaultOrder)) {
+        $query->getQuery()->orders = [];
 
-        return $query-><hljs prop>orderBy</hljs>(
-            <hljs prop>key</hljs>(static::<hljs prop>$indexDefaultOrder</hljs>), 
-            <hljs prop>reset</hljs>(static::<hljs prop>$indexDefaultOrder</hljs>)
+        return $query->orderBy(
+            key(static::$indexDefaultOrder), 
+            reset(static::$indexDefaultOrder)
         );
     }
 }
@@ -91,7 +91,7 @@ public static function indexQuery(<hljs type>NovaRequest</hljs> $request, $query
 Then on your model resource:
 
 ```php
-public static <hljs prop>$indexDefaultOrder</hljs> = ['email' => 'asc'];
+public static $indexDefaultOrder = ['email' => 'asc'];
 ```
 
 This will sort your index query by "email, asc" in case there is not a pre-selected
@@ -116,14 +116,14 @@ use Titasgailius\SearchRelations\SearchesRelations;
 
 abstract class AbstractResource extends Resource
 {
-    use <hljs type>SearchesRelations</hljs>;
+    use SearchesRelations;
 }
 ```
 
 Henceforth, on your model resources, you can simply add:
 
 ```php
-public static <hljs prop>$searchRelations</hljs> = [
+public static $searchRelations = [
     'user' => ['username', 'email'],
 ];
 ```
@@ -142,19 +142,19 @@ All of this functionality can be shared between model resources.
 As an example, let's say you want to add a new Card to all of the model resources that share your abstract resource, you can do it like:
 
 ```php
-public function cards(<hljs type>Request</hljs> $request){
+public function cards(Request $request){
     return [
-        new <hljs type>ResourceInformation</hljs>(
-            $this-><hljs prop>getCurrentResourceInstance</hljs>($this-><hljs prop>getModelInstance</hljs>())
+        new ResourceInformation(
+            $this->getCurrentResourceInstance($this->getModelInstance())
         ),
     ];
 }
 
 protected function getModelInstance()
 {
-    $resourceKey = <hljs prop>explode</hljs>('/', <hljs prop>request</hljs>()-><hljs prop>path</hljs>())[1];
+    $resourceKey = explode('/', request()->path())[1];
 
-    $resourceClass = <hljs type>Nova</hljs>::<hljs prop>resourceForKey</hljs>($resourceKey);
+    $resourceClass = Nova::resourceForKey($resourceKey);
 
     return new $resourceClass::$model;
 }
@@ -163,11 +163,11 @@ protected function getModelInstance()
 and in your model Resource:
 
 ```php
-public function cards(<hljs type>Request</hljs> $request)
+public function cards(Request $request)
 {
-    return <hljs prop>array_merge</hljs>(
+    return array_merge(
         [/* your cards */], 
-        parent::<hljs prop>cards</hljs>($request),
+        parent::cards($request),
     );
 }
 ```
@@ -191,18 +191,18 @@ use Illuminate\Support\Facades\Gate;
 public static function softDeletes()
 {
     // Is this resource authorized on trashedAny?
-    if (static::<hljs prop>authorizable</hljs>()) {
-        if (! <hljs prop>method_exists</hljs>(
-            <hljs type>Gate</hljs>::<hljs prop>getPolicyFor</hljs>(static::<hljs prop>newModel</hljs>()),
+    if (static::authorizable()) {
+        if (! method_exists(
+            Gate::getPolicyFor(static::newModel()),
             'trashedAny'
         )) {
             return true;
         }       
 
-        return <hljs type>Gate</hljs>::<hljs prop>check</hljs>('trashedAny', static::class));
+        return Gate::check('trashedAny', static::class));
     };
 
-    return parent::<hljs prop>softDeletes</hljs>();
+    return parent::softDeletes();
 }
 ```
 
@@ -210,7 +210,7 @@ in this example, all you have to do is to define a policy for your model, and th
 create a new method called `trashedAny(User $user)`, as example:
 
 ```php
-public function trashedAny(<hljs type>User</hljs> $user)
+public function trashedAny(User $user)
 {
     return false;
 }

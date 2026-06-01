@@ -15,7 +15,7 @@ It takes three arguments, integers between 0 and 255; and converts it to a hexad
 Here's what this function's definition might look like in a dynamic, weakly typed language:
 
 ```txt
-<hljs prop>rgbToHex</hljs>(red, green, blue) {
+rgbToHex(red, green, blue) {
     // …
 }
 ```
@@ -24,11 +24,11 @@ I think we all agree that "program correctness" is essential.
 We don't want any bugs, so we write tests.
 
 ```txt
-<hljs prop>assert</hljs>(<hljs prop>rgbToHex</hljs>(<hljs keyword>0</hljs>, <hljs keyword>0</hljs>, <hljs keyword>0</hljs>) == '000000')
+assert(rgbToHex(0, 0, 0) == '000000')
 
-<hljs prop>assert</hljs>(<hljs prop>rgbToHex</hljs>(<hljs keyword>255</hljs>, <hljs keyword>255</hljs>, <hljs keyword>255</hljs>) == 'ffffff')
+assert(rgbToHex(255, 255, 255) == 'ffffff')
 
-<hljs prop>assert</hljs>(<hljs prop>rgbToHex</hljs>(<hljs keyword>238</hljs>, <hljs keyword>66</hljs>, <hljs keyword>244</hljs>) == 'ee42f4')
+assert(rgbToHex(238, 66, 244) == 'ee42f4')
 ```
 
 Because of our tests, we can be sure our implementation works as expected. Right? 
@@ -39,35 +39,35 @@ But human reasoning tells us that if these three cases work, all probably do.
 What happens though if we pass doubles instead of integers? 
 
 ```txt
-<hljs prop>rgbToHex</hljs>(<hljs keyword>1.5</hljs>, <hljs keyword>20.2</hljs>, <hljs keyword>100.1</hljs>)
+rgbToHex(1.5, 20.2, 100.1)
 ``` 
 
 Or numbers outside of the allowed range?
 
 ```txt
-<hljs prop>rgbToHex</hljs>(<hljs keyword>-504</hljs>, <hljs keyword>305</hljs>, <hljs keyword>-59</hljs>)
+rgbToHex(-504, 305, -59)
 ```
 
 What about `null`?
 
 ```txt
-<hljs prop>rgbToHex</hljs>(<hljs keyword>null</hljs>, <hljs keyword>null</hljs>, <hljs keyword>null</hljs>)
+rgbToHex(null, null, null)
 ```
 
 Or strings?
 
 ```txt
-<hljs prop>rgbToHex</hljs>("red", "green", "blue")
+rgbToHex("red", "green", "blue")
 ```
 
 Or the wrong amount of arguments?
 
 ```txt
-<hljs prop>rgbToHex</hljs>()
+rgbToHex()
 
-<hljs prop>rgbToHex</hljs>(1, 2)
+rgbToHex(1, 2)
 
-<hljs prop>rgbToHex</hljs>(1, 2, 3, 4)
+rgbToHex(1, 2, 3, 4)
 ```
 
 Or a combination of the above? 
@@ -86,7 +86,7 @@ If we filter input by a type — you can think of it as a subcategory of all ava
 Say we'd only allow integers:
 
 ```txt
-<hljs prop>rgbToHex</hljs>(<hljs type>Int</hljs> red, <hljs type>Int</hljs> green, <hljs type>Int</hljs> blue) 
+rgbToHex(Int red, Int green, Int blue) 
 {
     // …
 }
@@ -121,13 +121,13 @@ Languages that lack these kinds of generic types, often need to build custom typ
 Being an OO programmer myself, I would use classes to do this.
 
 ```txt
-<hljs keyword>class</hljs> <hljs type>MinMaxInt</hljs>
+class MinMaxInt
 {
-    <hljs keyword>public</hljs> <hljs prop>MinMaxInt</hljs>(<hljs type>Int</hljs> min, <hljs type>Int</hljs> max, <hljs type>Int</hljs> value)
+    public MinMaxInt(Int min, Int max, Int value)
     {
-        <hljs prop>assert</hljs>(min <= value <= max)
+        assert(min <= value <= max)
         
-        <hljs keyword>this</hljs>.value = value
+        this.value = value
     }
 }
 ```
@@ -138,7 +138,7 @@ Still, this `MinMaxInt` class is too generic for our case.
 If we were to type `rgbToHex` with it, we're still not sure what the exact boundaries are:
 
 ```txt
-<hljs prop>rgbToHex</hljs>(<hljs type>MinMaxInt</hljs> red, <hljs type>MinMaxInt</hljs> green, <hljs type>MinMaxInt</hljs> blue) 
+rgbToHex(MinMaxInt red, MinMaxInt green, MinMaxInt blue) 
 {
     // …
 }
@@ -149,11 +149,11 @@ Adding it depends, again, on the programming language and personal preference.
 I would extend `MinMaxInt`, but feel free to do whatever fits you best.
 
 ```txt
-<hljs keyword>class</hljs> <hljs type>RgbValue</hljs> <hljs keyword>extends</hljs> <hljs type>MinMaxInt</hljs>
+class RgbValue extends MinMaxInt
 {
-    <hljs keyword>public</hljs> <hljs prop>RgbValue</hljs>(<hljs type>Int</hljs> value)
+    public RgbValue(Int value)
     {
-        <hljs type>parent</hljs>(<hljs keyword>0</hljs>, <hljs keyword>255</hljs>, value)
+        parent(0, 255, value)
     }
 }
 ```
@@ -162,7 +162,7 @@ Now we've arrived at a working solution.
 By using the `RgbValue` type, most of our tests become redundant.
 
 ```txt
-<hljs prop>rgbToHex</hljs>(<hljs type>RgbValue</hljs> red, <hljs type>RgbValue</hljs> green, <hljs type>RgbValue</hljs> blue) 
+rgbToHex(RgbValue red, RgbValue green, RgbValue blue) 
 {
     // …
 }
@@ -185,10 +185,10 @@ It depends on the capabilities of the language though.
 Given a language that allows this:
 
 ```txt
-<hljs prop>rgbToHex</hljs>(
-    <hljs type>Int</hljs><<hljs keyword>0</hljs>, <hljs keyword>255</hljs>> red, 
-    <hljs type>Int</hljs><<hljs keyword>0</hljs>, <hljs keyword>255</hljs>> green, 
-    <hljs type>Int</hljs><<hljs keyword>0</hljs>, <hljs keyword>255</hljs>> blue
+rgbToHex(
+    Int<0, 255> red, 
+    Int<0, 255> green, 
+    Int<0, 255> blue
 ) {
     // …
 }
@@ -209,10 +209,10 @@ as these custom categories most likely apply to your business, and are used thro
 Next, many would consider my solution too verbose when actually using it:
 
 ```txt
-<hljs prop>rgbToHex</hljs>(
-    <hljs keyword>new</hljs> <hljs type>RgbValue</hljs>(<hljs keyword>60</hljs>),
-    <hljs keyword>new</hljs> <hljs type>RgbValue</hljs>(<hljs keyword>102</hljs>),
-    <hljs keyword>new</hljs> <hljs type>RgbValue</hljs>(<hljs keyword>79</hljs>)
+rgbToHex(
+    new RgbValue(60),
+    new RgbValue(102),
+    new RgbValue(79)
 );
 ```
 

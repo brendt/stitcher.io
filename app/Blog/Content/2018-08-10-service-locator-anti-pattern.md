@@ -24,14 +24,14 @@ based on a set of parameters.
 class CreatePostAction
 {
     public function __invoke(
-        <hljs type>string</hljs> $title, 
-        <hljs type>string</hljs> $body
+        string $title, 
+        string $body
     ): Post
     {
-        return <hljs type>Post</hljs>::<hljs prop>create</hljs>([
+        return Post::create([
             'title' => $title,
             'body' => $body,
-            'author_id' => <hljs type>Auth</hljs>::<hljs prop>user</hljs>()->id,
+            'author_id' => Auth::user()->id,
         ]);
     }
 }
@@ -88,12 +88,12 @@ By doing a runtime check:
 class CreatePostAction
 {
     public function __invoke(
-        <hljs type>string</hljs> $title, 
-        <hljs type>string</hljs> $body
+        string $title, 
+        string $body
     ): Post
     {
-        if (! <hljs type>Auth</hljs>::<hljs prop>user</hljs>()) {
-            throw new <hljs type>Exception</hljs>('…');
+        if (! Auth::user()) {
+            throw new Exception('…');
         }
         
         // ...
@@ -107,10 +107,10 @@ Or by requiring a valid user, before executing:
 class CreatePostAction
 {
     public function __invoke(
-        <hljs type>string</hljs> $title, 
-        <hljs type>string</hljs> $body,
-        <hljs type>User</hljs> $author
-    ): <hljs type>Post</hljs>
+        string $title, 
+        string $body,
+        User $author
+    ): Post
     {
         // ...
     }
@@ -130,8 +130,8 @@ Let's look at our action's definition.
 class CreatePostAction
 {
     public function __invoke(
-        <hljs type>string</hljs> $title, 
-        <hljs type>string</hljs> $body
+        string $title, 
+        string $body
     ): Post
     { /* ... */ }
 }
@@ -168,8 +168,8 @@ class CreatePostAction
      * @return Post
      */
     public function __invoke(
-        <hljs type>string</hljs> $title, 
-        <hljs type>string</hljs> $body
+        string $title, 
+        string $body
     ): Post
     { /* ... */ }
 }
@@ -181,9 +181,9 @@ Or by injecting the user:
 class CreatePostAction
 {
     public function __invoke(
-        <hljs type>string</hljs> $title, 
-        <hljs type>string</hljs> $body,
-        <hljs type>User</hljs> $author
+        string $title, 
+        string $body,
+        User $author
     ): Post
     { /* ... */ }
 }
@@ -223,9 +223,9 @@ How much more easy is it to simply say:
 class CreatePostAction
 {
     public function __invoke(
-        <hljs type>string</hljs> $title, 
-        <hljs type>string</hljs> $body,
-        <hljs type>User</hljs> $author
+        string $title, 
+        string $body,
+        User $author
     ): Post
     { /* ... */ }
 }

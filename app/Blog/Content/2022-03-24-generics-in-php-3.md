@@ -25,13 +25,13 @@ The first one is called **Monomorphized Generics**. Let’s go back to the first
 ```php
 class StringCollection extends Collection
 {
-    public function offsetGet(<hljs type>mixed</hljs> $key): string 
+    public function offsetGet(mixed $key): string 
     { /* … */ }
 }
 
 class UserCollection extends Collection
 {
-    public function offsetGet(<hljs type>mixed</hljs> $key): User 
+    public function offsetGet(mixed $key): User 
     { /* … */ }
 }
 ```
@@ -41,10 +41,10 @@ I explained that we could manually create implementations of the collection clas
 Monomorphized generics do exactly this, but in an automated way, behind the scenes. At runtime, PHP would not know about the generic Collection class, but rather about two or more specific implementations:
 
 ```php
-$users = new <hljs type>Collection</hljs><<hljs generic>User</hljs>>();
+$users = new Collection<User>();
 // Collection_User
 
-$slugs = new <hljs type>Collection</hljs><<hljs generic>string</hljs>>();
+$slugs = new Collection<string>();
 // Collection_string
 ```
 
@@ -63,18 +63,18 @@ Well, not so fast. Ignoring generic types at runtime — it’s called **type er
 For one: PHP not only uses types for validation, it also uses type information to convert values on the fly from one type to another — that’s the type juggling I mentioned in the first post of this series:
 
 ```php
-function add(<hljs type>int</hljs> $a, <hljs type>int</hljs> $b): int 
+function add(int $a, int $b): int 
 {
     return $a + $b;
 }
 
-<hljs prop>add</hljs>('1', '2') // 3;
+add('1', '2') // 3;
 ```
 
 If PHP ignored the generic type of this “string” collection, and we’d accidentally add an integer to it, it wouldn’t be able to warn us about that, if the generic type was erased:
 
 ```php
-$slugs = new <hljs type>Collection</hljs><{:hl-generic:string:}>();
+$slugs = new Collection<{:hl-generic:string:}>();
 
 $slugs[] = 1; // 1 won't be cast to '1'
 ```

@@ -10,7 +10,7 @@ footnotes:
     - { link: /blog/the-case-for-transpiled-generics, title: 'Transpiling generics' }
 ---
 
-Do you want to make a guess about when I last encountered a `<hljs type>TypeError</hljs>` in one of my projects? To be honest, I can't remember, so it's probably a few years. Coincidentally, I also started relying on static analysis around the same time.
+Do you want to make a guess about when I last encountered a `TypeError` in one of my projects? To be honest, I can't remember, so it's probably a few years. Coincidentally, I also started relying on static analysis around the same time.
 
 I'm fairly certain that I could disable PHP's runtime type checking altogether — if that was a thing — and have a perfectly working codebase. 
 

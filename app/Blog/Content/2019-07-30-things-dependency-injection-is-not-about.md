@@ -23,7 +23,7 @@ class MyController
 {
     public function indexAction()
     {
-        $service = <hljs prop>app</hljs>(<hljs type>Service</hljs>::class);
+        $service = app(Service::class);
 
         // …        
     }

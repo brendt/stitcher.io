@@ -29,30 +29,30 @@ class CartsProjector implements Projector
     use ProjectsEvents;
 
     protected array $handlesEvents = [
-        <hljs type>CartStartedEvent</hljs>::class => 'onCartStarted',
-        <hljs type>CartItemAddedEvent</hljs>::class => 'onCartItemAdded',
-        <hljs type>CartItemRemovedEvent</hljs>::class => 'onCartItemRemoved',
-        <hljs type>CartExpiredEvent</hljs>::class => 'onCartExpired',
-        <hljs type>CartCheckedOutEvent</hljs>::class => 'onCartCheckedOut',
-        <hljs type>CouponAddedToCartItemEvent</hljs>::class => 'onCouponAddedToCartItem',
+        CartStartedEvent::class => 'onCartStarted',
+        CartItemAddedEvent::class => 'onCartItemAdded',
+        CartItemRemovedEvent::class => 'onCartItemRemoved',
+        CartExpiredEvent::class => 'onCartExpired',
+        CartCheckedOutEvent::class => 'onCartCheckedOut',
+        CouponAddedToCartItemEvent::class => 'onCouponAddedToCartItem',
     ];
 
-    public function onCartStarted(<hljs type>CartStartedEvent</hljs> $event): void
+    public function onCartStarted(CartStartedEvent $event): void
     { /* … */ }
 
-    public function onCartItemAdded(<hljs type>CartItemAddedEvent</hljs> $event): void
+    public function onCartItemAdded(CartItemAddedEvent $event): void
     { /* … */ }
 
-    public function onCartItemRemoved(<hljs type>CartItemRemovedEvent</hljs> $event): void
+    public function onCartItemRemoved(CartItemRemovedEvent $event): void
     { /* … */ }
 
-    public function onCartCheckedOut(<hljs type>CartCheckedOutEvent</hljs> $event): void
+    public function onCartCheckedOut(CartCheckedOutEvent $event): void
     { /* … */ }
 
-    public function onCartExpired(<hljs type>CartExpiredEvent</hljs> $event): void
+    public function onCartExpired(CartExpiredEvent $event): void
     { /* … */ }
 
-    public function onCouponAddedToCartItem(<hljs type>CouponAddedToCartItemEvent</hljs> $event): void
+    public function onCouponAddedToCartItem(CouponAddedToCartItemEvent $event): void
     { /* … */ }
 }
 ``` 
@@ -71,28 +71,28 @@ class CartsProjector implements Projector
 {
     use ProjectsEvents;
 
-    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartStartedEvent</hljs><hljs keyword>::class</hljs>)]
-    public function onCartStarted(<hljs type>CartStartedEvent</hljs> $event): void
+    #[SubscribesTo(CartStartedEvent::class)]
+    public function onCartStarted(CartStartedEvent $event): void
     { /* … */ }
 
-    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartItemAddedEvent</hljs><hljs keyword>::class</hljs>)]
-    public function onCartItemAdded(<hljs type>CartItemAddedEvent</hljs> $event): void
+    #[SubscribesTo(CartItemAddedEvent::class)]
+    public function onCartItemAdded(CartItemAddedEvent $event): void
     { /* … */ }
 
-    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartItemRemovedEvent</hljs><hljs keyword>::class</hljs>)]
-    public function onCartItemRemoved(<hljs type>CartItemRemovedEvent</hljs> $event): void
+    #[SubscribesTo(CartItemRemovedEvent::class)]
+    public function onCartItemRemoved(CartItemRemovedEvent $event): void
     { /* … */ }
 
-    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartCheckedOutEvent</hljs><hljs keyword>::class</hljs>)]
-    public function onCartCheckedOut(<hljs type>CartCheckedOutEvent</hljs> $event): void
+    #[SubscribesTo(CartCheckedOutEvent::class)]
+    public function onCartCheckedOut(CartCheckedOutEvent $event): void
     { /* … */ }
 
-    #[<hljs type>SubscribesTo</hljs>(<hljs type>CartExpiredEvent</hljs><hljs keyword>::class</hljs>)]
-    public function onCartExpired(<hljs type>CartExpiredEvent</hljs> $event): void
+    #[SubscribesTo(CartExpiredEvent::class)]
+    public function onCartExpired(CartExpiredEvent $event): void
     { /* … */ }
 
-    #[<hljs type>SubscribesTo</hljs>(<hljs type>CouponAddedToCartItemEvent</hljs><hljs keyword>::class</hljs>)]
-    public function onCouponAddedToCartItem(<hljs type>CouponAddedToCartItemEvent</hljs> $event): void
+    #[SubscribesTo(CouponAddedToCartItemEvent::class)]
+    public function onCouponAddedToCartItem(CouponAddedToCartItemEvent $event): void
     { /* … */ }
 }
 ```
@@ -107,7 +107,7 @@ When I'd write this in PHP 7.4:
 
 ```php
 /**
- * @return <hljs type>static</hljs>
+ * @return static
  */
 public static function new()
 {
@@ -120,7 +120,7 @@ public static function new()
 I'll now be able to write:
 
 ```php
-public static function new(): <hljs type>static</hljs>
+public static function new(): static
 {
     return new static();
 }
@@ -137,24 +137,24 @@ If you read my blog, you know I wrote quite a bit about the use of PHP's type sy
 ```php
 class CustomerData extends DataTransferObject
 {
-    public <hljs type>string</hljs> <hljs prop>$name</hljs>;
+    public string $name;
 
-    public <hljs type>string</hljs> <hljs prop>$email</hljs>;
+    public string $email;
 
-    public <hljs type>int</hljs> <hljs prop>$age</hljs>;
+    public int $age;
     
     public static function fromRequest(
-        <hljs type>CustomerRequest</hljs> $request
+        CustomerRequest $request
     ): self {
         return new self([
-            'name' => $request-><hljs prop>get</hljs>('name'),
-            'email' => $request-><hljs prop>get</hljs>('email'),
-            'age' => $request-><hljs prop>get</hljs>('age'),
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'age' => $request->get('age'),
         ]);
     }
 }
 
-$data = <hljs type>CustomerData</hljs>::<hljs prop>fromRequest</hljs>($customerRequest);
+$data = CustomerData::fromRequest($customerRequest);
 ```
 
 <em class="center small">PHP 7.4</em>
@@ -165,13 +165,13 @@ As this:
 class CustomerData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$name</hljs>,
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$email</hljs>,
-        <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$age</hljs>,
+        public string $name,
+        public string $email,
+        public int $age,
     ) {}
 }
 
-$data = new <hljs type>CustomerData</hljs>(...$customerRequest-><hljs prop>validated</hljs>());
+$data = new CustomerData(...$customerRequest->validated());
 ```
 
 <em class="center small">PHP 8</em>
@@ -197,7 +197,7 @@ class InvoiceState extends Enum
         return [
             self::PENDING => 'orange',
             self::PAID => 'green',
-        ][$this-><hljs prop>value</hljs>] ?? 'gray';   
+        ][$this->value] ?? 'gray';   
     }
 }
 ```
@@ -218,11 +218,11 @@ class InvoiceState extends Enum
 
     public function getColour(): string
     {
-        if ($this-><hljs prop>value</hljs> === self::PENDING) {
+        if ($this->value === self::PENDING) {
             return 'orange';
         }
     
-        if ($this-><hljs prop>value</hljs> === self::PAID) {
+        if ($this->value === self::PAID) {
             return 'green'
         }
 
@@ -233,7 +233,7 @@ class InvoiceState extends Enum
 
 <em class="center small">PHP 7.4 — alternative</em>
 
-But with PHP 8, we can use the [`<hljs keyword>match</hljs>` expression](/blog/php-8-match-or-switch) instead!
+But with PHP 8, we can use the [`match` expression](/blog/php-8-match-or-switch) instead!
 
 ```php
 /**
@@ -247,10 +247,10 @@ class InvoiceState extends Enum
 
     public function getColour(): string
     {
-        return <hljs keyword>match</hljs> ($this->value) {
+        return match ($this->value) {
             self::PENDING => 'orange',
             self::PAID => 'green',
-            <hljs keyword>default</hljs> => 'gray',
+            default => 'gray',
         };
     }
 }
@@ -262,13 +262,13 @@ class InvoiceState extends Enum
 
 ## Union types instead of doc blocks
 
-When I mentioned the `<hljs type>static</hljs>` return type before, I forgot another use case where docblock type hints were required: union types. At least, they were required before, because PHP 8 supports them natively!
+When I mentioned the `static` return type before, I forgot another use case where docblock type hints were required: union types. At least, they were required before, because PHP 8 supports them natively!
 
 ```php
 /**
- * @param <hljs type>string|int</hljs> $input
+ * @param string|int $input
  *
- * @return <hljs type>string</hljs> 
+ * @return string 
  */
 public function sanitize($input): string;
 ```
@@ -276,20 +276,20 @@ public function sanitize($input): string;
 <em class="center small">PHP 7.4</em>
 
 ```php
-public function sanitize(<hljs type>string|int</hljs> $input): string;
+public function sanitize(string|int $input): string;
 ```
 
 <em class="center small">PHP 8</em>
 
 ## Throw expressions
 
-Before PHP 8, you couldn't use `<hljs keyword>throw</hljs>` in an expression, meaning you'd have to do explicit checks like so:
+Before PHP 8, you couldn't use `throw` in an expression, meaning you'd have to do explicit checks like so:
 
 ```php
-public function (<hljs type>array</hljs> $input): void
+public function (array $input): void
 {
     if (! isset($input['bar'])) {
-        throw <hljs type>BarIsMissing</hljs>::<hljs prop>new</hljs>();
+        throw BarIsMissing::new();
     }
     
     $bar = $input['bar'];
@@ -300,12 +300,12 @@ public function (<hljs type>array</hljs> $input): void
 
 <em class="center small">PHP 7.4</em>
 
-In PHP 8, `<hljs keyword>throw</hljs>` has become an expression, meaning you can use it like so:
+In PHP 8, `throw` has become an expression, meaning you can use it like so:
 
 ```php
-public function (<hljs type>array</hljs> $input): void
+public function (array $input): void
 {
-    $bar = $input['bar'] ?? throw <hljs type>BarIsMissing</hljs>::<hljs prop>new</hljs>();
+    $bar = $input['bar'] ?? throw BarIsMissing::new();
 
     // …
 }
@@ -315,12 +315,12 @@ public function (<hljs type>array</hljs> $input): void
 
 ## The nullsafe operator
 
-If you're familiar with the [null coalescing operator](/blog/shorthand-comparisons-in-php#null-coalescing-operator) you're already familiar with its shortcomings: it doesn't work on method calls. Instead you need intermediate checks, or rely on `<hljs prop>optional</hljs>` helpers provided by some frameworks:
+If you're familiar with the [null coalescing operator](/blog/shorthand-comparisons-in-php#null-coalescing-operator) you're already familiar with its shortcomings: it doesn't work on method calls. Instead you need intermediate checks, or rely on `optional` helpers provided by some frameworks:
 
 ```php
-$startDate = $booking-><hljs prop>getStartDate</hljs>();
+$startDate = $booking->getStartDate();
 
-$dateAsString = $startDate ? $startDate-><hljs prop>asDateTimeString</hljs>() : null;
+$dateAsString = $startDate ? $startDate->asDateTimeString() : null;
 ```
 
 <em class="center small">PHP 7.4</em>
@@ -328,7 +328,7 @@ $dateAsString = $startDate ? $startDate-><hljs prop>asDateTimeString</hljs>() : 
 With the addition of the nullsafe operator, we can now have null coalescing-like behaviour on methods!
 
 ```php
-$dateAsString = $booking-><hljs prop>getStartDate</hljs>()?-><hljs prop>asDateTimeString</hljs>();
+$dateAsString = $booking->getStartDate()?->asDateTimeString();
 ``` 
 
 <em class="center small">PHP 8</em>

@@ -21,18 +21,18 @@ $pixels = [];
 
 for($x = 0; $x < 150; $x++) {
     for($y = 0; $y < 100; $y++) {
-        $pixels[$x][$y] = <hljs prop>drawPixel</hljs>($x, $y, 0); 
+        $pixels[$x][$y] = drawPixel($x, $y, 0); 
     }
 }
 ```
 
-For now, the `<hljs prop>drawPixel</hljs>` function will generate a `<hljs keyword>div</hljs>` per pixel, which can be laid out on a CSS grid. We can refactor to use `<hljs keyword>canvas</hljs>` later, but being able to use CSS's built-in grid saves a lot of time.
+For now, the `drawPixel` function will generate a `div` per pixel, which can be laid out on a CSS grid. We can refactor to use `canvas` later, but being able to use CSS's built-in grid saves a lot of time.
 
 ```php
-function drawPixel(<hljs type>int</hljs> $x, <hljs type>int</hljs> $y): string
+function drawPixel(int $x, int $y): string
 {
-    <hljs keyword>return</hljs> <<<HTML
-    <<hljs keyword>div</hljs> <hljs prop>style</hljs>="--x: {$x}; --y: {$y};"></<hljs keyword>div</hljs>>
+    return <<<HTML
+    <div style="--x: {$x}; --y: {$y};"></div>
     HTML;
 }
 ```
@@ -40,35 +40,35 @@ function drawPixel(<hljs type>int</hljs> $x, <hljs type>int</hljs> $y): string
 This is the template file: 
 
 ```blade
-<<hljs keyword>style</hljs>>
-    :<hljs keyword>root</hljs> {
-        <hljs prop>--pixel-size</hljs>: 9px;
-        <hljs prop>--pixel-gap</hljs>: 1px;
-        <hljs prop>--pixel-color</hljs>: #000;
+<style>
+    :root {
+        --pixel-size: 9px;
+        --pixel-gap: 1px;
+        --pixel-color: #000;
     }
 
-    .<hljs keyword>map</hljs> {
-        <hljs prop>display</hljs>: grid;
-        <hljs prop>grid-template-columns</hljs>: <hljs prop>repeat</hljs>({{ count($pixels) }}, var(--pixel-size));
-        <hljs prop>grid-auto-rows</hljs>: <hljs prop>var</hljs>(--pixel-size);
-        <hljs prop>grid-gap</hljs>: <hljs prop>var</hljs>(--pixel-gap);
+    .map {
+        display: grid;
+        grid-template-columns: repeat({{ count($pixels) }}, var(--pixel-size));
+        grid-auto-rows: var(--pixel-size);
+        grid-gap: var(--pixel-gap);
     }
 
-    .<hljs keyword>map</hljs> > <hljs keyword>div</hljs> {
-        <hljs prop>width</hljs>: <hljs prop>var</hljs>(--pixel-size);
-        <hljs prop>height</hljs>: 100%;
-        <hljs prop>grid-area</hljs>: <hljs prop>var</hljs>(--y) / <hljs prop>var</hljs>(--x) / <hljs prop>var</hljs>(--y) / <hljs prop>var</hljs>(--x);
-        <hljs prop>background-color</hljs>: <hljs prop>var</hljs>(--pixel-color);
+    .map > div {
+        width: var(--pixel-size);
+        height: 100%;
+        grid-area: var(--y) / var(--x) / var(--y) / var(--x);
+        background-color: var(--pixel-color);
     }
-</<hljs keyword>style</hljs>>
+</style>
 
-<<hljs keyword>div</hljs> <hljs prop>class</hljs>="map">
-    @<hljs keyword>foreach</hljs>($pixels as $x => $row)
-        @<hljs keyword>foreach</hljs>($row as $y => $pixel)
+<div class="map">
+    @foreach($pixels as $x => $row)
+        @foreach($row as $y => $pixel)
             {!! $pixel !!}
-        @<hljs keyword>endforeach</hljs>
-    @<hljs keyword>endforeach</hljs>
-</<hljs keyword>div</hljs>>
+        @endforeach
+    @endforeach
+</div>
 ```
 
 This is the result:
@@ -77,24 +77,24 @@ This is the result:
 
 By the way, I will get rid of the gaps between pixels, I only added them to show that these are indeed separate grid cells.
 
-Let's play around with our grid. We'll start by assigning a value between 0 and 1 for each individual pixel. We'll use a class called `<hljs type>Noise</hljs>` that takes a pixel's point (X/Y coordinates), and returns a value for that point. First, we'll return a random value.
+Let's play around with our grid. We'll start by assigning a value between 0 and 1 for each individual pixel. We'll use a class called `Noise` that takes a pixel's point (X/Y coordinates), and returns a value for that point. First, we'll return a random value.
 
 ```php
-final <hljs keyword>readonly</hljs> class Noise
+final readonly class Noise
 {
     public function __construct(
-        <hljs keyword>private</hljs> <hljs type>int</hljs> <hljs prop>$seed</hljs>,
+        private int $seed,
     ) {}
     
-    public function generate(<hljs type>Point</hljs> $point): float
+    public function generate(Point $point): float
     {
-        return <hljs prop>rand</hljs>(1, 100) / 100;
+        return rand(1, 100) / 100;
     }
 }
 
 // …
 
-<hljs prop>drawPixel</hljs>($x, $y, $noise-><hljs prop>generate</hljs>($x, $y)); 
+drawPixel($x, $y, $noise->generate($x, $y)); 
 ```
 
 Here's the result:
@@ -104,11 +104,11 @@ Here's the result:
 Relying on randomness won't get us very far though. We want a given seed to generate the same map over and over again. So instead of randomness, let's write a hash function: a function that, for any given point and seed, will generate the same value over and over again. You could make it as simple as multiplying the seed with the x and y coordinates, and turning that into a fraction:
 
 ```php
-public function generate(<hljs type>Point</hljs> $point): float
+public function generate(Point $point): float
 {
-    $hash = $this-><hljs prop>seed</hljs> * $point-><hljs prop>x</hljs> * $point-><hljs prop>y</hljs>;
+    $hash = $this->seed * $point->x * $point->y;
     
-    return <hljs prop>floatval</hljs>('0.' . $hash);
+    return floatval('0.' . $hash);
 }
 ```
 
@@ -119,16 +119,16 @@ The result, however, doesn't seem random enough. Remember that we want to genera
 Let's try an existing hash function that we don't need to invent ourselves. We probably want a performant one, since we're generating a hash for thousands of pixels. PHP has support for xxHash, which is an "extremely fast hashing algorithm". Let's give it a try.
 
 ```php
-private function <hljs prop>hash</hljs>(<hljs type>Point</hljs> $point): float
+private function hash(Point $point): float
 {
-    $hash = <hljs prop>bin2hex</hljs>(
-        <hljs prop>hash</hljs>(
-            <hljs prop>algo</hljs>: 'xxh32',
-            <hljs prop>data</hljs>: $this-><hljs prop>seed</hljs> * $point-><hljs prop>x</hljs> * $point-><hljs prop>y</hljs>,
+    $hash = bin2hex(
+        hash(
+            algo: 'xxh32',
+            data: $this->seed * $point->x * $point->y,
         )
     );
 
-    $hash = <hljs prop>floatval</hljs>('0.' . $hash);
+    $hash = floatval('0.' . $hash);
 
     return $hash;
 }
@@ -139,21 +139,21 @@ private function <hljs prop>hash</hljs>(<hljs type>Point</hljs> $point): float
 This noise looks promising: it's quite random, but always yields the same result for a given seed. But going from this to a cohesive world map still seems like a leap. Let's change our hash function, so that it'll return the same color within a square of 10 pixels:
 
 ```php
-private function <hljs prop>hash</hljs>(<hljs type>Point</hljs> $point): float
+private function hash(Point $point): float
 {
-    $baseX = <hljs prop>ceil</hljs>($point-><hljs prop>x</hljs> / 10);
-    $baseY = <hljs prop>ceil</hljs>($point-><hljs prop>y</hljs> / 10);
+    $baseX = ceil($point->x / 10);
+    $baseY = ceil($point->y / 10);
 
-    $hash = <hljs prop>bin2hex</hljs>(
-        <hljs prop>hash</hljs>(
-            <hljs prop>algo</hljs>: 'xxh32',
-            <hljs prop>data</hljs>: $this-><hljs prop>seed</hljs> * $baseX * $baseY,
+    $hash = bin2hex(
+        hash(
+            algo: 'xxh32',
+            data: $this->seed * $baseX * $baseY,
         )
     );
 
-    $hash = <hljs prop>floatval</hljs>('0.' . $hash);
+    $hash = floatval('0.' . $hash);
 
-    return <hljs prop>sqrt</hljs>($hash);
+    return sqrt($hash);
 }
 ```
 
@@ -165,36 +165,36 @@ Oh, by the way: I take the square root of the hash, just to increase all values 
 
 ![](/img/blog/game/game-5.png)
 
-Let's _imagine_ something for a second. Let's say all pixels with a value higher than 0.6 are considered land, and all pixels with a lower value are considered water. Let's make some changes to our `<hljs prop>drawPixel</hljs>` method to reflect that behaviour:
+Let's _imagine_ something for a second. Let's say all pixels with a value higher than 0.6 are considered land, and all pixels with a lower value are considered water. Let's make some changes to our `drawPixel` method to reflect that behaviour:
 
 ```php
-function drawPixel(<hljs type>int</hljs> $x, <hljs type>int</hljs> $y, <hljs type>float</hljs> $value): string
+function drawPixel(int $x, int $y, float $value): string
 {
-    $hexFromNoise = <hljs prop>hex</hljs>($value);
+    $hexFromNoise = hex($value);
     
-    $color = <hljs keyword>match</hljs>(<hljs keyword>true</hljs>) {
+    $color = match(true) {
         $noise < 0.6 => "#0000{$hexFromNoise}", // blue
-        <hljs keyword>default</hljs> => "#00{$hexFromNoise}00", // green
+        default => "#00{$hexFromNoise}00", // green
     };
     
-    <hljs keyword>return</hljs> <<<HTML
-    <<hljs keyword>div</hljs> <hljs prop>style</hljs>="<hljs prop>--x</hljs>: {$x}; <hljs prop>--y</hljs>: {$y}; <hljs prop>--pixel-color</hljs>: {$color}"></<hljs keyword>div</hljs>>
+    return <<<HTML
+    <div style="--x: {$x}; --y: {$y}; --pixel-color: {$color}"></div>
     HTML;
 }
 ```
 
-By the way, that `<hljs prop>hex</hljs>` function converts a value between 0 and 1 to a two-digit hexadecimal. It looks like this:
+By the way, that `hex` function converts a value between 0 and 1 to a two-digit hexadecimal. It looks like this:
 
 ```php
-function <hljs prop>hex</hljs>(<hljs type>float</hljs> $value): <hljs type>string</hljs>
+function hex(float $value): string
 {
     if ($value > 1.0) {
         $value = 1.0;
     }
 
-    $hex = <hljs prop>dechex</hljs>((<hljs type>int</hljs>) ($value * 255));
+    $hex = dechex((int) ($value * 255));
 
-    if (<hljs prop>strlen</hljs>($hex) < 2) {
+    if (strlen($hex) < 2) {
         $hex = "0" . $hex;
     }
 
@@ -218,12 +218,12 @@ Time for some maths. Let's say we have two values: `0.34` and `0.78`. We want to
 Well, there's a simple mathematical formula for that. It's called "Linear Interpolation" — "LERP" for short:
 
 ```php
-function <hljs prop>lerp</hljs>(<hljs type>float</hljs> $a, <hljs type>float</hljs> $b, <hljs type>float</hljs> $fraction): float
+function lerp(float $a, float $b, float $fraction): float
 {
     return $a + $fraction * ($b - $a);
 }
 
-<hljs prop>lerp</hljs>(0.34, 0.78, 0.5); // 0.56
+lerp(0.34, 0.78, 0.5); // 0.56
 ```
 
 So, given a number `$a` (`0.34`), a number `$b` (`0.78`), and a fraction (`0.5`, also known as: "half"); we get `0.56` — the number exactly in the middle between `0.34` and `0.78`.
@@ -233,7 +233,7 @@ So, given a number `$a` (`0.34`), a number `$b` (`0.78`), and a fraction (`0.5`,
 Thanks to the _fraction_ part in our lerp formula, we can determine the value at _any place_ between these points, not just the middle:
 
 ```php
-<hljs prop>lerp</hljs>(0.34, 0.78, 0.25); // 0.45
+lerp(0.34, 0.78, 0.25); // 0.45
 ```
 
 ![](/img/blog/game/game-10.png)
@@ -246,12 +246,12 @@ Ok, so why is this important? Well, we can use our lerp function to smooth edges
 Let's say that, instead of coloring each pixel in this grid, we only color a pixel when it's exactly on a 10x10 lattice. In other words: when its x and y coordinates are divisible by 10.
 
 ```php
-final <hljs keyword>readonly</hljs> class Noise
+final readonly class Noise
 {
-    public function generate(<hljs type>Point</hljs> $x): float
+    public function generate(Point $x): float
     {
-        if ($point-><hljs prop>x</hljs> % 10 === 0 && $point-><hljs prop>y</hljs> % 10 === 0) {
-            return $this-><hljs prop>hash</hljs>($point);
+        if ($point->x % 10 === 0 && $point->y % 10 === 0) {
+            return $this->hash($point);
         } else {
             return 0.0;
         }
@@ -272,31 +272,31 @@ Let's imagine that these pixels are the `$a` and `$b` boundaries we pass into ou
 First, we'll use our lerp function on the y-axis (whenever x is divisible by 10). We'll determine the relative top and bottom points on our "lattice", calculate the distance between our current point and the top point, and then we'll use our lerp function to determine the right value between the top and bottom point, with that distance fraction: 
 
 ```php
-if ($point-><hljs prop>x</hljs> % 10 === 0 && $point-><hljs prop>y</hljs> % 10 === 0) {
-    $noise = $this-><hljs prop>hash</hljs>($point);
-} elseif ($point-><hljs prop>x</hljs> % 10 === 0) {
-    $topPoint = new <hljs type>Point</hljs>(
-        <hljs prop>x</hljs>: $point-><hljs prop>x</hljs>,
-        <hljs prop>y</hljs>: (<hljs prop>floor</hljs>($point-><hljs prop>y</hljs> / 10) * 10), 
+if ($point->x % 10 === 0 && $point->y % 10 === 0) {
+    $noise = $this->hash($point);
+} elseif ($point->x % 10 === 0) {
+    $topPoint = new Point(
+        x: $point->x,
+        y: (floor($point->y / 10) * 10), 
         // The closest point divisible by 10, above our current pixel
     );
 
-    $bottomPoint = new <hljs type>Point</hljs>(
-        <hljs prop>x</hljs>: $point-><hljs prop>x</hljs>, 
-        <hljs prop>y</hljs>: (<hljs prop>ceil</hljs>($point-><hljs prop>y</hljs> / 10) * 10) 
+    $bottomPoint = new Point(
+        x: $point->x, 
+        y: (ceil($point->y / 10) * 10) 
         // The closest point divisible by 10, below our current pixel
     );
 
-    $noise = <hljs prop>lerp</hljs>(
+    $noise = lerp(
         // The hash value (or color) of that top point:
-        <hljs prop>a</hljs>: $this-><hljs prop>hash</hljs>($topPoint),
+        a: $this->hash($topPoint),
         
         // The hash value (or color) of that bottom point:
-        <hljs prop>b</hljs>: $this-><hljs prop>hash</hljs>($bottomPoint),
+        b: $this->hash($bottomPoint),
         
         // The distance between our current point and the top point
         // — the fraction
-        <hljs prop>fraction</hljs>: ($point-><hljs prop>y</hljs> - $topPoint-><hljs prop>y</hljs>) / ($bottomPoint-><hljs prop>y</hljs> - $topPoint-><hljs prop>y</hljs>),
+        fraction: ($point->y - $topPoint->y) / ($bottomPoint->y - $topPoint->y),
     );
 }
 ```
@@ -308,25 +308,25 @@ Here's the result, you can already see the smooth transition within the lines:
 Next, let's add the same functionality in the other direction, when y is divisible by 10:
 
 ```php
-if ($point-><hljs prop>x</hljs> % 10 === 0 && $point-><hljs prop>y</hljs> % 10 === 0) {
+if ($point->x % 10 === 0 && $point->y % 10 === 0) {
     // …
-} elseif ($point-><hljs prop>x</hljs> % 10 === 0) {
+} elseif ($point->x % 10 === 0) {
     // …
-} elseif ($point-><hljs prop>y</hljs> % 10 === 0) {
-    $leftPoint = new <hljs type>Point</hljs>(
-        <hljs prop>x</hljs>: (<hljs prop>floor</hljs>($point-><hljs prop>x</hljs> / 10) * 10),
-        <hljs prop>y</hljs>: $point-><hljs prop>y</hljs>,
+} elseif ($point->y % 10 === 0) {
+    $leftPoint = new Point(
+        x: (floor($point->x / 10) * 10),
+        y: $point->y,
     );
 
-    $rightPoint = new <hljs type>Point</hljs>(
-        <hljs prop>x</hljs>: (<hljs prop>ceil</hljs>($point-><hljs prop>x</hljs> / 10) * 10),
-        <hljs prop>y</hljs>: $point-><hljs prop>y</hljs>,
+    $rightPoint = new Point(
+        x: (ceil($point->x / 10) * 10),
+        y: $point->y,
     );
 
-    $noise = <hljs prop></hljs><hljs prop>lerp</hljs>(
-        $this-><hljs prop></hljs><hljs prop>hash</hljs>($leftPoint),
-        $this-><hljs prop></hljs><hljs prop>hash</hljs>($rightPoint),
-        ($point-><hljs prop></hljs><hljs prop>x</hljs> - $leftPoint-><hljs prop></hljs><hljs prop>x</hljs>) / ($rightPoint-><hljs prop>x</hljs> - $leftPoint-><hljs prop>x</hljs>),
+    $noise = lerp(
+        $this->hash($leftPoint),
+        $this->hash($rightPoint),
+        ($point->x - $leftPoint->x) / ($rightPoint->x - $leftPoint->x),
     );
 }
 ```
@@ -341,49 +341,49 @@ Finally, for the remainder of the pixels, we won't be able to do a simple lerp f
 ![](/img/blog/game/game-29.png)
 
 ```php
-if ($point-><hljs prop>x</hljs> % 10 === 0 && $point-><hljs prop>y</hljs> % 10 === 0) {
+if ($point->x % 10 === 0 && $point->y % 10 === 0) {
     // …
-} elseif ($point-><hljs prop>x</hljs> % 10 === 0) {
+} elseif ($point->x % 10 === 0) {
     // …
-} elseif ($point-><hljs prop>y</hljs> % 10 === 0) {
+} elseif ($point->y % 10 === 0) {
     // …
 } else {
-    $topLeftPoint = new <hljs type>Point</hljs>(
-        <hljs prop>x</hljs>: (<hljs prop>floor</hljs>($point-><hljs prop>x</hljs> / 10) * 10),
-        <hljs prop>y</hljs>: (<hljs prop>floor</hljs>($point-><hljs prop>y</hljs> / 10) * 10),
+    $topLeftPoint = new Point(
+        x: (floor($point->x / 10) * 10),
+        y: (floor($point->y / 10) * 10),
     );
 
-    $topRightPoint = new <hljs type>Point</hljs>(
-        <hljs prop>x</hljs>: (<hljs prop>ceil</hljs>($point-><hljs prop>x</hljs> / 10) * 10),
-        <hljs prop>y</hljs>: (<hljs prop>floor</hljs>($point-><hljs prop>y</hljs> / 10) * 10),
+    $topRightPoint = new Point(
+        x: (ceil($point->x / 10) * 10),
+        y: (floor($point->y / 10) * 10),
     );
 
-    $bottomLeftPoint = new <hljs type>Point</hljs>(
-        <hljs prop>x</hljs>: (<hljs prop>floor</hljs>($point-><hljs prop>x</hljs> / 10) * 10),
-        <hljs prop>y</hljs>: (<hljs prop>ceil</hljs>($point-><hljs prop>y</hljs> / 10) * 10)
+    $bottomLeftPoint = new Point(
+        x: (floor($point->x / 10) * 10),
+        y: (ceil($point->y / 10) * 10)
     );
 
-    $bottomRightPoint = new <hljs type>Point</hljs>(
-        <hljs prop>x</hljs>: (<hljs prop>ceil</hljs>($point-><hljs prop>x</hljs> / 10) * 10),
-        <hljs prop>y</hljs>: (<hljs prop>ceil</hljs>($point-><hljs prop>y</hljs> / 10) * 10)
+    $bottomRightPoint = new Point(
+        x: (ceil($point->x / 10) * 10),
+        y: (ceil($point->y / 10) * 10)
     );
 
-    $a = <hljs prop>lerp</hljs>(
-        $this-><hljs prop>hash</hljs>($topLeftPoint),
-        $this-><hljs prop>hash</hljs>($topRightPoint),
-        ($point-><hljs prop>x</hljs> - $topLeftPoint-><hljs prop>x</hljs>) / ($topRightPoint-><hljs prop>x</hljs> - $topLeftPoint-><hljs prop>x</hljs>),
+    $a = lerp(
+        $this->hash($topLeftPoint),
+        $this->hash($topRightPoint),
+        ($point->x - $topLeftPoint->x) / ($topRightPoint->x - $topLeftPoint->x),
     );
 
-    $b = <hljs prop>lerp</hljs>(
-        $this-><hljs prop>hash</hljs>($bottomLeftPoint),
-        $this-><hljs prop>hash</hljs>($bottomRightPoint),
-        ($point-><hljs prop>x</hljs> - $bottomLeftPoint-><hljs prop>x</hljs>) / ($bottomRightPoint-><hljs prop>x</hljs> - $bottomLeftPoint-><hljs prop>x</hljs>),
+    $b = lerp(
+        $this->hash($bottomLeftPoint),
+        $this->hash($bottomRightPoint),
+        ($point->x - $bottomLeftPoint->x) / ($bottomRightPoint->x - $bottomLeftPoint->x),
     );
 
-    $noise = <hljs prop>lerp</hljs>(
+    $noise = lerp(
         $a,
         $b,
-        ($point-><hljs prop>y</hljs> - $topLeftPoint-><hljs prop>y</hljs>) / ($bottomLeftPoint-><hljs prop>y</hljs> - $topLeftPoint-><hljs prop>y</hljs>),
+        ($point->y - $topLeftPoint->y) / ($bottomLeftPoint->y - $topLeftPoint->y),
     );
 }
 ```
@@ -407,16 +407,16 @@ But by applying a function to our fraction, we can manipulate it so that the val
 We could use whatever function we'd want. For our case I'll use a shaping function called `smoothstep`, which smooths edges.
 
 ```php
-function smooth(<hljs type>float</hljs> $a, <hljs type>float</hljs> $b, <hljs type>float</hljs> $fraction): <hljs type>float</hljs>
+function smooth(float $a, float $b, float $fraction): float
 {
-    $smoothstep = function (<hljs type>float</hljs> $fraction): <hljs type>float</hljs> {
+    $smoothstep = function (float $fraction): float {
         $v1 = $fraction * $fraction;
         $v2 = 1.0  - (1.0 - $fraction) * (1.0 -$fraction);
 
-        return <hljs prop>lerp</hljs>($v1, $v2, $fraction);
+        return lerp($v1, $v2, $fraction);
     };
 
-    return <hljs prop>lerp</hljs>($a, $b, $smoothstep($fraction));
+    return lerp($a, $b, $smoothstep($fraction));
 }
 ```
 
@@ -427,19 +427,19 @@ The difference is subtle, but it's a little bit better.
 The second trick is to apply a new layer of noise. This one shouldn't be as random as our first one though. We'll use a simple circular pattern, and apply it as a height map on our existing noise. The further a pixel is from the center, the smaller its value:
 
 ```php
-private function circularNoise(<hljs type>int</hljs> $totalWidth, <hljs type>int</hljs> $totalHeight, <hljs type>Point</hljs> $point): <hljs type>float</hljs>
+private function circularNoise(int $totalWidth, int $totalHeight, Point $point): float
 {
     $middleX = $totalWidth / 2;
     $middleY = $totalHeight / 2;
 
-    $distanceFromMiddle = <hljs prop>sqrt</hljs>(
-        <hljs prop>pow</hljs>(($point-><hljs prop>x</hljs> - $middleX), 2)
-        + <hljs prop>pow</hljs>(($point-><hljs prop>y</hljs> - $middleY), 2)
+    $distanceFromMiddle = sqrt(
+        pow(($point->x - $middleX), 2)
+        + pow(($point->y - $middleY), 2)
     );
 
-    $maxDistanceFromMiddle = <hljs prop>sqrt</hljs>(
-        <hljs prop>pow</hljs>(($totalWidth - $middleX), 2)
-        + <hljs prop>pow</hljs>(($totalHeight - $middleY), 2)
+    $maxDistanceFromMiddle = sqrt(
+        pow(($totalWidth - $middleX), 2)
+        + pow(($totalHeight - $middleY), 2)
     );
 
     return 1 - ($distanceFromMiddle / $maxDistanceFromMiddle) + 0.3;
@@ -454,16 +454,16 @@ And now we combine this pattern with our existing noise, which is as easy as mul
 
 
 ```php
-final <hljs keyword>readonly</hljs> class Noise
+final readonly class Noise
 {
     public function __construct(
-        <hljs keyword>private</hljs> <hljs type>int</hljs> <hljs prop>$seed</hljs>,
+        private int $seed,
     ) {}
     
-    public function generate(<hljs type>Point</hljs> $point): float
+    public function generate(Point $point): float
     {
-        return $this-><hljs prop>baseNoise</hljs>($point) 
-             * $this-><hljs prop>circularNoise</hljs>($point);
+        return $this->baseNoise($point) 
+             * $this->circularNoise($point);
     }
 }
 ```
@@ -478,16 +478,16 @@ This looks a lot better! Thanks to our circular pattern, the middle portion of o
 ![](/img/blog/game/game-26.png)
 ![](/img/blog/game/game-25.png)
 
-Pretty nice! But we're far from done: we'll want to add different areas on our map: forests, plains, mountains, vegetation, …. Simply using a `<hljs keyword>match</hljs>` in our `<hljs prop>drawPixel</hljs>` method won't suffice anymore. 
+Pretty nice! But we're far from done: we'll want to add different areas on our map: forests, plains, mountains, vegetation, …. Simply using a `match` in our `drawPixel` method won't suffice anymore. 
 
 ## Improved drawing
 
-Let's make an interface `<hljs type>Biome</hljs>`, which will determine our pixel color, and can determine what kind of vegetation should be added. We'll also represent pixels as a proper value object. 
+Let's make an interface `Biome`, which will determine our pixel color, and can determine what kind of vegetation should be added. We'll also represent pixels as a proper value object. 
 
 ```php
 interface Biome
 {
-    public function getPixelColor(<hljs type>Pixel</hljs> $pixel): <hljs type>string</hljs>;
+    public function getPixelColor(Pixel $pixel): string;
 }
 ```
 
@@ -495,30 +495,30 @@ Let's add seas and plains first.
 
 
 ```php
-final <hljs keyword>readonly</hljs> class SeaBiome implements Biome
+final readonly class SeaBiome implements Biome
 {
-    public function getPixelColor(<hljs type>Pixel</hljs> $pixel): <hljs type>string</hljs>
+    public function getPixelColor(Pixel $pixel): string
     {
-        $base = $pixel-><hljs prop>value</hljs>;
+        $base = $pixel->value;
 
         while ($base < 0.25) {
             $base += 0.01;
         }
 
-        $r = <hljs prop>hex</hljs>($base / 3);
-        $g = <hljs prop>hex</hljs>($base / 3);
-        $b = <hljs prop>hex</hljs>($base);
+        $r = hex($base / 3);
+        $g = hex($base / 3);
+        $b = hex($base);
 
         return "#{$r}{$g}{$b}";
     }
 }
 
-final <hljs keyword>readonly</hljs> class PlainsBiome implements Biome
+final readonly class PlainsBiome implements Biome
 {
-    public function getPixelColor(<hljs type>Pixel</hljs> $pixel): <hljs type>string</hljs>
+    public function getPixelColor(Pixel $pixel): string
     {
-        $g = <hljs prop>hex</hljs>($pixel-><hljs prop>value</hljs>);
-        $b = <hljs prop>hex</hljs>($pixel-><hljs prop>value</hljs> / 4);
+        $g = hex($pixel->value);
+        $b = hex($pixel->value / 4);
 
         return "#00{$g}{$b}";
     }
@@ -526,35 +526,35 @@ final <hljs keyword>readonly</hljs> class PlainsBiome implements Biome
 ```
 
 Depending on a pixel's biome, we'll use its noise to generate a different kind of color.
-In our `<hljs prop>drawPixel</hljs>` function, we can now make some changes:
+In our `drawPixel` function, we can now make some changes:
 
 ```php
-function drawPixel(<hljs type>Pixel</hljs> $pixel): string
+function drawPixel(Pixel $pixel): string
 {
-    $biome = <hljs type>BiomeFactory</hljs>::<hljs prop>for</hljs>($pixel);
+    $biome = BiomeFactory::for($pixel);
     
-    $color = $biome-><hljs prop>getPixelColor</hljs>($pixel);
+    $color = $biome->getPixelColor($pixel);
     
-    <hljs keyword>return</hljs> <<<HTML
-    <<hljs keyword>div</hljs> <hljs prop>style</hljs>="
-        <hljs prop>--x</hljs>: {$x}; 
-        <hljs prop>--y</hljs>: {$y};
-        <hljs prop>--pixel-color</hljs>: {$color};
-    "></<hljs keyword>div</hljs>>
+    return <<<HTML
+    <div style="
+        --x: {$x}; 
+        --y: {$y};
+        --pixel-color: {$color};
+    "></div>
     HTML;
 }
 ```
 
-For now, our <hljs type>BiomeFactory</hljs> will only take a pixel's value into account to determine the biome. We could add other conditions later. 
+For now, our BiomeFactory will only take a pixel's value into account to determine the biome. We could add other conditions later. 
 
 ```php
-final <hljs keyword>readonly</hljs> class BiomeFactory
+final readonly class BiomeFactory
 {
-    public static function for(<hljs type>Pixel</hljs> $pixel): Biome
+    public static function for(Pixel $pixel): Biome
     {
-        return <hljs keyword>match</hljs>(true) {
-            $pixel-><hljs prop>value</hljs> < 0.6 => new <hljs type>SeaBiome</hljs>(),
-            default => new <hljs type>PlainsBiome</hljs>(),
+        return match(true) {
+            $pixel->value < 0.6 => new SeaBiome(),
+            default => new PlainsBiome(),
         };
     }
 }
@@ -567,16 +567,16 @@ It still works:
 Let's go ahead and add all biomes now:
 
 ```php
-final <hljs keyword>readonly</hljs> class BiomeFactory
+final readonly class BiomeFactory
 {
-    public static function make(<hljs type>Pixel</hljs> $pixel): Biome
+    public static function make(Pixel $pixel): Biome
     {
-        return <hljs keyword>match</hljs>(true) {
-            $pixel-><hljs prop>value</hljs> < 0.4 => new <hljs type>SeaBiome</hljs>(),
-            $pixel-><hljs prop>value</hljs> >= 0.4 && $pixel-><hljs prop>value</hljs> < 0.44 => new <hljs type>BeachBiome</hljs>(),
-            $pixel-><hljs prop>value</hljs> >= 0.6 && $pixel-><hljs prop>value</hljs> < 0.8 => new <hljs type>ForestBiome</hljs>(),
-            $pixel-><hljs prop>value</hljs> >= 0.8 => new <hljs type>MountainBiome</hljs>(),
-            default => new <hljs type>PlainsBiome</hljs>(),
+        return match(true) {
+            $pixel->value < 0.4 => new SeaBiome(),
+            $pixel->value >= 0.4 && $pixel->value < 0.44 => new BeachBiome(),
+            $pixel->value >= 0.6 && $pixel->value < 0.8 => new ForestBiome(),
+            $pixel->value >= 0.8 => new MountainBiome(),
+            default => new PlainsBiome(),
         };
     }
 }

@@ -11,13 +11,13 @@ More than once, I've been amazed by what's actually built-into PHP. Here are som
 It's a pretty cool function to determine how similar two related words or phrases are. For example: passing in `"PHP is awesome"` twice, will result in a "distance" of `0`:
 
 ```php
-<hljs prop>levenshtein</hljs>("PHP is awesome", "PHP is awesome"); // 0
+levenshtein("PHP is awesome", "PHP is awesome"); // 0
 ```
 
 However, passing in two different phrases will result in a larger distance:
 
 ```php
-<hljs prop>levenshtein</hljs>("Dark colour schemes", "are awesome"); // 13
+levenshtein("Dark colour schemes", "are awesome"); // 13
 ```
 
 Unsurprisingly, given how incompatible above two statements are 😉
@@ -30,33 +30,33 @@ PHP has — believe it or not — a built-in function to determine the date of E
 Or maybe it simply is hard coded?
 
 ```php
-<hljs prop>date</hljs>('Y-m-d', <hljs prop>easter_date</hljs>(2023)); // 2023-04-08
+date('Y-m-d', easter_date(2023)); // 2023-04-08
 ```
 
 ## Forks
 
-Did you know PHP can be async? CLI versions of PHP have access to the `pcntl` functions, including the `<hljs prop>pcntl_fork</hljs>` function. This function is basically a wrapper for creating process forks, allowing one PHP process to spawn and manage several!
+Did you know PHP can be async? CLI versions of PHP have access to the `pcntl` functions, including the `pcntl_fork` function. This function is basically a wrapper for creating process forks, allowing one PHP process to spawn and manage several!
 
 Here's a simple example using sockets to create an async child process in PHP:
 
 ```php
-function <hljs prop>async</hljs>(<hljs type>Process</hljs> $process): Process {
-    <hljs prop>socket_create_pair</hljs>(<hljs prop>AF_UNIX</hljs>, <hljs prop>SOCK_STREAM</hljs>, 0, $sockets);
+function async(Process $process): Process {
+    socket_create_pair(AF_UNIX, SOCK_STREAM, 0, $sockets);
     [$parentSocket, $childSocket] = $sockets;
 
-    if (($pid = <hljs prop>pcntl_fork</hljs>()) == 0) {
-        <hljs prop>socket_close</hljs>($childSocket);
-        <hljs prop>socket_write</hljs>($parentSocket, <hljs prop>serialize</hljs>($process-><hljs prop>execute</hljs>()));
-        <hljs prop>socket_close</hljs>($parentSocket);
+    if (($pid = pcntl_fork()) == 0) {
+        socket_close($childSocket);
+        socket_write($parentSocket, serialize($process->execute()));
+        socket_close($parentSocket);
         exit;
     }
 
-    <hljs prop>socket_close</hljs>($parentSocket);
+    socket_close($parentSocket);
 
     return $process
-        -><hljs prop>setStartTime</hljs>(<hljs prop>time</hljs>())
-        -><hljs prop>setPid</hljs>($pid)
-        -><hljs prop>setSocket</hljs>($childSocket);
+        ->setStartTime(time())
+        ->setPid($pid)
+        ->setSocket($childSocket);
 }
 ```
 
@@ -64,19 +64,19 @@ I actually wrote a little package that wraps everything in an easy-to-use API: [
 
 ## Metaphone?
 
-Similar to `<hljs prop>levenshtein</hljs>`, `<hljs prop>methaphone</hljs>` can generate a phonetic representation of a given string:
+Similar to `levenshtein`, `methaphone` can generate a phonetic representation of a given string:
 
 ```php
-<hljs prop>metaphone</hljs>("Light color schemes!"); // LFTKLRSXMS
-<hljs prop>metaphone</hljs>("Light colour schemes!"); // LFTKLRSXMS
+metaphone("Light color schemes!"); // LFTKLRSXMS
+metaphone("Light colour schemes!"); // LFTKLRSXMS
 ```
 
 ## Built-in DNS
 
-PHP understands DNS, apparently. It has a built-in function called `<hljs prop>dns_get_record</hljs>`, which does as its name implies: it gets a DNS record.
+PHP understands DNS, apparently. It has a built-in function called `dns_get_record`, which does as its name implies: it gets a DNS record.
 
 ```php
-<hljs prop>dns_get_record</hljs>("stitcher.io");
+dns_get_record("stitcher.io");
 
 {
     ["host"] => "stitcher.io"
@@ -93,7 +93,7 @@ PHP understands DNS, apparently. It has a built-in function called `<hljs prop>d
 
 ## Recursive array merging
 
-I mainly wanted to include `<hljs prop>array_merge_recursive</hljs>` because, for a long time, I misunderstood what it did. I used to think you'd have to use it for merging multidimensional arrays, but that's not true!
+I mainly wanted to include `array_merge_recursive` because, for a long time, I misunderstood what it did. I used to think you'd have to use it for merging multidimensional arrays, but that's not true!
 
 It might be better to let [past-me explain it](/blog/merging-multidimensional-arrays-in-php) but, in summary, it works like this:
 
@@ -106,7 +106,7 @@ $second = [
     'key' => 'override'
 ];
 
-<hljs prop>array_merge_recursive</hljs>($first, $second);
+array_merge_recursive($first, $second);
 
 {
     ["key"] => {
@@ -121,13 +121,13 @@ $second = [
 PHP has a mail function. A function to send mail. I wouldn't use it, but it's there:
 
 ```php
-<hljs prop>mail</hljs>(
-    <hljs type>string</hljs> $to,
-    <hljs type>string</hljs> $subject,
-    <hljs type>string</hljs> $message,
-    <hljs type>array|string</hljs> $additional_headers = [],
-    <hljs type>string</hljs> $additional_params = ""
-): <hljs type>bool</hljs>
+mail(
+    string $to,
+    string $subject,
+    string $message,
+    array|string $additional_headers = [],
+    string $additional_params = ""
+): bool
 ```
 
 ## DL
@@ -135,22 +135,22 @@ PHP has a mail function. A function to send mail. I wouldn't use it, but it's th
 Apparently, there's a function in PHP that allows you to dynamically load extensions, _while_ your script is running!
 
 ```php
-if (! <hljs prop>extension_loaded</hljs>('sqlite')) {
-    if (<hljs prop>strtoupper</hljs>(<hljs prop>substr</hljs>(<hljs prop>PHP_OS</hljs>, 0, 3)) === 'WIN') {
-        <hljs prop>dl</hljs>('php_sqlite.dll');
+if (! extension_loaded('sqlite')) {
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        dl('php_sqlite.dll');
     } else {
-        <hljs prop>dl</hljs>('sqlite.so');
+        dl('sqlite.so');
     }
 }
 ```
 
 ## Blob… I mean glob
 
-`<hljs prop>glob</hljs>` is a seriously awesome function: it finds pathnames according to a pattern. It's pretty easy to explain, but it's oh so useful:
+`glob` is a seriously awesome function: it finds pathnames according to a pattern. It's pretty easy to explain, but it's oh so useful:
 
 ```php
-<hljs prop>glob</hljs>(<hljs prop>__DIR__</hljs> . '/content/blog/*.md');
-<hljs prop>glob</hljs>(<hljs prop>__DIR__</hljs> . '/content/*/*.md');
+glob(__DIR__ . '/content/blog/*.md');
+glob(__DIR__ . '/content/*/*.md');
 
 {
     /path/to/content/blog/foo.md,
@@ -164,10 +164,10 @@ if (! <hljs prop>extension_loaded</hljs>('sqlite')) {
 Finally, PHP not only knows about Easter, it also knows about when the sun rises and sets, for any given date! It also requires a longitude and latitude, which of course makes sense because the sunrise and sunset times depend on your location:
 
 ```php
-<hljs prop>date_sun_info</hljs>(
-    <hljs prop>timestamp</hljs>: <hljs prop>strtotime</hljs>('2023-01-27'), 
-    <hljs prop>latitude</hljs>: 50.278809, 
-    <hljs prop>longitude</hljs>: 4.286095,
+date_sun_info(
+    timestamp: strtotime('2023-01-27'), 
+    latitude: 50.278809, 
+    longitude: 4.286095,
 )
 
 {

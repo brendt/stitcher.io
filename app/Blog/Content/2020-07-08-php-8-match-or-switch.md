@@ -38,7 +38,7 @@ switch ($statusCode) {
 Here's its `match` equivalent:
 
 ```php
-$message = <hljs keyword>match</hljs> ($statusCode) {
+$message = match ($statusCode) {
     200, 300 => null,
     400 => 'not found',
     500 => 'server error',
@@ -62,7 +62,7 @@ People will probably disagree whether that's a good thing or not, but that's a [
 ```php
 $statusCode = '200';
 
-$message = <hljs keyword>match</hljs> ($statusCode) {
+$message = match ($statusCode) {
     200 => null,
     default => 'unknown status code',
 };
@@ -79,7 +79,7 @@ If you forget to check for a value, and when there's no `default` arm specified,
 ```php
 $statusCode = 400;
 
-$message = <hljs keyword>match</hljs> ($statusCode) {
+$message = match ($statusCode) {
     200 => 'perfect',
 };
 
@@ -97,7 +97,7 @@ You already noticed the lack of `break`? This also means `match` doesn't allow f
 So you have the same functionality as switch in this regards, but with less writing, and less ways to screw up. Win-win!
 
 ```php
-$message = <hljs keyword>match</hljs> ($statusCode) {
+$message = match ($statusCode) {
     200, 300, 301, 302 => 'combined expressions',
 };
 ```
@@ -108,8 +108,8 @@ During the RFC discussion, some people suggested the following pattern as an arg
 
 ```php
 $message = [
-    $this-><hljs prop>matchesRegex</hljs>($line) => 'match A',
-    $this-><hljs prop>matchesOtherRegex</hljs>($line) => 'match B',
+    $this->matchesRegex($line) => 'match A',
+    $this->matchesOtherRegex($line) => 'match B',
 ][$line] ?? 'no match';
 ```
 
@@ -120,9 +120,9 @@ There's one big caveat though: this technique will execute all regex functions f
 Finally, because of [throw expressions in PHP 8](/blog/new-in-php-8#throw-expression-rfc), it's also possible to directly throw from an arm, if you'd like to.
 
 ```php
-$message = <hljs keyword>match</hljs> ($statusCode) {
+$message = match ($statusCode) {
     200 => null,
-    500 => throw new <hljs type>ServerError</hljs>(),
+    500 => throw new ServerError(),
     default => 'unknown status code',
 };
 ```

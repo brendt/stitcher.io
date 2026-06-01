@@ -22,52 +22,52 @@ Writing data transfer objects and value objects in PHP has become significantly 
 ```php
 class BlogData
 {
-    /** @var <hljs type>string</hljs> */
-    private <hljs prop>$title</hljs>;
+    /** @var string */
+    private $title;
     
-    /** @var <hljs type>Status</hljs> */
-    private <hljs prop>$status</hljs>;
+    /** @var Status */
+    private $status;
     
-    /** @var <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> */
-    private <hljs prop>$publishedAt</hljs>;
+    /** @var \DateTimeImmutable|null */
+    private $publishedAt;
    
    /**
-    * @param <hljs type>string</hljs> $title 
-    * @param <hljs type>Status</hljs> $status 
-    * @param <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> $publishedAt 
+    * @param string $title 
+    * @param Status $status 
+    * @param \DateTimeImmutable|null $publishedAt 
     */
     public function __construct(
         $title,
         $status,
-        $publishedAt = <hljs keyword>null</hljs>
+        $publishedAt = null
     ) {
-        $this-><hljs prop>title</hljs> = $title;
-        $this-><hljs prop>status</hljs> = $status;
-        $this-><hljs prop>publishedAt</hljs> = $publishedAt;
+        $this->title = $title;
+        $this->status = $status;
+        $this->publishedAt = $publishedAt;
     }
     
     /**
-     * @return <hljs type>string</hljs> 
+     * @return string 
      */
     public function getTitle()
     {
-        return $this-><hljs prop>title</hljs>;    
+        return $this->title;    
     }
     
     /**
-     * @return <hljs type>Status</hljs> 
+     * @return Status 
      */
     public function getStatus() 
     {
-        return $this-><hljs prop>status</hljs>;    
+        return $this->status;    
     }
     
     /**
-     * @return <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> 
+     * @return \DateTimeImmutable|null 
      */
     public function getPublishedAt() 
     {
-        return $this-><hljs prop>publishedAt</hljs>;    
+        return $this->publishedAt;    
     }
 }
 ```
@@ -78,24 +78,24 @@ And compare it to its [PHP 8.0](/blog/new-in-php-8)'s equivalent:
 class BlogData
 {
     public function __construct(
-        <hljs keyword>private</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>private</hljs> <hljs type>Status</hljs> <hljs prop>$status</hljs>,
-        <hljs keyword>private</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+        private string $title,
+        private Status $status,
+        private ?DateTimeImmutable $publishedAt = null,
     ) {}
     
     public function getTitle(): string
     {
-        return $this-><hljs prop>title</hljs>;    
+        return $this->title;    
     }
     
     public function getStatus(): Status 
     {
-        return $this-><hljs prop>status</hljs>;    
+        return $this->status;    
     }
     
-    public function getPublishedAt(): <hljs type>?DateTimeImmutable</hljs>
+    public function getPublishedAt(): ?DateTimeImmutable
     {
-        return $this-><hljs prop>publishedAt</hljs>;    
+        return $this->publishedAt;    
     }
 }
 ```
@@ -106,9 +106,9 @@ That's already quite the difference, though I think there's still one big issue:
 class BlogData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public</hljs> <hljs type>Status</hljs> <hljs prop>$status</hljs>,
-        <hljs keyword>public</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+        public string $title,
+        public Status $status,
+        public ?DateTimeImmutable $publishedAt = null,
     ) {}
 }
 ```
@@ -117,15 +117,15 @@ Object oriented purists don't like this approach though: an object's internal st
 
 In our projects at Spatie, we have an internal style guide rule that DTOs and VOs with public properties shouldn't be changed from the outside; a practice that seems to work fairly well, we've been doing it for quite some time now without running into any problems.
 
-However, yes; I agree that it would be better if the language ensured that public properties couldn't be overwritten at all. Well, [PHP 8.1](/blog/new-in-php-81) solves all these issues by introducing the `<hljs keyword>readonly</hljs>` keyword:
+However, yes; I agree that it would be better if the language ensured that public properties couldn't be overwritten at all. Well, [PHP 8.1](/blog/new-in-php-81) solves all these issues by introducing the `readonly` keyword:
 
 ```php
 class BlogData
 {
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public readonly</hljs> <hljs type>Status</hljs> <hljs prop>$status</hljs>,
-        <hljs keyword>public readonly</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+        public readonly string $title,
+        public readonly Status $status,
+        public readonly ?DateTimeImmutable $publishedAt = null,
     ) {}
 }
 ```
@@ -133,15 +133,15 @@ class BlogData
 This keyword basically does what its name suggests: once a property is set, it cannot be overwritten anymore:
 
 ```php
-$blog = new <hljs type>BlogData</hljs>(
-    <hljs prop>title</hljs>: 'PHP 8.1: readonly properties', 
-    <hljs prop>status</hljs>: <hljs type>Status</hljs>::<hljs prop>PUBLISHED</hljs>, 
-    <hljs prop>publishedAt</hljs>: <hljs prop>now</hljs>()
+$blog = new BlogData(
+    title: 'PHP 8.1: readonly properties', 
+    status: Status::PUBLISHED, 
+    publishedAt: now()
 );
 
-<hljs striped>$blog-><hljs prop>title</hljs> = 'Another title';</hljs>
+$blog->title = 'Another title';
 
-<hljs error full>Error: Cannot modify readonly property BlogData::$title</hljs>
+Error: Cannot modify readonly property BlogData::$title
 ```
 
 Knowing that, when an object is constructed, it won't change anymore, gives a level of certainty and peace when writing code: a whole range of unforeseen data changes simply can't happen anymore.
@@ -157,36 +157,36 @@ Readonly properties can only be used in combination with typed properties:
 ```php
 class BlogData
 {
-    public <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    public readonly string $title;
     
-    public <hljs keyword striped>readonly</hljs> <hljs prop>$mixed</hljs>;
+    public readonly $mixed;
 }
 ```
 
-You can however use `<hljs type>mixed</hljs>` as a type hint:
+You can however use `mixed` as a type hint:
 
 ```php
 class BlogData
 {
-    public <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    public readonly string $title;
     
-    public <hljs keyword>readonly</hljs> <hljs type>mixed</hljs> <hljs prop>$mixed</hljs>;
+    public readonly mixed $mixed;
 }
 ```
 
-The reason for this restriction is that by omitting a property type, PHP will automatically set a property's value to `<hljs keyword>null</hljs>` if no explicit value was supplied in the constructor. This behaviour, combined with readonly, would cause unnecessary confusion.
+The reason for this restriction is that by omitting a property type, PHP will automatically set a property's value to `null` if no explicit value was supplied in the constructor. This behaviour, combined with readonly, would cause unnecessary confusion.
 
 ### Both normal and promoted properties
 
-You've already seen examples of both: `<hljs keyword>readonly</hljs>` can be added both on normal, as well as promoted properties:
+You've already seen examples of both: `readonly` can be added both on normal, as well as promoted properties:
 
 ```php
 class BlogData
 {
-    public <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    public readonly string $title;
     
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>Status</hljs> <hljs prop>$status</hljs>, 
+        public readonly Status $status, 
     ) {}
 }
 ```
@@ -198,7 +198,7 @@ Readonly properties can not have a default value:
 ```php
 class BlogData
 {
-    public <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs><hljs striped> = 'Readonly properties'</hljs>;
+    public readonly string $title = 'Readonly properties';
 }
 ```
 
@@ -208,7 +208,7 @@ That is, unless they are promoted properties:
 class BlogData
 {
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs> = 'Readonly properties', 
+        public readonly string $title = 'Readonly properties', 
     ) {}
 }
 ```
@@ -218,12 +218,12 @@ The reason that it _is_ allowed for promoted properties, is because the default 
 ```php
 class BlogData
 {
-    public <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    public readonly string $title;
     
     public function __construct(
-        <hljs type>string</hljs> <hljs prop>$title</hljs> = 'Readonly properties', 
+        string $title = 'Readonly properties', 
     ) {
-        $this-><hljs prop>title</hljs> = $title;
+        $this->title = $title;
     }
 }
 ```
@@ -238,34 +238,34 @@ You're not allowed to change the readonly flag during inheritance:
 ```php
 class Foo
 {
-    public <hljs keyword>readonly</hljs> <hljs type>int</hljs> <hljs prop>$prop</hljs>;
+    public readonly int $prop;
 }
 
 class Bar extends Foo
 {
-    <hljs striped>public <hljs type>int</hljs> <hljs prop>$prop</hljs>;</hljs>
+    public int $prop;
 }
 ```
 
-This rule goes in both directions: you're not allowed to add or remove the `<hljs keyword>readonly</hljs>` flag during inheritance.
+This rule goes in both directions: you're not allowed to add or remove the `readonly` flag during inheritance.
 
 ### Unset is not allowed
 
 Once a readonly property is set, you cannot change it, not even unset it:
 
 ```php
-$foo = new <hljs type>Foo</hljs>('value');
+$foo = new Foo('value');
 
-<hljs striped><hljs keyword>unset</hljs>($foo-><hljs prop>prop</hljs>);</hljs>
+unset($foo->prop);
 ```
 
 ### Reflection
 
-There's a new `<hljs type>ReflectionProperty</hljs>::<hljs prop>isReadOnly</hljs>()` method, as well as a `<hljs type>ReflectionProperty</hljs>::<hljs prop>IS_READONLY</hljs>` flag.
+There's a new `ReflectionProperty::isReadOnly()` method, as well as a `ReflectionProperty::IS_READONLY` flag.
 
 ### Cloning
 
-So, if you can't change readonly properties, and if you can't unset them, how can you create a copy of your DTOs or VOs and change some of its data? You can't `<hljs keyword>clone</hljs>` them, because you wouldn't be able to overwrite its values. There's actually an idea to add a `<hljs keyword>clone with</hljs>` construct in the future that allows this behaviour, but that doesn't solve our problem now.
+So, if you can't change readonly properties, and if you can't unset them, how can you create a copy of your DTOs or VOs and change some of its data? You can't `clone` them, because you wouldn't be able to overwrite its values. There's actually an idea to add a `clone with` construct in the future that allows this behaviour, but that doesn't solve our problem now.
 
 Well, you _can_ copy over objects with changed readonly properties, if you rely on a little bit of reflection magic. By creating an object _without_ calling its constructor (which is possible using reflection), and then by manually copying each property over — sometimes overwriting its value — you can in fact "clone" an object and change its readonly properties. 
 
@@ -274,16 +274,16 @@ I made [a small package](*https://github.com/spatie/php-cloneable) to do exactly
 ```php
 class BlogData
 {
-    use <hljs type>Cloneable</hljs>;
+    use Cloneable;
 
     public function __construct(
-        <hljs keyword>public</hljs> <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        public readonly string $title,
     ) {}
 }
 
-$dataA = new <hljs type>BlogData</hljs>('Title');
+$dataA = new BlogData('Title');
 
-$dataB = $dataA-><hljs prop>with</hljs>(<hljs prop>title</hljs>: 'Another title');
+$dataB = $dataA->with(title: 'Another title');
 ```
 
 I actually wrote a dedicated blogpost explaining the mechanics behind all of this, you can read it [here](/blog/cloning-readonly-properties-in-php-81).
@@ -293,12 +293,12 @@ I actually wrote a dedicated blogpost explaining the mechanics behind all of thi
 Finally, I should also mention the addition of [readonly classes in PHP 8.2](/blog/readonly-classes-in-php-82). In cases where all properties of your class are readonly (which often happens with DTOs or VOs), you can mark the class itself as readonly. This means you won't have to declare every individual property as readonly — a nice shorthand!
 
 ```php
-<hljs keyword>readonly</hljs> class BlogData
+readonly class BlogData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public</hljs> <hljs type>Status</hljs> <hljs prop>$status</hljs>,
-        <hljs keyword>public</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+        public string $title,
+        public Status $status,
+        public ?DateTimeImmutable $publishedAt = null,
     ) {}
 }
 ```

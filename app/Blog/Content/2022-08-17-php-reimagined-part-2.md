@@ -18,7 +18,7 @@ I'll keep this list short and to the point, but I'll always link to more in-dept
 The obvious one first. If I'd have to order my wishlist in descending priority, generics are on places one to five, and the rest follows afterwards.
 
 ```php
-function app(<hljs type>classString</hljs><<hljs generic>ClassType</hljs>> $className): <hljs generic>ClassType</hljs>
+function app(classString<ClassType> $className): ClassType
 {
     // …
 }
@@ -50,31 +50,31 @@ So instead of writing this:
 $attributes = [];
 
 do {
-    $attributes = $reflection-><hljs prop>getAttributes</hljs>(
-        <hljs prop>name</hljs>: <hljs type>RouteAttribute</hljs>::class,
-        <hljs prop>flags</hljs>: <hljs type>ReflectionAttribute</hljs>::<hljs prop>IS_INSTANCEOF</hljs>
+    $attributes = $reflection->getAttributes(
+        name: RouteAttribute::class,
+        flags: ReflectionAttribute::IS_INSTANCEOF
     );
     
-    $reflection = $reflection-><hljs prop>getParentClass</hljs>();
+    $reflection = $reflection->getParentClass();
 } while ($attributes === [] && $reflection);
 ```
 
 We could do this:
 
 ```php
-$attributes = $reflection-><hljs prop>getAttributes</hljs>(
-    <hljs prop>name</hljs>: <hljs type>RouteAttribute</hljs>::class,
-    <hljs prop>flags</hljs>: <hljs type>ReflectionAttribute</hljs>::<hljs prop>IS_INSTANCEOF</hljs> 
-         | <hljs type>ReflectionAttribute</hljs>::<hljs prop>CASCADE</hljs>
+$attributes = $reflection->getAttributes(
+    name: RouteAttribute::class,
+    flags: ReflectionAttribute::IS_INSTANCEOF 
+         | ReflectionAttribute::CASCADE
 );
 ```
 
 ## Scalar objects
 
-It's not that high up on my list since there are userland implementations available, although it would be nice if scalar objects could have proper names. So `<hljs type>String</hljs>` instead of `<hljs type>StringHelper</hljs>` (which is how Laravel solves the problem of `<hljs type>String</hljs>` being a reserved word).
+It's not that high up on my list since there are userland implementations available, although it would be nice if scalar objects could have proper names. So `String` instead of `StringHelper` (which is how Laravel solves the problem of `String` being a reserved word).
 
 ```php
-$string = new <hljs type>String</hljs>(' hello, world ')-><hljs prop>trim</hljs>()-><hljs prop>explode</hljs>(',');
+$string = new String(' hello, world ')->trim()->explode(',');
 ```
 
 {{ cta:dynamic }}
@@ -87,17 +87,17 @@ Anyway, a pipe operator would be cool:
 
 ```php
 $result = "Hello World"
-    |> <hljs prop>htmlentities</hljs>(...)
-    |> <hljs prop>str_split</hljs>(...)
-    |> <hljs prop>array_map</hljs>(<hljs prop>strtoupper</hljs>(...), $$)
-    |> <hljs prop>array_filter</hljs>($$, <hljs keyword>fn</hljs>($v) => $v != 'O');
+    |> htmlentities(...)
+    |> str_split(...)
+    |> array_map(strtoupper(...), $$)
+    |> array_filter($$, fn($v) => $v != 'O');
 ```
 
 Note that I'm taking some creative liberties in how argument placeholders would work with the `$$` syntax. 
 
 ## Unified function names
 
-"It would be such a breaking change 😱!!!" to finally make all PHP functions follow the same naming convention. No more `<hljs prop>str_replace</hljs>` and `<hljs prop>strlen</hljs>`, but rather `<hljs prop>string_replace</hljs>` and `<hljs prop>string_length</hljs>`.
+"It would be such a breaking change 😱!!!" to finally make all PHP functions follow the same naming convention. No more `str_replace` and `strlen`, but rather `string_replace` and `string_length`.
 
 It wouldn't be that big of a breaking change though: we could automate the upgrade process with tools like [Rector](https://github.com/rectorphp/rector), and static analysers would tell us about the correct function names while writing code. It would take some getting used to, but at least there would be a consistent API.
 

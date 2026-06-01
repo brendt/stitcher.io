@@ -33,11 +33,11 @@ class StatusEnum extends Enum
 To this:
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>Status</hljs>
+enum Status
 {
-    case <hljs prop>draft</hljs>;
-    case <hljs prop>published</hljs>;
-    case <hljs prop>archived</hljs>;
+    case draft;
+    case published;
+    case archived;
 }
 ``` 
 
@@ -63,10 +63,10 @@ While arrays with string keys cannot:
 $a = ['a' => 1, 'b' => 2, 'c' => 3];
 $b = ['d' => 4, 'e' => 5, 'f' => 6];
 
-$new = <hljs striped>[...$a, ...$b]</hljs>; 
+$new = [...$a, ...$b]; 
 
 // You'd need to use array_merge in this case
-$new = <hljs prop>array_merge</hljs>($a, $b); 
+$new = array_merge($a, $b); 
 ``` 
 
 <em class="center small">PHP 8.0</em>
@@ -87,30 +87,30 @@ $new = [...$a, ...$b];
 
 ## Class properties: initializers and readonly
 
-Another stunning new feature is once again such a quality-of-life improvement that I've struggled with for years: default arguments in function parameters. Imagine you'd want to set a default state class for a `<hljs type>BlogData</hljs>` object. Before PHP 8.1 you'd have to make it nullable and set it in the constructor:
+Another stunning new feature is once again such a quality-of-life improvement that I've struggled with for years: default arguments in function parameters. Imagine you'd want to set a default state class for a `BlogData` object. Before PHP 8.1 you'd have to make it nullable and set it in the constructor:
 
 ```php
 class BlogData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public</hljs> <hljs type>?BlogState</hljs> <hljs prop>$state</hljs> = null,
+        public string $title,
+        public ?BlogState $state = null,
     ) {
-        $this-><hljs prop>state</hljs> ??= new <hljs type>Draft</hljs>();
+        $this->state ??= new Draft();
     }
 }
 ```
 
 <em class="center small">PHP 8.0</em>
 
-PHP 8.1 allows that `<hljs keyword>new</hljs>` call directly in the function definition. This will be **huge**:
+PHP 8.1 allows that `new` call directly in the function definition. This will be **huge**:
 
 ```php
 class BlogData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public</hljs> <hljs type>BlogState</hljs> <hljs prop>$state</hljs> = <hljs keyword>new</hljs> <hljs type>Draft</hljs>(),
+        public string $title,
+        public BlogState $state = new Draft(),
     ) {
     }
 }
@@ -124,8 +124,8 @@ Speaking of huge, have I mentioned yet that **readonly** properties are a _thing
 class BlogData
 {
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public readonly</hljs> <hljs type>BlogState</hljs> <hljs prop>$state</hljs> = <hljs keyword>new</hljs> <hljs type>Draft</hljs>(),
+        public readonly string $title,
+        public readonly BlogState $state = new Draft(),
     ) {
     }
 }
@@ -142,8 +142,8 @@ As if that wasn't enough, there's now also the first-class callable syntax, whic
 Previously you'd had to write something like this:
 
 ```php
-$strlen = <hljs type>Closure</hljs>::<hljs prop>fromCallable</hljs>('strlen');
-$callback = <hljs type>Closure</hljs>::<hljs prop>fromCallable</hljs>([$object, 'method']);
+$strlen = Closure::fromCallable('strlen');
+$callback = Closure::fromCallable([$object, 'method']);
 ```
 
 <em class="center small">PHP 8.0</em>
@@ -151,8 +151,8 @@ $callback = <hljs type>Closure</hljs>::<hljs prop>fromCallable</hljs>([$object, 
 In PHP 8.1, you can do… this:
 
 ```php
-$strlen = <hljs prop>strlen</hljs>(...);
-$callback = $object-><hljs prop>method</hljs>(...);
+$strlen = strlen(...);
+$callback = $object->method(...);
 ```
 
 <em class="center small">PHP 8.1</em>

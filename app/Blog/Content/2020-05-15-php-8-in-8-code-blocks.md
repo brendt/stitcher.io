@@ -17,15 +17,15 @@ PHP 8 brings lots of new features, in this list we'll look at the most outstandi
 ---
 
 ```php
-use <hljs type>Support\Attributes\ListensTo</hljs>;
+use Support\Attributes\ListensTo;
 
 class ProductSubscriber
 {
-    #[<hljs type green>ListensTo</hljs>(<hljs type>ProductCreated</hljs><hljs keyword>::class</hljs>)]
-    public function onProductCreated(<hljs type>ProductCreated</hljs> $event) { /* … */ }
+    #[ListensTo(ProductCreated::class)]
+    public function onProductCreated(ProductCreated $event) { /* … */ }
 
-    #[<hljs type green>ListensTo</hljs>(<hljs type>ProductDeleted</hljs><hljs keyword>::class</hljs>)]
-    public function onProductDeleted(<hljs type>ProductDeleted</hljs> $event) { /* … */ }
+    #[ListensTo(ProductDeleted::class)]
+    public function onProductDeleted(ProductDeleted $event) { /* … */ }
 }
 ```
 
@@ -34,9 +34,9 @@ Attributes — aka annotations — you can read about them in depth in [this pos
 ---
 
 ```php
-public function foo(<hljs type green>Foo|Bar</hljs> $input): <hljs type green>int|float</hljs>;
+public function foo(Foo|Bar $input): int|float;
 
-public function bar(<hljs type green>mixed</hljs> $input): <hljs type green>mixed</hljs>;
+public function bar(mixed $input): mixed;
 ```
 
 Union types allows for type hinting several types. There's also a new `mixed` type which represents [several types](/blog/new-in-php-8#new-mixed-type-rfc) at once.
@@ -46,7 +46,7 @@ Union types allows for type hinting several types. There's also a new `mixed` ty
 ```php
 interface Foo
 {
-    public function bar(): <hljs type green>static</hljs>;
+    public function bar(): static;
 }
 ```
 
@@ -56,7 +56,7 @@ The `static` return type is built-in.
 
 ```ini
 [JIT]
-<hljs keyword green>opcache.jit</hljs>=1225
+opcache.jit=1225
 ```
 
 [The just-in-time compiler](/blog/php-jit) for PHP.
@@ -64,9 +64,9 @@ The `static` return type is built-in.
 ---
 
 ```php
-$triggerError = <hljs keyword>fn</hljs>() <hljs green>=> throw</hljs> new <hljs type>MyError</hljs>();
+$triggerError = fn() => throw new MyError();
 
-$foo = $bar['offset'] <hljs green>?? throw</hljs> new <hljs type>OffsetDoesNotExist</hljs>('offset');
+$foo = $bar['offset'] ?? throw new OffsetDoesNotExist('offset');
 ```
 
 `throw` can be used in expressions.
@@ -76,7 +76,7 @@ $foo = $bar['offset'] <hljs green>?? throw</hljs> new <hljs type>OffsetDoesNotEx
 ```php
 try {
     // Something goes wrong
-} catch (<hljs type green>MySpecialException</hljs>) {
+} catch (MySpecialException) {
     Log::error("Something went wrong");
 }
 ```
@@ -86,9 +86,9 @@ Non-capturing catches: no need to specify an exception variable if you don't nee
 ---
 
 ```php
-<hljs prop>setcookie</hljs>(
-    <hljs prop>name</hljs>: 'test',
-    <hljs prop>expires</hljs>: <hljs prop>time</hljs>() + 60 * 60 * 2,
+setcookie(
+    name: 'test',
+    expires: time() + 60 * 60 * 2,
 );
 ```
 
@@ -97,7 +97,7 @@ Non-capturing catches: no need to specify an exception variable if you don't nee
 ---
 
 ```php
-$result = <hljs keyword>match</hljs>($input) {
+$result = match($input) {
     0 => "hello",
     '1', '2', '3' => "world",
 };

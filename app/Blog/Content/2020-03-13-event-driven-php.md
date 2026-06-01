@@ -71,9 +71,9 @@ final class AccountsController
 {
     public function index(): View
     {
-        $accounts = <hljs type>Account</hljs>::<hljs prop>all</hljs>();
+        $accounts = Account::all();
 
-        return new <hljs type>View</hljs>('accounts.index', [
+        return new View('accounts.index', [
             'accounts' => $accounts,
         ]);
     }
@@ -89,14 +89,14 @@ If we're making a change to the accounts balance, that's done like so:
 ```php
 final class BalanceController
 {
-    public function increase(<hljs type>Account</hljs> $account, <hljs type>int</hljs> $amount): Redirect
+    public function increase(Account $account, int $amount): Redirect
     {
-        $aggregateRoot = <hljs type>AccountAggregateRoot</hljs>::<hljs prop>find</hljs>($account);
+        $aggregateRoot = AccountAggregateRoot::find($account);
    
-        $aggregateRoot-><hljs prop>increaseBalance</hljs>($amount);
+        $aggregateRoot->increaseBalance($amount);
 
-        return new <hljs type>Redirect</hljs>(
-            [<hljs type>AccountsController</hljs>::class, 'index'], 
+        return new Redirect(
+            [AccountsController::class, 'index'], 
             [$account]
         );
     }
@@ -110,9 +110,9 @@ If you're wondering what such an implementation of `AccountAggregateRoot` might 
 ```php
 final class AccountAggregateRootRoot extends AggregateRoot
 {
-    public function increaseBalance(<hljs type>int</hljs> $amount): self
+    public function increaseBalance(int $amount): self
     {
-        $this-><hljs prop>event</hljs>(new <hljs type>BalanceIncreased</hljs>($amount));
+        $this->event(new BalanceIncreased($amount));
 
         return $this;
     }
@@ -122,13 +122,13 @@ final class AccountAggregateRootRoot extends AggregateRoot
 And finally this is what the `Account` entity looks like. Notice the lack of ORM-style configuration; these are simple in-memory PHP objects!
 
 ```php
-final class Account extends <hljs type>Entity</hljs>
+final class Account extends Entity
 {
-    public <hljs type>string</hljs> $uuid;
+    public string $uuid;
 
-    public <hljs type>string</hljs> $name;
+    public string $name;
 
-    public <hljs type>int</hljs> $balance = 0;
+    public int $balance = 0;
 }
 ```
 

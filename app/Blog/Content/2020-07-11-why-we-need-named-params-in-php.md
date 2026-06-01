@@ -26,14 +26,14 @@ The main argument against named arguments — the PHP 8 puns continue — is tha
 Here's what that means. Imagine an open source package which has this function as part of its public API:
 
 ```php
-public function toMediaCollection(<hljs type>string</hljs> $collection, <hljs type>string</hljs> $disk = null);
+public function toMediaCollection(string $collection, string $disk = null);
 ```
 
 Named parameters would allow to call this function like so:
 
 ```php
 $pendingMedia
-    -><hljs prop>toMediaCollection</hljs>(<hljs prop>collection</hljs>: 'downloads', <hljs prop>disk</hljs>: 's3');
+    ->toMediaCollection(collection: 'downloads', disk: 's3');
 ```
 
 If, for some reason, the open source maintainer would want to change the name of the `$collection` or `$disk` variables, they would have to tag a major release, because named arguments would make that a breaking change.
@@ -72,11 +72,11 @@ I'm not going to copy my writing on them in this post, but I can summarise the m
 class Address
 {
     public function __construct(
-        <hljs type>string</hljs> $street,
-        <hljs type>string</hljs> $number,
-        <hljs type>string</hljs> $postal,
-        <hljs type>string</hljs> $city,
-        <hljs type>string</hljs> $country,
+        string $street,
+        string $number,
+        string $postal,
+        string $city,
+        string $country,
     ) { /* … */ }
 }
 ```
@@ -91,12 +91,12 @@ Take our `Address` object, for example. Let's say we need to support number suff
 class Address
 {
     public function __construct(
-        <hljs type>string</hljs> $street,
-        <hljs type>string</hljs> $number,
-        <hljs green><hljs type>string</hljs> $numberSuffix,</hljs>
-        <hljs type>string</hljs> $postal,
-        <hljs type>string</hljs> $city,
-        <hljs type>string</hljs> $country,
+        string $street,
+        string $number,
+        string $numberSuffix,
+        string $postal,
+        string $city,
+        string $country,
     ) { /* … */ }
 }
 ```
@@ -116,19 +116,19 @@ Did you look up the docs or consult your IDE?
 That's fine, it's a confusing function after all. Named arguments can offer a little more clarity though. Compare the two following notations:
 
 ```php
-<hljs prop>setcookie</hljs>(
+setcookie(
     'test', 
     '', 
-    <hljs prop>time</hljs>() + 60 * 60 * 2
+    time() + 60 * 60 * 2
 );
 ```
 
 Or:
 
 ```php
-<hljs prop>setcookie</hljs>(
-    <hljs prop>name</hljs>: 'test',
-    <hljs prop>expires</hljs>: <hljs prop>time</hljs>() + 60 * 60 * 2,
+setcookie(
+    name: 'test',
+    expires: time() + 60 * 60 * 2,
 );
 ```
 

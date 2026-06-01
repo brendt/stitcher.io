@@ -9,12 +9,13 @@ use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
+use Tempest\ResponsiveImage\ResponsiveImageFactory;
 use function Tempest\Support\arr;
 
 final readonly class ImageRenderer implements NodeRendererInterface
 {
     public function __construct(
-        private ImageFactory $imageFactory,
+        private ResponsiveImageFactory $imageFactory,
     ) {
     }
 

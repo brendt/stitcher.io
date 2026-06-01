@@ -12,63 +12,63 @@ class PostData extends DataTransferObject
     /**
      * Built in types: 
      *
-     * @var <hljs type>string</hljs> 
+     * @var string 
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
     
     /**
      * Classes with their FQCN: 
      *
-     * @var <hljs type>\App\Models\Author</hljs>
+     * @var \App\Models\Author
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
     
     /**
      * Lists of types: 
      *
-     * @var <hljs type>\App\Models\Author[]</hljs>
+     * @var \App\Models\Author[]
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
     
     /**
      * Iterator of types: 
      *
-     * @var <hljs type>iterator<\App\Models\Author></hljs>
+     * @var iterator<\App\Models\Author>
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
     
     /**
      * Union types: 
      *
-     * @var <hljs type>string|int</hljs>
+     * @var string|int
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
     
     /**
      * Nullable types: 
      *
-     * @var <hljs type>string|null</hljs>
+     * @var string|null
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
     
     /**
      * Mixed types: 
      *
-     * @var <hljs type>mixed|null</hljs>
+     * @var mixed|null
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
     
     /**
      * Any iterator: 
      *
-     * @var <hljs type>iterator</hljs>
+     * @var iterator
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
     
     /**
      * No type, which allows everything
      */
-    public <hljs prop>$property</hljs>;
+    public $property;
 }
 ```
 
@@ -79,14 +79,14 @@ However, another (accidental) feature of the package started to gain popularity:
 ```php
 class PostData extends DataTransferObject
 {
-    public <hljs type>AuthorData</hljs> <hljs prop>$author</hljs>;
+    public AuthorData $author;
 }
 ```
 
 Could be created from this input:
 
 ```php
-$postData = new <hljs type>PostData</hljs>([
+$postData = new PostData([
     'author' => [
         'name' => 'Foo',
     ],
@@ -100,20 +100,20 @@ Next came along PHP 8.0 with attributes and named properties, allowing for even 
 ```php
 class MyDTO extends DataTransferObject
 {
-    public <hljs type>OtherDTO</hljs> <hljs prop>$otherDTO</hljs>;
+    public OtherDTO $otherDTO;
     
-    public <hljs type>OtherDTOCollection</hljs> <hljs prop>$collection</hljs>;
+    public OtherDTOCollection $collection;
     
-    #[<hljs type>CastWith</hljs>(<hljs type>ComplexObjectCaster</hljs>::class)]
-    public <hljs type>ComplexObject</hljs> <hljs prop>$complexObject</hljs>;
+    #[CastWith(ComplexObjectCaster::class)]
+    public ComplexObject $complexObject;
     
-    public <hljs type>ComplexObjectWithCast</hljs> <hljs prop>$complexObjectWithCast</hljs>;
+    public ComplexObjectWithCast $complexObjectWithCast;
     
-    #[<hljs type>NumberBetween</hljs>(1, 100)]
-    public <hljs type>int</hljs> <hljs prop>$a</hljs>;
+    #[NumberBetween(1, 100)]
+    public int $a;
     
-    #[<hljs type>MapFrom</hljs>('address.city')]
-    public <hljs type>string</hljs> <hljs prop>$city</hljs>;
+    #[MapFrom('address.city')]
+    public string $city;
 }
 ```
 

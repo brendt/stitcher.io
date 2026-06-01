@@ -19,9 +19,9 @@ You're required to add a link to the original post at the start of your translat
     <!-- … -->
 
     <link 
-        rel="<hljs text>alternate</hljs>" 
-        hreflang="<hljs text>en</hljs>"
-        href="<hljs text>https://stitcher.io/blog/can-i-translate-your-blog</hljs>" />
+        rel="alternate" 
+        hreflang="en"
+        href="https://stitcher.io/blog/can-i-translate-your-blog" />
 </head>
 ```
 

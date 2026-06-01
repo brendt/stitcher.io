@@ -48,13 +48,13 @@ This is our baseline scenario, we can compare the next results to this one.
 
 Next we'll preload all Laravel and application code. This is the naive approach, because we're never using all Laravel classes in a request. Because we're preloading many more files than strictly needed, we'll have to pay a penalty for it. In this case 1165 classes and their dependencies were preloaded, resulting in a total of 1366 functions and 1256 classes to be preloaded.
 
-Like I mentioned before,you can read that info from `<hljs prop>opcache_get_status</hljs>`:
+Like I mentioned before,you can read that info from `opcache_get_status`:
 
 ```php
-<hljs prop>opcache_get_status</hljs>()['preload_statistics'];
+opcache_get_status()['preload_statistics'];
 ```
 
-Another metric we get from `<hljs prop>opcache_get_status</hljs>` is the memory used for preloaded scripts. In this case it's 17.43 MB.
+Another metric we get from `opcache_get_status` is the memory used for preloaded scripts. In this case it's 17.43 MB.
 Even though we're preloading more code than we actually need, naive preloading already has a positive impact on performance.
 
 
@@ -85,7 +85,7 @@ You can already see a performance gain: we're able to manage more requests per s
 Finally we want to compare the performance gain when we're using an optimised preloading list. For testing purposes I started the server without preloading enabled, and dumped all classes that are used within that request:
 
 ```php
-<hljs prop>get_declared_classes</hljs>();
+get_declared_classes();
 ```
 
 Next, I only preloaded these classes, 427 in total. Together with all their dependencies this makes for 643 classes and 1034 functions being preloaded, occupying about 11.76 MB of memory.

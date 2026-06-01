@@ -92,14 +92,14 @@ Every time I store a visit in the table, I also dispatch it as an event. There a
 ```php
 class VisitsPerDay
 {
-    public function __invoke(<hljs type>PageVisited</hljs> $event): void
+    public function __invoke(PageVisited $event): void
     {
-        <hljs type>DB</hljs>::<hljs prop>insert</hljs>(
-            '<hljs keyword>INSERT</hljs> <hljs keyword>INTO</hljs> <hljs type>visits_per_day</hljs> (`<hljs prop>day</hljs>`, `<hljs prop>count</hljs>`) 
-            <hljs keyword>VALUES</hljs> (?, ?) 
-            <hljs keyword>ON DUPLICATE KEY UPDATE</hljs> `<hljs prop>count</hljs>` = `<hljs prop>count</hljs>` + 1',
+        DB::insert(
+            'INSERT INTO visits_per_day (`day`, `count`) 
+            VALUES (?, ?) 
+            ON DUPLICATE KEY UPDATE `count` = `count` + 1',
             [
-                $event-><hljs prop>date</hljs>-><hljs prop>format</hljs>('Y-m-d'), 
+                $event->date->format('Y-m-d'), 
                 1,
             ]
         );

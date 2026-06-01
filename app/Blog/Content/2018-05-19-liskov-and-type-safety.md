@@ -25,9 +25,9 @@ So let's make sure you know what the syntax of this pseudo code will be.
 A function is defined like so.
 
 ```txt
-<hljs prop>foo</hljs>(<hljs type>T</hljs>) : <hljs type>void</hljs>
+foo(T) : void
 
-<hljs prop>bar</hljs>(<hljs type>S</hljs>) : <hljs type>T</hljs>
+bar(S) : T
 ```
 
 First comes the function name, second the argument list with types as parameters,
@@ -38,18 +38,18 @@ A function can extend — overwrite — another function, as can types.
 Inheritance is defined like so. 
 
 ```txt
-<hljs prop>bar</hljs> > <hljs prop>baz</hljs>(<hljs type>S</hljs>) : <hljs type>T</hljs>
+bar > baz(S) : T
 
-<hljs type>T</hljs> > <hljs type>S</hljs>
+T > S
 ```
 
 In this example, `baz` extends `bar`, and `S` is a subtype of `T`.
 The last step is being able to invoke the function, which is done like so.
 
 ```txt
-<hljs prop>foo</hljs>(<hljs type>T</hljs>)
+foo(T)
 
-a = <hljs prop>bar</hljs>(<hljs type>S</hljs>)
+a = bar(S)
 ``` 
 
 Once again: it's all pseudo code and I'll use it to show what types are,
@@ -66,7 +66,7 @@ Let's look at the official definition of the LSP.
 Instead of using `S` and `T`, I'll be using more concrete types in my examples.
 
 ```txt
-<hljs type>Organism</hljs> > <hljs type>Animal</hljs> > <hljs type>Cat</hljs>
+Organism > Animal > Cat
 ```
 
 These are the three types we'll be working with.
@@ -76,14 +76,14 @@ they must be replaceable by subtypes like `Animal` or `Cat`.
 Let's say there's a function used to `feed` an `Organism`. 
 
 ```txt
-<hljs prop>feed</hljs>(<hljs type>Organism</hljs>) : <hljs type>void</hljs>
+feed(Organism) : void
 ```
 
 It must be possible to call it like so:
 
 ```txt
-<hljs prop>feed</hljs>(<hljs type>Animal</hljs>)
-<hljs prop>feed</hljs>(<hljs type>Cat</hljs>)
+feed(Animal)
+feed(Cat)
 ```
 
 Try to think of function definition as a contract, a promise; for the programmer to be used. 
@@ -139,9 +139,9 @@ To understand how type safety can –or cannot– be guaranteed by a language,
 let's look at these functions. 
 
 ```php
-<hljs prop>take_care</hljs>(<hljs type>Animal</hljs>) : <hljs type>void</hljs>
+take_care(Animal) : void
 
-<hljs prop>take_care</hljs> > <hljs prop>feed</hljs>(<hljs type>Animal</hljs>) : <hljs type>void</hljs>
+take_care > feed(Animal) : void
 ```
 
 As you can see, `feed` extends `take_care` and follows its parent signature one-to-one.
@@ -156,9 +156,9 @@ we know that `Cat` extends `Animal`.
 Let's see whether the following is possible.
 
 ```txt
-<hljs prop>take_care</hljs>(<hljs type>Animal</hljs>) : <hljs type>void</hljs>
+take_care(Animal) : void
 
-<hljs prop>take_care</hljs> > <hljs prop>feed</hljs>(<hljs type>Cat</hljs>) : <hljs type>void</hljs>
+take_care > feed(Cat) : void
 ```
 
 The LSP only defines rules about objects, so on first sight, the function definition itself doesn't break any rules.
@@ -169,9 +169,9 @@ We also know that `take_care` allows `Animal` and its sub-types to be used.
 So `feed` should also be able to take an `Animal` type.
 
 ```txt
-<hljs prop>feed</hljs>(<hljs type>Animal</hljs>)
+feed(Animal)
 
-<hljs error>// Type error</hljs>
+// Type error
 ```
 
 Unfortunately, this is not the case. There's a type error occurring.
@@ -191,9 +191,9 @@ This breaks the promises given by the parent.
 However, take a look at the following definition:
 
 ```txt
-<hljs prop>take_care</hljs>(<hljs type>Animal</hljs>) : <hljs type>void</hljs>
+take_care(Animal) : void
 
-<hljs prop>take_care</hljs> > <hljs prop>feed</hljs>(<hljs type>Organism</hljs>) : <hljs type>void</hljs>
+take_care > feed(Organism) : void
 ```
 
 Does this definition ensures type safety? 
@@ -213,15 +213,15 @@ There are a few more types we'll have to define, in order for the examples to ma
 I'm sorry in advance for the choice of words!
 
 ```txt
-<hljs type>Excretion > <hljs type>Poop</hljs>
+Excretion > Poop
 ``` 
 
 And these are the functions we're working with. 
 
 ```txt
-<hljs prop>take_care</hljs>(<hljs type>Animal</hljs>) : <hljs type>Excretion</hljs>
+take_care(Animal) : Excretion
 
-<hljs prop>take_care</hljs> > <hljs prop>feed</hljs>(<hljs type>Animal</hljs>) : <hljs type>Poop</hljs>
+take_care > feed(Animal) : Poop
 ```
 
 The question now: is the overridden return type safe?
@@ -232,9 +232,9 @@ The parent definition `take_care` tells us that this function will always return
 an object of type `Excretion`. 
 
 ```txt
-excretion = <hljs prop>take_care</hljs>(<hljs type>Animal</hljs>)
+excretion = take_care(Animal)
 
-excretion = <hljs prop>feed</hljs>(<hljs type>Animal</hljs>)
+excretion = feed(Animal)
 ```
 
 Because `Poop` is a subtype of `Excretion`, we can be a 100% sure that whatever `feed` returns, 

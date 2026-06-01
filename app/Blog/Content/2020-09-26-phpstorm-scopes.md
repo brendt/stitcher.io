@@ -61,12 +61,12 @@ Go to `File > New Project Settings > Preference for New Projects` and configure 
 And just in case you'd need some inspiration, these are my default scopes:
 
 ```
-<hljs blue>App</hljs>
+App
 file:app//*||file:config//*||file:routes//*||file:app||file:config||file:routes||file:src//*||file:src
 
-<hljs purple>Resources</hljs>
+Resources
 file:resources//*||file:resources
 
-<hljs yellow>Database</hljs>
+Database
 file:database//*||file:database
 ```

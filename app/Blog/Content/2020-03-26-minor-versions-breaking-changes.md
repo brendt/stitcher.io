@@ -19,9 +19,9 @@ One of our projects is now nearing its two-year anniversary mark, so suffice to 
 
 ```json
 {
-    "<hljs keyword>laravel/framework</hljs>": "^6.5",
-    "<hljs keyword>league/commonmark</hljs>": "^0.17.5",
-    "<hljs keyword>spatie/laravel-view-components</hljs>": "^1.2",
+    "laravel/framework": "^6.5",
+    "league/commonmark": "^0.17.5",
+    "spatie/laravel-view-components": "^1.2",
 
     // …
 }

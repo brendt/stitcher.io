@@ -194,11 +194,11 @@ $input['undefined'] ?? $input['key'] ?? 'fallback'; // 'key'
 It's possible to use the null coalescing operator on nested object properties, even when a property in the chain is `null`.
 
 ```php
-$a = (<hljs type>object</hljs>) [
+$a = (object) [
     'prop' => null,
 ];
 
-<hljs prop>var_dump</hljs>($a-><hljs prop>prop</hljs>-><hljs prop>b</hljs> ?? 'empty');
+var_dump($a->prop->b ?? 'empty');
 
 // 'empty'
 ```

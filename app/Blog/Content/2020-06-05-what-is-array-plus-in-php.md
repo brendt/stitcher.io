@@ -31,7 +31,7 @@ $first + $second;
 While using `array_merge`, would result in this:
 
 ```php
-<hljs prop>array_merge</hljs>($first, $second);
+array_merge($first, $second);
 
 // ['a', 'b', 'c']
 ```

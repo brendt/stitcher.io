@@ -5,25 +5,25 @@ title: 'Rational thinking'
 Now and then, I like to ask a simple coding style question on Twitter. It usually goes something like this: do you write FQCN's (fully qualified class names) in your doc blocks or not? In other words, do you write code like this:
 
 ```php
-/** @var <hljs type>\App\Models\Foo[]</hljs> */
+/** @var \App\Models\Foo[] */
 $arrayOfFoo = …
 ```
 
 Or like this:
 
 ```php
-/** @var <hljs type>Foo[]</hljs> */
+/** @var Foo[] */
 $arrayOfFoo = …
 ```
 
 Of course, the second example assumes you've imported the full class name at the top of your file.
 
 ```php
-use <hljs type>\App\Models\Foo</hljs>;
+use \App\Models\Foo;
 
 // …
 
-/** @var <hljs type>Foo[]</hljs> */
+/** @var Foo[] */
 $arrayOfFoo = …
 ```
 
@@ -34,7 +34,7 @@ My response, time and time again, has been: so what about real types? Property t
 ```php
 class Bar
 {
-    public function baz(<hljs type>\App\Models\Foo</hljs> $foo): <hljs type>\App\Models\Foo</hljs>
+    public function baz(\App\Models\Foo $foo): \App\Models\Foo
     {
         // …
     }
@@ -44,11 +44,11 @@ class Bar
 I've actually had one person say "yes" to that question, and fair enough, they are consistent. But all the others say they don't. They write it like this:
 
 ```php
-use <hljs type>\App\Models\Foo</hljs>;
+use \App\Models\Foo;
 
 class Bar
 {
-    public function baz(<hljs type>Foo</hljs> $foo): Foo 
+    public function baz(Foo $foo): Foo 
     {
         // …
     }

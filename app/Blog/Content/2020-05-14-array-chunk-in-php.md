@@ -25,7 +25,7 @@ Let me explain this in developer terms: we have an array, `[1, 2, 3, 4, 5, 6, 7,
 ```
 $input = [1, 2, 3, 4, 5, 6, 7, 8];
 
-<hljs prop>array_chunk</hljs>($input, 2);
+array_chunk($input, 2);
 
 [
     0 => [1, 2], 
@@ -65,11 +65,11 @@ $sales = [
 
 // Split the array into groups of five, 
 //  representing a 5 days working week.
-$salesPerWeek = <hljs prop>array_chunk</hljs>($sales, 5);
+$salesPerWeek = array_chunk($sales, 5);
 
 // Map all items to their averages, week by week.
-$averageSales = <hljs prop>array_map</hljs>(
-    <hljs keyword>fn</hljs>(<hljs type>array</hljs> $items) => <hljs prop>array_sum</hljs>($items) / <hljs prop>count</hljs>($items),
+$averageSales = array_map(
+    fn(array $items) => array_sum($items) / count($items),
     $salesPerWeek
 );
 ```

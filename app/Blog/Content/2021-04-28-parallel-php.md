@@ -21,12 +21,12 @@ My use cases have two requirements in common: run a arbitrary amount of function
 **AmpPHP** has a package called [parallel-functions](*https://github.com/amphp/parallel-functions). It looks like this:
 
 ```php
-use <hljs type>Amp\Promise</hljs>;
-use function <hljs type>Amp\ParallelFunctions\</hljs><hljs prop>parallelMap</hljs>;
+use Amp\Promise;
+use function Amp\ParallelFunctions\parallelMap;
 
-$values = <hljs type>Promise\</hljs><hljs prop>wait</hljs>(
-    <hljs prop>parallelMap</hljs>([1, 2, 3], function ($time) {
-        \<hljs prop>sleep</hljs>($time);
+$values = Promise\wait(
+    parallelMap([1, 2, 3], function ($time) {
+        \sleep($time);
     
         return $time * $time;
     })
@@ -42,21 +42,21 @@ For my use cases, I've got a few problems with this implementation:
 Moving on to **ReactPHP**, they don't have an out-of-the-box solution like Amp, but they do offer [the low-level components](*https://reactphp.org/child-process/):
 
 ```php
-$loop = <hljs type>React\EventLoop\Factory</hljs>::<hljs prop>create</hljs>();
+$loop = React\EventLoop\Factory::create();
 
-$process = new <hljs type>React\ChildProcess\Process</hljs>('php child-process.php');
+$process = new React\ChildProcess\Process('php child-process.php');
 
-$process-><hljs prop>start</hljs>($loop);
+$process->start($loop);
 
-$process-><hljs prop>stdout</hljs>-><hljs prop>on</hljs>('data', function ($chunk) {
+$process->stdout->on('data', function ($chunk) {
     echo $chunk;
 });
 
-$process-><hljs prop>on</hljs>('exit', function($exitCode, $termSignal) {
+$process->on('exit', function($exitCode, $termSignal) {
     echo 'Process exited with code ' . $exitCode . PHP_EOL;
 });
 
-$loop-><hljs prop>run</hljs>();
+$loop->run();
 ```
 
 A few caveats with this implementation:
@@ -68,19 +68,19 @@ A few caveats with this implementation:
 Finally, there's **Guzzle** with its [concurrent requests](*https://docs.guzzlephp.org/en/stable/quickstart.html#concurrent-requests):
 
 ```php
-use <hljs type>GuzzleHttp\Client</hljs>;
-use <hljs type>GuzzleHttp\Promise</hljs>;
+use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
 
-$client = new <hljs type>Client</hljs>(['base_uri' => 'http://httpbin.org/']);
+$client = new Client(['base_uri' => 'http://httpbin.org/']);
 
 $promises = [
-    'image' => $client-><hljs prop>getAsync</hljs>('/image'),
-    'png'   => $client-><hljs prop>getAsync</hljs>('/image/png'),
-    'jpeg'  => $client-><hljs prop>getAsync</hljs>('/image/jpeg'),
-    'webp'  => $client-><hljs prop>getAsync</hljs>('/image/webp')
+    'image' => $client->getAsync('/image'),
+    'png'   => $client->getAsync('/image/png'),
+    'jpeg'  => $client->getAsync('/image/jpeg'),
+    'webp'  => $client->getAsync('/image/webp')
 ];
 
-$responses = <hljs type>Promise\Utils</hljs>::<hljs prop>unwrap</hljs>($promises);
+$responses = Promise\Utils::unwrap($promises);
 ```
 
 - Again, there's the overhead of promises; but more importantly
@@ -97,11 +97,11 @@ Less is more. We often forget that in software design. We overcomplicate our sol
 So with all of that being said, you now know why I decided to make another library that has one simple goal: run functions in parallel and wait for the result. Here's what it looks like:
 
 ```php
-$rssFeeds = <hljs type>Fork</hljs>::<hljs prop>new</hljs>()
-    -><hljs prop>run</hljs>(
-        <hljs keyword>fn</hljs> () => <hljs prop>file_get_contents</hljs>('https://stitcher.io/rss'),
-        <hljs keyword>fn</hljs> () => <hljs prop>file_get_contents</hljs>('https://freek.dev/rss'),
-        <hljs keyword>fn</hljs> () => <hljs prop>file_get_contents</hljs>('https://spatie.be/rss'),
+$rssFeeds = Fork::new()
+    ->run(
+        fn () => file_get_contents('https://stitcher.io/rss'),
+        fn () => file_get_contents('https://freek.dev/rss'),
+        fn () => file_get_contents('https://spatie.be/rss'),
     );
 ```
 
@@ -110,49 +110,49 @@ And that's it. It does one job, and does it well. And don't be mistaken: it's no
 Parallel functions are able to return anything, including objects:
 
 ```php
-$dates = <hljs type>Fork</hljs>::<hljs prop>new</hljs>()
-    -><hljs prop>run</hljs>(
-        <hljs keyword>fn</hljs> () => new <hljs type>DateTime</hljs>('2021-01-01'),
-        <hljs keyword>fn</hljs> () => new <hljs type>DateTime</hljs>('2021-01-02'),
+$dates = Fork::new()
+    ->run(
+        fn () => new DateTime('2021-01-01'),
+        fn () => new DateTime('2021-01-02'),
     );
 ```
 
 They use process forks instead of fresh processes, meaning you don't need to manually boot your framework in every child process:
 
 ```php
-[$users, $posts, $news] = <hljs type>Fork</hljs>::<hljs prop>new</hljs>()
-    -><hljs prop>run</hljs>(
-        <hljs keyword>fn</hljs> () => <hljs type>User</hljs>::<hljs prop>all</hljs>(),
-        <hljs keyword>fn</hljs> () => <hljs type>Post</hljs>::<hljs prop>all</hljs>(),
-        <hljs keyword>fn</hljs> () => <hljs type>News</hljs>::<hljs prop>all</hljs>(),
+[$users, $posts, $news] = Fork::new()
+    ->run(
+        fn () => User::all(),
+        fn () => Post::all(),
+        fn () => News::all(),
     );
 ```
 
 They allow before and after bindings, just in case you need to do a little more setup work. In the previous example, Laravel actually needs to reconnect to the database in the child processes before it would work:
 
 ```php
-[$users, $posts, $news] = <hljs type>Fork</hljs>::<hljs prop>new</hljs>()
-    -><hljs prop>before</hljs>(<hljs keyword>fn</hljs> () => <hljs type>DB</hljs>::<hljs prop>connection</hljs>('mysql')-><hljs prop>reconnect</hljs>())
-    -><hljs prop>run</hljs>(
-        <hljs keyword>fn</hljs> () => <hljs type>User</hljs>::<hljs prop>all</hljs>(),
-        <hljs keyword>fn</hljs> () => <hljs type>Post</hljs>::<hljs prop>all</hljs>(),
-        <hljs keyword>fn</hljs> () => <hljs type>News</hljs>::<hljs prop>all</hljs>(),
+[$users, $posts, $news] = Fork::new()
+    ->before(fn () => DB::connection('mysql')->reconnect())
+    ->run(
+        fn () => User::all(),
+        fn () => Post::all(),
+        fn () => News::all(),
     );
 ```
 
-And finally, before and after bindings can be run both in the child process and parent process; and also notice how individual function output can be passed as a parameter to these `<hljs prop>after</hljs>` callbacks:
+And finally, before and after bindings can be run both in the child process and parent process; and also notice how individual function output can be passed as a parameter to these `after` callbacks:
 
 ```php
-<hljs type>Fork</hljs>::<hljs prop>new</hljs>()
-    -><hljs prop>after</hljs>(
-        <hljs prop>child</hljs>: <hljs keyword>fn</hljs> () => <hljs type>DB</hljs>::<hljs prop>connection</hljs>('mysql')-><hljs prop>close</hljs>(),
-        <hljs prop>parent</hljs>: <hljs keyword>fn</hljs> (<hljs type>int</hljs> $amountOfPages) => 
-            $this-><hljs prop>progressBar</hljs>-><hljs prop>advance</hljs>($amountOfPages),
+Fork::new()
+    ->after(
+        child: fn () => DB::connection('mysql')->close(),
+        parent: fn (int $amountOfPages) => 
+            $this->progressBar->advance($amountOfPages),
     )
-    -><hljs prop>run</hljs>(
-        <hljs keyword>fn</hljs> () => <hljs type>Pages</hljs>::<hljs prop>generate</hljs>('1-20'),
-        <hljs keyword>fn</hljs> () => <hljs type>Pages</hljs>::<hljs prop>generate</hljs>('21-40'),
-        <hljs keyword>fn</hljs> () => <hljs type>Pages</hljs>::<hljs prop>generate</hljs>('41-60'),
+    ->run(
+        fn () => Pages::generate('1-20'),
+        fn () => Pages::generate('21-40'),
+        fn () => Pages::generate('41-60'),
     );
 ```
 

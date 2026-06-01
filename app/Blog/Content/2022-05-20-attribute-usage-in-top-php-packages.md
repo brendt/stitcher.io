@@ -28,13 +28,13 @@ A couple of remarks:
 
 ## The most popular attribute
 
-The first metric that stood out is that `#[<hljs type>\ReturnTypeWillChange</hljs>]` outnumbers all others by far: out of **2786 attributes in total**, 1668 are either `#[<hljs type>\ReturnTypeWillChange</hljs>]` or `#[<hljs type>ReturnTypeWillChange</hljs>]`, that's **almost 60% being `<hljs type>ReturnTypeWillChange</hljs>` attributes**.
+The first metric that stood out is that `#[\ReturnTypeWillChange]` outnumbers all others by far: out of **2786 attributes in total**, 1668 are either `#[\ReturnTypeWillChange]` or `#[ReturnTypeWillChange]`, that's **almost 60% being `ReturnTypeWillChange` attributes**.
 
 [![](/img/blog/attributes-stats/attributes.svg)](/img/blog/attributes-stats/attributes.svg)
 
 This attribute is the first built-in attribute in PHP, introduced in PHP 8.1, and meant to [deal with a newly added deprecation notice](/blog/dealing-with-deprecations). It was a design goal of the original attribute RFC to use them for these kinds of cases where we want userland code to communicate information to PHP's interpreter. In this case: to suppress a deprecation notice.
 
-Speaking of the two variants (with and without a leading `\`): some developers import their attributes and others use the fully qualified class name: the latter option is by far the preferred one: out of **1668 `<hljs type>ReturnTypeWillChange</hljs>` usages**, only **524 imported** the attribute — that's only **31%**. It seems that most developers like to use the FQCN variant.
+Speaking of the two variants (with and without a leading `\`): some developers import their attributes and others use the fully qualified class name: the latter option is by far the preferred one: out of **1668 `ReturnTypeWillChange` usages**, only **524 imported** the attribute — that's only **31%**. It seems that most developers like to use the FQCN variant.
 
 {{ cta:dynamic }}
 
@@ -46,7 +46,7 @@ Out of 997 packages, **only 200 packages are using attributes**. Out of those 20
 
 ## Custom attributes
 
-Another point of interest is the use of `#[<hljs type>Attribute</hljs>]` and `#[<hljs type>\Attribute</hljs>]`: representing custom attributes provided by packages themselves. In total there are **561 custom attributes** provided by these packages.
+Another point of interest is the use of `#[Attribute]` and `#[\Attribute]`: representing custom attributes provided by packages themselves. In total there are **561 custom attributes** provided by these packages.
 
 Looking on a per-package basis: **Symfony provides 88 custom attributes**, with PHPUnit providing 49, and doctrine's mongodb implementation providing 42. Again a clear example of how Symfony is an early adopter, thanks to them being used to docblock annotations for years. Interestingly, **Laravel provides no custom attributes**.
 
@@ -55,26 +55,26 @@ Looking on a per-package basis: **Symfony provides 88 custom attributes**, with 
 It's remarkable that there are no vendors using multiline attributes:
 
 ```php
-<hljs comment>#[
-    <hljs type>AsCommand</hljs>,
-    <hljs type>ReturnTypeWillChange</hljs>,
-]</hljs>
+#[
+    AsCommand,
+    ReturnTypeWillChange,
+]
 ```
 
 It makes sense that vendors opt for the single-line notation, since it's compatible with older PHP versions because these lines are treated like comments before PHP 8.0:
 
 ```php
-#[<hljs type>AsCommand</hljs>]
-#[<hljs type>ReturnTypeWillChange</hljs>]
+#[AsCommand]
+#[ReturnTypeWillChange]
 ```
 
 ## Conclusions
 
 - Only **20%** of the top-1000 most popular packages use attributes
 - Only **23%** of the top-1000 most popular packages have PHP 8.0 or higher as their minimum required version
-- The `<hljs type>ReturnTypeWillChange</hljs>` attribute is by far the most used one
+- The `ReturnTypeWillChange` attribute is by far the most used one
 - **Symfony clearly is the frontrunner**, embracing attributes thanks to experience with docblock annotations in the past
-- **Laravel provides no custom attributes** for their users, although they use some internally, mostly the `<hljs type>AsCommand</hljs>` attribute, which is provided by Symfony
+- **Laravel provides no custom attributes** for their users, although they use some internally, mostly the `AsCommand` attribute, which is provided by Symfony
 
 On a personal note: I'd say there's room for improvement. I think Laravel should start embracing custom attributes, especially since they now require PHP 8.0 as their minimum version.
 

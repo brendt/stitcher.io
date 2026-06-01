@@ -34,14 +34,14 @@ function add($a, $b)
 PHP will happily allow you to pass any kind of data to that function, numbers, strings, booleans, doesn’t matter. PHP will try its best to convert a variable whenever it makes sense, like for example adding them together. 
 
 ```php
-<hljs prop>add</hljs>('1', '2');
+add('1', '2');
 ```
 
 But those conversions — type juggling — often lead to unexpected results, if not to say: bugs and crashes.
 
 
 ```php
-<hljs prop>add</hljs>([], true); // ?
+add([], true); // ?
 ```
 
 Now, we could manually write code to check whether our maths addition will work with any given input:
@@ -49,7 +49,7 @@ Now, we could manually write code to check whether our maths addition will work 
 ```php
 function add($a, $b) 
 {
-    if (!<hljs prop>is_int</hljs>($a) || !<hljs prop>is_int</hljs>($b)) {
+    if (!is_int($a) || !is_int($b)) {
         return null;
     }
     
@@ -60,7 +60,7 @@ function add($a, $b)
 Or we could make use of PHPs built-in type hints — built-in shorthands for what we’d otherwise do manually:
 
 ```php
-function add(<hljs type>int</hljs> $a, <hljs type>int</hljs> $b): int 
+function add(int $a, int $b): int 
 {
     return $a + $b;
 }
@@ -81,23 +81,23 @@ On the other hand, type systems have their limitations. A common example is a �
 ```php
 class Collection extends ArrayObject
 {
-    public function offsetGet(<hljs type>mixed</hljs> $key): mixed 
+    public function offsetGet(mixed $key): mixed 
     { /* … */ }
     
-    public function filter(<hljs type>Closure</hljs> $fn): self 
+    public function filter(Closure $fn): self 
     { /* … */ }
     
-    public function map(<hljs type>Closure</hljs> $fn): self 
+    public function map(Closure $fn): self 
     { /* … */ }
 }
 ```
 
 A collection has a bunch of methods that work with any kind of input: looping, filtering, mapping, you name it; a collection implementation shouldn’t care about whether it’s dealing with strings or integers.
 
-But let’s look at it from an outsider’s perspective. What happens if we want to be sure that one collection only contains strings, and another one only contains `<hljs type>User</hljs>` objects. The collection itself doesn’t care when looping over its items, but we do. We want to know whether this item in a loop is a User or a string — that’s quite the difference. But without proper type information, our IDE is operating in the dark.
+But let’s look at it from an outsider’s perspective. What happens if we want to be sure that one collection only contains strings, and another one only contains `User` objects. The collection itself doesn’t care when looping over its items, but we do. We want to know whether this item in a loop is a User or a string — that’s quite the difference. But without proper type information, our IDE is operating in the dark.
 
 ```php
-$users = new <hljs type>Collection</hljs>();
+$users = new Collection();
 
 // …
 
@@ -106,18 +106,18 @@ foreach ($users as $user) {
 }
 ```
 
-Now, we could create separate implementations for each collection: one that only works with strings, and another that only works with `<hljs type>User</hljs>` objects: 
+Now, we could create separate implementations for each collection: one that only works with strings, and another that only works with `User` objects: 
 
 ```php
 class StringCollection extends Collection
 {
-    public function offsetGet(<hljs type>mixed</hljs> $key): string 
+    public function offsetGet(mixed $key): string 
     { /* … */ }
 }
 
 class UserCollection extends Collection
 {
-    public function offsetGet(<hljs type>mixed</hljs> $key): User 
+    public function offsetGet(mixed $key): User 
     { /* … */ }
 }
 ```
@@ -131,9 +131,9 @@ Now, to be clear: PHP doesn’t have generics. That’s a bold statement cutting
 Instead of creating a separate implementation for every possible type, many programming languages allow developers to define a “generic” type on the collection class:
 
 ```php
-class Collection<<hljs generic>Type</hljs>> extends ArrayObject
+class Collection<Type> extends ArrayObject
 {
-    public function offsetGet(<hljs type>mixed</hljs> $key): <hljs generic>Type</hljs> 
+    public function offsetGet(mixed $key): Type 
     { /* … */ }
     
     // …
@@ -143,9 +143,9 @@ class Collection<<hljs generic>Type</hljs>> extends ArrayObject
 Basically we’re saying that the implementation of the collection class will work for any kind of input, but when we create an instance of a collection, we should specify a type. It’s a generic implementation, but it’s made specific depending on the programmer’s needs:
 
 ```php
-$users = new <hljs type>Collection</hljs><<hljs generic>User</hljs>>();
+$users = new Collection<User>();
 
-$slugs = new <hljs type>Collection</hljs><<hljs generic>string</hljs>>();
+$slugs = new Collection<string>();
 ```
 
 It might seem like a small thing to do: adding a type. But that type alone opens a world of possibilities. Our IDE now knows what kind of data is in a collection, it can tell us whether we’re adding an item with the wrong type; it can tell us what we can do with items when iterating over a collection, it can tell us whether we’re passing the collection to a function that knows how to work with those specific items.

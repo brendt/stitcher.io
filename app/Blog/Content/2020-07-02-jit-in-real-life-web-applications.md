@@ -28,16 +28,16 @@ ab -n 100 -c 20 -l http://aggregate.stitcher.io.test:8081/discover
 
 ## JIT Setup
 
-With the project in place, let's configure the JIT itself. The JIT is enabled by specifying the `<hljs prop>opcache.jit_buffer_size</hljs>` option in `php.ini`. If this directive is excluded, the default value is set to 0, and the JIT won't run.
+With the project in place, let's configure the JIT itself. The JIT is enabled by specifying the `opcache.jit_buffer_size` option in `php.ini`. If this directive is excluded, the default value is set to 0, and the JIT won't run.
 
 ```ini
-<hljs prop>opcache.jit_buffer_size</hljs>=100M
+opcache.jit_buffer_size=100M
 ```
 
-You'll also want to set a JIT mode, which will determine how the JIT will monitor and react to hot parts of your code. You'll need to use the `<hljs prop>opcache.jit</hljs>` option. Its default is set to `tracing`, but you can override it using `function`:
+You'll also want to set a JIT mode, which will determine how the JIT will monitor and react to hot parts of your code. You'll need to use the `opcache.jit` option. Its default is set to `tracing`, but you can override it using `function`:
 
 ```ini
-<hljs prop>opcache.jit</hljs>=function
+opcache.jit=function
 ; opcache.jit=tracing
 ```
 
@@ -52,23 +52,23 @@ First it's best to establish whether the JIT is working properly or not. We know
 public function index()
 {
     for ($y = -39; $y < 39; $y++) {
-        <hljs prop>printf</hljs>("\n");
+        printf("\n");
 
         for ($x = -39; $x < 39; $x++) {
-            $i = $this-><hljs prop>mandelbrot</hljs>(
+            $i = $this->mandelbrot(
                 $x / 40.0,
                 $y / 40.0
             );
 
             if ($i == 0) {
-                <hljs prop>printf</hljs>("*");
+                printf("*");
             } else {
-                <hljs prop>printf</hljs>(" ");
+                printf(" ");
             }
         }
     }
 
-    <hljs prop>printf</hljs>("\n");
+    printf("\n");
 }
 
 private function mandelbrot($x, $y)
@@ -123,10 +123,10 @@ Great, it looks like the JIT is working! That's even a ten times performance inc
 <div class="sidenote">
 <h2>Side note:</h2>
 
-If you want to verify whether the JIT is running, you can use `<hljs prop>opcache_get_status</hljs>()`, it has a `jit` entry which lists all relevant information:
+If you want to verify whether the JIT is running, you can use `opcache_get_status()`, it has a `jit` entry which lists all relevant information:
 
 ```php
-dd(<hljs prop>opcache_get_status</hljs>()['jit']);
+dd(opcache_get_status()['jit']);
 
 // array:7 [▼
 //   "enabled" => true

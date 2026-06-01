@@ -13,14 +13,14 @@ footnotes:
 {{ ad:carbon }}
 
 ```php
-<hljs keyword>readonly</hljs> class PostData
+readonly class PostData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$author</hljs>,
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$body</hljs>,
-        <hljs keyword>public</hljs> <hljs type>DateTimeImmutable</hljs> <hljs prop>$createdAt</hljs>,
-        <hljs keyword>public</hljs> <hljs type>PostState</hljs> <hljs prop>$state</hljs>,
+        public string $title,
+        public string $author,
+        public string $body,
+        public DateTimeImmutable $createdAt,
+        public PostState $state,
     ) {}
 }
 ```
@@ -31,12 +31,12 @@ footnotes:
 
 ```php
 $rng = $is_production
-    ? new <hljs type>Random\Engine\Secure</hljs>()
-    : new <hljs type>Random\Engine\Mt19937</hljs>(1234);
+    ? new Random\Engine\Secure()
+    : new Random\Engine\Mt19937(1234);
  
-$randomizer = new <hljs type>Random\Randomizer</hljs>($rng);
+$randomizer = new Random\Randomizer($rng);
 
-$randomizer-><hljs prop>shuffleString</hljs>('foobar');
+$randomizer->shuffleString('foobar');
 ```
 
 <em class="small center">[New random extension](/blog/new-in-php-82#new-random-extension-rfc)</em>
@@ -44,18 +44,18 @@ $randomizer-><hljs prop>shuffleString</hljs>('foobar');
 ---
 
 ```php
-function alwaysFalse(): <hljs type>false</hljs>
+function alwaysFalse(): false
 {
     return false;
 }
 ```
 
-<em class="small center">[`<hljs type>null</hljs>`,  `<hljs type>true</hljs>`, and `<hljs type>false</hljs>` as standalone types](/blog/new-in-php-82#null,--true,-and-false-as-standalone-types-rfc)</em>
+<em class="small center">[`null`,  `true`, and `false` as standalone types](/blog/new-in-php-82#null,--true,-and-false-as-standalone-types-rfc)</em>
 
 ---
 
 ```php
-function <hljs prop>generateSlug</hljs>((<hljs type>HasTitle</hljs>&<hljs type>HasId</hljs>)|<hljs type>null</hljs> $post) 
+function generateSlug((HasTitle&HasId)|null $post) 
 { /* … */ }
 ```
 
@@ -64,13 +64,13 @@ function <hljs prop>generateSlug</hljs>((<hljs type>HasTitle</hljs>&<hljs type>H
 ---
 
 ```php
-trait <hljs type>Foo</hljs> 
+trait Foo 
 {
-    public const <hljs prop>CONSTANT</hljs> = 1;
+    public const CONSTANT = 1;
  
     public function bar(): int 
     {
-        return self::<hljs prop>CONSTANT</hljs>;
+        return self::CONSTANT;
     }
 }
 ```
@@ -81,8 +81,8 @@ trait <hljs type>Foo</hljs>
 
 ```php
 function connect(
-    <hljs type>string</hljs> $user,
-    #[<hljs type>\SensitiveParameter</hljs>] <hljs type>string</hljs> $password
+    string $user,
+    #[\SensitiveParameter] string $password
 ) {
     // …
 }
@@ -95,9 +95,9 @@ function connect(
 ```php
 class Post {}
 
-$post = new <hljs type>Post</hljs>();
+$post = new Post();
 
-$post-><hljs striped>title</hljs> = 'Name';
+$post->title = 'Name';
 
 // Deprecated: Creation of dynamic property is deprecated
 ```
@@ -107,11 +107,11 @@ $post-><hljs striped>title</hljs> = 'Name';
 ---
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>A</hljs>: <hljs type>string</hljs> 
+enum A: string 
 {
-    case <hljs prop>B</hljs> = 'B';
+    case B = 'B';
     
-    const <hljs prop>C</hljs> = [<hljs yellow>self::<hljs prop>B</hljs>-><hljs prop>value</hljs></hljs> => self::<hljs prop>B</hljs>];
+    const C = [self::B->value => self::B];
 }
 ```
 

@@ -3,16 +3,16 @@
     "type": "project",
     "require": {
         "php": "^8.5",
-        "tempest/framework": "^3.10",
-        "symfony/yaml": "^7.3",
-        "spatie/yaml-front-matter": "^2.1",
-        "intervention/image": "^3.11",
+        "tempest/framework": "^3.11.2",
         "league/oauth2-google": "^4.0",
         "league/oauth2-github": "^3.0",
         "wohali/oauth2-discord-new": "^1.2",
         "chrome-php/chrome": "^1.14",
         "codewithkyrian/transformers": "^0.6.2",
-        "predis/predis": "^3.4"
+        "predis/predis": "^3.4",
+        "tempest/markdown": "dev-main",
+        "tempest/responsive-image": "dev-main",
+        "spatie/yaml-front-matter": "^2.1"
     },
     "repositories": [
     ],

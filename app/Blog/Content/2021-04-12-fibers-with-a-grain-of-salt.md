@@ -45,7 +45,7 @@ In the world of parallel processing, we send the request but _don't_ wait. Then 
 
 You can see how such an approach reduces execution time because we're using the waiting time more optimally.
 
-Fibers are a new mechanism in PHP 8.1 that allow you to manage those parallel execution paths more efficiently. It was already possible by using generators and `<hljs keyword>yield</hljs>`, but fibers are a significant improvement, since they are specifically designed for this use case. 
+Fibers are a new mechanism in PHP 8.1 that allow you to manage those parallel execution paths more efficiently. It was already possible by using generators and `yield`, but fibers are a significant improvement, since they are specifically designed for this use case. 
 
 You would create one fiber for each request, and pause the fiber after the request is sent. After you've created all three fibers, you'd loop over them, and resume them one by one. By doing so, the fiber checks whether the request is already finished, if not it pauses again, otherwise it can process the response and eventually finish.
 
@@ -62,17 +62,17 @@ That's right: most of PHP's functions that deal with I/O don't have this non-blo
 There's the example of sockets, which can be set to be non-blocking, like so:
 
 ```php
-[$read, $write] = <hljs prop>stream_socket_pair</hljs>(
-    <hljs prop>STREAM_PF_UNIX</hljs>,
-    <hljs prop>STREAM_SOCK_STREAM</hljs>,
-    <hljs prop>STREAM_IPPROTO_IP</hljs>
+[$read, $write] = stream_socket_pair(
+    STREAM_PF_UNIX,
+    STREAM_SOCK_STREAM,
+    STREAM_IPPROTO_IP
 );
  
-<hljs prop>stream_set_blocking</hljs>($read, false);
-<hljs prop>stream_set_blocking</hljs>($write, false);
+stream_set_blocking($read, false);
+stream_set_blocking($write, false);
 ```
 
-By using `<hljs prop>stream_socket_pair</hljs>()`, two sockets are created that can be used for bidirectional communication. And as you can see, they can be set to be non-blocking using `<hljs prop>stream_set_blocking</hljs>()`.
+By using `stream_socket_pair()`, two sockets are created that can be used for bidirectional communication. And as you can see, they can be set to be non-blocking using `stream_set_blocking()`.
 
 Say we'd want to implement our example, sending three requests. We could use sockets to do so, but we'd need to implement the HTTP protocol ourselves on top of it. That's exactly what [nox7](https://github.com/nox7/async-php-8-io-http) did, a user who shared a small proof of concept on [Reddit](*https://www.reddit.com/r/PHP/comments/mk15gd/php_fibers_a_pure_php_example_with_http_get/) to show how to send HTTP GET requests using fibers and sockets. Do you really want to be concerned with doing so in your application code?
 
@@ -81,17 +81,17 @@ The answer, for me at least, is "no". Which is exactly what the RFC warned about
 With ReactPHP, for example, we could write something like this:
 
 ```php
-$loop = <hljs type>React\EventLoop\Factory</hljs>::<hljs prop>create</hljs>();
+$loop = React\EventLoop\Factory::create();
 
-$browser = new <hljs type>Clue\React\Buzz\Browser</hljs>($loop);
+$browser = new Clue\React\Buzz\Browser($loop);
 
 $promises = [
-    $browser-><hljs prop>get</hljs>('https://example.com/1'),
-    $browser-><hljs prop>get</hljs>('https://example.com/2'),
-    $browser-><hljs prop>get</hljs>('https://example.com/3'),
+    $browser->get('https://example.com/1'),
+    $browser->get('https://example.com/2'),
+    $browser->get('https://example.com/3'),
 ];
 
-$responses = <hljs type>Block</hljs>\<hljs prop>awaitAll</hljs>($promises, $loop);
+$responses = Block\awaitAll($promises, $loop);
 ```
 
 That's a better example compared to manually creating socket connections. And that's what the RFC means: application developers shouldn't need to worry about fibers, it's an implementation detail for frameworks like Amp or ReactPHP.

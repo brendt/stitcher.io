@@ -28,7 +28,7 @@ because there's little to no discussion about the closing one.
 Let's take a look at a code sample.
 
 ```php
-public function __construct(<hljs type>string</hljs> $publicDirectory, <hljs type>string</hljs> $configurationFile, <hljs type>PageParser</hljs> $pageParser, <hljs type>PageRenderer</hljs> $pageRenderer) {
+public function __construct(string $publicDirectory, string $configurationFile, PageParser $pageParser, PageRenderer $pageRenderer) {
     // ...
 }
 ```
@@ -55,10 +55,10 @@ yet in the above example a lot of useful information is pushed to that right, da
 So how do we pull the useful information more to the left?
 
 ```php
-public function __construct(<hljs type>string</hljs> $publicDirectory, 
-                            <hljs type>string</hljs> $configurationFile, 
-                            <hljs type>PageParser</hljs> $pageParser, 
-                            <hljs type>PageRenderer</hljs> $pageRenderer) {
+public function __construct(string $publicDirectory, 
+                            string $configurationFile, 
+                            PageParser $pageParser, 
+                            PageRenderer $pageRenderer) {
     // ...
 }
 ```
@@ -68,10 +68,10 @@ As soon as you're refactoring a method name, the alignment breaks.
 Say we want to make this a static constructor instead of a normal one.
 
 ```php
-public static function create(<hljs type>string</hljs> $publicDirectory, 
-                            <hljs type>string</hljs> $configurationFile, 
-                            <hljs type>PageParser</hljs> $pageParser, 
-                            <hljs type>PageRenderer</hljs> $pageRenderer) {
+public static function create(string $publicDirectory, 
+                            string $configurationFile, 
+                            PageParser $pageParser, 
+                            PageRenderer $pageRenderer) {
 ```
 
 See the alignment breaking? 
@@ -80,8 +80,8 @@ let's take a look at another approach.
 
 ```php
 public function __construct(
-    <hljs type>string</hljs> $publicDirectory, <hljs type>string</hljs> $configurationFile, 
-    <hljs type>PageParser</hljs> $pageParser, <hljs type>PageRenderer</hljs> $pageRenderer) {
+    string $publicDirectory, string $configurationFile, 
+    PageParser $pageParser, PageRenderer $pageRenderer) {
     // ...
 }
 ```
@@ -99,11 +99,11 @@ So let's continue searching for that consistency.
 
 ```php
 public function __construct(
-    <hljs type>string</hljs> $publicDirectory, 
-    <hljs type>string</hljs> $configurationFile, 
-    <hljs type>PageParser</hljs> $pageParser, 
-    <hljs type>PageRenderer</hljs> $pageRenderer) {
-    $this->publicDirectory = <hljs prop>rtrim</hljs>($publicDirectory, '/');
+    string $publicDirectory, 
+    string $configurationFile, 
+    PageParser $pageParser, 
+    PageRenderer $pageRenderer) {
+    $this->publicDirectory = rtrim($publicDirectory, '/');
     $this->configurationFile = $configurationFile;
     $this->pageParser = $pageParser;
     $this->pageRenderer = $pageRenderer;
@@ -158,12 +158,12 @@ Here's the final result:
 
 ```php
 public function __construct(
-    <hljs type>string</hljs> $publicDirectory, 
-    <hljs type>string</hljs> $configurationFile, 
-    <hljs type>PageParser</hljs> $pageParser, 
-    <hljs type>PageRenderer</hljs> $pageRenderer
+    string $publicDirectory, 
+    string $configurationFile, 
+    PageParser $pageParser, 
+    PageRenderer $pageRenderer
 ) {
-    $this->publicDirectory = <hljs prop>rtrim</hljs>($publicDirectory, '/');
+    $this->publicDirectory = rtrim($publicDirectory, '/');
     $this->configurationFile = $configurationFile;
     $this->pageParser = $pageParser;
     $this->pageRenderer = $pageRenderer;

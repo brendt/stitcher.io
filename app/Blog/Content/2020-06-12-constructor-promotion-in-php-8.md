@@ -23,20 +23,20 @@ So instead of doing this:
 ```php
 class CustomerDTO
 {
-    public <hljs type>string</hljs> <hljs prop>$name</hljs>;
+    public string $name;
 
-    public <hljs type>string</hljs> <hljs prop>$email</hljs>;
+    public string $email;
 
-    public <hljs type>DateTimeImmutable</hljs> <hljs prop>$birth_date</hljs>;
+    public DateTimeImmutable $birth_date;
 
     public function __construct(
-        <hljs type>string</hljs> $name, 
-        <hljs type>string</hljs> $email, 
-        <hljs type>DateTimeImmutable</hljs> $birth_date
+        string $name, 
+        string $email, 
+        DateTimeImmutable $birth_date
     ) {
-        $this-><hljs prop>name</hljs> = $name;
-        $this-><hljs prop>email</hljs> = $email;
-        $this-><hljs prop>birth_date</hljs> = $birth_date;
+        $this->name = $name;
+        $this->email = $email;
+        $this->birth_date = $birth_date;
     }
 }
 ```
@@ -47,9 +47,9 @@ You would write this:
 class CustomerDTO
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$name</hljs>, 
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$email</hljs>, 
-        <hljs keyword>public</hljs> <hljs type>DateTimeImmutable</hljs> <hljs prop>$birth_date</hljs>,
+        public string $name, 
+        public string $email, 
+        public DateTimeImmutable $birth_date,
     ) {}
 }
 ```
@@ -70,7 +70,7 @@ So it goes from this:
 class MyDTO
 {
     public function __construct(
-        <hljs keyword blue>public</hljs> <hljs type red>string</hljs> <hljs prop green>$name</hljs> = <hljs yellow>'Brent'</hljs>,
+        public string $name = 'Brent',
     ) {}
 }
 ```
@@ -80,12 +80,12 @@ To this:
 ```php
 class MyDTO
 {
-    <hljs blue>public</hljs> <hljs type red>string</hljs> <hljs prop green>$name</hljs>;
+    public string $name;
 
     public function __construct(
-        <hljs type red>string</hljs> <hljs green>$name</hljs> = <hljs yellow>'Brent'</hljs>
+        string $name = 'Brent'
     ) {
-        $this-><hljs prop green>name</hljs> = <hljs green>$name</hljs>;
+        $this->name = $name;
     }
 }
 ```
@@ -113,10 +113,10 @@ You're not able to declare a class property and a promoted property with the sam
 ```php
 class MyClass
 {
-    <hljs striped>public <hljs type>string</hljs> <hljs prop>$a</hljs></hljs>;
+    public string $a;
 
     public function __construct(
-        <hljs striped><hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$a</hljs></hljs>,
+        public string $a,
     ) {}
 }
 ```
@@ -131,7 +131,7 @@ You're allowed to promote untyped properties, though I'd argue that these days w
 class MyDTO
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs prop green>$untyped</hljs>,
+        public $untyped,
     ) {}
 }
 ```
@@ -144,8 +144,8 @@ Promoted properties can have default values, but expressions like `new …` are 
 
 ```php
 public function __construct(
-    <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$name</hljs> = 'Brent',
-    <hljs keyword>public</hljs> <hljs type>DateTimeImmutable</hljs> <hljs prop>$date</hljs> <hljs striped>= <hljs keyword>new</hljs> <hljs type>DateTimeImmutable</hljs>()</hljs>,
+    public string $name = 'Brent',
+    public DateTimeImmutable $date = new DateTimeImmutable(),
 ) {}
 ```
 
@@ -158,13 +158,13 @@ Not all constructor properties should be promoted, you can mix and match.
 ```php
 class MyClass
 {
-    public <hljs type>string</hljs> <hljs prop>$b</hljs>;
+    public string $b;
 
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$a</hljs>,
-        <hljs type>string</hljs> $b,
+        public string $a,
+        string $b,
     ) {
-        $this-><hljs prop>b</hljs> = $b;
+        $this->b = $b;
     }
 }
 ```
@@ -181,13 +181,13 @@ You're allowed to read the promoted properties in the constructor body. This can
 
 ```php
 public function __construct(
-    <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$a</hljs>,
-    <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$b</hljs>,
+    public int $a,
+    public int $b,
 ) {
-    <hljs type>assert</hljs>($this-><hljs prop>a</hljs> >= 100);
+    assert($this->a >= 100);
 
     if ($b >= 0) {
-        throw new <hljs type>InvalidArgumentException</hljs>('…');
+        throw new InvalidArgumentException('…');
     }
 }
 ```
@@ -203,15 +203,15 @@ class MyClass
 {
     public function __construct(
         /** @var string */
-        <hljs keyword>public</hljs> <hljs prop>$a</hljs>,
+        public $a,
     ) {}
 }
 ```
 
 ```php
-$property = new <hljs type>ReflectionProperty</hljs>(<hljs type>MyClass</hljs>::class, 'a');
+$property = new ReflectionProperty(MyClass::class, 'a');
 
-$property-><hljs prop>getDocComment</hljs>(); // "/** @var string */"
+$property->getDocComment(); // "/** @var string */"
 ```
 
 ---
@@ -224,8 +224,8 @@ Just like doc blocks, [attributes](/blog/attributes-in-php-8) are allowed on pro
 class MyClass
 {
     public function __construct(
-        <hljs comment>#[<hljs type>MyAttribute</hljs>]</hljs>
-        <hljs keyword>public</hljs> <hljs prop>$a</hljs>,  
+        #[MyAttribute]
+        public $a,  
     ) {}
 }
 ```
@@ -235,14 +235,14 @@ Will be transpiled to:
 ```php
 class MyClass 
 {
-    #[<hljs type>MyAttribute</hljs>]
-    public <hljs prop>$a</hljs>;
+    #[MyAttribute]
+    public $a;
  
     public function __construct(
-        <hljs comment>#[<hljs type>MyAttribute</hljs>]</hljs>
+        #[MyAttribute]
         $a,
     ) {
-        $this-><hljs prop>a</hljs> = $a;
+        $this->a = $a;
     }
 }
 ```
@@ -257,7 +257,7 @@ I didn't even know abstract constructors were a thing, but here goes! Promoted p
 abstract class A
 {
     abstract public function __construct(
-        <hljs striped keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$a</hljs>,
+        public string $a,
     ) {}
 }
 ```
@@ -269,10 +269,10 @@ abstract class A
 On the other hand, they are allowed in traits. This makes sense, since the transpiled syntax is also valid in traits.
 
 ```php
-trait <hljs type>MyTrait</hljs>
+trait MyTrait
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$a</hljs>,
+        public string $a,
     ) {}
 }
 ```
@@ -285,7 +285,7 @@ Old, I mean, experienced PHP developers might have used `var` in a distant past 
 
 ```php
 public function __construct(
-    <hljs striped keyword>var</hljs> <hljs type>string</hljs> <hljs prop>$a</hljs>,
+    var string $a,
 ) {}
 ```
 
@@ -297,7 +297,7 @@ Since you can't convert to a type that's `array of type`, it's not possible to p
 
 ```php
 public function __construct(
-    <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop striped>...$a</hljs>,
+    public string ...$a,
 ) {}
 ```
 
@@ -319,7 +319,7 @@ Since PHP constructors don't need to follow the declaration of their parent cons
 class A
 {
     public function __construct(
-        <hljs type>public</hljs> <hljs prop>$a</hljs>,
+        public $a,
     ) {}
 }
 
@@ -327,9 +327,9 @@ class B extends A
 {
     public function __construct(
         $a,
-        <hljs type>public</hljs> <hljs prop>$b</hljs>,    
+        public $b,    
     ) {
-        parent::<hljs prop>__construct</hljs>($a);
+        parent::__construct($a);
     }
 }
 ```

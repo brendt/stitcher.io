@@ -7,9 +7,9 @@ footnotes:
     - { link: /blog/we-dont-need-runtime-type-checks, title: "We don't need runtime type checks" }
 ---
 
-There's a new feature in PHP 8.3: the `#[<hljs type>Override</hljs>]` attribute. It's a feature already known in other languages, but let me summarize in case you're unaware of what it does.
+There's a new feature in PHP 8.3: the `#[Override]` attribute. It's a feature already known in other languages, but let me summarize in case you're unaware of what it does.
 
-Marking a method with the `#[<hljs type>Override</hljs>]` attributes signifies that you _know_ this method is overriding a parent method. So the only thing it does, is show intent.
+Marking a method with the `#[Override]` attributes signifies that you _know_ this method is overriding a parent method. So the only thing it does, is show intent.
 
 Why does that matter? You already know you're overriding a method, don't you? Well, let's imagine these two classes:
 
@@ -24,7 +24,7 @@ abstract class Parent
 
 final class Child extends Parent
 {
-    #[<hljs type>Override</hljs>]
+    #[Override]
     public function methodWithDefaultImplementation(): int
     {
         return 2; // The overridden method
@@ -44,9 +44,9 @@ abstract class Parent
 }
 ```
 
-Before the `#[<hljs type>Override</hljs>]` attribute, there was no way of knowing that `<hljs type>Child</hljs>::<hljs prop>methodWithDefaultImplementation</hljs>()` doesn't override the renamed method anymore, which could lead to unforeseen bugs.  
+Before the `#[Override]` attribute, there was no way of knowing that `Child::methodWithDefaultImplementation()` doesn't override the renamed method anymore, which could lead to unforeseen bugs.  
 
-Thanks to `#[<hljs type>Override</hljs>]` though, PHP now knows something is wrong, thanks to that attribute. It basically says "I know this method should override a parent method. If that would ever change, please let me know".
+Thanks to `#[Override]` though, PHP now knows something is wrong, thanks to that attribute. It basically says "I know this method should override a parent method. If that would ever change, please let me know".
 
 ## Some thoughts
 

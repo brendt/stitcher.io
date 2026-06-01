@@ -2,17 +2,16 @@
 
 namespace App\Mail;
 
-use League\CommonMark\MarkdownConverter;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
+use Tempest\Markdown\Markdown;
 use Tempest\Support\Arr\ImmutableArray;
 use function Tempest\Support\arr;
 
 final readonly class MailRepository
 {
     public function __construct(
-        private MarkdownConverter $converter,
+        private Markdown $markdown,
         private Cache $cache,
     ) {
     }
@@ -41,11 +40,13 @@ final readonly class MailRepository
                 return $this->cache->resolve($cacheKey, function () use ($path, $content){
                     preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
 
+                    $parsed = $this->markdown->parse($content);
+
                     return [
                         'slug' => $matches['slug'],
                         'date' => $this->parseDate($path),
-                        'content' => $this->converter->convert($content)->getContent(),
-                        ...YamlFrontMatter::parse($content)->matter(),
+                        'content' => $parsed->html,
+                        ...$parsed->frontMatter,
                     ];
                 });
             })

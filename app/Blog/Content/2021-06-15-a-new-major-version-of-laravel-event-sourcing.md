@@ -28,7 +28,7 @@ class CartAggregateRoot extends AggregateRoot
 {
     // …
     
-    public function onCartAdded(<hljs type>CartAdded</hljs> $event): void
+    public function onCartAdded(CartAdded $event): void
     {
         // Any `CartAdded` event will automatically be matched to this handler
     }
@@ -37,7 +37,7 @@ class CartAggregateRoot extends AggregateRoot
 ```php
 class CartProjector extends Projector
 {
-    public function onCartAdded(<hljs type>CartAdded</hljs> $event): void
+    public function onCartAdded(CartAdded $event): void
     {
         // The same goes for projectors and reactors.
     }
@@ -53,37 +53,37 @@ Here's an example of it in action:
 ```php
 class EarningsForProductAndPeriod extends EventQuery
 {
-    <hljs keyword>private</hljs> <hljs type>int</hljs> <hljs prop>$totalPrice</hljs> = 0;
+    private int $totalPrice = 0;
     
-    <hljs keyword>public</hljs> function __construct(
-        <hljs keyword>private</hljs> <hljs type>Period</hljs> <hljs prop>$period</hljs>,
-        <hljs keyword>private</hljs> <hljs type>Collection</hljs> <hljs prop>$products</hljs>
+    public function __construct(
+        private Period $period,
+        private Collection $products
     ) {
-        <hljs type>EloquentStoredEvent</hljs>::<hljs prop>query</hljs>()
-            -><hljs prop>whereEvent</hljs>(<hljs type>OrderCreated</hljs>::class)
-            -><hljs prop>whereDate</hljs>('created_at', '>=', $this-><hljs prop>period</hljs>-><hljs prop>getStart</hljs>())
-            -><hljs prop>whereDate</hljs>('created_at', '<=', $this-><hljs prop>period</hljs>-><hljs prop>getEnd</hljs>())
-            -><hljs prop>cursor</hljs>()
-            -><hljs prop>each</hljs>(
-                <hljs keyword>fn</hljs> (<hljs type>EloquentStoredEvent</hljs> $event) => $this-><hljs prop>apply</hljs>($event)
+        EloquentStoredEvent::query()
+            ->whereEvent(OrderCreated::class)
+            ->whereDate('created_at', '>=', $this->period->getStart())
+            ->whereDate('created_at', '<=', $this->period->getEnd())
+            ->cursor()
+            ->each(
+                fn (EloquentStoredEvent $event) => $this->apply($event)
             );
     }
 
-    protected function applyOrderCreated(<hljs type>OrderCreated</hljs> $orderCreated): void 
+    protected function applyOrderCreated(OrderCreated $orderCreated): void 
     {
-        $orderLines = <hljs prop>collect</hljs>($orderCreated-><hljs prop>orderData</hljs>-><hljs prop>orderLineData</hljs>);
+        $orderLines = collect($orderCreated->orderData->orderLineData);
 
         $totalPriceForOrder = $orderLines
-            -><hljs prop>filter</hljs>(function (<hljs type>OrderLineData</hljs> $orderLineData) {
-                <hljs keyword>return</hljs> $this-><hljs prop>products</hljs>-><hljs prop>first</hljs>(
-                    <hljs keyword>fn</hljs>(<hljs type>Product</hljs> $product) => $orderLineData-><hljs prop>productEquals</hljs>($product)
+            ->filter(function (OrderLineData $orderLineData) {
+                return $this->products->first(
+                    fn(Product $product) => $orderLineData->productEquals($product)
                 ) !== null;
             })
-            -><hljs prop>sum</hljs>(
-                <hljs keyword>fn</hljs>(<hljs type>OrderLineData</hljs> $orderLineData) => $orderLineData-><hljs prop>totalPriceIncludingVat</hljs>
+            ->sum(
+                fn(OrderLineData $orderLineData) => $orderLineData->totalPriceIncludingVat
             );
 
-        $this-><hljs prop>totalPrice</hljs> += $totalPriceForOrder;
+        $this->totalPrice += $totalPriceForOrder;
     }
 }
 ```
@@ -102,23 +102,23 @@ class CartItems extends AggregatePartial
     // …
     
     public function addItem(
-        <hljs type>string</hljs> $cartItemUuid, 
-        <hljs type>Product</hljs> $product, 
-        <hljs type>int</hljs> $amount
+        string $cartItemUuid, 
+        Product $product, 
+        int $amount
     ): self {
-        $this-><hljs prop>recordThat</hljs>(new <hljs type>CartItemAdded</hljs>(
-            <hljs prop>cartItemUuid</hljs>: $cartItemUuid,
-            <hljs prop>productUuid</hljs>: $product-><hljs prop>uuid</hljs>,
-            <hljs prop>amount</hljs>: $amount,
+        $this->recordThat(new CartItemAdded(
+            cartItemUuid: $cartItemUuid,
+            productUuid: $product->uuid,
+            amount: $amount,
         ));
 
         return $this;
     }
 
     protected function applyCartItemAdded(
-        <hljs type>CartItemAdded</hljs> $cartItemAdded
+        CartItemAdded $cartItemAdded
     ): void {
-        $this-><hljs prop>cartItems</hljs>[$cartItemAdded-><hljs prop>cartItemUuid</hljs>] = null;
+        $this->cartItems[$cartItemAdded->cartItemUuid] = null;
     }
 }
 ```
@@ -128,23 +128,23 @@ And this is how the cart aggregate root would use it:
 ```php
 class CartAggregateRoot extends AggregateRoot
 {
-    protected <hljs type>CartItems</hljs> <hljs prop>$cartItems</hljs>;
+    protected CartItems $cartItems;
 
     public function __construct()
     {
-        $this-><hljs prop>cartItems</hljs> = new <hljs type>CartItems</hljs>($this);
+        $this->cartItems = new CartItems($this);
     }
 
     public function addItem(
-        <hljs type>string</hljs> $cartItemUuid,
-        <hljs type>Product</hljs> $product,
-        <hljs type>int</hljs> $amount
+        string $cartItemUuid,
+        Product $product,
+        int $amount
     ): self {
-        if (! $this-><hljs prop>state</hljs>-><hljs prop>changesAllowed</hljs>()) {
-            throw new <hljs type>CartCannotBeChanged</hljs>();
+        if (! $this->state->changesAllowed()) {
+            throw new CartCannotBeChanged();
         }
 
-        $this-><hljs prop>cartItems</hljs>-><hljs prop>addItem</hljs>($cartItemUuid, $product, $amount);
+        $this->cartItems->addItem($cartItemUuid, $product, $amount);
 
         return $this;
     }
@@ -157,20 +157,20 @@ Aggregate partials come with the same testing capabilities as aggregate roots, a
 We've added a command bus that can automatically map commands to handlers on aggregate roots:
 
 ```php
-namespace <hljs type>Spatie\Shop\Cart\Commands</hljs>;
+namespace Spatie\Shop\Cart\Commands;
 
-use <hljs type>Spatie\Shop\Support\EventSourcing\Attributes\AggregateUuid</hljs>;
-use <hljs type>Spatie\Shop\Support\EventSourcing\Attributes\HandledBy</hljs>;
-use <hljs type>Spatie\Shop\Support\EventSourcing\Commands\Command</hljs>;
+use Spatie\Shop\Support\EventSourcing\Attributes\AggregateUuid;
+use Spatie\Shop\Support\EventSourcing\Attributes\HandledBy;
+use Spatie\Shop\Support\EventSourcing\Commands\Command;
 
-#[<hljs type>HandledBy</hljs>(<hljs type>CartAggregateRoot</hljs><hljs text>::class</hljs>)]
+#[HandledBy(CartAggregateRoot::class)]
 class AddCartItem implements Command
 {
-    <hljs keyword>public</hljs> function __construct(
-        <hljs comment>#[<hljs type>AggregateUuid</hljs>]</hljs> <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$cartUuid</hljs>,
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$cartItemUuid</hljs>,
-        <hljs keyword>public</hljs> <hljs type>Product</hljs> <hljs prop>$product</hljs>,
-        <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$amount</hljs>,
+    public function __construct(
+        #[AggregateUuid] public string $cartUuid,
+        public string $cartItemUuid,
+        public Product $product,
+        public int $amount,
     ) {
     }
 }
@@ -183,12 +183,12 @@ class CartItems extends AggregatePartial
 {
     // …
     
-    public function addItem(<hljs type>AddCartItem</hljs> $addCartItem): self
+    public function addItem(AddCartItem $addCartItem): self
     {
         // …
     }
     
-    public function removeItem(<hljs type>RemoveCartItem</hljs> $removeCartItem): self
+    public function removeItem(RemoveCartItem $removeCartItem): self
     {
         // …
     }

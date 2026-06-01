@@ -22,7 +22,7 @@ class PostEditRequest extends Request
             'body' => ['required', 'string'],
             'date' => ['required', 'date_format:Y-m-d'],
             'author_id' => ['nullable', 'exists:authors,id'],
-            'tags' => [new <hljs type>CollectionRule</hljs>(<hljs type>Tag</hljs>::class)],
+            'tags' => [new CollectionRule(Tag::class)],
         ];
     }
 }
@@ -33,18 +33,18 @@ And here's the DTO that represents that data in a way so that PHP, our IDE and e
 ```php
 class PostEditData extends DataTransferObject
 {
-    public <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    public string $title;
     
-    public <hljs type>PostStatus</hljs> <hljs prop>$status</hljs>;
+    public PostStatus $status;
     
-    public <hljs type>string</hljs> <hljs prop>$body</hljs>;
+    public string $body;
     
-    public <hljs type>Carbon</hljs> <hljs prop>$date</hljs>;
+    public Carbon $date;
     
-    public <hljs type>?string</hljs> <hljs prop>$authorId</hljs>;
+    public ?string $authorId;
     
-    #[<hljs type>CastWith</hljs>(<hljs type>ArrayCaster</hljs><hljs text>::class</hljs>, <hljs prop>itemType</hljs>: <hljs type>Tag</hljs><hljs text>::class</hljs>)]
-    public <hljs type>array</hljs> <hljs prop>$tags</hljs>;
+    #[CastWith(ArrayCaster::class, itemType: Tag::class)]
+    public array $tags;
 }
 ```
 
@@ -54,13 +54,13 @@ Finally, there's the controller in between that converts the validated request d
 class PostEditController
 {
     public function __invoke(
-        <hljs type>UpdatePostAction</hljs> $updatePost,
-        <hljs type>Post</hljs> $post, 
-        <hljs type>PostEditRequest</hljs> $request,
+        UpdatePostAction $updatePost,
+        Post $post, 
+        PostEditRequest $request,
     ) {
         return $updatePost(
-            <hljs prop>post</hljs>: $post,
-            <hljs prop>data</hljs>: new <hljs type>PostEditData</hljs>(...$request-><hljs prop>validated</hljs>()), 
+            post: $post,
+            data: new PostEditData(...$request->validated()), 
         );
     }
 }
@@ -77,21 +77,21 @@ I could build up some suspense here to get you all excited about it, but I trust
 ```php
 class PostEditRequest extends Request
 {
-    #[<hljs type>Rule</hljs>(<hljs type>UniquePostRule</hljs><hljs text>::</hljs><hljs keyword>class</hljs>)]
-    #[<hljs type>Max</hljs>(<hljs text>255</hljs>)]
-    public <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    #[Rule(UniquePostRule::class)]
+    #[Max(255)]
+    public string $title;
     
-    public <hljs type>PostStatus</hljs> <hljs prop>$status</hljs>;
+    public PostStatus $status;
     
-    public <hljs type>string</hljs> <hljs prop>$body</hljs>;
+    public string $body;
     
-    #[<hljs type>Date</hljs>(<hljs text>'Y-m-d'</hljs>)]
-    public <hljs type>Carbon</hljs> <hljs prop>$date</hljs>;
+    #[Date('Y-m-d')]
+    public Carbon $date;
     
-    public <hljs type>?string</hljs> <hljs prop>$authorId</hljs>;
+    public ?string $authorId;
     
-    #[<hljs type>Rule</hljs>(<hljs type>CollectionRule</hljs><hljs text>::</hljs><hljs text>class</hljs>, <hljs prop>type</hljs>: <hljs type>Tag</hljs><hljs text>::</hljs><hljs text>class</hljs>)]
-    public <hljs type>array</hljs> <hljs prop>$tags</hljs>;
+    #[Rule(CollectionRule::class, type: Tag::class)]
+    public array $tags;
 }
 ```
 
@@ -108,7 +108,7 @@ class PostEditRequest extends Request
             'body' => ['required', 'string'],
             'date' => ['required', 'date_format:Y-m-d'],
             'author_id' => ['nullable', 'exists:authors,id'],
-            'tags' => [new <hljs type>CollectionRule</hljs>(<hljs type>Tag</hljs>::class)],
+            'tags' => [new CollectionRule(Tag::class)],
         ];
     }
 }
@@ -122,12 +122,12 @@ Finally, our controller could be refactored like so:
 class PostEditController
 {
     public function __invoke(
-        <hljs type>UpdatePostAction</hljs> $updatePost,
-        <hljs type>Post</hljs> $post, 
-        <hljs type>PostEditRequest</hljs> $data,
+        UpdatePostAction $updatePost,
+        Post $post, 
+        PostEditRequest $data,
     ) {
         return $updatePost(
-            <hljs prop>post</hljs>: $post,<hljs red full><hljs prop>            data</hljs>: new <hljs type>PostEditData</hljs>(...$request-><hljs prop>validated</hljs>()),</hljs><hljs green full><hljs prop>            data</hljs>: $data,</hljs> 
+            post: $post,            data: new PostEditData(...$request->validated()),            data: $data, 
         );
     }
 }

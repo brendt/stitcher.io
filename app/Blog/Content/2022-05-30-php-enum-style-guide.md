@@ -9,12 +9,12 @@ This is my personal style guide for using enums in PHP. Each section describes t
 You must use uppercase notation for enum cases:
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>PostState</hljs>
+enum PostState
 {
-    case <hljs prop>PENDING</hljs>;
-    case <hljs prop>PUBLISHED</hljs>;
-    case <hljs prop>STARRED</hljs>;
-    case <hljs prop>DENIED</hljs>;
+    case PENDING;
+    case PUBLISHED;
+    case STARRED;
+    case DENIED;
 }
 ```
 
@@ -35,12 +35,12 @@ Nevertheless, I have tried using PascalCase for enums, but it always felt unnatu
 You should only use backed enums when you actually have a need for them. A common use case is serialization. If an enum is only going to be used within code, you shouldn't make it a backed enum. 
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>PostState</hljs>: <hljs type>string</hljs>
+enum PostState: string
 {
-    case <hljs prop>PENDING</hljs> = 'pending';
-    case <hljs prop>PUBLISHED</hljs> = 'published';
-    case <hljs prop>STARRED</hljs> = 'starred';
-    case <hljs prop>DENIED</hljs> = 'denied';
+    case PENDING = 'pending';
+    case PUBLISHED = 'published';
+    case STARRED = 'starred';
+    case DENIED = 'denied';
 }
 ```
 
@@ -48,32 +48,32 @@ You should only use backed enums when you actually have a need for them. A commo
 
 Manually assigning values to enums introduces maintenance overhead: you're not only maintaining the enum cases itself, but also their values. It's important to take into consideration when to add overhead, and when not.
 
-On top of that: enums have their built-in `<hljs prop>name</hljs>` property that's always accessible in case you need a textual representation:
+On top of that: enums have their built-in `name` property that's always accessible in case you need a textual representation:
 
 ```php
-<hljs type>Status</hljs>::<hljs prop>PUBLISHED</hljs>-><hljs prop>name</hljs>; // PUBLISHED
+Status::PUBLISHED->name; // PUBLISHED
 ```
 
 When in doubt, apply this rule: do you need to create this enum from scalar values (from a database, from user input, …): use a backed enum. If the answer is "no" however, hold off assigning values until your use case requires it.
 
 ## 3. Simple match methods are allowed
 
-Enums shouldn't contain complex methods. Ideally, they only contain methods using the `<hljs keyword>match</hljs>` expression that provide richer functionality for specific enum cases:
+Enums shouldn't contain complex methods. Ideally, they only contain methods using the `match` expression that provide richer functionality for specific enum cases:
 
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>Status</hljs>
+enum Status
 {
-    case <hljs prop>DRAFT</hljs>;
-    case <hljs prop>PUBLISHED</hljs>;
-    case <hljs prop>ARCHIVED</hljs>;
+    case DRAFT;
+    case PUBLISHED;
+    case ARCHIVED;
 
     public function label(): string
     {
-        return <hljs keyword>match</hljs>($this) {
-            <hljs type>Status</hljs>::<hljs prop>DRAFT</hljs> => 'work in progress',
-            <hljs type>Status</hljs>::<hljs prop>PUBLISHED</hljs> => 'published',
-            <hljs type>Status</hljs>::<hljs prop>ARCHIVED</hljs> => 'archived',
+        return match($this) {
+            Status::DRAFT => 'work in progress',
+            Status::PUBLISHED => 'published',
+            Status::ARCHIVED => 'archived',
         };
     }
 }
@@ -83,7 +83,7 @@ Enums shouldn't contain complex methods. Ideally, they only contain methods usin
 
 Enums shouldn't provide complex functionality, if you find yourself writing too much logic in your enums, you probably want to look into using the [state pattern](/blog/laravel-beyond-crud-05-states) instead.
 
-A good rule of thumb is that if it can fit into a `<hljs keyword>match</hljs>` expression (without returning closures or callables or what not), you're good to go. Otherwise consider alternatives.
+A good rule of thumb is that if it can fit into a `match` expression (without returning closures or callables or what not), you're good to go. Otherwise consider alternatives.
 
 {{ cta:dynamic }}
 
@@ -96,11 +96,11 @@ A backed enum's value should only be used as a value for (de)serialization, not 
 You might be tempted to rewrite the example from the previous point as follows:
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>Status</hljs>
+enum Status
 {
-    case <hljs prop>DRAFT</hljs> = 'work in progress';
-    case <hljs prop>PUBLISHED</hljs> = 'published';
-    case <hljs prop>ARCHIVED</hljs> = 'archived';
+    case DRAFT = 'work in progress';
+    case PUBLISHED = 'published';
+    case ARCHIVED = 'archived';
 }
 ```
 
@@ -111,26 +111,26 @@ While shorter, you're now mixing two concerns into one: representing labels in a
 You should only use integer backed enums when their values actually are integers, not to assign some notion of "order" or "indexing" to your enums.
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>VatPercentage</hljs>: <hljs type>int</hljs> 
+enum VatPercentage: int 
 {
-    case <hljs prop>SIX</hljs> = 6;
-    case <hljs prop>TWELVE</hljs> = 12;
-    case <hljs prop>TWENTY_ONE</hljs> = 21;
+    case SIX = 6;
+    case TWELVE = 12;
+    case TWENTY_ONE = 21;
 }
 
-<hljs keyword>enum</hljs> <hljs type>Status</hljs>: <hljs type>int</hljs> 
+enum Status: int 
 {
-    <hljs red>case <hljs prop>DRAFT</hljs> = 1;</hljs>
-    <hljs red>case <hljs prop>PUBLISHED</hljs> = 2;</hljs>
-    <hljs red>case <hljs prop>ARCHIVED</hljs> = 3;</hljs>
+    case DRAFT = 1;
+    case PUBLISHED = 2;
+    case ARCHIVED = 3;
 }
 ```
 
 ### Why?
 
-It might be tempting to assign integer values to, for example, status enums where `<hljs prop>DRAFT</hljs>` comes before `<hljs prop>PUBLISHED</hljs>`, comes before `<hljs prop>ARCHIVED</hljs>`.
+It might be tempting to assign integer values to, for example, status enums where `DRAFT` comes before `PUBLISHED`, comes before `ARCHIVED`.
 
-While such sequential indexing works in a limited amount of cases, it's a mess to maintain. What happens when you're required to add another state called `<hljs prop>DENIED</hljs>`? It should probably get the value `2` or `3`, meaning that you're stuck with data migrations for all published and archived entries.
+While such sequential indexing works in a limited amount of cases, it's a mess to maintain. What happens when you're required to add another state called `DENIED`? It should probably get the value `2` or `3`, meaning that you're stuck with data migrations for all published and archived entries.
 
 When in doubt, you can again use the state pattern to model complex transitions between states and their order instead.
 
