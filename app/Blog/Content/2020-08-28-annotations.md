@@ -7,4 +7,4 @@ meta:
 
 <div class="image-noborder"></div>
 
-![[Show large image](*/img/comics/annotations.png)](/img/comics/annotations.png)
+[![](/img/comics/annotations.png)](/img/comics/annotations.png)

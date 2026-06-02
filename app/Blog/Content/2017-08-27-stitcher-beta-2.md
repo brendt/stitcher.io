@@ -18,7 +18,7 @@ composer require pageon/stitcher-core @beta
 
 Note the a few config parameters are changed. These changes might fall under the category "breaking", 
  but were really needed in order to get a more consistent API, before a real 1.0.0 release comes along.
-  
+
 - Add Parsedown extension to support classes on `<pre>` tags in fenced code blocks.
 - Disable directory listing via .htaccess.
 - Add `redirect.www` and `redirect.https` options. Allowing to automatically redirect non-www to www, and http to https.
@@ -30,7 +30,7 @@ Note the a few config parameters are changed. These changes might fall under the
 - Fix bug with Collection Adapters not copying meta tags from the base page for its sub-pages.
 - Add responsive images support to markdown parser.
 - The following config parameters are changed (#2):
-    - `caches.cdn` becomes `cache.cdn`.
+    - `caches.cdn` becomes `cache.cdn`. 
     - `caches.image` becomes `cache.images`.
     - `directories.htaccess` is removed.
     - `minify` becomes `engines.minifier`

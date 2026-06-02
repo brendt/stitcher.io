@@ -60,7 +60,7 @@ Nevertheless, it's a cool, geeky thing to know, and possible in PHP.
 
 So let's store these two flags in one variable.
 
-```txt
+```php
 abstract class Boundaries
 {
     protected int $inclusionMask = 0b00;
@@ -123,7 +123,7 @@ The end bit will always be `0` in this case, because the mask we're applying has
 
 So how to do this in PHP? By using the binary `and` operator, which is a single `&`:
 
-```txt
+```php
 public function startIncluded(): bool 
 {
     return $this->inclusionMask & 0b10;
@@ -137,7 +137,7 @@ public function endIncluded(): bool
 
 PHP's dynamic type system will automatically cast the result, `0` or a numeric value, to a boolean. If you want to be more explicit though, you can write it like so:
 
-```txt
+```php
 public function startIncluded(): bool 
 {
     return ($this->inclusionMask & 0b10) !== 0;

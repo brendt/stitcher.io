@@ -24,4 +24,4 @@ LATEST FOREIGN KEY ERROR
 Cannot resolve table name close to:
  (`id`)
    on delete cascade
-````
+```

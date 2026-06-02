@@ -7,11 +7,7 @@ meta:
     description: "I'm starting a monthly-ish newsletter"
 ---
 
-I'm going to give it a try: newsletters. 
-I'm always on the lookout for connecting more with my audience, 
-and feel like newsletters are a more personalised way of communication: 
-people can hit reply to engage in a one-on-one conversation.
-For me, email is the perfect platform to do that.
+I'm going to give it a try: newsletters. I'm always on the lookout for connecting more with my audience, and feel like newsletters are a more personalised way of communication: people can hit reply to engage in a one-on-one conversation. For me, email is the perfect platform to do that.
 
 ## The concept
 

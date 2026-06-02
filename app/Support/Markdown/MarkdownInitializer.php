@@ -14,9 +14,15 @@ final readonly class MarkdownInitializer implements Initializer
     #[Singleton]
     public function initialize(Container $container): Markdown
     {
-        return new Markdown(
+        $markdown = new Markdown(
             highlighter: $container->get(Highlighter::class),
             imageFactory: $container->get(ResponsiveImageFactory::class),
         );
+
+        $markdown->prependRules(
+            new SnippetRule(),
+        );
+
+        return $markdown;
     }
 }

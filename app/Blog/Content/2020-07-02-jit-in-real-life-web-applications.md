@@ -120,8 +120,7 @@ After running `ab` for a few hundred requests, we can see the results:
 
 Great, it looks like the JIT is working! That's even a ten times performance increase! Having verified it works as expected, let's move on to our first real-life comparison. We're going to compare no JIT with the function and tracing JIT; using 100MB of memory. The page we're going to benchmark shows an overview of posts, so there's some recursion happening. We're also touching several core parts of Laravel as well: routing, the dependency container, as well as the ORM layer. 
 
-<div class="sidenote">
-<h2>Side note:</h2>
+## Side note
 
 If you want to verify whether the JIT is running, you can use `opcache_get_status()`, it has a `jit` entry which lists all relevant information:
 
@@ -138,7 +137,6 @@ dd(opcache_get_status()['jit']);
 //   "buffer_free" => 104478688
 // ]
 ```
-</div>
 
 <table>
 <tr class="table-head">
