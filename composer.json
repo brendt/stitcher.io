@@ -22,7 +22,7 @@
         "chrome-php/chrome": "^1.14",
         "codewithkyrian/transformers": "^0.6.2",
         "predis/predis": "^3.4",
-        "tempest/markdown": "dev-main",
+        "tempest/markdown": "^1.0",
         "tempest/responsive-image": "dev-main",
         "spatie/yaml-front-matter": "^2.1"
     },

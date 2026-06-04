@@ -28,7 +28,7 @@ final  class BlogPostRepository
 
         $content = file_get_contents($path);
         $parsed = $this->markdown->parse($content);
-        $frontMatter = $parsed->frontMatter;
+        $frontMatter = $parsed->frontmatter;
 
         $meta = $frontMatter['meta'] ?? [];
 

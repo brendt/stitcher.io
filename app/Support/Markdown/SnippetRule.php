@@ -2,24 +2,24 @@
 
 namespace App\Support\Markdown;
 
-use Tempest\Markdown\Lexer;
+use Tempest\Markdown\Parser;
 use Tempest\Markdown\Rule;
 use Tempest\Markdown\Token;
 
 final readonly class SnippetRule implements Rule
 {
-    public function shouldLex(Lexer $lexer): bool
+    public function shouldParse(Parser $parser): bool
     {
-        return $lexer->comesNext('{{', 2);
+        return $parser->comesNext('{{', 2);
     }
 
-    public function lex(Lexer $lexer): ?Token
+    public function parse(Parser $parser): ?Token
     {
-        $lexer->consumeWhile('{');
+        $parser->consumeWhile('{');
 
-        $snippet = $lexer->consumeUntil('}');
+        $snippet = $parser->consumeUntil('}');
 
-        $lexer->consumeWhile('}');
+        $parser->consumeWhile('}');
 
         return new SnippetToken($snippet);
     }

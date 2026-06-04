@@ -46,7 +46,7 @@ final readonly class MailRepository
                         'slug' => $matches['slug'],
                         'date' => $this->parseDate($path),
                         'content' => $parsed->html,
-                        ...$parsed->frontMatter,
+                        ...$parsed->frontmatter,
                     ];
                 });
             })
