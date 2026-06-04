@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b9f410328a9e5fb378eb95226a079ef",
+    "content-hash": "63469b0761dacf72446b5cc86bb56f78",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -1306,16 +1306,16 @@
         },
         {
             "name": "imagine/imagine",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-imagine/Imagine.git",
-                "reference": "f9ed796eefb77c2f0f2167e1d4e36bc2b5ed6b0c"
+                "reference": "8bc9773b65d123930efe82f89320f248a739ffbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-imagine/Imagine/zipball/f9ed796eefb77c2f0f2167e1d4e36bc2b5ed6b0c",
-                "reference": "f9ed796eefb77c2f0f2167e1d4e36bc2b5ed6b0c",
+                "url": "https://api.github.com/repos/php-imagine/Imagine/zipball/8bc9773b65d123930efe82f89320f248a739ffbf",
+                "reference": "8bc9773b65d123930efe82f89320f248a739ffbf",
                 "shasum": ""
             },
             "require": {
@@ -1362,9 +1362,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-imagine/Imagine/issues",
-                "source": "https://github.com/php-imagine/Imagine/tree/1.5.2"
+                "source": "https://github.com/php-imagine/Imagine/tree/1.5.3"
             },
-            "time": "2026-01-09T10:45:12+00:00"
+            "time": "2026-06-03T10:24:10+00:00"
         },
         {
             "name": "interop-phpobjects/polite-math",
@@ -6193,17 +6193,23 @@
         },
         {
             "name": "tempest/markdown",
-            "version": "dev-main",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tempestphp/markdown.git",
+                "reference": "ecacdb106ef5672de1a5f2dfbf6534c1f842fb0d"
+            },
             "dist": {
-                "type": "path",
-                "url": "../tempest-markdown",
-                "reference": "f6a0f69a76ed2851999aac0cded1f3a3cceeac14"
+                "type": "zip",
+                "url": "https://api.github.com/repos/tempestphp/markdown/zipball/ecacdb106ef5672de1a5f2dfbf6534c1f842fb0d",
+                "reference": "ecacdb106ef5672de1a5f2dfbf6534c1f842fb0d",
+                "shasum": ""
             },
             "require": {
                 "php": "^8.5",
                 "symfony/yaml": "^8.0",
                 "tempest/highlight": "^2.23.1",
-                "tempest/responsive-image": "dev-main"
+                "tempest/responsive-image": "^1.0"
             },
             "require-dev": {
                 "carthage-software/mago": "1.16.0",
@@ -6220,50 +6226,7 @@
                     "Tempest\\Markdown\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tempest\\Markdown\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "bench": [
-                    "vendor/bin/phpbench run --report=aggregate"
-                ],
-                "bench:tempest": [
-                    "vendor/bin/phpbench run tests/Bench/MarkdownBench.php --filter=benchTempest --report=aggregate"
-                ],
-                "fmt": [
-                    "vendor/bin/mago fmt"
-                ],
-                "lint": [
-                    "vendor/bin/mago lint --reporting-format=rich && vendor/bin/mago lint --fix --format-after-fix"
-                ],
-                "analyse": [
-                    "vendor/bin/mago analyse"
-                ],
-                "test": [
-                    "vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices"
-                ],
-                "qa": [
-                    "composer fmt",
-                    "composer lint",
-                    "composer analyse",
-                    "composer test",
-                    "composer bench:tempest"
-                ],
-                "github:lint": [
-                    "vendor/bin/mago lint --potentially-unsafe --minimum-fail-level=note --reporting-format=github"
-                ],
-                "github:fmt": [
-                    "vendor/bin/mago fmt --check"
-                ],
-                "github:analyse": [
-                    "vendor/bin/mago analyse"
-                ],
-                "github:test": [
-                    "vendor/bin/phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -6274,17 +6237,31 @@
                 }
             ],
             "description": "Fast and extensible Markdown in PHP",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/tempestphp/markdown/issues",
+                "source": "https://github.com/tempestphp/markdown/tree/1.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/brendt",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-06-04T09:32:49+00:00"
         },
         {
             "name": "tempest/responsive-image",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "../responsive-images",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tempestphp/responsive-image.git",
                 "reference": "a0059b6129650771ccbbb8210147d664bed489fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tempestphp/responsive-image/zipball/a0059b6129650771ccbbb8210147d664bed489fa",
+                "reference": "a0059b6129650771ccbbb8210147d664bed489fa",
+                "shasum": ""
             },
             "require": {
                 "intervention/image": "^4.1",
@@ -6303,46 +6280,7 @@
                     "Tempest\\ResponsiveImage\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tempest\\ResponsiveImage\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "bench": [
-                    "vendor/bin/phpbench run --report=aggregate"
-                ],
-                "fmt": [
-                    "vendor/bin/mago fmt"
-                ],
-                "lint": [
-                    "vendor/bin/mago lint --reporting-format=rich && vendor/bin/mago lint --fix --format-after-fix"
-                ],
-                "analyse": [
-                    "vendor/bin/mago analyse"
-                ],
-                "test": [
-                    "vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices"
-                ],
-                "qa": [
-                    "composer fmt",
-                    "composer lint",
-                    "composer analyse",
-                    "composer test"
-                ],
-                "github:lint": [
-                    "vendor/bin/mago lint --potentially-unsafe --minimum-fail-level=note --reporting-format=github"
-                ],
-                "github:fmt": [
-                    "vendor/bin/mago fmt --check"
-                ],
-                "github:analyse": [
-                    "vendor/bin/mago analyse"
-                ],
-                "github:test": [
-                    "vendor/bin/phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -6353,9 +6291,17 @@
                 }
             ],
             "description": "Server-side responsive images with PHP",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/tempestphp/responsive-image/issues",
+                "source": "https://github.com/tempestphp/responsive-image/tree/1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/brendt",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-05-29T12:38:09+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -7166,16 +7112,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.5.28",
+            "version": "12.5.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5895d05f5bf421ed230fbd76e1277e4b8955def4"
+                "reference": "9aa66a47db3ea70f1a468e66dd969f67e594945a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5895d05f5bf421ed230fbd76e1277e4b8955def4",
-                "reference": "5895d05f5bf421ed230fbd76e1277e4b8955def4",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9aa66a47db3ea70f1a468e66dd969f67e594945a",
+                "reference": "9aa66a47db3ea70f1a468e66dd969f67e594945a",
                 "shasum": ""
             },
             "require": {
@@ -7189,7 +7135,7 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.3",
-                "phpunit/php-code-coverage": "^12.5.6",
+                "phpunit/php-code-coverage": "^12.5.7",
                 "phpunit/php-file-iterator": "^6.0.1",
                 "phpunit/php-invoker": "^6.0.0",
                 "phpunit/php-text-template": "^5.0.0",
@@ -7199,7 +7145,7 @@
                 "sebastian/diff": "^7.0.0",
                 "sebastian/environment": "^8.1.2",
                 "sebastian/exporter": "^7.0.3",
-                "sebastian/global-state": "^8.0.2",
+                "sebastian/global-state": "^8.0.3",
                 "sebastian/object-enumerator": "^7.0.0",
                 "sebastian/recursion-context": "^7.0.1",
                 "sebastian/type": "^6.0.4",
@@ -7244,7 +7190,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.28"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.29"
             },
             "funding": [
                 {
@@ -7252,7 +7198,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-05-27T14:01:10+00:00"
+            "time": "2026-06-04T06:14:42+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -8268,10 +8214,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "tempest/markdown": 20,
-        "tempest/responsive-image": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -1,18 +1,6 @@
 {
     "name": "tempest/app",
     "type": "project",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../tempest-markdown",
-            "symlink": true
-        },
-        {
-            "type": "path",
-            "url": "../responsive-images",
-            "symlink": true
-        }
-    ],
     "require": {
         "php": "^8.5",
         "tempest/framework": "^3.11.2",
@@ -22,8 +10,7 @@
         "chrome-php/chrome": "^1.14",
         "codewithkyrian/transformers": "^0.6.2",
         "predis/predis": "^3.4",
-        "tempest/markdown": "^1.0",
-        "tempest/responsive-image": "dev-main",
+        "tempest/markdown": "^1.0.1",
         "spatie/yaml-front-matter": "^2.1"
     },
     "require-dev": {
