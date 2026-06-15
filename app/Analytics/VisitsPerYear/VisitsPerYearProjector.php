@@ -25,6 +25,14 @@ final class VisitsPerYearProjector implements Projector, BufferedProjector
         $this->inserts[$date] = ($this->inserts[$date] ?? 0) + 1;
     }
 
+
+    public function onPageVisitedArray(array $event): void
+    {
+        $date = substr($event['createdAt'], 0, 4);
+
+        $this->inserts[$date] = ($this->inserts[$date] ?? 0) + 1;
+    }
+
     public function persist(): void
     {
         if ($this->inserts === []) {
@@ -34,7 +42,7 @@ final class VisitsPerYearProjector implements Projector, BufferedProjector
         $values = [];
 
         foreach ($this->inserts as $date => $count) {
-            $values[] = "(\"{$date}\",{$count})";
+            $values[] = "(\"{$date}-01-01\",{$count})";
         }
 
         $query = new Query(sprintf(
@@ -47,9 +55,11 @@ final class VisitsPerYearProjector implements Projector, BufferedProjector
         $this->inserts = [];
     }
 
-    public function replay(object $event): void
+    public function replay(array|object $event): void
     {
-        if ($event instanceof PageVisited) {
+        if (is_array($event)) {
+            $this->onPageVisitedArray($event);
+        } elseif ($event instanceof PageVisited) {
             $this->onPageVisited($event);
         }
     }
