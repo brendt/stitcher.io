@@ -4,6 +4,7 @@ namespace App\Time;
 
 use App\Support\Authentication\Admin;
 use Tempest\DateTime\DateTime;
+use Tempest\DateTime\Timezone;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\Forbidden;
 use Tempest\Router\Get;
@@ -38,7 +39,7 @@ final readonly class TimeController
         }
 
         TimeEntry::create(
-            start: DateTime::now(),
+            start: DateTime::now(Timezone::EUROPE_BRUSSELS),
         );
 
         return $this->render();
@@ -65,7 +66,7 @@ final readonly class TimeController
         }
 
         $existing->update(
-            end: DateTime::now(),
+            end: DateTime::now(Timezone::EUROPE_BRUSSELS),
         );
 
         return $this->render();

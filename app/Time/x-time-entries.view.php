@@ -23,7 +23,7 @@ $onTrackThreshold = $targetHours / 5;
 $statusLabel = ($isOnTrack || $hoursDiff < $onTrackThreshold) ? 'On track' : "-{$hoursDiff}h behind";
 $statusColor = ($isOnTrack || $hoursDiff < $onTrackThreshold) ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700';
 $barColor = $isOnTrack ? 'bg-green-500' : 'bg-orange-400';
-$todayPrefill = date('Y-m-d\TH:i');
+$todayPrefill = (new \DateTime('now', new \DateTimeZone('Europe/Brussels')))->format('Y-m-d\TH:i');
 ?>
 
 <div id="time-entries" class="grid gap-3">
