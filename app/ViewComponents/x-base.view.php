@@ -79,7 +79,7 @@ $isLoggedIn = get(Authenticator::class)->current() !== null;
     <x-slot/>
 </div>
 
-<div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-primary sm:text-white font-bold font-sm grid gap-4">
+<div :if="$footer ?? true" class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-primary sm:text-white font-bold font-sm grid gap-4">
     <div class="flex justify-center">
             <span>
                 Noticed a tpyo? You can <a href="https://github.com/brendt/stitcher.io">submit a PR</a> to fix it.

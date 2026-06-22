@@ -32,126 +32,6 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
 
 <div id="time-entries" class="grid gap-3">
 
-    {{-- Current week hero card --}}
-    <div class="bg-white rounded-2xl shadow overflow-hidden">
-
-        {{-- Hours + status --}}
-        <div class="px-5 pt-5 pb-4">
-            <div class="flex items-start justify-between mb-4">
-                <div>
-                    <div class="text-xs text-gray-400 uppercase tracking-wide mb-1">This week</div>
-                    <div class="flex items-baseline gap-1.5">
-                        <span class="text-4xl font-bold tabular-nums">{{ $currentHours }}</span>
-                        <span class="text-gray-400 text-lg">/ {{ $targetHours }}h</span>
-                    </div>
-                </div>
-
-                <span class="text-xs font-semibold px-2.5 py-1 rounded-full mt-1 {{ $statusColor }}">
-                    {{ $statusLabel }}
-                </span>
-            </div>
-
-            {{-- Progress bar --}}
-            <div class="relative h-2.5 bg-gray-100 rounded-full overflow-visible mb-2">
-                {{-- Expected-pace marker --}}
-                <div
-                    class="absolute top-1/2 -translate-y-1/2 w-0.5 h-4 bg-gray-300 rounded-full z-10"
-                    style="left: {{ $expectedPct }}%"
-                ></div>
-                {{-- Actual progress --}}
-                <div
-                    class="h-full rounded-full transition-all {{ $barColor }}"
-                    style="width: {{ $progressPct }}%"
-                ></div>
-            </div>
-            <div class="flex justify-between text-xs text-gray-300 select-none">
-                <span>0h</span>
-                <span>{{ $targetHours }}h</span>
-            </div>
-        </div>
-
-        {{-- Start / stop button --}}
-        <div class="px-5 pb-3 grid gap-2">
-            <button
-                :if="!$isRunning"
-                hx-post="/time/start"
-                hx-target="#time-entries"
-                hx-swap="outerHTML"
-                class="w-full bg-primary text-white font-bold py-3 rounded-xl shadow-sm hover:opacity-90 active:scale-95 transition text-center"
-            >Start</button>
-            <button
-                :if="$isRunning"
-                hx-post="/time/stop"
-                hx-target="#time-entries"
-                hx-swap="outerHTML"
-                class="w-full bg-red-500 text-white font-bold py-3 rounded-xl shadow-sm hover:opacity-90 active:scale-95 transition flex items-center justify-center gap-2"
-            >
-                <span class="w-2 h-2 rounded-full bg-white/80 animate-pulse"></span>
-                Stop
-            </button>
-
-            {{-- Manual entry --}}
-            <details class="group">
-                <summary class="cursor-pointer text-sm text-center text-gray-400 hover:text-gray-600 transition list-none py-1 select-none">
-                    + Manual entry
-                </summary>
-                <form
-                    hx-post="/time/manual"
-                    hx-target="#time-entries"
-                    hx-swap="outerHTML"
-                    class="mt-3 grid gap-3"
-                >
-                    <div class="grid gap-1">
-                        <label class="text-xs text-gray-500 font-medium">Start</label>
-                        <input
-                            type="datetime-local"
-                            name="start"
-                            required
-                            value="{{ $todayPrefill }}"
-                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                        >
-                    </div>
-                    <div class="grid gap-1">
-                        <label class="text-xs text-gray-500 font-medium">End <span class="text-gray-300">(optional)</span></label>
-                        <input
-                            type="datetime-local"
-                            name="end"
-                            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                        >
-                    </div>
-                    <button
-                        type="submit"
-                        class="w-full bg-gray-800 text-white font-bold py-2.5 rounded-xl shadow-sm hover:opacity-90 active:scale-95 transition"
-                    >Save entry</button>
-                </form>
-            </details>
-        </div>
-
-        {{-- This week's entries --}}
-        <div :if="$currentWeek" class="border-t border-gray-100 divide-y divide-gray-50">
-            <details
-                :foreach="$currentWeek->timeEntries as $timeEntry"
-                class="group"
-            >
-                <summary class="flex items-center justify-between px-5 py-2.5 text-sm cursor-pointer list-none">
-                    <span class="text-gray-400 font-mono">
-                        {{ $timeEntry->start->format('EEEE HH:mm') }} — {{ $timeEntry->end?->format('HH:mm') ?? '…' }}
-                    </span>
-                    <span class="font-mono text-gray-600">{{ round($timeEntry->totalHours, 1) }}h</span>
-                </summary>
-                <div class="px-5 pb-3">
-                    <button
-                        hx-post="/time/remove/{{ $timeEntry->id }}"
-                        hx-target="#time-entries"
-                        hx-swap="outerHTML"
-                        hx-confirm="Delete this entry?"
-                        class="w-full bg-red-500 text-white font-bold py-2.5 rounded-xl text-sm"
-                    >Delete entry</button>
-                </div>
-            </details>
-        </div>
-    </div>
-
     {{-- Past weeks --}}
     <div :if="count($pastWeeks) > 0" class="grid gap-1.5">
         <div
@@ -162,6 +42,117 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
             <span class="font-mono text-sm {{ $weekEntry->totalHours >= $targetHours ? 'text-green-600 font-semibold' : 'text-gray-400' }}">
                 {{ round($weekEntry->totalHours, 1) }}h
             </span>
+        </div>
+    </div>
+
+    {{-- Fixed bottom card --}}
+    <div class="fixed bottom-0 left-0 right-0 z-20 p-3" style="padding-bottom: max(12px, env(safe-area-inset-bottom))">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+
+            {{-- Hours + status + progress --}}
+            <div class="px-5 pt-4 pb-3">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-baseline gap-1.5">
+                        <span class="text-3xl font-bold tabular-nums">{{ $currentHours }}</span>
+                        <span class="text-gray-400">/ {{ $targetHours }}h</span>
+                    </div>
+                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full {{ $statusColor }}">
+                        {{ $statusLabel }}
+                    </span>
+                </div>
+
+                <div class="relative h-2 bg-gray-100 rounded-full overflow-visible">
+                    <div
+                        class="absolute top-1/2 -translate-y-1/2 w-0.5 h-3.5 bg-gray-300 rounded-full z-10"
+                        style="left: {{ $expectedPct }}%"
+                    ></div>
+                    <div
+                        class="h-full rounded-full transition-all {{ $barColor }}"
+                        style="width: {{ $progressPct }}%"
+                    ></div>
+                </div>
+            </div>
+
+            {{-- This week's entries --}}
+            <div :if="$currentWeek" class="border-t border-gray-100 divide-y divide-gray-50">
+                <details
+                    :foreach="$currentWeek->timeEntries as $timeEntry"
+                    class="group"
+                >
+                    <summary class="flex items-center justify-between px-5 py-2.5 text-sm cursor-pointer list-none">
+                        <span class="text-gray-400 font-mono">
+                            {{ $timeEntry->start->format('EEEE HH:mm') }} — {{ $timeEntry->end?->format('HH:mm') ?? '…' }}
+                        </span>
+                        <span class="font-mono text-gray-600">{{ round($timeEntry->totalHours, 1) }}h</span>
+                    </summary>
+                    <div class="px-5 pb-3">
+                        <button
+                            hx-post="/time/remove/{{ $timeEntry->id }}"
+                            hx-target="#time-entries"
+                            hx-swap="outerHTML"
+                            hx-confirm="Delete this entry?"
+                            class="w-full bg-red-500 text-white font-bold py-2.5 rounded-xl text-sm"
+                        >Delete entry</button>
+                    </div>
+                </details>
+            </div>
+
+            {{-- Start / stop button --}}
+            <div class="px-5 pb-4 pt-3 grid gap-2">
+                <button
+                    :if="!$isRunning"
+                    hx-post="/time/start"
+                    hx-target="#time-entries"
+                    hx-swap="outerHTML"
+                    class="w-full bg-primary text-white font-bold py-3 rounded-xl shadow-sm active:scale-95 transition text-center"
+                >Start</button>
+                <button
+                    :if="$isRunning"
+                    hx-post="/time/stop"
+                    hx-target="#time-entries"
+                    hx-swap="outerHTML"
+                    class="w-full bg-red-500 text-white font-bold py-3 rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2"
+                >
+                    <span class="w-2 h-2 rounded-full bg-white/80 animate-pulse"></span>
+                    Stop
+                </button>
+
+                {{-- Manual entry --}}
+                <details class="group">
+                    <summary class="cursor-pointer text-sm text-center text-gray-400 transition list-none py-1 select-none">
+                        + Manual entry
+                    </summary>
+                    <form
+                        hx-post="/time/manual"
+                        hx-target="#time-entries"
+                        hx-swap="outerHTML"
+                        class="mt-3 grid gap-3"
+                    >
+                        <div class="grid gap-1">
+                            <label class="text-xs text-gray-500 font-medium">Start</label>
+                            <input
+                                type="datetime-local"
+                                name="start"
+                                required
+                                value="{{ $todayPrefill }}"
+                                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                            >
+                        </div>
+                        <div class="grid gap-1">
+                            <label class="text-xs text-gray-500 font-medium">End <span class="text-gray-300">(optional)</span></label>
+                            <input
+                                type="datetime-local"
+                                name="end"
+                                class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                            >
+                        </div>
+                        <button
+                            type="submit"
+                            class="w-full bg-gray-800 text-white font-bold py-2.5 rounded-xl shadow-sm active:scale-95 transition"
+                        >Save entry</button>
+                    </form>
+                </details>
+            </div>
         </div>
     </div>
 
