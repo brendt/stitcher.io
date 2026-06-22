@@ -1,0 +1,3 @@
+- All documentation for Tempest can be found in vendor/tempest/framework/docs
+- Use TailwindCSS
+- Use Tempest view components where it makes sense

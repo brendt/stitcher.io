@@ -22,7 +22,7 @@ final readonly class AdminMiddleware implements HttpMiddleware
         $user = $this->authenticator->current();
 
         if (! $user instanceof User) {
-            return new Redirect(uri([AuthController::class, 'login']));
+            return new Redirect(uri([AuthController::class, 'auth']));
         }
 
         if (! $user->isAdmin) {
