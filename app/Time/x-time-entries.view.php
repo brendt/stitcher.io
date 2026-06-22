@@ -20,9 +20,13 @@ foreach ($perWeek as $w) {
 
 $currentHours = round($currentWeek?->totalHours ?? 0, 1);
 $progressPct = min(100, ($currentHours / $targetHours) * 100);
-$expectedPct = min(100, ($expectedHours / $targetHours) * 100);
 $hoursDiff = round(abs($currentHours - $expectedHours), 1);
 $isOnTrack = $currentHours >= $expectedHours;
+$passedColor = $isOnTrack ? 'bg-green-700' : 'bg-orange-600';
+$dayMarkers = array_map(
+    fn($pct) => ['pct' => $pct, 'color' => $progressPct >= $pct ? $passedColor : 'bg-gray-300'],
+    [20, 40, 60, 80],
+);
 $onTrackThreshold = $targetHours / 5;
 $statusLabel = ($isOnTrack || $hoursDiff < $onTrackThreshold) ? 'On track' : "-{$hoursDiff}h behind";
 $statusColor = ($isOnTrack || $hoursDiff < $onTrackThreshold) ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700';
@@ -61,10 +65,11 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
                     </span>
                 </div>
 
-                <div class="relative h-2 bg-gray-100 rounded-full overflow-visible">
+                <div class="relative h-3 bg-gray-100 rounded-full overflow-visible">
                     <div
-                        class="absolute top-1/2 -translate-y-1/2 w-0.5 h-3.5 bg-gray-300 rounded-full z-10"
-                        style="left: {{ $expectedPct }}%"
+                        :foreach="$dayMarkers as $marker"
+                        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full z-10 {{ $marker['color'] }}"
+                        style="left: {{ $marker['pct'] }}%"
                     ></div>
                     <div
                         class="h-full rounded-full transition-all {{ $barColor }}"
