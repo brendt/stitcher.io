@@ -12,4 +12,5 @@ final class ManualTimeEntryRequest implements Request
 
     public DateTime $start;
     public ?DateTime $end;
+    public bool $isVacation = false;
 }

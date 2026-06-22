@@ -37,7 +37,7 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
 <div id="time-entries" class="grid gap-3">
 
     {{-- Past weeks --}}
-    <div :if="count($pastWeeks) > 0" class="grid gap-1.5">
+    <div :if="$pastWeeks !== []" class="grid gap-1.5">
         <div
             :foreach="$pastWeeks as $weekEntry"
             class="bg-white rounded-xl shadow-sm flex items-center justify-between px-4 py-3"
@@ -143,7 +143,13 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
                                 class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                             >
                         </div>
-                        <div class="grid gap-1">
+                        <label class="flex items-center gap-2 text-sm text-gray-500 cursor-pointer select-none">
+                            <input type="checkbox" name="isVacation" value="1"
+                                onchange="document.getElementById('end-field').classList.toggle('hidden', this.checked)"
+                                class="accent-primary">
+                            Vacation
+                        </label>
+                        <div class="grid gap-1" id="end-field">
                             <label class="text-xs text-gray-500 font-medium">End <span class="text-gray-300">(optional)</span></label>
                             <input
                                 type="datetime-local"

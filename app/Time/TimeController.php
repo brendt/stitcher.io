@@ -48,9 +48,17 @@ final readonly class TimeController
     #[Post('/manual')]
     public function manual(ManualTimeEntryRequest $request): View
     {
+        $start = $request->start;
+        $end = $request->end;
+
+        if ($request->isVacation) {
+            $start = $start->withTime(8, 0);
+            $end = $start->plusHours(7)->plusMinutes(36);
+        }
+
         TimeEntry::create(
-            start: $request->start,
-            end: $request->end,
+            start: $start,
+            end: $end,
         );
 
         return $this->render();
