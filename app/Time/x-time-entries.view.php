@@ -1,4 +1,8 @@
 <?php
+
+use Tempest\DateTime\DateTime;
+use Tempest\DateTime\Timezone;
+
 $targetHours = 30.4;
 $dayOfWeek = (int) date('N');
 $workDaysElapsed = min($dayOfWeek, 5);
@@ -23,7 +27,7 @@ $onTrackThreshold = $targetHours / 5;
 $statusLabel = ($isOnTrack || $hoursDiff < $onTrackThreshold) ? 'On track' : "-{$hoursDiff}h behind";
 $statusColor = ($isOnTrack || $hoursDiff < $onTrackThreshold) ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700';
 $barColor = $isOnTrack ? 'bg-green-500' : 'bg-orange-400';
-$todayPrefill = (new \DateTime('now', new \DateTimeZone('Europe/Brussels')))->format('Y-m-d\TH:i');
+$todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:mm');
 ?>
 
 <div id="time-entries" class="grid gap-3">

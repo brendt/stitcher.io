@@ -3,6 +3,7 @@
 namespace App\Time;
 
 use Tempest\DateTime\DateTime;
+use Tempest\DateTime\Timezone;
 
 final class WeekEntry
 {
@@ -10,7 +11,8 @@ final class WeekEntry
         public string $week,
         /** @var TimeEntry[] */
         public array $timeEntries = [],
-    ) {}
+    ) {
+    }
 
     public float $totalHours {
         get => array_sum(array_map(
@@ -20,7 +22,7 @@ final class WeekEntry
     }
 
     public bool $isCurrent {
-        get => $this->week === DateTime::now()->format('yyyy-ww');
+        get => $this->week === DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-ww');
     }
 
     /** self[] */
