@@ -44,6 +44,17 @@ final readonly class TimeController
         return $this->render();
     }
 
+    #[Post('/manual')]
+    public function manual(ManualTimeEntryRequest $request): View
+    {
+        TimeEntry::create(
+            start: $request->start,
+            end: $request->end,
+        );
+
+        return $this->render();
+    }
+
     #[Post('/stop')]
     public function stop(): View|Response
     {
@@ -56,6 +67,14 @@ final readonly class TimeController
         $existing->update(
             end: DateTime::now(),
         );
+
+        return $this->render();
+    }
+
+    #[Post('/remove/{timeEntry}')]
+    public function remove(TimeEntry $timeEntry): View
+    {
+        $timeEntry->delete();
 
         return $this->render();
     }

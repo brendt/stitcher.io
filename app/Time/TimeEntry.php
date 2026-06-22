@@ -4,8 +4,9 @@ namespace App\Time;
 
 use Tempest\Database\IsDatabaseModel;
 use Tempest\DateTime\DateTime;
+use Tempest\Router\Bindable;
 
-final class TimeEntry
+final class TimeEntry implements Bindable
 {
     use IsDatabaseModel;
 
