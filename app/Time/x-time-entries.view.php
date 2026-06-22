@@ -104,14 +104,14 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
                     hx-post="/time/start"
                     hx-target="#time-entries"
                     hx-swap="outerHTML"
-                    class="w-full bg-primary text-white font-bold py-3 rounded-xl shadow-sm active:scale-95 transition text-center"
+                    class="w-full bg-green-700/80 text-white font-bold py-3 rounded-xl shadow-sm active:scale-95 transition text-center"
                 >Start</button>
                 <button
                     :if="$isRunning"
                     hx-post="/time/stop"
                     hx-target="#time-entries"
                     hx-swap="outerHTML"
-                    class="w-full bg-red-500 text-white font-bold py-3 rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2"
+                    class="w-full bg-red-700/80 text-white font-bold py-3 rounded-xl shadow-sm active:scale-95 transition flex items-center justify-center gap-2"
                 >
                     <span class="w-2 h-2 rounded-full bg-white/80 animate-pulse"></span>
                     Stop
