@@ -65,10 +65,10 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
                     </span>
                 </div>
 
-                <div class="relative h-3 bg-gray-100 rounded-full overflow-visible">
+                <div class="relative h-2 bg-gray-100 rounded-full overflow-visible">
                     <div
                         :foreach="$dayMarkers as $marker"
-                        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full z-10 {{ $marker['color'] }}"
+                        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full z-10 {{ $marker['color'] }}"
                         style="left: {{ $marker['pct'] }}%"
                     ></div>
                     <div
