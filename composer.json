@@ -44,7 +44,7 @@
 
         "fmt": "vendor/bin/mago fmt",
         "lint": "vendor/bin/mago lint --reporting-format=rich && vendor/bin/mago lint --fix --format-after-fix",
-        "analyse": "vendor/bin/mago analyse",
+        "analyse": "vendor/bin/mago analyse --baseline=mago-baseline.toml",
         "test": "vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices",
         "qa": [
             "composer fmt",
@@ -55,7 +55,7 @@
         ],
         "github:lint": "vendor/bin/mago lint --potentially-unsafe --minimum-fail-level=note --reporting-format=github",
         "github:fmt": "vendor/bin/mago fmt --check",
-        "github:analyse": "vendor/bin/mago analyse",
+        "github:analyse": "vendor/bin/mago analyse --baseline=mago-baseline.toml",
         "github:test": "vendor/bin/phpunit"
     },
     "license": "MIT",
