@@ -2,19 +2,19 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class HealMinor implements Card
 {
     use IsCard;
 
-    private(set) string $name = "Heal";
+    private(set) string $name = 'Heal';
 
-    private(set) string $description = "+25 health";
+    private(set) string $description = '+25 health';
 
     private(set) string $image = '/cards/heal-minor.png';
 

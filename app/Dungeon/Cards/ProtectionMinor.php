@@ -2,14 +2,14 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\DungeonEvent;
 use App\Dungeon\Events\PlayerHealthDecreased;
+use App\Dungeon\Level;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class ProtectionMinor implements Card, PassiveCard
 {
@@ -19,7 +19,7 @@ final class ProtectionMinor implements Card, PassiveCard
 
     private(set) string $name = 'Protection';
 
-    private(set) string $description = "Absorbs 50 damage";
+    private(set) string $description = 'Absorbs 50 damage';
 
     private(set) string $image = '/cards/protection-minor.png';
 

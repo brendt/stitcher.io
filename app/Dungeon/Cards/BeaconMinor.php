@@ -2,15 +2,15 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\DungeonEvent;
 use App\Dungeon\Events\CardPlayed;
+use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Level;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Level;
 
 final class BeaconMinor implements Card, PassiveCard
 {
@@ -20,7 +20,7 @@ final class BeaconMinor implements Card, PassiveCard
 
     private(set) string $name = 'Beacon';
 
-    private(set) string $description = "Illuminate the darkness for 10 moves";
+    private(set) string $description = 'Illuminate the darkness for 10 moves';
 
     private(set) string $image = '/cards/beacon-minor.png';
 

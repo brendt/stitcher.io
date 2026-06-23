@@ -12,6 +12,7 @@ use Tempest\DateTime\Duration;
 use Tempest\HttpClient\HttpClient;
 use Tempest\Support\Arr\ImmutableArray;
 use Throwable;
+
 use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
@@ -29,7 +30,7 @@ final readonly class SyncSource
             $xml = $this->cache->resolve(
                 'source_' . $source->id,
                 fn () => $this->http->get($source->uri, [
-                    'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1'
+                    'User-Agent' => 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1',
                 ])->body ?? '',
                 Duration::minutes(10),
             );
@@ -75,7 +76,7 @@ final readonly class SyncSource
 
     private function parseXml(string $input, Source $source): ImmutableArray
     {
-        $xml = simplexml_load_string($input, "SimpleXMLElement", LIBXML_NOCDATA | LIBXML_NOWARNING | LIBXML_NOERROR);
+        $xml = simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOWARNING | LIBXML_NOERROR);
 
         if (! $xml) {
             return arr();
@@ -98,8 +99,7 @@ final readonly class SyncSource
     private function resolveTitle(array $item): string
     {
         return $item['title'] ?? ($this->resolveTitle)(
-            $item['link']['@attributes']['href']
-            ?? $item['id']
+            $item['link']['@attributes']['href'] ?? $item['id'],
         );
     }
 
@@ -120,10 +120,7 @@ final readonly class SyncSource
 
     private function resolveCreatedAt(array $item): ?DateTime
     {
-        $updated = $item['published']
-            ?? $item['pubDate']
-            ?? $item['updated']
-            ?? $item['timestamp'];
+        $updated = $item['published'] ?? $item['pubDate'] ?? $item['updated'] ?? $item['timestamp'];
 
         return DateTime::parse($updated);
     }
@@ -149,12 +146,7 @@ final readonly class SyncSource
         }
 
         return arr(
-            $array['entry']
-            ?? $array['entries']
-            ?? $array['item']
-            ?? $array['items']
-            ?? $array['channel']['item']
-            ?? [],
+            $array['entry'] ?? $array['entries'] ?? $array['item'] ?? $array['items'] ?? $array['channel']['item'] ?? [],
         );
     }
 }

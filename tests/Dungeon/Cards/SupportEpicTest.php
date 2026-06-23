@@ -2,10 +2,9 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\SupportEpic;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class SupportEpicTest extends DungeonTest
 {

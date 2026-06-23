@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bd7284cea8dc658a3dfc0ab2cea9ea3",
+    "content-hash": "785fcb60c1bb5f2f50c0e7aba7807605",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -835,16 +835,16 @@
         },
         {
             "name": "giggsey/libphonenumber-for-php-lite",
-            "version": "9.0.32",
+            "version": "9.0.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php-lite.git",
-                "reference": "8e3b2cfd8fb77b3922dad43f9a70d516c28570d2"
+                "reference": "38c09da75cebfd6f197b61e57b3a655db04163e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php-lite/zipball/8e3b2cfd8fb77b3922dad43f9a70d516c28570d2",
-                "reference": "8e3b2cfd8fb77b3922dad43f9a70d516c28570d2",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php-lite/zipball/38c09da75cebfd6f197b61e57b3a655db04163e6",
+                "reference": "38c09da75cebfd6f197b61e57b3a655db04163e6",
                 "shasum": ""
             },
             "require": {
@@ -909,7 +909,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php-lite/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php-lite"
             },
-            "time": "2026-06-05T07:33:50+00:00"
+            "time": "2026-06-22T10:35:37+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -1889,16 +1889,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.34.0",
+            "version": "3.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "2daaac3b0d4c83ea7ed5d8586e786f5d00f3540e"
+                "reference": "d0a405f03d980461e4b6e08cfed2c162650f9f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/2daaac3b0d4c83ea7ed5d8586e786f5d00f3540e",
-                "reference": "2daaac3b0d4c83ea7ed5d8586e786f5d00f3540e",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/d0a405f03d980461e4b6e08cfed2c162650f9f6b",
+                "reference": "d0a405f03d980461e4b6e08cfed2c162650f9f6b",
                 "shasum": ""
             },
             "require": {
@@ -1966,9 +1966,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.34.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.35.0"
             },
-            "time": "2026-05-14T10:28:08+00:00"
+            "time": "2026-06-22T20:12:06+00:00"
         },
         {
             "name": "league/flysystem-local",
@@ -5896,16 +5896,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v3.11.7",
+            "version": "v3.11.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "4f7ab676e70576d13d8190a4dc6f59d67f1621d1"
+                "reference": "e4341a56fa35a6d824b25c0215bdad675db87b03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/4f7ab676e70576d13d8190a4dc6f59d67f1621d1",
-                "reference": "4f7ab676e70576d13d8190a4dc6f59d67f1621d1",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/e4341a56fa35a6d824b25c0215bdad675db87b03",
+                "reference": "e4341a56fa35a6d824b25c0215bdad675db87b03",
                 "shasum": ""
             },
             "require": {
@@ -6122,7 +6122,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.11.7"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.11.8"
             },
             "funding": [
                 {
@@ -6130,7 +6130,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-16T08:39:37+00:00"
+            "time": "2026-06-22T11:14:28+00:00"
         },
         {
             "name": "tempest/highlight",
@@ -6418,35 +6418,35 @@
     "packages-dev": [
         {
             "name": "carthage-software/mago",
-            "version": "1.0.0-beta.13",
+            "version": "1.30.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/carthage-software/mago.git",
-                "reference": "874698cab3e24fddf3fbdc8eea7d8d1b3d255a82"
+                "reference": "0e8a3644d974984069fa27b0ffbb44123b1b74cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carthage-software/mago/zipball/874698cab3e24fddf3fbdc8eea7d8d1b3d255a82",
-                "reference": "874698cab3e24fddf3fbdc8eea7d8d1b3d255a82",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/0e8a3644d974984069fa27b0ffbb44123b1b74cd",
+                "reference": "0e8a3644d974984069fa27b0ffbb44123b1b74cd",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^2.6",
-                "php": "~8.1 || ~8.2 || ~8.3 || ~8.4"
+                "php": "~8.1 || ~8.2 || ~8.3 || ~8.4 || ~8.5 || ~8.6"
             },
-            "require-dev": {
-                "composer/composer": "^2.8"
+            "suggest": {
+                "ext-curl": "To show binary download progress"
             },
             "bin": [
                 "composer/bin/mago"
             ],
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Mago\\MagoPlugin"
-            },
+            "type": "library",
             "autoload": {
+                "files": [
+                    "composer/src/functions.php",
+                    "composer/src/internal.php"
+                ],
                 "psr-4": {
-                    "Mago\\": "composer/"
+                    "Mago\\": "composer/src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -6465,7 +6465,7 @@
             ],
             "support": {
                 "issues": "https://github.com/carthage-software/mago/issues",
-                "source": "https://github.com/carthage-software/mago/tree/1.0.0-beta.13"
+                "source": "https://github.com/carthage-software/mago/tree/1.30.0"
             },
             "funding": [
                 {
@@ -6473,7 +6473,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-11T11:29:44+00:00"
+            "time": "2026-06-04T15:46:37+00:00"
         },
         {
             "name": "myclabs/deep-copy",

@@ -9,6 +9,7 @@ use Tempest\Http\Responses\File;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
 use Tempest\View\ViewRenderer;
+
 use function Tempest\Router\uri;
 use function Tempest\View\view;
 

@@ -24,12 +24,12 @@ $hoursDiff = round(abs($currentHours - $expectedHours), 1);
 $isOnTrack = $currentHours >= $expectedHours;
 $passedColor = $isOnTrack ? 'bg-green-700' : 'bg-orange-600';
 $dayMarkers = array_map(
-    fn($pct) => ['pct' => $pct, 'color' => $progressPct >= $pct ? $passedColor : 'bg-gray-300'],
+    fn ($pct) => ['pct' => $pct, 'color' => $progressPct >= $pct ? $passedColor : 'bg-gray-300'],
     [20, 40, 60, 80],
 );
 $onTrackThreshold = $targetHours / 5;
-$statusLabel = ($isOnTrack || $hoursDiff < $onTrackThreshold) ? 'On track' : "-{$hoursDiff}h behind";
-$statusColor = ($isOnTrack || $hoursDiff < $onTrackThreshold) ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700';
+$statusLabel = $isOnTrack || $hoursDiff < $onTrackThreshold ? 'On track' : "-{$hoursDiff}h behind";
+$statusColor = $isOnTrack || $hoursDiff < $onTrackThreshold ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700';
 $barColor = $isOnTrack ? 'bg-green-500' : 'bg-orange-400';
 $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:mm');
 ?>

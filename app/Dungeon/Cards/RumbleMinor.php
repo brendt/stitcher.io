@@ -2,13 +2,13 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
-use App\Dungeon\Card;
 use App\Dungeon\ActiveCard;
-use App\Dungeon\Rarity;
-use App\Dungeon\Type;
+use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Level;
+use App\Dungeon\Rarity;
 use App\Dungeon\Tile;
+use App\Dungeon\Type;
 
 final class RumbleMinor implements Card, ActiveCard
 {
@@ -16,7 +16,7 @@ final class RumbleMinor implements Card, ActiveCard
 
     private(set) string $name = 'Rumble';
 
-    private(set) string $description = "Clear 1 collapse, -10 stability";
+    private(set) string $description = 'Clear 1 collapse, -10 stability';
 
     private(set) string $image = '/cards/rumble-minor.png';
 

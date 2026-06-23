@@ -2,18 +2,17 @@
 
 namespace Tests\Dungeon\Cards;
 
-use App\Dungeon\Events\TileGenerated;
-use App\Dungeon\Tile;
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\BeaconMajor;
+use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\CardUpdated;
 use App\Dungeon\Events\DwellerUpdated;
 use App\Dungeon\Events\PassiveCardUnset;
 use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Events\CardPlayed;
+use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Point;
+use App\Dungeon\Tile;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class BeaconMajorTest extends DungeonTest
 {
@@ -167,9 +166,12 @@ final class BeaconMajorTest extends DungeonTest
     {
         $card = new BeaconMajor();
 
-        $card->handle($this->dungeon, new TileGenerated(
-            new Tile(new Point(1, 0))
-        ));
+        $card->handle(
+            $this->dungeon,
+            new TileGenerated(
+                new Tile(new Point(1, 0)),
+            ),
+        );
 
         $this->assertSame(25, $card->count);
         $this->eventBus->assertNotDispatched(CardUpdated::class);

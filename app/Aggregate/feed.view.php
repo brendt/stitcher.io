@@ -1,11 +1,13 @@
 <?php
 
-use function Tempest\Router\uri;
-use App\Aggregate\Posts\PostsController;
 use App\Aggregate\FeedController;
-use Tempest\DateTime\DateTime;
-use App\Support\Authentication\AuthController;
+use App\Aggregate\Posts\PostsController;
 use App\Aggregate\Suggestions\SuggestionController;
+use App\Support\Authentication\AuthController;
+use Tempest\DateTime\DateTime;
+
+use function Tempest\Router\uri;
+
 ?>
 
 <x-base title="Feed">

@@ -34,8 +34,7 @@ final readonly class MarkdownInitializer implements Initializer
             ->addRenderer(FencedCode::class, $container->get(HighlightCodeBlockRenderer::class))
             ->addRenderer(Code::class, $container->get(HighlightInlineCodeRenderer::class))
             ->addRenderer(Image::class, $container->get(ImageRenderer::class))
-            ->addRenderer(Link::class, $container->get(LinkRenderer::class))
-        ;
+            ->addRenderer(Link::class, $container->get(LinkRenderer::class));
 
         return new MarkdownConverter($environment);
     }

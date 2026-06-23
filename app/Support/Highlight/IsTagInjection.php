@@ -2,7 +2,6 @@
 
 namespace App\Support\Highlight;
 
-
 use Tempest\Highlight\Highlighter;
 use Tempest\Highlight\IsInjection;
 

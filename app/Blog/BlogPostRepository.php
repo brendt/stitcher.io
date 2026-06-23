@@ -6,11 +6,12 @@ use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\DateTime\DateTime;
 use Tempest\Support\Arr\ImmutableArray;
+
 use function Tempest\Router\uri;
 use function Tempest\Support\arr;
 use function Tempest\Support\str;
 
-final  class BlogPostRepository
+final class BlogPostRepository
 {
     private static ?ImmutableArray $posts = null;
 
@@ -72,7 +73,7 @@ final  class BlogPostRepository
             return self::$posts;
         }
 
-        $posts = arr(glob(__DIR__ . "/Content/*.md"))
+        $posts = arr(glob(__DIR__ . '/Content/*.md'))
             ->reverse()
             ->filter(fn (string $path) => ! str_starts_with($path, __DIR__ . '/Content/_'))
             ->map(function (string $path) {

@@ -1,20 +1,28 @@
-php-version = "8.4.0"
+php-version = "8.5.0"
 
 [source]
 paths = ["app", "tests"]
 includes = ["vendor"]
 excludes = [
-  "./vendor/symfony/cache/Traits/ValueWrapper.php",
-  "./vendor/composer",
+    "app/Blog/blog-rss.view.php",
+    "app/Support/Sitemap/sitemap.view.php",
+    "app/Aggregate/feed-rss.view.php"
+]
+
+[analyzer]
+ignore = [
+    "mixed-argument",
+    "mixed-assignment",
 ]
 
 [formatter]
 print-width = 180
 tab-width = 4
 use-tabs = false
+indent-heredoc = false
+space-after-logical-not-unary-prefix-operator = true
 null-type-hint = "question"
 space-before-arrow-function-parameter-list-parenthesis = true
-space-after-logical-not-unary-prefix-operator = true
 always-break-named-arguments-list = false
 preserve-breaking-member-access-chain = true
 preserve-breaking-argument-list = true
@@ -22,3 +30,38 @@ preserve-breaking-array-like = true
 preserve-breaking-parameter-list = true
 preserve-breaking-attribute-list = true
 preserve-breaking-conditional-expression = true
+empty-line-after-opening-tag = false
+
+[linter]
+integrations = ["php-unit", "tempest"]
+
+[linter.rules]
+interface-name = { psr = false }
+trait-name = { psr = false }
+class-name = { psr = false }
+literal-named-argument = { enabled = false } # todo
+no-error-control-operator = { enabled = false }
+too-many-methods = { enabled = false }
+kan-defect = { enabled = false }
+cyclomatic-complexity = { enabled = false }
+too-many-enum-cases = { enabled = false }
+no-redundant-file = { enabled = false }
+assertion-style = { style = "this" }
+strict-assertions = { enabled = false }
+no-else-clause = { enabled = false }
+no-boolean-flag-parameter = { enabled = false }
+no-shorthand-ternary = { enabled = false }
+no-assign-in-condition = { enabled = false }
+strict-types = { enabled = false } # lots of issues with ImmutableString
+tagged-todo = { enabled = false } # CONSIDER ENABLING
+excessive-parameter-list = { enabled = false } # too many false positives
+halstead = { enabled = false }
+strict-behavior = { allow-loose-behavior = true }
+no-redundant-use = { enabled = true }
+no-empty-comment = { enabled = false }
+single-class-per-file = { enabled = false }
+no-isset = { enabled = false }
+instanceof-stringable = { enabled = false }
+prefer-static-closure = { enabled = false }
+sensitive-parameter = { enabled = false }
+#unused-pragma = { enabled = false }

@@ -24,7 +24,7 @@ final class SupportDeckValidator implements DeckValidator
             return null;
         }
 
-        $count = $deck->filter(fn(Card $card) => in_array($card::class, $cardsToCheck))->count();
+        $count = $deck->filter(fn (Card $card) => in_array($card::class, $cardsToCheck))->count();
 
         if ($count >= 5) {
             return new DeckValidationFailed('You can only have 5 support cards in your deck');

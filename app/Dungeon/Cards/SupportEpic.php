@@ -2,14 +2,14 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
+use App\Dungeon\ActiveCard;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
-use App\Dungeon\ActiveCard;
-use App\Dungeon\Rarity;
-use App\Dungeon\Type;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Level;
+use App\Dungeon\Rarity;
 use App\Dungeon\Tile;
+use App\Dungeon\Type;
 
 // TODO
 final class SupportEpic implements Card, ActiveCard, CanBuyWithShards
@@ -20,7 +20,7 @@ final class SupportEpic implements Card, ActiveCard, CanBuyWithShards
 
     private(set) string $name = 'Support+++';
 
-    private(set) string $description = "Support 30 tiles, +5 stability per tile";
+    private(set) string $description = 'Support 30 tiles, +5 stability per tile';
 
     private(set) string $image = '/cards/support-epic.png';
 
@@ -45,23 +45,19 @@ final class SupportEpic implements Card, ActiveCard, CanBuyWithShards
 
     public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
     {
-        return ! $tile->isCollapsed
-            && !$tile->isSupported
-            && !$tile->isOrigin
-            && !$tile->isAltar()
-            && !$tile->isTrapped;
+        return ! $tile->isCollapsed && ! $tile->isSupported && ! $tile->isOrigin && ! $tile->isAltar() && ! $tile->isTrapped;
     }
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void
     {
-//        command(new SupportTile($tile->point));
-//        command(new ChangeStability(5));
-//        $this->count -= 1;
-//        $dungeon->cardUpdated($this);
-//
-//        if ($this->count === 0) {
-//            $dungeon->unsetActiveCard();
-//        }
+        //        command(new SupportTile($tile->point));
+        //        command(new ChangeStability(5));
+        //        $this->count -= 1;
+        //        $dungeon->cardUpdated($this);
+        //
+        //        if ($this->count === 0) {
+        //            $dungeon->unsetActiveCard();
+        //        }
     }
 
     public function getAdjustedPrice(): int

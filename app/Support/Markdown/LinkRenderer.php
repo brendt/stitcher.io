@@ -33,7 +33,7 @@ final class LinkRenderer implements NodeRendererInterface
         return new HtmlElement(
             'a',
             $attributes,
-            $childRenderer->renderNodes($node->children())
+            $childRenderer->renderNodes($node->children()),
         );
     }
 }

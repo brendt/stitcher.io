@@ -2,11 +2,10 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\HealMajor;
 use App\Dungeon\Events\PlayerHealthIncreased;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class HealMajorTest extends DungeonTest
 {

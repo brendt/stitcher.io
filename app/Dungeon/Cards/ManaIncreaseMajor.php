@@ -2,19 +2,19 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class ManaIncreaseMajor implements Card
 {
     use IsCard;
 
-    private(set) string $name = "Large Mana Potion";
+    private(set) string $name = 'Large Mana Potion';
 
-    private(set) string $description = "+50 max mana";
+    private(set) string $description = '+50 max mana';
 
     private(set) string $image = '/cards/mana-increase-major.png';
 

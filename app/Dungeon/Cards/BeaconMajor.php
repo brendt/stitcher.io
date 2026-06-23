@@ -2,16 +2,16 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\DungeonEvent;
 use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\DwellerMoved;
+use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Level;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Level;
 
 final class BeaconMajor implements Card, PassiveCard
 {
@@ -21,7 +21,7 @@ final class BeaconMajor implements Card, PassiveCard
 
     private(set) string $name = 'Beacon++';
 
-    public string $description = "Illuminate the darkness for 25 moves";
+    public string $description = 'Illuminate the darkness for 25 moves';
 
     public ?string $label {
         get => $this->count;

@@ -25,7 +25,7 @@ final class StabilityDeckValidator implements DeckValidator
             return null;
         }
 
-        $count = $deck->filter(fn(Card $card) => in_array($card::class, $cardsToCheck))->count();
+        $count = $deck->filter(fn (Card $card) => in_array($card::class, $cardsToCheck))->count();
 
         if ($count >= 7) {
             return new DeckValidationFailed('You can only have 7 stability cards in your deck');

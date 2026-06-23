@@ -5,6 +5,7 @@ namespace App\Analytics\VisitsPerPostPerWeek;
 use App\Analytics\AnalyticsController;
 use DateTime;
 use Tempest\Database\Table;
+
 use function Tempest\Router\uri;
 
 #[Table('visits_per_post_per_week')]

@@ -2,19 +2,19 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class HealthIncreaseMinor implements Card
 {
     use IsCard;
 
-    private(set) string $name = "Health Potion";
+    private(set) string $name = 'Health Potion';
 
-    private(set) string $description = "+25 max health, +15 health";
+    private(set) string $description = '+25 max health, +15 health';
 
     private(set) string $image = '/cards/health-increase-minor.png';
 

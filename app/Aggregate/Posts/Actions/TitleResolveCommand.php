@@ -10,7 +10,7 @@ final class TitleResolveCommand
     use HasConsole;
 
     public function __construct(
-        private readonly ResolveTitle $resolveTitle
+        private readonly ResolveTitle $resolveTitle,
     ) {}
 
     #[ConsoleCommand]

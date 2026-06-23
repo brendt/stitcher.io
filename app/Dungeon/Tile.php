@@ -97,9 +97,7 @@ final class Tile
 
     public function isAltar(): bool
     {
-        return $this->isHealthAltar
-            || $this->isStabilityAltar
-            || $this->isManaAltar;
+        return $this->isHealthAltar || $this->isStabilityAltar || $this->isManaAltar;
     }
 
     public function canContainCoins(): bool
@@ -135,10 +133,7 @@ final class Tile
 
     public function canHostDweller(): bool
     {
-        return ! (
-            $this->isCollapsed
-            || $this->isLake
-        );
+        return ! ($this->isCollapsed || $this->isLake);
     }
 
     public function canCollapse(): bool

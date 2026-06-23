@@ -11,6 +11,7 @@ use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
+
 use function Tempest\Support\arr;
 
 #[Singleton]

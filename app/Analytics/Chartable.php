@@ -4,11 +4,7 @@ namespace App\Analytics;
 
 interface Chartable
 {
-    public string $label {
-        get;
-    }
+    public string $label { get; }
 
-    public int $value {
-        get;
-    }
+    public int $value { get; }
 }

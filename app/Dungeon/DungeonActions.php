@@ -9,20 +9,20 @@ use App\Dungeon\Events\ArtifactSpawned;
 use App\Dungeon\Events\CardDrawn;
 use App\Dungeon\Events\CardPlayed;
 use App\Dungeon\Events\CardUpdated;
-use App\Dungeon\Events\LakeDiscovered;
-use App\Dungeon\Events\PlayerExited;
 use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\DwellerSpawned;
 use App\Dungeon\Events\DwellerUpdated;
+use App\Dungeon\Events\LakeDiscovered;
 use App\Dungeon\Events\PassiveCardSet;
 use App\Dungeon\Events\PassiveCardUnset;
 use App\Dungeon\Events\PermanentCardAdded;
 use App\Dungeon\Events\PlayerCoinsIncreased;
+use App\Dungeon\Events\PlayerExited;
 use App\Dungeon\Events\PlayerHealthDecreased;
 use App\Dungeon\Events\PlayerHealthIncreased;
-use App\Dungeon\Events\PlayerManaIncreased;
 use App\Dungeon\Events\PlayerManaDecreased;
+use App\Dungeon\Events\PlayerManaIncreased;
 use App\Dungeon\Events\PlayerMaxHealthIncreased;
 use App\Dungeon\Events\PlayerMaxManaIncreased;
 use App\Dungeon\Events\PlayerMoved;
@@ -38,6 +38,7 @@ use App\Dungeon\Events\TileCollapsed;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Events\VisibilityChanged;
+
 use function Tempest\EventBus\event;
 use function Tempest\Support\arr;
 
@@ -71,7 +72,8 @@ trait DungeonActions
             $directions = $directions->add($to->directionTo($from));
         }
 
-        $directions = $directions->unique()
+        $directions = $directions
+            ->unique()
             ->values()
             ->toArray();
 
@@ -148,14 +150,15 @@ trait DungeonActions
 
         if (! $neighbourTile) {
             $this->generateTile($oldPosition, $this->playerPosition);
+
             // Maybe with an explorer card?
-//            $neighbourTile = $this->tryTile($neighbourPosition);
+            //            $neighbourTile = $this->tryTile($neighbourPosition);
         }
 
         // Maybe with an explorer card?
-//        foreach ($neighbourTile->directions as $direction) {
-//            $this->generateTile(from: $neighbourPosition, to: $neighbourPosition->getNeighbour($direction));
-//        }
+        //        foreach ($neighbourTile->directions as $direction) {
+        //            $this->generateTile(from: $neighbourPosition, to: $neighbourPosition->getNeighbour($direction));
+        //        }
 
         $event = new PlayerMoved($oldPosition, $this->playerPosition);
 
@@ -197,7 +200,7 @@ trait DungeonActions
             return;
         }
 
-        if ($this->mana + $amount > $this->maxMana) {
+        if (($this->mana + $amount) > $this->maxMana) {
             $overflow = $this->mana + $amount - $this->maxMana;
             $amount -= $overflow;
         }
@@ -213,7 +216,7 @@ trait DungeonActions
 
     public function decreaseMana(int $amount): void
     {
-        if ($this->mana - $amount < 0) {
+        if (($this->mana - $amount) < 0) {
             $overflow = -1 * ($this->mana - $amount);
             $amount -= $overflow;
         }
@@ -247,7 +250,7 @@ trait DungeonActions
             return;
         }
 
-        if ($this->health + $amount > $this->maxHealth) {
+        if (($this->health + $amount) > $this->maxHealth) {
             $overflow = $this->health + $amount - $this->maxHealth;
             $amount -= $overflow;
         }
@@ -263,7 +266,7 @@ trait DungeonActions
 
     public function decreaseHealth(int $amount, ?string $reason = null): void
     {
-        if ($this->health - $amount < 0) {
+        if (($this->health - $amount) < 0) {
             $overflow = -1 * ($this->health - $amount);
             $amount -= $overflow;
         }
@@ -281,7 +284,7 @@ trait DungeonActions
 
     public function decreaseStability(int $amount): void
     {
-        if ($this->stability - $amount < 0) {
+        if (($this->stability - $amount) < 0) {
             $overflow = -1 * ($this->stability - $amount);
             $amount -= $overflow;
         }
@@ -305,7 +308,7 @@ trait DungeonActions
             return;
         }
 
-        if ($this->stability + $amount > $this->maxStability) {
+        if (($this->stability + $amount) > $this->maxStability) {
             $overflow = $this->stability + $amount - $this->maxStability;
             $amount -= $overflow;
         }
@@ -722,7 +725,7 @@ trait DungeonActions
         }
 
         $artifactCoins = $this->level->artifactCoins();
-        $variation = (int)round($artifactCoins * 0.1);
+        $variation = (int) round($artifactCoins * 0.1);
         $coins = random_int($artifactCoins - $variation, $artifactCoins + $variation);
         $this->increaseCoins($coins);
         $this->decreaseStability(random_int(10, 25));
@@ -740,7 +743,7 @@ trait DungeonActions
         }
 
         $relicCoins = $this->level->relicCoins();
-        $variation = (int)round($relicCoins * 0.1);
+        $variation = (int) round($relicCoins * 0.1);
         $coins = random_int($relicCoins - $variation, $relicCoins + $variation);
         $this->increaseCoins($coins);
         $this->increaseMana(random_int(20, 40));

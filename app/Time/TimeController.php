@@ -11,6 +11,7 @@ use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\Router\Prefix;
 use Tempest\View\View;
+
 use function Tempest\View\view;
 
 #[Prefix('/time'), Admin]

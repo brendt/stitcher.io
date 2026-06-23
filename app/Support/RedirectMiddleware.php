@@ -2,12 +2,12 @@
 
 namespace App\Support;
 
-use Tempest\Support\Priority;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\HttpMiddleware;
 use Tempest\Router\HttpMiddlewareCallable;
+use Tempest\Support\Priority;
 
 #[Priority(Priority::EXCEPTION_HANDLING)]
 final class RedirectMiddleware implements HttpMiddleware

@@ -29,7 +29,7 @@ final readonly class HighlightCodeBlockRenderer implements NodeRendererInterface
         return new HtmlElement(
             'pre',
             [],
-            $this->highlighter->parse($code, $language)
+            $this->highlighter->parse($code, $language),
         );
     }
 }

@@ -16,6 +16,7 @@ use Tempest\Core\Environment;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
 use Tempest\View\View;
+
 use function Tempest\Router\uri;
 use function Tempest\View\view;
 
@@ -28,8 +29,7 @@ final readonly class DemoController
         StatsRepository $statsRepository,
         User $user,
         Environment $environment,
-    ): Redirect|View
-    {
+    ): Redirect|View {
         if (! $environment->isLocal()) {
             return view('dungeon-aidan.view.php');
         }
@@ -47,7 +47,7 @@ final readonly class DemoController
 
         $repository->persist($dungeon);
 
-//        $dungeon->cheat = true;
+        //        $dungeon->cheat = true;
         $dungeon->mana = 1000;
         $dungeon->health = 1000;
         $dungeon->stability = 100;
@@ -56,22 +56,22 @@ final readonly class DemoController
 
         $dungeon->addTile(new Tile(new Point(1, 1), isTrapped: true));
 
-//        $directions = arr(Direction::cases());
+        //        $directions = arr(Direction::cases());
 
         for ($i = 0; $i < 100; $i++) {
-//            $dungeon->move($directions->random());
+            //            $dungeon->move($directions->random());
         }
 
-        $dungeon->spawnDweller(new Point(2,2));
-//        $dungeon->spawnDweller();
-//        $dungeon->spawnDweller();
-//        $dungeon->spawnVictoryPoint(new Point(5, 5));
-//        $dungeon->spawnShard(new Point(5, 6));
-            $dungeon->spawnHealthAltar(new Point(10, 8));
-            $dungeon->spawnStabilityAltar(new Point(10, 10));
-            $dungeon->spawnManaAltar(new Point(10, 12));
+        $dungeon->spawnDweller(new Point(2, 2));
+        //        $dungeon->spawnDweller();
+        //        $dungeon->spawnDweller();
+        //        $dungeon->spawnVictoryPoint(new Point(5, 5));
+        //        $dungeon->spawnShard(new Point(5, 6));
+        $dungeon->spawnHealthAltar(new Point(10, 8));
+        $dungeon->spawnStabilityAltar(new Point(10, 10));
+        $dungeon->spawnManaAltar(new Point(10, 12));
 
-        $dungeon->spawnShard(new Point(0,1));
+        $dungeon->spawnShard(new Point(0, 1));
 
         $repository->persist($dungeon);
 

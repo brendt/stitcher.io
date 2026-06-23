@@ -1,6 +1,8 @@
 <?php
-use function Tempest\Router\uri;
 use App\Chat\ChatController;
+
+use function Tempest\Router\uri;
+
 ?>
 <html>
 <head>

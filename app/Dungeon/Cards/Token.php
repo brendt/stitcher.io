@@ -18,7 +18,7 @@ final class Token implements Card
 
     public int $mana = 0;
 
-    public Rarity $rarity  = Rarity::COMMON;
+    public Rarity $rarity = Rarity::COMMON;
 
     public Type $type = Type::META;
 

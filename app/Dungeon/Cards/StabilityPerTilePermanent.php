@@ -2,23 +2,23 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\DungeonEvent;
 use App\Dungeon\Events\TileGenerated;
+use App\Dungeon\Level;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class StabilityPerTilePermanent implements Card, PassiveCard, CanBuyWithShards
 {
     use IsCard;
 
-    private(set) string $name = "Stable Walk";
+    private(set) string $name = 'Stable Walk';
 
-    private(set) string $description = "+1 stability per discovered tile";
+    private(set) string $description = '+1 stability per discovered tile';
 
     private(set) int $mana = 100;
 

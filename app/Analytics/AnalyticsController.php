@@ -16,6 +16,7 @@ use Tempest\DateTime\DateTime;
 use Tempest\Router\Get;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
+
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
 use function Tempest\View\view;
@@ -50,19 +51,23 @@ final class AnalyticsController
             datasets: arr([
                 new Dataset(
                     title: 'Visits per hour',
-                    entries: arr(query(VisitsPerHour::class)
-                        ->select()
-                        ->orderBy('hour DESC')
-                        ->where('hour > ?', DateTime::now()->minusHours(48))
-                        ->all())->reverse(),
+                    entries: arr(
+                        query(VisitsPerHour::class)
+                            ->select()
+                            ->orderBy('hour DESC')
+                            ->where('hour > ?', DateTime::now()->minusHours(48))
+                            ->all(),
+                    )->reverse(),
                 ),
                 new Dataset(
                     title: 'Rolling 12-hour average',
-                    entries: arr(query(RollingHourlyAverage::class)
-                        ->select()
-                        ->orderBy('date DESC')
-                        ->where('date > ?', DateTime::now()->minusHours(48))
-                        ->all())->reverse(),
+                    entries: arr(
+                        query(RollingHourlyAverage::class)
+                            ->select()
+                            ->orderBy('date DESC')
+                            ->where('date > ?', DateTime::now()->minusHours(48))
+                            ->all(),
+                    )->reverse(),
                     color: '#DE2F7844',
                     pointStyle: 'cross',
                 ),
@@ -73,19 +78,23 @@ final class AnalyticsController
             datasets: arr([
                 new Dataset(
                     title: 'Visits per day',
-                    entries: arr(query(VisitsPerDay::class)
-                        ->select()
-                        ->orderBy('date DESC')
-                        ->where('date > ?', DateTime::now()->minusDays(100))
-                        ->all())->reverse(),
+                    entries: arr(
+                        query(VisitsPerDay::class)
+                            ->select()
+                            ->orderBy('date DESC')
+                            ->where('date > ?', DateTime::now()->minusDays(100))
+                            ->all(),
+                    )->reverse(),
                 ),
                 new Dataset(
                     title: 'Rolling 14-day average',
-                    entries: arr(query(RollingDailyAverage::class)
-                        ->select()
-                        ->orderBy('date DESC')
-                        ->where('date > ?', DateTime::now()->minusDays(100))
-                        ->all())->reverse(),
+                    entries: arr(
+                        query(RollingDailyAverage::class)
+                            ->select()
+                            ->orderBy('date DESC')
+                            ->where('date > ?', DateTime::now()->minusDays(100))
+                            ->all(),
+                    )->reverse(),
                     color: '#DE2F7844',
                     pointStyle: 'cross',
                 ),
@@ -96,19 +105,23 @@ final class AnalyticsController
             datasets: arr([
                 new Dataset(
                     title: 'Visits per month',
-                    entries: arr(query(VisitsPerMonth::class)
-                        ->select()
-                        ->orderBy('date DESC')
-                        ->where('date > ?', DateTime::now()->minusMonths(36))
-                        ->all())->reverse(),
+                    entries: arr(
+                        query(VisitsPerMonth::class)
+                            ->select()
+                            ->orderBy('date DESC')
+                            ->where('date > ?', DateTime::now()->minusMonths(36))
+                            ->all(),
+                    )->reverse(),
                 ),
                 new Dataset(
                     title: 'Rolling 6-month average',
-                    entries: arr(query(RollingMonthlyAverage::class)
-                        ->select()
-                        ->orderBy('date DESC')
-                        ->where('date > ?', DateTime::now()->minusMonths(36))
-                        ->all())->reverse(),
+                    entries: arr(
+                        query(RollingMonthlyAverage::class)
+                            ->select()
+                            ->orderBy('date DESC')
+                            ->where('date > ?', DateTime::now()->minusMonths(36))
+                            ->all(),
+                    )->reverse(),
                     color: '#DE2F7844',
                     pointStyle: 'cross',
                 ),
@@ -116,10 +129,11 @@ final class AnalyticsController
         );
 
         $visitsPerYear = Chart::forData([
-            'Visits per year' => arr(query(VisitsPerYear::class)
-                ->select()
-                ->orderBy('date ASC')
-                ->all(),
+            'Visits per year' => arr(
+                query(VisitsPerYear::class)
+                    ->select()
+                    ->orderBy('date ASC')
+                    ->all(),
             ),
         ]);
 
@@ -153,12 +167,14 @@ final class AnalyticsController
         $uri = '/' . $uri;
 
         $visitsPerDay = Chart::forData([
-            'Visits last 124 days' => arr(query(VisitsPerPostPerDay::class)
-                ->select()
-                ->orderBy('date DESC')
-                ->where('date > ?', DateTime::now()->minusDays(124))
-                ->where('uri', $uri)
-                ->all())->reverse()
+            'Visits last 124 days' => arr(
+                query(VisitsPerPostPerDay::class)
+                    ->select()
+                    ->orderBy('date DESC')
+                    ->where('date > ?', DateTime::now()->minusDays(124))
+                    ->where('uri', $uri)
+                    ->all(),
+            )->reverse(),
         ]);
 
         return view(

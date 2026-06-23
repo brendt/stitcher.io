@@ -2,23 +2,23 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\DungeonEvent;
+use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Level;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Level;
 
 final class ManaPerMovePermanent implements Card, PassiveCard, CanBuyWithShards
 {
     use IsCard;
 
-    private(set) string $name = "Mana Stride";
+    private(set) string $name = 'Mana Stride';
 
-    private(set) string $description = "+1 mana per move";
+    private(set) string $description = '+1 mana per move';
 
     private(set) int $mana = 50;
 

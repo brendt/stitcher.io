@@ -2,16 +2,15 @@
 
 namespace Tests\Dungeon\Cards;
 
-use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Point;
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\ProtectionMinor;
 use App\Dungeon\Events\CardUpdated;
 use App\Dungeon\Events\PassiveCardUnset;
 use App\Dungeon\Events\PlayerHealthDecreased;
 use App\Dungeon\Events\PlayerHealthIncreased;
+use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Point;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class ProtectionMinorTest extends DungeonTest
 {

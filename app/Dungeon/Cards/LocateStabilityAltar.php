@@ -2,19 +2,19 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class LocateStabilityAltar implements Card
 {
     use IsCard;
 
-    private(set) string $name = "Locate Stability Altar";
+    private(set) string $name = 'Locate Stability Altar';
 
-    private(set) string $description = "Locate one Stability Altar";
+    private(set) string $description = 'Locate one Stability Altar';
 
     private(set) string $image = '/cards/locate-stability-altar.png';
 

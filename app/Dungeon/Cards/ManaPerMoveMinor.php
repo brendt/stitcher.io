@@ -2,14 +2,14 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\DungeonEvent;
+use App\Dungeon\Events\PlayerMoved;
+use App\Dungeon\Level;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Level;
 
 final class ManaPerMoveMinor implements Card, PassiveCard
 {
@@ -17,9 +17,9 @@ final class ManaPerMoveMinor implements Card, PassiveCard
 
     public int $moves = 10;
 
-    private(set) string $name = "Mana Steps";
+    private(set) string $name = 'Mana Steps';
 
-    private(set) string $description = "+10 mana per move for the next 10 moves";
+    private(set) string $description = '+10 mana per move for the next 10 moves';
 
     private(set) int $mana = 10;
 

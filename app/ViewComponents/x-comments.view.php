@@ -1,11 +1,12 @@
 <?php
 
-use Tempest\Http\Request;
-use function Tempest\Container\get;
-use function Tempest\Support\str;
-use function Tempest\Router\uri;
 use App\Blog\CommentsController;
 use App\Support\Authentication\AuthController;
+use Tempest\Http\Request;
+
+use function Tempest\Container\get;
+use function Tempest\Router\uri;
+use function Tempest\Support\str;
 
 $user ??= null;
 $comments ??= [];

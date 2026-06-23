@@ -2,16 +2,15 @@
 
 namespace Tests\Dungeon\Cards;
 
-use App\Dungeon\Events\PlayerMoved;
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\StabilityPerTilePermanent;
 use App\Dungeon\Events\CardUpdated;
+use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\PlayerStabilityIncreased;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class StabilityPerTilePermanentTest extends DungeonTest
 {

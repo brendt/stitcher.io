@@ -7,6 +7,7 @@ use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\View\View;
+
 use function Tempest\View\view;
 
 final readonly class WorkoutController
@@ -106,7 +107,7 @@ final readonly class WorkoutController
 
     private function resolveWorkout(): ?Workout
     {
-//        return new Workout(DateTime::now()->minusSeconds(6));
+        //        return new Workout(DateTime::now()->minusSeconds(6));
         return $this->session->get('workout');
     }
 }

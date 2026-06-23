@@ -34,7 +34,7 @@ final class NwsSyncCommand
         foreach ($items as $item) {
             try {
                 $summary = is_string($item['summary'] ?? null) ? $item['summary'] : '';
-                $title = ($item['title'] ?? null) ? $item['title'] : '';
+                $title = $item['title'] ?? null ? $item['title'] : '';
 
                 if (! $title) {
                     continue;
@@ -63,7 +63,7 @@ final class NwsSyncCommand
     {
         $input = str_replace('vrtns:nstag', 'tag', $input);
 
-        $xml = simplexml_load_string($input, "SimpleXMLElement", LIBXML_NOWARNING | LIBXML_NOERROR);
+        $xml = simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOWARNING | LIBXML_NOERROR);
 
         if (! $xml) {
             return [];

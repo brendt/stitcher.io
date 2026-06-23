@@ -7,7 +7,9 @@ use Random\Randomizer;
 
 final readonly class RandomWithRandomizer implements Random
 {
-    public function __construct(private Randomizer $randomizer) {}
+    public function __construct(
+        private Randomizer $randomizer,
+    ) {}
 
     public function chance(float $percentage): bool
     {

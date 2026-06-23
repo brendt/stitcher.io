@@ -2,12 +2,13 @@
 
 namespace App\Chat;
 
-use RuntimeException;
 use DateTimeImmutable;
+use RuntimeException;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\HttpClient\HttpClient;
 use Throwable;
+
 use function Tempest\env;
 
 final class YouTubeChatCommand
@@ -168,12 +169,15 @@ final class YouTubeChatCommand
 
     private function detectLivestreamStatusViaApi(): array
     {
-        $url = self::API_BASE . '/liveBroadcasts?' . http_build_query([
-            'part' => 'id,snippet,status',
-            'mine' => 'true',
-            'broadcastType' => 'all',
-            'maxResults' => self::LIVE_BROADCAST_MAX_RESULTS,
-        ]);
+        $url =
+            self::API_BASE
+            . '/liveBroadcasts?'
+            . http_build_query([
+                'part' => 'id,snippet,status',
+                'mine' => 'true',
+                'broadcastType' => 'all',
+                'maxResults' => self::LIVE_BROADCAST_MAX_RESULTS,
+            ]);
 
         $response = $this->requestAuthorizedJson($url);
 
@@ -209,10 +213,13 @@ final class YouTubeChatCommand
 
     private function fetchLiveChatId(string $videoId): ?string
     {
-        $url = self::API_BASE . '/videos?' . http_build_query([
-            'part' => 'liveStreamingDetails',
-            'id' => $videoId,
-        ]);
+        $url =
+            self::API_BASE
+            . '/videos?'
+            . http_build_query([
+                'part' => 'liveStreamingDetails',
+                'id' => $videoId,
+            ]);
 
         $response = $this->requestAuthorizedJson($url);
 
@@ -360,12 +367,14 @@ final class YouTubeChatCommand
 
     private function refreshAccessToken(): bool
     {
-        $url = 'https://oauth2.googleapis.com/token?' . http_build_query([
-            'client_id' => env('YOUTUBE_CLIENT_ID'),
-            'client_secret' => env('YOUTUBE_CLIENT_SECRET'),
-            'refresh_token' => env('YOUTUBE_REFRESH_TOKEN'),
-            'grant_type' => 'refresh_token',
-        ]);
+        $url =
+            'https://oauth2.googleapis.com/token?'
+            . http_build_query([
+                'client_id' => env('YOUTUBE_CLIENT_ID'),
+                'client_secret' => env('YOUTUBE_CLIENT_SECRET'),
+                'refresh_token' => env('YOUTUBE_REFRESH_TOKEN'),
+                'grant_type' => 'refresh_token',
+            ]);
 
         $response = $this->requestJson('POST', $url, [
             'Accept' => 'application/json',

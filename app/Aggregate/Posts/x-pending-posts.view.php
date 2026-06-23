@@ -1,7 +1,9 @@
 <?php
-use App\Aggregate\Suggestions\SuggestionController;
-use function Tempest\Router\uri;
 use App\Aggregate\Posts\PostsController;
+use App\Aggregate\Suggestions\SuggestionController;
+
+use function Tempest\Router\uri;
+
 ?>
 
 <div id="pending-posts" class="grid gap-2">

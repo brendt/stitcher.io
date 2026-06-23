@@ -2,8 +2,6 @@
 
 namespace App\Aggregate\Suggestions;
 
-use Tempest\Router\Get;
-use function Tempest\Router\uri;
 use App\Aggregate\FeedController;
 use App\Aggregate\Posts\Actions\QueuePost;
 use App\Aggregate\Posts\Actions\ResolveTitle;
@@ -17,9 +15,12 @@ use Tempest\DateTime\DateTime;
 use Tempest\Http\Request;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router;
+use Tempest\Router\Get;
 use Tempest\Router\Stateless;
 use Tempest\View\View;
+
 use function Tempest\defer;
+use function Tempest\Router\uri;
 use function Tempest\View\view;
 
 final readonly class SuggestionController
@@ -49,7 +50,7 @@ final readonly class SuggestionController
                 $suggestion->save();
             }
 
-            if ($feedUri = new FindSuggestionFeedUri()($suggestion->uri)) {
+            if ($feedUri = (new FindSuggestionFeedUri())($suggestion->uri)) {
                 $suggestion->feedUri = $feedUri;
                 $suggestion->save();
             }

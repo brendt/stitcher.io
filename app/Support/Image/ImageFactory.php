@@ -2,10 +2,11 @@
 
 namespace App\Support\Image;
 
-use Intervention\Image\ImageManager;
 use Intervention\Image\Image as ScalableImage;
+use Intervention\Image\ImageManager;
 use Tempest\CommandBus\Async;
 use Tempest\CommandBus\CommandHandler;
+
 use function Tempest\CommandBus\command;
 use function Tempest\Support\path;
 
@@ -83,8 +84,8 @@ final readonly class ImageFactory
         $extension = $pathInfo['extension'];
 
         do {
-            $newWidth = (int)floor(sqrt(($fileSize / $pixelPrice) / $ratio));
-            $newHeight = (int)floor($newWidth * $ratio);
+            $newWidth = (int) floor(sqrt(($fileSize / $pixelPrice) / $ratio));
+            $newHeight = (int) floor($newWidth * $ratio);
 
             $variations[] = new SrcSet(
                 src: "{$baseSrc}-{$newWidth}-{$newHeight}.{$extension}",

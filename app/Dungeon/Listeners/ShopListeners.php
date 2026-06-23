@@ -17,6 +17,7 @@ use App\Dungeon\Repositories\StatsRepository;
 use App\Dungeon\Support\Random;
 use App\Support\Authentication\User;
 use Tempest\EventBus\EventHandler;
+
 use function Tempest\Support\arr;
 
 final readonly class ShopListeners
@@ -58,19 +59,19 @@ final readonly class ShopListeners
         $cardsForShop = arr();
 
         // Add some fixed cards by chance
-        if ($unbuyableCards->isNotEmpty() && $this->random->chance(1/3)) {
+        if ($unbuyableCards->isNotEmpty() && $this->random->chance(1 / 3)) {
             $cardsForShop[] = $unbuyableCards->random();
         }
 
-        if ($unbuyableCards->isNotEmpty() && $this->random->chance(1/3)) {
+        if ($unbuyableCards->isNotEmpty() && $this->random->chance(1 / 3)) {
             $cardsForShop[] = $unbuyableCards->random();
         }
 
-        if ($this->random->chance(1/3)) {
+        if ($this->random->chance(1 / 3)) {
             $cardsForShop[] = new Token();
         }
 
-        if ($this->random->chance(1/10)) {
+        if ($this->random->chance(1 / 10)) {
             $cardsForShop[] = new VictoryPoint();
         }
 

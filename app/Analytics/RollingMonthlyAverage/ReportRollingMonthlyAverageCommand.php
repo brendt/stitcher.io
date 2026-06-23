@@ -7,6 +7,7 @@ use Tempest\Console\HasConsole;
 use Tempest\Console\Schedule;
 use Tempest\Console\Scheduler\Every;
 use Tempest\DateTime\DateTime;
+
 use function Tempest\Database\query;
 
 final class ReportRollingMonthlyAverageCommand
@@ -17,8 +18,7 @@ final class ReportRollingMonthlyAverageCommand
     public function __invoke(
         ?string $from = null,
         ?string $to = null,
-    ): void
-    {
+    ): void {
         $currentMonth = DateTime::parse($from ?? 'now');
         $to = DateTime::parse($to ?? 'now');
 
@@ -33,13 +33,14 @@ final class ReportRollingMonthlyAverageCommand
 
     private function reportAverage(DateTime $currentMonth): int
     {
-        $average = query('visits_per_month')
-            ->select('AVG(count) AS `avg`')
-            ->where('date > ?', $currentMonth->minusMonths(6))
-            ->where('date <= ?', $currentMonth)
-            ->first()['avg'] ?? 0;
+        $average =
+            query('visits_per_month')
+                ->select('AVG(count) AS `avg`')
+                ->where('date > ?', $currentMonth->minusMonths(6))
+                ->where('date <= ?', $currentMonth)
+                ->first()['avg'] ?? 0;
 
-        $averageForThisMonth = (int)round($average);
+        $averageForThisMonth = (int) round($average);
 
         $existingMonth = query('rolling_monthly_average')
             ->select()

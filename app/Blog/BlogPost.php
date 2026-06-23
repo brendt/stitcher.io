@@ -4,6 +4,7 @@ namespace App\Blog;
 
 use Tempest\DateTime\DateTime;
 use Tempest\Router\Bindable;
+
 use function Tempest\Router\uri;
 
 final class BlogPost

@@ -15,6 +15,7 @@ use Tempest\Http\Responses\Back;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
+
 use function Tempest\env;
 
 final readonly class AuthController

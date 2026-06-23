@@ -2,11 +2,10 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\EmergencyExitMinor;
 use App\Dungeon\Events\PlayerExited;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class EmergencyExitMinorTest extends DungeonTest
 {

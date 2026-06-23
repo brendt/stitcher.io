@@ -2,19 +2,19 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class LocateManaAltar implements Card
 {
     use IsCard;
 
-    private(set) string $name = "Locate Mana Altar";
+    private(set) string $name = 'Locate Mana Altar';
 
-    private(set) string $description = "Locate one Mana Altar";
+    private(set) string $description = 'Locate one Mana Altar';
 
     private(set) string $image = '/cards/locate-mana-altar.png';
 

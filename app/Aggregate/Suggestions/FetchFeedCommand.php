@@ -27,7 +27,7 @@ final readonly class FetchFeedCommand
         $this->eventBus->listen($this->onFeedUrisResolved(...));
         $this->eventBus->listen($this->onFeedUrisFetchFailed(...));
 
-        new FindSuggestionFeedUri()($uri);
+        (new FindSuggestionFeedUri())($uri);
     }
 
     public function onFeedUriFetchFailed(FeedUriFetchFailed $event): void

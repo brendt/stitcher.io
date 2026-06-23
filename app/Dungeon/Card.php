@@ -2,48 +2,27 @@
 
 namespace App\Dungeon;
 
-
 interface Card
 {
-    public string $id {
-        get;
-    }
+    public string $id { get; }
 
-    public string $name {
-        get;
-    }
+    public string $name { get; }
 
-    public string $description {
-        get;
-    }
+    public string $description { get; }
 
-    public int $mana {
-        get;
-    }
+    public int $mana { get; }
 
-    public Rarity $rarity {
-        get;
-    }
+    public Rarity $rarity { get; }
 
-    public Type $type {
-        get;
-    }
+    public Type $type { get; }
 
-    public string $image {
-        get;
-    }
+    public string $image { get; }
 
-    public int $price {
-        get;
-    }
+    public int $price { get; }
 
-    public int $sellPrice {
-        get;
-    }
+    public int $sellPrice { get; }
 
-    public Level $level {
-        get;
-    }
+    public Level $level { get; }
 
     public function play(Dungeon $dungeon): void;
 

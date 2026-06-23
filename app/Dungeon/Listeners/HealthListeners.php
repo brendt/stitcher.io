@@ -6,6 +6,7 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\Events\PlayerDied;
 use App\Dungeon\Events\PlayerHealthDecreased;
 use Tempest\EventBus\EventHandler;
+
 use function Tempest\EventBus\event;
 
 final readonly class HealthListeners

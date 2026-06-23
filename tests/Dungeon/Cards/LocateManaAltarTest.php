@@ -2,12 +2,11 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\LocateManaAltar;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Point;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class LocateManaAltarTest extends DungeonTest
 {

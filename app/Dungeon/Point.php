@@ -25,18 +25,19 @@ final readonly class Point
             return false;
         }
 
-        return $this->x === $other->x
-            && $this->y === $other->y;
+        return $this->x === $other->x && $this->y === $other->y;
     }
 
     public function distanceTo(Point $other): float
     {
-        return round(abs(
-            sqrt(
-                (($other->x - $this->x) ** 2)
-                + (($other->y - $this->y) ** 2),
+        return round(
+            abs(
+                sqrt(
+                    ($other->x - $this->x) ** 2 + ($other->y - $this->y) ** 2,
+                ),
             ),
-        ), 2);
+            2,
+        );
     }
 
     public function relativeDirectionTo(Point $other): string

@@ -12,6 +12,7 @@ use App\Time\TimeEntry;
 use Tempest\Database\DatabaseSeeder;
 use Tempest\DateTime\DateTime;
 use UnitEnum;
+
 use function Tempest\env;
 
 final class AppSeeder implements DatabaseSeeder
@@ -56,9 +57,20 @@ final class AppSeeder implements DatabaseSeeder
         }
 
         $times = [
-            '2026-04-18', '2026-04-19', '2026-04-20', '2026-04-21', '2026-04-23',
-            '2026-05-18', '2026-05-19', '2026-05-20', '2026-05-21', '2026-05-23',
-            '2026-06-18', '2026-06-19', '2026-06-20', '2026-06-21',
+            '2026-04-18',
+            '2026-04-19',
+            '2026-04-20',
+            '2026-04-21',
+            '2026-04-23',
+            '2026-05-18',
+            '2026-05-19',
+            '2026-05-20',
+            '2026-05-21',
+            '2026-05-23',
+            '2026-06-18',
+            '2026-06-19',
+            '2026-06-20',
+            '2026-06-21',
         ];
 
         foreach ($times as $time) {
@@ -70,16 +82,15 @@ final class AppSeeder implements DatabaseSeeder
             );
         }
 
-
-//        foreach ($this->repository->all() as $post) {
-//            foreach (range(1, 5) as $i) {
-//                Comment::create(
-//                    user: $user,
-//                    for: $post->slug,
-//                    content: "Hello {$i}",
-//                    createdAt: DateTime::now()->minusDays(random_int(0, 10)),
-//                );
-//            }
-//        }
+        //        foreach ($this->repository->all() as $post) {
+        //            foreach (range(1, 5) as $i) {
+        //                Comment::create(
+        //                    user: $user,
+        //                    for: $post->slug,
+        //                    content: "Hello {$i}",
+        //                    createdAt: DateTime::now()->minusDays(random_int(0, 10)),
+        //                );
+        //            }
+        //        }
     }
 }

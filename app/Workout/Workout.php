@@ -3,6 +3,7 @@
 namespace App\Workout;
 
 use Tempest\DateTime\DateTime;
+
 use function Tempest\Support\arr;
 
 final class Workout
@@ -39,9 +40,8 @@ final class Workout
 
     public function __construct(
         private(set) DateTime $startTime,
-    )
-    {
-        $amount = $this->totalWorkoutTime / $this->secondsPerPart / 2;
+    ) {
+        $amount = ($this->totalWorkoutTime / $this->secondsPerPart) / 2;
 
         $this->exercises = arr($this->possibleExercises)
             ->shuffle()
@@ -82,13 +82,12 @@ final class Workout
     }
 
     public int $timeRemainingInPart {
-        get => $this->secondsPerPart - $this->timeElapsed % $this->secondsPerPart;
+        get => $this->secondsPerPart - ($this->timeElapsed % $this->secondsPerPart);
     }
 
     public int $currentExerciseIndex {
         get => $this->part % count($this->exercises);
     }
-
 
     public int $nextExerciseIndex {
         get => ($this->currentExerciseIndex + 1) % count($this->exercises);
@@ -103,7 +102,7 @@ final class Workout
     }
 
     public bool $isExercise {
-        get => ! $this->isPaused && $this->part % 2 === 0;
+        get => ! $this->isPaused && ($this->part % 2) === 0;
     }
 
     public bool $isBreak {
@@ -131,7 +130,7 @@ final class Workout
     }
 
     public float $progress {
-        get => round($this->timeElapsed / $this->totalTime * 100, 3);
+        get => round(($this->timeElapsed / $this->totalTime) * 100, 3);
     }
 
     public function pause(): self

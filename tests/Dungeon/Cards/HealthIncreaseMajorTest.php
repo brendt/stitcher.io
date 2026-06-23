@@ -2,12 +2,11 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\HealthIncreaseMajor;
 use App\Dungeon\Events\PlayerHealthIncreased;
 use App\Dungeon\Events\PlayerMaxHealthIncreased;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class HealthIncreaseMajorTest extends DungeonTest
 {

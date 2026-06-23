@@ -5,6 +5,7 @@ namespace App\Chat;
 use Tempest\Http\Request;
 use Tempest\Router\Get;
 use Tempest\View\View;
+
 use function Tempest\View\view;
 
 final class ChatController

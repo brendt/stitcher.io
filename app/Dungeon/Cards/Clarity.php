@@ -2,19 +2,19 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class Clarity implements Card
 {
     use IsCard;
 
-    private(set) string $name = "Clarity";
+    private(set) string $name = 'Clarity';
 
-    private(set) string $description = "+1 visibility, +20 stability";
+    private(set) string $description = '+1 visibility, +20 stability';
 
     private(set) string $image = '/cards/clarity-major.png';
 

@@ -8,7 +8,7 @@ use Tempest\Database\Config\DatabaseConfig;
 final class DbCommand
 {
     public function __construct(
-        private DatabaseConfig $config
+        private DatabaseConfig $config,
     ) {}
 
     #[ConsoleCommand]

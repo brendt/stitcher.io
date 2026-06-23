@@ -2,23 +2,23 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\DungeonEvent;
 use App\Dungeon\Events\PlayerHealthDecreased;
+use App\Dungeon\Level;
 use App\Dungeon\PassiveCard;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class ChestplateMinorPermanent implements Card, PassiveCard, CanBuyWithShards
 {
     use IsCard;
 
-    private(set) string $name = "Chestplate";
+    private(set) string $name = 'Chestplate';
 
-    private(set) string $description = "-5 damage every hit";
+    private(set) string $description = '-5 damage every hit';
 
     private(set) int $mana = 100;
 

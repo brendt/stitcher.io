@@ -1,6 +1,7 @@
 <?php
 
 use Tempest\Auth\OAuth\Config\DiscordOAuthConfig;
+
 use function Tempest\env;
 
 return new DiscordOAuthConfig(

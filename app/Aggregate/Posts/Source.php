@@ -42,6 +42,9 @@ final class Source implements Bindable
 
     #[Virtual]
     public string $shortName {
-        get => new ImmutableString($this->name)->afterFirst('https://')->afterFirst('www.')->truncate(25, '…');
+        get => new ImmutableString($this->name)
+            ->afterFirst('https://')
+            ->afterFirst('www.')
+            ->truncate(25, '…');
     }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
-use App\Dungeon\Card;
-use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\ActiveCard;
-use App\Dungeon\Rarity;
-use App\Dungeon\Type;
+use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Level;
+use App\Dungeon\Rarity;
 use App\Dungeon\Tile;
+use App\Dungeon\Type;
+
 use function Tempest\EventBus\event;
 
 final class SupportMajor implements Card, ActiveCard
@@ -20,7 +21,7 @@ final class SupportMajor implements Card, ActiveCard
 
     private(set) string $name = 'Support++';
 
-    private(set) string $description = "Support 25 tiles, preventing collapses";
+    private(set) string $description = 'Support 25 tiles, preventing collapses';
 
     private(set) string $image = '/cards/support-major.png';
 
@@ -45,11 +46,7 @@ final class SupportMajor implements Card, ActiveCard
 
     public function canInteractWithTile(Dungeon $dungeon, Tile $tile): bool
     {
-        return ! $tile->isCollapsed
-            && !$tile->isSupported
-            && !$tile->isOrigin
-            && !$tile->isAltar()
-            && !$tile->isTrapped;
+        return ! $tile->isCollapsed && ! $tile->isSupported && ! $tile->isOrigin && ! $tile->isAltar() && ! $tile->isTrapped;
     }
 
     public function interactWithTile(Dungeon $dungeon, Tile $tile): void

@@ -10,6 +10,7 @@ use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\DateTime\DateTime;
 use Throwable;
+
 use function Tempest\Database\query;
 use function Tempest\EventBus\event;
 use function Tempest\Support\str;
@@ -98,7 +99,7 @@ final class ParseLogCommand
             $lastDate = new DateTimeImmutable($lastDate['createdAt']);
         }
 
-        $this->success(sprintf("Parsing <style=\"underline\">%s</style>", $path));
+        $this->success(sprintf('Parsing <style="underline">%s</style>', $path));
 
         while (true) {
             $line = str(fgets($handle) ?: '')->trim();
@@ -143,7 +144,7 @@ final class ParseLogCommand
             $statusCode = str($line->match('/"(GET|POST).*?"\s([\d]+)/', match: 2));
 
             if (! $statusCode->startsWith('2')) {
-                $this->writeln(sprintf("<style=\"bg-red fg-white\">%s </style> %s (%s)", $date->format('Y-m-d H:i:s'), $url, $statusCode));
+                $this->writeln(sprintf('<style="bg-red fg-white">%s </style> %s (%s)', $date->format('Y-m-d H:i:s'), $url, $statusCode));
 
                 continue;
             }
@@ -180,7 +181,7 @@ final class ParseLogCommand
             if ($previousDateForIp && $previousDateForIp->diff($event->visitedAt)->s < 3) {
                 self::$ips[$event->ip] = $event->visitedAt;
 
-                $this->writeln(sprintf("<style=\"bg-red fg-white\">%s </style> %s (throttled)", $date->format('Y-m-d H:i:s'), $event->url));
+                $this->writeln(sprintf('<style="bg-red fg-white">%s </style> %s (throttled)', $date->format('Y-m-d H:i:s'), $event->url));
 
                 continue;
             }
@@ -189,7 +190,7 @@ final class ParseLogCommand
 
             self::$ips[$event->ip] = $event->visitedAt;
 
-            $this->writeln(sprintf("<style=\"bg-blue fg-white\">%s </style> %s", $date->format('Y-m-d H:i:s'), $event->url));
+            $this->writeln(sprintf('<style="bg-blue fg-white">%s </style> %s', $date->format('Y-m-d H:i:s'), $event->url));
         }
     }
 }

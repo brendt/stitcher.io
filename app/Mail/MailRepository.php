@@ -7,6 +7,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
 use Tempest\Support\Arr\ImmutableArray;
+
 use function Tempest\Support\arr;
 
 final readonly class MailRepository
@@ -14,8 +15,7 @@ final readonly class MailRepository
     public function __construct(
         private MarkdownConverter $converter,
         private Cache $cache,
-    ) {
-    }
+    ) {}
 
     public function find(string $slug): ?Mail
     {
@@ -33,12 +33,12 @@ final readonly class MailRepository
      */
     public function all(): ImmutableArray
     {
-        return arr(glob(__DIR__ . "/Content/*.md"))
+        return arr(glob(__DIR__ . '/Content/*.md'))
             ->map(function (string $path) {
                 $content = file_get_contents($path);
                 $cacheKey = crc32($content);
 
-                return $this->cache->resolve($cacheKey, function () use ($path, $content){
+                return $this->cache->resolve($cacheKey, function () use ($path, $content) {
                     preg_match('/\d+-\d+-\d+-(?<slug>.*)\.md/', $path, $matches);
 
                     return [

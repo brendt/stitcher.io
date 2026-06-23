@@ -2,11 +2,10 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\ManaIncreaseMinor;
 use App\Dungeon\Events\PlayerMaxManaIncreased;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class ManaIncreaseMinorTest extends DungeonTest
 {

@@ -7,6 +7,7 @@ use Tempest\Console\HasConsole;
 use Tempest\Console\Schedule;
 use Tempest\Console\Scheduler\Every;
 use Tempest\DateTime\DateTime;
+
 use function Tempest\Database\query;
 
 final class ReportRollingDailyAverageCommand
@@ -17,8 +18,7 @@ final class ReportRollingDailyAverageCommand
     public function __invoke(
         ?string $from = null,
         ?string $to = null,
-    ): void
-    {
+    ): void {
         $currentDay = DateTime::parse($from ?? 'now');
         $to = DateTime::parse($to ?? 'now');
 
@@ -33,13 +33,14 @@ final class ReportRollingDailyAverageCommand
 
     private function reportAverage(DateTime $currentDay): int
     {
-        $average = query('visits_per_day')
-            ->select('AVG(count) AS `avg`')
-            ->where('date > ?', $currentDay->minusDays(14))
-            ->where('date <= ?', $currentDay)
-            ->first()['avg'] ?? 0;
+        $average =
+            query('visits_per_day')
+                ->select('AVG(count) AS `avg`')
+                ->where('date > ?', $currentDay->minusDays(14))
+                ->where('date <= ?', $currentDay)
+                ->first()['avg'] ?? 0;
 
-        $averageForThisDay = (int)round($average);
+        $averageForThisDay = (int) round($average);
 
         $existingDay = query('rolling_daily_average')
             ->select()

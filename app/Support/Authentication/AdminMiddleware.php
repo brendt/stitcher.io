@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Support\Authentication;
+
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Discovery\SkipDiscovery;
 use Tempest\Http\Request;
@@ -8,6 +9,7 @@ use Tempest\Http\Response;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\HttpMiddleware;
 use Tempest\Router\HttpMiddlewareCallable;
+
 use function Tempest\Router\uri;
 
 #[SkipDiscovery]

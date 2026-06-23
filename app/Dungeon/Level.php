@@ -109,7 +109,8 @@ enum Level: int
         };
     }
 
-    public function altarCount(): int {
+    public function altarCount(): int
+    {
         return match ($this) {
             self::NOOB => 0,
             self::NOVICE => 1,
@@ -194,7 +195,7 @@ enum Level: int
             return $xp;
         }
 
-        return (int)round($xp / 1000) . 'k';
+        return (int) round($xp / 1000) . 'k';
     }
 
     public function maxCoinCount(): int

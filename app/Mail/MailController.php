@@ -5,6 +5,7 @@ namespace App\Mail;
 use Tempest\Router\Get;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
+
 use function Tempest\View\view;
 
 final class MailController

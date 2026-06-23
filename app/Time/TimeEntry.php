@@ -2,12 +2,12 @@
 
 namespace App\Time;
 
+use DateTime as PHPDateTime;
 use Tempest\Database\IsDatabaseModel;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\FormatPattern;
 use Tempest\DateTime\Timezone;
 use Tempest\Router\Bindable;
-use DateTime as PHPDateTime;
 
 final class TimeEntry implements Bindable
 {

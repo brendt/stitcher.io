@@ -19,6 +19,7 @@ use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\Test;
 use Tempest\Auth\Authentication\Authenticator;
 use Tests\IntegrationTestCase;
+
 use function Tempest\EventBus\event;
 
 final class PlayerMovementListenerTest extends IntegrationTestCase
@@ -83,5 +84,4 @@ final class PlayerMovementListenerTest extends IntegrationTestCase
     // -------------------------------------------------------------------------
     // Mana altar
     // -------------------------------------------------------------------------
-
 }

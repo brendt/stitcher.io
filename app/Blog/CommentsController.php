@@ -9,6 +9,7 @@ use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\View\View;
+
 use function Tempest\Support\str;
 
 final readonly class CommentsController
@@ -93,7 +94,7 @@ final readonly class CommentsController
             ...$data,
             post: $post,
             user: $this->authenticator->current(),
-            comments: $comments
+            comments: $comments,
         );
     }
 }

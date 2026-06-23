@@ -11,8 +11,7 @@ final class WeekEntry
         public string $week,
         /** @var TimeEntry[] */
         public array $timeEntries = [],
-    ) {
-    }
+    ) {}
 
     public float $totalHours {
         get => array_sum(array_map(

@@ -9,14 +9,14 @@ use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
+
 use function Tempest\Support\arr;
 
 final readonly class ImageRenderer implements NodeRendererInterface
 {
     public function __construct(
         private ImageFactory $imageFactory,
-    ) {
-    }
+    ) {}
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer): HtmlElement
     {
@@ -35,7 +35,10 @@ final readonly class ImageRenderer implements NodeRendererInterface
         $alt = $node->firstChild();
 
         $attributes['src'] = $image->src;
-        $attributes['srcset'] = arr($image->srcset)->map(fn($srcset) => (string) $srcset)->implode(', ')->toString();
+        $attributes['srcset'] = arr($image->srcset)
+            ->map(fn ($srcset) => (string) $srcset)
+            ->implode(', ')
+            ->toString();
         $attributes['sizes'] = '';
         $attributes['alt'] = $alt instanceof Text
             ? $alt->getLiteral()
@@ -44,7 +47,7 @@ final readonly class ImageRenderer implements NodeRendererInterface
         return new HtmlElement(
             'img',
             $attributes,
-            $childRenderer->renderNodes($node->children())
+            $childRenderer->renderNodes($node->children()),
         );
     }
 }

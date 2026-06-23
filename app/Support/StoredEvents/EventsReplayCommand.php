@@ -11,6 +11,7 @@ use Tempest\Console\HasConsole;
 use Tempest\Console\Middleware\ForceMiddleware;
 use Tempest\Container\Container;
 use Tempest\Database\Database;
+
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
 use function Tempest\Support\str;
@@ -81,7 +82,7 @@ final readonly class EventsReplayCommand
             return;
         }
 
-        $this->info("Clearing projectors…");
+        $this->info('Clearing projectors…');
 
         foreach ($projectors as $projector) {
             $projector->clear();
@@ -89,7 +90,7 @@ final readonly class EventsReplayCommand
 
         $this->success('Done');
 
-        $this->info("Replaying events…");
+        $this->info('Replaying events…');
 
         $startTime = microtime(true);
         $eventsProcessed = 0;
@@ -149,6 +150,6 @@ final readonly class EventsReplayCommand
 
         $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
 
-        return @round($memory / pow(1024, ($i = floor(log($memory, 1024)))), 2) . $unit[$i];
+        return @round($memory / pow(1024, $i = floor(log($memory, 1024))), 2) . $unit[$i];
     }
 }

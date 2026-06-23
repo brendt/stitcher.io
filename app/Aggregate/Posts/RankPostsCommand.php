@@ -6,6 +6,7 @@ use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Console\Schedule;
 use Tempest\Console\Scheduler\Every;
+
 use function Tempest\Database\query;
 use function Tempest\Intl\Number\parse_int;
 
@@ -36,14 +37,17 @@ final class RankPostsCommand
                         $rankByVisits = parse_int(round($rebasedValue / $rebasedMax, 2) * 100);
                     }
 
-                    $rank = round($rankByVisits * match (true) {
+                    $rank = round(
+                        $rankByVisits
+                        * match (true) {
                             $post->source->rank < 10 => 0.8,
                             $post->source->rank < 30 => 1.0,
                             $post->source->rank < 50 => 1.1,
                             $post->source->rank < 70 => 1.2,
                             $post->source->rank < 90 => 1.3,
                             default => 1.5,
-                        });
+                        },
+                    );
 
                     $post->rank = $rank;
                     $post->save();
