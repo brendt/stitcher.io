@@ -58,10 +58,6 @@ final readonly class DemoController
 
         //        $directions = arr(Direction::cases());
 
-        for ($i = 0; $i < 100; $i++) {
-            //            $dungeon->move($directions->random());
-        }
-
         $dungeon->spawnDweller(new Point(2, 2));
         //        $dungeon->spawnDweller();
         //        $dungeon->spawnDweller();

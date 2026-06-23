@@ -6,7 +6,6 @@ use App\Dungeon\Card;
 use App\Dungeon\Dungeon;
 use App\Dungeon\DungeonEvent;
 use App\Dungeon\Events\CardPlayed;
-use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Level;
 use App\Dungeon\PassiveCard;

@@ -1,10 +1,7 @@
 <?php
 
-use App\Aggregate\FeedController;
 use App\Aggregate\Posts\PostsController;
 use App\Aggregate\Suggestions\SuggestionController;
-use App\Support\Authentication\AuthController;
-use Tempest\DateTime\DateTime;
 
 use function Tempest\Router\uri;
 

@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use Tempest\Clock\Clock;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
-use Tempest\DateTime\DateTime;
 use Throwable;
 
 use function Tempest\Database\query;
@@ -83,7 +82,7 @@ final class ParseLogCommand
     #[ConsoleCommand]
     public function __invoke(?string $path = null): void
     {
-        $path = $path ?? $this->config->accessLogPath;
+        $path ??= $this->config->accessLogPath;
 
         $handle = fopen($path, 'r');
 
@@ -105,7 +104,7 @@ final class ParseLogCommand
             $line = str(fgets($handle) ?: '')->trim();
 
             if ($line->isEmpty()) {
-                usleep(100000);
+                usleep(100_000);
                 fseek($handle, ftell($handle));
                 continue;
             }

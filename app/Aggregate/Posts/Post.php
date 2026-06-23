@@ -12,7 +12,6 @@ use Tempest\Router\Bindable;
 
 use function Tempest\Container\get;
 use function Tempest\Database\query;
-use function Tempest\Support\str;
 
 final class Post implements Bindable
 {

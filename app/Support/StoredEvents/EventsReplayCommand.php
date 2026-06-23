@@ -40,7 +40,7 @@ final readonly class EventsReplayCommand
 
         if ($replay) {
             $replay = [$replay];
-        } else { // @mago-expect lint:no-else-clause
+        } else {
             $replay = $this->ask(
                 question: 'Which projectors should be replayed?',
                 options: $projectors->toArray(),

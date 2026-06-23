@@ -8,7 +8,6 @@ use League\CommonMark\Node\Node;
 use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
-use Pageon\Config;
 
 final class LinkRenderer implements NodeRendererInterface
 {

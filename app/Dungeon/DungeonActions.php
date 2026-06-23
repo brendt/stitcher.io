@@ -435,9 +435,11 @@ trait DungeonActions
         }
 
         foreach ($this->permanentCards as $permanentCard) {
-            if ($permanentCard instanceof PassiveCard) {
-                $permanentCard->handle($this, $event);
+            if (! $permanentCard instanceof PassiveCard) {
+                continue;
             }
+
+            $permanentCard->handle($this, $event);
         }
     }
 

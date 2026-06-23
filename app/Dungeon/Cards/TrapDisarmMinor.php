@@ -5,13 +5,10 @@ namespace App\Dungeon\Cards;
 use App\Dungeon\ActiveCard;
 use App\Dungeon\Card;
 use App\Dungeon\Dungeon;
-use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Tile;
 use App\Dungeon\Type;
-
-use function Tempest\EventBus\event;
 
 final class TrapDisarmMinor implements Card, ActiveCard
 {

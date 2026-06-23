@@ -2,7 +2,6 @@
 
 namespace Tests\Dungeon\Cards;
 
-use App\Dungeon\Cards\LocateShard;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Dungeon\DungeonTest;
 

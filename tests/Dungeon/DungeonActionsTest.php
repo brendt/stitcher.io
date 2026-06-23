@@ -47,8 +47,6 @@ use App\Dungeon\Point;
 use App\Dungeon\Tile;
 use PHPUnit\Framework\Attributes\Test;
 
-use function Tempest\EventBus\event;
-
 final class DungeonActionsTest extends DungeonTest
 {
     // -------------------------------------------------------------------------

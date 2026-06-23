@@ -305,9 +305,11 @@ final class Dungeon
     public function loopVisibleDwellers(): Generator
     {
         foreach ($this->loopDwellers() as $dweller) {
-            if ($this->withinVisibilityRadius($dweller->point)) {
-                yield $dweller;
+            if (! $this->withinVisibilityRadius($dweller->point)) {
+                continue;
             }
+
+            yield $dweller;
         }
     }
 

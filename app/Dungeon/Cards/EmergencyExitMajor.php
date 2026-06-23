@@ -30,7 +30,7 @@ final class EmergencyExitMajor implements Card
 
     public function play(Dungeon $dungeon): void
     {
-        $dungeon->coins = $dungeon->coins * 0.65;
+        $dungeon->coins *= 0.65;
         $dungeon->exit(requiresOrigin: false);
     }
 }

@@ -5,7 +5,6 @@
 
 use App\Blog\Meta;
 use Tempest\Auth\Authentication\Authenticator;
-use Tempest\Core\AppConfig;
 use Tempest\Core\Environment;
 
 use function Tempest\Container\get;

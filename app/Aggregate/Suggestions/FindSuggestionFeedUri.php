@@ -6,9 +6,7 @@ use App\Aggregate\Suggestions\Events\FeedUriFetchFailed;
 use App\Aggregate\Suggestions\Events\FeedUriFound;
 use App\Aggregate\Suggestions\Events\FeedUrisFetchFailed;
 use App\Aggregate\Suggestions\Events\FeedUrisResolved;
-use App\Suggestions\Events\FeedUriFetchEmpty;
 use Dom\HTMLDocument;
-use Feed;
 use Throwable;
 
 use function Tempest\EventBus\event;

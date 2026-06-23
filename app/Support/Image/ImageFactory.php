@@ -2,9 +2,7 @@
 
 namespace App\Support\Image;
 
-use Intervention\Image\Image as ScalableImage;
 use Intervention\Image\ImageManager;
-use Tempest\CommandBus\Async;
 use Tempest\CommandBus\CommandHandler;
 
 use function Tempest\CommandBus\command;

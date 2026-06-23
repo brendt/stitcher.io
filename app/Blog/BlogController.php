@@ -12,7 +12,6 @@ use Tempest\Http\Responses\File;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
-use Tempest\Router\SetCurrentUrlMiddleware;
 use Tempest\Router\Stateless;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;

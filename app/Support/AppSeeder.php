@@ -3,7 +3,6 @@
 namespace App\Support;
 
 use App\Blog\BlogPostRepository;
-use App\Blog\Comment;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Persistence\DungeonUserStats;
 use App\Support\Authentication\Role;

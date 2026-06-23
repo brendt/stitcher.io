@@ -10,7 +10,6 @@ use Tempest\Console\HasConsole;
 use Tempest\Database\Query;
 
 use function Tempest\Database\query;
-use function Tempest\Support\arr;
 
 final class MigrateVisitsCommand
 {

@@ -3,8 +3,6 @@
 namespace App\Dungeon\DeckValidators;
 
 use App\Dungeon\Card;
-use App\Dungeon\Cards\BreakthroughMajor;
-use App\Dungeon\Cards\BreakthroughMinor;
 use App\Dungeon\Cards\SupportMajor;
 use App\Dungeon\Cards\SupportMinor;
 use App\Dungeon\DeckValidationFailed;

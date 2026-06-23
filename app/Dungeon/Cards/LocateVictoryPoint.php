@@ -24,7 +24,7 @@ final class LocateVictoryPoint implements Card, CanBuyWithShards
 
     private(set) Rarity $rarity = Rarity::EPIC;
 
-    private(set) int $price = 30000;
+    private(set) int $price = 30_000;
 
     private(set) Type $type = Type::IMMEDIATE;
 

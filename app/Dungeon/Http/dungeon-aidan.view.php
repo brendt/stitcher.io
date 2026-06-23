@@ -1,7 +1,6 @@
 <?php
 
 use App\Dungeon\Http\DungeonHomeController;
-use App\Support\Authentication\AuthController;
 
 use function Tempest\Router\uri;
 

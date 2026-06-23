@@ -1,9 +1,5 @@
 <?php
 
-use App\Dungeon\Http\DungeonGameController;
-
-use function Tempest\Router\uri;
-
 ?>
 
 <x-dungeon>

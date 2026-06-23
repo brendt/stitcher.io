@@ -345,10 +345,12 @@ final readonly class PlayerMovementListener
     public function handleAltarCooldowns(PlayerMoved $event): void
     {
         foreach ($this->dungeon->loopTiles() as $tile) {
-            if ($tile->altarCooldown > 0) {
-                $tile->altarCooldown -= 1;
-                $this->dungeon->updateTile($tile);
+            if ($tile->altarCooldown <= 0) {
+                continue;
             }
+
+            $tile->altarCooldown -= 1;
+            $this->dungeon->updateTile($tile);
         }
     }
 }

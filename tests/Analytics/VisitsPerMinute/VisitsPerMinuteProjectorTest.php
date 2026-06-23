@@ -2,7 +2,6 @@
 
 namespace Tests\Analytics\VisitsPerMinute;
 
-use App\Analytics\VisitsPerDay\VisitsPerDayProjector;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Analytics\TestsAnalytics;
 use Tests\IntegrationTestCase;

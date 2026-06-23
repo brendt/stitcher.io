@@ -18,7 +18,7 @@ foreach ($perWeek as $w) {
     }
 }
 
-$currentHours = round($currentWeek?->totalHours ?? 0, 1);
+$currentHours = round($currentWeek->totalHours ?? 0, 1);
 $progressPct = min(100, ($currentHours / $targetHours) * 100);
 $hoursDiff = round(abs($currentHours - $expectedHours), 1);
 $isOnTrack = $currentHours >= $expectedHours;

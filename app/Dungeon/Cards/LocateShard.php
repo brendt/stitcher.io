@@ -24,7 +24,7 @@ final class LocateShard implements Card, CanBuyWithShards
 
     private(set) Rarity $rarity = Rarity::EPIC;
 
-    private(set) int $price = 20000;
+    private(set) int $price = 20_000;
 
     private(set) Type $type = Type::IMMEDIATE;
 

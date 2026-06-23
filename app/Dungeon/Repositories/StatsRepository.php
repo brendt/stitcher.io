@@ -90,7 +90,7 @@ final class StatsRepository
     {
         $stats = $this->forUser($user);
 
-        $stats->coins = $stats->coins - $amount;
+        $stats->coins -= $amount;
 
         $stats->save();
     }
@@ -99,7 +99,7 @@ final class StatsRepository
     {
         $stats = $this->forUser($user);
 
-        $stats->tokens = $stats->tokens - $amount;
+        $stats->tokens -= $amount;
 
         $stats->save();
     }

@@ -4,8 +4,6 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\Card;
 use App\Dungeon\CheckBeforePlaying;
-use App\Dungeon\Commands\RemoveDweller;
-use App\Dungeon\Commands\SpawnDweller;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Level;
 use App\Dungeon\Rarity;

@@ -53,10 +53,12 @@ final class BlogPostRepository
         $currentIndex = null;
 
         foreach ($allPosts as $i => $other) {
-            if ($other->slug === $slug) {
-                $currentIndex = $i;
-                break;
+            if ($other->slug !== $slug) {
+                continue;
             }
+
+            $currentIndex = $i;
+            break;
         }
 
         $post->next = $allPosts[$currentIndex + 1] ?? null;

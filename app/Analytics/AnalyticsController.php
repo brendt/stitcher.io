@@ -150,8 +150,8 @@ final class AnalyticsController
         return view(
             'analytics.view.php',
             realtimeVisitCount: $this->realtimeVisitCount(),
-            visitsThisDay: $visitsThisDay?->count ?? 0,
-            visitsThisMonth: $visitsThisMonth?->count ?? 0,
+            visitsThisDay: $visitsThisDay->count ?? 0,
+            visitsThisMonth: $visitsThisMonth->count ?? 0,
             mostPopularPostToday: $mostPopularPostToday ?? null,
             visitsPerHour: $visitsPerHour,
             visitsPerDay: $visitsPerDay,
@@ -198,6 +198,6 @@ final class AnalyticsController
             ->select()
             ->where('time > ?', $time)
             ->first()
-            ?->count ?? 0;
+            ->count ?? 0;
     }
 }

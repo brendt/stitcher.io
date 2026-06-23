@@ -25,11 +25,13 @@ final readonly class CardRepository
     public function findByName(string $name): ?Card
     {
         foreach ($this->cardConfig->cards as $card) {
-            if ($card->name === $name) {
-                $class = $card::class;
-
-                return new $class();
+            if ($card->name !== $name) {
+                continue;
             }
+
+            $class = $card::class;
+
+            return new $class();
         }
     }
 }
