@@ -18,11 +18,11 @@ final class BreakthroughDeckValidator implements DeckValidator
             BreakthroughMajor::class,
         ];
 
-        if (! in_array($card::class, $cardsToCheck)) {
+        if (! in_array($card::class, $cardsToCheck, strict: true)) {
             return null;
         }
 
-        $count = $deck->filter(fn (Card $card) => in_array($card::class, $cardsToCheck))->count();
+        $count = $deck->filter(fn (Card $card) => in_array($card::class, $cardsToCheck, strict: true))->count();
 
         if ($count >= 5) {
             return new DeckValidationFailed('You can only have 5 breakthrough cards in your deck');

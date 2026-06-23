@@ -36,6 +36,7 @@ empty-line-after-opening-tag = false
 integrations = ["php-unit", "tempest"]
 
 [linter.rules]
+too-many-properties= { enabled = false }
 interface-name = { psr = false }
 trait-name = { psr = false }
 class-name = { psr = false }
@@ -56,8 +57,11 @@ strict-types = { enabled = false } # lots of issues with ImmutableString
 tagged-todo = { enabled = false } # CONSIDER ENABLING
 excessive-parameter-list = { enabled = false } # too many false positives
 halstead = { enabled = false }
-strict-behavior = { allow-loose-behavior = true }
+strict-behavior = { enabled = false }
 no-redundant-use = { enabled = true }
+no-redundant-math = { enabled = false }
+no-nested-ternary = { enabled = false }
+no-empty-catch-clause = { enabled = false }
 no-empty-comment = { enabled = false }
 single-class-per-file = { enabled = false }
 no-isset = { enabled = false }

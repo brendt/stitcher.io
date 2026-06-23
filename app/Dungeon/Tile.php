@@ -92,7 +92,7 @@ final class Tile
 
     public function canMoveTo(Direction $direction): bool
     {
-        return in_array($direction, $this->directions);
+        return in_array($direction, $this->directions, strict: true);
     }
 
     public function isAltar(): bool
@@ -153,6 +153,6 @@ final class Tile
 
     public function hasBorder(Direction $direction): bool
     {
-        return ! in_array($direction, $this->directions);
+        return ! in_array($direction, $this->directions, strict: true);
     }
 }

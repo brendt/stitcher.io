@@ -72,7 +72,7 @@ final class ChatStorage
         $messages = [];
 
         foreach ($lines as $line) {
-            if (empty($line)) {
+            if (! $line) {
                 continue;
             }
 

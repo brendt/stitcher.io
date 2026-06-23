@@ -34,7 +34,7 @@ final class UpperHandMinor implements Card, CheckBeforePlaying
         foreach ($dungeon->loopVisibleDwellers() as $dweller) {
             $dungeon->despawnDweller($dweller);
             $dungeon->spawnDweller();
-            break;
+            break; // @mago-expect lint:loop-does-not-iterate
         }
     }
 
