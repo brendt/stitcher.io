@@ -86,14 +86,12 @@ final readonly class SyncSource
         $array = json_decode($json, true, flags: JSON_THROW_ON_ERROR);
 
         return $this->resolveItems($array)
-            ->map(function (array $item) use ($source) {
-                return new RssEntry(
-                    uri: $this->resolveUrl($source, $item),
-                    title: $this->resolveTitle($item),
-                    createdAt: $this->resolveCreatedAt($item),
-                    payload: $item,
-                );
-            });
+            ->map(fn (array $item) => new RssEntry(
+                uri: $this->resolveUrl($source, $item),
+                title: $this->resolveTitle($item),
+                createdAt: $this->resolveCreatedAt($item),
+                payload: $item,
+            ));
     }
 
     private function resolveTitle(array $item): string

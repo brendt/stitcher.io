@@ -35,7 +35,7 @@ final class TestLogCommand
             //                fputs($handle, '157.15.40.6 - - [' . DateTime::now()->plusSeconds($i * 3)->format('dd/LLL/yyyy:HH:mm:ss') . ' 0] "GET /test/' . $i . ' HTTP/2.0" 200 319261 "-" "unknown"' . PHP_EOL);
             //            }
 
-            fputs(
+            fwrite(
                 $handle,
                 '157.15.40.6 - - ['
                 . DateTime::now()->plusSeconds($i * 3)->format('dd/LLL/yyyy:HH:mm:ss')

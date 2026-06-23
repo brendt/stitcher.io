@@ -102,9 +102,7 @@ final readonly class EventsReplayCommand
         while ($data = query('stored_events')->select('id', 'eventClass', 'payload')->where('id > ?', $lastId)->limit($limit)->all()) {
             // Setup
             $events = arr($data)
-                ->map(function (array $item) {
-                    return $item['eventClass']::unserialize($item['payload']);
-                })
+                ->map(fn (array $item) => $item['eventClass']::unserialize($item['payload']))
                 ->toArray();
 
             $this->database->withinTransaction(function () use ($projectors, $events) {

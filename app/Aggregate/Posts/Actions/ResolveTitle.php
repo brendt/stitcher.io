@@ -27,9 +27,7 @@ final readonly class ResolveTitle
                 ->between('<title', '</title>')
                 ->afterFirst('>')
                 ->trim()
-                ->replaceRegex('/(&#[0-9]+;)/', function ($match) {
-                    return mb_convert_encoding($match[1], 'UTF-8', 'HTML-ENTITIES');
-                })
+                ->replaceRegex('/(&#[0-9]+;)/', fn ($match) => mb_convert_encoding($match[1], 'UTF-8', 'HTML-ENTITIES'))
                 ->toString() ?: $uri;
 
             return html_entity_decode(html_entity_decode($title));

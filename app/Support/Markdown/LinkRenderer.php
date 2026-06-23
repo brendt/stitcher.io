@@ -21,7 +21,7 @@ final class LinkRenderer implements NodeRendererInterface
 
         $url = $node->getUrl();
 
-        if (strpos($url, '*') === 0) {
+        if (str_starts_with($url, '*')) {
             $url = substr($url, 1);
 
             $attributes['target'] = '_blank';
