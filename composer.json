@@ -50,8 +50,7 @@
             "composer fmt",
             "composer lint",
             "composer analyse",
-            "composer test",
-            "composer bench:tempest"
+            "composer test"
         ],
         "github:lint": "vendor/bin/mago lint --potentially-unsafe --minimum-fail-level=note --reporting-format=github",
         "github:fmt": "vendor/bin/mago fmt --check",
