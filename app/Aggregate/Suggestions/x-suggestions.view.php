@@ -1,6 +1,8 @@
 <?php
 use App\Aggregate\Suggestions\SuggestionController;
+
 use function Tempest\Router\uri;
+
 ?>
 
 <div id="suggestions" class="grid gap-2">

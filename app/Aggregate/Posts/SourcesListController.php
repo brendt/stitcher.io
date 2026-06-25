@@ -3,6 +3,7 @@
 namespace App\Aggregate\Posts;
 
 use Tempest\View\View;
+
 use function Tempest\View\view;
 
 final class SourcesListController

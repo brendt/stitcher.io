@@ -4,10 +4,6 @@ namespace Tests\Dungeon;
 
 use App\Dungeon\Direction;
 use App\Dungeon\Dungeon;
-use App\Dungeon\Events\PlayerHealthIncreased;
-use App\Dungeon\Events\PlayerManaIncreased;
-use App\Dungeon\Events\PlayerMoved;
-use App\Dungeon\Events\PlayerStabilityIncreased;
 use App\Dungeon\Events\RelicCollected;
 use App\Dungeon\Point;
 use App\Dungeon\Repositories\DeckRepository;
@@ -19,7 +15,6 @@ use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\Attributes\Test;
 use Tempest\Auth\Authentication\Authenticator;
 use Tests\IntegrationTestCase;
-use function Tempest\EventBus\event;
 
 final class PlayerMovementListenerTest extends IntegrationTestCase
 {
@@ -83,5 +78,4 @@ final class PlayerMovementListenerTest extends IntegrationTestCase
     // -------------------------------------------------------------------------
     // Mana altar
     // -------------------------------------------------------------------------
-
 }

@@ -6,7 +6,6 @@ use App\Aggregate\Suggestions\Events\FeedUriFetchFailed;
 use App\Aggregate\Suggestions\Events\FeedUriFound;
 use App\Aggregate\Suggestions\Events\FeedUrisFetchFailed;
 use App\Aggregate\Suggestions\Events\FeedUrisResolved;
-use App\Suggestions\Events\FeedUriFetchEmpty;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\EventBus\EventBus;
@@ -27,7 +26,7 @@ final readonly class FetchFeedCommand
         $this->eventBus->listen($this->onFeedUrisResolved(...));
         $this->eventBus->listen($this->onFeedUrisFetchFailed(...));
 
-        new FindSuggestionFeedUri()($uri);
+        (new FindSuggestionFeedUri())($uri);
     }
 
     public function onFeedUriFetchFailed(FeedUriFetchFailed $event): void

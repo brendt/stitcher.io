@@ -7,6 +7,7 @@ use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\TileCollapsed;
 use App\Dungeon\Support\Random;
 use Tempest\EventBus\EventHandler;
+
 use function Tempest\Support\arr;
 
 final readonly class PlayerMovementListener
@@ -65,16 +66,85 @@ final readonly class PlayerMovementListener
 
         $amount = match (true) {
             $tileCount > 700 => arr([
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                2,
+                2,
             ])->random(),
             $tileCount > 400 => arr([
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
             ])->random(),
             $tileCount > 100 => arr([
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
             ])->random(),
             default => arr([
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
             ])->random(),
         };
 
@@ -275,10 +345,12 @@ final readonly class PlayerMovementListener
     public function handleAltarCooldowns(PlayerMoved $event): void
     {
         foreach ($this->dungeon->loopTiles() as $tile) {
-            if ($tile->altarCooldown > 0) {
-                $tile->altarCooldown -= 1;
-                $this->dungeon->updateTile($tile);
+            if ($tile->altarCooldown <= 0) {
+                continue;
             }
+
+            $tile->altarCooldown -= 1;
+            $this->dungeon->updateTile($tile);
         }
     }
 }

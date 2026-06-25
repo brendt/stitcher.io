@@ -2,21 +2,21 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\CanBuyWithShards;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 // TODO
 final class LocateShard implements Card, CanBuyWithShards
 {
     use IsCard;
 
-    private(set) string $name = "Spyglass";
+    private(set) string $name = 'Spyglass';
 
-    private(set) string $description = "Locate a Shard";
+    private(set) string $description = 'Locate a Shard';
 
     private(set) string $image = '/cards/spyglass.png';
 
@@ -24,7 +24,7 @@ final class LocateShard implements Card, CanBuyWithShards
 
     private(set) Rarity $rarity = Rarity::EPIC;
 
-    private(set) int $price = 20000;
+    private(set) int $price = 20_000;
 
     private(set) Type $type = Type::IMMEDIATE;
 

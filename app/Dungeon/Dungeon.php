@@ -8,6 +8,7 @@ use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Support\Authentication\User;
 use Generator;
+
 use function Tempest\Support\arr;
 
 final class Dungeon
@@ -304,9 +305,11 @@ final class Dungeon
     public function loopVisibleDwellers(): Generator
     {
         foreach ($this->loopDwellers() as $dweller) {
-            if ($this->withinVisibilityRadius($dweller->point)) {
-                yield $dweller;
+            if (! $this->withinVisibilityRadius($dweller->point)) {
+                continue;
             }
+
+            yield $dweller;
         }
     }
 

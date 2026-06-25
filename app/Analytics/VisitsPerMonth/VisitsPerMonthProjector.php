@@ -11,6 +11,7 @@ use Tempest\Container\Singleton;
 use Tempest\Database\Builder\QueryBuilders\QueryBuilder;
 use Tempest\Database\Query;
 use Tempest\EventBus\EventHandler;
+
 use function Tempest\Support\arr;
 
 #[Singleton]
@@ -34,7 +35,7 @@ final class VisitsPerMonthProjector implements Projector, BufferedProjector
         $query = new Query(sprintf(
             'INSERT INTO `visits_per_month` (`date`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + VALUES(`count`)',
             arr($this->inserts)
-                ->map(fn (int $count, string $date) => "(\"{$date}-01\", $count)")
+                ->map(fn (int $count, string $date) => "(\"{$date}-01\", {$count})")
                 ->implode(','),
         ));
 

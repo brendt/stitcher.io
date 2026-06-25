@@ -9,6 +9,7 @@ use Tempest\Http\Response;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\HttpMiddleware;
 use Tempest\Router\HttpMiddlewareCallable;
+
 use function Tempest\Router\uri;
 
 #[SkipDiscovery]

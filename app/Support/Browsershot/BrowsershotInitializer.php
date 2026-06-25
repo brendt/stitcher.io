@@ -6,6 +6,7 @@ use Spatie\Browsershot\Browsershot;
 use Tempest\Container\Container;
 use Tempest\Container\Initializer;
 use Tempest\Container\Singleton;
+
 use function Tempest\env;
 
 final readonly class BrowsershotInitializer implements Initializer

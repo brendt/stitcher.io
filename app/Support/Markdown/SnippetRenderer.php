@@ -11,6 +11,7 @@ use League\CommonMark\Renderer\NodeRendererInterface;
 use League\CommonMark\Util\HtmlElement;
 use Tempest\View\Exceptions\ViewNotFound;
 use Tempest\View\Renderers\TempestViewRenderer;
+
 use function Tempest\Support\str;
 
 final readonly class SnippetRenderer implements NodeRendererInterface

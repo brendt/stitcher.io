@@ -3,10 +3,10 @@
 namespace Tests\Dungeon\DeckValidators;
 
 use App\Dungeon\Card;
+use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\DeckValidationFailed;
 use App\Dungeon\DeckValidator;
 use App\Dungeon\DeckValidators\CompoundDeckValidator;
-use App\Dungeon\Cards\HealMinor;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Tempest\Support\Arr\ImmutableArray;

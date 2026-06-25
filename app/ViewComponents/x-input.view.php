@@ -8,7 +8,6 @@
  */
 
 use Tempest\Http\Session\FormSession;
-use Tempest\Http\Session\Session;
 use Tempest\Validation\Validator;
 
 use function Tempest\Container\get;

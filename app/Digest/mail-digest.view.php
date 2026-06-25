@@ -8,4 +8,3 @@ There are some new comments.
         By {{ $comment->user->name }} — <a :href="$comment->uri">show</a>
     </div>
 </div>
-

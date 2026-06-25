@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use Tempest\DateTime\DateTime;
+
 use function Tempest\Router\uri;
 
 final class Mail

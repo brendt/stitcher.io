@@ -12,6 +12,7 @@ use Tempest\Console\Scheduler\Every;
 use Tempest\DateTime\DateTime;
 use Tempest\Mail\GenericEmail;
 use Tempest\Mail\Mailer;
+
 use function Tempest\Database\query;
 use function Tempest\View\view;
 
@@ -61,7 +62,7 @@ final class DigestSendCommand
         ));
 
         CommentDigest::create(
-            createdAt: DateTime::now()
+            createdAt: DateTime::now(),
         );
 
         $this->info("Sent digest to {$admin->email}");

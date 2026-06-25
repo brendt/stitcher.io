@@ -2,19 +2,19 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Level;
 
 final class StabilityMajor implements Card
 {
     use IsCard;
 
-    private(set) string $name = "Stability++";
+    private(set) string $name = 'Stability++';
 
-    private(set) string $description = "+50 stability";
+    private(set) string $description = '+50 stability';
 
     private(set) string $image = '/cards/stability-major.png';
 

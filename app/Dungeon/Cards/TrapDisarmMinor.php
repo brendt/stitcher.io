@@ -2,15 +2,13 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
-use App\Dungeon\Card;
-use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\ActiveCard;
-use App\Dungeon\Rarity;
-use App\Dungeon\Type;
+use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Level;
+use App\Dungeon\Rarity;
 use App\Dungeon\Tile;
-use function Tempest\EventBus\event;
+use App\Dungeon\Type;
 
 final class TrapDisarmMinor implements Card, ActiveCard
 {
@@ -18,7 +16,7 @@ final class TrapDisarmMinor implements Card, ActiveCard
 
     private(set) string $name = 'Trap Disarm';
 
-    private(set) string $description = "Clear 1 trapped tile";
+    private(set) string $description = 'Clear 1 trapped tile';
 
     private(set) string $image = '/cards/trap-disarm-minor.png';
 

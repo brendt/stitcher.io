@@ -2,9 +2,9 @@
 
 namespace App\Aggregate;
 
-use App\Support\Authentication\User;
 use App\Aggregate\Posts\Post;
 use App\Aggregate\Suggestions\Suggestion;
+use App\Support\Authentication\User;
 use Closure;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Cache\Cache;
@@ -19,6 +19,7 @@ use Tempest\Router\Stateless;
 use Tempest\Support\Arr\ImmutableArray;
 use Tempest\View\View;
 use Tempest\View\ViewRenderer;
+
 use function Tempest\Support\arr;
 use function Tempest\View\view;
 
@@ -28,10 +29,12 @@ final class FeedController
     #[Get('/')]
     public function home(Authenticator $authenticator, Request $request): View
     {
-        $posts = arr(Post::published()
-            ->orderBy('publicationDate DESC')
-            ->limit(20)
-            ->all());
+        $posts = arr(
+            Post::published()
+                ->orderBy('publicationDate DESC')
+                ->limit(20)
+                ->all(),
+        );
 
         /** @var User $user */
         $user = $authenticator->current();
@@ -61,11 +64,13 @@ final class FeedController
     #[Get('/top')]
     public function top(Authenticator $authenticator): View
     {
-        $posts = arr(Post::published()
-            ->orderBy('posts.visits DESC')
-            ->where('publicationDate > ?', DateTime::now()->minusDays(31)->startOfDay()->format(FormatPattern::SQL_DATE_TIME))
-            ->limit(20)
-            ->all());
+        $posts = arr(
+            Post::published()
+                ->orderBy('posts.visits DESC')
+                ->where('publicationDate > ?', DateTime::now()->minusDays(31)->startOfDay()->format(FormatPattern::SQL_DATE_TIME))
+                ->limit(20)
+                ->all(),
+        );
 
         $posts = $posts->sortByCallback(fn (Post $a, Post $b) => $b->publicationDate <=> $a->publicationDate);
 
@@ -87,8 +92,7 @@ final class FeedController
     public function __invoke(
         ViewRenderer $viewRenderer,
         Cache $cache,
-    ): Response
-    {
+    ): Response {
         $xml = $cache->resolve(
             key: 'feed-rss',
             callback: fn () => $viewRenderer->render(\Tempest\View\view(

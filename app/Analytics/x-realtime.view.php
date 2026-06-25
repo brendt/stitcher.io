@@ -1,6 +1,7 @@
 <?php
 
 use App\Analytics\AnalyticsController;
+
 use function Tempest\Router\uri;
 
 ?>

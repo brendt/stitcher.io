@@ -8,8 +8,8 @@ use DateTimeImmutable;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Database\Query;
+
 use function Tempest\Database\query;
-use function Tempest\Support\arr;
 
 final class MigrateVisitsCommand
 {
@@ -67,7 +67,7 @@ final class MigrateVisitsCommand
 
                 $this->writeln(sprintf(
                     '%s (%s/%s) %s',
-                    floor($currentCount / $totalCount * 100) . '%',
+                    floor(($currentCount / $totalCount) * 100) . '%',
                     number_format($currentCount),
                     number_format($totalCount),
                     $this->memory(),
@@ -83,6 +83,6 @@ final class MigrateVisitsCommand
 
         $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
 
-        return @round($memory / pow(1024, ($i = floor(log($memory, 1024)))), 2) . ' ' . $unit[$i];
+        return @round($memory / pow(1024, $i = floor(log($memory, 1024))), 2) . ' ' . $unit[$i];
     }
 }

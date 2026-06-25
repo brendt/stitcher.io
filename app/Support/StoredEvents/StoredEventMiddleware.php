@@ -14,7 +14,7 @@ final readonly class StoredEventMiddleware implements EventBusMiddleware
 {
     public function __construct(
         private StoredEventConfig $storedEventConfig,
-    private Container $container,
+        private Container $container,
     ) {}
 
     #[Override]

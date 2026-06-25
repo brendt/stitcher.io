@@ -15,6 +15,7 @@ use Tempest\Http\Responses\Back;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
+
 use function Tempest\env;
 
 final readonly class AuthController
@@ -78,18 +79,28 @@ final readonly class AuthController
 
     private function autoLogin(): ?Redirect
     {
-        if (
-            $this->environment->isLocal()
-            && env('AUTO_LOGIN')
-            && ($user = User::get(new PrimaryKey(1)))
-        ) {
-            $this->authenticator->authenticate($user);
-
-            $back = $this->session->consume('back', '/');
-
-            return new Redirect($back);
+        if (! $this->environment->isLocal()) {
+            return null;
         }
 
-        return null;
+        if (! env('AUTO_LOGIN')) {
+            return null;
+        }
+
+        $user = User::get(new PrimaryKey(1));
+
+        if (! $user) {
+            $user = User::create(
+                name: 'Brent',
+                email: env('SEEDER_EMAIL', 'test@example.com'),
+                role: Role::ADMIN,
+            );
+        }
+
+        $this->authenticator->authenticate($user);
+
+        $back = $this->session->consume('back', '/');
+
+        return new Redirect($back);
     }
 }

@@ -11,6 +11,7 @@ use Tempest\Console\HasConsole;
 use Tempest\Console\Schedule;
 use Tempest\Console\Scheduler\Every;
 use Tempest\EventBus\EventBus;
+
 use function Tempest\Support\str;
 
 final class SyncSourcesCommand

@@ -2,10 +2,8 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
-use App\Dungeon\Cards\LocateVictoryPoint;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class LocateVictoryPointTest extends DungeonTest
 {

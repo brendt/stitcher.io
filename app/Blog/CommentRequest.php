@@ -4,7 +4,6 @@ namespace App\Blog;
 
 use Tempest\Http\IsRequest;
 use Tempest\Http\Request;
-use Tempest\Validation\Rules\HasLength;
 
 final class CommentRequest implements Request
 {

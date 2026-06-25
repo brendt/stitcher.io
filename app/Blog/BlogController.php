@@ -12,11 +12,11 @@ use Tempest\Http\Responses\File;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
-use Tempest\Router\SetCurrentUrlMiddleware;
 use Tempest\Router\Stateless;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
 use Tempest\View\ViewRenderer;
+
 use function Tempest\root_path;
 use function Tempest\Router\uri;
 use function Tempest\View\view;
@@ -38,8 +38,7 @@ final class BlogController
         string $slug,
         BlogPostRepository $repository,
         Authenticator $authenticator,
-    ): Response|View
-    {
+    ): Response|View {
         $post = $repository->find($slug);
 
         if (! $post) {
@@ -61,8 +60,7 @@ final class BlogController
         ViewRenderer $viewRenderer,
         Cache $cache,
         BlogPostRepository $repository,
-    ): Response
-    {
+    ): Response {
         $xml = $cache->resolve(
             key: 'blog-rss',
             callback: fn () => $viewRenderer->render(\Tempest\View\view('blog-rss.view.php', posts: $repository->all())),
@@ -78,8 +76,7 @@ final class BlogController
         Request $request,
         BlogPostRepository $repository,
         ViewRenderer $viewRenderer,
-    ): Response
-    {
+    ): Response {
         return $this->meta($slug, $request, $repository, $viewRenderer);
     }
 
@@ -89,8 +86,7 @@ final class BlogController
         Request $request,
         BlogPostRepository $repository,
         ViewRenderer $viewRenderer,
-    ): Response
-    {
+    ): Response {
         $post = $repository->find($slug);
 
         if (! $post) {

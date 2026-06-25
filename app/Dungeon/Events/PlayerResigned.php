@@ -12,6 +12,6 @@ final class PlayerResigned implements DungeonEvent
     public array $payload = [];
 
     public function __construct(
-        public User $user
+        public User $user,
     ) {}
 }

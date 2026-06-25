@@ -2,16 +2,17 @@
 
 namespace App\Support\Sitemap;
 
-use Tempest\Router\DataProvider;
 use Tempest\Cache\Cache;
 use Tempest\Container\Container;
 use Tempest\DateTime\Duration;
 use Tempest\Http\Method;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\Ok;
+use Tempest\Router\DataProvider;
 use Tempest\Router\Get;
 use Tempest\Router\RouteConfig;
 use Tempest\Router\StaticPage;
+
 use function Tempest\Router\uri;
 use function Tempest\View\view;
 

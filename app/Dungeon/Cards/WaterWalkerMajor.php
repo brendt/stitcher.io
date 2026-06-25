@@ -31,7 +31,7 @@ final class WaterWalkerMajor implements Card, PassiveCard
 
     public Level $level = Level::GRANDMASTER;
 
-    public null|string $label {
+    public ?string $label {
         get => $this->moves;
     }
 

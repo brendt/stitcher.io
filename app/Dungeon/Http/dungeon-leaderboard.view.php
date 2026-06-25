@@ -1,6 +1,7 @@
 <?php
 
 use App\Dungeon\Http\DungeonHomeController;
+
 use function Tempest\Router\uri;
 
 /** @var array $leaderboard */
@@ -31,7 +32,9 @@ use function Tempest\Router\uri;
                     <tbody>
                     <tr
                         :foreach="$leaderboard as $i => $stats"
-                        class="border-b border-white/5 hover:bg-white/5 transition-colors <?= $i === 0 ? 'text-amber-300' : ($i === 1 ? 'text-gray-300' : ($i === 2 ? 'text-amber-700' : 'text-gray-400')) ?>">
+                        class="border-b border-white/5 hover:bg-white/5 transition-colors <?= $i === 0
+                            ? 'text-amber-300'
+                            : ($i === 1 ? 'text-gray-300' : ($i === 2 ? 'text-amber-700' : 'text-gray-400')) ?>">
                         <td class="px-6 py-4 flex gap-1">
                             <span :if="$i === 0" class="text-lg">🥇</span>
                             <span :elseif="$i === 1" class="text-lg">🥈</span>

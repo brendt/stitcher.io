@@ -2,17 +2,18 @@
 
 namespace App\Aggregate\Posts;
 
-use Tempest\Router\Prefix;
-use Tempest\Router\Stateless;
-use Tempest\Router\Get;
 use App\Aggregate\Posts\Actions\QueuePost;
 use App\Support\Authentication\Admin;
 use Tempest\Database\Query;
 use Tempest\DateTime\DateTime;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router;
+use Tempest\Router\Get;
+use Tempest\Router\Prefix;
+use Tempest\Router\Stateless;
 use Tempest\View\View;
 use Throwable;
+
 use function Tempest\defer;
 use function Tempest\View\view;
 

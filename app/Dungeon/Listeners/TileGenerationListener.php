@@ -5,6 +5,7 @@ namespace App\Dungeon\Listeners;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Events\TileGenerated;
 use Tempest\EventBus\EventHandler;
+
 use function Tempest\Support\arr;
 
 final readonly class TileGenerationListener
@@ -24,16 +25,85 @@ final readonly class TileGenerationListener
 
         $decrease = match (true) {
             $tileCount > 700 => arr([
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 3
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                2,
+                2,
+                3,
+                3,
             ])->random(),
             $tileCount > 400 => arr([
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                1,
+                2,
             ])->random(),
             $tileCount > 100 => arr([
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                2,
             ])->random(),
             default => arr([
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                1,
+                2,
             ])->random(),
         };
 

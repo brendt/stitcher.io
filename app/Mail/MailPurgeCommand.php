@@ -7,6 +7,7 @@ use Tempest\Console\HasConsole;
 use Tempest\Core\Environment;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\FormatPattern;
+
 use function Tempest\Database\query;
 use function Tempest\Support\str;
 
@@ -60,7 +61,14 @@ final class MailPurgeCommand
         $output = fopen(__DIR__ . '/output.sql', 'w');
         fwrite($output, query('mailcoach_subscribers')->select()->whereNull('unsubscribed_at')->whereIn('email', $emails)->toRawSql() . ';');
         fwrite($output, PHP_EOL);
-        fwrite($output, query('mailcoach_subscribers')->update(unsubscribed_at: DateTime::now()->format(FormatPattern::SQL_DATE_TIME))->whereNull('unsubscribed_at')->whereIn('email', $emails)->toRawSql() . ';');
+        fwrite(
+            $output,
+            query('mailcoach_subscribers')
+                ->update(unsubscribed_at: DateTime::now()->format(FormatPattern::SQL_DATE_TIME))
+                ->whereNull('unsubscribed_at')
+                ->whereIn('email', $emails)
+                ->toRawSql() . ';',
+        );
         fclose($output);
 
         $this->info('Done, found ' . count($emails) . ' emails.');

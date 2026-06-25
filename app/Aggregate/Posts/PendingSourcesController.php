@@ -2,10 +2,11 @@
 
 namespace App\Aggregate\Posts;
 
-use Tempest\Router\Post;
 use App\Authentication\AdminMiddleware;
 use Tempest\Router;
+use Tempest\Router\Post;
 use Tempest\View\View;
+
 use function Tempest\View\view;
 
 final class PendingSourcesController

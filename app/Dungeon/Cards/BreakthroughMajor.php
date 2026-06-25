@@ -2,13 +2,13 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
-use App\Dungeon\Card;
 use App\Dungeon\ActiveCard;
-use App\Dungeon\Rarity;
-use App\Dungeon\Type;
+use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Level;
+use App\Dungeon\Rarity;
 use App\Dungeon\Tile;
+use App\Dungeon\Type;
 
 final class BreakthroughMajor implements Card, ActiveCard
 {
@@ -18,7 +18,7 @@ final class BreakthroughMajor implements Card, ActiveCard
 
     private(set) string $name = 'Breakthrough++';
 
-    private(set) string $description = "Remove 3 walls, -10 stability/wall";
+    private(set) string $description = 'Remove 3 walls, -10 stability/wall';
 
     private(set) string $image = '/cards/breakthrough-major.png';
 

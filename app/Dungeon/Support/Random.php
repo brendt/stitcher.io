@@ -2,7 +2,6 @@
 
 namespace App\Dungeon\Support;
 
-
 interface Random
 {
     public function chance(float $percentage): bool;

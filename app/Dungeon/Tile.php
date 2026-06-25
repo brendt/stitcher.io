@@ -92,14 +92,12 @@ final class Tile
 
     public function canMoveTo(Direction $direction): bool
     {
-        return in_array($direction, $this->directions);
+        return in_array($direction, $this->directions, strict: true);
     }
 
     public function isAltar(): bool
     {
-        return $this->isHealthAltar
-            || $this->isStabilityAltar
-            || $this->isManaAltar;
+        return $this->isHealthAltar || $this->isStabilityAltar || $this->isManaAltar;
     }
 
     public function canContainCoins(): bool
@@ -135,10 +133,7 @@ final class Tile
 
     public function canHostDweller(): bool
     {
-        return ! (
-            $this->isCollapsed
-            || $this->isLake
-        );
+        return ! ($this->isCollapsed || $this->isLake);
     }
 
     public function canCollapse(): bool
@@ -158,6 +153,6 @@ final class Tile
 
     public function hasBorder(Direction $direction): bool
     {
-        return ! in_array($direction, $this->directions);
+        return ! in_array($direction, $this->directions, strict: true);
     }
 }

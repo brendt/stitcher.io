@@ -4,12 +4,10 @@ namespace Tests\Dungeon;
 
 use App\Dungeon\Dungeon;
 use App\Dungeon\Repositories\DeckRepository;
-use App\Dungeon\Repositories\DungeonRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Dungeon\Support\DungeonInitializer;
 use App\Support\Authentication\User;
 use PHPUnit\Framework\Attributes\Before;
-use Redis;
 use Tempest\Auth\Authentication\Authenticator;
 use Tests\IntegrationTestCase;
 

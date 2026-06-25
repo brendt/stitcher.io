@@ -2,13 +2,13 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
-use App\Dungeon\Card;
 use App\Dungeon\ActiveCard;
-use App\Dungeon\Rarity;
-use App\Dungeon\Type;
+use App\Dungeon\Card;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Level;
+use App\Dungeon\Rarity;
 use App\Dungeon\Tile;
+use App\Dungeon\Type;
 
 final class KillDwellerMinor implements Card, ActiveCard
 {
@@ -16,7 +16,7 @@ final class KillDwellerMinor implements Card, ActiveCard
 
     private(set) string $name = 'Slice and Dice';
 
-    private(set) string $description = "Kill 1 Dweller";
+    private(set) string $description = 'Kill 1 Dweller';
 
     private(set) string $image = '/cards/kill-dweller-minor.png';
 

@@ -4,11 +4,11 @@ namespace Tests\Analytics;
 
 use App\Analytics\PageVisited;
 use DateTimeImmutable;
+
 use function Tempest\EventBus\event;
 
 trait TestsAnalytics
 {
-
     public function setUp(): void
     {
         parent::setUp();
@@ -19,8 +19,7 @@ trait TestsAnalytics
     private function triggerVisit(
         string $date = '2026-01-01 10:00:10',
         string $uri = 'https://example.com',
-    ): void
-    {
+    ): void {
         event(new PageVisited(
             url: $uri,
             visitedAt: new DateTimeImmutable($date),

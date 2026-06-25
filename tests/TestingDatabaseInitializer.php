@@ -16,21 +16,22 @@ use Tempest\Database\Transactions\GenericTransactionManager;
 use Tempest\EventBus\EventBus;
 use Tempest\Mapper\SerializerFactory;
 use Tempest\Reflection\ClassReflector;
-use function Tempest\Support\Str;
 use UnitEnum;
+
+use function Tempest\Support\Str;
 
 final class TestingDatabaseInitializer implements DynamicInitializer
 {
     /** @var Connection[] */
     private static array $connections = [];
 
-    public function canInitialize(ClassReflector $class, null|string|UnitEnum $tag): bool
+    public function canInitialize(ClassReflector $class, string|UnitEnum|null $tag): bool
     {
         return $class->getType()->matches(Database::class);
     }
 
     #[Singleton]
-    public function initialize(ClassReflector $class, null|string|UnitEnum $tag, Container $container): Database
+    public function initialize(ClassReflector $class, string|UnitEnum|null $tag, Container $container): Database
     {
         $tag = str($tag)->toString();
 

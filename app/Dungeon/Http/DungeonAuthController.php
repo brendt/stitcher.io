@@ -7,6 +7,7 @@ use Tempest\Http\Responses\Redirect;
 use Tempest\Http\Session\Session;
 use Tempest\Router\Get;
 use Tempest\View\View;
+
 use function Tempest\Router\uri;
 use function Tempest\View\view;
 

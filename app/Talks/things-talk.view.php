@@ -4,6 +4,7 @@
  */
 
 use App\Blog\Meta;
+
 use function Tempest\Router\uri;
 
 $title ??= 'Things I wish I knew';

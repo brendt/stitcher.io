@@ -19,8 +19,7 @@ final readonly class Dataset
         public string $scale = 'y',
         public string $color = '#fe2977',
         public string|bool $pointStyle = 'circle',
-    )
-    {
+    ) {
         $this->labels = $entries->map(fn (Chartable $chartable) => $chartable->label);
         $this->values = $entries->map(fn (Chartable $chartable) => $chartable->value);
         $this->total = $entries->reduce(fn (int $carry, Chartable $chartable) => $carry + $chartable->value, 0);

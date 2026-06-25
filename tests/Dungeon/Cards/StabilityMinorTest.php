@@ -2,11 +2,10 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\StabilityMinor;
 use App\Dungeon\Events\PlayerStabilityIncreased;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class StabilityMinorTest extends DungeonTest
 {

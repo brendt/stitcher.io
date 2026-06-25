@@ -21,7 +21,7 @@ final class RumbleDeckValidator implements DeckValidator
             return null;
         }
 
-        $count = $deck->filter(fn(Card $card) => in_array($card::class, $cardsToCheck))->count();
+        $count = $deck->filter(fn (Card $card) => in_array($card::class, $cardsToCheck))->count();
 
         if ($count >= 5) {
             return new DeckValidationFailed('You can only have 5 rumble cards in your deck');

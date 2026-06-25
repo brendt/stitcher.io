@@ -8,7 +8,5 @@ use DateTimeImmutable;
 
 interface HasCreatedAtDate
 {
-    public DateTimeImmutable $createdAt {
-        get;
-    }
+    public DateTimeImmutable $createdAt { get; }
 }

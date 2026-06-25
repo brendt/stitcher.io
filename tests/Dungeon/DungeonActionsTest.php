@@ -15,6 +15,7 @@ use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Events\DwellerMoved;
 use App\Dungeon\Events\DwellerSpawned;
 use App\Dungeon\Events\DwellerUpdated;
+use App\Dungeon\Events\LakeDiscovered;
 use App\Dungeon\Events\PassiveCardSet;
 use App\Dungeon\Events\PassiveCardUnset;
 use App\Dungeon\Events\PermanentCardAdded;
@@ -32,11 +33,10 @@ use App\Dungeon\Events\PlayerShardsIncreased;
 use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\PlayerStabilityIncreased;
 use App\Dungeon\Events\PlayerVictoryPointsIncreased;
+use App\Dungeon\Events\RelicCollected;
 use App\Dungeon\Events\TileCoinsAdded;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\TileCollapsed;
-use App\Dungeon\Events\LakeDiscovered;
-use App\Dungeon\Events\RelicCollected;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Events\VisibilityChanged;
@@ -46,7 +46,6 @@ use App\Dungeon\Listeners\PlayerMovementListener;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
 use PHPUnit\Framework\Attributes\Test;
-use function Tempest\EventBus\event;
 
 final class DungeonActionsTest extends DungeonTest
 {
@@ -1397,7 +1396,6 @@ final class DungeonActionsTest extends DungeonTest
             $this->assertSame($card->id, $event->card->id);
         });
     }
-
 
     #[Test]
     public function mana_altar_grants_mana_when_cooldown_is_zero(): void

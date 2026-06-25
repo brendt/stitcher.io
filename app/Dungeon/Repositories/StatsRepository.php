@@ -5,6 +5,7 @@ namespace App\Dungeon\Repositories;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Persistence\DungeonUserStats;
 use App\Support\Authentication\User;
+
 use function Tempest\Database\query;
 
 final class StatsRepository
@@ -19,8 +20,7 @@ final class StatsRepository
         int $wins = 0,
         int $games = 0,
         int $losses = 0,
-    ): void
-    {
+    ): void {
         $stats = $this->forUser($user);
 
         $stats->coins += $coins;
@@ -69,10 +69,10 @@ final class StatsRepository
         $stats = $this->forUser($user);
 
         return query(DungeonUserStats::class)
-                ->count()
-                ->where('victoryPoints > ?', $stats->victoryPoints)
-                ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
-                ->execute() + 1;
+            ->count()
+            ->where('victoryPoints > ?', $stats->victoryPoints)
+            ->where('campaignId', Dungeon::CURRENT_CAMPAIGN)
+            ->execute() + 1;
     }
 
     /** @return array<DungeonUserStats> */
@@ -90,7 +90,7 @@ final class StatsRepository
     {
         $stats = $this->forUser($user);
 
-        $stats->coins = $stats->coins - $amount;
+        $stats->coins -= $amount;
 
         $stats->save();
     }
@@ -99,7 +99,7 @@ final class StatsRepository
     {
         $stats = $this->forUser($user);
 
-        $stats->tokens = $stats->tokens - $amount;
+        $stats->tokens -= $amount;
 
         $stats->save();
     }

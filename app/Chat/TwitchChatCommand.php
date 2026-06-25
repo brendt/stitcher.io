@@ -5,6 +5,7 @@ namespace App\Chat;
 use DateTimeImmutable;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
+
 use function Tempest\env;
 
 final class TwitchChatCommand
@@ -34,7 +35,7 @@ final class TwitchChatCommand
         stream_set_timeout($socket, 300); // 5 min timeout for reads
 
         // Anonymous login
-        $nick = 'justinfan' . random_int(10000, 99999);
+        $nick = 'justinfan' . random_int(10_000, 99_999);
         fwrite($socket, "NICK {$nick}\r\n");
         fwrite($socket, "USER {$nick} 8 * :{$nick}\r\n");
 
@@ -61,7 +62,7 @@ final class TwitchChatCommand
             }
 
             // Join channel after welcome message (001)
-            if (str_contains($line, '001') && !$joined) {
+            if (str_contains($line, '001') && ! $joined) {
                 fwrite($socket, "JOIN #{$channel}\r\n");
                 $joined = true;
                 $this->success("Joined #{$channel}");

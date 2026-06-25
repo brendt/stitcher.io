@@ -15,6 +15,7 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\Persistence\DungeonShopCard;
 use App\Dungeon\Persistence\DungeonUserCard;
 use App\Support\Authentication\User;
+
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
 
@@ -107,11 +108,10 @@ final readonly class DeckRepository
         $isActive = $this->deckValidator->validate($shopCard->card, $deck) === null;
 
         if ($shopCard->card instanceof Token) {
-            $this->statsRepository->increaseStats($user, tokens : 1);
+            $this->statsRepository->increaseStats($user, tokens: 1);
         } elseif ($shopCard->card instanceof VictoryPoint) {
             $this->statsRepository->increaseStats($user, victoryPoints: 1);
         } else {
-
             DungeonUserCard::create(
                 userId: $shopCard->userId,
                 campaignId: Dungeon::CURRENT_CAMPAIGN,

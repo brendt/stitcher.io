@@ -6,9 +6,7 @@ namespace App\Support\StoredEvents;
 
 interface ShouldBeStored
 {
-    public string $uuid {
-        get;
-    }
+    public string $uuid { get; }
 
     public function serialize(): string;
 

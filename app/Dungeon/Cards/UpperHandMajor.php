@@ -2,14 +2,12 @@
 
 namespace App\Dungeon\Cards;
 
-use App\Dungeon\Dungeon;
 use App\Dungeon\Card;
 use App\Dungeon\CheckBeforePlaying;
+use App\Dungeon\Dungeon;
+use App\Dungeon\Level;
 use App\Dungeon\Rarity;
 use App\Dungeon\Type;
-use App\Dungeon\Commands\RemoveDweller;
-use App\Dungeon\Commands\SpawnDweller;
-use App\Dungeon\Level;
 
 final class UpperHandMajor implements Card, CheckBeforePlaying
 {

@@ -1,6 +1,7 @@
 <?php
 
 use Tempest\Auth\OAuth\Config\GitHubOAuthConfig;
+
 use function Tempest\env;
 
 return new GitHubOAuthConfig(

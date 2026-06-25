@@ -4,6 +4,7 @@ namespace App\Books;
 
 use Tempest\Router\Get;
 use Tempest\View\View;
+
 use function Tempest\View\view;
 
 final class BooksController

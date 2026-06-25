@@ -6,8 +6,8 @@
 use App\Blog\Meta;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Core\Environment;
+
 use function Tempest\Container\get;
-use Tempest\Core\AppConfig;
 use function Tempest\Router\uri;
 
 $title ??= null;
@@ -34,10 +34,12 @@ $isLoggedIn = get(Authenticator::class)->current() !== null;
     <meta charset="UTF-8"/>
 
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <x-slot name="favicon">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+    </x-slot>
 
     <!-- Socials -->
     <meta property="og:title" :content="$meta->title"/>
@@ -77,7 +79,7 @@ $isLoggedIn = get(Authenticator::class)->current() !== null;
     <x-slot/>
 </div>
 
-<div class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-primary sm:text-white font-bold font-sm grid gap-4">
+<div :if="$footer ?? true" class="fixed bottom-0 p-2 z-[1] pb-[3vh]  w-full  text-primary sm:text-white font-bold font-sm grid gap-4">
     <div class="flex justify-center">
             <span>
                 Noticed a tpyo? You can <a href="https://github.com/brendt/stitcher.io">submit a PR</a> to fix it.

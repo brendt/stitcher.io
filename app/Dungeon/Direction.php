@@ -11,7 +11,7 @@ enum Direction: string
 
     public function opposite(): self
     {
-        return match($this) {
+        return match ($this) {
             self::TOP => self::BOTTOM,
             self::BOTTOM => self::TOP,
             self::LEFT => self::RIGHT,

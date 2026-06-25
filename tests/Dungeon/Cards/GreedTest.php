@@ -2,14 +2,13 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\Greed;
-use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Events\PlayerStabilityDecreased;
+use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class GreedTest extends DungeonTest
 {

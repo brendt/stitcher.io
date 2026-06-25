@@ -1,0 +1,2527 @@
+variant = "loose"
+
+[[issues]]
+file = "app/Aggregate/FeedController.php"
+code = "possibly-null-operand"
+message = "Left operand in `<=` comparison might be `null` (type `int<6, max>|null`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/FeedController.php"
+code = "possibly-null-operand"
+message = "Left operand in `<` comparison might be `null` (type `int<4, max>|null`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/FeedController.php"
+code = "possibly-null-operand"
+message = "Left operand in `<` comparison might be `null` (type `negative-int|null|positive-int`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/FeedController.php"
+code = "possibly-null-operand"
+message = 'Left operand in spaceship comparison (`<=>`) might be `null` (type `Tempest\DateTime\DateTime|null`).'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/FeedController.php"
+code = "possibly-null-operand"
+message = 'Right operand in spaceship comparison (`<=>`) might be `null` (type `Tempest\DateTime\DateTime|null`).'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/FeedController.php"
+code = "redundant-nullsafe-operator"
+message = "Redundant nullsafe operator (`?->`) used on an expression that is never `null`."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Actions/ResolveTitle.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Actions/ResolveTitle.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Support\str`: expected `Stringable|int|null|string`, but possibly received `Generator<mixed, mixed, mixed, mixed>|JsonSerializable|Tempest\View\View|array<array-key, mixed>|string`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Migrations/MigratePublicationCommand.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Migrations/MigratePublicationCommand.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "app/Aggregate/Posts/Post.php"
+code = "falsable-return-statement"
+message = 'Property hook `App\Aggregate\Posts\Post::$cleanUri::get` returns falsable value `false|string` but property type is `string`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Post.php"
+code = "less-specific-nested-return-statement"
+message = '''Returned type `tempest\database\builder\querybuilders\selectquerybuilder<mixed>` is less specific than the declared return type `Tempest\Database\Builder\QueryBuilders\SelectQueryBuilder<App\Aggregate\Posts\Post>` for function `App\Aggregate\Posts\Post::pending` due to nested 'mixed'.'''
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Post.php"
+code = "less-specific-nested-return-statement"
+message = '''Returned type `tempest\database\builder\querybuilders\selectquerybuilder<mixed>` is less specific than the declared return type `Tempest\Database\Builder\QueryBuilders\SelectQueryBuilder<App\Aggregate\Posts\Post>` for function `App\Aggregate\Posts\Post::published` due to nested 'mixed'.'''
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Post.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Aggregate\Posts\Post::futureQueued`. Saw type `nonnull`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Post.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Aggregate\Posts\Post::pendingCount`. Saw type `nonnull`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Post.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Aggregate\Posts\Post::publishedToday`. Saw type `nonnull`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Post.php"
+code = "nullable-return-statement"
+message = 'Property hook `App\Aggregate\Posts\Post::$sourceName::get` returns nullable value `false|null|string` but property type is `string`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/Post.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 2
+
+[[issues]]
+file = "app/Aggregate/Posts/PostsController.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/RankPostsCommand.php"
+code = "invalid-destructuring-source"
+message = "Invalid destructuring assignment: Cannot unpack type `null|string('posts')` into variables."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/RankPostsCommand.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/RankPostsCommand.php"
+code = "mixed-operand"
+message = "Invalid left operand: type `mixed` cannot be reliably used in string concatenation."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/RankPostsCommand.php"
+code = "mixed-operand"
+message = "Left operand in `<` comparison has `mixed` type."
+count = 5
+
+[[issues]]
+file = "app/Aggregate/Posts/RankPostsCommand.php"
+code = "mixed-operand"
+message = "Left operand in binary operation has type `mixed`."
+count = 3
+
+[[issues]]
+file = "app/Aggregate/Posts/RankPostsCommand.php"
+code = "mixed-operand"
+message = "Right operand in binary operation has type `mixed`."
+count = 3
+
+[[issues]]
+file = "app/Aggregate/Posts/RankPostsCommand.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 5
+
+[[issues]]
+file = "app/Aggregate/Posts/RankRatioCommand.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/RankRatioCommand.php"
+code = "mixed-operand"
+message = "Invalid left operand: type `mixed` cannot be reliably used in string concatenation."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/RankRatioCommand.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 3
+
+[[issues]]
+file = "app/Aggregate/Posts/Source.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Aggregate\Posts\Source::$shortName::get` returns `tempest\support\str\immutablestring` but property is typed as `string`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/SourcesListController.php"
+code = "unused-method"
+message = "Method `render()` is never used."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/SyncSource.php"
+code = "implicit-to-string-cast"
+message = 'Implicit conversion to `string` for right operand via `Tempest\Database\PrimaryKey::__toString()`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/SyncSource.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 3
+
+[[issues]]
+file = "app/Aggregate/Posts/SyncSource.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/SyncSource.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
+count = 4
+
+[[issues]]
+file = "app/Aggregate/Posts/SyncSource.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Aggregate\Posts\SyncSource::resolveTitle`. Saw type `nonnull`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Posts/SyncSource.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Aggregate\Posts\SyncSource::resolveUrlForExternals`. Saw type `mixed`.'
+count = 2
+
+[[issues]]
+file = "app/Aggregate/Posts/SyncSource.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Aggregate\Posts\SyncSource::resolveUrl`. Saw type `mixed`.'
+count = 2
+
+[[issues]]
+file = "app/Aggregate/Posts/SyncSource.php"
+code = "possibly-false-argument"
+message = "Argument #1 of function `json_decode` is possibly `false`, but parameter type `string` does not accept it."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "array-to-string-conversion"
+message = "Potential array in right operand of string concatenation."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "invalid-destructuring-source"
+message = 'Invalid destructuring assignment: Cannot unpack type `Dom\Element|null` into variables.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Aggregate\Suggestions\FindSuggestionFeedUri::__invoke`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Aggregate\Suggestions\FindSuggestionFeedUri::uriFromContent`. Saw type `truthy-mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "possibly-false-argument"
+message = "Argument #1 of function `json_decode` is possibly `false`, but parameter type `string` does not accept it."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "possibly-false-argument"
+message = "Argument #1 of function `simplexml_load_string` is possibly `false`, but parameter type `string` does not accept it."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "possibly-false-operand"
+message = "Possibly false left operand used in string concatenation (type `false|non-empty-string|null`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "possibly-null-operand"
+message = "Possibly null left operand used in string concatenation (type `false|non-empty-string|null`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "possibly-null-operand"
+message = "Possibly null right operand used in string concatenation (type `array<array-key, string>|null|string`)."
+count = 1
+
+[[issues]]
+file = "app/Aggregate/Suggestions/FindSuggestionFeedUri.php"
+code = "reference-to-undefined-variable"
+message = "Reference created from a previously undefined variable `$matches`."
+count = 1
+
+[[issues]]
+file = "app/Analytics/AnalyticsController.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #2 of `App\Analytics\Dataset::__construct`: expected `array<string, App\Analytics\Chartable>`, but found `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`.'
+count = 6
+
+[[issues]]
+file = "app/Analytics/AnalyticsController.php"
+code = "invalid-property-access"
+message = '''Attempting to access a property on a non-object type (`class-string('App\Analytics\VisitsPerDay\VisitsPerDay')`).'''
+count = 1
+
+[[issues]]
+file = "app/Analytics/AnalyticsController.php"
+code = "invalid-property-access"
+message = '''Attempting to access a property on a non-object type (`class-string('App\Analytics\VisitsPerMonth\VisitsPerMonth')`).'''
+count = 1
+
+[[issues]]
+file = "app/Analytics/AnalyticsController.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Analytics\AnalyticsController::realtimeVisitCount`. Saw type `nonnull`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/AnalyticsController.php"
+code = "redundant-null-coalesce"
+message = "Redundant null coalesce: left-hand side is always `null`."
+count = 2
+
+[[issues]]
+file = "app/Analytics/Chart.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #2 of `App\Analytics\Dataset::__construct`: expected `array<string, App\Analytics\Chartable>`, but found `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/Chart.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "app/Analytics/Chart.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for property hook `App\Analytics\Chart::$labels::get`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/Chart.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for property hook `App\Analytics\Chart::$total::get`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/Dataset.php"
+code = "docblock-type-mismatch"
+message = 'Docblock type `array<string, App\Analytics\Chartable>` for parameter `$entries` is incompatible with native type `Tempest\Support\Arr\ImmutableArray`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/Dataset.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<string, App\Analytics\Chartable>`).'
+count = 3
+
+[[issues]]
+file = "app/Analytics/Dataset.php"
+code = "mixed-property-type-coercion"
+message = 'A value with a less specific type `mixed` is being assigned to property `$$labels` (Tempest\Support\Arr\ImmutableArray<array-key, mixed>).'
+count = 1
+
+[[issues]]
+file = "app/Analytics/Dataset.php"
+code = "mixed-property-type-coercion"
+message = "A value with a less specific type `mixed` is being assigned to property `$$total` (int)."
+count = 1
+
+[[issues]]
+file = "app/Analytics/Dataset.php"
+code = "mixed-property-type-coercion"
+message = 'A value with a less specific type `mixed` is being assigned to property `$$values` (Tempest\Support\Arr\ImmutableArray<array-key, mixed>).'
+count = 1
+
+[[issues]]
+file = "app/Analytics/Dataset.php"
+code = "unused-property"
+message = "Property `$entries` is never used."
+count = 1
+
+[[issues]]
+file = "app/Analytics/Migrations/MigrateVisitsCommand.php"
+code = "possibly-invalid-operand"
+message = "Possibly invalid type for right operand."
+count = 1
+
+[[issues]]
+file = "app/Analytics/Migrations/MigrateVisitsCommand.php"
+code = "unevaluated-code"
+message = "Unreachable code detected."
+count = 6
+
+[[issues]]
+file = "app/Analytics/Migrations/MigrateVisitsCommand.php"
+code = "unused-method"
+message = "Method `memory()` is never used."
+count = 1
+
+[[issues]]
+file = "app/Analytics/PageVisited.php"
+code = "falsable-return-statement"
+message = '''Function `App\Analytics\PageVisited::serialize` is declared to return `string` but possibly returns 'false' (inferred as `false|string`).'''
+count = 1
+
+[[issues]]
+file = "app/Analytics/PageVisited.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `App\Analytics\PageVisited::serialize`: expected `string`, but found `false|string`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/PageVisited.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 6
+
+[[issues]]
+file = "app/Analytics/PageVisited.php"
+code = "mixed-property-type-coercion"
+message = "A value with a less specific type `mixed` is being assigned to property `$$uuid` (string)."
+count = 1
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "array-to-string-conversion"
+message = "Potential array in left operand of string concatenation."
+count = 1
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `truthy-mixed`."
+count = 1
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "mixed-operand"
+message = "Left operand in `&&` operation has `mixed` type."
+count = 1
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "mixed-operand"
+message = "Left operand in `>=` comparison has `mixed` type."
+count = 1
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "possibly-false-argument"
+message = "Argument #2 of function `fseek` is possibly `false`, but parameter type `int` does not accept it."
+count = 1
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Support\str`: expected `Stringable|int|null|string`, but possibly received `array{0: null|string, 1: int}|null|string`.'
+count = 3
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #3 of `App\Analytics\PageVisited::__construct`: expected `string`, but possibly received `array{0: null|string, 1: int}|null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "possibly-null-argument"
+message = 'Argument #3 of method `App\Analytics\PageVisited::__construct` is possibly `null`, but parameter type `string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/ParseLogCommand.php"
+code = "unused-property"
+message = "Property `$clock` is never used."
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerDay/VisitsPerDayProjector.php"
+code = "mixed-operand"
+message = "Cannot reliably increment a `mixed` operand."
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerDay/VisitsPerDayProjector.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Support\Arr\ManipulatesArray::map`: expected `(closure(mixed, array-key): non-empty-string)`, but possibly received `(closure(int, string): non-empty-string)`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerMonth/VisitsPerMonthProjector.php"
+code = "mixed-operand"
+message = "Cannot reliably increment a `mixed` operand."
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerMonth/VisitsPerMonthProjector.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Support\Arr\ManipulatesArray::map`: expected `(closure(mixed, array-key): non-empty-string)`, but possibly received `(closure(int, string): non-empty-string)`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerPostPerDay/VisitsPerPostPerDayProjector.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerPostPerDay/VisitsPerPostPerDayProjector.php"
+code = "mixed-array-assignment"
+message = "Unsafe array assignment on type `mixed`."
+count = 2
+
+[[issues]]
+file = "app/Analytics/VisitsPerPostPerDay/VisitsPerPostPerDayProjector.php"
+code = "mixed-operand"
+message = "Cannot reliably increment a `mixed` operand."
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerPostPerDay/VisitsPerPostPerDayProjector.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Support\Arr\ManipulatesArray::map`: expected `(closure(mixed, array-key): Tempest\Support\Str\ImmutableString)`, but possibly received `(closure(array<array-key, mixed>, string): Tempest\Support\Str\ImmutableString)`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerPostPerDay/VisitsPerPostPerDayProjector.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Support\Arr\ManipulatesArray::map`: expected `(closure(mixed, array-key): non-empty-string)`, but possibly received `(closure(int, string): non-empty-string)`.'
+count = 1
+
+[[issues]]
+file = "app/Analytics/VisitsPerYear/VisitsPerYearProjector.php"
+code = "mixed-operand"
+message = "Left operand in binary operation has type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Blog/BlogPostDataProvider.php"
+code = "possibly-undefined-variable"
+message = "Variable `$matches` might not have been defined on all execution paths leading to this point."
+count = 1
+
+[[issues]]
+file = "app/Blog/BlogPostDataProvider.php"
+code = "unused-property"
+message = "Property `$repository` is never used."
+count = 1
+
+[[issues]]
+file = "app/Blog/BlogPostRepository.php"
+code = "invalid-operand"
+message = "Invalid type for left operand."
+count = 2
+
+[[issues]]
+file = "app/Blog/BlogPostRepository.php"
+code = "less-specific-nested-return-statement"
+message = '''Returned type `Tempest\Support\Arr\ImmutableArray<array-key, mixed>` is less specific than the declared return type `Tempest\Support\Arr\ImmutableArray<array-key, App\Blog\BlogPost>` for function `App\Blog\BlogPostRepository::all` due to nested 'mixed'.'''
+count = 1
+
+[[issues]]
+file = "app/Blog/BlogPostRepository.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 3
+
+[[issues]]
+file = "app/Blog/BlogPostRepository.php"
+code = "mixed-array-index"
+message = 'Invalid index type `mixed` used for array access on `Tempest\Support\Arr\ImmutableArray<array-key, App\Blog\BlogPost>`.'
+count = 2
+
+[[issues]]
+file = "app/Blog/BlogPostRepository.php"
+code = "possibly-false-argument"
+message = 'Argument #1 of method `League\CommonMark\MarkdownConverter::convert` is possibly `false`, but parameter type `string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Blog/BlogPostRepository.php"
+code = "possibly-false-argument"
+message = 'Argument #1 of method `Spatie\YamlFrontMatter\YamlFrontMatter::parse` is possibly `false`, but parameter type `string` does not accept it.'
+count = 2
+
+[[issues]]
+file = "app/Blog/BlogPostRepository.php"
+code = "possibly-null-operand"
+message = "Left operand in arithmetic operation might be `null` (type `array-key|null`)."
+count = 1
+
+[[issues]]
+file = "app/Blog/BlogPostRepository.php"
+code = "reference-to-undefined-variable"
+message = "Reference created from a previously undefined variable `$matches`."
+count = 2
+
+[[issues]]
+file = "app/Blog/Comment.php"
+code = "implicit-to-string-cast"
+message = 'Implicit conversion to `string` for right operand via `Tempest\Database\PrimaryKey::__toString()`.'
+count = 1
+
+[[issues]]
+file = "app/Blog/CommentsController.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Blog/CommentsController.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "app/Blog/CommentsController.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Blog/CommentsController.php"
+code = "non-existent-property"
+message = 'Property `$id` does not exist on interface `Tempest\Auth\Authentication\Authenticatable`.'
+count = 1
+
+[[issues]]
+file = "app/Blog/CommentsController.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Blog\CommentsController::render` is possibly `null`, but parameter type `App\Blog\BlogPost` does not accept it.'
+count = 6
+
+[[issues]]
+file = "app/Blog/CommentsController.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 2
+
+[[issues]]
+file = "app/Chat/ChatStorage.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `App\Chat\ChatStorage::loadColors`: expected `array<array-key, mixed>`, but found `array<array-key, mixed>|null`.'
+count = 1
+
+[[issues]]
+file = "app/Chat/ChatStorage.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `nonnull`."
+count = 5
+
+[[issues]]
+file = "app/Chat/ChatStorage.php"
+code = "mixed-property-type-coercion"
+message = "A value with a less specific type `nonnull` is being assigned to property `$$colors` (array<array-key, mixed>|null)."
+count = 1
+
+[[issues]]
+file = "app/Chat/ChatStorage.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Chat\ChatStorage::getUserColor`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Chat/ChatStorage.php"
+code = "nullable-return-statement"
+message = 'Function `App\Chat\ChatStorage::loadColors` is declared to return `array<array-key, mixed>` but possibly returns a nullable value (inferred as `array<array-key, mixed>|null`).'
+count = 1
+
+[[issues]]
+file = "app/Chat/ChatStorage.php"
+code = "possibly-false-argument"
+message = 'Argument #2 of method `Tempest\Storage\Storage::write` is possibly `false`, but parameter type `string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Chat/ChatStorage.php"
+code = "possibly-false-operand"
+message = "Possibly false left operand used in string concatenation (type `false|string`)."
+count = 1
+
+[[issues]]
+file = "app/Chat/TwitchChatCommand.php"
+code = "possibly-undefined-variable"
+message = "Variable `$matches` might not have been defined on all execution paths leading to this point."
+count = 1
+
+[[issues]]
+file = "app/Chat/TwitchChatCommand.php"
+code = "reference-to-undefined-variable"
+message = "Reference created from a previously undefined variable `$errno`."
+count = 1
+
+[[issues]]
+file = "app/Chat/TwitchChatCommand.php"
+code = "reference-to-undefined-variable"
+message = "Reference created from a previously undefined variable `$errstr`."
+count = 1
+
+[[issues]]
+file = "app/Chat/YouTubeChatCommand.php"
+code = "invalid-iterator"
+message = "The expression provided to `foreach` is not iterable. It resolved to type `nonnull`, which is not iterable."
+count = 2
+
+[[issues]]
+file = "app/Chat/YouTubeChatCommand.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 2
+
+[[issues]]
+file = "app/Chat/YouTubeChatCommand.php"
+code = "mixed-property-type-coercion"
+message = "A value with a less specific type `mixed` is being assigned to property `$$accessToken` (null|string)."
+count = 1
+
+[[issues]]
+file = "app/Chat/YouTubeChatCommand.php"
+code = "mixed-property-type-coercion"
+message = "A value with a less specific type `mixed` is being assigned to property `$$nextPageToken` (null|string)."
+count = 1
+
+[[issues]]
+file = "app/Chat/YouTubeChatCommand.php"
+code = "possibly-false-operand"
+message = "Possibly false right operand used in string concatenation (type `false|string`)."
+count = 2
+
+[[issues]]
+file = "app/Chat/YouTubeChatCommand.php"
+code = "possibly-invalid-argument"
+message = "Possible argument type mismatch for argument #1 of `sleep`: expected `non-negative-int`, but possibly received `int`."
+count = 1
+
+[[issues]]
+file = "app/Chat/YouTubeChatCommand.php"
+code = "possibly-null-operand"
+message = "Possibly null right operand used in string concatenation (type `null|string`)."
+count = 1
+
+[[issues]]
+file = "app/Digest/DigestSendCommand.php"
+code = "invalid-property-access"
+message = '''Attempting to access a property on a non-object type (`class-string('App\Digest\CommentDigest')`).'''
+count = 1
+
+[[issues]]
+file = "app/Digest/DigestSendCommand.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Digest/DigestSendCommand.php"
+code = "redundant-null-coalesce"
+message = "Redundant null coalesce: left-hand side is always `null`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/BeaconMajor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\BeaconMajor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/BeaconMinor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\BeaconMinor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/BreakthroughMajor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\BreakthroughMajor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/EmergencyExitMajor.php"
+code = "invalid-property-assignment-value"
+message = "Invalid type for property `$coins`: expected `int`, but got `float`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/EmergencyExitMinor.php"
+code = "invalid-property-assignment-value"
+message = "Invalid type for property `$coins`: expected `int`, but got `float`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/Greed.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `App\Dungeon\Cards\Greed::getAdjustedPrice`: expected `int`, but found `float`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/IsCard.php"
+code = "invalid-type-cast"
+message = 'Object of type `$this(App\Dungeon\Cards\IsCard)` cast to `array`. Property visibility (public, protected, private) affects the resulting array.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/IsCard.php"
+code = "mixed-operand"
+message = "Left operand in binary operation has type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/IsCard.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 3
+
+[[issues]]
+file = "app/Dungeon/Cards/IsCard.php"
+code = "non-existent-property"
+message = 'Property `$description` does not exist on trait `App\Dungeon\Cards\IsCard`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/IsCard.php"
+code = "non-existent-property"
+message = 'Property `$level` does not exist on trait `App\Dungeon\Cards\IsCard`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/IsCard.php"
+code = "non-existent-property"
+message = 'Property `$price` does not exist on trait `App\Dungeon\Cards\IsCard`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/IsCard.php"
+code = "non-existent-property"
+message = 'Property `$rarity` does not exist on trait `App\Dungeon\Cards\IsCard`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/IsCard.php"
+code = "non-existent-property"
+message = 'Property `$type` does not exist on trait `App\Dungeon\Cards\IsCard`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/KillDwellerMajor.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Dungeon::getDweller`: expected `App\Dungeon\Point`, but found `array<array-key, enum(App\Dungeon\Direction)>`.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Cards/KillDwellerMajor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\KillDwellerMajor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/KillDwellerMajor.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\DungeonActions::despawnDweller` is possibly `null`, but parameter type `App\Dungeon\Dweller` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/KillDwellerMinor.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Dungeon::getDweller`: expected `App\Dungeon\Point`, but found `array<array-key, enum(App\Dungeon\Direction)>`.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Cards/KillDwellerMinor.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\DungeonActions::despawnDweller` is possibly `null`, but parameter type `App\Dungeon\Dweller` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/ManaPerMoveMinor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\ManaPerMoveMinor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/ProtectionMajor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\ProtectionMajor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/ProtectionMinor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\ProtectionMinor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/RumbleMajor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\RumbleMajor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/SupportEpic.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `App\Dungeon\Cards\SupportEpic::getAdjustedPrice`: expected `int`, but found `float`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/SupportEpic.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\SupportEpic::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/SupportMajor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\SupportMajor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/SupportMinor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\SupportMinor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/TrapDisarmMajor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\TrapDisarmMajor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/WaterWalkerMajor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\WaterWalkerMajor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Cards/WaterWalkerMinor.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Dungeon\Cards\WaterWalkerMinor::$label::get` returns `int` but property is typed as `null|string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Commands/DungeonTokensCommand.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Commands/DungeonTokensCommand.php"
+code = "mixed-operand"
+message = "Left operand in `<` comparison has `mixed` type."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Commands/DungeonTokensCommand.php"
+code = "mixed-operand"
+message = "Left operand in binary operation has type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Commands/DungeonTokensCommand.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 4
+
+[[issues]]
+file = "app/Dungeon/Commands/RefreshShopCommand.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\Events\UserShopInitialized::__construct` is possibly `null`, but parameter type `App\Support\Authentication\User` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DeckValidators/DeckValidatorDiscovery.php"
+code = "less-specific-argument"
+message = 'Argument type mismatch for argument #1 of `App\Dungeon\DeckValidators\CompoundDeckValidator::addValidator`: expected `App\Dungeon\DeckValidator`, but provided type `object` is less specific.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DeckValidators/DeckValidatorDiscovery.php"
+code = "less-specific-nested-argument-type"
+message = '''Argument type mismatch for argument #1 of `Tempest\Container\Container::get`: expected `class-string<'TClassName.tempest\container\container::get() extends object>`, but provided type `('V.iteratoraggregate extends mixed)` is less specific.'''
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Dungeon.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Dungeon.php"
+code = "invalid-property-access"
+message = 'Attempting to access a property on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Dungeon.php"
+code = "invalid-property-assignment-value"
+message = 'Invalid type for property `$tiles`: expected `array<array-key, array<array-key, App\Dungeon\Tile>>`, but got `array<array-key, array<array-key|null, App\Dungeon\Tile>>`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Dungeon.php"
+code = "null-array-index"
+message = "Cannot use `null` as an array index to access element."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Dungeon.php"
+code = "null-array-index"
+message = "Cannot use `null` as an array index to access elementof variable $this->tiles[$tile->point->x]."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Dungeon.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\Dungeon::getTile` is possibly `null`, but parameter type `App\Dungeon\Point` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Dungeon.php"
+code = "write-only-property"
+message = "Property `$statsRepository` is written to but never read."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Dungeon.php"
+code = "write-only-property"
+message = "Property `$stats` is written to but never read."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "invalid-iterator"
+message = "The expression provided to `foreach` is not iterable. It resolved to type `mixed`, which is not iterable."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "less-specific-argument"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\Point::translate`: expected `int`, but provided type `array-key` is less specific.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 14
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-array-assignment"
+message = "Unsafe array assignment on type `mixed`."
+count = 18
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 28
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`truthy-mixed`)."
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Left operand in `&&` operation has `mixed` type."
+count = 4
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Left operand in `<=` comparison has `mixed` type."
+count = 6
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Left operand in `<` comparison has `mixed` type."
+count = 4
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Left operand in `>=` comparison has `mixed` type."
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Left operand in `>` comparison has `mixed` type."
+count = 4
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Left operand in binary operation has type `mixed`."
+count = 34
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Right operand in `&&` operation has `mixed` type."
+count = 7
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Right operand in `>=` comparison has `mixed` type."
+count = 5
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Right operand in `>` comparison has `mixed` type."
+count = 4
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-operand"
+message = "Right operand in binary operation has type `mixed`."
+count = 46
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
+count = 11
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "mixed-property-type-coercion"
+message = "A value with a less specific type `mixed` is being assigned to property `$$depth` (int|null)."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-method"
+message = 'Method `addtile` does not exist on type `App\Dungeon\DungeonActions`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-method"
+message = 'Method `getlake` does not exist on type `App\Dungeon\DungeonActions`.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-method"
+message = 'Method `getlakeforedge` does not exist on type `App\Dungeon\DungeonActions`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-method"
+message = 'Method `hastile` does not exist on type `App\Dungeon\DungeonActions`.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-method"
+message = 'Method `trytile` does not exist on type `App\Dungeon\DungeonActions`.'
+count = 5
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-method"
+message = 'Method `withinvisibilityradius` does not exist on type `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$activeCard` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 5
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$artifactLocation` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$canWalkOnWater` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$cheat` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$coins` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 5
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$currentTile` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$deck` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$dwellers` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 5
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$experience` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$hand` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 5
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$hasEnded` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$healthAltars` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$health` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 4
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$lakes` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$level` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 13
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$manaAltars` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$mana` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 5
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$maxHandCount` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$maxHealth` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$maxMana` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$maxStability` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$passiveCard` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 4
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$permanentCards` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$playerPosition` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$shardLocations` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$shards` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$stabilityAltars` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$stability` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 5
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$statsRepository` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$user` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$victoryPointLocations` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$victoryPoints` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 3
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "non-existent-property"
+message = 'Property `$visibilityRadius` does not exist on trait `App\Dungeon\DungeonActions`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Support\Arr\ManipulatesArray::filter`: expected `(closure(mixed, array-key): bool)|null`, but possibly received `(closure(enum(App\Dungeon\Direction), int): bool)`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/DungeonActions.php"
+code = "possibly-invalid-argument"
+message = "Possible argument type mismatch for argument #2 of `array_rand`: expected `non-negative-int`, but possibly received `int`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Events/PlayerHealthDecreased.php"
+code = "possibly-null-operand"
+message = "Possibly null left operand used in string concatenation (type `null|string`)."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Http/DemoController.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Http/DungeonHomeController.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Http/DungeonHomeController.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 3
+
+[[issues]]
+file = "app/Dungeon/Http/DungeonHomeController.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
+count = 3
+
+[[issues]]
+file = "app/Dungeon/Http/dungeon-leaderboard.view.php"
+code = "undefined-variable"
+message = "Undefined variable: `$i`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Http/x-dungeon-card.view.php"
+code = "docblock-type-mismatch"
+message = "Docblock type mismatch for variable `$class`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Http/x-dungeon-card.view.php"
+code = "invalid-operand"
+message = 'Invalid left operand: object of type `App\Dungeon\Card` cannot be converted to `string`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Http/x-dungeon-card.view.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Http/x-dungeon-card.view.php"
+code = "undefined-variable"
+message = "Undefined variable: `$card`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Level.php"
+code = "invalid-return-statement"
+message = 'Invalid return type for function `App\Dungeon\Level::nextMilestone`: expected `string`, but found `int(0)|int(1000)|null`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Level.php"
+code = "nullable-return-statement"
+message = 'Function `App\Dungeon\Level::nextMilestone` is declared to return `string` but possibly returns a nullable value (inferred as `int(0)|int(1000)|null`).'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Level.php"
+code = "possibly-null-operand"
+message = "Left operand in `<=` comparison might be `null` (type `int(0)|int(1000)|int(10000)|int(100000)|int(25000)|null`)."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Level.php"
+code = "possibly-null-operand"
+message = "Left operand in arithmetic operation might be `null` (type `int(10000)|int(100000)|int(25000)|null`)."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Level.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Listeners/DwellerListeners.php"
+code = "impossible-condition"
+message = "This condition (type `false`) will always evaluate to false."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Listeners/DwellerListeners.php"
+code = "invalid-array-element-key"
+message = "Invalid array key type."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Listeners/DwellerListeners.php"
+code = "invalid-member-selector"
+message = "Invalid type `mixed` used as a member selector; a string is expected."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Listeners/DwellerListeners.php"
+code = "invalid-property-access"
+message = 'Attempting to access a property on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Listeners/DwellerListeners.php"
+code = "mixed-operand"
+message = "Left operand in `>` comparison has `mixed` type."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Listeners/DwellerListeners.php"
+code = "mixed-operand"
+message = "Right operand in `>` comparison has `mixed` type."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Listeners/DwellerListeners.php"
+code = "non-existent-property"
+message = 'Property `$dwellers` does not exist on class `App\Dungeon\Listeners\DwellerListeners`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Listeners/PlayerMovementListener.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Listeners/ShopListeners.php"
+code = "mixed-operand"
+message = "Left operand in binary operation has type `mixed`."
+count = 3
+
+[[issues]]
+file = "app/Dungeon/Listeners/ShopListeners.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Persistence/DungeonUserStats.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for property hook `App\Dungeon\Persistence\DungeonUserStats::$nickname::get`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Persistence/DungeonUserStats.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\Level::hasAccessTo` is possibly `null`, but parameter type `enum(App\Dungeon\Level)` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Persistence/DungeonUserStats.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Point.php"
+code = "match-not-exhaustive"
+message = "Non-exhaustive `match` expression: subject of type `true` is not fully handled."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Point.php"
+code = "redundant-comparison"
+message = "Redundant `===` comparison: left-hand side is always identical to right-hand side."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Point.php"
+code = "redundant-logical-operation"
+message = "Redundant `&&` operation: left operand is evaluated and right operand is always truthy."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Point.php"
+code = "too-few-arguments"
+message = 'Too few arguments provided for method `App\Dungeon\Point::__construct`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/CardRepository.php"
+code = "missing-return-statement"
+message = "Missing return statement in function `findbyname`"
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/CardRepository.php"
+code = "unsafe-instantiation"
+message = 'Potentially unsafe instantiation: `class-string<App\Dungeon\Card>` may contain the interface `App\Dungeon\Card` itself, which cannot be instantiated.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/DeckRepository.php"
+code = "ambiguous-instantiation-target"
+message = "Ambiguous instantiation: the expression used with `new` can resolve to multiple different classes."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/DeckRepository.php"
+code = "less-specific-nested-return-statement"
+message = '''Returned type `non-empty-array<array-key, mixed>|non-empty-list<object>` is less specific than the declared return type `array<array-key, App\Dungeon\Persistence\DungeonUserCard>` for function `App\Dungeon\Repositories\DeckRepository::forUser` due to nested 'mixed'.'''
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/DeckRepository.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 4
+
+[[issues]]
+file = "app/Dungeon/Repositories/DeckRepository.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\DeckValidator::validate` is possibly `null`, but parameter type `App\Dungeon\Card` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/DeckRepository.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\Repositories\DeckRepository::activeCardsForUser` is possibly `null`, but parameter type `App\Support\Authentication\User` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/DeckRepository.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\Repositories\StatsRepository::increaseStats` is possibly `null`, but parameter type `App\Support\Authentication\User` does not accept it.'
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Repositories/DeckRepository.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/ShopRepository.php"
+code = "less-specific-nested-return-statement"
+message = '''Returned type `array<array-key, mixed>` is less specific than the declared return type `array<array-key, App\Dungeon\Persistence\DungeonShopCard>` for function `App\Dungeon\Repositories\ShopRepository::forUser` due to nested 'mixed'.'''
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/ShopRepository.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Repositories/ShopRepository.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Repositories/ShopRepository.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Dungeon\Repositories\ShopRepository::findForUser`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/StatsRepository.php"
+code = "less-specific-nested-return-statement"
+message = '''Returned type `array<array-key, mixed>` is less specific than the declared return type `array<array-key, App\Dungeon\Persistence\DungeonUserStats>` for function `App\Dungeon\Repositories\StatsRepository::getLeaderboard` due to nested 'mixed'.'''
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Repositories/StatsRepository.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Dungeon\Repositories\StatsRepository::forUser`. Saw type `truthy-mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Support/CardDiscovery.php"
+code = "property-type-coercion"
+message = 'A value of a less specific type `non-empty-array<array-key, App\Dungeon\Card>|non-empty-list<object>` is being assigned to property `$$cards` (array<array-key, App\Dungeon\Card>).'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Support/CardDiscovery.php"
+code = "unknown-class-instantiation"
+message = "Cannot determine the concrete class for instantiation."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Support/DungeonEventMiddleware.php"
+code = "impossible-condition"
+message = "This condition (type `false`) will always evaluate to false."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Support/DungeonEventMiddleware.php"
+code = "redundant-docblock-type"
+message = "Redundant docblock type for variable `$dungeon`."
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Support/RandomWithSequence.php"
+code = "mixed-operand"
+message = "Invalid left operand: type `nonnull` cannot be reliably used in string concatenation."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Support/RandomWithSequence.php"
+code = "mixed-operand"
+message = "Invalid right operand: type `mixed` cannot be reliably used in string concatenation."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Support/RandomWithSequence.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Dungeon\Support\RandomWithSequence::chance`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Support/RandomWithSequence.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Dungeon\Support\RandomWithSequence::chance`. Saw type `truthy-mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Support/RandomWithSequence.php"
+code = "possibly-false-operand"
+message = "Possibly false right operand used in string concatenation (type `false|non-empty-string`)."
+count = 2
+
+[[issues]]
+file = "app/Dungeon/Tile.php"
+code = "docblock-type-mismatch"
+message = 'Docblock type `array<array-key, enum(App\Dungeon\Direction)>` for parameter `$point` is incompatible with native type `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Tile.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Tile.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 1
+
+[[issues]]
+file = "app/Dungeon/Tile.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Dungeon\Tile::is`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Mail/MailPurgeCommand.php"
+code = "implicit-to-string-cast"
+message = 'Implicit conversion to `string` for left operand via `Tempest\Support\Str\ImmutableString::__toString()`.'
+count = 2
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `Tempest\Cache\Cache::remove`: expected `Stringable|string`, but found `int`.'
+count = 1
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `Tempest\Cache\Cache::resolve`: expected `Stringable|string`, but found `int`.'
+count = 1
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "invalid-array-element"
+message = "Cannot use spread operator on non-iterable type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "possibly-false-argument"
+message = "Argument #1 of function `crc32` is possibly `false`, but parameter type `string` does not accept it."
+count = 2
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "possibly-false-argument"
+message = 'Argument #1 of method `League\CommonMark\MarkdownConverter::convert` is possibly `false`, but parameter type `string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "possibly-false-argument"
+message = 'Argument #1 of method `Spatie\YamlFrontMatter\YamlFrontMatter::parse` is possibly `false`, but parameter type `string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "possibly-false-array-access"
+message = "Cannot perform array access on possibly `false` value."
+count = 1
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "possibly-null-argument"
+message = "Argument #1 of function `file_get_contents` is possibly `null`, but parameter type `string` does not accept it."
+count = 1
+
+[[issues]]
+file = "app/Mail/MailRepository.php"
+code = "reference-to-undefined-variable"
+message = "Reference created from a previously undefined variable `$matches`."
+count = 2
+
+[[issues]]
+file = "app/Nws/Commands/NwsSentimentCommand.php"
+code = "invalid-array-access"
+message = 'Cannot access array index on object `Codewithkyrian\Transformers\Utils\Image` that does not implement `ArrayAccess`.'
+count = 1
+
+[[issues]]
+file = "app/Nws/Commands/NwsSentimentCommand.php"
+code = "redundant-docblock-type"
+message = "Redundant docblock type for variable `$nws`."
+count = 1
+
+[[issues]]
+file = "app/Nws/Commands/NwsSyncCommand.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Nws/Commands/NwsSyncCommand.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Nws\Commands\NwsSyncCommand::parseXml`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Nws/Commands/NwsSyncCommand.php"
+code = "possibly-false-argument"
+message = "Argument #1 of function `json_decode` is possibly `false`, but parameter type `string` does not accept it."
+count = 1
+
+[[issues]]
+file = "app/Support/AppSeeder.php"
+code = "unused-property"
+message = "Property `$repository` is never used."
+count = 1
+
+[[issues]]
+file = "app/Support/Authentication/AuthController.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `Tempest\Auth\OAuth\OAuthClient::authenticate`: expected `(closure(Tempest\Auth\OAuth\OAuthUser): Tempest\Auth\Authentication\Authenticatable)`, but provided type `(closure(Tempest\Auth\OAuth\OAuthUser): truthy-mixed)` is less specific.'
+count = 1
+
+[[issues]]
+file = "app/Support/Authentication/AuthController.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Support/Authentication/AuthController.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Support/Authentication/AuthController.php"
+code = "mixed-return-statement"
+message = "Could not infer a precise return type for function `{closure:app/Support/Authentication/AuthController.php:56:40}`. Saw type `truthy-mixed`."
+count = 1
+
+[[issues]]
+file = "app/Support/Authentication/AuthController.php"
+code = "template-constraint-violation"
+message = "Argument type mismatch for template `T`."
+count = 1
+
+[[issues]]
+file = "app/Support/Browsershot/BrowsershotInitializer.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 5
+
+[[issues]]
+file = "app/Support/Browsershot/BrowsershotInitializer.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Support\Browsershot\BrowsershotInitializer::initialize`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Support/Browsershot/BrowsershotInitializer.php"
+code = "non-existent-class"
+message = 'Class `Spatie\Browsershot\Browsershot` not found.'
+count = 1
+
+[[issues]]
+file = "app/Support/Browsershot/BrowsershotInitializer.php"
+code = "non-existent-class-like"
+message = 'Cannot find class, interface, enum, or type alias `Spatie\Browsershot\Browsershot`.'
+count = 1
+
+[[issues]]
+file = "app/Support/Highlight/HighlightCodeBlockRenderer.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `Tempest\Highlight\Highlighter::parse` is possibly `null`, but parameter type `string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Support/Highlight/HighlightInlineCodeRenderer.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `Tempest\Highlight\Highlighter::parse` is possibly `null`, but parameter type `string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Support/Highlight/HighlightInlineCodeRenderer.php"
+code = "reference-to-undefined-variable"
+message = "Reference created from a previously undefined variable `$match`."
+count = 1
+
+[[issues]]
+file = "app/Support/Image/ImageFactory.php"
+code = "mixed-property-type-coercion"
+message = 'A value with a less specific type `non-empty-array<array-key, App\Support\Image\SrcSet>|non-empty-list<mixed>` is being assigned to property `$$srcset` (array<array-key, App\Support\Image\SrcSet>).'
+count = 1
+
+[[issues]]
+file = "app/Support/Image/ImageFactory.php"
+code = "possibly-false-operand"
+message = "Left operand in arithmetic operation might be `false` (type `false|float|non-negative-int`)."
+count = 2
+
+[[issues]]
+file = "app/Support/Image/ImageFactory.php"
+code = "possibly-false-operand"
+message = "Left operand in arithmetic operation might be `false` (type `false|non-negative-int`)."
+count = 2
+
+[[issues]]
+file = "app/Support/Image/ImageFactory.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of function `Tempest\Support\path` is possibly `null`, but parameter type `Stringable|string` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Support/Image/ImageFactory.php"
+code = "possibly-undefined-string-array-index"
+message = "Possibly undefined array key 'dirname' accessed on `array{'basename': string, 'dirname'?: string, 'extension'?: string, 'filename': string}`."
+count = 1
+
+[[issues]]
+file = "app/Support/Image/ImageFactory.php"
+code = "possibly-undefined-string-array-index"
+message = "Possibly undefined array key 'extension' accessed on `array{'basename': string, 'dirname'?: string, 'extension'?: string, 'filename': string}`."
+count = 1
+
+[[issues]]
+file = "app/Support/Markdown/SnippetRenderer.php"
+code = "less-specific-return-statement"
+message = 'Returned type `Stringable|null|string` is less specific than the declared return type `League\CommonMark\Util\HtmlElement|string` for function `App\Support\Markdown\SnippetRenderer::render`.'
+count = 2
+
+[[issues]]
+file = "app/Support/Markdown/SnippetRenderer.php"
+code = "nullable-return-statement"
+message = 'Function `App\Support\Markdown\SnippetRenderer::render` is declared to return `League\CommonMark\Util\HtmlElement|string` but possibly returns a nullable value (inferred as `Stringable|null|string`).'
+count = 2
+
+[[issues]]
+file = "app/Support/Sitemap/SitemapController.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `Tempest\Container\Container::get` is possibly `null`, but parameter type `class-string<Tempest\Router\DataProvider>` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Support/Sitemap/SitemapController.php"
+code = "redundant-docblock-type"
+message = "Redundant docblock type for variable `$dataProvider`."
+count = 1
+
+[[issues]]
+file = "app/Support/Sitemap/SitemapController.php"
+code = "redundant-nullsafe-operator"
+message = "Redundant nullsafe operator (`?->`) used on an expression that is never `null`."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "ambiguous-object-method-access"
+message = "Cannot statically verify method call on a generic `object` type."
+count = 2
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "incompatible-property-visibility"
+message = 'Property `$console` is defined differently in `Tempest\Console\HasConsole` and `app\support\storedevents\eventsreplaycommand` used by `app\support\storedevents\eventsreplaycommand`: visibility differs (private protected(set) vs private)'
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "mixed-array-access"
+message = "Unsafe array access on type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "possibly-invalid-argument"
+message = '''Possible argument type mismatch for argument #1 of `Tempest\Container\Container::get`: expected `class-string<'TClassName.tempest\container\container::get() extends object>`, but possibly received `string`.'''
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "possibly-invalid-argument"
+message = "Possible argument type mismatch for argument #1 of `count`: expected `Countable|array<array-key, mixed>`, but possibly received `Stringable|UnitEnum|array<array-key, mixed>|int|list{truthy-string}|null|string`."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "possibly-invalid-argument"
+message = "Possible argument type mismatch for argument #1 of `number_format`: expected `float`, but possibly received `int(0)|non-empty-string`."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "possibly-invalid-argument"
+message = "Possible argument type mismatch for argument #2 of `in_array`: expected `array<array-key, mixed>`, but possibly received `Stringable|UnitEnum|array<array-key, mixed>|int|list{truthy-string}|null|string`."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "possibly-invalid-operand"
+message = "Possibly invalid type for left operand."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "possibly-invalid-operand"
+message = "Possibly invalid type for right operand."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "possibly-null-argument"
+message = "Argument #1 of function `count` is possibly `null`, but parameter type `Countable|array<array-key, mixed>` does not accept it."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "possibly-null-argument"
+message = "Argument #2 of function `in_array` is possibly `null`, but parameter type `array<array-key, mixed>` does not accept it."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/EventsReplayCommand.php"
+code = "unused-property"
+message = "Property `$cache` is never used."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/ProjectorDiscovery.php"
+code = "invalid-array-access"
+message = 'Cannot perform array access on value of type `class-string<App\Support\StoredEvents\Projector>`.'
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/StoredEvent.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Support\StoredEvents\StoredEvent::getEvent`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/StoredEvent.php"
+code = "possibly-invalid-argument"
+message = '''Possible argument type mismatch for argument #1 of `Tempest\Reflection\ClassReflector::__construct`: expected `('TClassName.tempest\reflection\classreflector extends object)|ReflectionClass<('TClassName.tempest\reflection\classreflector extends object)>|class-string<'TClassName.tempest\reflection\classreflector extends object>`, but possibly received `string`.'''
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/StoredEventConfig.php"
+code = "docblock-type-mismatch"
+message = 'Docblock type `class-string<App\Support\StoredEvents\Projector>` for parameter `$projectors` is incompatible with native type `array<array-key, mixed>`.'
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/StoredEventConfig.php"
+code = "invalid-parameter-default-value"
+message = "Default value for parameter `$projectors` is not assignable to its declared type."
+count = 1
+
+[[issues]]
+file = "app/Support/StoredEvents/StoredEventMiddleware.php"
+code = "invalid-iterator"
+message = 'The expression provided to `foreach` is not iterable. It resolved to type `class-string<App\Support\StoredEvents\Projector>`, which is not iterable.'
+count = 1
+
+[[issues]]
+file = "app/Talks/things-talk.view.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`nonnull`)."
+count = 4
+
+[[issues]]
+file = "app/Time/TimeController.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`truthy-mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Time/TimeEntry.php"
+code = "possibly-false-operand"
+message = "Left operand in arithmetic operation might be `false` (type `false|int`)."
+count = 1
+
+[[issues]]
+file = "app/Time/x-time-entries.view.php"
+code = "invalid-iterator"
+message = "The expression provided to `foreach` is not iterable. It resolved to type `mixed`, which is not iterable."
+count = 1
+
+[[issues]]
+file = "app/Time/x-time-entries.view.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Time/x-time-entries.view.php"
+code = "undefined-variable"
+message = "Undefined variable: `$perWeek`."
+count = 1
+
+[[issues]]
+file = "app/ViewComponents/x-base.view.php"
+code = "mixed-operand"
+message = "Invalid left operand: type `nonnull` cannot be reliably used in string concatenation."
+count = 1
+
+[[issues]]
+file = "app/ViewComponents/x-base.view.php"
+code = "mixed-property-access"
+message = "Attempting to access a property on a non-object type (`nonnull`)."
+count = 5
+
+[[issues]]
+file = "app/ViewComponents/x-base.view.php"
+code = "redundant-null-coalesce"
+message = "Redundant null coalesce: left-hand side is always `null`."
+count = 1
+
+[[issues]]
+file = "app/ViewComponents/x-form.view.php"
+code = "non-existent-class-like"
+message = "Cannot find class, interface, enum, or type alias `Method`."
+count = 1
+
+[[issues]]
+file = "app/ViewComponents/x-form.view.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Http\Method::trySpoofingFrom`: expected `string`, but possibly received `string|unknown-ref(Method)`.'
+count = 1
+
+[[issues]]
+file = "app/ViewComponents/x-form.view.php"
+code = "possibly-invalid-argument"
+message = "Possible argument type mismatch for argument #1 of `htmlspecialchars`: expected `string`, but possibly received `string|unknown-ref(Method)`."
+count = 1
+
+[[issues]]
+file = "app/ViewComponents/x-input.view.php"
+code = "redundant-docblock-type"
+message = "Redundant docblock type for variable `$session`."
+count = 1
+
+[[issues]]
+file = "app/ViewComponents/x-input.view.php"
+code = "redundant-docblock-type"
+message = "Redundant docblock type for variable `$validator`."
+count = 1
+
+[[issues]]
+file = "app/Workout/Workout.php"
+code = "invalid-return-statement"
+message = 'Property hook `App\Workout\Workout::$part::get` returns `float` but property is typed as `int`.'
+count = 1
+
+[[issues]]
+file = "app/Workout/Workout.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "app/Workout/Workout.php"
+code = "mixed-operand"
+message = "Right operand in binary operation has type `mixed`."
+count = 1
+
+[[issues]]
+file = "app/Workout/Workout.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for property hook `App\Workout\Workout::$currentExercise::get`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Workout/Workout.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for property hook `App\Workout\Workout::$nextExercise::get`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Workout/Workout.php"
+code = "possible-method-access-on-null"
+message = "Attempting to call a method on `null`."
+count = 1
+
+[[issues]]
+file = "app/Workout/Workout.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #2 of `Tempest\Support\Arr\ManipulatesArray::slice`: expected `int|null`, but possibly received `float|int`.'
+count = 1
+
+[[issues]]
+file = "app/Workout/WorkoutController.php"
+code = "mixed-return-statement"
+message = 'Could not infer a precise return type for function `App\Workout\WorkoutController::resolveWorkout`. Saw type `mixed`.'
+count = 1
+
+[[issues]]
+file = "app/Workout/WorkoutController.php"
+code = "possible-method-access-on-null"
+message = "Attempting to call a method on `null`."
+count = 2
+
+[[issues]]
+file = "app/Workout/WorkoutController.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Workout\WorkoutController::storeWorkout` is possibly `null`, but parameter type `App\Workout\Workout` does not accept it.'
+count = 1
+
+[[issues]]
+file = "app/Workout/WorkoutController.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 1
+
+[[issues]]
+file = "tests/Analytics/TestsAnalytics.php"
+code = "invalid-parent-type"
+message = 'Cannot use `parent` as the current type (`Tests\Analytics\TestsAnalytics`) does not have a parent class.'
+count = 1
+
+[[issues]]
+file = "tests/Analytics/TestsAnalytics.php"
+code = "mixed-method-access"
+message = "Attempting to access a method on a non-object type (`mixed`)."
+count = 1
+
+[[issues]]
+file = "tests/Analytics/TestsAnalytics.php"
+code = "non-existent-property"
+message = 'Property `$database` does not exist on trait `Tests\Analytics\TestsAnalytics`.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/BeaconMajorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/BeaconMajorTest.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 10
+
+[[issues]]
+file = "tests/Dungeon/Cards/BeaconMinorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/BeaconMinorTest.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 8
+
+[[issues]]
+file = "tests/Dungeon/Cards/BreakthroughMajorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 5
+
+[[issues]]
+file = "tests/Dungeon/Cards/BreakthroughMinorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/Cards/GreedTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/KillDwellerMajorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 5
+
+[[issues]]
+file = "tests/Dungeon/Cards/KillDwellerMinorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/Cards/LocateHealthAltarTest.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/LocateManaAltarTest.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/LocateStabilityAltarTest.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/ManaPerMoveMinorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/ManaPerMovePermanentTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/RumbleMajorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 4
+
+[[issues]]
+file = "tests/Dungeon/Cards/RumbleMinorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/Cards/StabilityPerTilePermanentTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/Cards/SupportMajorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 6
+
+[[issues]]
+file = "tests/Dungeon/Cards/SupportMinorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 4
+
+[[issues]]
+file = "tests/Dungeon/Cards/TrapDisarmMajorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 5
+
+[[issues]]
+file = "tests/Dungeon/Cards/TrapDisarmMinorTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/DeckValidators/BreakthroughDeckValidatorTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\DeckValidators\BreakthroughDeckValidator::validate`: expected `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`, but provided type `Tempest\Support\Arr\ImmutableArray<mixed, mixed>` is less specific.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/DeckValidators/ClarityDeckValidatorTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\DeckValidators\ClarityDeckValidator::validate`: expected `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`, but provided type `Tempest\Support\Arr\ImmutableArray<mixed, mixed>` is less specific.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/DeckValidators/DeckSizeValidatorTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\DeckValidators\DeckSizeValidator::validate`: expected `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`, but provided type `Tempest\Support\Arr\ImmutableArray<mixed, mixed>` is less specific.'
+count = 2
+
+[[issues]]
+file = "tests/Dungeon/DeckValidators/LocateDeckValidatorTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\DeckValidators\LocateDeckValidator::validate`: expected `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`, but provided type `Tempest\Support\Arr\ImmutableArray<mixed, mixed>` is less specific.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/DeckValidators/PermanentCardDeckValidatorTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\DeckValidators\PermanentCardDeckValidator::validate`: expected `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`, but provided type `Tempest\Support\Arr\ImmutableArray<mixed, mixed>` is less specific.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/DeckValidators/RumbleDeckValidatorTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\DeckValidators\RumbleDeckValidator::validate`: expected `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`, but provided type `Tempest\Support\Arr\ImmutableArray<mixed, mixed>` is less specific.'
+count = 4
+
+[[issues]]
+file = "tests/Dungeon/DeckValidators/StabilityDeckValidatorTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\DeckValidators\StabilityDeckValidator::validate`: expected `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`, but provided type `Tempest\Support\Arr\ImmutableArray<mixed, mixed>` is less specific.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/DeckValidators/SupportDeckValidatorTest.php"
+code = "less-specific-nested-argument-type"
+message = 'Argument type mismatch for argument #2 of `App\Dungeon\DeckValidators\SupportDeckValidator::validate`: expected `Tempest\Support\Arr\ImmutableArray<array-key, mixed>`, but provided type `Tempest\Support\Arr\ImmutableArray<mixed, mixed>` is less specific.'
+count = 3
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 22
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 7
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "possible-method-access-on-null"
+message = "Attempting to call a method on `null`."
+count = 7
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "possibly-invalid-clone"
+message = 'Expression of type `App\Dungeon\Point|null` might not be a cloneable object.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\DungeonActions::despawnDweller` is possibly `null`, but parameter type `App\Dungeon\Dweller` does not accept it.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\DungeonActions::hideDweller` is possibly `null`, but parameter type `App\Dungeon\Dweller` does not accept it.'
+count = 2
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\DungeonActions::moveDweller` is possibly `null`, but parameter type `App\Dungeon\Dweller` does not accept it.'
+count = 1
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "possibly-null-argument"
+message = 'Argument #1 of method `App\Dungeon\DungeonActions::showDweller` is possibly `null`, but parameter type `App\Dungeon\Dweller` does not accept it.'
+count = 2
+
+[[issues]]
+file = "tests/Dungeon/DungeonActionsTest.php"
+code = "possibly-null-property-access"
+message = "Attempting to access a property on a possibly `null` value."
+count = 14
+
+[[issues]]
+file = "tests/Dungeon/PlayerMovementListenerTest.php"
+code = "invalid-argument"
+message = 'Invalid argument type for argument #1 of `App\Dungeon\Tile::__construct`: expected `array<array-key, enum(App\Dungeon\Direction)>`, but found `App\Dungeon\Point`.'
+count = 2
+
+[[issues]]
+file = "tests/Dungeon/PlayerMovementListenerTest.php"
+code = "invalid-method-access"
+message = 'Attempting to access a method on a non-object type (`array<array-key, enum(App\Dungeon\Direction)>`).'
+count = 1
+
+[[issues]]
+file = "tests/TestingDatabaseInitializer.php"
+code = "possibly-invalid-argument"
+message = 'Possible argument type mismatch for argument #1 of `Tempest\Support\str`: expected `Stringable|int|null|string`, but possibly received `UnitEnum|null|string`.'
+count = 1

@@ -4,6 +4,7 @@ namespace App\Dungeon\Cards;
 
 use App\Dungeon\ActiveCard;
 use App\Dungeon\PassiveCard;
+
 use function Tempest\Support\str;
 
 trait IsCard

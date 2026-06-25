@@ -4,11 +4,7 @@ namespace App\Dungeon;
 
 interface DungeonEvent
 {
-    public string $name {
-        get;
-    }
+    public string $name { get; }
 
-    public array $payload {
-        get;
-    }
+    public array $payload { get; }
 }

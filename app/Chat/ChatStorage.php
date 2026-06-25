@@ -35,18 +35,20 @@ final class ChatStorage
     private ?array $colors = null;
 
     public function __construct(
-        #[Tag('local')] private Storage $storage,
+        #[Tag('local')]
+        private Storage $storage,
     ) {}
 
     public function appendMessage(Message $message): void
     {
-        $data = json_encode([
-            'user' => $message->user,
-            'content' => $message->content,
-            'platform' => $message->platform,
-            'timestamp' => $message->timestamp->format('c'),
-            'color' => $message->color,
-        ]) . "\n";
+        $data =
+            json_encode([
+                'user' => $message->user,
+                'content' => $message->content,
+                'platform' => $message->platform,
+                'timestamp' => $message->timestamp->format('c'),
+                'color' => $message->color,
+            ]) . "\n";
 
         $existing = '';
 
@@ -60,7 +62,7 @@ final class ChatStorage
     /** @return Message[] */
     public function getMessages(): array
     {
-        if (!$this->storage->fileExists(self::MESSAGES_FILE)) {
+        if (! $this->storage->fileExists(self::MESSAGES_FILE)) {
             return [];
         }
 
@@ -70,7 +72,7 @@ final class ChatStorage
         $messages = [];
 
         foreach ($lines as $line) {
-            if (empty($line)) {
+            if (! $line) {
                 continue;
             }
 
@@ -96,7 +98,7 @@ final class ChatStorage
     {
         $colors = $this->loadColors();
 
-        if (!isset($colors[$user])) {
+        if (! isset($colors[$user])) {
             $colors[$user] = self::PALETTE[count($colors) % count(self::PALETTE)];
             $this->saveColors($colors);
         }
@@ -110,7 +112,7 @@ final class ChatStorage
             return $this->colors;
         }
 
-        if (!$this->storage->fileExists(self::COLORS_FILE)) {
+        if (! $this->storage->fileExists(self::COLORS_FILE)) {
             $this->colors = [];
             return $this->colors;
         }

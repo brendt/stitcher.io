@@ -18,7 +18,6 @@ final class RandomWithSequence implements Random
 
     public function chance(float $percentage): bool
     {
-
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 
         if (isset($trace[0]['file'])) {
@@ -38,11 +37,7 @@ final class RandomWithSequence implements Random
         $logAsString = json_encode($this->chanceLog, JSON_PRETTY_PRINT);
 
         throw new Exception(
-            "No more chances in the sequence to generate a random chance"
-            . PHP_EOL
-            . 'Called by:'
-            . PHP_EOL
-            . $logAsString,
+            'No more chances in the sequence to generate a random chance' . PHP_EOL . 'Called by:' . PHP_EOL . $logAsString,
         );
     }
 
@@ -81,11 +76,7 @@ final class RandomWithSequence implements Random
         $logAsString = json_encode($this->itemLog, JSON_PRETTY_PRINT);
 
         throw new Exception(
-            "No more items in the sequence to generate a random item"
-            . PHP_EOL
-            . 'Called by:'
-            . PHP_EOL
-            . $logAsString,
+            'No more items in the sequence to generate a random item' . PHP_EOL . 'Called by:' . PHP_EOL . $logAsString,
         );
     }
 

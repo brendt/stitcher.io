@@ -2,8 +2,6 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\KillDwellerMajor;
 use App\Dungeon\Events\ActiveCardUnset;
 use App\Dungeon\Events\CardUpdated;
@@ -11,6 +9,7 @@ use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class KillDwellerMajorTest extends DungeonTest
 {

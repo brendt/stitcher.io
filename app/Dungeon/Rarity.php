@@ -31,7 +31,7 @@ enum Rarity
 
     public function getChance(): int
     {
-        return match($this) {
+        return match ($this) {
             self::COMMON => 80,
             self::RARE => 40,
             self::EPIC => 10,

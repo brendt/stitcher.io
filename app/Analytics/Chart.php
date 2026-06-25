@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Analytics;
 
 use Tempest\Support\Arr\ImmutableArray;
+
 use function Tempest\Support\arr;
 
 final class Chart
@@ -27,7 +28,7 @@ final class Chart
     {
         return new self(
             datasets: arr($datasets)
-                ->map(fn (ImmutableArray $items, int|string $title) => new Dataset($title, $items))
+                ->map(fn (ImmutableArray $items, int|string $title) => new Dataset($title, $items)),
         );
     }
 }

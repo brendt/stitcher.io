@@ -6,10 +6,9 @@ use App\Aggregate\Suggestions\Events\FeedUriFetchFailed;
 use App\Aggregate\Suggestions\Events\FeedUriFound;
 use App\Aggregate\Suggestions\Events\FeedUrisFetchFailed;
 use App\Aggregate\Suggestions\Events\FeedUrisResolved;
-use App\Suggestions\Events\FeedUriFetchEmpty;
 use Dom\HTMLDocument;
-use Feed;
 use Throwable;
+
 use function Tempest\EventBus\event;
 use function Tempest\Support\str;
 
@@ -30,7 +29,7 @@ final readonly class FindSuggestionFeedUri
         foreach ($uris as $uri) {
             try {
                 $input = @file_get_contents($uri);
-                $xml = simplexml_load_string($input, "SimpleXMLElement", LIBXML_NOCDATA);
+                $xml = simplexml_load_string($input, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $json = json_encode($xml);
                 json_decode($json, true, flags: JSON_THROW_ON_ERROR);
             } catch (Throwable) {

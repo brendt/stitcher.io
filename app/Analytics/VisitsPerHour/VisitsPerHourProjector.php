@@ -34,7 +34,7 @@ final class VisitsPerHourProjector implements Projector, BufferedProjector
         $query = new Query(sprintf(
             'INSERT INTO `visits_per_hour` (`hour`, `count`) VALUES %s ON DUPLICATE KEY UPDATE `count` = `count` + 1',
             implode(',', array_map(
-                fn (string $hour) => "(\"$hour\",1)",
+                fn (string $hour) => "(\"{$hour}\",1)",
                 $this->inserts,
             )),
         ));

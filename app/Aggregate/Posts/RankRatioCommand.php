@@ -6,6 +6,7 @@ use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\Console\Schedule;
 use Tempest\Console\Scheduler\Every;
+
 use function Tempest\Support\arr;
 
 final class RankRatioCommand
@@ -31,7 +32,7 @@ final class RankRatioCommand
                 continue;
             }
 
-            $ratio = (int) floor((($amountPublished / $amountTotal) * 100));
+            $ratio = (int) floor(($amountPublished / $amountTotal) * 100);
 
             $source->publicationRatio = $ratio;
             $source->save();

@@ -2,13 +2,12 @@
 
 namespace Tests\Dungeon\Cards;
 
-use Tests\Dungeon\DungeonTest;
-
 use App\Dungeon\Cards\UpperHandMajor;
 use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Events\DwellerSpawned;
 use App\Dungeon\Point;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Dungeon\DungeonTest;
 
 final class UpperHandMajorTest extends DungeonTest
 {

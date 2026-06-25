@@ -1,12 +1,13 @@
 <?php
 /** @var \App\Dungeon\Persistence\DungeonUserCard[] $deck */
 
-use App\Dungeon\Persistence\DungeonUserCard;
+use App\Dungeon\Dungeon;
 use App\Dungeon\Http\DungeonGameController;
 use App\Dungeon\Http\DungeonHomeController;
-use function Tempest\Support\arr;
+use App\Dungeon\Persistence\DungeonUserCard;
+
 use function Tempest\Router\uri;
-use App\Dungeon\Dungeon;
+use function Tempest\Support\arr;
 
 $activeCards = arr($deck)->filter(fn (DungeonUserCard $card) => $card->isActive);
 $inactiveCards = arr($deck)->filter(fn (DungeonUserCard $card) => ! $card->isActive);

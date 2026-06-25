@@ -1,7 +1,8 @@
 <?php
 
-use function Tempest\Router\uri;
 use App\Mail\MailController;
+
+use function Tempest\Router\uri;
 
 ?>
 
