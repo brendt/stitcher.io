@@ -1,0 +1,5 @@
+---
+title: Extensions
+---
+
+PHP has 
