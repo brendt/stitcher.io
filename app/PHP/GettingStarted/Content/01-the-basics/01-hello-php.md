@@ -62,7 +62,7 @@ If you'd now visit `localhost:8000` in your browser, you would see "Hello, PHP" 
 
 One thing you'll notice with PHP is that you can make changes to your source code, refresh the page, and those changes will be immediately shown. There's no recompilation or server restart required. That's because PHP is an **interpreted programming language**; its code will be compiled on the fly. Of course there are robust caching mechanisms in place to make this process very performant as well.
 
-One of PHP's strengths is its interpreted nature. You'll find that the lack of compilation step makes it feel very fast to develop with as you're never waiting on or restarting processing. Later in this book, we'll cover modern-day tooling for PHP that add all kinds of "compile-time" features to the language like type checkers, code formatters, and more.
+One of PHP's strengths is its interpreted nature. You'll find that the lack of compilation step makes it feel very fast to develop with as you're never waiting on or restarting processing. Later in this book, we'll cover modern-day tooling for PHP that adds all kinds of "compile-time" features to the language like type checkers, code formatters, and more. What's important to note it that whenever we mention **runtime** in PHP, it means that PHP is doing work on the fly.
 
 ## In summary
 
