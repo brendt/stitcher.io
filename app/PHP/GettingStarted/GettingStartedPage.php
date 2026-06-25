@@ -4,6 +4,7 @@ namespace App\PHP\GettingStarted;
 
 use App\Blog\Meta;
 use function Tempest\Router\uri;
+use function Tempest\Support\str;
 
 final class GettingStartedPage
 {
@@ -11,12 +12,21 @@ final class GettingStartedPage
         public int $index,
         public string $slug,
         public string $title,
+        public string $category,
         public string $content,
         public Meta $meta,
         public ?GettingStartedPage $next = null,
     ) {}
 
     public string $uri {
-        get => uri([GettingStartedController::class, 'show'], slug: $this->slug);
+        get => uri(
+            [GettingStartedController::class, 'show'],
+            category: str($this->category)->afterFirst('-')->toString(),
+            slug: $this->slug
+        );
+    }
+
+    public string $categoryName {
+        get => str($this->category)->afterFirst('-')->replace('-', ' ')->title()->toString();
     }
 }

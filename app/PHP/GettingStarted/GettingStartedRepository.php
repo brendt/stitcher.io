@@ -18,9 +18,9 @@ final class GettingStartedRepository
         #[Tag('php')] private readonly Markdown $markdown,
     ) {}
 
-    public function find(string $slug): ?GettingStartedPage
+    public function find(string $category, string $slug): ?GettingStartedPage
     {
-        $path = glob(__DIR__ . "/Content/*-{$slug}.md")[0] ?? null;
+        $path = glob(__DIR__ . "/Content/*-{$category}/*-{$slug}.md")[0] ?? null;
 
         if (! $path) {
             return null;
@@ -42,9 +42,10 @@ final class GettingStartedRepository
         preg_match('/(?<index>\d+)-(?<slug>.*)\.md/', $path, $matches);
 
         $page = new GettingStartedPage(
-            index: (int) $matches['index'],
+            index: (int)$matches['index'],
             slug: $slug,
             title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
+            category: $category,
             content: $parsed->html,
             meta: new Meta(
                 title: $meta['title'] ?? $frontMatter['title'] ?? null,
@@ -81,11 +82,12 @@ final class GettingStartedRepository
             return self::$posts;
         }
 
-        $posts = arr(glob(__DIR__ . '/Content/*.md'))
+        $posts = arr(glob(__DIR__ . '/Content/*/*.md'))
             ->filter(fn (string $path) => ! str_starts_with($path, __DIR__ . '/Content/_'))
             ->map(function (string $path) {
                 $content = file_get_contents($path);
-                preg_match('/(?<index>\d+)-(?<slug>.*)\.md/', $path, $matches);
+                preg_match('/(?<category>\d+-.*?)\/(?<index>\d+)-(?<slug>.*)\.md/', $path, $matches);
+
                 $frontMatter = YamlFrontMatter::parse($content)->matter();
 
                 $slug = $matches['slug'];
@@ -95,9 +97,10 @@ final class GettingStartedRepository
                 unset($frontMatter['meta']);
 
                 return new GettingStartedPage(
-                    index: (int) $matches['index'],
+                    index: (int)$matches['index'],
                     slug: $slug,
                     title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
+                    category: $matches['category'],
                     content: '',
                     meta: new Meta(
                         title: $meta['title'] ?? $frontMatter['title'] ?? null,

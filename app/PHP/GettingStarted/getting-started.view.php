@@ -10,6 +10,8 @@
             <div class="max-w-screen-xl mx-auto px-6 h-14 flex items-center gap-3">
                 <a href="/php" class="font-bold text-lg text-primary tracking-tight">Getting Started with PHP</a>
                 <span class="text-gray-300 select-none">/</span>
+                <span class="text-gray-500 text-sm truncate">{{ $page->categoryName }}</span>
+                <span class="text-gray-300 select-none">/</span>
                 <span class="text-gray-500 text-sm truncate">{{ $page->title }}</span>
             </div>
         </header>
@@ -17,16 +19,19 @@
         <div class="max-w-screen-xl mx-auto px-6 py-10 flex gap-12 items-start">
             <!-- Sidebar (desktop) -->
             <aside class="hidden md:block w-52 shrink-0 sticky top-20">
-                <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-3">Chapters</p>
-                <nav class="flex flex-col gap-0.5">
-                    <a
-                        :foreach="$pages as $other"
-                        :href="$other->uri"
-                        class="px-3 py-2 rounded-lg text-sm font-medium transition-colors"
-                        :class="$other->slug === $page->slug
+                <nav class="flex flex-col gap-4">
+                    <div :foreach="$pages as $category => $perCategory" class="flex flex-col gap-0.5">
+                        <span class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2">{{ $category }}</span>
+                        <a
+                                :foreach="$perCategory as $other"
+                                :href="$other->uri"
+                                class="px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+                                :class="$other->slug === $page->slug
                             ? 'bg-primary text-white shadow-sm'
                             : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'"
-                    ><span class="text-xs">{{ $other->index }}.</span>&nbsp;{{ $other->title }}</a>
+                        ><span class="text-xs">{{ $other->index }}.</span>&nbsp;{{ $other->title }}</a>
+                    </div>
+
                 </nav>
             </aside>
 
@@ -37,14 +42,16 @@
                 <div class="md:hidden mb-6">
                     <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2">Chapters</p>
                     <div class="flex flex-wrap gap-2">
-                        <a
-                            :foreach="$pages as $other"
-                            :href="$other->uri"
-                            class="px-3 py-1 rounded-full text-sm font-medium"
-                            :class="$other->slug === $page->slug
+                        <x-template :foreach="$pages as $category => $perCategory">
+                            <a
+                                    :foreach="$perCategory as $other"
+                                    :href="$other->uri"
+                                    class="px-3 py-1 rounded-full text-sm font-medium"
+                                    :class="$other->slug === $page->slug
                                 ? 'bg-primary text-white'
                                 : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'"
-                        >{{ $other->title }}</a>
+                            >{{ $other->title }}</a>
+                        </x-template>
                     </div>
                 </div>
 
