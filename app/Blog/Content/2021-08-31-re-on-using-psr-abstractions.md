@@ -42,10 +42,10 @@ Take, for example PSR-18, the HTTP client interface:
 interface ClientInterface
 {
     /**
-     * @throws <hljs type>\Psr\Http\Client\ClientExceptionInterface</hljs>
+     * @throws \Psr\Http\Client\ClientExceptionInterface
      */
     public function sendRequest(
-        <hljs type>RequestInterface</hljs> $request
+        RequestInterface $request
     ): ResponseInterface;
 }
 ```
@@ -54,7 +54,7 @@ Granted, this is as simple as an HTTP client can get. It should be able to send 
 
 > It is a great abstraction already: it does what you need, nothing more, nothing less. After all, what you need is to send an HTTP request and do something with the returned HTTP response
 
-However, there's of course that infamous `<hljs type>RequestInterface</hljs>`. Here's Matthias again:
+However, there's of course that infamous `RequestInterface`. Here's Matthias again:
 
 > The only problem about this interface is maybe: how can you create a RequestInterface instance?
 
@@ -68,15 +68,15 @@ Matthias contemplates the idea that maybe your own, simpler abstraction is a bet
 interface HttpClient
 {
     public function get(
-        <hljs type>string</hljs> $uri, 
-        <hljs type>array</hljs> $headers, 
-        <hljs type>array</hljs> $query
+        string $uri, 
+        array $headers, 
+        array $query
     ): string;
 
     public function post(
-        <hljs type>string</hljs> $uri, 
-        <hljs type>array</hljs> $headers, 
-        <hljs type>string</hljs> $body
+        string $uri, 
+        array $headers, 
+        string $body
     ): string;
 }
 ```
@@ -116,7 +116,7 @@ Matthias carefully uses the word "outdated" here, though I want to say it's a pl
 
 Now some people tell me "you can't predict the future, maybe you _do_ want interoperability somewhere in the next few years". I don't know about others but we actually outline the scope of projects in contracts with clients. They pay us to make an application specifically in one framework. There's no need for this level of interoperability.
 
-Take a look, for example at both the container interface implementations of [Symfony](https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/DependencyInjection/ContainerInterface.php) and [Laravel](https://github.com/laravel/framework/blob/8.x/src/Illuminate/Contracts/Container/Container.php), both implement `<hljs type>\Psr\Container\ContainerInterface</hljs>`, and yet both add so many more methods. Implementing PSR-11 is merely a gimmick here for frameworks to be able to say "yes, we're PSR compliant"; because there's **no real interoperability between these two**.
+Take a look, for example at both the container interface implementations of [Symfony](https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/DependencyInjection/ContainerInterface.php) and [Laravel](https://github.com/laravel/framework/blob/8.x/src/Illuminate/Contracts/Container/Container.php), both implement `\Psr\Container\ContainerInterface`, and yet both add so many more methods. Implementing PSR-11 is merely a gimmick here for frameworks to be able to say "yes, we're PSR compliant"; because there's **no real interoperability between these two**.
 
 Another example: PSR-7, the HTTP messages PSR. Both [Symfony](*https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/HttpFoundation/Request.php) and [Laravel](*https://github.com/laravel/framework/blob/8.x/src/Illuminate/Http/Request.php) don't implement PSR-7, because it simply doesn't solve their use cases. Oh and, just to be able to say "yes we're PSR compliant", there's the [PSR-7 bridge](*https://symfony.com/doc/current/components/psr7.html), which basically applies the adapter pattern.
 
@@ -154,8 +154,8 @@ In other words: I mainly look at PSRs from a framework's perspective, frameworks
 Here's one of the examples Matthieu gave in practice. Phinx optionally supports to set a container instance, which it'll use to [resolve seed classes](*https://github.com/cakephp/phinx/blob/master/src/Phinx/Migration/Manager.php#L888-L889).
 
 ```php
-if ($this-><hljs prop>container</hljs> !== null) {
-    $seed = $this-><hljs prop>container</hljs>-><hljs prop>get</hljs>($class);
+if ($this->container !== null) {
+    $seed = $this->container->get($class);
 }
 ```
 

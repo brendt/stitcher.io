@@ -30,14 +30,14 @@ I think the language should help prevent us making these mistakes.
 That's why I would make all classes final by default:
 
 ```php
-<hljs error>final</hljs> class Foo
+final class Foo
 {
 }
 ```
 
 
 ```php
-class Bar <hljs striped>extends Foo</hljs>
+class Bar extends Foo
 {
 }
 ```
@@ -53,7 +53,7 @@ Why not go with the obvious way: no return type, means nothing is returned.
 ```php
 class Foo
 {
-    public function bar()<hljs error>: void</hljs>
+    public function bar(): void
     {
         // …
     }
@@ -65,7 +65,7 @@ class Foo
 {
     public function bar()
     {
-        <hljs striped>return false;</hljs>
+        return false;
     }
 }
 ```
@@ -91,13 +91,13 @@ We already established that my version of PHP would make return types required.
 It's no surprise that the same goes for function parameters.
 
 ```php
-public function handle(<hljs striped>$bar</hljs>)
+public function handle($bar)
 {
 }
 ``` 
 
 ```php
-public function handle(<hljs type>Bar</hljs> $bar)
+public function handle(Bar $bar)
 {
 }
 ```
@@ -111,14 +111,14 @@ I'd make them required though.
 ```php
 class Foo
 {
-    <hljs striped>public <hljs prop>$bar</hljs>;</hljs>
+    public $bar;
 }
 ```
 
 ```php
 class Foo
 {
-    public <hljs type>Bar</hljs> <hljs prop>$bar</hljs>;
+    public Bar $bar;
 }
 ```
 
@@ -130,10 +130,10 @@ That's why all methods and class variables must have a visibility modifier.
 ```php
 class Foo
 {
-    <hljs striped>function bar()
+    function bar()
     {
         // …
-    }</hljs>
+    }
 } 
 ```
 
@@ -157,19 +157,19 @@ A final variable may be set on construct, and not be changed afterwards.
 ```php
 class Foo
 {
-    public final <hljs type>Bar</hljs> <hljs prop>$bar</hljs>;
+    public final Bar $bar;
     
-    public <hljs prop>__construct</hljs>(<hljs type>Bar</hljs> $bar)
+    public __construct(Bar $bar)
     {
-        $this-><hljs prop>bar</hljs> = $bar;
+        $this->bar = $bar;
     }
 }
 ```
 
 ```php
-$foo = new <hljs type>Foo</hljs>($bar);
+$foo = new Foo($bar);
 
-<hljs striped>$foo->bar = new Bar();</hljs>
+$foo->bar = new Bar();
 ```
 
 ## No more uninitialized state
@@ -179,24 +179,24 @@ Right now, [Typed properties](/blog/typed-properties-in-php-74) can be initializ
 ```php
 class Foo
 {
-    public <hljs type>string</hljs> <hljs prop>$bar</hljs>;
+    public string $bar;
     
     public function __construct() {
         // Don't initialize bar
     }
 }
 
-$foo = new <hljs type>Foo</hljs>();
+$foo = new Foo();
 
-$foo-><hljs prop>bar</hljs> = 'abc';
+$foo->bar = 'abc';
 ```
 
 PHP only throws an error when the property is accessed before it's initialised.
 
 ```php
-$foo = new <hljs type>Foo</hljs>();
+$foo = new Foo();
 
-echo $foo-><hljs prop>bar</hljs>; // Error
+echo $foo->bar; // Error
 ```
 
 I'd say to get rid rid of this behaviour. If a typed property isn't initialised after the object was constructed, you get an error.
@@ -218,14 +218,14 @@ function a() {
 
 function b() => 1;
 
-<hljs keyword>fn</hljs> <hljs prop>c</hljs>() {
+fn c() {
     return /* … */;
 }
 
-<hljs keyword>fn</hljs> <hljs prop>d</hljs>() => 1;
+fn d() => 1;
 ```
 
-Here's the difference: when using the `<hljs keyword>function</hljs>` keyword, there's no automatic access to the outer scope, in other words you'll have to use `<hljs keyword>use</hljs>` to access variables outside the closure. Using `<hljs keyword>fn</hljs>` doesn't have this restriction.
+Here's the difference: when using the `function` keyword, there's no automatic access to the outer scope, in other words you'll have to use `use` to access variables outside the closure. Using `fn` doesn't have this restriction.
 
 If you're using the bracket notation for the closure's body `{}`, you'll be allowed to write multiline functions, but there's no magic return statement. `=>` on the other hand only allows a single expression, which is immediately returned.
 
@@ -243,7 +243,7 @@ public function handle(): string
     return "a, b, c";
 }
 
-$this-><hljs prop>handle</hljs>()<hljs >-><hljs prop>explode</hljs>(',')</hljs>;
+$this->handle()->explode(',');
 ```
 
 ## Improved variance
@@ -261,12 +261,12 @@ class Bar extends Foo { /* … */ }
 ```php
 interface A
 {
-    public function handle(<hljs type>Bar</hljs> $bar): Foo;
+    public function handle(Bar $bar): Foo;
 }
 
 class B implements A
 {
-    public function handle(<hljs type>Foo</hljs> $bar): <hljs type>Bar</hljs>
+    public function handle(Foo $bar): Bar
     {
         // …
     }
@@ -284,7 +284,7 @@ After several improvements to the type system, I'd add some more improved ways t
 First a feature that probably most of the PHP world is waiting for: generics.  
 
 ```php
-class List<<hljs type>T</hljs>>
+class List<T>
 {
     public function current(): T
     {
@@ -301,21 +301,21 @@ Based on the [several](*https://github.com/myclabs/php-enum) [userland](*https:/
 it's clear that the community would benefit from a built-in enum type.
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>Status</hljs> 
+enum Status 
 {
-    <hljs prop>DRAFT</hljs>, <hljs prop>STATUS</hljs>, <hljs prop>PUBLISHED</hljs>;
+    DRAFT, STATUS, PUBLISHED;
 }
 ```
 
 ```php
 class Bar
 {
-    public <hljs type>Status</hljs> $status;
+    public Status $status;
 }
 ```
 
 ```php
-$bar->status = <hljs type>Status</hljs>::<hljs prop>DRAFT</hljs>;
+$bar->status = Status::DRAFT;
 ```
 
 It's interesting to note that a new RFC [popped up](*https://wiki.php.net/rfc/enumerations_and_adts) that might add enums in PHP 8.1. It's still being discussed though, so nothing concrete yet.
@@ -328,14 +328,14 @@ It allows us to define strongly typed objects.
 In essence, they are a userland implementation of what structs are meant to solve.
 
 ```php
-<hljs keyword>struct</hljs> <hljs type>Point</hljs> {
-    <hljs type>int</hljs> $x;
-    <hljs type>int</hljs> $y;
+struct Point {
+    int $x;
+    int $y;
 }
 ```
 
 ```php
-$point = <hljs type>Point</hljs> {1, 2}
+$point = Point {1, 2}
 ```
 
 ## What would you like to change?

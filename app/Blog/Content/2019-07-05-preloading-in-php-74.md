@@ -52,7 +52,7 @@ Say you want to preload a framework, Laravel for example. Your script will have 
 Here's how you'd link to this script in php.ini:
 
 ```ini
-<hljs prop>opcache.preload</hljs>=/path/to/project/preload.php
+opcache.preload=/path/to/project/preload.php
 ```
 
 And here's a dummy implementation:
@@ -61,7 +61,7 @@ And here's a dummy implementation:
 $files = /* An array of files you want to preload */;
 
 foreach ($files as $file) {
-    <hljs prop>opcache_compile_file</hljs>($file);
+    opcache_compile_file($file);
 }
 ```
 
@@ -73,9 +73,9 @@ If there are any problems with the class dependencies, you'll be notified of it 
 
 ```txt
 Can't preload unlinked class 
-<hljs type>Illuminate\Database\Query\JoinClause</hljs>: 
+Illuminate\Database\Query\JoinClause: 
 Unknown parent 
-<hljs type>Illuminate\Database\Query\Builder</hljs>
+Illuminate\Database\Query\Builder
 ```
 
 See, `opcache_compile_file()` will parse a file, but not execute it. This means that if a class has dependencies that aren't preloaded, itself can also not be preloaded.
@@ -100,15 +100,15 @@ For convenience, I wrote a little [preloader class](*https://github.com/brendt/l
 ```php
 class Preloader
 {
-    private <hljs type>array</hljs> $ignores = [];
+    private array $ignores = [];
 
-    private static <hljs type>int</hljs> $count = 0;
+    private static int $count = 0;
 
-    private <hljs type>array</hljs> $paths;
+    private array $paths;
 
-    private <hljs type>array</hljs> $fileMap;
+    private array $fileMap;
 
-    public function __construct(<hljs type>string</hljs> ...$paths)
+    public function __construct(string ...$paths)
     {
         $this->paths = $paths;
 
@@ -117,12 +117,12 @@ class Preloader
         // based on their filename
         $classMap = require __DIR__ . '/vendor/composer/autoload_classmap.php';
 
-        $this->fileMap = <hljs prop>array_flip</hljs>($classMap);
+        $this->fileMap = array_flip($classMap);
     }
     
-    public function paths(<hljs type>string</hljs> ...$paths): Preloader
+    public function paths(string ...$paths): Preloader
     {
-        $this->paths = <hljs prop>array_merge</hljs>(
+        $this->paths = array_merge(
             $this->paths,
             $paths
         );
@@ -130,9 +130,9 @@ class Preloader
         return $this;
     }
 
-    public function ignore(<hljs type>string</hljs> ...$names): Preloader
+    public function ignore(string ...$names): Preloader
     {
-        $this->ignores = <hljs prop>array_merge</hljs>(
+        $this->ignores = array_merge(
             $this->ignores,
             $names
         );
@@ -145,7 +145,7 @@ class Preloader
         // We'll loop over all registered paths
         // and load them one by one
         foreach ($this->paths as $path) {
-            $this-><hljs prop>loadPath</hljs>(<hljs prop>rtrim</hljs>($path, '/'));
+            $this->loadPath(rtrim($path, '/'));
         }
 
         $count = self::$count;
@@ -153,45 +153,45 @@ class Preloader
         echo "[Preloader] Preloaded {$count} classes" . PHP_EOL;
     }
 
-    private function loadPath(<hljs type>string</hljs> $path): void
+    private function loadPath(string $path): void
     {
         // If the current path is a directory,
         // we'll load all files in it 
-        if (<hljs prop>is_dir</hljs>($path)) {
-            $this-><hljs prop>loadDir</hljs>($path);
+        if (is_dir($path)) {
+            $this->loadDir($path);
 
             return;
         }
 
         // Otherwise we'll just load this one file
-        $this-><hljs prop>loadFile</hljs>($path);
+        $this->loadFile($path);
     }
 
-    private function loadDir(<hljs type>string</hljs> $path): void
+    private function loadDir(string $path): void
     {
-        $handle = <hljs prop>opendir</hljs>($path);
+        $handle = opendir($path);
 
         // We'll loop over all files and directories
         // in the current path,
         // and load them one by one
-        while ($file = <hljs prop>readdir</hljs>($handle)) {
-            if (<hljs prop>in_array</hljs>($file, ['.', '..'])) {
+        while ($file = readdir($handle)) {
+            if (in_array($file, ['.', '..'])) {
                 continue;
             }
 
-            $this-><hljs prop>loadPath</hljs>("{$path}/{$file}");
+            $this->loadPath("{$path}/{$file}");
         }
 
-        <hljs prop>closedir</hljs>($handle);
+        closedir($handle);
     }
 
-    private function loadFile(<hljs type>string</hljs> $path): void
+    private function loadFile(string $path): void
     {
         // We resolve the classname from composer's autoload mapping
         $class = $this->fileMap[$path] ?? null;
 
         // And use it to make sure the class shouldn't be ignored
-        if ($this-><hljs prop>shouldIgnore</hljs>($class)) {
+        if ($this->shouldIgnore($class)) {
             return;
         }
 
@@ -204,14 +204,14 @@ class Preloader
         echo "[Preloader] Preloaded `{$class}`" . PHP_EOL;
     }
 
-    private function shouldIgnore(?<hljs type>string</hljs> $name): bool
+    private function shouldIgnore(?string $name): bool
     {
         if ($name === null) {
             return true;
         }
 
         foreach ($this->ignores as $ignore) {
-            if (<hljs prop>strpos</hljs>($name, $ignore) === 0) {
+            if (strpos($name, $ignore) === 0) {
                 return true;
             }
         }
@@ -226,16 +226,16 @@ By adding this class in the same preload script, we're now able to load the whol
 ```php
 // …
 
-(new <hljs type>Preloader</hljs>())
-    -><hljs prop>paths</hljs>(__DIR__ . '/vendor/laravel')
-    -><hljs prop>ignore</hljs>(
-        <hljs type>\Illuminate\Filesystem\Cache</hljs>::class,
-        <hljs type>\Illuminate\Log\LogManager</hljs>::class,
-        <hljs type>\Illuminate\Http\Testing\File</hljs>::class,
-        <hljs type>\Illuminate\Http\UploadedFile</hljs>::class,
-        <hljs type>\Illuminate\Support\Carbon</hljs>::class,
+(new Preloader())
+    ->paths(__DIR__ . '/vendor/laravel')
+    ->ignore(
+        \Illuminate\Filesystem\Cache::class,
+        \Illuminate\Log\LogManager::class,
+        \Illuminate\Http\Testing\File::class,
+        \Illuminate\Http\UploadedFile::class,
+        \Illuminate\Support\Carbon::class,
     )
-    -><hljs prop>load</hljs>();
+    ->load();
 ```
 
 ## Does it work?

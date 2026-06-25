@@ -25,16 +25,16 @@ To make sure we're on the same page, route attributes in their most basic form w
 ```php
 class PostAdminController
 {
-    #[<hljs type>Get</hljs>(<hljs text>'/posts'</hljs>)]
+    #[Get('/posts')]
     public function index() {}
     
-    #[<hljs type>Get</hljs>(<hljs text>'/posts/{post}'</hljs>)]
-    public function show(<hljs type>Post</hljs> $post) {}
+    #[Get('/posts/{post}')]
+    public function show(Post $post) {}
     
     // …
     
-    #[<hljs type>Post</hljs>(<hljs text>'/posts/{post}'</hljs>)]
-    public function store(<hljs type>Post</hljs> $post) {}
+    #[Post('/posts/{post}')]
+    public function store(Post $post) {}
 }
 ```
 
@@ -51,49 +51,49 @@ I'm sure you can come up with quite a lot of different approaches to modeling su
 You could manage "shared route configuration", stuff like prefixes and middlewares, on the controller level:
 
 ```php
-#[<hljs type>Prefix</hljs>(<hljs text>'/posts'</hljs>)]
-#[<hljs type>Middleware</hljs>(<hljs type>AdminMiddleware</hljs><hljs text>::class</hljs>)]
+#[Prefix('/posts')]
+#[Middleware(AdminMiddleware::class)]
 class PostController
 {
-    #[<hljs type>Get</hljs>(<hljs text>'/posts'</hljs>)]
+    #[Get('/posts')]
     public function index() {}
     
-    #[<hljs type>Get</hljs>(<hljs text>'/posts/{post}'</hljs>)]
-    public function show(<hljs type>Post</hljs> $post) {}
+    #[Get('/posts/{post}')]
+    public function show(Post $post) {}
 }
 ```
 
-Or, taking it a step further; have a generic `<hljs type>Route</hljs>` attribute that can be used like so:
+Or, taking it a step further; have a generic `Route` attribute that can be used like so:
 
 ```php
-<hljs comment>#[<hljs type>Route</hljs>(
-    <hljs prop>prefix</hljs>: '/post',
-    <hljs prop>middleware</hljs>: <hljs text>[</hljs><hljs type>AdminMiddleware</hljs><hljs text>::class</hljs><hljs text>]</hljs>
-)]</hljs>
+#[Route(
+    prefix: '/post',
+    middleware: [AdminMiddleware::class]
+)]
 class PostController
 {
-    #[<hljs type>Get</hljs>(<hljs text>'/posts'</hljs>)]
+    #[Get('/posts')]
     public function index() {}
     
-    #[<hljs type>Get</hljs>(<hljs text>'/posts/{post}'</hljs>)]
-    public function show(<hljs type>Post</hljs> $post) {}
+    #[Get('/posts/{post}')]
+    public function show(Post $post) {}
 }
 ```
 
 But also make it extensible:
 
 ```php
-#[<hljs type>Attribute</hljs>]
+#[Attribute]
 class AdminRoute extends Route
 {
     public function __construct(
-        <hljs type>string</hljs> $prefix,
-        <hljs type>array</hljs> $middleware,
+        string $prefix,
+        array $middleware,
     ) {
-        parent::<hljs prop>__construct</hljs>(
-            <hljs prop>prefix</hljs>: "/admin/{$prefix}",
-            <hljs prop>middleware</hljs>: [
-                <hljs type>AdminMiddleware</hljs>::class,
+        parent::__construct(
+            prefix: "/admin/{$prefix}",
+            middleware: [
+                AdminMiddleware::class,
                 ...$middleware
             ],
         )
@@ -104,14 +104,14 @@ class AdminRoute extends Route
 And be used like so:
 
 ```php
-#[<hljs type>AdminRoute</hljs>]
+#[AdminRoute]
 class PostController
 {
-    #[<hljs type>Get</hljs>(<hljs text>'/posts'</hljs>)]
+    #[Get('/posts')]
     public function index() {}
     
-    #[<hljs type>Get</hljs>(<hljs text>'/posts/{post}'</hljs>)]
-    public function show(<hljs type>Post</hljs> $post) {}
+    #[Get('/posts/{post}')]
+    public function show(Post $post) {}
 }
 ```
 
@@ -121,40 +121,40 @@ This last approach is definitely my favourite, but feel free to differ in that o
 
 The second-biggest argument against route attributes comes from people who say that they prefer to keep their routes in a single file, so that they can easily search them, instead of spreading them across potentially hundreds of controller files.
 
-Let's take a look at a real life example though. Here we have a contacts controller with an `<hljs prop>edit</hljs>` method:
+Let's take a look at a real life example though. Here we have a contacts controller with an `edit` method:
 
 ```php
 class ContactsController
 {
-    public function edit(<hljs type>Contact</hljs> $contact) 
+    public function edit(Contact $contact) 
     { /* … */ };
 }
 ```
 
-People arguing for "a central place to manage their routes", in other words: _against_ route attributes; say that a central route file makes it easier to find what they are looking for. So, ok, let's click through to our routes file (in my case the Laravel IDEA plugin allows you to click the `<hljs prop>edit</hljs>` method and go straight to the route definition), and take a look at what's there:
+People arguing for "a central place to manage their routes", in other words: _against_ route attributes; say that a central route file makes it easier to find what they are looking for. So, ok, let's click through to our routes file (in my case the Laravel IDEA plugin allows you to click the `edit` method and go straight to the route definition), and take a look at what's there:
 
 ```php
-<hljs type>Route</hljs>::<hljs prop>get</hljs>('{contact}', [<hljs type>ContactsController</hljs>::class, 'edit']);
+Route::get('{contact}', [ContactsController::class, 'edit']);
 ```
 
 So, what's the URI to visit this page? Is it `/{contactId}`? Of course not, this route is part of a route group:
 
 ```php
-<hljs type>Route</hljs>::<hljs prop>prefix</hljs>('people')-><hljs prop>group</hljs>(function (): <hljs type>void</hljs> {
+Route::prefix('people')->group(function (): void {
     // …
-    <hljs type>Route</hljs>::<hljs prop>get</hljs>('{contact}', [<hljs type>ContactsController</hljs>::class, 'edit']);
+    Route::get('{contact}', [ContactsController::class, 'edit']);
 });
 ```
 
 So, it's `/people/{contactId}`? Nope, because this group is part of another group:
 
 ```php
-<hljs type>Route</hljs>::<hljs prop>prefix</hljs>('crm')
+Route::prefix('crm')
     // …
-    -><hljs prop>group</hljs>(function (): <hljs type>void</hljs> {
-        <hljs type>Route</hljs>::<hljs prop>prefix</hljs>('people')-><hljs prop>group</hljs>(function (): <hljs type>void</hljs> {
+    ->group(function (): void {
+        Route::prefix('people')->group(function (): void {
             // …
-            <hljs type>Route</hljs>::<hljs prop>get</hljs>('{contact}', [<hljs type>ContactsController</hljs>::class, 'edit']);
+            Route::get('{contact}', [ContactsController::class, 'edit']);
         });
     }
 ```
@@ -162,14 +162,14 @@ So, it's `/people/{contactId}`? Nope, because this group is part of another grou
 Which is part of another group:
 
 ```php
-<hljs type>Route</hljs>::<hljs prop>middleware</hljs>('can:admin,' . <hljs type>Tenant</hljs>::class)
-    -><hljs prop>group</hljs>(function (): void {
-        <hljs type>Route</hljs>::<hljs prop>prefix</hljs>('crm')
+Route::middleware('can:admin,' . Tenant::class)
+    ->group(function (): void {
+        Route::prefix('crm')
         // …
-        -><hljs prop>group</hljs>(function (): <hljs type>void</hljs> {
-            <hljs type>Route</hljs>::<hljs prop>prefix</hljs>('people')-><hljs prop>group</hljs>(function (): <hljs type>void</hljs> {
+        ->group(function (): void {
+            Route::prefix('people')->group(function (): void {
                 // …
-                <hljs type>Route</hljs>::<hljs prop>get</hljs>('{contact}', [<hljs type>ContactsController</hljs>::class, 'edit']);
+                Route::get('{contact}', [ContactsController::class, 'edit']);
             });
         }
 ```
@@ -177,14 +177,14 @@ Which is part of another group:
 Which is part of another group, defined in Laravel's route service provider:
 
 ```php
-<hljs type>Route</hljs>::<hljs prop>middleware</hljs>(['web', 'auth', /* … */])
-    -><hljs prop>prefix</hljs>('admin/{currentTenant}')
-    -><hljs prop>group</hljs>(<hljs prop>base_path</hljs>('routes/admin_tenant.php'));
+Route::middleware(['web', 'auth', /* … */])
+    ->prefix('admin/{currentTenant}')
+    ->group(base_path('routes/admin_tenant.php'));
 ```
 
 So, in fact, the full URI to this controller is `/admin/{tenantId}/crm/people/edit/{contactId}`. And now remember our route file actually contains somewhere between 700 and 1500 lines of code, not just the snippets I shared here.
 
-I'd argue that using dedicated route attributes like `<hljs type>CrmRoute</hljs>` extending `<hljs type>AdminRoute</hljs>` would be _much_ easier to work with, since you can simply start from the controller and click your way one level up each time, without manually looking through group configurations.
+I'd argue that using dedicated route attributes like `CrmRoute` extending `AdminRoute` would be _much_ easier to work with, since you can simply start from the controller and click your way one level up each time, without manually looking through group configurations.
 
 Furthermore, _adding_ a route to the right place in such a large route file poses the same issue: on what line exactly should my route be defined to fall in the right group? I'm not going to step through the same process again in reverse, I'm sure you can see the problem I'm pointing at.
 
@@ -209,7 +209,7 @@ Let's just keep them together, so that we can focus on more important stuff.
 Furthermore, any framework worth its salt will provide you with the tools necessary to generate any URI based on a controller method:
 
 ```php
-<hljs prop>action</hljs>([<hljs type>PostController</hljs>::class, 'show'], $post);
+action([PostController::class, 'show'], $post);
 ```
 
 If you're already working with controller methods as the "entry point" into your project's URI scheme, then why not keep relevant meta data right with them as well?
@@ -221,8 +221,8 @@ So yes, **route attributes do add value compared to route files: they reduce cog
 One of the only arguments against route attributes that I kind of agree with, is how we deal with collisions. You've probably dealt with a situation like this one, where two route definitions collide with each other:
 
 ```php
-<hljs type>Route</hljs>::<hljs prop>get</hljs>('/contacts/{id}', …);
-<hljs type>Route</hljs>::<hljs prop>get</hljs>('/contacts/list', …);
+Route::get('/contacts/{id}', …);
+Route::get('/contacts/list', …);
 ```
 
 Here we have a classic collision: when visiting `/contacts/list`, your router could detect it as matching `/contacts/{id}`, and in turn runs the wrong action for that route.
@@ -230,8 +230,8 @@ Here we have a classic collision: when visiting `/contacts/list`, your router co
 Such problems occur rarely, but I've had to deal with them myself on the odd occasion. The solution, when using a single route file, is to simply switch their order:
 
 ```php
-<hljs type>Route</hljs>::<hljs prop>get</hljs>('/contacts/list', …);
-<hljs type>Route</hljs>::<hljs prop>get</hljs>('/contacts/{id}', …);
+Route::get('/contacts/list', …);
+Route::get('/contacts/{id}', …);
 ```
 
 This makes it so that `/contacts/list` is the first hit, and thus prevents the route collision. However, you don't have any control over the route order when using attributes since they are directly coupled to controller methods and not grouped together; so what then?
@@ -244,11 +244,11 @@ First of all, there are a couple of ways to circumvent route collisions, using r
 However, there still might be some edge cases where collisions are unavoidable. How to handle those? The most obvious solution is to simply allow some kind of "order" key on route attributes, so that you can carefully control their order yourself:
 
 ```php
-#[<hljs type>Get</hljs>(<hljs text>'/contacts/list'</hljs>, <hljs prop>order</hljs>: <hljs text>'contacts-1'</hljs>)]
+#[Get('/contacts/list', order: 'contacts-1')]
 public function index() {}
 
-#[<hljs type>Get</hljs>(<hljs text>'/contacts/{id}'</hljs>, <hljs prop>order</hljs>: <hljs text>'contacts-2'</hljs>)]
-public function show(<hljs type>Contact</hljs> $contact) {}
+#[Get('/contacts/{id}', order: 'contacts-2')]
+public function show(Contact $contact) {}
 ```
 
 I agree that this approach isn't ideal, but I'd say that solving route collisions never is. On top of that, **these kinds of collisions only rarely happen, so I only consider it a very minor problem that _can_ be solved when needed**.

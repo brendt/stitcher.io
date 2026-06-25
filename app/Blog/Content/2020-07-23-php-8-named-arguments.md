@@ -14,9 +14,9 @@ footnotes:
 It was a [close call](/blog/why-we-need-named-params-in-php), but named arguments — also called named parameters — are supported in [PHP 8](/blog/new-in-php-8)! In this post I'll discuss their ins and outs, but let me show you first what they look like with a few examples in the wild:
 
 ```php
-<hljs prop>setcookie</hljs>(
-    <hljs prop>name</hljs>: 'test',
-    <hljs prop>expires</hljs>: <hljs prop>time</hljs>() + 60 * 60 * 2,
+setcookie(
+    name: 'test',
+    expires: time() + 60 * 60 * 2,
 );
 ```
 
@@ -26,23 +26,23 @@ It was a [close call](/blog/why-we-need-named-params-in-php), but named argument
 class CustomerData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$name</hljs>,
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$email</hljs>,
-        <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$age</hljs>,
+        public string $name,
+        public string $email,
+        public int $age,
     ) {}
 }
 
-$data = new <hljs type>CustomerData</hljs>(
-    <hljs prop>name</hljs>: $input['name'],
-    <hljs prop>email</hljs>: $input['email'],
-    <hljs prop>age</hljs>: $input['age'],
+$data = new CustomerData(
+    name: $input['name'],
+    email: $input['email'],
+    age: $input['age'],
 );
 ```
 
 <em class="center small">A DTO making use of <a href="/blog/constructor-promotion-in-php-8">promoted properties</a>, as well as named arguments</em>
 
 ```php
-$data = new <hljs type>CustomerData</hljs>(...$customerRequest-><hljs prop>validated</hljs>());
+$data = new CustomerData(...$customerRequest->validated());
 ```
 
 <em class="center small">Named arguments also support array spreading</em>
@@ -61,42 +61,42 @@ Let's say this feature was a highly debated one, and there were some [counter ar
 For one, named arguments allow you to skip default values. Take a look again at the cookie example:
 
 ```php
-<hljs prop>setcookie</hljs>(
-    <hljs prop>name</hljs>: 'test',
-    <hljs prop>expires</hljs>: <hljs prop>time</hljs>() + 60 * 60 * 2,
+setcookie(
+    name: 'test',
+    expires: time() + 60 * 60 * 2,
 );
 ```
 
 Its method signature is actually the following:
 
 ```php
-<hljs prop>setcookie</hljs> ( 
-    <hljs type>string</hljs> $name, 
-    <hljs type>string</hljs> $value = "", 
-    <hljs type>int</hljs> $expires = 0, 
-    <hljs type>string</hljs> $path = "", 
-    <hljs type>string</hljs> $domain = "", 
-    <hljs type>bool</hljs> $secure = false, 
-    <hljs type>bool</hljs> $httponly = false,
-) : <hljs type>bool</hljs>
+setcookie ( 
+    string $name, 
+    string $value = "", 
+    int $expires = 0, 
+    string $path = "", 
+    string $domain = "", 
+    bool $secure = false, 
+    bool $httponly = false,
+) : bool
 ```
 
 In the example I showed, we didn't need to set the a cookie `$value`, but we did need to set an expiration time. Named arguments made this method call a little more concise:
 
 ```php
-<hljs prop>setcookie</hljs>(
+setcookie(
     'test',
     '',
-    <hljs prop>time</hljs>() + 60 * 60 * 2,
+    time() + 60 * 60 * 2,
 );
 ```
 
 <em class="center small">`setcookie` without named arguments</em>
 
 ```php
-<hljs prop>setcookie</hljs>(
-    <hljs prop>name</hljs>: 'test',
-    <hljs prop>expires</hljs>: <hljs prop>time</hljs>() + 60 * 60 * 2,
+setcookie(
+    name: 'test',
+    expires: time() + 60 * 60 * 2,
 );
 ```
 
@@ -118,9 +118,9 @@ Take our DTO example from before:
 class CustomerData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$name</hljs>,
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$email</hljs>,
-        <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$age</hljs>,
+        public string $name,
+        public string $email,
+        public int $age,
     ) {}
 }
 ```
@@ -128,20 +128,20 @@ class CustomerData
 You could construct it like so:
 
 ```php
-$data = new <hljs type>CustomerData</hljs>(
+$data = new CustomerData(
     $input['name'],
-    <hljs prop>age</hljs>: $input['age'],
-    <hljs prop>email</hljs>: $input['email'],
+    age: $input['age'],
+    email: $input['email'],
 );
 ```
 
 However, having an ordered argument after a named one would throw an error:
 
 ```php
-$data = new <hljs type>CustomerData</hljs>(
-    <hljs prop>age</hljs>: $input['age'],
-    <hljs striped>$input['name'],</hljs>
-    <hljs prop>email</hljs>: $input['email'],
+$data = new CustomerData(
+    age: $input['age'],
+    $input['name'],
+    email: $input['email'],
 );
 ```
 
@@ -156,7 +156,7 @@ $input = [
     'email' => 'brent@stitcher.io',
 ];
 
-$data = new <hljs type>CustomerData</hljs>(...$input);
+$data = new CustomerData(...$input);
 ```
 
 _If_, however, there are missing required entries in the array, or if there's a key that's not listed as a named argument, an error will be thrown:
@@ -166,10 +166,10 @@ $input = [
     'age' => 25,
     'name' => 'Brent',
     'email' => 'brent@stitcher.io',
-    <hljs striped>'unknownProperty' => 'This is not allowed'</hljs>,
+    'unknownProperty' => 'This is not allowed',
 ];
 
-$data = new <hljs type>CustomerData</hljs>(<hljs striped>...$input</hljs>);
+$data = new CustomerData(...$input);
 ```
 
 It _is_ possible to combine named and ordered arguments in an input array, but only if the ordered arguments follow the same rule as before: they must come first!
@@ -181,7 +181,7 @@ $input = [
     'email' => 'brent@stitcher.io',
 ];
 
-$data = new <hljs type>CustomerData</hljs>(...$input);
+$data = new CustomerData(...$input);
 ```
 
 ---
@@ -201,20 +201,20 @@ class CustomerData
     }
 
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$name</hljs>,
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$email</hljs>,
-        <hljs keyword>public</hljs> <hljs type>int</hljs> <hljs prop>$age</hljs>,
+        public string $name,
+        public string $email,
+        public int $age,
     ) {}
 }
 
-$data = <hljs type>CustomerData</hljs>::<hljs prop>new</hljs>(
-    <hljs prop>email</hljs>: 'brent@stitcher.io',
-    <hljs prop>age</hljs>: 25,
-    <hljs prop>name</hljs>: 'Brent',
+$data = CustomerData::new(
+    email: 'brent@stitcher.io',
+    age: 25,
+    name: 'Brent',
 );
 ```
 
-In this case, `$args` in `<hljs type>CustomerData</hljs>::<hljs prop>new</hljs>` will contain the following data:
+In this case, `$args` in `CustomerData::new` will contain the following data:
 
 ```php
 [
@@ -231,8 +231,8 @@ In this case, `$args` in `<hljs type>CustomerData</hljs>::<hljs prop>new</hljs>`
 ```php
 class ProductSubscriber
 {
-    #[<hljs type>ListensTo</hljs>(<hljs prop>event</hljs>: <hljs type>ProductCreated</hljs><hljs keyword>::class</hljs>)]
-    public function onProductCreated(<hljs type>ProductCreated</hljs> $event) { /* … */ }
+    #[ListensTo(event: ProductCreated::class)]
+    public function onProductCreated(ProductCreated $event) { /* … */ }
 }
 ```
 
@@ -243,8 +243,8 @@ It's not possible to have a variable as the argument name:
 ```php
 $field = 'age';
 
-$data = <hljs type>CustomerData</hljs>::<hljs prop>new</hljs>(
-    <hljs striped>$field</hljs>: 25,
+$data = CustomerData::new(
+    $field: 25,
 );
 ```
 
@@ -271,14 +271,14 @@ PHP will silently allow changing the name of `$event` to `$myEvent`, and `$handl
 ```php
 public function register(EventListener $listener)
 {
-    $listener-><hljs prop>on</hljs>(
-        <hljs striped prop>event</hljs>: $this-><hljs prop>event</hljs>,
-        <hljs striped prop>handler</hljs>: $this-><hljs prop>handler</hljs>, 
+    $listener->on(
+        event: $this->event,
+        handler: $this->handler, 
     );
 }
 ```
 
-<em class="small center">Runtime error in case `$listener` is an instance of `<hljs type>MyListener</hljs>`</em>
+<em class="small center">Runtime error in case `$listener` is an instance of `MyListener`</em>
 
 This pragmatic approach was chosen to prevent a major breaking change when all inherited arguments would have to keep the same name. Seems like a good solution to me.
 

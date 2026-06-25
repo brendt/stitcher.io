@@ -12,7 +12,7 @@ It looks something like this:
 final class Post
 {
     public function __construct(
-        <hljs keyword>public private</hljs>(<hljs keyword>set</hljs>) <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        public private(set) string $title,
     ) {}
 }
 ```
@@ -20,7 +20,7 @@ final class Post
 There are a couple of things going on here:
 
 - we're using a [promoted property](/blog/constructor-promotion-in-php-8) to define the title; and
-- we're explicitly saying that `<hljs prop>$title</hljs>` can only be set (and thus overwritten) within the `<hljs keyword>private</hljs>` scope of `<hljs type>Post</hljs>`.
+- we're explicitly saying that `$title` can only be set (and thus overwritten) within the `private` scope of `Post`.
 
 In other words, this is allowed:
 
@@ -28,18 +28,18 @@ In other words, this is allowed:
 final class Post
 {
     public function __construct(
-        <hljs keyword>public private</hljs>(<hljs keyword>set</hljs>) <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        public private(set) string $title,
     ) {}
     
-    public function changeTitle(<hljs type>string</hljs> $title): void
+    public function changeTitle(string $title): void
     {
         // Do a bunch of checks
-        if (<hljs prop>strlen</hljs>($title) < 30) {
-            throw new <hljs type>InvalidTitle</hljs>('Title length should be at least 30');
+        if (strlen($title) < 30) {
+            throw new InvalidTitle('Title length should be at least 30');
         }
         
         // Change the title from within the private scope
-        <hljs yellow>$this->title = $title</hljs>;
+        $this->title = $title;
     }
 }
 ```
@@ -47,10 +47,10 @@ final class Post
 While this isn't:
 
 ```php
-$post = new <hljs type>Post</hljs>('Title');
+$post = new Post('Title');
 
 // Setting $title from the public scope isn't allowed:
-<hljs striped>$post-><hljs prop>title</hljs> = 'Another title'</hljs>;
+$post->title = 'Another title';
 ```
 
 I would say it's a pretty decent proposal, I can come up with a bunch of use cases where you want public readonly access to an object's properties (without the overhead of implementing getters), while still being able to change a property's value from within its class. That class could for example add internal checks to ensure the value adheres to any number of business rules — as a simplified example: ensuring the title of our post is at least 30 characters long.
@@ -80,7 +80,7 @@ Furthermore, I totally agree with [Marco's sentiment](https://externals.io/messa
 
 > I use readonly properties aggressively, and I try to make the state as immutable as possible.
 >
-> In the **extremely** rare cases where `<hljs keyword>public get`</hljs> and `<hljs keyword>private set</hljs>` are needed, I rely on traditional getters and setters, which are becoming extremely situational anyway, and still work perfectly fine.
+> In the **extremely** rare cases where `public get` and `private set` are needed, I rely on traditional getters and setters, which are becoming extremely situational anyway, and still work perfectly fine.
 > 
 > […]
 > 
@@ -100,18 +100,18 @@ Even more: the original example I showed with asymmetric visibility allowing for
 final class Post
 {
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        public readonly string $title,
     ) {}
     
-    public function changeTitle(<hljs type>string</hljs> $title): self
+    public function changeTitle(string $title): self
     {
         // Do a bunch of checks
-        if (<hljs prop>strlen</hljs>($title) < 30) {
-            throw new <hljs type>InvalidTitle</hljs>('Title length should be at least 30');
+        if (strlen($title) < 30) {
+            throw new InvalidTitle('Title length should be at least 30');
         }
         
-        return clone $this <hljs keyword>with</hljs> {
-            <hljs prop>title</hljs>: $title,
+        return clone $this with {
+            title: $title,
         }
     }
 }
@@ -123,21 +123,21 @@ Oh, and while the above syntax isn't available yet, it's already possible to ove
 ```php
 final class Post
 {
-    use <hljs type>Cloneable</hljs>;
+    use Cloneable;
     
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
+        public readonly string $title,
     ) {}
     
-    public function changeTitle(<hljs type>string</hljs> $title): self
+    public function changeTitle(string $title): self
     {
         // Do a bunch of checks
-        if (<hljs prop>strlen</hljs>($title) < 30) {
-            throw new <hljs type>InvalidTitle</hljs>('Title length should be at least 30');
+        if (strlen($title) < 30) {
+            throw new InvalidTitle('Title length should be at least 30');
         }
         
-        return $this-><hljs prop>with</hljs>(
-            <hljs prop>title</hljs>: $title,
+        return $this->with(
+            title: $title,
         );
     }
 }

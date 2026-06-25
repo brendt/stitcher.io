@@ -6,9 +6,9 @@ next: generics-in-php-3
 I showed a very boring example of generics in the [previous post](/blog/generics-in-php-1), we’re going to do better in this one.
 
 ```php
-$users = new <hljs type>Collection</hljs><{:hl-generic:User:}>();
+$users = new Collection<{:hl-generic:User:}>();
 
-$slugs = new <hljs type>Collection</hljs><{:hl-generic:string:}>();
+$slugs = new Collection<{:hl-generic:string:}>();
 ```
 
 Collections; they are probably the easiest way to explain what generics are about, but they also are the example that everyone talks about when discussing generics. It’s actually not uncommon for people to think that “generics” and “collections with a type” are the same thing. That’s definitely not the case.
@@ -24,12 +24,12 @@ So let’s take a look at two more examples.
 </div>
 </div>
 
-Here’s a function called `<hljs prop>app</hljs>` — if you work with a framework like Laravel, it might look familiar: this function takes a class name, and will resolve an instance of that class using the dependency container:
+Here’s a function called `app` — if you work with a framework like Laravel, it might look familiar: this function takes a class name, and will resolve an instance of that class using the dependency container:
 
 ```php
-function app(<hljs type>string</hljs> $className): mixed
+function app(string $className): mixed
 {
-    return <hljs type>Container</hljs>::<hljs prop>get</hljs>($className);
+    return Container::get($className);
 }
 ```
 
@@ -38,10 +38,10 @@ Now, you don’t need to know how the container works, what’s important is tha
 So, basically, it’s a generic function; one whose return type will depend on what kind of class name you gave it. And it would be cool if our IDE and other static analysers also understand that if I give the classname “UserRepository” to this function, I expect an instance of UserRepository to be returned, and nothing else:
 
 ```php
-function app(<hljs type>string</hljs> $className): mixed
+function app(string $className): mixed
 { /* … */ }
 
-<hljs prop>app</hljs>(<hljs type>UserRepository</hljs>::class); // ?
+app(UserRepository::class); // ?
 ```
 
 Well, generics allow us to do that.
@@ -51,10 +51,10 @@ And I guess this is a good time to mention that I’ve been keeping a secret, ki
 ```php
 /**
  * @template {:hl-generic:Type:}
- * @param <hljs type>class-string</hljs><{:hl-generic:Type:}> $className
+ * @param class-string<{:hl-generic:Type:}> $className
  * @return {:hl-generic:Type:}
  */
-function app(<hljs type>string</hljs> $className): mixed
+function app(string $className): mixed
 { /* … */ }
 ```
 
@@ -62,22 +62,22 @@ Granted: it’s not the most pretty syntax, and all static analysers are relying
 
 IDEs like PhpStorm use it to give the programmer feedback when they are writing code, and tools like Psalm and PhpStan use it to analyse your codebase in bulk and detect potential bugs, mostly based on type definitions.
 
-So actually, we can build this `<hljs prop>app</hljs>` function in such a way that our tools aren’t operating in the dark anymore. Of course, there’s no guarantee by PHP itself that the return type will be the correct one — PHP won’t do any runtime type checks for this function; but if we can trust our static analysers to be right, there’s very little — or even no chance of this code breaking when running it.
+So actually, we can build this `app` function in such a way that our tools aren’t operating in the dark anymore. Of course, there’s no guarantee by PHP itself that the return type will be the correct one — PHP won’t do any runtime type checks for this function; but if we can trust our static analysers to be right, there’s very little — or even no chance of this code breaking when running it.
 
 This is the incredible power of static analysis: we can actually be sure that, without running our code; most of it will work as intended. All of that thanks to types — including generics.
 
 Let’s look at an even more complex example:
 
 ```php
-<hljs type>Attributes</hljs>::<hljs prop>in</hljs>(<hljs type>MyController</hljs>::class)
-    -><hljs prop>filter</hljs>(<hljs type>RouteAttribute</hljs>::class)
-    -><hljs prop>newInstance</hljs>()
+Attributes::in(MyController::class)
+    ->filter(RouteAttribute::class)
+    ->newInstance()
     ->
 ```
 
 Here we have a class that can “query” attributes and instantiate them on the fly. If you’ve worked with attributes before you know that their reflection API is rather verbose, so I find this kind of helper class very useful.
 
-When we use the `<hljs prop>filter</hljs>` method, we give it an attribute’s class name; and afterwards calling the `<hljs prop>newInstance</hljs>` method, we know that the result will be an instance of our filtered class. And again: it would be nice if our IDE understood what we’re talking about.
+When we use the `filter` method, we give it an attribute’s class name; and afterwards calling the `newInstance` method, we know that the result will be an instance of our filtered class. And again: it would be nice if our IDE understood what we’re talking about.
 
 You guessed it: generics allow us to do that:
 
@@ -87,10 +87,10 @@ class Attributes
 {
     /**
      * @template {:hl-generic:InputType:}
-     * @param <hljs type>class-string</hljs><{:hl-generic:InputType:}> $className
-     * @return <hljs type>self</hljs><{:hl-generic:InputType:}>
+     * @param class-string<{:hl-generic:InputType:}> $className
+     * @return self<{:hl-generic:InputType:}>
      */
-    public function filter(<hljs type>string</hljs> $className): self
+    public function filter(string $className): self
     { /* … */ }
  
     /**

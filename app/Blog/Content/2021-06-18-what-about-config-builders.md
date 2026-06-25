@@ -148,33 +148,33 @@ Here's what I'd imagine the `auth.php` would look like with it:
 
 
 ```php
-return <hljs type>AuthConfig</hljs>::<hljs prop>make</hljs>()
-    -><hljs prop>defaults</hljs>(
-        <hljs prop>guard</hljs>: 'web',
-        <hljs prop>passwords</hljs>: 'users',
+return AuthConfig::make()
+    ->defaults(
+        guard: 'web',
+        passwords: 'users',
     )
-    -><hljs prop>guards</hljs>(
-        <hljs prop>web</hljs>: <hljs type>GuardConfig</hljs>::<hljs prop>make</hljs>()
-            -><hljs prop>driver</hljs>('session')
-            -><hljs prop>provider</hljs>('users'),
-        <hljs prop>api</hljs>: <hljs type>GuardConfig</hljs>::<hljs prop>make</hljs>()
-            -><hljs prop>driver</hljs>('token')
-            -><hljs prop>provider</hljs>('users')
-            -><hljs prop>hash</hljs>(false),
+    ->guards(
+        web: GuardConfig::make()
+            ->driver('session')
+            ->provider('users'),
+        api: GuardConfig::make()
+            ->driver('token')
+            ->provider('users')
+            ->hash(false),
     )
-    -><hljs prop>providers</hljs>(
-        <hljs prop>users</hljs>: <hljs type>AuthProviderConfig</hljs>::<hljs prop>make</hljs>()
-            -><hljs prop>driver</hljs>('eloquent')
-            -><hljs prop>model</hljs>(<hljs type>User</hljs>::class),
+    ->providers(
+        users: AuthProviderConfig::make()
+            ->driver('eloquent')
+            ->model(User::class),
     )
-    -><hljs prop>passwords</hljs>(
-        <hljs prop>users</hljs>: <hljs type>PasswordConfig</hljs>::<hljs prop>make</hljs>()
-            -><hljs prop>provider</hljs>('users')
-            -><hljs prop>table</hljs>('password_resets')
-            -><hljs prop>expire</hljs>(60)
-            -><hljs prop>throttle</hljs>(60)
+    ->passwords(
+        users: PasswordConfig::make()
+            ->provider('users')
+            ->table('password_resets')
+            ->expire(60)
+            ->throttle(60)
     )
-    -><hljs prop>passwordTimeout</hljs>(10800);
+    ->passwordTimeout(10800);
 ```
 
 Thanks to named arguments and their support for [variadic functions](/blog/php-8-named-arguments#named-arguments-in-depth), we end up with a conciser syntax, while still having all documentation available to us: it's added as property types and doc blocks in these config objects, instead of being hard coded in the config files as text.
@@ -183,7 +183,7 @@ To me that's the most important value: your IDE tells you what you need to do, i
 
 ![](/img/blog/config/config-1.png)
 
-The only thing needed for this to work is some kind of interface that requires these config builders, as I like to call them, to implement a `<hljs prop>toArray</hljs>` method. You could go one step further and turn things around by always using config objects instead of arrays, which would allow you to also make use of their built-in documentation when reading config, and not only when initializing it. That's a bit more of a aggressive change though.
+The only thing needed for this to work is some kind of interface that requires these config builders, as I like to call them, to implement a `toArray` method. You could go one step further and turn things around by always using config objects instead of arrays, which would allow you to also make use of their built-in documentation when reading config, and not only when initializing it. That's a bit more of a aggressive change though.
 
 Here's what a config builder implementation would look like:
 
@@ -191,27 +191,27 @@ Here's what a config builder implementation would look like:
 class AuthConfig extends ConfigBuilder
 {
     public function defaults(
-        <hljs type>?string</hljs> $guard = <hljs keyword>null</hljs>,
-        <hljs type>?string</hljs> $password = <hljs keyword>null</hljs>,
-        <hljs comment>// …</hljs>
+        ?string $guard = null,
+        ?string $password = null,
+        // …
     ): self {
-        $this-><hljs prop>config</hljs>['defaults']['guard'] = 
+        $this->config['defaults']['guard'] = 
             $guard 
-            ?? $this-><hljs prop>config</hljs>['defaults']['guard'] 
+            ?? $this->config['defaults']['guard'] 
             ?? null;
             
-        $this-><hljs prop>config</hljs>['defaults']['password'] = 
+        $this->config['defaults']['password'] = 
             $password 
-            ?? $this-><hljs prop>config</hljs>['defaults']['password'] 
+            ?? $this->config['defaults']['password'] 
             ?? null;
 
         return $this;
     }
 
-    public function guards(<hljs type>GuardConfig</hljs> ...$guardConfigs): self
+    public function guards(GuardConfig ...$guardConfigs): self
     {
         foreach ($guardConfigs as $name => $guardConfig) {
-            $this-><hljs prop>config</hljs>['guards'][$name] = $guardConfig-><hljs prop>toArray</hljs>();
+            $this->config['guards'][$name] = $guardConfig->toArray();
         }
 
         return $this;
@@ -219,9 +219,9 @@ class AuthConfig extends ConfigBuilder
 
     // …
 
-    public function passwordTimeout(<hljs type>int</hljs> $timeout): self
+    public function passwordTimeout(int $timeout): self
     {
-        $this-><hljs prop>config</hljs>['password_timeout'] = $timeout;
+        $this->config['password_timeout'] = $timeout;
         
         return $this;
     }
@@ -233,14 +233,14 @@ Another improvement I can come up with is by using [enums](/blog/php-enums) inst
 Let's just assume we're already running PHP 8.1, we could write parts of it like so:
 
 ```php
--><hljs prop>guards</hljs>(
-    <hljs prop>web</hljs>: <hljs type>GuardConfig</hljs>::<hljs prop>make</hljs>()
-        -><hljs prop>driver</hljs>(<hljs green><hljs type>Driver</hljs>::<hljs prop>Session</hljs></hljs>)
-        -><hljs prop>provider</hljs>(<hljs green><hljs type>Provider</hljs>::<hljs prop>Users</hljs></hljs>),
-    <hljs prop>api</hljs>: <hljs type>GuardConfig</hljs>::<hljs prop>make</hljs>()
-        -><hljs prop>driver</hljs>(<hljs green><hljs type>Driver</hljs>::<hljs prop>Token</hljs></hljs>)
-        -><hljs prop>provider</hljs>(<hljs green><hljs type>Provider</hljs>::<hljs prop>Users</hljs></hljs>)
-        -><hljs prop>hash</hljs>(false),
+->guards(
+    web: GuardConfig::make()
+        ->driver(Driver::Session)
+        ->provider(Provider::Users),
+    api: GuardConfig::make()
+        ->driver(Driver::Token)
+        ->provider(Provider::Users)
+        ->hash(false),
 )
 ```
 

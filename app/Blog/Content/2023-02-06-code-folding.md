@@ -15,20 +15,20 @@ I know it looks strange the first time you see it, but hear me out for a minute:
 ```php
 class TwitterSyncCommand extends Command
 {
-    protected <hljs prop>$signature</hljs> = 'twitter:sync {--clean}';
+    protected $signature = 'twitter:sync {--clean}';
 
     /** @var \Illuminate\Database\Eloquent\Collection<Mute> */
-    private <hljs type>Collection</hljs> <hljs prop>$mutes</hljs>;
+    private Collection $mutes;
 
-    public function <hljs prop>handle</hljs>(<hljs type>Twitter</hljs> $twitter) { /* … */ }
+    public function handle(Twitter $twitter) { /* … */ }
 
-    public function <hljs prop>syncFromList</hljs>(<hljs type>Twitter</hljs> $twitter): void { /* … */ }
+    public function syncFromList(Twitter $twitter): void { /* … */ }
 
-    public function syncFromSearch(<hljs type>Twitter</hljs> $twitter): void { /* … */ }
+    public function syncFromSearch(Twitter $twitter): void { /* … */ }
 
-    private function storeTweets(<hljs type>array</hljs> $tweets, <hljs type>TweetFeedType</hljs> $feedType): void { /* … */ }
+    private function storeTweets(array $tweets, TweetFeedType $feedType): void { /* … */ }
 
-    private function shouldBeRejected(<hljs type>Tweet</hljs> $tweet): ?RejectionReason { /* … */ }
+    private function shouldBeRejected(Tweet $tweet): ?RejectionReason { /* … */ }
 }
 ```
 
@@ -41,141 +41,141 @@ I just can’t read and understand all of this — you know?
 ```php
 class TwitterSyncCommand extends Command
 {
-    protected <hljs prop>$signature</hljs> = 'twitter:sync {--clean}';
+    protected $signature = 'twitter:sync {--clean}';
 
     /** @var \Illuminate\Database\Eloquent\Collection<Mute> */
-    private <hljs type>Collection</hljs> <hljs prop>$mutes</hljs>;
+    private Collection $mutes;
 
-    public function <hljs prop>handle</hljs>(<hljs type>Twitter</hljs> $twitter)
+    public function handle(Twitter $twitter)
     {
-        $this-><hljs prop>mutes</hljs> = <hljs type>Mute</hljs>::<hljs prop>query</hljs>()-><hljs prop>select</hljs>('text')-><hljs prop>get</hljs>();
+        $this->mutes = Mute::query()->select('text')->get();
 
-        if ($this-><hljs prop>option</hljs>('clean')) {
-            $this-><hljs prop>error</hljs>('Truncating tweets!');
+        if ($this->option('clean')) {
+            $this->error('Truncating tweets!');
 
-            <hljs type>Tweet</hljs>::<hljs prop>truncate</hljs>();
+            Tweet::truncate();
         }
 
-        $this-><hljs prop>syncFromSearch</hljs>($twitter);
+        $this->syncFromSearch($twitter);
 
-        $this-><hljs prop>syncFromList</hljs>($twitter);
+        $this->syncFromList($twitter);
 
-        $this-><hljs prop>info</hljs>('Done');
+        $this->info('Done');
     }
 
-    public function <hljs prop>syncFromList</hljs>(<hljs type>Twitter</hljs> $twitter): void
+    public function syncFromList(Twitter $twitter): void
     {
         do {
-            $lastTweet = <hljs type>Tweet</hljs>::<hljs prop>query</hljs>()
-                -><hljs prop>where</hljs>('feed_type', <hljs type>TweetFeedType</hljs>::<hljs prop>LIST</hljs>)
-                -><hljs prop>orderByDesc</hljs>('tweet_id')
-                -><hljs prop>first</hljs>();
+            $lastTweet = Tweet::query()
+                ->where('feed_type', TweetFeedType::LIST)
+                ->orderByDesc('tweet_id')
+                ->first();
 
-            $tweets = $twitter-><hljs prop>request</hljs>('lists/statuses.json', 'GET', [
-                'list_id' => <hljs prop>config</hljs>('services.twitter.list_id'),
-                'since_id' => $lastTweet?-><hljs prop>tweet_id</hljs>,
+            $tweets = $twitter->request('lists/statuses.json', 'GET', [
+                'list_id' => config('services.twitter.list_id'),
+                'since_id' => $lastTweet?->tweet_id,
                 'count' => 200,
                 'tweet_mode' => 'extended',
             ]);
 
-            $count = <hljs prop>count</hljs>($tweets);
+            $count = count($tweets);
 
             if ($count === 0) {
-                $this-><hljs prop>comment</hljs>('No more new tweets');
+                $this->comment('No more new tweets');
             } else {
-                $this-><hljs prop>comment</hljs>("Syncing {$count} tweets from list");
+                $this->comment("Syncing {$count} tweets from list");
 
-                $this-><hljs prop>storeTweets</hljs>($tweets, <hljs type>TweetFeedType</hljs>::<hljs prop>LIST</hljs>);
+                $this->storeTweets($tweets, TweetFeedType::LIST);
             }
         } while ($tweets !== []);
     }
 
-    public function syncFromSearch(<hljs type>Twitter</hljs> $twitter): void
+    public function syncFromSearch(Twitter $twitter): void
     {
         do {
-            $lastTweet = <hljs type>Tweet</hljs>::<hljs prop>query</hljs>()
-                -><hljs prop>where</hljs>('feed_type', <hljs type>TweetFeedType</hljs>::<hljs prop>SEARCH</hljs>)
-                -><hljs prop>orderByDesc</hljs>('tweet_id')
-                -><hljs prop>first</hljs>();
+            $lastTweet = Tweet::query()
+                ->where('feed_type', TweetFeedType::SEARCH)
+                ->orderByDesc('tweet_id')
+                ->first();
 
-            $tweets = $twitter-><hljs prop>request</hljs>('/search/tweets.json', 'GET', [
+            $tweets = $twitter->request('/search/tweets.json', 'GET', [
                 'q' => 'phpstorm',
-                'since_id' => $lastTweet?-><hljs prop>tweet_id</hljs>,
+                'since_id' => $lastTweet?->tweet_id,
                 'count' => 200,
                 'tweet_mode' => 'extended',
-            ])-><hljs prop>statuses</hljs>;
+            ])->statuses;
 
-            $count = <hljs prop>count</hljs>($tweets);
+            $count = count($tweets);
 
             if ($count === 0) {
-                $this-><hljs prop>comment</hljs>('No more new tweets');
+                $this->comment('No more new tweets');
             } else {
-                $this-><hljs prop>comment</hljs>("Syncing {$count} tweets from search");
+                $this->comment("Syncing {$count} tweets from search");
 
-                $this-><hljs prop>storeTweets</hljs>($tweets, <hljs type>TweetFeedType</hljs>::<hljs prop>SEARCH</hljs>);
+                $this->storeTweets($tweets, TweetFeedType::SEARCH);
             }
         } while ($tweets !== []);
     }
 
-    private function storeTweets(<hljs type>array</hljs> $tweets, <hljs type>TweetFeedType</hljs> $feedType): <hljs type>void</hljs>
+    private function storeTweets(array $tweets, TweetFeedType $feedType): void
     {
         foreach ($tweets as $tweet) {
-            $subject = $tweet-><hljs prop>retweeted_status</hljs> ?? $tweet;
+            $subject = $tweet->retweeted_status ?? $tweet;
 
-            $tweet = <hljs type>Tweet</hljs>::<hljs prop>updateOrCreate</hljs>([
+            $tweet = Tweet::updateOrCreate([
                 'tweet_id' => $tweet->id,
             ], [
-                'state' => <hljs type>TweetState</hljs>::<hljs prop>PENDING</hljs>,
+                'state' => TweetState::PENDING,
                 'feed_type' => $feedType,
-                'text' => $subject-><hljs prop>full_text</hljs> ,
-                'user_name' => $subject-><hljs prop>user</hljs>-><hljs prop>screen_name</hljs>,
-                'retweeted_by_user_name' => isset($tweet-><hljs prop>retweeted_status</hljs>)
+                'text' => $subject->full_text ,
+                'user_name' => $subject->user->screen_name,
+                'retweeted_by_user_name' => isset($tweet->retweeted_status)
                     /** @phpstan-ignore-next-line  */
-                    ? $tweet-><hljs prop>user</hljs>-><hljs prop>screen_name</hljs>
+                    ? $tweet->user->screen_name
                     : null,
-                'created_at' => <hljs type>Carbon</hljs>::<hljs prop>make</hljs>($subject-><hljs prop>created_at</hljs>),
-                'payload' => <hljs prop>json_encode</hljs>($tweet),
+                'created_at' => Carbon::make($subject->created_at),
+                'payload' => json_encode($tweet),
             ]);
 
-            if ($reason = $this-><hljs prop>shouldBeRejected</hljs>($tweet)) {
-                $tweet-><hljs prop>update</hljs>([
-                    'state' => <hljs type>TweetState</hljs>::<hljs prop>REJECTED</hljs>,
-                    'rejection_reason' => $reason-><hljs prop>message</hljs>,
+            if ($reason = $this->shouldBeRejected($tweet)) {
+                $tweet->update([
+                    'state' => TweetState::REJECTED,
+                    'rejection_reason' => $reason->message,
                 ]);
             }
 
-            (new <hljs type>ParseTweetText</hljs>)($tweet);
+            (new ParseTweetText)($tweet);
         }
     }
 
-    private function shouldBeRejected(<hljs type>Tweet</hljs> $tweet): ?<hljs type>RejectionReason</hljs>
+    private function shouldBeRejected(Tweet $tweet): ?RejectionReason
     {
-        if ($tweet-><hljs prop>isRetweet</hljs>() && $tweet-><hljs prop>feed_type</hljs> === <hljs type>TweetFeedType</hljs>::SEARCH) {
-            return <hljs type>RejectionReason</hljs>::<hljs prop>retweetedFromSearch</hljs>();
+        if ($tweet->isRetweet() && $tweet->feed_type === TweetFeedType::SEARCH) {
+            return RejectionReason::retweetedFromSearch();
         }
 
         // Reject tweets containing a specific word
-        foreach ($this-><hljs prop>mutes</hljs> as $mute) {
-            if ($tweet-><hljs prop>containsPhrase</hljs>($mute-><hljs prop>text</hljs>)) {
-                return <hljs type>RejectionReason</hljs>::<hljs prop>mute</hljs>($mute-><hljs prop>text</hljs>);
+        foreach ($this->mutes as $mute) {
+            if ($tweet->containsPhrase($mute->text)) {
+                return RejectionReason::mute($mute->text);
             }
         }
 
         // Reject replies
-        if ($tweet-><hljs prop>getPayload</hljs>()-><hljs prop>in_reply_to_status_id</hljs>) {
-            return <hljs type>RejectionReason</hljs>::<hljs prop>isReply</hljs>();
+        if ($tweet->getPayload()->in_reply_to_status_id) {
+            return RejectionReason::isReply();
         }
 
         // Reject mentions
-        if (<hljs prop>str_starts_with</hljs>($tweet-><hljs prop>text</hljs>, '@')) {
-            return <hljs type>RejectionReason</hljs>::<hljs prop>isMention</hljs>();
+        if (str_starts_with($tweet->text, '@')) {
+            return RejectionReason::isMention();
         }
 
         // Reject non-english tweets
-        $language = $tweet-><hljs prop>getPayload</hljs>()-><hljs prop>lang</hljs>;
+        $language = $tweet->getPayload()->lang;
 
         if ($language !== 'en') {
-            return <hljs type>RejectionReason</hljs>::<hljs prop>otherLanguage</hljs>($language);
+            return RejectionReason::otherLanguage($language);
         }
 
         return null;

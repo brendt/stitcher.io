@@ -7,41 +7,41 @@ footnotes:
 ---
 
 ```txt
-- The current model <hljs red>Country</hljs> has a relation to <hljs yellow>Post</hljs> via <hljs blue>User</hljs>
-- The <hljs blue>intermediate model</hljs> is linked to the <hljs red>current model</hljs> via <hljs blue>users.country_id</hljs>
-- The <hljs yellow>target model</hljs> is linked to the <hljs blue>intermediate model</hljs> via <hljs yellow>posts.user_id</hljs>
-- <hljs blue>users.country_id</hljs> maps to <hljs red>countries.id</hljs>
-- <hljs yellow>posts.user_id</hljs> maps to <hljs blue>users.id</hljs>
+- The current model Country has a relation to Post via User
+- The intermediate model is linked to the current model via users.country_id
+- The target model is linked to the intermediate model via posts.user_id
+- users.country_id maps to countries.id
+- posts.user_id maps to users.id
 ```
 
 ```txt
-<hljs red>countries</hljs>
-    <hljs red>id</hljs> - integer
-    name - string
-
-<hljs blue>users</hljs>
-    <hljs blue>id</hljs> - integer
-    <hljs blue>country_id</hljs> - integer
-    name - string
-
-<hljs yellow>posts</hljs>
+countries
     id - integer
-    <hljs yellow>user_id</hljs> - integer
+    name - string
+
+users
+    id - integer
+    country_id - integer
+    name - string
+
+posts
+    id - integer
+    user_id - integer
     title - string
 ```
 
 ```php
-class <hljs red>Country</hljs> extends Model
+class Country extends Model
 {
-    public function <hljs yellow>posts</hljs>()
+    public function posts()
     {
-        return $this-><hljs prop>hasManyThrough</hljs>(
-            '<hljs yellow>App\Post</hljs>',
-            '<hljs blue>App\User</hljs>',
-            '<hljs blue>country_id</hljs>', // Foreign key on users table...
-            '<hljs yellow>user_id</hljs>', // Foreign key on posts table...
-            '<hljs red>id</hljs>', // Local key on countries table...
-            '<hljs blue>id</hljs>' // Local key on users table...
+        return $this->hasManyThrough(
+            'App\Post',
+            'App\User',
+            'country_id', // Foreign key on users table...
+            'user_id', // Foreign key on posts table...
+            'id', // Local key on countries table...
+            'id' // Local key on users table...
         );
     }
 }

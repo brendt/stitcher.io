@@ -12,10 +12,10 @@ footnotes:
 Enums are still lacking in PHP — **[SCRATCH THAT: enums are added in PHP 8.1](/blog/php-enums)** — yet there is a clean way to have enum-like behaviour in your code bases, without using  external dependencies. Take the example of [date range boundaries](/blog/comparing-dates): its boundaries can be included or excluded. Here's how a `Boundaries` enum would be used:
 
 ```php
-$dateRange = <hljs type>DateRange</hljs>::<hljs prop>make</hljs>(
+$dateRange = DateRange::make(
     '2020-02-01', 
     '2020-03-01', 
-    <hljs type>Boundaries</hljs>::<hljs prop>INCLUDE_ALL</hljs>()
+    Boundaries::INCLUDE_ALL()
 );
 ```
 
@@ -24,7 +24,7 @@ $dateRange = <hljs type>DateRange</hljs>::<hljs prop>make</hljs>(
 This is what the constructor signature of `DateRange` looks like:
 
 ```php
-public function __construct($start, $end, <hljs type>Boundaries</hljs> $boundaries);
+public function __construct($start, $end, Boundaries $boundaries);
 ```
 
 That's the first requirement: **we want to use the type system to ensure only valid enum values are used**.
@@ -32,8 +32,8 @@ That's the first requirement: **we want to use the type system to ensure only va
 Next, we want to be able to ask the enum which boundaries are included, like so:
 
 ```php
-$dateRange->boundaries-><hljs prop>startIncluded</hljs>();
-$dateRange->boundaries-><hljs prop>endIncluded</hljs>();
+$dateRange->boundaries->startIncluded();
+$dateRange->boundaries->endIncluded();
 ```
 
 This means that each enum value should support its own implementation of `startIncluded` and `endIncluded`. 
@@ -57,7 +57,7 @@ final class Boundaries
         return new self(self::INCLUDE_START);
     }
 
-    private function __construct(<hljs type>string</hljs> $value) 
+    private function __construct(string $value) 
     {
         $this->value = $value;
     }
@@ -99,7 +99,7 @@ abstract class Boundaries
 {
     public static function INCLUDE_NONE(): IncludeNone
     {
-        return new <hljs type>IncludeNone</hljs>();
+        return new IncludeNone();
     }
     
     // …
@@ -201,8 +201,8 @@ Ok, I was mistaken: there were two more improvements to be made. This is a lot o
 ```php
 abstract class Boundaries
 {
-    protected <hljs type>bool</hljs> $startIncluded;
-    protected <hljs type>bool</hljs> $endIncluded;
+    protected bool $startIncluded;
+    protected bool $endIncluded;
     
     public function startIncluded(): bool 
     {
@@ -218,8 +218,8 @@ abstract class Boundaries
     {
         return new class extends Boundaries 
         {
-            protected <hljs type>bool</hljs> $startIncluded = false;
-            protected <hljs type>bool</hljs> $endIncluded = false;
+            protected bool $startIncluded = false;
+            protected bool $endIncluded = false;
         };
     }
 
@@ -227,8 +227,8 @@ abstract class Boundaries
     {
         return new class extends Boundaries
         {
-            protected <hljs type>bool</hljs> $startIncluded = true;
-            protected <hljs type>bool</hljs> $endIncluded = false;
+            protected bool $startIncluded = true;
+            protected bool $endIncluded = false;
         };
     }
 
@@ -236,8 +236,8 @@ abstract class Boundaries
     {
         return new class extends Boundaries
         {
-            protected <hljs type>bool</hljs> $startIncluded = false;
-            protected <hljs type>bool</hljs> $endIncluded = true;
+            protected bool $startIncluded = false;
+            protected bool $endIncluded = true;
         };
     }
 
@@ -245,8 +245,8 @@ abstract class Boundaries
     {
         return new class extends Boundaries
         {
-            protected <hljs type>bool</hljs> $startIncluded = true;
-            protected <hljs type>bool</hljs> $endIncluded = true;
+            protected bool $startIncluded = true;
+            protected bool $endIncluded = true;
         };
     }
 }

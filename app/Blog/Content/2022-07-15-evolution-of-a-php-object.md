@@ -19,101 +19,101 @@ Let's start with PHP 5.6, this is what most people without modern-day PHP knowle
 ```php
 class BlogData
 {
-    /** @var <hljs type>string</hljs> */
-    private <hljs prop>$title</hljs>;
+    /** @var string */
+    private $title;
     
-    /** @var <hljs type>State</hljs> */
-    private <hljs prop>$state</hljs>;
+    /** @var State */
+    private $state;
     
-    /** @var <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> */
-    private <hljs prop>$publishedAt</hljs>;
+    /** @var \DateTimeImmutable|null */
+    private $publishedAt;
    
    /**
-    * @param <hljs type>string</hljs> $title 
-    * @param <hljs type>State</hljs> $state 
-    * @param <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> $publishedAt 
+    * @param string $title 
+    * @param State $state 
+    * @param \DateTimeImmutable|null $publishedAt 
     */
     public function __construct(
         $title,
         $state,
-        $publishedAt = <hljs keyword>null</hljs>
+        $publishedAt = null
     ) {
-        $this-><hljs prop>title</hljs> = $title;
-        $this-><hljs prop>state</hljs> = $state;
-        $this-><hljs prop>publishedAt</hljs> = $publishedAt;
+        $this->title = $title;
+        $this->state = $state;
+        $this->publishedAt = $publishedAt;
     }
     
     /**
-     * @return <hljs type>string</hljs> 
+     * @return string 
      */
     public function getTitle()
     {
-        return $this-><hljs prop>title</hljs>;    
+        return $this->title;    
     }
     
     /**
-     * @return <hljs type>State</hljs> 
+     * @return State 
      */
     public function getState() 
     {
-        return $this-><hljs prop>state</hljs>;    
+        return $this->state;    
     }
     
     /**
-     * @return <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> 
+     * @return \DateTimeImmutable|null 
      */
     public function getPublishedAt() 
     {
-        return $this-><hljs prop>publishedAt</hljs>;    
+        return $this->publishedAt;    
     }
 }
 ```
 
 ## December 2015: PHP 7.0
 
-PHP 7.0 introduced some major new syntax features: scalar types and return types being the most notable here. Nullable types aren't a thing yet, so we still need to use doc block types for our nullable `<hljs prop>$publishedAt</hljs>`:
+PHP 7.0 introduced some major new syntax features: scalar types and return types being the most notable here. Nullable types aren't a thing yet, so we still need to use doc block types for our nullable `$publishedAt`:
 
 ```php
 class BlogData
 {
-    /** @var <hljs type>string</hljs> */
-    private <hljs prop>$title</hljs>;
+    /** @var string */
+    private $title;
     
-    /** @var <hljs type>State</hljs> */
-    private <hljs prop>$state</hljs>;
+    /** @var State */
+    private $state;
     
-    /** @var <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> */
-    private <hljs prop>$publishedAt</hljs>;
+    /** @var \DateTimeImmutable|null */
+    private $publishedAt;
    
    /**
-    * @param <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> $publishedAt 
+    * @param \DateTimeImmutable|null $publishedAt 
     */
     public function __construct(
-        <hljs type>string</hljs> $title,
-        <hljs type>State</hljs> $state,
-        $publishedAt = <hljs keyword>null</hljs>
+        string $title,
+        State $state,
+        $publishedAt = null
     ) {
-        $this-><hljs prop>title</hljs> = $title;
-        $this-><hljs prop>state</hljs> = $state;
-        $this-><hljs prop>publishedAt</hljs> = $publishedAt;
+        $this->title = $title;
+        $this->state = $state;
+        $this->publishedAt = $publishedAt;
     }
     
     public function getTitle(): string
     {
-        return $this-><hljs prop>title</hljs>;    
+        return $this->title;    
     }
     
     public function getState(): State 
     {
-        return $this-><hljs prop>state</hljs>;    
+        return $this->state;    
     }
     
     /**
-     * @return <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> 
+     * @return \DateTimeImmutable|null 
      */
     public function getPublishedAt() 
     {
-        return $this-><hljs prop>publishedAt</hljs>;    
+        return $this->publishedAt;    
     }
 }
 ```
@@ -125,45 +125,45 @@ With PHP 7.1 finally came nullable types, so we could remove some more doc block
 ```php
 class BlogData
 {
-    /** @var <hljs type>string</hljs> */
-    private <hljs prop>$title</hljs>;
+    /** @var string */
+    private $title;
     
-    /** @var <hljs type>State</hljs> */
-    private <hljs prop>$state</hljs>;
+    /** @var State */
+    private $state;
     
-    /** @var <hljs type>\DateTimeImmutable</hljs>|<hljs type>null</hljs> */
-    private <hljs prop>$publishedAt</hljs>;
+    /** @var \DateTimeImmutable|null */
+    private $publishedAt;
    
     public function __construct(
-        <hljs type>string</hljs> $title,
-        <hljs type>State</hljs> $state,
-        <hljs type>?DateTimeImmutable</hljs> $publishedAt = <hljs keyword>null</hljs>
+        string $title,
+        State $state,
+        ?DateTimeImmutable $publishedAt = null
     ) {
-        $this-><hljs prop>title</hljs> = $title;
-        $this-><hljs prop>state</hljs> = $state;
-        $this-><hljs prop>publishedAt</hljs> = $publishedAt;
+        $this->title = $title;
+        $this->state = $state;
+        $this->publishedAt = $publishedAt;
     }
     
     public function getTitle(): string
     {
-        return $this-><hljs prop>title</hljs>;    
+        return $this->title;    
     }
     
     public function getState(): State 
     {
-        return $this-><hljs prop>state</hljs>;    
+        return $this->state;    
     }
     
-    public function getPublishedAt(): <hljs type>?DateTimeImmutable</hljs>
+    public function getPublishedAt(): ?DateTimeImmutable
     {
-        return $this-><hljs prop>publishedAt</hljs>;    
+        return $this->publishedAt;    
     }
 }
 ```
 
 ## November 2017: PHP 7.2
 
-While there were some exciting features in 7.2 like parameter type widening and the `<hljs type>object</hljs>` type, there's nothing we could do to clean up our specific DTO in this release.
+While there were some exciting features in 7.2 like parameter type widening and the `object` type, there's nothing we could do to clean up our specific DTO in this release.
 
 ## December 2018: PHP 7.3
 
@@ -176,35 +176,35 @@ The same goes for [PHP 7.3](/blog/new-in-php-73), nothing to see here.
 ```php
 class BlogData
 {
-    private <hljs type>string</hljs> <hljs prop>$title</hljs>;
+    private string $title;
     
-    private <hljs type>State</hljs> <hljs prop>$state</hljs>;
+    private State $state;
     
-    private <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs>;
+    private ?DateTimeImmutable $publishedAt;
    
     public function __construct(
-        <hljs type>string</hljs> $title,
-        <hljs type>State</hljs> $state,
-        <hljs type>?DateTimeImmutable</hljs> $publishedAt = <hljs keyword>null</hljs>
+        string $title,
+        State $state,
+        ?DateTimeImmutable $publishedAt = null
     ) {
-        $this-><hljs prop>title</hljs> = $title;
-        $this-><hljs prop>state</hljs> = $state;
-        $this-><hljs prop>publishedAt</hljs> = $publishedAt;
+        $this->title = $title;
+        $this->state = $state;
+        $this->publishedAt = $publishedAt;
     }
     
     public function getTitle(): string
     {
-        return $this-><hljs prop>title</hljs>;    
+        return $this->title;    
     }
     
     public function getState(): State 
     {
-        return $this-><hljs prop>state</hljs>;    
+        return $this->state;    
     }
     
-    public function getPublishedAt(): <hljs type>?DateTimeImmutable</hljs>
+    public function getPublishedAt(): ?DateTimeImmutable
     {
-        return $this-><hljs prop>publishedAt</hljs>;    
+        return $this->publishedAt;    
     }
 }
 ```
@@ -219,24 +219,24 @@ Another game changer: [PHP 8](/blog/new-in-php-8) adds [promoted properties](/bl
 class BlogData
 {
     public function __construct(
-        <hljs keyword>private</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>private</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs>,
-        <hljs keyword>private</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+        private string $title,
+        private State $state,
+        private ?DateTimeImmutable $publishedAt = null,
     ) {}
     
     public function getTitle(): string
     {
-        return $this-><hljs prop>title</hljs>;    
+        return $this->title;    
     }
     
     public function getState(): State 
     {
-        return $this-><hljs prop>state</hljs>;    
+        return $this->state;    
     }
     
-    public function getPublishedAt(): <hljs type>?DateTimeImmutable</hljs>
+    public function getPublishedAt(): ?DateTimeImmutable
     {
-        return $this-><hljs prop>publishedAt</hljs>;    
+        return $this->publishedAt;    
     }
 }
 ```
@@ -250,9 +250,9 @@ Next, we arrive at [PHP 8.1](/blog/new-in-php-81). Readonly properties are a thi
 class BlogData
 {
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public readonly</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs>,
-        <hljs keyword>public readonly</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+        public readonly string $title,
+        public readonly State $state,
+        public readonly ?DateTimeImmutable $publishedAt = null,
     ) {}
 }
 ```
@@ -263,12 +263,12 @@ And finally, we arrive at [PHP 8.2](/blog/new-in-php-82) — not released yet.
 Whenever a class only has readonly properties, the class itself can be marked as readonly, instead of every individual property:
 
 ```php
-<hljs keyword>readonly</hljs> class BlogData
+readonly class BlogData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs>,
-        <hljs keyword>public</hljs> <hljs type>?DateTimeImmutable</hljs> <hljs prop>$publishedAt</hljs> = <hljs keyword>null</hljs>,
+        public string $title,
+        public State $state,
+        public ?DateTimeImmutable $publishedAt = null,
     ) {}
 }
 ```

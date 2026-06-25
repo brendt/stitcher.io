@@ -15,7 +15,7 @@ footnotes:
 
 **Note: PHP 8.3 adds a built-in way of cloning readonly properties, although it's rather limited in its possibilities. [Read more](/blog/cloning-readonly-properties-in-php-83).**
 
-In [PHP 8.1](/blog/new-in-php-81), [readonly properties](/blog/php-81-readonly-properties) aren't allowed to be overridden as soon as they are initialized. That also means that cloning an object and changing one of its readonly properties isn't allowed. It's likely that PHP will get some kind of `<hljs keyword>clone with</hljs>` functionality in the future, but for now we'll have to work around the issue.
+In [PHP 8.1](/blog/new-in-php-81), [readonly properties](/blog/php-81-readonly-properties) aren't allowed to be overridden as soon as they are initialized. That also means that cloning an object and changing one of its readonly properties isn't allowed. It's likely that PHP will get some kind of `clone with` functionality in the future, but for now we'll have to work around the issue.
 
 Let's imagine a simple DTO class with readonly properties:
 
@@ -23,8 +23,8 @@ Let's imagine a simple DTO class with readonly properties:
 class Post
 {
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>, 
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$author</hljs>,
+        public readonly string $title, 
+        public readonly string $author,
     ) {}
 }
 ```
@@ -32,12 +32,12 @@ class Post
 PHP 8.1 would throw an error when you'd clone a post object and tried to override one of its readonly properties:
 
 ```php
-$postA = new <hljs type>Post</hljs>(<hljs prop>title:</hljs> 'a', <hljs prop>author:</hljs> 'Brent');
+$postA = new Post(title: 'a', author: 'Brent');
 
 $postB = clone $postA;
-<hljs striped>$postB-><hljs prop>title</hljs> = 'b';</hljs>
+$postB->title = 'b';
 
-<hljs error full>Error: Cannot modify readonly property <hljs type>Post</hljs>::<hljs prop>$title</hljs></hljs>
+Error: Cannot modify readonly property Post::$title
 ```
 
 The reason why this happens is because the current readonly implementation will only allow a value to be set as long as it's [uninitialized](/blog/typed-properties-in-php-74#uninitialized). Since we're cloning an object that already had a value assigned to its properties, we cannot override it.
@@ -48,35 +48,35 @@ So, at least for PHP 8.1, we'll need a way around this issue. Which is exactly w
 
 {{ cta:dynamic }}
 
-Here's how it works. First you download the package using composer, and next use the `<hljs type>Spatie\Cloneable\Cloneable</hljs>` trait in all classes you want to be cloneable:
+Here's how it works. First you download the package using composer, and next use the `Spatie\Cloneable\Cloneable` trait in all classes you want to be cloneable:
 
 ```php
-<hljs green>use <hljs type>Spatie\Cloneable\Cloneable</hljs>;</hljs>
+use Spatie\Cloneable\Cloneable;
 
 class Post
 {
-    <hljs green>use <hljs type>Cloneable</hljs>;</hljs>
+    use Cloneable;
     
     public function __construct(
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>, 
-        <hljs keyword>public readonly</hljs> <hljs type>string</hljs> <hljs prop>$author</hljs>
+        public readonly string $title, 
+        public readonly string $author
     ) {}
 }
 ```
 
-Now our `<hljs type>Post</hljs>` objects will have a `<hljs prop>with</hljs>` method that you can use to clone _and_ override properties with:
+Now our `Post` objects will have a `with` method that you can use to clone _and_ override properties with:
 
 ```php
-$postA = new Post(<hljs prop>title:</hljs> 'a', <hljs prop>author:</hljs> 'Brent');
+$postA = new Post(title: 'a', author: 'Brent');
 
-$postB = $postA-><hljs prop>with</hljs>(<hljs prop>title:</hljs> 'b');
-$postC = $postA-><hljs prop>with</hljs>(<hljs prop>title:</hljs> 'c', <hljs prop>author:</hljs> 'Freek');
+$postB = $postA->with(title: 'b');
+$postC = $postA->with(title: 'c', author: 'Freek');
 ```
 
 There are of course a few caveats:
 
 - this package will skip calling the constructor when cloning an object, meaning any logic in the constructor won't be executed; and
-- the `<hljs prop>with</hljs>` method will be a shallow clone, meaning that nested objects aren't cloned as well.
+- the `with` method will be a shallow clone, meaning that nested objects aren't cloned as well.
 
 I imagine this package being useful for simple data-transfer and value objects; which are exactly the types of objects that readonly properties were designed for to start with.
 

@@ -24,7 +24,7 @@ $second = [
 Using `array_merge_recursive` will result in the following:
 
 ```php
-<hljs prop>array_merge_recursive</hljs>($first, $second);
+array_merge_recursive($first, $second);
 
 // [
 //     'key' => [
@@ -51,7 +51,7 @@ $second = [
 In this case, `array_merge_recursive` will yield the same result as the first example: it takes the value from the `$second` array, and appends it to the value in the `$first` array, which already was an array itself.
 
 ```php
-<hljs prop>array_merge_recursive</hljs>($first, $second);
+array_merge_recursive($first, $second);
 
 // [
 //     'key' => [
@@ -76,7 +76,7 @@ $second = [
     ]
 ];
 
-<hljs prop>array_merge</hljs>($first, $second);
+array_merge($first, $second);
 
 // [  
 //     'level 1' => [

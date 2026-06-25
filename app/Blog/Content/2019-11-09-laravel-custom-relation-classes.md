@@ -17,7 +17,7 @@ We want an admin user to see an overview of all people in the system in a table,
 The relation between `Contract` and `Person` is as follows:
 
 ```txt
-<hljs type>Contract</hljs> > <hljs type>HabitantContract</hljs> > <hljs type>Habitant</hljs> > <hljs type>Person</hljs>
+Contract > HabitantContract > Habitant > Person
 ```
 
 I don't want to spend too much time going into details as to how we came to this relationship hierarchy. It's important for you to know that, yes, this hierarchy is important for our use cases: a `Contract` can have several `Habitants`, which are linked via a pivot model `HabitantContract`; and each `Habitant` has a relation to one `Person`.
@@ -31,9 +31,9 @@ class PeopleController
 {
     public function index() 
     {
-        $people = <hljs type>PersonResource</hljs>::<hljs prop>collection</hljs>(<hljs prop>Person</hljs>::<hljs prop>paginate</hljs>());
+        $people = PersonResource::collection(Person::paginate());
 
-        return <hljs prop>view</hljs>('people.index', <hljs prop>compact</hljs>('people'));
+        return view('people.index', compact('people'));
     }
 }
 ```
@@ -50,10 +50,10 @@ class PersonResource extends JsonResource
             'name' => $this->name,
 
             'active_contracts' => $this->activeContracts
-                -><hljs prop>map</hljs>(function (<hljs type>Contract</hljs> $contract) {
+                ->map(function (Contract $contract) {
                     return $contract->contract_number;
                 })
-                -><hljs prop>implode</hljs>(', '),
+                ->implode(', '),
 
             // …
         ];
@@ -80,7 +80,7 @@ class Person extends Model
 {
     public function activeContracts(): ActiveContractsRelation
     {
-        return new <hljs type>ActiveContractsRelation</hljs>($this);
+        return new ActiveContractsRelation($this);
     }
 }
 ```
@@ -159,9 +159,9 @@ class ActiveContractsRelation extends Relation
     /** @var \App\Domain\People\Models\Person */
     protected $parent;
 
-    public function __construct(<hljs type>Person</hljs> $parent)
+    public function __construct(Person $parent)
     {
-        parent::<hljs prop>__construct</hljs>(<hljs type>Contract</hljs>::<hljs prop>query</hljs>(), $parent);
+        parent::__construct(Contract::query(), $parent);
     }
 
     // …
@@ -188,14 +188,14 @@ class ActiveContractsRelation extends Relation
     public function addConstraints()
     {
         $this->query
-            -><hljs prop>whereActive</hljs>() // A query scope on our `Contract` model
-            -><hljs prop>join</hljs>(
+            ->whereActive() // A query scope on our `Contract` model
+            ->join(
                 'contract_habitants', 
                 'contract_habitants.contract_id', 
                 '=', 
                 'contracts.id'
             )
-            -><hljs prop>join</hljs>(
+            ->join(
                 'habitants', 
                 'habitants.id', 
                 '=', 
@@ -220,11 +220,11 @@ class ActiveContractsRelation extends Relation
 {
     // …
 
-    public function addEagerConstraints(<hljs type>array</hljs> $people)
+    public function addEagerConstraints(array $people)
     {
-        $this->query-><hljs prop>whereIn</hljs>(
+        $this->query->whereIn(
             'habitants.contact_id', 
-            <hljs prop>collect</hljs>($people)->pluck('id')
+            collect($people)->pluck('id')
         );
     }
 }
@@ -239,12 +239,12 @@ class ActiveContractsRelation extends Relation
 {
     // …
 
-    public function initRelation(<hljs type>array</hljs> $people, $relation)
+    public function initRelation(array $people, $relation)
     {
         foreach ($people as $person) {
-            $person-><hljs prop>setRelation</hljs>(
+            $person->setRelation(
                 $relation, 
-                $this->related-><hljs prop>newCollection</hljs>()
+                $this->related->newCollection()
             );
         }
 
@@ -258,9 +258,9 @@ Note that the `$this->related` property is set by the parent `Relation` class an
 ```php
 abstract class Relation
 {
-    public function __construct(<hljs type>Builder</hljs> $query, <hljs type>Model</hljs> $parent)
+    public function __construct(Builder $query, Model $parent)
     {
-        $this->related = $query-><hljs prop>getModel</hljs>();
+        $this->related = $query->getModel();
     
         // …
     }
@@ -276,17 +276,17 @@ class ActiveContractsRelation extends Relation
 {
     // …
 
-    public function match(<hljs type>array</hljs> $people, <hljs type>Collection</hljs> $contracts, $relation)
+    public function match(array $people, Collection $contracts, $relation)
     {
-        if ($contracts-><hljs prop>isEmpty</hljs>()) {
+        if ($contracts->isEmpty()) {
             return $people;
         }
 
         foreach ($people as $person) {
-            $person-><hljs prop>setRelation</hljs>(
+            $person->setRelation(
                 $relation, 
-                $contracts-><hljs prop>filter</hljs>(function (<hljs type>Contract</hljs> $contract) use ($person) {
-                    return $contract->habitants-><hljs prop>pluck</hljs>('person_id')-><hljs prop>contains</hljs>($person->id);
+                $contracts->filter(function (Contract $contract) use ($person) {
+                    return $contract->habitants->pluck('person_id')->contains($person->id);
                 })
             );    
         }
@@ -307,15 +307,15 @@ class ActiveContractsRelation extends Relation
 {
     // …
 
-    public function addEagerConstraints(<hljs type>array</hljs> $people)
+    public function addEagerConstraints(array $people)
     {
         $this->query
-            -><hljs prop>whereIn</hljs>(
+            ->whereIn(
                 'habitants.contact_id', 
-                <hljs prop>collect</hljs>($people)->pluck('id')
+                collect($people)->pluck('id')
             )
-            -><hljs prop>with</hljs>('habitants')
-            -><hljs prop>select</hljs>('contracts.*');
+            ->with('habitants')
+            ->select('contracts.*');
     }
 }
 ```

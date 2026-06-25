@@ -20,7 +20,7 @@ The question is simple: should an opening brace go on a new line or not? You mig
 Take a look at this code snippet:
 
 ```php
-public function __construct(<hljs type>string</hljs> $publicDirectory, <hljs type>string</hljs> $configurationFile, <hljs type>PageParser</hljs> $pageParser, <hljs type>PageRenderer</hljs> $pageRenderer) {
+public function __construct(string $publicDirectory, string $configurationFile, PageParser $pageParser, PageRenderer $pageRenderer) {
     // ...
 }
 ```
@@ -34,10 +34,10 @@ In case of this argument list, all arguments are equally important; yet a lot of
 So how do we pull useful information more to the left?
 
 ```php
-public function __construct(<hljs type>string</hljs> $publicDirectory,
-                            <hljs type>string</hljs> $configurationFile,
-                            <hljs type>PageParser</hljs> $pageParser,
-                            <hljs type>PageRenderer</hljs> $pageRenderer) {
+public function __construct(string $publicDirectory,
+                            string $configurationFile,
+                            PageParser $pageParser,
+                            PageRenderer $pageRenderer) {
     // ...
 }
 ```
@@ -45,10 +45,10 @@ public function __construct(<hljs type>string</hljs> $publicDirectory,
 This could be the first solution you think about. But it doesn't really scale. As soon as you're refactoring a method name, the alignment breaks. Say we want to make this a static constructor instead of a normal one.
 
 ```php
-public static function create(<hljs type>string</hljs> $publicDirectory,
-                            <hljs type>string</hljs> $configurationFile,
-                            <hljs type>PageParser</hljs> $pageParser,
-                            <hljs type>PageRenderer</hljs> $pageRenderer) {
+public static function create(string $publicDirectory,
+                            string $configurationFile,
+                            PageParser $pageParser,
+                            PageRenderer $pageRenderer) {
     // ...
 }
 ```
@@ -59,8 +59,8 @@ Another issue is that arguments are still pushed rather far to the right; so let
 
 ```php
 public function __construct(
-    <hljs type>string</hljs> $publicDirectory, <hljs type>string</hljs> $configurationFile,
-    <hljs type>PageParser</hljs> $pageParser, <hljs type>PageRenderer</hljs> $pageRenderer) {
+    string $publicDirectory, string $configurationFile,
+    PageParser $pageParser, PageRenderer $pageRenderer) {
     // ...
 }
 ```
@@ -69,9 +69,9 @@ The advantage here is that our alignment issue is solved. However, how will you 
 
 ```php
 public function __construct(
-    <hljs type>string</hljs> $publicDirectory, <hljs type>string</hljs> $configurationFile, 
-    <hljs type>string</hljs> $cachePath, <hljs type>PageParser</hljs> $pageParser, 
-    <hljs type>PageRenderer</hljs> $pageRenderer) {
+    string $publicDirectory, string $configurationFile, 
+    string $cachePath, PageParser $pageParser, 
+    PageRenderer $pageRenderer) {
     // ...
 }
 ```
@@ -83,14 +83,14 @@ So let's continue our search for consistency.
 
 ```php
 public function __construct(
-    <hljs type>string</hljs> $publicDirectory,
-    <hljs type>string</hljs> $configurationFile,
-    <hljs type>PageParser</hljs> $pageParser,
-    <hljs type>PageRenderer</hljs> $pageRenderer) {
-    $this-><hljs prop>publicDirectory</hljs> = <hljs prop>rtrim</hljs>($publicDirectory, '/');
-    $this-><hljs prop>configurationFile</hljs> = $configurationFile;
-    $this-><hljs prop>pageParser</hljs> = $pageParser;
-    $this-><hljs prop>pageRenderer</hljs> = $pageRenderer;
+    string $publicDirectory,
+    string $configurationFile,
+    PageParser $pageParser,
+    PageRenderer $pageRenderer) {
+    $this->publicDirectory = rtrim($publicDirectory, '/');
+    $this->configurationFile = $configurationFile;
+    $this->pageParser = $pageParser;
+    $this->pageRenderer = $pageRenderer;
 }
 ```
 
@@ -134,15 +134,15 @@ On a new line. Placing curly brackets on new lines gives our code space to breat
 
 ```php
 public function __construct(
-    <hljs type>string</hljs> $publicDirectory,
-    <hljs type>string</hljs> $configurationFile,
-    <hljs type>PageParser</hljs> $pageParser,
-    <hljs type>PageRenderer</hljs> $pageRenderer
+    string $publicDirectory,
+    string $configurationFile,
+    PageParser $pageParser,
+    PageRenderer $pageRenderer
 ) {
-    $this-><hljs prop>publicDirectory</hljs> = <hljs prop>rtrim</hljs>($publicDirectory, '/');
-    $this-><hljs prop>configurationFile</hljs> = $configurationFile;
-    $this-><hljs prop>pageParser</hljs> = $pageParser;
-    $this-><hljs prop>pageRenderer</hljs> = $pageRenderer;
+    $this->publicDirectory = rtrim($publicDirectory, '/');
+    $this->configurationFile = $configurationFile;
+    $this->pageParser = $pageParser;
+    $this->pageRenderer = $pageRenderer;
 }
 ```
 

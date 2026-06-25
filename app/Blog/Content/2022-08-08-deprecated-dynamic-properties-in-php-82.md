@@ -14,7 +14,7 @@ As is common with minor releases, [PHP 8.2](/blog/new-in-php-82) adds some depre
 
 So first things first, what are dynamic properties exactly? Well, they are properties that aren't present on a class' definition, but are set on objects of those classes dynamically, at runtime.
 
-For example this `<hljs type>Post</hljs>` class doesn't have a `<hljs prop>name</hljs>` property, but nevertheless we set it at runtime:
+For example this `Post` class doesn't have a `name` property, but nevertheless we set it at runtime:
 
 ```php
 class Post
@@ -23,11 +23,11 @@ class Post
 
 // …
 
-$post = new <hljs type>Post</hljs>();
+$post = new Post();
 
-$post-><hljs prop>name</hljs> = 'Name';
+$post->name = 'Name';
 
-<hljs prop>var_dump</hljs>($post-><hljs prop>name</hljs>); // 'Name'
+var_dump($post->name); // 'Name'
 ```
 
 As of PHP 8.2, these dynamic properties will be deprecated:
@@ -35,27 +35,27 @@ As of PHP 8.2, these dynamic properties will be deprecated:
 ```php
 // …
 
-$post-><hljs striped>name</hljs> = 'Name';
+$post->name = 'Name';
 ```
 
 You'll see this message: `Deprecated: Creation of dynamic property Post::$name is deprecated`.
 
 {{ ad:carbon }}
 
-## Implementing `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>` still works!
+## Implementing `__get` and `__set` still works!
 
 You might be panicking at this point, because dynamic properties are a big part of meta programming in PHP — many frameworks rely on it!
 
-Not to worry: this new deprecation won't affect any class that implements `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>`. Classes that implement these magic methods will keep working as intended:
+Not to worry: this new deprecation won't affect any class that implements `__get` and `__set`. Classes that implement these magic methods will keep working as intended:
 
 ```php
 class Post
 {
-    private <hljs type>array</hljs> <hljs prop>$properties</hljs> = [];
+    private array $properties = [];
 
-    public function __set(<hljs type>string</hljs> $name, <hljs type>mixed</hljs> $value): void
+    public function __set(string $name, mixed $value): void
     {
-        $this-><hljs prop>properties</hljs>[$name] = $value;
+        $this->properties[$name] = $value;
     }
 
     // …
@@ -63,50 +63,50 @@ class Post
 
 // …
 
-$post-><hljs prop>name</hljs> = 'Name';
+$post->name = 'Name';
 ```
 
-The same goes for objects of `<hljs type>stdClass</hljs>`, they will support dynamic properties just as before:
+The same goes for objects of `stdClass`, they will support dynamic properties just as before:
 
 ```php
-$object = new <hljs type>stdClass</hljs>();
+$object = new stdClass();
 
-$object-><hljs prop>name</hljs> = 'Name'; // Works fine in PHP 8.2
+$object->name = 'Name'; // Works fine in PHP 8.2
 ```
 
-Now some clever readers might wonder: if `<hljs type>stdClass</hljs>` still allows dynamic properties, what would happen if you'd extend from it?
+Now some clever readers might wonder: if `stdClass` still allows dynamic properties, what would happen if you'd extend from it?
 
-Indeed, it _is_ possible to extend from `<hljs type>stdClass</hljs>` to prevent the deprecation notice from being shown. However, I'd say this solution is far from ideal:
+Indeed, it _is_ possible to extend from `stdClass` to prevent the deprecation notice from being shown. However, I'd say this solution is far from ideal:
 
 ```php
 // Don't do this
 
-class Post extends <hljs type>stdClass</hljs>
+class Post extends stdClass
 {
 }
 
-$post = new <hljs type>Post</hljs>();
+$post = new Post();
 
-$post-><hljs prop>name</hljs> = 'Name'; // Works in PHP 8.2
+$post->name = 'Name'; // Works in PHP 8.2
 ```
 
 {{ cta:dynamic }}
 
 ## A better alternative
 
-If you _really_ want to use dynamic properties without implementing `<hljs prop>__get</hljs>` and `<hljs prop>__set</hljs>`, there is a much better alternative than to extend from `<hljs type>stdClass</hljs>`.
+If you _really_ want to use dynamic properties without implementing `__get` and `__set`, there is a much better alternative than to extend from `stdClass`.
 
-The PHP core team has provided a built-in [attribute](/blog/attributes-in-php-8) called `<hljs type>AllowDynamicProperties</hljs>`. As its name suggests, it allows dynamic properties on classes, without having to rely on sketchy extends:
+The PHP core team has provided a built-in [attribute](/blog/attributes-in-php-8) called `AllowDynamicProperties`. As its name suggests, it allows dynamic properties on classes, without having to rely on sketchy extends:
 
 ```php
-#[<hljs type>\AllowDynamicProperties</hljs>]
+#[\AllowDynamicProperties]
 class Post
 {
 }
 
-$post = new <hljs type>Post</hljs>();
+$post = new Post();
 
-$post-><hljs prop>name</hljs> = 'Name'; // All fine
+$post->name = 'Name'; // All fine
 ```
 
 ## Closing thoughts

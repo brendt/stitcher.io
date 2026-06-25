@@ -32,27 +32,27 @@ Writing this flow down in bullets makes it feel like the pull request reward sys
 ```php
 class RegisterPullRequest
 {
-    public function __invoke(<hljs type>PullRequestData</hljs> $data): void
+    public function __invoke(PullRequestData $data): void
     {
         // Persist the pull request
-        $pullRequest = <hljs type>PullRequest</hljs>::<hljs prop>create</hljs>(...$data);
+        $pullRequest = PullRequest::create(...$data);
         
-        $user = $pullRequest-><hljs prop>user</hljs>;
+        $user = $pullRequest->user;
         
         // Award XP
-        $user-><hljs prop>award</hljs>(10);
+        $user->award(10);
         
-        $pullRequestCount = <hljs prop>count</hljs>($user-><hljs prop>pullRequests</hljs>);
+        $pullRequestCount = count($user->pullRequests);
         
         // Determine whether an achievement should be triggered
-        if (<hljs prop>in_array</hljs>($pullRequestCount, [10, 50, 100])) {
-            $achievement = new <hljs type>PullRequestAchievement</hljs>($pullRequestCount);
+        if (in_array($pullRequestCount, [10, 50, 100])) {
+            $achievement = new PullRequestAchievement($pullRequestCount);
             
             // Persist the achievement  
-            $user-><hljs prop>unlock</hljs>($achievement);
+            $user->unlock($achievement);
             
             // Notify the user
-            $user-><hljs prop>notify</hljs>(new <hljs type>AchievementNotification</hljs>($achievement));
+            $user->notify(new AchievementNotification($achievement));
         }
     }
 }
@@ -65,9 +65,9 @@ This code clearly represents the ordered steps we listed at first, but there are
 - We've hard-coded the flow of our program into a fixed order
 - We've mixed a bunch of responsibilities into one giant class
 
-Let's consider "awarding XP" and "unlocking achievements" for a moment. These are two equally important parts of our system. In fact, there's also an achievement for XP being awarded, which means that our current implementation is either lacking, or that there's some added functionality in `$user-><hljs prop>award</hljs>(10);` that we don't know about. Let's assume the latter for now.
+Let's consider "awarding XP" and "unlocking achievements" for a moment. These are two equally important parts of our system. In fact, there's also an achievement for XP being awarded, which means that our current implementation is either lacking, or that there's some added functionality in `$user->award(10);` that we don't know about. Let's assume the latter for now.
 
-Even though these two parts are equally important and not directly dependent on each other, we've combined them into one process because it seems like they belong together. However, an unfortunate side effect of doing so, is that our `<hljs type>RegisterPullRequest</hljs>` class is growing larger and more complex. Making a change to how pull request achievements are handled, will inevitably take us to the same place where XP rewards are handled.
+Even though these two parts are equally important and not directly dependent on each other, we've combined them into one process because it seems like they belong together. However, an unfortunate side effect of doing so, is that our `RegisterPullRequest` class is growing larger and more complex. Making a change to how pull request achievements are handled, will inevitably take us to the same place where XP rewards are handled.
 
 While you might find it still relatively easy to reason about this isolated (simplified) example, I think most of us can agree that yes, in fact, we're mixing several processes together into one: we're creating some kind of "god-class" that manages and oversees a complex process. We've created a single point of failure. And the more complex our business becomes, this code has the potential to grow larger, more complex and more difficult to reason about.
 
@@ -83,26 +83,26 @@ The indirectness of event-driven systems is actually the solution to our problem
 
 In an event-driven system, both "XP rewards" and "achievement unlocks" are treated as two standalone systems. They don't need to know of each other. The only thing they need to know is when a pull request is merged — when an event happens.
 
-Both our systems are now event listeners that will act whenever a `<hljs type>PullRequestMerged</hljs>` event is dispatched:
+Both our systems are now event listeners that will act whenever a `PullRequestMerged` event is dispatched:
 
 ```php
 class AchievementManager
 {
-    public function __invoke(<hljs type>PullRequestMerged</hljs> $event): void
+    public function __invoke(PullRequestMerged $event): void
     {
-        $pullRequestCount = <hljs type>User</hljs>::<hljs prop>find</hljs>($event-><hljs prop>userId</hljs>)
-            -><hljs prop>pullRequests</hljs>
-            -><hljs prop>count</hljs>();
+        $pullRequestCount = User::find($event->userId)
+            ->pullRequests
+            ->count();
         
-        if (! <hljs prop>in_array</hljs>($pullRequestCount, [10, 50, 100])) {
+        if (! in_array($pullRequestCount, [10, 50, 100])) {
             return;
         }
         
-        $achievement = new <hljs type>PullRequestAchievement</hljs>($pullRequestCount);
+        $achievement = new PullRequestAchievement($pullRequestCount);
         
-        $user-><hljs prop>unlock</hljs>($achievement);
+        $user->unlock($achievement);
         
-        $user-><hljs prop>notify</hljs>(new <hljs type>AchievementNotification</hljs>($achievement));
+        $user->notify(new AchievementNotification($achievement));
     }
 }
 ```
@@ -110,28 +110,28 @@ class AchievementManager
 ```php
 class ExperienceManager
 {
-    public function __invoke(<hljs type>PullRequestMerged</hljs> $event): void
+    public function __invoke(PullRequestMerged $event): void
     {
-        $user = <hljs type>User</hljs>::<hljs prop>find</hljs>($event-><hljs prop>userId</hljs>);
+        $user = User::find($event->userId);
         
-        $user-><hljs prop>award</hljs>(10);
+        $user->award(10);
     }
 }
 ```
 
 Now that these two systems are separated, it's much easier to reason about them because they live in isolation. 
 
-It doesn't stop there, by the way. What about that "achievement for a given amount of XP" I mentioned at the beginning of this post? `<hljs type>ExperienceEarned</hljs>` could be an event itself that our `<hljs type>AchievementManager</hljs>` listens for as well:
+It doesn't stop there, by the way. What about that "achievement for a given amount of XP" I mentioned at the beginning of this post? `ExperienceEarned` could be an event itself that our `AchievementManager` listens for as well:
 
 ```php
 class AchievementManager
 {
-    public function onPullRequestMerged(<hljs type>PullRequestMerged</hljs> $event): void
+    public function onPullRequestMerged(PullRequestMerged $event): void
     { /* … */ }
     
-    public function onExperienceEarned(<hljs type>ExperienceEarned</hljs> $event): void
+    public function onExperienceEarned(ExperienceEarned $event): void
     {
-        $user = <hljs type>User</hljs>::<hljs prop>find</hljs>($event-><hljs prop>userId</hljs>);
+        $user = User::find($event->userId);
         
         $currentCount = $user->experience;
         
@@ -145,16 +145,16 @@ class AchievementManager
             return;
         }
         
-        $achievement = new <hljs type>ExperienceAchievement</hljs>('100 XP!');
+        $achievement = new ExperienceAchievement('100 XP!');
         
-        $user-><hljs prop>unlock</hljs>($achievement);
+        $user->unlock($achievement);
         
-        $user-><hljs prop>notify</hljs>(new <hljs type>AchievementNotification</hljs>($achievement));
+        $user->notify(new AchievementNotification($achievement));
     }
 }
 ```
 
-You might even begin to see some opportunities yourself: what about sending a mail after an achievement was unlocked? That could also be driven by an event, so that `<hljs type>AchievementManager</hljs>` doesn't need to think about it — we could add a listener that handles mails. What about persisting the pull request to the database? That could be event-driven as well. Achievements that earn experience? The list goes on.
+You might even begin to see some opportunities yourself: what about sending a mail after an achievement was unlocked? That could also be driven by an event, so that `AchievementManager` doesn't need to think about it — we could add a listener that handles mails. What about persisting the pull request to the database? That could be event-driven as well. Achievements that earn experience? The list goes on.
 
 This is the beauty of event-driven systems: by removing tightly-coupled components, we allow room for much more flexibility, while keeping our individual components small and sustainable. Besides that, events are an excellent way of handling micro-service messaging, horizontal scaling and more — though, discussing all these benefits would be too much to cover in one blog post.
 

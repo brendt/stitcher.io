@@ -70,7 +70,7 @@ then style it from there.
 
 public function boot()
 {
-    <hljs type>Nova</hljs>::<hljs prop>enableThemingClasses</hljs>()
+    Nova::enableThemingClasses()
 }
 ```
 
@@ -92,14 +92,14 @@ if (window.config.themingClasses) {
 in the version 1.x of Nova you would control your Fields visibility using 8 methods:
 
 ```php
-<hljs prop>hideFromIndex</hljs>()
-<hljs prop>hideFromDetail</hljs>()
-<hljs prop>hideWhenCreating</hljs>()
-<hljs prop>hideWhenUpdating</hljs>()
-<hljs prop>onlyOnIndex</hljs>()
-<hljs prop>onlyOnDetail</hljs>()
-<hljs prop>onlyOnForms</hljs>()
-<hljs prop>exceptOnForms</hljs>()
+hideFromIndex()
+hideFromDetail()
+hideWhenCreating()
+hideWhenUpdating()
+onlyOnIndex()
+onlyOnDetail()
+onlyOnForms()
+exceptOnForms()
 ```
 
 Now, you have the `show*()` methods that allow you to show your Resource in the
@@ -108,10 +108,10 @@ you can have a `showOnIndex()` and a `showOnCreating()`, using a callback on the
 that should return `true`.
 
 ```txt
-<hljs prop>showOnIndex</hljs>()
-<hljs prop>showOnDetail</hljs>()
-<hljs prop>showOnCreating</hljs>()
-<hljs prop>showOnUpdating</hljs>()
+showOnIndex()
+showOnDetail()
+showOnCreating()
+showOnUpdating()
 ```
 
 ## 3. New field types to create a better user experience
@@ -126,10 +126,10 @@ See it a Chart "on-the-fly" directly in your Resource index or detail contexts.
 ![](/img/blog/improvements-on-laravel-nova/sparkline-field.jpg)
 
 ```php
-<hljs type>Sparkline</hljs>::<hljs prop>make</hljs>('Total devices Per Week')
-    -><hljs prop>data</hljs>($data)
-    -><hljs prop>asBarChart</hljs>()
-    -><hljs prop>width</hljs>(300),
+Sparkline::make('Total devices Per Week')
+    ->data($data)
+    ->asBarChart()
+    ->width(300),
 ```
 
 ### Key-Value Field
@@ -140,15 +140,15 @@ a way to manage Key-Value entries in a CRUD way.
 ![](/img/blog/improvements-on-laravel-nova/key-value-field.jpg)
 
 ```php
-<hljs type>KeyValue</hljs>::<hljs prop>make</hljs>('Server Data', 'server_data')
-    -><hljs prop>keyLabel</hljs>('Parameter')
-    -><hljs prop>valueLabel</hljs>('Value')
-    -><hljs prop>actionText</hljs>('Add Server Parameter')
-    -><hljs prop>rules</hljs>('json')
-    -><hljs prop>nullable</hljs>(),
+KeyValue::make('Server Data', 'server_data')
+    ->keyLabel('Parameter')
+    ->valueLabel('Value')
+    ->actionText('Add Server Parameter')
+    ->rules('json')
+    ->nullable(),
 
 // In your model:
-<hljs prop>protected $casts = [</hljs>
+protected $casts = [
     'server_data' => 'json'
 ];
 ```
@@ -159,8 +159,8 @@ At first, it might not be useful, but believe me, it's great to have it since
 you can apply data computations to be sent to your UI components.
 
 ```
-<hljs type>Hidden</hljs>::<hljs prop>make</hljs>('User', 'user_id')-><hljs prop>default</hljs>(
-    <hljs keyword>fn</hljs>($request) => $request-><hljs prop>user</hljs>()->id
+Hidden::make('User', 'user_id')->default(
+    fn($request) => $request->user()->id
 );
 ```
 
@@ -173,8 +173,8 @@ URL for Amazon S3 and will immediately upload the file.
 ![](/img/blog/improvements-on-laravel-nova/vapor-fields.jpg)
 
 ```txt
-<hljs type>VaporFile</hljs>::<hljs prop>make</hljs>('Filename'),
-<hljs type>VaporImage</hljs>::<hljs prop>make</hljs>('Avatar')-><hljs prop>maxWidth</hljs>(80)-><hljs prop>rounded</hljs>(false),
+VaporFile::make('Filename'),
+VaporImage::make('Avatar')->maxWidth(80)->rounded(false),
 ```
 
 ### Searchable Select Fields
@@ -184,10 +184,10 @@ On the latest Nova version 3.6.0 you can now have a Searchable Select field.
 ![](/img/blog/improvements-on-laravel-nova/select-searchable.jpg)
 
 ```php
-<hljs type>Select</hljs>::<hljs prop>make</hljs>('Tags', 'tag_id')
-    -><hljs prop>searchable</hljs>()
-    -><hljs prop>options</hljs>(<hljs type>\App\Tag</hljs>::<hljs prop>all</hljs>()-><hljs prop>pluck</hljs>('name', 'id'))
-    -><hljs prop>displayUsingLabels</hljs>(),
+Select::make('Tags', 'tag_id')
+    ->searchable()
+    ->options(\App\Tag::all()->pluck('name', 'id'))
+    ->displayUsingLabels(),
 ```
 
 ## 4. You can change the Stubs
@@ -207,12 +207,12 @@ This one I think it's undocumented but you can sort your Resources given a speci
 
 ```php
 // In NovaServiceProvider.php
-<hljs type>Nova</hljs>::<hljs prop>sortResourcesBy</hljs>(function ($resource) {
-    return $resource::<hljs prop>$priority</hljs> ?? 9999;
+Nova::sortResourcesBy(function ($resource) {
+    return $resource::$priority ?? 9999;
 });
 
 // In your Resource
-public static <hljs prop>$priority</hljs> = 10; // Or any other number.
+public static $priority = 10; // Or any other number.
 ```
 
 The Sidebar Resources will then be sorted by this priority. Neat!
@@ -224,7 +224,7 @@ to go to Edit and not to Detail, or vice-versa. All you have to do is to add
 this static property on your Resource:
 
 ```
-public static <hljs prop>$globalSearchLink</hljs> = 'detail';
+public static $globalSearchLink = 'detail';
 ```
 
 ---

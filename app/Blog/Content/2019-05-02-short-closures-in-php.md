@@ -21,14 +21,14 @@ This is what they look like:
 // A collection of Post objects
 $posts = [/* … */];
 
-$ids = <hljs prop>array_map</hljs>(<hljs keyword>fn</hljs>($post) => $post-><hljs prop>id</hljs>, $posts);
+$ids = array_map(fn($post) => $post->id, $posts);
 ``` 
 
 Previously, you'd had to write this:
 
 ```php
-$ids = <hljs prop>array_map</hljs>(function ($post) {
-    return $post-><hljs prop>id</hljs>;
+$ids = array_map(function ($post) {
+    return $post->id;
 }, $posts);
 ```
 
@@ -43,7 +43,7 @@ Let's summarize how short closures can be used.
 A more strictly typed way of writing the example above could be this:
 
 ```php
-$ids = <hljs prop>array_map</hljs>(<hljs keyword>fn</hljs>(<hljs type>Post</hljs> $post): <hljs type>int</hljs> => $post-><hljs prop>id</hljs>, $posts);
+$ids = array_map(fn(Post $post): int => $post->id, $posts);
 ``` 
 
 Two more things to mention:
@@ -54,7 +54,7 @@ Two more things to mention:
 If you want to return a value by reference, the following syntax should be used:
 
 ```php
-<hljs keyword>fn</hljs>&($x) => $x
+fn&($x) => $x
 ```
 
 In short, short closures allow the same functionality you'd expect from normal closures, 
@@ -91,7 +91,7 @@ require the `use` keyword to be able to access data from the outer scope.
 ```php
 $modifier = 5;
 
-<hljs prop>array_map</hljs>(<hljs keyword>fn</hljs>($x) => $x * $modifier, $numbers);
+array_map(fn($x) => $x * $modifier, $numbers);
 ```  
 
 It's important to note that you're not allowed to modify variables from the outer scope.
@@ -102,7 +102,7 @@ though it wouldn't have effect on the `$modifier` variable in the outer scope.
 One exception is of course the `$this` keyword, which acts exactly the same as normal closures:
 
 ```php
-<hljs prop>array_map</hljs>(<hljs keyword>fn</hljs>($x) => $x * $this->modifier, $numbers);
+array_map(fn($x) => $x * $this->modifier, $numbers);
 ```
 
 ## Future possibilities
@@ -114,7 +114,7 @@ Another idea floating around is allowing the short closure syntax in classes, fo
 class Post {
     private $title;
  
-    <hljs keyword>fn</hljs> <hljs prop>getTitle</hljs>() => $this->title;
+    fn getTitle() => $this->title;
 }
 ```
 

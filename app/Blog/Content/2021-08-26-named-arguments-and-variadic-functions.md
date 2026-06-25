@@ -20,10 +20,10 @@ Imagine a package or framework exposing this class:
 class QueryBuilder
 {
     public function join(
-        <hljs type>string</hljs> $table, 
-        <hljs type>string</hljs> $leftColumn, 
-        <hljs type>string</hljs> $rightColumn, 
-        <hljs type>string</hljs> $type
+        string $table, 
+        string $leftColumn, 
+        string $rightColumn, 
+        string $type
     ) { /* … */ }
 }
 ```
@@ -31,15 +31,15 @@ class QueryBuilder
 The problem with named arguments is that if users call this function with them, the framework now needs to treat parameter name changes as possible breaking ones:
 
 ```php
-$query-><hljs prop>join</hljs>(
-    <hljs prop>type</hljs>: 'left',
-    <hljs prop>table</hljs>: 'table_b',
-    <hljs prop>leftColumn</hljs>: 'table_a.id',
-    <hljs prop>rightColumn</hljs>: 'table_b.table_a_id',
+$query->join(
+    type: 'left',
+    table: 'table_b',
+    leftColumn: 'table_a.id',
+    rightColumn: 'table_b.table_a_id',
 )
 ```
 
-If the framework wants to rename `<hljs prop>leftColumn</hljs>` and `<hljs prop>rightColumn</hljs>` to simply `<hljs prop>left</hljs>` and `<hljs prop>right</hljs>`, the above code — userland code — would break.
+If the framework wants to rename `leftColumn` and `rightColumn` to simply `left` and `right`, the above code — userland code — would break.
 
 Here's the thing: **no framework or package can prevent users from using named arguments**, there simply isn't a way to disallow them. So either, as an open source maintainer, you:
 
@@ -58,10 +58,10 @@ So in summary for this first part: there's nothing the framework can do to preve
 The second way named arguments can be used, is in combination with variadic functions, essentially becoming a — in my opinion cleaner — shorthand for passing arrays of data:
 
 ```php
-$user = <hljs type>User</hljs>::<hljs prop>create</hljs>(
-    <hljs prop>name</hljs>: 'Brent',
-    <hljs prop>email</hljs>: 'brendt@stitcher.io',
-    <hljs prop>company_id</hljs>: 1,  
+$user = User::create(
+    name: 'Brent',
+    email: 'brendt@stitcher.io',
+    company_id: 1,  
 );
 ```
 
@@ -74,7 +74,7 @@ class User
 }
 ```
 
-Passing a named argument list into this variadic `<hljs prop>create</hljs>` function will result in an array like this:
+Passing a named argument list into this variadic `create` function will result in an array like this:
 
 ```php
 [
@@ -87,7 +87,7 @@ Passing a named argument list into this variadic `<hljs prop>create</hljs>` func
 Rewriting the above example without named arguments but arrays instead, would look like this:
 
 ```php
-$user = <hljs type>User</hljs>::<hljs prop>create</hljs>([
+$user = User::create([
     'name' => 'Brent',
     'email' => 'brendt@stitcher.io',
     'company_id' => 1,  

@@ -71,25 +71,25 @@ but that's not our concern: the responsive images spec can handle that for us.
 So how can you determine the dimensions of, say 10 variants of the same image, if you only know the dimensions of the original image? This is where high school maths come into play.
 
 ```txt
-<hljs comment>We start with these known variables</hljs>
-<hljs prop>filesize</hljs> = 1.000.000
-<hljs prop>width</hljs> = 1920
-<hljs prop>ratio</hljs> = 9 / 16
-<hljs prop>height</hljs> = <hljs prop>ratio</hljs> * <hljs prop>width</hljs>
+We start with these known variables
+filesize = 1.000.000
+width = 1920
+ratio = 9 / 16
+height = ratio * width
 
-<hljs comment>Next we introduce another one: area</hljs>
-<hljs prop>area</hljs> = <hljs prop>width</hljs> * <hljs prop>height</hljs>
- <=> <hljs prop>area</hljs> = <hljs prop>width</hljs> * <hljs prop>width</hljs> * <hljs prop>ratio</hljs>
+Next we introduce another one: area
+area = width * height
+ <=> area = width * width * ratio
 
-<hljs comment>We say that the pixelprice is filesize / area</hljs>
-<hljs prop>pixelprice</hljs> = <hljs prop>filesize</hljs> / <hljs prop>area</hljs>
+We say that the pixelprice is filesize / area
+pixelprice = filesize / area
 
-<hljs comment>Now we can replace variables until we have the desired result</hljs>
- <=> <hljs prop>filesize</hljs> = <hljs prop>pixelprice</hljs> * <hljs prop>area</hljs>
- <=> <hljs prop>filesize</hljs> = <hljs prop>pixelprice</hljs> * (<hljs prop>width</hljs> * <hljs prop>width</hljs> * <hljs prop>ratio</hljs>)
- <=> <hljs prop>width</hljs> * <hljs prop>width</hljs> * <hljs prop>ratio</hljs> = <hljs prop>filesize</hljs> / <hljs prop>pixelprice</hljs>
- <=> <hljs prop>width</hljs> ^ 2 = (<hljs prop>filesize</hljs> / <hljs prop>pixelprice</hljs>) / <hljs prop>ratio</hljs>
- <=> <hljs prop>width</hljs> = sqrt((<hljs prop>filesize</hljs> / <hljs prop>pixelprice</hljs>) / <hljs prop>ratio</hljs>)
+Now we can replace variables until we have the desired result
+ <=> filesize = pixelprice * area
+ <=> filesize = pixelprice * (width * width * ratio)
+ <=> width * width * ratio = filesize / pixelprice
+ <=> width ^ 2 = (filesize / pixelprice) / ratio
+ <=> width = sqrt((filesize / pixelprice) / ratio)
 ``` 
 
 This proof says that given a constant `pixelprice`, we can calculate the width a scaled-down image needs to have a specified filesize. Here's the thing though: `pixelprice` is an approximation of what one pixel in this image costs. Because we'll scale down the image as a whole, this approximation is enough to yield accurate results though. Here's the implementation in PHP:
@@ -113,13 +113,13 @@ $pixelPrice = $fileSize / $area;
 $stepModifier = $fileSize * 0.1;
 
 while ($fileSize > 0) {
-    $newWidth = <hljs prop>floor</hljs>(
-        <hljs prop>sqrt</hljs>(
+    $newWidth = floor(
+        sqrt(
             ($fileSize / $pixelPrice) / $ratio
         )
     );
 
-    $dimensions[] = new <hljs type>Dimension</hljs>($newWidth, $newWidth * $ratio);
+    $dimensions[] = new Dimension($newWidth, $newWidth * $ratio);
 
     $fileSize -= $stepModifier;
 }
@@ -148,16 +148,16 @@ Can you imagine doing this by hand? Neither can I! One of the first features I p
 
 ```php
 $model
-   -><hljs prop>addMedia</hljs>($yourImageFile)
-   -><hljs prop>withResponsiveImages</hljs>()
-   -><hljs prop>toMediaCollection</hljs>();
+   ->addMedia($yourImageFile)
+   ->withResponsiveImages()
+   ->toMediaCollection();
 ```
 
 ```
-<<hljs keyword>img</hljs> 
-    <hljs prop>src</hljs>="{{ $media->getFullUrl() }}" 
-    <hljs prop>srcset</hljs>="{{ $media->getSrcset() }}" 
-    <hljs prop>sizes</hljs>="[your own logic]"
+<img 
+    src="{{ $media->getFullUrl() }}" 
+    srcset="{{ $media->getSrcset() }}" 
+    sizes="[your own logic]"
 />
 ```
 

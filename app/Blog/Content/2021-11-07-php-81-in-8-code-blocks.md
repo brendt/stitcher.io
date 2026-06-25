@@ -15,19 +15,19 @@ footnotes:
 {{ ad:carbon }}
 
 ```php
-<hljs keyword>enum</hljs> <hljs type>Status</hljs>
+enum Status
 {
-    case <hljs prop>draft</hljs>;
-    case <hljs prop>published</hljs>;
-    case <hljs prop>archived</hljs>;
+    case draft;
+    case published;
+    case archived;
     
     public function color(): string
     {
-        return <hljs keyword>match</hljs>($this) 
+        return match($this) 
         {
-            <hljs type>Status</hljs>::<hljs prop>draft</hljs> => 'grey',   
-            <hljs type>Status</hljs>::<hljs prop>published</hljs> => 'green',   
-            <hljs type>Status</hljs>::<hljs prop>archived</hljs> => 'red',   
+            Status::draft => 'grey',   
+            Status::published => 'green',   
+            Status::archived => 'red',   
         };
     }
 }
@@ -41,11 +41,11 @@ footnotes:
 class PostData
 {
     public function __construct(
-        <hljs keyword>public</hljs> <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$title</hljs>,
-        <hljs keyword>public</hljs> <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$author</hljs>,
-        <hljs keyword>public</hljs> <hljs keyword>readonly</hljs> <hljs type>string</hljs> <hljs prop>$body</hljs>,
-        <hljs keyword>public</hljs> <hljs keyword>readonly</hljs> <hljs type>DateTimeImmutable</hljs> <hljs prop>$createdAt</hljs>,
-        <hljs keyword>public</hljs> <hljs keyword>readonly</hljs> <hljs type>PostState</hljs> <hljs prop>$state</hljs>,
+        public readonly string $title,
+        public readonly string $author,
+        public readonly string $body,
+        public readonly DateTimeImmutable $createdAt,
+        public readonly PostState $state,
     ) {}
 }
 ```
@@ -58,7 +58,7 @@ class PostData
 class PostStateMachine
 {
     public function __construct(
-        <hljs keyword>private</hljs> <hljs type>State</hljs> <hljs prop>$state</hljs> = <hljs keyword>new</hljs> <hljs type>Draft</hljs>(),
+        private State $state = new Draft(),
     ) {
     }
 }
@@ -69,15 +69,15 @@ class PostStateMachine
 ---
 
 ```php
-$fiber = new <hljs type>Fiber</hljs>(function (): <hljs type>void</hljs> {
-    $valueAfterResuming = <hljs type>Fiber</hljs>::<hljs prop>suspend</hljs>('after suspending');
+$fiber = new Fiber(function (): void {
+    $valueAfterResuming = Fiber::suspend('after suspending');
     
     // … 
 });
  
-$valueAfterSuspending = $fiber-><hljs prop>start</hljs>();
+$valueAfterSuspending = $fiber->start();
  
-$fiber-><hljs prop>resume</hljs>('after resuming');
+$fiber->resume('after resuming');
 ```
 
 
@@ -92,7 +92,7 @@ $array2 = ["b" => 2];
 
 $array = ["a" => 0, ...$array1, ...$array2];
 
-<hljs prop>var_dump</hljs>($array); // ["a" => 1, "b" => 2]
+var_dump($array); // ["a" => 1, "b" => 2]
 ```
 
 <em class="small center">[Array unpacking also supports string keys](/blog/new-in-php-81#array-unpacking-with-string-keys-rfc)</em>
@@ -100,11 +100,11 @@ $array = ["a" => 0, ...$array1, ...$array2];
 ---
 
 ```php
-function foo(<hljs type>int</hljs> $a, <hljs type>int</hljs> $b) { /* … */ }
+function foo(int $a, int $b) { /* … */ }
 
-$foo = <hljs prop>foo</hljs>(...);
+$foo = foo(...);
 
-$foo(<hljs prop>a:</hljs> 1, <hljs prop>b:</hljs> 2);
+$foo(a: 1, b: 2);
 ```
 
 <em class="small center">[First class callables](https://wiki.php.net/rfc/first_class_callable_syntax)</em>
@@ -112,8 +112,8 @@ $foo(<hljs prop>a:</hljs> 1, <hljs prop>b:</hljs> 2);
 ---
 
 ```php
-function generateSlug(<hljs type>HasTitle</hljs>&<hljs type>HasId</hljs> $post) {
-    return <hljs prop>strtolower</hljs>($post-><hljs prop>getTitle</hljs>()) . $post-><hljs prop>getId</hljs>();
+function generateSlug(HasTitle&HasId $post) {
+    return strtolower($post->getTitle()) . $post->getId();
 }
 ```
 
@@ -124,15 +124,15 @@ function generateSlug(<hljs type>HasTitle</hljs>&<hljs type>HasId</hljs> $post) 
 ```php
 $list = ["a", "b", "c"];
 
-<hljs prop>array_is_list</hljs>($list); // true
+array_is_list($list); // true
 
 $notAList = [1 => "a", 2 => "b", 3 => "c"];
 
-<hljs prop>array_is_list</hljs>($notAList); // false
+array_is_list($notAList); // false
 
 $alsoNotAList = ["a" => "a", "b" => "b", "c" => "c"];
 
-<hljs prop>array_is_list</hljs>($alsoNotAList); // false
+array_is_list($alsoNotAList); // false
 ```
 
 <em class="small center">[The new `array_is_list` function](/blog/new-in-php-81#new-array_is_list-function-rfc)</em>

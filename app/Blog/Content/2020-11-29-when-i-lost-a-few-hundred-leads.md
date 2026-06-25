@@ -49,23 +49,23 @@ Before moving on, let me tell you about the error, why it happened and why no on
 So this form had a bunch of input fields, including check boxes. Whenever a lead request was submitted, we captured the data and prepared to save it into the database. It looked something like this:
 
 ```php
-$formSubmission = new <hljs type>FormSubmission</hljs>();
+$formSubmission = new FormSubmission();
 
-$formSubmission-><hljs prop>name</hljs> = $form-><hljs prop>get</hljs>('name');
-$formSubmission-><hljs prop>email</hljs> = $form-><hljs prop>get</hljs>('email');
+$formSubmission->name = $form->get('name');
+$formSubmission->email = $form->get('email');
 // …
 
-$entityManager-><hljs prop>save</hljs>($formSubmission);
+$entityManager->save($formSubmission);
 ```
 
 The bug, simple as it may sound, was a simple typo:
 
 ```txt
-$formSubmission-><hljs prop>more_feedback_required</hljs> = 
-    $form-><hljs prop>get</hljs>('more_feedback_requierd');
+$formSubmission->more_feedback_required = 
+    $form->get('more_feedback_requierd');
 ```
 
-Can you spot the `requierd` when calling `$form-><hljs prop>get</hljs>()`?
+Can you spot the `requierd` when calling `$form->get()`?
 
 As it turns out, our form library — written by us for our in-house framework — wouldn't give an error when you're trying to get an unknown property, it simply returns `null`. 
 

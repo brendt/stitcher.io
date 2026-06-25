@@ -2,9 +2,9 @@
 
 namespace App\Blog;
 
-use League\CommonMark\MarkdownConverter;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\DateTime\DateTime;
+use Tempest\Markdown\Markdown;
 use Tempest\Support\Arr\ImmutableArray;
 
 use function Tempest\Router\uri;
@@ -16,7 +16,7 @@ final class BlogPostRepository
     private static ?ImmutableArray $posts = null;
 
     public function __construct(
-        private readonly MarkdownConverter $converter,
+        private readonly Markdown $markdown,
     ) {}
 
     public function find(string $slug): ?BlogPost
@@ -29,7 +29,12 @@ final class BlogPostRepository
 
         $content = file_get_contents($path);
 
-        $frontMatter = YamlFrontMatter::parse($content)->matter();
+        if (! $content) {
+            return null;
+        }
+
+        $parsed = $this->markdown->parse($content);
+        $frontMatter = $parsed->frontmatter;
 
         $meta = $frontMatter['meta'] ?? [];
 
@@ -38,7 +43,7 @@ final class BlogPostRepository
         $post = new BlogPost(
             slug: $slug,
             title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
-            content: $this->converter->convert($content)->getContent(),
+            content: $parsed->html,
             date: $this->parseDate($path),
             meta: new Meta(
                 title: $meta['title'] ?? $frontMatter['title'] ?? null,

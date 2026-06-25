@@ -4,7 +4,7 @@ title: '"It''s your fault"'
 
 I read an intriguing blog post yesterday. It's an old one dating back to 2008, titled "[Even if a function doesn’t do anything, you still have to call it if the documentation says so, because it might do something tomorrow](https://devblogs.microsoft.com/oldnewthing/20080925-00/?p=20763)". That's quite a mouthful, but the article itself is rather short; I can summarise it one paragraph for you.
 
-There used to be a function in Windows Kernel that didn't do anything. Yet, the docs told programmers that this function _had_ to be called after calling another one: _if_ you called `<hljs prop>GetEnvironmentStrings</hljs>`, you _also_ needed to call `<hljs prop>FreeEnvironmentStrings</hljs>`. However, many programmers didn't bother to do so because it was pointless: `<hljs prop>FreeEnvironmentStrings</hljs>` didn't do anything, it was literally an empty function. A couple of years later, that function actually got an implementation, and many applications started to break because their programmers never bothered to call it in the first place.
+There used to be a function in Windows Kernel that didn't do anything. Yet, the docs told programmers that this function _had_ to be called after calling another one: _if_ you called `GetEnvironmentStrings`, you _also_ needed to call `FreeEnvironmentStrings`. However, many programmers didn't bother to do so because it was pointless: `FreeEnvironmentStrings` didn't do anything, it was literally an empty function. A couple of years later, that function actually got an implementation, and many applications started to break because their programmers never bothered to call it in the first place.
 
 The article summarises it as follows:
 
@@ -45,9 +45,9 @@ I think it's better software design, for vendors and users alike, to make our co
 In my opinion, that means:
 
 - Using a proper type system (as strict as possible)
-- Not allowing classes to be extended, unless it's by design, `<hljs keyword>final</hljs>` by default
-- Not allowing state to be writeable from the outside, unless it's by design, `<hljs keyword>readonly</hljs>` by default
-- Only adding methods to your public API that _actually_ should be publicly accessible, `<hljs keyword>private</hljs>` by default
+- Not allowing classes to be extended, unless it's by design, `final` by default
+- Not allowing state to be writeable from the outside, unless it's by design, `readonly` by default
+- Only adding methods to your public API that _actually_ should be publicly accessible, `private` by default
 - Using explicit, clear names everywhere
 - Programming to an interface instead of an implementation
 

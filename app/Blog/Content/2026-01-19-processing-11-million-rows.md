@@ -377,7 +377,7 @@ On that same Discord server I mentioned earlier, Márk reached out to me. Now, M
 
 Hmm, ok? What's that about, I asked.
 
-> So, if you don't do transactions […] InnoDB calls fsync() after every commit due to ACID (we are talking D here -> Durability). Without a transaction, every insert is an implicit commit, so 20k inserts = 20k commits = fsync() called 20k times. With an explicit transaction, it's... explicit. You can have 20k inserts in one transaction, when you commit it, that's gonna be 1 commit -> fsync() called once.
+> So, if you don't do transactions InnoDB calls fsync() after every commit due to ACID (we are talking D here -> Durability). Without a transaction, every insert is an implicit commit, so 20k inserts = 20k commits = fsync() called 20k times. With an explicit transaction, it's... explicit. You can have 20k inserts in one transaction, when you commit it, that's gonna be 1 commit -> fsync() called once.
 
 He ended by saying 
 

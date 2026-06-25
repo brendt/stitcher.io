@@ -68,7 +68,7 @@ And make sure that your local web server also uses PHP 8 by visiting this script
 ```php
 # index.php, accessible to your web server
 
-<hljs prop>phpinfo</hljs>();
+phpinfo();
 ```
 
 <em class="small center">The version should show `8.0.x`.</em>
@@ -160,7 +160,7 @@ php -i | grep redis
 ```
 
 ```php
-<hljs prop>var_dump</hljs>(<hljs prop>extension_loaded</hljs>('redis'));
+var_dump(extension_loaded('redis'));
 ```
 
 If extensions aren't properly loaded, there are two easy fixes.
@@ -168,7 +168,7 @@ If extensions aren't properly loaded, there are two easy fixes.
 First, make sure the extensions are added in the correct ini file. You can run `php --ini` to know which file is loaded:
 
 ```
-Configuration File (php.ini) Path: <hljs blue>/usr/local/etc/php/7.4</hljs>
+Configuration File (php.ini) Path: /usr/local/etc/php/7.4
 Loaded Configuration File:         /usr/local/etc/php/7.4/php.ini
 Scan for additional .ini files in: /usr/local/etc/php/7.4/conf.d
 Additional .ini files parsed:      /usr/local/etc/php/7.4/conf.d/ext-opcache.ini,

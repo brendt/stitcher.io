@@ -27,13 +27,13 @@ This is what they look like in action:
 ```php
 class Foo
 {
-    public <hljs type>int</hljs> $a;
+    public int $a;
 
-    public <hljs type>?string</hljs> $b = 'foo';
+    public ?string $b = 'foo';
 
-    private <hljs type>Foo</hljs> $prop;
+    private Foo $prop;
 
-    protected static <hljs type>string</hljs> $static = 'default';
+    protected static string $static = 'default';
 }
 ```
 
@@ -48,19 +48,19 @@ Despite what you might think on first sight, the following code is valid:
 ```php
 class Foo
 {
-    public <hljs type>int</hljs> $bar;
+    public int $bar;
 }
 
-$foo = new <hljs type>Foo</hljs>;
+$foo = new Foo;
 ```
 
 Even though the value of `$bar` isn't an integer after making an object of `Foo`, PHP will only throw an error when `$bar` is accessed:
 
 ```php
-<hljs prop>var_dump</hljs>($foo->bar);
+var_dump($foo->bar);
 
-<hljs full error>Fatal error: Uncaught Error: Typed property Foo::$bar 
-must not be accessed before initialization</hljs>
+Fatal error: Uncaught Error: Typed property Foo::$bar 
+must not be accessed before initialization
 ```
 
 As you can read from the error message, 
@@ -82,10 +82,10 @@ Especially note that the following code, where an uninitialised, non-nullable pr
 ```php
 class Foo
 {
-    public <hljs type>int</hljs> $a;
+    public int $a;
 }
 
-$foo = new <hljs type>Foo</hljs>;
+$foo = new Foo;
 
 $foo->a = 1;
 ```
@@ -103,11 +103,11 @@ In case of scalar types, it's possible to provide a default value:
 ```php
 class Foo
 {
-    public <hljs type>int</hljs> $bar = 4;
+    public int $bar = 4;
     
-    public <hljs type>?string</hljs> $baz = null;
+    public ?string $baz = null;
     
-    public <hljs type>array</hljs> $list = [1, 2, 3];
+    public array $list = [1, 2, 3];
 }
 ```
 
@@ -115,10 +115,10 @@ Note that you can only use `null` as a default if the type is actually nullable.
 This might seem obvious, but there's some legacy behaviour with parameter defaults where the following is allowed:
 
 ```php
-function passNull(<hljs type>int</hljs> $i = null)
+function passNull(int $i = null)
 { /* … */ }
 
-<hljs prop>passNull</hljs>(null);
+passNull(null);
 ```
 
 Luckily this confusing behaviour is not allowed with typed properties.
@@ -131,9 +131,9 @@ The obvious place to initialize typed values would of course be the constructor:
 ```php
 class Foo
 {
-    private <hljs type>int</hljs> $a;
+    private int $a;
 
-    public function __construct(<hljs type>int</hljs> $a)
+    public function __construct(int $a)
     {
         $this->a = $a;
     }
@@ -163,28 +163,28 @@ Say you'd have the following (broken) code:
 ```php
 class Foo
 {
-    public <hljs striped>callable</hljs> $callable;
+    public callable $callable;
     
-    public function __construct(<hljs striped>callable</hljs> $callable)
+    public function __construct(callable $callable)
     { /* … */ }
 }
 
 class Bar
 {
-    public <hljs type>Foo</hljs> $foo;
+    public Foo $foo;
     
     public function __construct()
     {
-        $this->foo = new <hljs type>Foo</hljs>([$this, 'method'])
+        $this->foo = new Foo([$this, 'method'])
     }
     
     private function method()
     { /* … */ }
 }
 
-$bar = new <hljs type>Bar</hljs>;
+$bar = new Bar;
 
-($bar->foo-><hljs striped>callable</hljs>)();
+($bar->foo->callable)();
 ```
 
 In this example, `$callable` refers to the private `Bar::method`, but is called within the context of `Foo`.
@@ -211,10 +211,10 @@ PHP, being the dynamic language we love and hate, will try to coerce or convert 
 Say you pass a string where you expect an integer, PHP will try and convert that string automatically:
 
 ```php
-function coerce(<hljs type>int</hljs> $i)
+function coerce(int $i)
 { /* … */ }
 
-<hljs prop>coerce</hljs>('1'); // 1
+coerce('1'); // 1
 ```
 
 The same principles apply to typed properties. The following code is valid and will convert `'1'` to `1`.
@@ -222,10 +222,10 @@ The same principles apply to typed properties. The following code is valid and w
 ```php
 class Bar
 {
-    public <hljs type>int</hljs> $i;
+    public int $i;
 }
 
-$bar = new <hljs type>Bar</hljs>;
+$bar = new Bar;
 
 $bar->i = '1'; // 1
 ```
@@ -235,12 +235,12 @@ If you don't like this behaviour you can disabled it by declaring strict types:
 ```php
 declare(strict_types=1);
 
-$bar = new <hljs type>Bar</hljs>;
+$bar = new Bar;
 
 $bar->i = '1'; // 1
 
-<hljs error full>Fatal error: Uncaught TypeError: 
-Typed property Bar::$i must be int, string used</hljs>
+Fatal error: Uncaught TypeError: 
+Typed property Bar::$i must be int, string used
 ``` 
 
 ## Type variance and inheritance
@@ -258,10 +258,10 @@ class Foo
 
 class Bar extends Foo
 {
-    public <hljs striped>B</hljs> $prop;
+    public B $prop;
 }
 
-<hljs full error text>Fatal error: Type of Bar::$prop must be A (as in class Foo)</hljs>
+Fatal error: Type of Bar::$prop must be A (as in class Foo)
 ```
 
 If the above example doesn't seem significant, you should take a look at the following:
@@ -269,12 +269,12 @@ If the above example doesn't seem significant, you should take a look at the fol
 ```php
 class Foo
 {
-    public <hljs type>self</hljs> $prop;
+    public self $prop;
 }
 
 class Bar extends Foo
 {
-    public <hljs type>self</hljs> $prop;
+    public self $prop;
 }
 ```
 
@@ -285,12 +285,12 @@ The only way to handle it, is by doing the following:
 ```php
 class Foo
 {
-    public <hljs type>Foo</hljs> $prop;
+    public Foo $prop;
 }
 
 class Bar extends Foo
 {
-    public <hljs type>Foo</hljs> $prop;
+    public Foo $prop;
 }
 ```
 
@@ -303,12 +303,12 @@ The following code is valid:
 ```php
 class Foo
 {
-    private <hljs type>int</hljs> $prop;
+    private int $prop;
 }
 
 class Bar extends Foo
 {
-    public <hljs type>string</hljs> $prop;
+    public string $prop;
 }
 ```
 
@@ -317,17 +317,17 @@ However, changing a type from nullable to non-nullable or reverse, is not allowe
 ```php
 class Foo
 {
-    public <hljs type>int</hljs> $a;
-    public <hljs type>?int</hljs> $b;
+    public int $a;
+    public ?int $b;
 }
 
 class Bar extends Foo
 {
-    public <hljs striped>?int</hljs> $a;
-    public <hljs striped>int</hljs> $b;
+    public ?int $a;
+    public int $b;
 }
 
-<hljs full error text>Fatal error: Type of Bar::$a must be int (as in class Foo)</hljs>
+Fatal error: Type of Bar::$a must be int (as in class Foo)
 ```
 
 {{ cta:mail }}

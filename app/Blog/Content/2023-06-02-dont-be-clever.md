@@ -16,7 +16,7 @@ class TimesheetController extends CRUDController
 {
     public function getEntity(): string
     {
-        return <hljs type>Timesheet</hljs>::class;
+        return Timesheet::class;
     }
 }
 ```

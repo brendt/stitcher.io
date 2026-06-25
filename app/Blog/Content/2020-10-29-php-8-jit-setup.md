@@ -17,7 +17,7 @@ I wanted to dedicate a blog post on how to setup the JIT as well, since there's 
 
 Honestly, setting up the JIT is one of the most confusing ways of configuring a PHP extension I've ever seen. Luckily there are some configuration shorthands available so that it's more easy to set up. Still it's good to know about the JIT config in depth, so here goes.
 
-First of all, the JIT will only work if opcache is enabled, this is the default for most PHP installations, but you should make sure that `<hljs prop>opcache.enable</hljs>` is set to 1 in your`php.ini` file. Enabling the JIT itself is done by specifying `<hljs prop>opcache.jit_buffer_size</hljs>` in `php.ini`. 
+First of all, the JIT will only work if opcache is enabled, this is the default for most PHP installations, but you should make sure that `opcache.enable` is set to 1 in your`php.ini` file. Enabling the JIT itself is done by specifying `opcache.jit_buffer_size` in `php.ini`. 
 
 Note that if you're running PHP via the commandline, you can also pass these options via the `-d` flag, instead of adding them to `php.ini`:
 
@@ -25,19 +25,19 @@ Note that if you're running PHP via the commandline, you can also pass these opt
 php -dopcache.enable=1 -dopcache.jit_buffer_size=100M
 ``` 
 
-If this directive is excluded, the default value is set to 0, and the JIT won't run. If you're testing the JIT in a CLI script, you'll need to use `<hljs prop>opcache.enable_cli</hljs>` instead to enable opcache:
+If this directive is excluded, the default value is set to 0, and the JIT won't run. If you're testing the JIT in a CLI script, you'll need to use `opcache.enable_cli` instead to enable opcache:
 
 ```php
 php -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M
 ```
 
-The difference between `<hljs prop>opcache.enable</hljs>` and `<hljs prop>opcache.enable_cli</hljs>` is that the first one should be used if you're running, for example, the built-in PHP server. If you're actually running a CLI script, you'll need `<hljs prop>opcache.enable_cli</hljs>`.
+The difference between `opcache.enable` and `opcache.enable_cli` is that the first one should be used if you're running, for example, the built-in PHP server. If you're actually running a CLI script, you'll need `opcache.enable_cli`.
 
 
-Before continuing, let's ensure the JIT actually works, create a PHP script that's accessible via the browser or the CLI (depending on where you're testing the JIT), and look at the output of `<hljs prop>opcache_get_status</hljs>()`:
+Before continuing, let's ensure the JIT actually works, create a PHP script that's accessible via the browser or the CLI (depending on where you're testing the JIT), and look at the output of `opcache_get_status()`:
 
 ```php
-<hljs prop>var_dump</hljs>(<hljs prop>opcache_get_status</hljs>()['jit']);
+var_dump(opcache_get_status()['jit']);
 ```
 
 The output should be something like this:
@@ -56,11 +56,11 @@ array:7 [
 
 If `enabled` and `on` are true, you're good to go!
 
-Next, there's several ways to configure the JIT (and this is where we'll get into the configuration mess). You can configure when the JIT should run, how much it should try to optimise, etc. All of these options are configured using a single (!) config entry: `<hljs prop>opcache.jit</hljs>`. It could look something like this:
+Next, there's several ways to configure the JIT (and this is where we'll get into the configuration mess). You can configure when the JIT should run, how much it should try to optimise, etc. All of these options are configured using a single (!) config entry: `opcache.jit`. It could look something like this:
 
 ```ini
-<hljs prop>opcache.enable</hljs>=1 
-<hljs prop>opcache.jit</hljs>=1255
+opcache.enable=1 
+opcache.jit=1255
 ```
 
 Now, what does that number mean? The [RFC](*https://wiki.php.net/rfc/jit) lists the meaning of each of them. Mind you: this is not a bit mask, each number simply represents another configuration option. The RFC lists the following options:
@@ -111,25 +111,25 @@ Anyways, internals propose `1255` as the best default, it will do maximum jittin
 So your ini settings (or `-d` flags) should have these values:
 
 ```ini
-<hljs prop>opcache.enable</hljs>=1 
-<hljs prop>opcache.jit_buffer_size</hljs>=100M
-<hljs prop>opcache.jit</hljs>=1255
+opcache.enable=1 
+opcache.jit_buffer_size=100M
+opcache.jit=1255
 ```
 
-Keep in mind that `<hljs prop>opcache.jit</hljs>` is optional by the way. The JIT will use a default value if that property is omitted.
+Keep in mind that `opcache.jit` is optional by the way. The JIT will use a default value if that property is omitted.
 
-Which default, you ask? That would be `<hljs prop>opcache.jit</hljs>=tracing`.
+Which default, you ask? That would be `opcache.jit=tracing`.
 
-Hang on, that's not the strange bitmask-like structure we saw earlier? That's right: after the original RFC passed, internals recognised that the bitmask-like options weren't all that user-friendly, so they added two aliases which are translated to the bitmask under the hood. There's `<hljs prop>opcache.jit</hljs>=tracing` and `<hljs prop>opcache.jit</hljs>=function`.
+Hang on, that's not the strange bitmask-like structure we saw earlier? That's right: after the original RFC passed, internals recognised that the bitmask-like options weren't all that user-friendly, so they added two aliases which are translated to the bitmask under the hood. There's `opcache.jit=tracing` and `opcache.jit=function`.
 
 The difference between the two is that the function JIT will only try to optimise code within the scope of a single function, while the tracing JIT can look at the whole stack trace to identify and optimise hot code. Internals recommends to use the tracing JIT, because it'll probably almost always give the best results. You can read about those results in the [benchmarks](/blog/jit-in-real-life-web-applications) I've done. 
 
-So the only option you actually need to set to enable the JIT with its optimal configuration is `<hljs prop>opcache.jit_buffer_size</hljs>`, but if you want to be explicit, listing `<hljs prop>opcache.jit</hljs>` wouldn't be such a bad idea:
+So the only option you actually need to set to enable the JIT with its optimal configuration is `opcache.jit_buffer_size`, but if you want to be explicit, listing `opcache.jit` wouldn't be such a bad idea:
 
 ```ini
-<hljs prop>opcache.enable</hljs>=1 
-<hljs prop>opcache.jit_buffer_size</hljs>=100M
-<hljs prop>opcache.jit</hljs>=tracing
+opcache.enable=1 
+opcache.jit_buffer_size=100M
+opcache.jit=tracing
 ```
 
 {{ cta:dynamic }}
