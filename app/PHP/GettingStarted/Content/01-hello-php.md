@@ -10,7 +10,7 @@ Over more than 30 years, the language and ecosystem have seen a tremendous trans
 
 I'm Brent, and I started using PHP around 2012, right when the language was undergoing a tremendous evolution. I've worked at several PHP agencies to build anything from small NGO websites to CRMs powering whole hotel chains. I'm the author of the well-known and respected [stitcher.io](https://stitcher.io/books) blog, I've authored a handful of [books and video courses](https://stitcher.io/books), I'm currently a [developer advocate for PHP at JetBrains](https://www.jetbrains.com/guide/authors/brentroose/), where I host a [YouTube channel about PHP](https://www.youtube.com/@phpannotated), and am also building an [MVC framework for modern PHP](https://tempestphp.com/).
 
-I'm passionate about education and find that PHP's most important struggle in the modern web era is being well understood. That's why I'm writing this book to help anyone understand what an awesome language and ecosystem PHP is.
+I'm passionate about education and find that PHP's biggest challenge in the modern web era is being well understood. That's why I'm writing this book to help anyone understand what an awesome language and ecosystem PHP is.
 
 ## Running PHP
 
