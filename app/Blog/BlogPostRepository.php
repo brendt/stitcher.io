@@ -28,6 +28,11 @@ final class BlogPostRepository
         }
 
         $content = file_get_contents($path);
+
+        if (! $content) {
+            return null;
+        }
+
         $parsed = $this->markdown->parse($content);
         $frontMatter = $parsed->frontmatter;
 
