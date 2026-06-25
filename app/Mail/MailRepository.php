@@ -35,6 +35,11 @@ final readonly class MailRepository
         return arr(glob(__DIR__ . '/Content/*.md'))
             ->map(function (string $path) {
                 $content = file_get_contents($path);
+
+                if (! $content) {
+                    return null;
+                }
+
                 $cacheKey = crc32($content);
 
                 return $this->cache->resolve($cacheKey, function () use ($path, $content) {
@@ -50,6 +55,7 @@ final readonly class MailRepository
                     ];
                 });
             })
+            ->filter()
             ->mapTo(Mail::class)
             ->sortByCallback(fn (Mail $a, Mail $b) => $b->date <=> $a->date);
     }

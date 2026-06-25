@@ -7,6 +7,7 @@ use Tempest\Container\Initializer;
 use Tempest\Container\Singleton;
 use Tempest\ResponsiveImage\ResponsiveImageConfig;
 use Tempest\ResponsiveImage\ResponsiveImageFactory;
+
 use function Tempest\root_path;
 use function Tempest\src_path;
 

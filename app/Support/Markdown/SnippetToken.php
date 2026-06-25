@@ -6,6 +6,7 @@ use Tempest\Markdown\Parser;
 use Tempest\Markdown\Token;
 use Tempest\View\Exceptions\ViewNotFound;
 use Tempest\View\ViewRenderer;
+
 use function Tempest\Container\get;
 
 final readonly class SnippetToken implements Token
