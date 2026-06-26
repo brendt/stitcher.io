@@ -263,7 +263,7 @@ if ($integer !== $float) {
 }
 ```
 
-Finally, there are also the number comparison operators to determine whether two numbers are greater or less than:
+Next, there are also the number comparison operators to determine whether two numbers are greater or less than:
 
 ```php
 // index.php
@@ -280,7 +280,20 @@ if ($a > $b) {
 } elseif ($a < $b) {
     // true
 }
-``` 
+```
+
+Finally, there's the so-called "spaceship operator" `<=>` which will compare two items and return either `-1`, `0` or `1` depending on which is the biggest. This operator is useful when sorting items.
+
+```php
+// index.php
+
+$a = 'a';
+$z = 'z';
+
+echo $a <=> $z; // -1
+echo $z <=> $a; // 1
+echo $a <=> $a; // 0
+```
 
 ## Arrays
 
@@ -389,6 +402,10 @@ echo hello('Hi', 'Brent');
 PHP also comes with a rich library of built-in functions. They allow you to manipulate files, perform HTTP requests, connect to databases, transform arrays, and many, many more things. We'll discuss them in depth in the next chapter about [PHP's standard library](/php/the-basics/the-standard-library).
 
 There's much more to say about functions; we'll circle back to them later in this chapter.
+
+## Closures
+
+// TODO
 
 ## Types
 

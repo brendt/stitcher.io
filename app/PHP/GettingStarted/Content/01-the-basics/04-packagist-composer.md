@@ -1,5 +1,5 @@
 ---
-title: Composer
+title: Packagist and Composer
 ---
 
 PHP has 

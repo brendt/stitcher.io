@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php
 
-function hello(string $greeting, string $name): string
-{ /* … */ }
 
-hello(1, 2); // Will error
+$a = 'a';
+$z = 'z';
+
+echo $a <=> $z;
+echo $z <=> $a;
+echo $a <=> $a; // 0
