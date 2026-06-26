@@ -12,6 +12,7 @@ use function Tempest\Container\get;
 final readonly class SnippetToken implements Token
 {
     public function __construct(
+        public string $root,
         public string $snippet,
     ) {}
 
@@ -22,7 +23,7 @@ final readonly class SnippetToken implements Token
         $viewRenderer = get(ViewRenderer::class);
 
         try {
-            return $viewRenderer->render(__DIR__ . "/../../Blog/Snippets/{$snippetFile}.view.php");
+            return $viewRenderer->render(str_replace(['///', '//'], '/', "{$this->root}/{$snippetFile}.view.php"));
         } catch (ViewNotFound) {
             return '';
         }

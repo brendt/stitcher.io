@@ -8,6 +8,10 @@ use Tempest\Markdown\Token;
 
 final readonly class SnippetRule implements Rule
 {
+    public function __construct(
+        public string $root,
+    ) {}
+
     public function shouldParse(Parser $parser): bool
     {
         return $parser->comesNext('{{', 2);
@@ -21,6 +25,6 @@ final readonly class SnippetRule implements Rule
 
         $parser->consumeWhile('}');
 
-        return new SnippetToken($snippet);
+        return new SnippetToken($this->root, $snippet);
     }
 }

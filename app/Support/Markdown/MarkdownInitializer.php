@@ -20,7 +20,7 @@ final readonly class MarkdownInitializer implements Initializer
         );
 
         $markdown->prependRules(
-            new SnippetRule(),
+            new SnippetRule(__DIR__ . '/../../Blog/Snippets/'),
         );
 
         return $markdown;

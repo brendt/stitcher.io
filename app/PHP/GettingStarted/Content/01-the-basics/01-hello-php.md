@@ -14,11 +14,17 @@ I'm Brent, and I started using PHP around 2012, right when the language was unde
 
 I'm passionate about education and find that PHP's biggest challenge in the modern web era is being well understood. That's why I'm writing this book to help anyone understand what an awesome language and ecosystem PHP is.
 
-## Running PHP
+## Installing PHP
 
 Production PHP is typically deployed using Docker, on dedicated virtual servers, or via shared hosting providers. We'll spend a full chapter on deploying PHP later in this book. For now, we'll focus on getting PHP running for local development. All you need is the PHP binary to get started, it will run on any operating system.
 
-You can download it from PHP's website: [https://www.php.net/downloads.php](https://www.php.net/downloads.php). Once installed, you can verify whether PHP works by running:
+{{ download-php }}
+
+You can find more download options on [https://www.php.net/downloads.php](https://www.php.net/downloads.php). 
+
+## Running PHP
+
+Once installed, you can verify whether PHP works by running:
 
 ```shell
 ~ php -v
