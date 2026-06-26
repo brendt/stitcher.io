@@ -1,11 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-echo "Hello, PHP";
+function hello(string $greeting, string $name): string
+{ /* … */ }
 
-$i = 0;
-
-do {
-    echo $i;
-
-    $i = $i + 1;
-} while ($i < 0);
+hello(1, 2); // Will error

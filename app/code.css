@@ -20,6 +20,14 @@
 }
 
 
+.dark {
+    --code-comment: #AAA;
+    --code-value: #CCC;
+    --code-keyword: #aeceea;
+    --code-property: #6cc681;
+    --code-type: #e0858b;
+}
+
 .hl-keyword {
     color: var(--code-keyword);
 }
@@ -185,4 +193,10 @@
 
 .hl-striped {
     border-bottom: 1px solid red;
+}
+
+.language-raw {
+    & .hl-type .hl-keyword {
+        color: var(--code-type);
+    }
 }

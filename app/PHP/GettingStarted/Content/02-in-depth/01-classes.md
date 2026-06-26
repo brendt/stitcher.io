@@ -1,4 +1,12 @@
+## Interface
+
+## Abstract
+
+## Extend
+
 ## Property promotion
+
+## Property hooks
 
 ## Readonly
 

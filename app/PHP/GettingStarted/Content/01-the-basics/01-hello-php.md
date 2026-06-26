@@ -2,6 +2,8 @@
 title: Hello, PHP
 ---
 
+## Intro
+
 PHP is a general-purpose programming language, powering the majority of the modern web; from blogs to webshops, knowledge bases, forums, and everything in between. A couple of well-known projects powered by PHP are [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:FAQ/Technical), [Slack](https://slack.engineering/taking-php-seriously/), [WordPress](https://wordpress.org/), and [Laravel](https://laravel.com/).
 
 Over more than 30 years, the language and ecosystem have seen a tremendous transformation. That's why, in this book, you'll learn how to write PHP the way is done in serious software in 2026. You'll learn about the basic principles and syntax, the ecosystem and frameworks, QA tooling, and more.

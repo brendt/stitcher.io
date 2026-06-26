@@ -63,6 +63,8 @@ $meta->canonical ??= null;
     <!-- Assets -->
     <x-vite-tags entrypoint="app/PHP/php.entrypoint.css"/>
     <x-slot name="head"/>
+    <!-- Prevent flash of wrong theme -->
+    <script>if (localStorage.theme === 'dark' || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); }</script>
 </head>
 <body class="antialiased relative">
 

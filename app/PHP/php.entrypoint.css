@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "../code.css";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
     --color-primary: #fe2977;
     --color-pastel: #fcf4f5;
@@ -134,4 +136,39 @@ pre code {
     & > pre {
         margin-top: -1px;
     }
+}
+
+/* Dark mode overrides */
+.dark article p,
+.dark article li {
+    color: #d1d5db;
+}
+
+.dark article h2,
+.dark article h3 {
+    color: #f3f4f6;
+}
+
+.dark article blockquote {
+    color: #9ca3af;
+}
+
+.dark article hr {
+    border-color: #374151;
+}
+
+.dark code {
+    background-color: #374151;
+    color: #e5e7eb;
+}
+
+.dark pre {
+    background-color: #374151;
+    color: #fafafa;
+}
+
+.dark .codeblock > span {
+    background-color: #374151;
+    color: #9ca3af;
+    box-shadow: none;
 }

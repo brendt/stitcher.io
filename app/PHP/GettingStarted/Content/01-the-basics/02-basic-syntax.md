@@ -2,12 +2,15 @@
 title: Basic Syntax
 ---
 
+In this chapter you'll get a basic overview of PHP's syntax. You'll learn more about each section throughout this book, but we need to start somewhere, and thus here's the high-level overview.
+
 ## Variables
 
 Variables in PHP are defined with the `$` sign and a name. 
 
 ```php
 // index.php
+<?php
 
 $age = 32;
 ```
@@ -16,6 +19,7 @@ Variables in PHP are loosely typed and their types can change over time.
 
 ```php
 // index.php
+<?php
 
 $age = 32;
 
@@ -28,6 +32,7 @@ Continuing with the basics of variables first, PHP is very flexible when it come
 
 ```php
 // index.php
+<?php
 
 $name = 'variable';
 
@@ -39,6 +44,10 @@ echo $$variable;
 // given that `$variable` is a string `'variable'`
 // and `$variable` has the value of `5`
 ```
+
+## &lt;?php
+
+You'll notice how each PHP file starts with a `<?php` opening tag. This is required for PHP to interpret the code in that file as actual PHP code. Most IDEs will automatically insert it for you when creating a new PHP file. From now on, I'll omit the `<?php` opening tag in examples, unless it's relevant; know that it should always be there.
 
 ## Comments
 
@@ -377,10 +386,136 @@ function hello($greeting, $name)
 echo hello('Hi', 'Brent');
 ```
 
-PHP also comes with a very rich library of built-in functions. They allow you to manipulate files, perform HTTP requests, connect to databases, transform arrays, and many, many more things. We'll discuss them in depth in the next chapter about [PHP's standard library](/php/the-basics/the-standard-library).
+PHP also comes with a rich library of built-in functions. They allow you to manipulate files, perform HTTP requests, connect to databases, transform arrays, and many, many more things. We'll discuss them in depth in the next chapter about [PHP's standard library](/php/the-basics/the-standard-library).
 
-Also, there's much more to say about functions; we'll circle back to them later in this chapter.
+There's much more to say about functions; we'll circle back to them later in this chapter.
+
+## Types
+
+PHP's type system is pretty unique compared to other programming languages. Types can be defined in most places and will be checked at runtime by the PHP interpreter. However, the use of a static analyzer to type-check your codebase before running it is highly recommended. PHP doesn't have a built-in static type checker, but there are several great third-party options out there. The most notable ones are [PHPStan](https://phpstan.org/), [Mago](https://mago.carthage.software/1.30.0/en/), and [Psalm](https://psalm.dev/). We'll discuss them in-depth in a later chapter. However, it's already important to discuss the basics of PHP's type system now, because the rest of this book will use them all throughout.
+
+Let's revisit our `hello()` function from the previous example, this time with added types:
+
+```php
+// index.php
+
+function hello(string $greeting, string $name): string 
+{
+    return $greeting . ' ' . $name . "\n";
+}
+```
+
+These type annotations tell PHP that both `$greeting` and `$name` should be strings, and that the function will also return a string. `{:hl-type:string:}` is one of the so-called "primitive types". Here's a list of all built-in types (primitive and complex):
+
+- `{:hl-type:bool:}`
+- `{:hl-type:int:}`
+- `{:hl-type:float:}`
+- `{:hl-type:array:}`
+- `{:hl-type:object:}`
+- `{:hl-type:resource:}`
+- `{raw}{:hl-type:callable:}`
+- `{:hl-type:iterable:}`
+- `{:hl-type:mixed:}`
+- `{:hl-type:void:}`
+- `{:hl-type:never:}`
+
+Apart from built-in types, there are also classes that can be used as types. PHP infamously doesn't have built-in support for generic types, although these are supported when using the previously mentioned static analysis tools. We'll cover them in a later chapter.
+
+What's important to note about PHP's type system is that types are checked at the boundaries of function calls. That means that the type of `$greeting` can still change within the `hello()` function's body:
+
+```php
+// index.php
+
+function hello(string $greeting, string $name): string 
+{
+    // We're sure $greeting is of type `string` at this point; however,
+    // we're allowed to change its type afterward:
+    $greeting = 1;
+}
+```
+
+While PHP doesn't guard against these type changes, the static analyzers do. Again, we'll revisit them in a later chapter.
+
+Another important thing to mention is that, by default, PHP allows types to be juggled automatically. Let's say you pass in an integer into a parameter that should be a string; then PHP will automatically convert it to a string for you:
+
+```php
+// index.php
+
+function hello(string $greeting, string $name): string 
+{ /* … */ }
+
+hello(1, 2); // Will print "1, 2"
+```
+
+This behavior can be prevented by enabling PHP's "strict type" mode, which you can define on a per-file basis:
+
+```php
+// index.php
+
+<?php declare(strict_types=1);
+
+function hello(string $greeting, string $name): string 
+{ /* … */ }
+
+hello(1, 2); // Will error
+```
+
+Note that `declare(strict_types=1)` is rather limited as it only checks for strict types on a per-file basis. Later in this book, I'll recommend the use of a static analyzer instead. Also note that since PHP checks types at the boundaries of function calls, it's not possible to type a standalone variable; once again something that's solved with static analyzers.
+
+From here on out, I'll use types whenever possible. They aren't a requirement, but we're learning about modern PHP for serious projects, and types are an invaluable tool to use.
 
 ## Classes
 
-## Types
+Classes are the standard way of structuring your code in modern PHP. As with many C-style programming languages, classes in PHP are used as a blueprint to create objects from. A class has properties and methods, some of these methods have special meaning. 
+
+```php
+// index.php
+
+class Book
+{
+    private string $title;
+    
+    public function __construct(string $title)
+    {
+        $this->title = $title;
+    }
+    
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+}
+```
+
+Classes can live in any PHP file, but the best practice is to make a new PHP file for each class. On top of that, classes should also live in a namespace, which makes including them from other places more convenient. We'll cover the concept of autoloading more in depth in the [Composer chapter](/php/the-basics/composer). For now, it's good to know that this is the recommended approach to structure your classes:
+
+```php
+// app/Models/Book.php
+
+<?php
+
+namespace App\Models;
+
+class Book
+{
+    private string $title;
+    
+    public function __construct(string $title)
+    {
+        $this->title = $title;
+    }
+    
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+}
+```
+
+If you're using a proper IDE for PHP development, namespaces will automatically be added for you when creating classes.
+
+Similar to many other object-oriented languages, classes come with a bunch of keywords. There are the visibility modifiers `public`, `protected`, and `private`; as well as tools for subclassing and interfacing like `abstract`, `extends`, and `interface`. We'll have a dedicated [in-depth chapter about classes](/php/in-depth/classes) later where we'll cover all these topics and more like promoted properties, property hooks, magic methods, reflection, and more.
+
+## In summary
+
+This is only the very beginning of learning PHP. All of the concepts described in this chapter will get much more attention throughout the rest of this book. 
