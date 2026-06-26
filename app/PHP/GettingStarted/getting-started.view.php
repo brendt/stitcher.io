@@ -3,20 +3,34 @@
 /** @var \Tempest\Support\Arr\ImmutableArray $pages */
 ?>
 <x-php-base :meta="$page->meta">
+    <x-slot name="head">
+        <x-vite-tags entrypoint="app/PHP/php-toc.entrypoint.ts"/>
+    </x-slot>
+
     <div class="min-h-screen bg-gray-50">
 
         <!-- Header -->
         <header class="bg-white border-b border-gray-200 sticky top-0 z-20 shadow-sm">
-            <div class="max-w-screen-xl mx-auto px-6 h-14 flex items-center gap-3">
-                <a href="/php" class="font-bold text-lg text-primary tracking-tight">Getting Started with PHP</a>
-                <span class="text-gray-300 select-none">/</span>
-                <span class="text-gray-500 text-sm truncate">{{ $page->categoryName }}</span>
-                <span class="text-gray-300 select-none">/</span>
-                <span class="text-gray-500 text-sm truncate">{{ $page->title }}</span>
+            <div class="max-w-screen-xl 2xl:max-w-screen-2xl mx-auto flex justify-between">
+                <div class="px-6 h-14 flex items-center gap-3">
+                    <a href="/php" class="font-bold text-lg text-primary tracking-tight">Getting Started with PHP</a>
+                    <span class="text-gray-300 select-none hidden md:inline">/</span>
+                    <span class="text-gray-500 text-sm truncate hidden md:inline">{{ $page->categoryName }}</span>
+                    <span class="text-gray-300 select-none hidden md:inline">/</span>
+                    <span class="text-gray-500 text-sm truncate hidden md:inline">{{ $page->title }}</span>
+                </div>
+
+                <div class="flex items-center">
+                    <a
+                            href="https://github.com/brendt/stitcher.io"
+                            class="flex gap-2 items-center text-white bg-primary px-4 py-2 text-sm font-bold shadow-sm rounded-full group">
+                        <x-icon name="mdi:github" />Contribute<span class="group-hover:inline hidden"> — much appreciated!</span>
+                    </a>
+                </div>
             </div>
         </header>
 
-        <div class="max-w-screen-xl mx-auto px-6 py-10 flex gap-12 items-start">
+        <div class="max-w-screen-xl 2xl:max-w-screen-2xl mx-auto px-6 py-10 flex gap-12 items-start">
             <!-- Sidebar (desktop) -->
             <aside class="hidden md:block w-52 shrink-0 sticky top-20">
                 <nav class="flex flex-col gap-4">
@@ -37,7 +51,6 @@
 
             <!-- Main content -->
             <main class="flex-1 min-w-0">
-
                 <!-- Mobile chapter nav -->
                 <div class="md:hidden mb-6">
                     <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2">Chapters</p>
@@ -77,6 +90,19 @@
                 </div>
 
             </main>
+
+            <!-- On this page (desktop) -->
+            <aside :if="$page->sections" class="hidden lg:block w-48 shrink-0 sticky top-20">
+                <nav class="flex flex-col gap-1">
+                    <span class="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-2">On this page</span>
+                    <a
+                        :foreach="$page->sections as $id => $title"
+                        :href="$id"
+                        data-toc-link
+                        class="px-3 py-1.5 rounded-lg text-sm text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                    >{{ $title }}</a>
+                </nav>
+            </aside>
         </div>
     </div>
 </x-php-base>

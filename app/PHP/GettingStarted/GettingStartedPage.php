@@ -27,6 +27,20 @@ final class GettingStartedPage
     }
 
     public string $categoryName {
-        get => str($this->category)->afterFirst('-')->replace('-', ' ')->title()->toString();
+        get => str($this->category)->replace('-', ' ')->title()->toString();
+    }
+
+    public array $sections {
+        get {
+            preg_match_all('/<h2 id="(?<id>.*?)">(?<title>.*?)<\/h2>/', $this->content, $matches);
+
+            $sections = [];
+
+            foreach ($matches[0] as $i => $_) {
+                $sections['#' . $matches['id'][$i]] = $matches['title'][$i];
+            }
+
+            return $sections;
+        }
     }
 }

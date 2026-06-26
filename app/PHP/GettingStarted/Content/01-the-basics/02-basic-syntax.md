@@ -200,9 +200,187 @@ for ($i = 0; $i < 10; $i = $i + 1) {
 
 ## Comparisons
 
-## Functions
+There are a couple of important things to note about comparing values and variables in PHP. As I mentioned before: PHP is a loosely typed language, which means it's pretty flexible when it comes to comparing values; you can compare values in a loose or strict way.
+
+Loose comparison will compare values regardless of their type, this is done with the double equal operator `==`. For example:
+
+```php
+// index.php
+
+$integer = 1;
+$float = 1.0;
+
+if ($integer == $float) {
+    // true
+}
+```
+
+Loose comparisons are even more flexible, as they allow you to compare empty values:
+
+```php
+// index.php
+
+$emptyString = '';
+$zero = 0;
+
+if ($emptyString == $zero) {
+    // true
+}
+```
+
+Because loose comparisons can easily lead to unforeseen side effects, it's highly recommended to always use strict comparisons, unless you have a very good reason not to do it. Strict comparisons are done with the triple equal operator `===`:
+
+```php
+// index.php
+
+$emptyString = '';
+$zero = 0;
+
+if ($emptyString === $zero) {
+    // false
+}
+```
+
+Similar, strict negations are done with the `!==` operator:
+
+```php
+// index.php
+
+$integer = 1;
+$float = 1.0;
+
+if ($integer !== $float) {
+    // true
+}
+```
+
+Finally, there are also the number comparison operators to determine whether two numbers are greater or less than:
+
+```php
+// index.php
+
+$a = 1;
+$b = 5;
+
+if ($a > $b) {
+    // false
+} elseif ($b <= $a) {
+    // false
+} elseif ($a >= $b) {
+    // false
+} elseif ($a < $b) {
+    // true
+}
+``` 
 
 ## Arrays
 
+PHP arrays are a powerful data structure that can be used both as a list or sequence of items but also as a map of values with named keys.
+
+```php
+// index.php
+
+$list = [1, 2, 3, 4];
+
+$map = [
+    'title' => 'Basic Syntax', 
+    'description' => "PHP's basic syntax explained",
+];
+```
+
+Note that "a list" means that the indices of the array are numeric and in order, starting from `0`. The above example of `$list` could also be written like so, and still be a list:
+
+```php
+// index.php
+
+$list = [
+    0 => 1, 
+    1 => 2, 
+    2 => 3, 
+    4 => 4,
+];
+```
+
+Another thing to notice is that arrays can contain mixed types as well:
+
+```php
+// index.php
+
+$list = [1, '2', 1.2, {:hl-keyword:false:}];
+```
+
+PHP has a wide range of [array-specific functions](https://www.php.net/manual/en/function.array.php) to read, iterate, and manipulate arrays. We'll take a closer look at arrays and other kinds of iterables in a later chapter.
+
+## Strings
+
+You might have noticed a couple of different ways to define strings in PHP in the previous examples. The two most common ways are using single `'` or double `"` quotes.
+
+```php
+// index.php
+
+$name = 'Brent';
+
+$hello = "Hello";
+```
+
+Double `"` quotes give you more flexibility when it comes to writing special characters and string interpolation. For example, you can write `"\n"`, which will be interpeted as a new line, or `"{$variable}"`, which will insert the variable's value:
+
+```php
+// index.php
+
+$name = 'Brent';
+
+echo "Hello {$name}\n";
+
+// Will print `Hello Brent
+// `
+```
+
+You can also use the string concatenation operator `.` to combine two strings together:
+
+```php
+// index.php
+
+$name = 'Brent';
+
+echo 'Hello ' . $name . "\n";
+
+// Will print `Hello Brent
+// `
+```
+
+## Functions
+
+A function in PHP allows you to write reusable code. A function is defined using to `function` keyword, it takes some an arbitrary amount of input parameters, and will return some output or nothing.
+
+```php
+// index.php
+
+function hello($name) 
+{
+    echo 'Hello ' . $name . "\n";
+}
+
+hello('Brent');
+```
+
+The above function writes something using `echo`, but it's not returning any value from the function itself. To do that, you can use the `return` keyword:
+
+```php
+// index.php
+
+function hello($greeting, $name) 
+{
+    return $greeting . ' ' . $name . "\n";
+}
+
+echo hello('Hi', 'Brent');
+```
+
+PHP also comes with a very rich library of built-in functions. They allow you to manipulate files, perform HTTP requests, connect to databases, transform arrays, and many, many more things. We'll discuss them in depth in the next chapter about [PHP's standard library](/php/the-basics/the-standard-library).
+
+Also, there's much more to say about functions; we'll circle back to them later in this chapter.
+
 ## Classes
 
+## Types

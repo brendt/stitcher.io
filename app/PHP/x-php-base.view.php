@@ -22,7 +22,7 @@ $meta->canonical ??= null;
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-pt-20">
 <head>
     <!-- General -->
     <title>{{ $meta->title }}</title>
