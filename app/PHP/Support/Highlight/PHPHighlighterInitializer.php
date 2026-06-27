@@ -1,9 +1,7 @@
 <?php
 
-namespace App\PHP\Support;
+namespace App\Php\Support\Highlight;
 
-use App\Php\Support\Highlight\RawLanguage;
-use App\PHP\Support\Highlight\ShellLanguage;
 use Tempest\Container\Container;
 use Tempest\Container\Initializer;
 use Tempest\Container\Singleton;

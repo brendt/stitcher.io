@@ -1,8 +1,7 @@
 <?php
 
-namespace App\PHP\Support;
+namespace App\Php\Support\Markdown;
 
-use App\PHP\Support\Markdown\PreRule;
 use App\Support\Markdown\SnippetRule;
 use Tempest\Container\Container;
 use Tempest\Container\Initializer;
@@ -24,6 +23,7 @@ final readonly class PHPMarkdownInitializer implements Initializer
 
         $markdown->removeRules(TempestPreRule::class);
         $markdown->prependRules(
+            new SummaryRule(),
             $container->get(PreRule::class),
             new SnippetRule(__DIR__ . '/../Snippets/'),
         );

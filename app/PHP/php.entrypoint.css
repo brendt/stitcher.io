@@ -104,7 +104,7 @@ pre {
 
 code {
     font-size: 0.875em;
-    background-color: var(--color-gray-100);
+    background-color: var(--color-gray-200);
     padding: 2px 5px;
     border-radius: 4px;
     word-break: break-word;
@@ -213,13 +213,24 @@ pre code {
     color: #fff;
 }
 
-.practice {
-    padding: 1em;
-    border-radius: 6px;
+details {
     margin-top: 2em;
-    background: var(--color-pastel);
+}
 
-    & h2:first-child {
-        margin-top: 0;
+summary {
+    cursor: pointer;
+    background-color: var(--color-primary);
+    display:inline-block;
+    padding: .5em 1em;
+    border-radius: calc(infinity * 1px);
+    color: #fff;
+    font-weight: bold;
+    font-size: .9em;
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 2px 0 var(--color-gray-100);
+
+    &:hover {
+        background-color: var(--color-gray-100);
+        color: var(--color-primary);
     }
 }

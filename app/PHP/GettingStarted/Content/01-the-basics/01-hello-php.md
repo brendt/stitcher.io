@@ -77,11 +77,8 @@ One thing you'll notice with PHP is that you can make changes to your source cod
 
 One of PHP's strengths is its interpreted nature. You'll find that the lack of compilation step makes it feel very fast to develop with as you're never waiting on or restarting processing. Later in this book, we'll cover modern-day tooling for PHP that adds all kinds of "compile-time" features to the language like type checkers, code formatters, and more. What's important to note it that whenever we mention **runtime** in PHP, it means that PHP is doing work on the fly.
 
-:::practice
 ## In practice
 
-<p>
 Install PHP and run `{sh}php -v` to ensure everything works. Next, run `{sh}php --help` to find out how to start an interactive shell. Try out our previous `echo` example in that shell before exiting.
-    Now create a new file called `hello-world.php` and add our `echo` example in it; finally access it via a web browser.
-</p>
-:::
+
+Now create a new file called `hello-world.php` and add our `echo` example in it; finally access it via a web browser.

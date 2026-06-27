@@ -575,6 +575,8 @@ class Book
         return $this->title;
     }
 }
+
+$book = new Book('Timeline Taxi');
 ```
 
 Classes can live in any PHP file, but the best practice is to make a new PHP file for each class. On top of that, classes should also live in a namespace, which makes including them from other places more convenient. We'll cover the concept of autoloading more in depth in the [Composer chapter](/php/the-basics/composer). For now, it's good to know that this is the recommended approach to structure your classes:
@@ -602,12 +604,130 @@ class Book
 }
 ```
 
-If you're using a proper IDE for PHP development, namespaces will automatically be added for you when creating classes.
+If you're using a proper IDE for PHP development, namespaces will automatically be added for you when creating classes. If you want to reference a class from another file, you can do so by using its namespace and class name:
+
+```php
+// index.php
+
+use App\Models\Book;
+
+$book = new Book('Timeline Taxi');
+```
 
 Similar to many other object-oriented languages, classes come with a bunch of keywords. There are the visibility modifiers `public`, `protected`, and `private`; as well as tools for subclassing and interfacing like `abstract`, `extends`, and `interface`. We'll have a dedicated [in-depth chapter about classes](/php/in-depth/classes) later where we'll cover all these topics and more like promoted properties, property hooks, magic methods, reflection, and more.
 
-:::practice
+## Exceptions
+
+Exceptions are used to halt the normal program flow and indicate that something went wrong. PHP has a number of built-in exceptions, and you can create your own as well. Here's what throwing a basic exception looks like:
+
+```php
+// index.php
+
+function doSomething(bool $problem): void
+{
+    if ($problem) {
+        throw new Exception('Something went wrong');
+    }
+    
+    // …
+}
+```
+
+When an exception is thrown, you can handle it with `try` and `catch`:
+
+```php
+// index.php
+
+try {
+    doSometing(true);
+} catch (Exception $exception) {
+    echo $exception->getMessage();
+}
+```
+
+You can create your own exceptions by creating a dedicated class, and extending from the base `Exception` class:
+
+```php
+// app/Exceptions/ValidationException.php
+
+namespace App\Exceptions\ValidationException;
+
+class ValidationException extends Exception {}
+```
+
+You can also chain multiple `catch` blocks, and even add a `finally` block; the `finally` block will always be executed, even when no exception was thrown:
+
+```php
+// index.php
+
+try {
+    doSometing(true);
+} catch (ValidationException $exception) {
+    echo "Validation failed!";
+} catch (Exception $exception) {
+    echo $exception->getMessage();
+} finally {
+    echo "Done";
+}
+```
+
 ## In practice
 
-This is only the very beginning of learning PHP. All of the concepts described in this chapter will get much more attention throughout the rest of this book. 
-:::
+Within a file `index.php`, create two new classes: `Book` and `Author`. A `Book` has three properties: `{:hl-type:string:} {:hl-property:$title:}`, `{:hl-type:Author:} {:hl-property:$author:}`, and `{:hl-type:int:} {:hl-property:$categoryId:}`. An `Author` has a property `{:hl-type:string:} {:hl-property:$name:}`. Use types wherever possible.
+
+Make it so that when the categoryId of a book is below `1` or above `5`, an exception is thrown. In a loop, create 20 books. Use a random integer between `0` and `10` for the category ID. If the creation of a book fails, increment a failed counter. In the end, print out how many books were created successfully.
+
+{{{Show solution
+```php
+// index.php
+
+class Book
+{
+    private string $title;
+    private Author $author;
+    private int $categoryId;
+
+    public function __construct(
+        string $title,
+        Author $author,
+        int $categoryId,
+    ) {
+        if ($categoryId < 1 || $categoryId > 5) {
+            throw new Exception("Category ID must be between 1 and 5.");
+        }
+
+        $this->title = $title;
+        $this->author = $author;
+        $this->categoryId = $categoryId;
+    }
+}
+
+class Author
+{
+    private string $name;
+
+    public function __construct(
+        string $name,
+    ) {
+        $this->name = $name;
+    }
+}
+
+$total = 20;
+$failed = 0;
+
+foreach (range(1, $total) as $i) {
+    $author = new Author("Author {$i}");
+
+    $categoryId = random_int(0, 10);
+
+    try {
+        $book = new Book("Book {$i}", $author, $categoryId);
+    } catch (Exception $exception) {
+        $failed += 1;
+    }
+}
+
+echo "{$failed} out of {$total} books failed";
+```
+}}}
