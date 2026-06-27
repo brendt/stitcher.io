@@ -27,6 +27,7 @@ final readonly class ShellLanguage implements Language
             new ShellCommentPattern(),
             new ShellStartPattern(),
             new ShellParameterPattern(),
+            new ShellKeywordPattern(),
         ];
     }
 }

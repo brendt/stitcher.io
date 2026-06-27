@@ -212,3 +212,14 @@ pre code {
     background-color: var(--color-primary);
     color: #fff;
 }
+
+.practice {
+    padding: 1em;
+    border-radius: 6px;
+    margin-top: 2em;
+    background: var(--color-pastel);
+
+    & h2:first-child {
+        margin-top: 0;
+    }
+}

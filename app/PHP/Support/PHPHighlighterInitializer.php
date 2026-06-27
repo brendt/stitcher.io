@@ -2,6 +2,7 @@
 
 namespace App\PHP\Support;
 
+use App\Php\Support\Highlight\RawLanguage;
 use App\PHP\Support\Highlight\ShellLanguage;
 use Tempest\Container\Container;
 use Tempest\Container\Initializer;
@@ -17,6 +18,7 @@ final readonly class PHPHighlighterInitializer implements Initializer
         $highlighter = new Highlighter(fallbackLanguage: new PhpLanguage());
 
         $highlighter
+            ->addLanguage(new RawLanguage())
             ->addLanguage(new ShellLanguage());
 
         return $highlighter;

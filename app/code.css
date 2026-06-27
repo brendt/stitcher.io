@@ -72,6 +72,10 @@
     padding: 0 5px;
 }
 
+.hl-error {
+    border-bottom: 2px dotted #f00;
+}
+
 .hl-console-underline {
     text-decoration: underline;
 }

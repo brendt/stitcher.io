@@ -23,7 +23,7 @@ final readonly class PreToken implements Token
         $content = $this->content;
 
         $titleDelimiter = match ($language) {
-            'php' => '// ',
+            'php', 'raw' => '// ',
             default => null,
         };
 

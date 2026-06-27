@@ -104,6 +104,34 @@ html_entity_decode($html);
 
 ## DateTime
 
+PHP comes with an extensive collection of classes to deal with dates, times, timezones, and intervals. 
+
+```php
+// index.php
+
+$dateTime = new DateTime();
+
+$dateTime->add(new DateInterval('P1D'));
+
+echo $dateTime->format('Y-m-d H:i:s');
+```
+
+There's also an immutable version of the `DateTime` class called `DateTimeImmutable`. Immutable classes mean that the original object will never be modified when a function is called. Instead, a new object is created for every function call:
+
+```php
+// index.php
+
+$original = new DateTimeImmutable();
+
+// The original object isn't modified
+$new = $dateTime->add(new DateInterval('P1D')); 
+
+echo $original->format('Y-m-d H:i:s');
+echo $new->format('Y-m-d H:i:s');
+```
+
+It's often a good idea to use the `DateTimeImmutable` variant so that you can avoid unforeseen sideeffects when working with dates.
+
 ## Files
 
 ## Database

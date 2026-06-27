@@ -6,16 +6,16 @@
     </div>
 
     <div data-panel="mac">
-        <pre><code><span class="hl-type">~</span> brew install php</code></pre>
+        <pre><code><span class="hl-type">~</span> <span class="hl-keyword">brew</span> install php</code></pre>
     </div>
 
     <div data-panel="linux" hidden>
-        <pre><code><span class="hl-type">~</span> sudo apt update
-<span class="hl-type">~</span> sudo apt install php php-cli php-common</code></pre>
+        <pre><code><span class="hl-type">~</span> <span class="hl-keyword">sudo apt</span> update
+<span class="hl-type">~</span> <span class="hl-keyword">sudo apt</span> install php php-cli php-common</code></pre>
     </div>
 
     <div data-panel="windows" hidden>
-        <pre><code><span class="hl-type">$</span> winget install PHP.PHP</code></pre>
+        <pre><code><span class="hl-type">$</span> <span class="hl-keyword">winget</span> install PHP.PHP</code></pre>
     </div>
 </div>
 

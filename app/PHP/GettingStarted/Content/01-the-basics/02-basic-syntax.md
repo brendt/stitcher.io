@@ -4,6 +4,18 @@ title: Basic Syntax
 
 In this chapter you'll get a basic overview of PHP's syntax. You'll learn more about each section throughout this book, but we need to start somewhere, and thus here's the high-level overview.
 
+## &lt;?php
+
+You'll notice how each PHP file starts with a `<?php` opening tag. This is required for PHP to interpret the code in that file as actual PHP code. Most IDEs will automatically insert it for you when creating a new PHP file. From now on, we'll usually omit the `<?php` opening tag in examples, unless it's relevant; know that it should always be there.
+
+```php
+// index.php
+
+<?php
+
+// Usually the first line of any PHP file contains the <?php opening tag 
+```
+
 ## Variables
 
 Variables in PHP are defined with the `$` sign and a name. 
@@ -26,7 +38,7 @@ $age = 32;
 $age = 'a';
 ```
 
-Variables can store primitive types like integers, floats, booleans, and strings; or contain more complex types like objects, enums, and arrays. I'll cover PHP's type system in depth in [a later chapter](/php/the-basics/phps-type-system): even though PHP used to have a fairly loose type system, it has evolved quite a lot and now has an extensive type system that's both enforced during runtime, but also with the help of static analyzers.
+Variables can store primitive types like integers, floats, booleans, and strings; or contain more complex types like objects, enums, and arrays. we'll cover PHP's type system in depth in [a later chapter](/php/the-basics/phps-type-system): even though PHP used to have a fairly loose type system, it has evolved quite a lot and now has an extensive type system that's both enforced during runtime, but also with the help of static analyzers.
 
 Continuing with the basics of variables first, PHP is very flexible when it comes to referencing them. For example, you can reference a variable's name, with another variable's value:
 
@@ -44,10 +56,6 @@ echo $$variable;
 // given that `$variable` is a string `'variable'`
 // and `$variable` has the value of `5`
 ```
-
-## &lt;?php
-
-You'll notice how each PHP file starts with a `<?php` opening tag. This is required for PHP to interpret the code in that file as actual PHP code. Most IDEs will automatically insert it for you when creating a new PHP file. From now on, I'll omit the `<?php` opening tag in examples, unless it's relevant; know that it should always be there.
 
 ## Comments
 
@@ -83,11 +91,11 @@ As you've noticed in the previous examples, comments in PHP can be written with 
 
 PHP has a bunch of built-in keywords. You've already seen the `echo` keyword in a previous example, but there are a lot more. There's `clone`, `require`, `yield`, `include`, and many more. You can find a [full list of keywords on the PHP website](https://www.php.net/manual/en/reserved.keywords.php).
 
-Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, function names. Each keyword has a special _thing_ it can do. For example, `echo` and `print` write text to the output buffer; `clone` makes a copy of an object, etc. Don't worry about learning all keywords right now, I'll cover each of them when they are relevant to understand a bigger concept. 
+Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, function names. Each keyword has a special _thing_ it can do. For example, `echo` and `print` write text to the output buffer; `clone` makes a copy of an object, etc. Don't worry about learning all keywords right now, we'll cover each of them when they are relevant to understand a bigger concept. 
 
 ## Control Structures
 
-Speaking of keywords, control structures allow you to alter the code execution flow. There are the common examples like `if` and `for`, but PHP has a wide range of control structures. I'll list the most important ones here, and you can find the [full list of control sturctures on the PHP website](https://www.php.net/manual/en/language.control-structures.php). 
+Speaking of keywords, control structures allow you to alter the code execution flow. There are the common examples like `if` and `for`, but PHP has a wide range of control structures. we'll list the most important ones here, and you can find the [full list of control sturctures on the PHP website](https://www.php.net/manual/en/language.control-structures.php). 
 
 ### Conditionals
 
@@ -405,13 +413,78 @@ There's much more to say about functions; we'll circle back to them later in thi
 
 ## Closures
 
-// TODO
+Closures are a special kind of functions that have no name. Instead of calling them by name, they can be stored in a variable:
+
+```php
+// index.php
+
+$hello = function($name)
+{
+    return 'Hello ' . $name . "\n";
+};
+
+$hello('Brent');
+```
+
+Another way of accessing them is to pass them directly into another function:
+
+```php
+// index.php
+
+function newline($closure)
+{
+    return $closure('Brent') . "\n";
+}
+
+echo newline(function ($name) {
+     return "Hello, {$name}";
+});
+```
+
+One important note about closure is that they don't have access to variables declared outside of them by default:
+
+```raw
+// index.php
+
+$greeting = {:hl-value:'Hello':};
+
+$hello = {:hl-keyword:function:}($name)
+{
+    {:hl-comment:// `$greeting` is undefined:}
+    {:hl-keyword:return:} {:hl-error:$greeting:} . {:hl-value:' ':} . $name . {:hl-value:"\n":};
+};
+```
+
+In order to access variables from the outer scope — "the outside" — you can use the `use` keyword:
+
+```php
+// index.php
+
+$greeting = 'Hello';
+
+$hello = function($name) use ($greeting)
+{
+    return $greeting . ' ' . $name . "\n";
+};
+```
+
+Finally, PHP also has a way of writing short closures: these are closure that directly return a result. They are written with the `fn()` keyword:
+
+```php
+// index.php
+
+$greeting = 'Hello';
+
+$hello = fn($name) => $greeting . ' ' . $name . "\n";
+```
+
+Note how you don't need to write `return` in short closures: they only take one line of code, and the result of that is always returned. Also note how short closures don't need to use `use`. Indeed, they have access to the outer scope automatically.
 
 ## Types
 
 PHP's type system is pretty unique compared to other programming languages. Types can be defined in most places and will be checked at runtime by the PHP interpreter. However, the use of a static analyzer to type-check your codebase before running it is highly recommended. PHP doesn't have a built-in static type checker, but there are several great third-party options out there. The most notable ones are [PHPStan](https://phpstan.org/), [Mago](https://mago.carthage.software/1.30.0/en/), and [Psalm](https://psalm.dev/). We'll discuss them in-depth in a later chapter. However, it's already important to discuss the basics of PHP's type system now, because the rest of this book will use them all throughout.
 
-Let's revisit our `hello()` function from the previous example, this time with added types:
+Let's revisit our `hello()` function from the previous examples, this time with added types:
 
 ```php
 // index.php
@@ -477,9 +550,9 @@ function hello(string $greeting, string $name): string
 hello(1, 2); // Will error
 ```
 
-Note that `declare(strict_types=1)` is rather limited as it only checks for strict types on a per-file basis. Later in this book, I'll recommend the use of a static analyzer instead. Also note that since PHP checks types at the boundaries of function calls, it's not possible to type a standalone variable; once again something that's solved with static analyzers.
+Note that `declare(strict_types=1)` is rather limited as it only checks for strict types on a per-file basis. Later in this book, we'll recommend the use of a static analyzer instead. Also note that since PHP checks types at the boundaries of function calls, it's not possible to type a standalone variable; once again something that's solved with static analyzers.
 
-From here on out, I'll use types whenever possible. They aren't a requirement, but we're learning about modern PHP for serious projects, and types are an invaluable tool to use.
+From here on out, we'll use types whenever possible. They aren't a requirement, but we're learning about modern PHP for serious projects, and types are an invaluable tool to use.
 
 ## Classes
 
@@ -533,6 +606,8 @@ If you're using a proper IDE for PHP development, namespaces will automatically 
 
 Similar to many other object-oriented languages, classes come with a bunch of keywords. There are the visibility modifiers `public`, `protected`, and `private`; as well as tools for subclassing and interfacing like `abstract`, `extends`, and `interface`. We'll have a dedicated [in-depth chapter about classes](/php/in-depth/classes) later where we'll cover all these topics and more like promoted properties, property hooks, magic methods, reflection, and more.
 
-## In summary
+:::practice
+## In practice
 
 This is only the very beginning of learning PHP. All of the concepts described in this chapter will get much more attention throughout the rest of this book. 
+:::

@@ -1,9 +1,9 @@
 <?php
 
+$greeting = 'Hello';
 
-$a = 'a';
-$z = 'z';
-
-echo $a <=> $z;
-echo $z <=> $a;
-echo $a <=> $a; // 0
+$hello = function($name)
+{
+    // `$greeting` is undefined
+    return $greeting . ' ' . $name . "\n";
+};

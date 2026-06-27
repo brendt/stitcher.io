@@ -14,6 +14,10 @@ I'm Brent, and I started using PHP around 2012, right when the language was unde
 
 I'm passionate about education and find that PHP's biggest challenge in the modern web era is being well understood. That's why I'm writing this book to help anyone understand what an awesome language and ecosystem PHP is.
 
+### Goal of this book
+
+You don't learn a programming language by reading a book. You do so by writing code. This book won't teach you everything there is to know about PHP, rather it will teach you how to learn yourself. This book will be the foundation to build on. That's why every chapter will link to the PHP docs to learn more, and also an excercise section so that you actually write code.  
+
 ## Installing PHP
 
 Production PHP is typically deployed using Docker, on dedicated virtual servers, or via shared hosting providers. We'll spend a full chapter on deploying PHP later in this book. For now, we'll focus on getting PHP running for local development. All you need is the PHP binary to get started, it will run on any operating system.
@@ -42,6 +46,7 @@ Let's create our first PHP file:
 
 ```php
 // index.php
+<?php
 
 echo "Hello, PHP";
 ```
@@ -72,6 +77,11 @@ One thing you'll notice with PHP is that you can make changes to your source cod
 
 One of PHP's strengths is its interpreted nature. You'll find that the lack of compilation step makes it feel very fast to develop with as you're never waiting on or restarting processing. Later in this book, we'll cover modern-day tooling for PHP that adds all kinds of "compile-time" features to the language like type checkers, code formatters, and more. What's important to note it that whenever we mention **runtime** in PHP, it means that PHP is doing work on the fly.
 
-## In summary
+:::practice
+## In practice
 
-PHP is an interpreted programming language that's super easy to get started with. In the next chapter we'll explore the basics of PHP's syntax, so that you can write some actual code.
+<p>
+Install PHP and run `{sh}php -v` to ensure everything works. Next, run `{sh}php --help` to find out how to start an interactive shell. Try out our previous `echo` example in that shell before exiting.
+    Now create a new file called `hello-world.php` and add our `echo` example in it; finally access it via a web browser.
+</p>
+:::
