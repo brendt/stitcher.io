@@ -2,4 +2,10 @@
 title: QA Tooling
 ---
 
-PHP has 
+## Static Analysis
+
+## Code styling
+
+## Testing
+
+## Debugging
