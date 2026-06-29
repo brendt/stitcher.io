@@ -130,13 +130,67 @@ echo $original->format('Y-m-d H:i:s');
 echo $new->format('Y-m-d H:i:s');
 ```
 
-It's often a good idea to use the `DateTimeImmutable` variant so that you can avoid unforeseen sideeffects when working with dates.
+It's usually a good idea to use the `DateTimeImmutable` variant so that you can avoid unforeseen sideeffects when working with dates.
 
 ## Files
 
+There's also a wide range of [functions to interact with the filesystem](https://www.php.net/manual/en/ref.filesystem.php).
+
+
+```php
+// index.php
+
+// Read contents from a file
+$contents = file_get_contents($path);
+
+// Create a directory
+mkdir($path);
+
+// Get the directory name from a path
+$dir = dirname($path);
+
+// Get an array of information about a path
+$info = pathinfo($path);
+
+// Delete a file
+unlink($path);
+```
+
 ## Database
 
+There are several ways to connect to databases in PHP, but the most common one we'll focus on is [PDO](https://www.php.net/manual/en/book.pdo.php). PDO gives you a object-oriented API to interact with a number of databases: from MySQL to SQLite, MS SQL to Postgres, and [many more](https://www.php.net/manual/en/pdo.drivers.php). Note that, depending on how you installed PHP, you may need to install individual drivers manually.
+
+```php
+// index.php
+
+$pdo = new PDO(
+    'mysql:host=localhost:3306;dbname=app',
+    'root',
+    'password',
+);
+
+$query = $pdo->prepare('SELECT * FROM books WHERE `title` = :title');
+$query->execute(['title' => 'Timeline Taxi']);
+
+$books = $query->fetchAll();
+```
+
+We'll have a separate chapter about databases later in this book.
+
 ## FFI
+
+FFI stands for [Foreign Function Interface](https://www.php.net/manual/en/book.ffi.php) and allows you to interact with other languages like Rust or C from within PHP.
+
+```php
+$ffi = FFI::cdef(
+    "int printf(const char *format, ...);",
+    "libc.so.6",
+);
+    
+$ffi->printf("Hello %s!\n", "world");
+```
+
+Here's a repository with [examples of what you can do with FFI](https://github.com/gabrielrcouto/awesome-php-ffi](https://github.com/gabrielrcouto/awesome-php-ffi).
 
 ## Cryptography
 
