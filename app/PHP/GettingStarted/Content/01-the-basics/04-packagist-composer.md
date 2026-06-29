@@ -234,3 +234,38 @@ There are a lot more details and options to Packagist and Composer, so if you wa
 [Install Composer](https://getcomposer.org/download/) on your machine and verify that it works. In a new directory, create a PHP script that you'll use to highlight some Markdown using the [tempest/markdown](https://tempestphp.com/3.x/packages/markdown) package. It can be a fully fledged Markdown file that you read and write to the filesystem, or an in-memory string that you echo out. Up to you.
 
 Once done, take a look at the `vendor/` folder, and try to find the `composer.json` file of `tempest/markdown` itself. What differences do you see compared to yours? Find out what these options do by [reading Composer's docs](https://getcomposer.org/doc/04-schema.md).
+
+{{{Show solution
+```json
+// composer.json
+{
+    "require": {
+        "tempest/markdown": "^1.1"
+    }
+}
+```
+
+
+```php
+// index.php
+<?php
+
+use Tempest\Markdown\Markdown;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$markdown = new Markdown();
+
+$content = file_get_contents(__DIR__ . '/input.md');
+
+if (! $content) {
+    die('Something went wrong!');
+}
+
+if (file_exists(__DIR__ . '/output.html')) {
+    unlink(__DIR__ . '/output.html');
+}
+
+file_put_contents(__DIR__ . '/output.html', $markdown->parse($content));
+```
+}}}
