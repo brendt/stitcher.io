@@ -23,13 +23,14 @@ final readonly class PreToken implements Token
         $content = $this->content;
 
         $titleDelimiter = match ($language) {
-            'php', 'raw' => '// ',
+            'php', 'raw', 'json' => '// ',
+            'shell' => '# ',
             default => null,
         };
 
-        if ($titleDelimiter && str_starts_with($content, '// ')) {
+        if ($titleDelimiter && str_starts_with($content, $titleDelimiter)) {
             [$title, $content] = explode(PHP_EOL, $content, 2);
-            $title = ltrim($title, '/ ');
+            $title = ltrim($title, $titleDelimiter);
             $content = ltrim($content, PHP_EOL);
         } else {
             $title = $language;

@@ -10,8 +10,8 @@
         "chrome-php/chrome": "^1.14",
         "codewithkyrian/transformers": "^0.6.2",
         "predis/predis": "^3.4",
-        "tempest/markdown": "^1.0.1",
-        "spatie/yaml-front-matter": "^2.1"
+        "spatie/yaml-front-matter": "^2.1",
+        "tempest/markdown": "^1.1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.3.10",

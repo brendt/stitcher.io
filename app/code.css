@@ -204,3 +204,10 @@
         color: var(--code-type);
     }
 }
+
+.hl-output {
+    & > .hl-comment {
+        color: inherit;
+        font-style: inherit;
+    }
+}

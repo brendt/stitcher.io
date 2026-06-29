@@ -1,0 +1,5 @@
+{
+    "require": {
+        "tempest/markdown": "^1.1"
+    }
+}

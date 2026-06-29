@@ -104,7 +104,7 @@ pre {
 
 code {
     font-size: 0.875em;
-    background-color: var(--color-gray-200);
+    background-color: var(--color-gray-100);
     padding: 2px 5px;
     border-radius: 4px;
     word-break: break-word;
@@ -232,5 +232,30 @@ summary {
     &:hover {
         background-color: var(--color-gray-100);
         color: var(--color-primary);
+    }
+}
+
+.note {
+    background-color: var(--color-blue-100);
+    padding: 1em 1.25em;
+    overflow-x: auto;
+    border-radius: 6px;
+    margin: 1.25em 0;
+}
+
+.dark .note {
+    background-color: var(--color-slate-600);
+    color: var(--color-gray-100);
+}
+
+a:has(code) {
+    text-decoration: none;
+
+    & > code {
+        border: 1px dashed var(--color-gray-500);
+
+        &:hover {
+            border: 1px solid transparent;
+        }
     }
 }
