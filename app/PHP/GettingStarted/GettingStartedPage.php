@@ -27,7 +27,7 @@ final class GettingStartedPage
     }
 
     public string $categoryName {
-        get => str($this->category)->replace('-', ' ')->title()->toString();
+        get => str($this->category)->afterFirst('-')->replace('-', ' ')->title()->toString();
     }
 
     public array $sections {

@@ -39,13 +39,13 @@ final class GettingStartedRepository
 
         unset($frontMatter['meta'], $frontMatter['next']);
 
-        preg_match('/(?<index>\d+)-(?<slug>.*)\.md/', $path, $matches);
+        preg_match('/(?<category>\d+-.*?)\/(?<index>\d+)-(?<slug>.*)\.md/', $path, $matches);
 
         $page = new GettingStartedPage(
             index: (int)$matches['index'],
             slug: $slug,
             title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
-            category: $category,
+            category: $matches['category'],
             content: $parsed->html,
             meta: new Meta(
                 title: $meta['title'] ?? $frontMatter['title'] ?? null,
