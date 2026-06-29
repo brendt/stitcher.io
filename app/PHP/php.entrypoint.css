@@ -215,23 +215,82 @@ pre code {
 
 details {
     margin-top: 2em;
+    background-color: #fff;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+}
+
+details[open] {
+    margin-top: 0;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.dark details {
+    background-color: transparent;
+    border-color: var(--color-gray-700);
+}
+
+.dark details[open] {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+details[open] > :not(summary) {
+    margin-top: 1em;
 }
 
 summary {
     cursor: pointer;
-    background-color: var(--color-primary);
-    display:inline-block;
-    padding: .5em 1em;
-    border-radius: calc(infinity * 1px);
-    color: #fff;
+    list-style: none;
+    display: flex;
+    width: 100%;
+    padding: 1em;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4em;
+    color: var(--color-gray-600);
+    font-size: 0.95em;
     font-weight: bold;
-    font-size: .9em;
-    border: 2px solid var(--color-primary);
-    box-shadow: 0 0 2px 0 var(--color-gray-100);
+    text-decoration: underline;
+    text-decoration-color: var(--color-gray-300);
+    text-underline-offset: 3px;
+    transition: color 0.15s, text-decoration-color 0.15s;
+    user-select: none;
+
+    &::before {
+        content: 'Show solution';
+    }
 
     &:hover {
-        background-color: var(--color-gray-100);
         color: var(--color-primary);
+        text-decoration-color: var(--color-primary);
+    }
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+
+details[open] > summary {
+    color: var(--color-primary);
+    text-decoration-color: var(--color-primary);
+    display: none;
+
+    &::before {
+        content: '';
+    }
+}
+
+.dark summary {
+    color: var(--color-gray-400);
+    text-decoration-color: var(--color-gray-500);
+
+    &:hover,
+    details[open] > & {
+        color: var(--color-primary);
+        text-decoration-color: var(--color-primary);
     }
 }
 

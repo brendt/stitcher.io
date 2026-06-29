@@ -235,7 +235,7 @@ There are a lot more details and options to Packagist and Composer, so if you wa
 
 Once done, take a look at the `vendor/` folder, and try to find the `composer.json` file of `tempest/markdown` itself. What differences do you see compared to yours? Find out what these options do by [reading Composer's docs](https://getcomposer.org/doc/04-schema.md).
 
-{{{Show solution
+{{{
 ```json
 // composer.json
 {
