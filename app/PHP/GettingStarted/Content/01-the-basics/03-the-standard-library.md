@@ -194,11 +194,36 @@ Here's a repository with [examples of what you can do with FFI](https://github.c
 
 ## Cryptography
 
+PHP has built-in support for many cryptographical extensions for encryption and hashing, like llibsodium and libargon2. For basics like password hashing, you don't need to worry about the underlying details, as the [`password_hash()`](https://www.php.net/manual/en/function.password-hash.php) function will automatically use the strongest hashing algorithm avaiable.
+
 ## Image processing
+
+PHP comes with a library called [GD](https://www.php.net/manual/en/book.image.php) built-in to do image processing. In a web context, imagine processing can be incredibly useful to generate meta-images or downscaled versions of responsive images.
+
+```php
+// index.php
+
+$image = imagecreatefrompng(__DIR__ . '/tempest-meta.png');
+
+// …
+
+imagecopyresized($image, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+```
+
+When preferred, you can also install [ImageMagick as an extension](https://www.php.net/manual/en/book.imagick.php) for even more extended image support.
 
 ## Maths
 
-## Process Control
+Apart from [classic math functions](https://www.php.net/manual/en/ref.math.php), PHP also has an optional extension called [BC Maths](https://www.php.net/manual/en/book.bc.php) for arbitrary precision mathematics.
+
+```php
+// index.php
+
+$num1 = 0; // (string) 0 => '0'
+$num2 = -0.000005; // (string) -0.000005 => '-5.05E-6'
+
+echo bcadd($num1, $num2, 6); // => '0.000000'
+```
 
 ## cURL
 
