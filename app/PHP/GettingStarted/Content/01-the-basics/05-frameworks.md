@@ -2,4 +2,4 @@
 title: Frameworks
 ---
 
-PHP has 
+These days, you usually don't write PHP

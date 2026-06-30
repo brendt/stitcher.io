@@ -227,12 +227,67 @@ echo bcadd($num1, $num2, 6); // => '0.000000'
 
 ## cURL
 
-## DOM
+PHP comes with [libcurl](https://www.php.net/manual/en/book.curl.php) support bundled, which add support for cross-server communication over a number of protocols like HTTP(S), FPT, LDAP, Gopher, and more.
+
+You can use curl directly in PHP with its built-in functions:
+
+```php
+// index.php
+
+$file = fopen("index.html", "w");
+
+$handle = curl_init('http://stitcher.io');
+curl_setopt($handle, CURLOPT_FILE, $file);
+curl_setopt($handle, CURLOPT_HEADER, 0);
+curl_exec($handle);
+
+fclose($file);
+```
+
+However, most modern PHP projects rely on wrappers like [guzzle](https://github.com/guzzle/guzzle) that use curl under the hood. We'll learn more about PHP's package ecosystem in the next chapter.
+
+## HTML parsing
+
+PHP allows you to [parse HTML documents](https://www.php.net/manual/en/class.dom-htmldocument.php) into a structured DOM:
+
+```php
+// index.php
+HTMLDocument::createFromString($html);
+```
 
 ## Redis
 
+You can optionally install [Redis support](https://packagist.org/packages/phpredis/phpredis) with Pie:
+
+```shell
+~ pie install phpredis/phpredis 
+```
+
 ## Random
+
+PHP has a [pretty robust randomizer](https://www.php.net/manual/en/book.random.php).
+
+```php
+// index.php
+
+$rng = $is_production
+    ? new Random\Engine\Secure()
+    : new Random\Engine\Mt19937(1234);
+ 
+$randomizer = new Random\Randomizer($rng);
+$randomizer->shuffleString('foobar');
+```
 
 ## JSON
 
-## Mail
+Of course, [JSON support](https://www.php.net/manual/en/ref.json.php) is also available:
+
+```php
+// index.php
+
+$json = json_encode($data);
+
+$data = json_decode($json);
+```
+
+## In practice
