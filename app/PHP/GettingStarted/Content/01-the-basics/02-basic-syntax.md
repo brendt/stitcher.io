@@ -719,7 +719,7 @@ Within a file `index.php`, create two new classes: `Book` and `Author`. A `Book`
 
 Make it so that when the categoryId of a book is below `1` or above `5`, an exception is thrown. In a loop, create 20 books. Use a random integer between `0` and `10` for the category ID. If the creation of a book fails, increment a failed counter. In the end, print out how many books were created successfully.
 
-{{{Show solution
+{{{
 ```php
 // index.php
 
