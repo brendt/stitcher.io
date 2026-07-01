@@ -407,6 +407,29 @@ function hello($greeting, $name)
 echo hello('Hi', 'Brent');
 ```
 
+Another important note about functions is that any function all allows you to use named parameters instead of positional ones:
+
+```php
+// index.php
+
+function hello($greeting, $name) 
+{ /* … */ }
+
+echo hello(name: 'Hi', greeting: 'Brent');
+```
+
+Named parameters can be useful when functions have optional parameters you want to skip or to add a bit more structure for function calls with long parameter lists.
+
+
+```php
+// index.php
+
+function complex($a, $b = null, $c = null, $d = null, $e = null) 
+{ /* … */ }
+
+echo hello(a: 'A', e: 'E');
+```
+
 PHP also comes with a rich library of built-in functions. They allow you to manipulate files, perform HTTP requests, connect to databases, transform arrays, and many, many more things. We'll discuss them in depth in the next chapter about [PHP's standard library](/php/the-basics/the-standard-library).
 
 There's much more to say about functions; we'll circle back to them later in this chapter.
@@ -615,6 +638,25 @@ $book = new Book('Timeline Taxi');
 ```
 
 Similar to many other object-oriented languages, classes come with a bunch of keywords. There are the visibility modifiers `public`, `protected`, and `private`; as well as tools for subclassing and interfacing like `abstract`, `extends`, and `interface`. We'll have a dedicated [in-depth chapter about classes](/php/in-depth/classes) later where we'll cover all these topics and more like promoted properties, property hooks, magic methods, reflection, and more.
+
+## Attributes
+
+[Attributes](/blog/attributes-in-php-8) — AKA "annotations" in other languages — are special classes that can be used to add metadata to classes, methods, functions, parameters, properties, and constants. Most attributes are defined in userland code and are often provided by frameworks. There are a handful of niche attributes shipped with PHP as well that might even impact PHP's runtime. In general though, attributes are only used for meta-programming and static analysis.
+
+Here's one example of how an attribute can be used to make a controller action accessible via an HTTP GET request. Don't worry about the details; we'll cover frameworks in a [dedicated chapter](/php/the-basics/frameworks).
+
+```php
+// app/Controllers/HomeController.php
+
+final readonly class HomeController
+{
+    #[Get(uri: '/home')]
+    public function __invoke(): View
+    {
+        return view('./home.view.php');
+    }
+}
+```
 
 ## Exceptions
 
