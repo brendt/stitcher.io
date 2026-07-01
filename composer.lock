@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3bd0165990a4aa5e14307891a2db478",
+    "content-hash": "58b1a3ac6be95dfaf96f92c67c14e75c",
     "packages": [
         {
             "name": "chrome-php/chrome",
@@ -975,16 +975,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.12.3",
+            "version": "7.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "9aa17bcdd777ee31df9fc83c337ca4ca2340def3"
+                "reference": "55901a76dfd2006a0cc012b9e3c5b487f796478d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/9aa17bcdd777ee31df9fc83c337ca4ca2340def3",
-                "reference": "9aa17bcdd777ee31df9fc83c337ca4ca2340def3",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/55901a76dfd2006a0cc012b9e3c5b487f796478d",
+                "reference": "55901a76dfd2006a0cc012b9e3c5b487f796478d",
                 "shasum": ""
             },
             "require": {
@@ -1003,7 +1003,7 @@
                 "bamarni/composer-bin-plugin": "^1.8.2",
                 "ext-curl": "*",
                 "guzzle/client-integration-tests": "3.0.2",
-                "guzzlehttp/test-server": "^0.5.1",
+                "guzzlehttp/test-server": "^0.6",
                 "php-http/message-factory": "^1.1",
                 "phpunit/phpunit": "^8.5.52 || ^9.6.34",
                 "psr/log": "^1.1 || ^2.0 || ^3.0"
@@ -1083,7 +1083,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.12.3"
+                "source": "https://github.com/guzzle/guzzle/tree/7.13.1"
             },
             "funding": [
                 {
@@ -1099,7 +1099,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-23T15:29:02+00:00"
+            "time": "2026-06-29T20:14:18+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -2774,11 +2774,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e5cc34d491a90e79c216d824f60fe21fd4d93bd6",
-                "reference": "e5cc34d491a90e79c216d824f60fe21fd4d93bd6",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4048833dd47b377287818841877fb3087289509c",
+                "reference": "4048833dd47b377287818841877fb3087289509c",
                 "shasum": ""
             },
             "require": {
@@ -2834,7 +2834,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-05T09:00:01+00:00"
+            "time": "2026-06-30T21:15:26+00:00"
         },
         {
             "name": "predis/predis",
@@ -5896,16 +5896,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v3.13.0",
+            "version": "v3.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "521b7195266d6ddb07a7d9af07c9e1c9b5966d19"
+                "reference": "4ad48c94c605d600fcc7d42f370fc8637e44dfab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/521b7195266d6ddb07a7d9af07c9e1c9b5966d19",
-                "reference": "521b7195266d6ddb07a7d9af07c9e1c9b5966d19",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/4ad48c94c605d600fcc7d42f370fc8637e44dfab",
+                "reference": "4ad48c94c605d600fcc7d42f370fc8637e44dfab",
                 "shasum": ""
             },
             "require": {
@@ -6123,7 +6123,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.13.0"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.13.1"
             },
             "funding": [
                 {
@@ -6131,20 +6131,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-25T09:13:27+00:00"
+            "time": "2026-06-29T06:19:26+00:00"
         },
         {
             "name": "tempest/highlight",
-            "version": "2.26.0",
+            "version": "2.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/highlight.git",
-                "reference": "ad74f092a3d0cbee73f4a007d685cac46c8b0c46"
+                "reference": "7eaf2f4030cc218320672902608b6226bb13a39a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/ad74f092a3d0cbee73f4a007d685cac46c8b0c46",
-                "reference": "ad74f092a3d0cbee73f4a007d685cac46c8b0c46",
+                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/7eaf2f4030cc218320672902608b6226bb13a39a",
+                "reference": "7eaf2f4030cc218320672902608b6226bb13a39a",
                 "shasum": ""
             },
             "require": {
@@ -6182,7 +6182,7 @@
             "description": "Fast, extensible, server-side code highlighting",
             "support": {
                 "issues": "https://github.com/tempestphp/highlight/issues",
-                "source": "https://github.com/tempestphp/highlight/tree/2.26.0"
+                "source": "https://github.com/tempestphp/highlight/tree/2.27.0"
             },
             "funding": [
                 {
@@ -6190,7 +6190,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-07T06:40:56+00:00"
+            "time": "2026-06-29T09:11:42+00:00"
         },
         {
             "name": "tempest/markdown",
