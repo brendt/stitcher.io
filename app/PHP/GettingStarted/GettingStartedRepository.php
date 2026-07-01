@@ -3,14 +3,16 @@
 namespace App\PHP\GettingStarted;
 
 use App\Blog\Meta;
+use Generator;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\Container\Tag;
 use Tempest\Markdown\Markdown;
+use Tempest\Router\DataProvider;
 use Tempest\Support\Arr\ImmutableArray;
 use function Tempest\Support\arr;
 use function Tempest\Support\str;
 
-final class GettingStartedRepository
+final class GettingStartedRepository implements DataProvider
 {
     private static ?ImmutableArray $posts = null;
 
@@ -125,5 +127,15 @@ final class GettingStartedRepository
         self::$posts = $posts;
 
         return self::$posts;
+    }
+
+    public function provide(): Generator
+    {
+        foreach ($this->all() as $page) {
+            yield [
+                'category' => str($page->category)->afterFirst('-')->toString(),
+                'slug' => $page->slug,
+            ];
+        }
     }
 }

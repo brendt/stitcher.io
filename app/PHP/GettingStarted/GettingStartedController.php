@@ -7,6 +7,7 @@ use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
 use Tempest\Router\Prefix;
+use Tempest\Router\StaticPage;
 use Tempest\View\View;
 use function Tempest\Support\str;
 use function Tempest\View\view;
@@ -31,6 +32,7 @@ final readonly class GettingStartedController
         return new Redirect($first->uri);
     }
 
+    #[StaticPage(GettingStartedRepository::class)]
     #[Get('/{category}/{slug}')]
     public function show(string $category, string $slug): Response|View
     {
