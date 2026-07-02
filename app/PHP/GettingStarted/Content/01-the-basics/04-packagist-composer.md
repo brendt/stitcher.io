@@ -1,5 +1,6 @@
 ---
 title: Packagist and Composer
+description: Learn how modern PHP projects use Packagist and Composer to install packages, manage dependencies, configure autoloading, and share code.
 ---
 
 Now that you know about the basic syntax and standard library of PHP, it's time to talk about PHP's strongest selling point: its ecosystem. PHP has over 30 years of history, and with that comes a vast collection of community-made open source code. Chances are that most problems you encounter, there's a package that solves it.

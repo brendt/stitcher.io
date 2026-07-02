@@ -10,5 +10,10 @@ final class Meta
         public ?string $image = null,
         public ?string $author = null,
         public ?string $canonical = null,
+        public ?string $uri = null,
+        public ?string $type = null,
+        public array $keywords = [],
+        public array $breadcrumbs = [],
+        public array $jsonLd = [],
     ) {}
 }

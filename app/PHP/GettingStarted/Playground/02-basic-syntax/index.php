@@ -12,7 +12,7 @@ class Book
         int $categoryId,
     ) {
         if ($categoryId < 1 || $categoryId > 5) {
-            throw new Exception("Category ID must be between 1 and 5.");
+            throw new Exception('Category ID must be between 1 and 5.');
         }
 
         $this->title = $title;

@@ -4,6 +4,8 @@
 ?>
 <x-php-base :meta="$page->meta">
     <x-slot name="head">
+        <link :if="$page->previous" rel="prev" :href="$page->previous->uri"/>
+        <link :if="$page->next" rel="next" :href="$page->next->uri"/>
         <x-vite-tags entrypoint="app/PHP/php-toc.entrypoint.ts"/>
     </x-slot>
 

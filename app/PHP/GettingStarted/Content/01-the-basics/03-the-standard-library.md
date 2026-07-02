@@ -1,5 +1,6 @@
 ---
 title: The Standard Library
+description: Explore PHP's standard library, built-in functions, extensions, arrays, strings, dates, JSON, file handling, and core runtime tools.
 ---
 
 Being over 30 years old, PHP comes with a massive standard library and a collection of built-in functions and classes that you can make use of. On top of that, there's an ecosystem of PHP extensions to install as well.

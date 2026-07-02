@@ -9,6 +9,7 @@ use Tempest\Router\Get;
 use Tempest\Router\Prefix;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
+
 use function Tempest\Support\str;
 use function Tempest\View\view;
 

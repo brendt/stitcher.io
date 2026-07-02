@@ -1,5 +1,6 @@
 ---
 title: Hello, PHP
+description: Install PHP, run your first script, use the built-in web server, and learn how modern PHP fits into web and command-line development.
 ---
 
 ## Intro
