@@ -34,10 +34,11 @@
     onScroll();
 })();
 
-// Dark mode toggle
+// Dark mode toggle + auto (system) detection
 (function () {
     const toggle = document.getElementById('dark-mode-toggle');
     const html = document.documentElement;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
 
     function applyTheme(dark: boolean) {
         html.classList.toggle('dark', dark);
@@ -45,4 +46,35 @@
     }
 
     toggle?.addEventListener('click', () => applyTheme(!html.classList.contains('dark')));
+
+    // Follow the system preference live, as long as the user hasn't picked a theme.
+    // The initial load is handled by the inline script in x-php-base.
+    media.addEventListener('change', event => {
+        if (localStorage.theme) return;
+        html.classList.toggle('dark', event.matches);
+    });
+})();
+
+// Mobile chapter menu toggle
+(function () {
+    const toggle = document.getElementById('chapter-menu-toggle');
+    const menu = document.getElementById('chapter-menu');
+    if (!toggle || !menu) return;
+
+    const openIcon = toggle.querySelector('[data-menu-open]');
+    const closeIcon = toggle.querySelector('[data-menu-close]');
+
+    function setOpen(open: boolean) {
+        menu!.classList.toggle('hidden', !open);
+        toggle!.setAttribute('aria-expanded', String(open));
+        openIcon?.classList.toggle('hidden', open);
+        openIcon?.classList.toggle('block', !open);
+        closeIcon?.classList.toggle('hidden', !open);
+        closeIcon?.classList.toggle('block', open);
+    }
+
+    toggle.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
+
+    // Collapse the menu after picking a chapter
+    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
 })();
