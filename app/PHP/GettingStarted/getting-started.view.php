@@ -86,9 +86,15 @@
                 </article>
 
                 <div class="mt-6 flex items-center justify-between">
-                    <a href="/php" class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors">
-                        ← All chapters
+                    <a
+                        :if="$page->previous"
+                        :href="$page->previous->uri"
+                        class="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                    >
+                        ← Previous: {{ $page->previous->title }}
                     </a>
+                    <span :else></span>
+
                     <a
                         :if="$page->next"
                         :href="$page->next->uri"

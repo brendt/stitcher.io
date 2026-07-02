@@ -13,7 +13,7 @@ final readonly class ShellKeywordPattern implements Pattern
 
     public function getPattern(): string
     {
-        return '/^(~ )?(?<match>.*?)\s/';
+        return '/^(~ )?(?<match>.*?)\s/m';
     }
 
     public function getTokenType(): TokenType

@@ -1,6 +1,7 @@
 ---
 title: Frameworks
 description: Compare popular PHP frameworks like Laravel, Symfony, Tempest, Laminas, and Slim, and learn when a framework helps a project.
+image: meta/php/05-frameworks.png
 ---
 
 These days, you usually don't write "vanilla PHP" on its own. Any serious web or console application will likely use some kind of framework to start from. That's because there is a lot of repetitive work to do when it comes to building real-life applications, and people rather focus on creating value for their customers by programming business logic, rather than lower-level code for technical support.

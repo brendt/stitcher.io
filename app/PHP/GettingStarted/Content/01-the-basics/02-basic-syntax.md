@@ -1,6 +1,7 @@
 ---
 title: Basic Syntax
 description: Learn the essentials of PHP syntax, including opening tags, variables, comments, strings, arrays, functions, classes, and type basics.
+image: meta/php/02-basic-syntax.png
 ---
 
 In this chapter you'll get a basic overview of PHP's syntax. You'll learn more about each section throughout this book, but we need to start somewhere, and thus here's the high-level overview.

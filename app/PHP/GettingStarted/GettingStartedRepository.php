@@ -71,7 +71,7 @@ final class GettingStartedRepository implements DataProvider
             meta: new Meta(
                 title: $this->stringValue($meta, 'title') ?? $title,
                 description: $this->descriptionFor($meta, $frontMatter, $content),
-                image: $this->stringValue($meta, 'image') ?? uri('/meta/meta_lg.png'),
+                image: $this->stringValue($meta, 'image') ?? $frontMatter['image'] ?? uri('/meta/meta_lg.png'),
                 author: $this->stringValue($meta, 'author') ?? 'Brent Roose',
                 canonical: $this->stringValue($meta, 'canonical') ?? $url ?? $this->request->path,
                 uri: $url,
@@ -158,7 +158,7 @@ final class GettingStartedRepository implements DataProvider
                     meta: new Meta(
                         title: $this->stringValue($meta, 'title') ?? $title,
                         description: $this->descriptionFor($meta, $frontMatter, $content),
-                        image: $this->stringValue($meta, 'image') ?? uri('/meta/meta_lg.png'),
+                        image: $this->stringValue($meta, 'image') ?? $frontMatter['image'] ?? uri('/meta/meta_lg.png'),
                         author: $this->stringValue($meta, 'author') ?? 'Brent Roose',
                         canonical: $this->stringValue($meta, 'canonical') ?? $uri,
                         uri: $uri,

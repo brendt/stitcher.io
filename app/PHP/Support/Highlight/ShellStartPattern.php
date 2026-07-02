@@ -13,7 +13,7 @@ final readonly class ShellStartPattern implements Pattern
 
     public function getPattern(): string
     {
-        return '/^(?<match>~ )/';
+        return '/^(?<match>~ )/m';
     }
 
     public function getTokenType(): TokenType

@@ -1,6 +1,7 @@
 ---
 title: QA Tooling
 description: Learn the PHP quality tools that keep projects reliable, including static analysis, code formatting, testing, debugging, and CI checks.
+image: meta/php/06-qa-tooling.png
 ---
 
 These days, a programming language is more than just its syntax and compiler. Both the ecosystem of packages and frameworks and the tooling supporting developers are equally important. This chapter will talk about that last part: quality assurance tooling.

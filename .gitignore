@@ -19,6 +19,7 @@ public/meta/*
 public/**/meta.png
 !public/meta/meta_small.png
 !public/meta/meta_lg.png
+!public/meta/php
 public/**/index.html
 .transformers-cache
 last-id
@@ -27,3 +28,5 @@ app/Mail/output.sql
 /.claude/
 /app/Php/Docs/md/
 /app/Php/Docs/xml/
+
+.DS_Store
