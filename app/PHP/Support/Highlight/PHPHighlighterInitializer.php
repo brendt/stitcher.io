@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Php\Support\Highlight;
+namespace App\PHP\Support\Highlight;
 
 use Tempest\Container\Container;
 use Tempest\Container\Initializer;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Php\Support\Markdown;
+namespace App\PHP\Support\Markdown;
 
 use Tempest\Markdown\Parser;
 use Tempest\Markdown\ProvidesFirstChar;

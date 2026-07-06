@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Php\Support\Highlight;
+namespace App\PHP\Support\Highlight;
 
 use Tempest\Highlight\IsPattern;
 use Tempest\Highlight\Pattern;

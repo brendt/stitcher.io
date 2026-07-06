@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Php\Support\Markdown;
+namespace App\PHP\Support\Markdown;
 
 use App\Support\Markdown\SnippetRule;
 use Tempest\Markdown\Parser;
