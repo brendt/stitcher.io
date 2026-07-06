@@ -4,7 +4,7 @@ description: Learn the essentials of PHP syntax, including opening tags, variabl
 image: meta/php/02-basic-syntax.png
 ---
 
-In this chapter you'll get a basic overview of PHP's syntax. You'll learn more about each section throughout this book, but we need to start somewhere, and thus here's the high-level overview.
+In this chapter you'll get a basic overview of PHP's syntax. At later points in this book we'll dive deeper into specific topics, but we need to start somewhere, and thus here's the high-level overview.
 
 ## &lt;?php
 
@@ -36,9 +36,9 @@ $age = 32;
 $age = 'a';
 ```
 
-Variables can store primitive types like integers, floats, booleans, and strings; or contain more complex types like objects, enums, and arrays. we'll cover PHP's type system in depth in [a later chapter](/php/the-basics/phps-type-system): even though PHP used to have a fairly loose type system, it has evolved quite a lot and now has an extensive type system that's both enforced during runtime, but also with the help of static analyzers.
+Variables can store primitive types like integers, floats, booleans, and strings; or contain more complex types like objects, enums, and arrays. we'll cover PHP's type system in depth later in this chapter: even though PHP used to have a fairly loose type system, it has evolved quite a lot and now has an extensive type system that's both enforced during runtime, but also with the help of static analyzers.
 
-Continuing with the basics of variables first, PHP is very flexible when it comes to referencing them. For example, you can reference a variable's name, with another variable's value:
+Finishing the basics of variables first, PHP is very flexible when it comes to referencing them. For example, you can reference a variable's name, with another variable's value:
 
 ```php
 // index.php
@@ -76,9 +76,9 @@ As you've noticed in the previous examples, comments in PHP can be written with 
 /* They can even go */ $between = 'code';  /* if you want to */
 
 /**
- * Finally, there are doc comments, 
+ * Finally, there are docblocks, 
  * a special kind of multi-line comment that start with `/**` instead of `/*`
- * Doc comments can be used to attach structured documentation to your code, 
+ * Docblocks can be used to attach structured documentation to your code, 
  * which can be parsed by external tools and PHP itself during runtime.
  */
 ```
@@ -87,11 +87,87 @@ As you've noticed in the previous examples, comments in PHP can be written with 
 
 PHP has a bunch of built-in keywords. You've already seen the `echo` keyword in a previous example, but there are a lot more. There's `clone`, `require`, `yield`, `include`, and many more. You can find a [full list of keywords on the PHP website](https://www.php.net/manual/en/reserved.keywords.php).
 
-Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, function names. Each keyword has a special _thing_ it can do. For example, `echo` and `print` write text to the output buffer; `clone` makes a copy of an object, etc. Don't worry about learning all keywords right now, we'll cover each of them when they are relevant to understand a bigger concept. 
+Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, function names. Each keyword has a special _thing_ it can do. For example, `echo` and `print` write text to the output buffer; `clone` makes a copy of an object, etc. Don't worry about learning all keywords right now, we'll cover each of them when they are relevant to understand a bigger concept.
+
+## Arrays
+
+PHP arrays are a powerful data structure that can be used both as a list or sequence of items but also as a map of values with named keys.
+
+```php
+// index.php
+
+$list = [1, 2, 3, 4];
+
+$map = [
+    'title' => 'Basic Syntax', 
+    'description' => "PHP's basic syntax explained",
+];
+```
+
+Note that "a list" means that the indices of the array are numeric and in order, starting from `0`. The above example of `$list` could also be written like so, and still be a list:
+
+```php
+// index.php
+
+$list = [
+    0 => 1, 
+    1 => 2, 
+    2 => 3, 
+    4 => 4,
+];
+```
+
+Another thing to notice is that arrays can contain mixed types as well:
+
+```php
+// index.php
+
+$list = [1, '2', 1.2, {:hl-keyword:false:}];
+```
+
+PHP has a wide range of [array-specific functions](https://www.php.net/manual/en/function.array.php) to read, iterate, and manipulate arrays. We'll take a closer look at arrays and other kinds of iterables in a later chapter.
+
+## Strings
+
+You might have noticed a couple of different ways to define strings in PHP in the previous examples. The two most common ways are using single `'` or double `"` quotes.
+
+```php
+// index.php
+
+$name = 'Brent';
+
+$hello = "Hello";
+```
+
+Double `"` quotes give you more flexibility when it comes to writing special characters and string interpolation. For example, you can write `"\n"`, which will be interpeted as a new line, or `"{$variable}"`, which will insert the variable's value:
+
+```php
+// index.php
+
+$name = 'Brent';
+
+echo "Hello {$name}\n";
+
+// Will print `Hello Brent
+// `
+```
+
+You can also use the string concatenation operator `.` to combine two strings together:
+
+```php
+// index.php
+
+$name = 'Brent';
+
+echo 'Hello ' . $name . "\n";
+
+// Will print `Hello Brent
+// `
+```
 
 ## Control structures
 
-Speaking of keywords, control structures allow you to alter the code execution flow. There are the common examples like `if` and `for`, but PHP has a wide range of control structures. we'll list the most important ones here, and you can find the [full list of control sturctures on the PHP website](https://www.php.net/manual/en/language.control-structures.php). 
+Control structures use special keywords that allow you to alter the code execution flow. There are the common examples like `if` and `for`, but PHP has a wide range of control structures. We'll list the most important ones here, and you can find the [full list of control sturctures on the PHP website](https://www.php.net/manual/en/language.control-structures.php). 
 
 ### Conditionals
 
@@ -143,7 +219,7 @@ if ($drafted || $published) {
 
 ### Loops
 
-Another category of control structures are loops. PHP has a handful: `for`, `foreach`, `while`, and `do while`. Loops allow you to execute the same code multiple times. The classic `for` loop starts from an initial state, iterates for as long as a condition isn't met, and will alter the state with every step.
+Another category of control structures is loops. PHP has a handful: `for`, `foreach`, `while`, and `do while`. Loops allow you to execute the same code multiple times. The classic `for` loop starts from an initial state, iterates for as long as a condition is met, and will alter the state with every step.
 
 ```php
 // index.php
@@ -153,7 +229,7 @@ for ($i = 0; $i < 10; $i = $i + 1) {
 }
 ```
 
-In contrast, the `foreach` loop will iterate over an array (or any kind of iterable). We haven't covered these concepts yet, but we will further down this page.
+In contrast, the `foreach` loop will iterate over an array (or any kind of iterable, which we'll cover later in this book).
 
 ```php
 // index.php
@@ -193,7 +269,7 @@ do {
 } while ($i < 0);
 ```
 
-Within all of these loops, you can use two additional keywords `break` and `continue` to futher alter the flow
+Within all of these loops, you can use two additional keywords `break` and `continue` to futher alter the execution flow:
 
 ```php
 // index.php
@@ -297,82 +373,6 @@ $z = 'z';
 echo $a <=> $z; // -1
 echo $z <=> $a; // 1
 echo $a <=> $a; // 0
-```
-
-## Arrays
-
-PHP arrays are a powerful data structure that can be used both as a list or sequence of items but also as a map of values with named keys.
-
-```php
-// index.php
-
-$list = [1, 2, 3, 4];
-
-$map = [
-    'title' => 'Basic Syntax', 
-    'description' => "PHP's basic syntax explained",
-];
-```
-
-Note that "a list" means that the indices of the array are numeric and in order, starting from `0`. The above example of `$list` could also be written like so, and still be a list:
-
-```php
-// index.php
-
-$list = [
-    0 => 1, 
-    1 => 2, 
-    2 => 3, 
-    4 => 4,
-];
-```
-
-Another thing to notice is that arrays can contain mixed types as well:
-
-```php
-// index.php
-
-$list = [1, '2', 1.2, {:hl-keyword:false:}];
-```
-
-PHP has a wide range of [array-specific functions](https://www.php.net/manual/en/function.array.php) to read, iterate, and manipulate arrays. We'll take a closer look at arrays and other kinds of iterables in a later chapter.
-
-## Strings
-
-You might have noticed a couple of different ways to define strings in PHP in the previous examples. The two most common ways are using single `'` or double `"` quotes.
-
-```php
-// index.php
-
-$name = 'Brent';
-
-$hello = "Hello";
-```
-
-Double `"` quotes give you more flexibility when it comes to writing special characters and string interpolation. For example, you can write `"\n"`, which will be interpeted as a new line, or `"{$variable}"`, which will insert the variable's value:
-
-```php
-// index.php
-
-$name = 'Brent';
-
-echo "Hello {$name}\n";
-
-// Will print `Hello Brent
-// `
-```
-
-You can also use the string concatenation operator `.` to combine two strings together:
-
-```php
-// index.php
-
-$name = 'Brent';
-
-echo 'Hello ' . $name . "\n";
-
-// Will print `Hello Brent
-// `
 ```
 
 ## Functions

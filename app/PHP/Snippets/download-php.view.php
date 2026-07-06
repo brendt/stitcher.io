@@ -10,8 +10,7 @@
     </div>
 
     <div data-panel="linux" hidden>
-        <pre><code><span class="hl-type">~</span> <span class="hl-keyword">sudo apt</span> update
-<span class="hl-type">~</span> <span class="hl-keyword">sudo apt</span> install php php-cli php-common</code></pre>
+        <pre><code><span class="hl-type">~</span> <span class="hl-keyword">sudo apt</span> install php php-cli php-common</code></pre>
     </div>
 
     <div data-panel="windows" hidden>

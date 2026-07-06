@@ -30,7 +30,7 @@ final readonly class SnippetToken implements Token
             HTML;
         }
 
-        $snippetFile = str_replace([' ', ':'], ['', '_'], $this->snippet);
+        $snippetFile = str_replace([' ', ':'], ['', '_'], $snippet);
 
         $viewRenderer = get(ViewRenderer::class);
 

@@ -25,7 +25,7 @@ final readonly class PHPMarkdownInitializer implements Initializer
         $markdown->prependRules(
             new SummaryRule(),
             $container->get(PreRule::class),
-            new SnippetRule(__DIR__ . '/../Snippets/'),
+            new SnippetRule(__DIR__ . '/../../Snippets/'),
         );
 
         return $markdown;
