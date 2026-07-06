@@ -311,10 +311,11 @@ a:has(code) {
     text-decoration: none;
 
     & > code {
-        border: 1px dashed var(--color-gray-500);
+        border-bottom: 2px solid var(--color-primary);
+        border-radius: 6px 6px 0 0;
 
         &:hover {
-            border: 1px solid transparent;
+            border-bottom: 2px dotted var(--color-primary);
         }
     }
 }

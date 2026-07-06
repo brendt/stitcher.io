@@ -211,3 +211,10 @@
         font-style: inherit;
     }
 }
+
+.youtube-embed {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    margin: 2em 0;
+}
