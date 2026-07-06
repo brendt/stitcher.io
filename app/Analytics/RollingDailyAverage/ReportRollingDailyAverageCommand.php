@@ -19,7 +19,7 @@ final class ReportRollingDailyAverageCommand
         ?string $from = null,
         ?string $to = null,
     ): void {
-        $currentDay = DateTime::parse($from ?? 'now');
+        $currentDay = DateTime::parse($from ?? '-100 days');
         $to = DateTime::parse($to ?? 'now');
 
         while ($currentDay <= $to) {
