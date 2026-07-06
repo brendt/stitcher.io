@@ -20,6 +20,10 @@ I'm passionate about education and find that PHP's biggest challenge in the mode
 
 You don't learn a programming language by reading a book. You do so by writing code. This book won't teach you everything there is to know about PHP, rather it will teach you how to learn yourself. This book will be the foundation to build on. That's why every chapter will link to external resources for followup, and also an exercise section so that you actually write code.
 
+:::note
+I will assume you have _some_ basic knowledge of programming in general: you're either a CS student or programmer who's eager to learn PHP. In the future, this book might include a "getting started from absolute zero", but for now that's out of scope.
+:::
+
 Let's begin!
 
 ## Installing PHP
