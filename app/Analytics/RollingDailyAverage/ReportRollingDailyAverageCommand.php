@@ -20,7 +20,12 @@ final class ReportRollingDailyAverageCommand
         ?string $to = null,
     ): void {
         $currentDay = DateTime::parse($from ?? '-100 days')->startOfDay();
-        $to = DateTime::parse($to ?? 'now')->startOfDay();
+        $to = DateTime::parse($to ?? 'now')->endOfDay();
+
+        query('rolling_daily_average')
+            ->delete()
+            ->where('date <= ? AND date >= ?', $to, $currentDay)
+            ->execute();
 
         while ($currentDay <= $to) {
             $average = $this->reportAverage($currentDay);
