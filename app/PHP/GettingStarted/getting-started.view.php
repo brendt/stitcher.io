@@ -24,7 +24,7 @@
                 <div class="flex items-center gap-2 pr-4">
                     <div class="items-center gap-2 hidden sm:flex">
                         <a
-                                href="https://github.com/brendt/stitcher.io"
+                                href="https://github.com/brendt/stitcher.io/tree/main/app/PHP/GettingStarted/Content"
                                 class="flex gap-2 items-center text-white bg-primary px-4 py-2 text-sm font-bold shadow-sm rounded-full group">
                             <x-icon name="mdi:github" />Contribute<span class="group-hover:inline hidden"> — much appreciated!</span>
                         </a>
@@ -95,7 +95,7 @@
             <!-- Main content -->
             <main class="flex-1 min-w-0">
                 <a
-                    href="https://github.com/brendt/stitcher.io"
+                    href="https://github.com/brendt/stitcher.io/tree/main/app/PHP/GettingStarted/Content"
                     class="
                         block
                         bg-primary/30   text-primary font-bold

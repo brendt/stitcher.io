@@ -6,7 +6,7 @@ image: meta/php/05-frameworks.png
 
 These days, you usually don't write "vanilla PHP" on its own. Any serious web or console application will likely use some kind of framework to start from. That's because there is a lot of repetitive work to do when it comes to building real-life applications, and people rather focus on creating value for their customers by programming business logic, rather than lower-level code for technical support.
 
-If you're curious about what it takes to build a framework, I have an educational video series where I built a framework from scratch during livestreams. You can [check it out here](https://www.youtube.com/playlist?list=PL0bgkxUS9EaILnUL8Q4np6B3qxjQbE7PH). On this page, I'll give you a high-level overview of the popular frameworks out there, and how they differ from each other. If you're a framework author and would like to see your project featured on this page or improve one of the existing options, you can always [submit and issue or pull request on this book's repository](https://github.com/brendt/stitcher.io).
+If you're curious about what it takes to build a framework, I have an educational video series where I built a framework from scratch during livestreams. You can [check it out here](https://www.youtube.com/playlist?list=PL0bgkxUS9EaILnUL8Q4np6B3qxjQbE7PH). On this page, I'll give you a high-level overview of the popular frameworks out there, and how they differ from each other. If you're a framework author and would like to see your project featured on this page or improve one of the existing options, you can always [submit and issue or pull request on this book's repository](https://github.com/brendt/stitcher.io/tree/main/app/PHP/GettingStarted/Content).
 
 ## In general
 
