@@ -36,22 +36,7 @@ $age = 32;
 $age = 'a';
 ```
 
-Variables can store primitive types like integers, floats, booleans, and strings; or contain more complex types like objects, enums, and arrays. we'll cover PHP's type system in depth later in this chapter: even though PHP used to have a fairly loose type system, it has evolved quite a lot and now has an extensive type system that's both enforced during runtime, but also with the help of static analyzers.
-
-Finishing the basics of variables first, PHP is very flexible when it comes to referencing them. For example, you can reference a variable's name, with another variable's value:
-
-```php
-// index.php
-$name = 'variable';
-
-$variable = 5;
-
-echo $$variable; 
-
-// This will output `5`
-// given that `$variable` is a string `'variable'`
-// and `$variable` has the value of `5`
-```
+Variables can store primitive types like integers, floats, booleans, and strings; or contain more complex types like objects, enums, and arrays. we'll cover PHP's type system in depth later in this chapter: even though PHP used to have a fairly loose type system, it has evolved quite a lot and now has an extensive type system both enforced during runtime, but also with the help of static analyzers.
 
 ## Comments
 
@@ -85,9 +70,9 @@ As you've noticed in the previous examples, comments in PHP can be written with 
 
 ## Built-in keywords
 
-PHP has a bunch of built-in keywords. You've already seen the `echo` keyword in a previous example, but there are a lot more. There's `clone`, `require`, `yield`, `include`, and many more. You can find a [full list of keywords on the PHP website](https://www.php.net/manual/en/reserved.keywords.php).
+PHP has a bunch of built-in keywords. You've already seen the `echo` keyword in a previous example, but there are a lot more. There's `clone`, `require`, `yield`, `include`, and many more. You can find a [full list of keywords on the PHP website](https://www.php.net/manual/en/reserved.keywords.php). Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, class or function names. They can be used as variable names such as `$echo`, since variables are always prefixed with the `$` sign. 
 
-Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, function names. Each keyword has a special _thing_ it can do. For example, `echo` and `print` write text to the output buffer; `clone` makes a copy of an object, etc. Don't worry about learning all keywords right now, we'll cover each of them when they are relevant to understand a bigger concept.
+Each keyword has a special _thing_ it can do. For example, `echo` and `print` write text to the output buffer; `clone` makes a copy of an object, etc. Don't worry about learning all keywords right now, we'll cover each of them when they are relevant to understand a bigger concept.
 
 ## Arrays
 
@@ -582,17 +567,9 @@ Classes are the standard way of structuring your code in modern PHP. As with man
 
 class Book
 {
-    private string $title;
-    
-    public function __construct(string $title)
-    {
-        $this->title = $title;
-    }
-    
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
+    public function __construct(
+        public readonly string $title
+    ) {}   
 }
 
 $book = new Book('Timeline Taxi');
@@ -661,7 +638,7 @@ Exceptions are used to halt the normal program flow and indicate that something 
 ```php
 // index.php
 
-function doSomething(bool $problem): void
+function do_something(bool $problem): void
 {
     if ($problem) {
         throw new Exception('Something went wrong');
@@ -677,7 +654,7 @@ When an exception is thrown, you can handle it with `try` and `catch`:
 // index.php
 
 try {
-    doSometing(true);
+    do_something(true);
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }
@@ -699,7 +676,7 @@ You can also chain multiple `catch` blocks, and even add a `finally` block; the 
 // index.php
 
 try {
-    doSometing(true);
+    do_something(true);
 } catch (ValidationException $exception) {
     echo "Validation failed!";
 } catch (Exception $exception) {
