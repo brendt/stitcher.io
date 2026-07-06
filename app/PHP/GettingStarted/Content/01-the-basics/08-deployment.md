@@ -1,7 +1,7 @@
 ---
 title: Deployment
 description: Learn the basics of deploying PHP applications, from hosting and servers to production configuration, releases, and runtime concerns.
-image: meta/php/07-deployment.png
+image: meta/php/08-deployment.png
 ---
 
 ```nginx

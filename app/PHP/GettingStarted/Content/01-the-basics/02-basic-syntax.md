@@ -24,8 +24,6 @@ Variables in PHP are defined with the `$` sign and a name.
 
 ```php
 // index.php
-<?php
-
 $age = 32;
 ```
 
@@ -33,8 +31,6 @@ Variables in PHP are loosely typed and their types can change over time.
 
 ```php
 // index.php
-<?php
-
 $age = 32;
 
 $age = 'a';
@@ -46,8 +42,6 @@ Continuing with the basics of variables first, PHP is very flexible when it come
 
 ```php
 // index.php
-<?php
-
 $name = 'variable';
 
 $variable = 5;
@@ -95,7 +89,7 @@ PHP has a bunch of built-in keywords. You've already seen the `echo` keyword in 
 
 Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, function names. Each keyword has a special _thing_ it can do. For example, `echo` and `print` write text to the output buffer; `clone` makes a copy of an object, etc. Don't worry about learning all keywords right now, we'll cover each of them when they are relevant to understand a bigger concept. 
 
-## Control Structures
+## Control structures
 
 Speaking of keywords, control structures allow you to alter the code execution flow. There are the common examples like `if` and `for`, but PHP has a wide range of control structures. we'll list the most important ones here, and you can find the [full list of control sturctures on the PHP website](https://www.php.net/manual/en/language.control-structures.php). 
 
