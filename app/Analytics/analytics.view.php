@@ -6,7 +6,7 @@
 
     <div class="w-full flex flex-col pb-8">
         <div class="w-full z-10 p-2 md:p-12 grid gap-4 md:gap-8">
-            <div class="grid md:grid-cols-4 gap-4 md:gap-8">
+            <div class="grid md:grid-cols-4 gap-4">
                 <x-realtime :visits="$realtimeVisitCount"/>
 
                 <x-metric-card
@@ -28,24 +28,45 @@
                 ></x-metric-card>
             </div>
 
-            <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-4 md:gap-8">
+            <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-4">
                 <x-chart :chart="$visitsPerHour" label="Visits" title="Visits last 48 hours"></x-chart>
-                <x-analytics-card title="Popular posts">
-                    <div class="grid rounded overflow-hidden">
-                        <div class="flex justify-between px-3 py-2 font-bold bg-pastel">
-                            <span>Post</span>
-                            <span>Visits this month</span>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <x-analytics-card title="Blog">
+                        <div class="grid rounded overflow-hidden">
+                            <div class="flex justify-between px-3 py-2 font-bold bg-pastel">
+                                <span>Post</span>
+                                <span>Visits this month</span>
+                            </div>
+                            <a
+                                    :foreach="$popularPosts as $post"
+                                    :href="$post->detailUri"
+                                    class="flex justify-between w-full px-3 py-1 bg-pastel hover:bg-primary hover:text-white"
+                            >
+                                <span>{{ $post->uri }}</span>
+                                <span>{{ number_format($post->count) }}</span>
+                            </a>
                         </div>
-                        <a
-                                :foreach="$popularPosts as $post"
-                                :href="$post->detailUri"
-                                class="flex justify-between w-full px-3 py-1 bg-pastel hover:bg-primary hover:text-white"
-                        >
-                            <span>{{ $post->uri }}</span>
-                            <span>{{ number_format($post->count) }}</span>
-                        </a>
-                    </div>
-                </x-analytics-card>
+                    </x-analytics-card>
+
+                    <x-analytics-card title="Getting started">
+                        <div class="grid rounded overflow-hidden">
+                            <div class="flex justify-between px-3 py-2 font-bold bg-pastel">
+                                <span>Page</span>
+                                <span>Visits this month</span>
+                            </div>
+                            <a
+                                    :foreach="$popularGettingStartedPages as $page"
+                                    :href="$page->detailUri"
+                                    class="flex justify-between w-full px-3 py-1 bg-pastel hover:bg-primary hover:text-white"
+                            >
+                                <span>{{ $page->uri }}</span>
+                                <span>{{ number_format($page->count) }}</span>
+                            </a>
+                        </div>
+                    </x-analytics-card>
+                </div>
+
             </div>
 
             <x-chart :chart="$visitsPerDay" label="Visits" title="Visits last 100 days"></x-chart>

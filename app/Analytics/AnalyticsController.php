@@ -147,6 +147,15 @@ final class AnalyticsController
             ->limit(8)
             ->all();
 
+        $popularGettingStartedPages = query(VisitsPerPostPerWeek::class)
+            ->select('uri', 'SUM(count) AS count')
+            ->where('date > ?', DateTime::now()->minusDays(31)->startOfDay())
+            ->where('uri LIKE ?', '/php/%')
+            ->orderBy('SUM(count) DESC')
+            ->groupBy('uri')
+            ->limit(8)
+            ->all();
+
         return view(
             'analytics.view.php',
             realtimeVisitCount: $this->realtimeVisitCount(),
@@ -158,6 +167,7 @@ final class AnalyticsController
             visitsPerMonth: $visitsPerMonth,
             visitsPerYear: $visitsPerYear,
             popularPosts: $popularPosts,
+            popularGettingStartedPages: $popularGettingStartedPages,
         );
     }
 
