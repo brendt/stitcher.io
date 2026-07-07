@@ -1,0 +1,19 @@
+---
+title: Getting started with PHP
+meta: 
+    image: /meta/php/01-hello-php.png
+---
+
+I'm looking for PHP experts to help me out. See, two months ago, I wrote about [PHP's biggest problem](https://stitcher.io/blog/php-biggest-problem). I've been thinking about it since, and one of the areas where PHP severely lacks — I find — is proper onboarding. Think about it: you're a computer science student considering to learn PHP, or maybe you're an experienced JavaScript dev who wants to take a look at another language — where do you start? There are the PHP docs that don't seem to target newcomers; even I had a hard time navigating it with over ten years of experience in PHP. Then there's the often-shared [PHP the right way website](https://phptherightway.com/), but when I actually read through it, I realized it's more of a reference with links to other sources than a guide in itself. Then there's Laracasts, but video content isn't what everyone is looking for, and it's also tricky to keep up-to-date.
+
+So what's left? Where do I send people when they ask me: "I'm new to PHP, where to start?" I genuinely don't think there's a good answer right now.
+
+**So I'm making it.**
+
+I'm using my years of writing experience to make a free course that aims to introduce people to modern PHP the way it should be done. I know, that's a bold claim, but I really think this is such a crucial thing for modern programming languages to have, and PHP simply does not have it.
+
+So, here's my question for you: all my experience with PHP is just one person's point of view. I can't make the best course possible without input from other experts who know what they are doing. I'm not asking you to write a course — I'm happy to do that — but I'm asking you to be another pair of eyes to make sure that this course becomes the best it can be for people to learn PHP.
+
+Here's what I have today: an [8-chapter crash course](https://stitcher.io/php) to get started with PHP. It goes from installing and running PHP, to syntax, to composer, QA tools, and deployments. Next on my todo is an in-depth look into many of the most common concepts like classes, async, iterables, databases, and more.
+
+I'm sure I missed a ton of nuances; I likely even made a mistake here and there. If you have an hour or so to spare to read through it and send me any feedback you'd like, I would so much appreciate it! I really think that together we can make it a lot better, and I believe it will truly help PHP and its growth.

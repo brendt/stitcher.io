@@ -19,7 +19,11 @@ if (($meta->title ?? null) === null) {
 }
 $meta->description ??= 'A blog about modern PHP, the web, and programming in general. Follow my newsletter and YouTube channel as well.';
 //$meta->image ??= uri('/meta/meta_small.png');
-$meta->image = uri('/meta/meta_lg.png');
+
+if (! $meta->image) {
+    $meta->image = uri('/meta/meta_lg.png');
+}
+
 $meta->canonical ??= null;
 $isProduction = get(Environment::class)->isProduction();
 $isLoggedIn = get(Authenticator::class)->current() !== null;

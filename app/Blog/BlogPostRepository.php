@@ -40,6 +40,16 @@ final class BlogPostRepository
 
         unset($frontMatter['meta'], $frontMatter['next']);
 
+        $metaImage = $meta['image'] ?? uri('/meta/meta_lg.png');
+
+        if (! str_starts_with($metaImage, 'http')) {
+            if (! str_starts_with($metaImage, '/')) {
+                $metaImage = '/' . $metaImage;
+            }
+
+            $metaImage = uri($metaImage);
+        }
+
         $post = new BlogPost(
             slug: $slug,
             title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
@@ -48,7 +58,7 @@ final class BlogPostRepository
             meta: new Meta(
                 title: $meta['title'] ?? $frontMatter['title'] ?? null,
                 description: $meta['description'] ?? $frontMatter['description'] ?? null,
-                image: uri([BlogController::class, 'metaPng'], slug: $slug),
+                image: $metaImage,
                 author: $meta['author'] ?? null,
                 canonical: $meta['canonical'] ?? null,
             ),
@@ -94,6 +104,16 @@ final class BlogPostRepository
 
                 unset($frontMatter['meta']);
 
+                $metaImage = $meta['image'] ?? uri('/meta/meta_lg.png');
+
+                if (! str_starts_with($metaImage, 'http')) {
+                    if (! str_starts_with($metaImage, '/')) {
+                        $metaImage = '/' . $metaImage;
+                    }
+
+                    $metaImage = uri($metaImage);
+                }
+
                 return new BlogPost(
                     slug: $slug,
                     title: $frontMatter['title'] ?? str($slug)->replace('-', ' ')->upperFirst()->toString(),
@@ -102,7 +122,7 @@ final class BlogPostRepository
                     meta: new Meta(
                         title: $meta['title'] ?? $frontMatter['title'] ?? null,
                         description: $meta['description'] ?? $frontMatter['description'] ?? null,
-                        image: uri([BlogController::class, 'metaPng'], slug: $slug),
+                        image: $metaImage,
                         author: $meta['author'] ?? null,
                         canonical: $meta['canonical'] ?? null,
                     ),
