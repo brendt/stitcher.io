@@ -192,7 +192,7 @@ $ffi = FFI::cdef(
 $ffi->printf("Hello %s!\n", "world");
 ```
 
-Here's a repository with [examples of what you can do with FFI](https://github.com/gabrielrcouto/awesome-php-ffi](https://github.com/gabrielrcouto/awesome-php-ffi).
+Here's a repository with [examples of what you can do with FFI](https://github.com/gabrielrcouto/awesome-php-ffi).
 
 ## Cryptography
 

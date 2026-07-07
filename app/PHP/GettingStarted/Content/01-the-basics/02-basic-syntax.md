@@ -70,7 +70,7 @@ As you've noticed in the previous examples, comments in PHP can be written with 
 
 ## Built-in keywords
 
-PHP has a bunch of built-in keywords. You've already seen the `echo` keyword in a previous example, but there are a lot more. There's `clone`, `require`, `yield`, `include`, and many more. You can find a [full list of keywords on the PHP website](https://www.php.net/manual/en/reserved.keywords.php). Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, class or function names. They can be used as variable names such as `$echo`, since variables are always prefixed with the `$` sign. 
+PHP has a bunch of built-in keywords. You've already seen the `echo` keyword in a previous example, but there's also `clone`, `require`, `yield`, `include`, and many more. You can find a [full list of keywords on the PHP website](https://www.php.net/manual/en/reserved.keywords.php). Keywords are words that have a special meaning in PHP and are so-called "reserved", meaning you cannot use them in, for example, class or function names. They can be used as variable names such as `$echo`, since variables are always prefixed with the `$` sign. 
 
 Each keyword has a special _thing_ it can do. For example, `echo` and `print` write text to the output buffer; `clone` makes a copy of an object, etc. Don't worry about learning all keywords right now, we'll cover each of them when they are relevant to understand a bigger concept.
 
@@ -98,7 +98,7 @@ $list = [
     0 => 1, 
     1 => 2, 
     2 => 3, 
-    4 => 4,
+    3 => 4,
 ];
 ```
 
@@ -362,7 +362,7 @@ echo $a <=> $a; // 0
 
 ## Functions
 
-A function in PHP allows you to write reusable code. A function is defined using to `function` keyword, it takes some an arbitrary amount of input parameters, and will return some output or nothing.
+A function in PHP allows you to write reusable code. A function is defined using the `function` keyword, it takes an arbitrary amount of input parameters, and will return some output or nothing.
 
 ```php
 // index.php
@@ -388,7 +388,7 @@ function hello($greeting, $name)
 echo hello('Hi', 'Brent');
 ```
 
-Another important note about functions is that any function all allows you to use named parameters instead of positional ones:
+Another important note about functions is that any function allows you to use named parameters instead of positional ones:
 
 ```php
 // index.php
@@ -445,7 +445,7 @@ echo newline(function ($name) {
 });
 ```
 
-One important note about closure is that they don't have access to variables declared outside of them by default:
+One important note about closures is that they don't have access to variables declared outside of them by default:
 
 ```raw
 // index.php
@@ -472,7 +472,7 @@ $hello = function($name) use ($greeting)
 };
 ```
 
-Finally, PHP also has a way of writing short closures: these are closure that directly return a result. They are written with the `fn()` keyword:
+Finally, PHP also has a way of writing short closures: these are closures that directly return a result. They are written with the `fn()` keyword:
 
 ```php
 // index.php
@@ -616,7 +616,7 @@ Similar to many other object-oriented languages, classes come with a bunch of ke
 
 [Attributes](/blog/attributes-in-php-8) — AKA "annotations" in other languages — are special classes that can be used to add metadata to classes, methods, functions, parameters, properties, and constants. Most attributes are defined in userland code and are often provided by frameworks. There are a handful of niche attributes shipped with PHP as well that might even impact PHP's runtime. In general though, attributes are only used for meta-programming and static analysis.
 
-Here's one example of how an attribute can be used to make a controller action accessible via an HTTP GET request. Don't worry about the details; we'll cover frameworks in a [dedicated chapter](/php/the-basics/frameworks).
+Here's one example of how an attribute can be used to make a controller action accessible via an HTTP GET request. Don't worry about the details; there's a dedicated chapter about [frameworks](/php/the-basics/frameworks).
 
 ```php
 // app/Controllers/HomeController.php
