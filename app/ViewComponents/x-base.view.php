@@ -24,7 +24,6 @@ if (! $meta->image) {
     $meta->image = uri('/meta/meta_lg.png');
 }
 
-$meta->canonical ??= null;
 $isProduction = get(Environment::class)->isProduction();
 $isLoggedIn = get(Authenticator::class)->current() !== null;
 ?>

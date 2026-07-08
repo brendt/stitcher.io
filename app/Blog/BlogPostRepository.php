@@ -40,6 +40,7 @@ final class BlogPostRepository
 
         unset($frontMatter['meta'], $frontMatter['next']);
 
+        /** @var string $metaImage */
         $metaImage = $meta['image'] ?? uri('/meta/meta_lg.png');
 
         if (! str_starts_with($metaImage, 'http')) {
@@ -104,6 +105,7 @@ final class BlogPostRepository
 
                 unset($frontMatter['meta']);
 
+                /** @var string $metaImage */
                 $metaImage = $meta['image'] ?? uri('/meta/meta_lg.png');
 
                 if (! str_starts_with($metaImage, 'http')) {

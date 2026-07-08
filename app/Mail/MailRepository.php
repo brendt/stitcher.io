@@ -2,14 +2,16 @@
 
 namespace App\Mail;
 
+use Generator;
 use Tempest\Cache\Cache;
 use Tempest\DateTime\DateTime;
 use Tempest\Markdown\Markdown;
+use Tempest\Router\DataProvider;
 use Tempest\Support\Arr\ImmutableArray;
 
 use function Tempest\Support\arr;
 
-final readonly class MailRepository
+final readonly class MailRepository implements DataProvider
 {
     public function __construct(
         private Markdown $markdown,
@@ -58,6 +60,15 @@ final readonly class MailRepository
             ->filter()
             ->mapTo(Mail::class)
             ->sortByCallback(fn (Mail $a, Mail $b) => $b->date <=> $a->date);
+    }
+
+    public function provide(): Generator
+    {
+        foreach ($this->all() as $post) {
+            yield [
+                'slug' => $post->slug,
+            ];
+        }
     }
 
     private function parseDate(string $path): DateTime

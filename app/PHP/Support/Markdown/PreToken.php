@@ -42,8 +42,6 @@ final readonly class PreToken implements Token
 
         $class = $language ? " class=\"language-{$language}\"" : '';
 
-        $html = "<div class=\"codeblock\"><span>{$title}</span><pre{$class}>{$content}</pre></div>";
-
-        return $html;
+        return "<div class=\"codeblock\"><span>{$title}</span><pre{$class}>{$content}</pre></div>";
     }
 }

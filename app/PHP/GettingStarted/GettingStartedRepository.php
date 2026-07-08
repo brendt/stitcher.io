@@ -6,7 +6,6 @@ use App\Blog\Meta;
 use Generator;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 use Tempest\Container\Tag;
-use Tempest\Http\Request;
 use Tempest\Markdown\Markdown;
 use Tempest\Router\DataProvider;
 use Tempest\Support\Arr\ImmutableArray;
@@ -23,7 +22,6 @@ final class GettingStartedRepository implements DataProvider
     public function __construct(
         #[Tag('php')]
         private readonly Markdown $markdown,
-        private Request $request,
     ) {}
 
     public function find(string $category, string $slug): ?GettingStartedPage
@@ -73,7 +71,7 @@ final class GettingStartedRepository implements DataProvider
                 description: $this->descriptionFor($meta, $frontMatter, $content),
                 image: $this->stringValue($meta, 'image') ?? $frontMatter['image'] ?? uri('/meta/meta_lg.png'),
                 author: $this->stringValue($meta, 'author') ?? 'Brent Roose',
-                canonical: $this->stringValue($meta, 'canonical') ?? $url ?? $this->request->path,
+                canonical: $this->stringValue($meta, 'canonical') ?? $url,
                 uri: $url,
                 type: 'article',
                 keywords: ['PHP', 'learn PHP', 'PHP tutorial', 'modern PHP', $title],

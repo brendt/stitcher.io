@@ -25,7 +25,7 @@ final readonly class SnippetToken implements Token
 
             return <<<HTML
             <div class="youtube-embed">
-            <iframe width="500" height="280" src="https://www.youtube.com/embed/$id" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="500" height="280" src="https://www.youtube.com/embed/{$id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             HTML;
         }

@@ -5,9 +5,7 @@
  */
 
 use App\Blog\Meta;
-use Tempest\Http\Request;
 
-use function Tempest\Container\get;
 use function Tempest\Router\uri;
 
 $title ??= null;

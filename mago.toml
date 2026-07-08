@@ -6,7 +6,8 @@ includes = ["vendor"]
 excludes = [
     "app/Blog/blog-rss.view.php",
     "app/Support/Sitemap/sitemap.view.php",
-    "app/Aggregate/feed-rss.view.php"
+    "app/Aggregate/feed-rss.view.php",
+    "app/PHP/GettingStarted/Playground/**",
 ]
 
 [analyzer]
