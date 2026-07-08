@@ -2,7 +2,6 @@
 
 namespace Tests\Mail;
 
-use Exception;
 use Tempest\Mail\Email;
 use Tempest\Mail\Mailer;
 

@@ -4,6 +4,4 @@ namespace App\Mail;
 
 use Exception;
 
-final class InvalidCampaign extends Exception
-{
-}
+final class InvalidCampaign extends Exception {}

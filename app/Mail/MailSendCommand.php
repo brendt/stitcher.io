@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use App\Mail\Models\OutboxMail;
-use Symfony\Component\Uid\Uuid;
 use Tempest\Clock\Clock;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;

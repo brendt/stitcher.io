@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tempest\Mail\Mailer;
 use Tempest\Mail\Testing\TestingMailer;
 use Tests\IntegrationTestCase;
+
 use function Tempest\Framework\Testing\factory;
 
 class MailSendCommandTest extends IntegrationTestCase

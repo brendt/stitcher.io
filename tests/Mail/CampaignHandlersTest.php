@@ -9,9 +9,11 @@ use App\Mail\Models\Subscriber;
 use App\Mail\StartCampaign;
 use PHPUnit\Framework\Attributes\PreCondition;
 use PHPUnit\Framework\Attributes\Test;
+use Tempest\DateTime\DateTime;
 use Tempest\Mail\Mailer;
 use Tempest\Mail\Testing\TestingMailer;
 use Tests\IntegrationTestCase;
+
 use function Tempest\Database\query;
 use function Tempest\Framework\Testing\factory;
 
@@ -26,11 +28,10 @@ final class CampaignHandlersTest extends IntegrationTestCase
     #[Test]
     public function test_start_campaign(): void
     {
-        $now = $this->clock()->now();
         $this->database->reset();
 
         factory(Subscriber::class)->with(email: 'sub@stitcher.io', name: 'Brent')->times(10)->save();
-        factory(Subscriber::class)->with(email: 'unsub@stitcher.io', unsubscribedAt: $now)->times(10)->save();
+        factory(Subscriber::class)->with(email: 'unsub@stitcher.io', unsubscribedAt: DateTime::now())->times(10)->save();
 
         /** @var CampaignHandlers $handlers */
         $handlers = $this->container->get(CampaignHandlers::class);
@@ -44,7 +45,7 @@ final class CampaignHandlersTest extends IntegrationTestCase
             query(OutboxCampaign::class)
                 ->count()
                 ->where('path', $path)
-                ->where('startedAt', $now)
+                ->where('startedAt', DateTime::now())
                 ->whereNull('endedAt')
                 ->whereNull('failedAt')
                 ->execute(),
@@ -67,6 +68,54 @@ final class CampaignHandlersTest extends IntegrationTestCase
             query(OutboxMail::class)
                 ->count()
                 ->where('receiver', 'unsub@stitcher.io')
+                ->execute(),
+        );
+    }
+
+    #[Test]
+    public function test_start_campaign_with_invalid_path(): void
+    {
+        $this->database->reset();
+
+        /** @var CampaignHandlers $handlers */
+        $handlers = $this->container->get(CampaignHandlers::class);
+
+        $path = 'invalid';
+
+        $handlers->onStartCampaign(new StartCampaign($path));
+
+        $this->assertSame(
+            1,
+            query(OutboxCampaign::class)
+                ->count()
+                ->where('path', $path)
+                ->where('startedAt', DateTime::now())
+                ->where('failedAt', DateTime::now())
+                ->where('log', "File not found: {$path}")
+                ->execute(),
+        );
+    }
+
+    #[Test]
+    public function test_start_campaign_with_missing_subject(): void
+    {
+        $this->database->reset();
+
+        /** @var CampaignHandlers $handlers */
+        $handlers = $this->container->get(CampaignHandlers::class);
+
+        $path = __DIR__ . '/2026-07-07-invalid.md';
+
+        $handlers->onStartCampaign(new StartCampaign($path));
+
+        $this->assertSame(
+            1,
+            query(OutboxCampaign::class)
+                ->count()
+                ->where('path', $path)
+                ->where('startedAt', DateTime::now())
+                ->where('failedAt', DateTime::now())
+                ->where('log', "Missing subject in frontmatter: {$path}")
                 ->execute(),
         );
     }
