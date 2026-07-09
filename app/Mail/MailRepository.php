@@ -50,6 +50,7 @@ final readonly class MailRepository implements DataProvider
                     $parsed = $this->markdown->parse($content);
 
                     return [
+                        'path' => $path,
                         'slug' => $matches['slug'],
                         'date' => $this->parseDate($path),
                         'content' => $parsed->html,

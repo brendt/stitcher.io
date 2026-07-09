@@ -9,6 +9,7 @@ use function Tempest\Router\uri;
 final class Mail
 {
     public function __construct(
+        public string $path,
         public string $slug,
         public string $title,
         public string $content,

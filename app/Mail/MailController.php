@@ -2,7 +2,12 @@
 
 namespace App\Mail;
 
+use App\Support\Authentication\Admin;
+use Tempest\CommandBus\CommandBus;
+use Tempest\Http\Response;
+use Tempest\Http\Responses\NotFound;
 use Tempest\Router\Get;
+use Tempest\Router\Post;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
 
@@ -14,7 +19,7 @@ final class MailController
     #[Get('/newsletter/subscribe')]
     public function subscribe(): View
     {
-        return \Tempest\View\view('mail-subscribe.view.php');
+        return view('mail-subscribe.view.php');
     }
 
     #[Get('/mail/archive')]
@@ -23,7 +28,7 @@ final class MailController
     {
         $mails = $repository->all();
 
-        return \Tempest\View\view('mail-overview.view.php', mails: $mails);
+        return view('mail-overview.view.php', mails: $mails);
     }
 
     #[Get('/mail/archive/{slug}')]
@@ -32,7 +37,7 @@ final class MailController
     {
         $mail = $repository->find($slug);
 
-        return \Tempest\View\view('mail-show.view.php', mail: $mail);
+        return view('mail-show.view.php', mail: $mail);
     }
 
     #[Get('/mail/export/{slug}')]
@@ -40,6 +45,18 @@ final class MailController
     {
         $mail = $repository->find($slug);
 
-        return \Tempest\View\view('mail-export.view.php', mail: $mail);
+        return view('mail-export.view.php', mail: $mail);
+    }
+
+    #[Admin, Post('/mail/send/{slug}')]
+    public function send(string $slug, MailRepository $repository, CommandBus $commandBus): Response|View
+    {
+        $mail = $repository->find($slug);
+
+        if (! $mail) {
+            return new NotFound();
+        }
+
+        $commandBus->dispatch(new StartCampaign($mail->slug));
     }
 }

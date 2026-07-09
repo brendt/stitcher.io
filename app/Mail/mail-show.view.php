@@ -31,6 +31,8 @@ use function Tempest\Router\uri;
 
         <x-footer class="mt-4">
             <x-button :href="uri([MailController::class, 'overview'])">Back</x-button>
+
+            <x-button>Send</x-button>
         </x-footer>
 
         <x-card>
