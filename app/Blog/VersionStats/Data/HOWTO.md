@@ -1,0 +1,5 @@
+- package stats are pulled in with
+  - `packages:fetch`
+  - `packages:parse`
+  - `packages:store`
+- version stats should be manually added in a new JSON file from https://packagist.org/php-statistics

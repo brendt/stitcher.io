@@ -8,6 +8,8 @@ use Tempest\View\Exceptions\ViewNotFound;
 use Tempest\View\ViewRenderer;
 
 use function Tempest\Container\get;
+use function Tempest\Support\arr;
+use function Tempest\View\view;
 
 final readonly class SnippetToken implements Token
 {
@@ -30,12 +32,27 @@ final readonly class SnippetToken implements Token
             HTML;
         }
 
+        $parameters = explode(' ', $snippet);
+
+        $snippet = $parameters[0];
+        unset($parameters[0]);
+        $parameters = arr($parameters)->mapWithKeys(function (string $parameter) {
+            [$key, $value] = explode(':', $parameter);
+
+            yield $key => $value;
+        })->toArray();
+
         $snippetFile = str_replace([' ', ':'], ['', '_'], $snippet);
 
         $viewRenderer = get(ViewRenderer::class);
 
         try {
-            return $viewRenderer->render(str_replace(['///', '//'], '/', "{$this->root}/{$snippetFile}.view.php"));
+            $path = str_replace(['///', '//'], '/', "{$this->root}/{$snippetFile}.view.php");
+
+            return $viewRenderer->render(view(
+                $path,
+                ...$parameters,
+            ));
         } catch (ViewNotFound) {
             return '';
         }
