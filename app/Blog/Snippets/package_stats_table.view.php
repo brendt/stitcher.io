@@ -10,7 +10,7 @@ if (! $version) {
 
 $columnCount = 4;
 
-$data = "Blog/VersionStats/Data/package-stats-{$version}.json"
+$data = "Blog/VersionStats/Data/{$version}-package-stats.json"
     |> src_path(...)
     |> file_get_contents(...)
     |> (fn ($x) => json_decode($x, associative: true, flags: JSON_THROW_ON_ERROR));
@@ -36,9 +36,10 @@ foreach (array_values($versions) as $phpVersion) {
     foreach ($data as $date => $month) {
         $value = $month[$phpVersion] ?? null;
 
-        $rows[$phpVersion][$date] = $value === null || $value === ''
-            ? '-'
-            : (string) $value;
+        $rows[$phpVersion][$date] =
+            $value === null || $value === ''
+                ? '-'
+                : (string) $value;
     }
 }
 ?>

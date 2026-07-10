@@ -8,7 +8,7 @@ if (! $version) {
     return;
 }
 
-$source = "Blog/VersionStats/Data/package-stats-{$version}.json"
+$source = "Blog/VersionStats/Data/{$version}-package-stats.json"
     |> src_path(...)
     |> file_get_contents(...)
     |> (fn ($x) => json_decode($x, associative: true, flags: JSON_THROW_ON_ERROR));
@@ -52,7 +52,7 @@ $colorForVersion = function (string $phpVersion) use ($colorsByMajorVersion, $fi
     [$majorVersion, $minorVersion] = array_pad(explode('.', $phpVersion, 2), 2, '0');
 
     $colorShades = $colorsByMajorVersion[$majorVersion] ?? ['#A3A3A3'];
-    $colorIndex = max(0, ((int) $minorVersion) - ($firstMinorVersionByMajorVersion[$majorVersion] ?? 0));
+    $colorIndex = max(0, (int) $minorVersion - ($firstMinorVersionByMajorVersion[$majorVersion] ?? 0));
 
     return $colorShades[min($colorIndex, count($colorShades) - 1)];
 };
@@ -65,9 +65,10 @@ foreach (array_values($versions) as $phpVersion) {
     foreach ($years as $year) {
         $value = $source[$latestDateByYear[$year]][$phpVersion] ?? null;
 
-        $values[] = $value === null || $value === ''
-            ? 0
-            : (int) $value;
+        $values[] =
+            $value === null || $value === ''
+                ? 0
+                : (int) $value;
     }
 
     $color = $colorForVersion($phpVersion);

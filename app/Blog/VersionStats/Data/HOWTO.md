@@ -3,3 +3,4 @@
   - `packages:parse`
   - `packages:store`
 - version stats should be manually added in a new JSON file from https://packagist.org/php-statistics
+- add new copy of up-to-date with added state

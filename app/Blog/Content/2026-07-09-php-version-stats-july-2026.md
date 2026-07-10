@@ -72,6 +72,12 @@ You can see how 8.5 adoption is relatively low compared to 8.1 or 8.3. Let's vis
 
 {{ cta:packagist }}
 
+Next, let's visualize how the number of installations with a supported version evolved over time:
+
+{{ version_stats_up_to_date_graph version:2026-07-01 }}
+
+The graph shows how well we're doing year-by-year. It's a summary of all the previous version stats. Ideally, that line should be as close to 100% as possible, because then almost all projects would be using a supported PHP version.
+
 ## Required versions
 
 The PHP ecosystem heavily drives version adoption: the more third party packages push towards higher version requirements, the more projects are forced to stay up to date. If you want some more insights into my train of thought, you can watch me explain it best in this video:

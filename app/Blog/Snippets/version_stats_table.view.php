@@ -11,7 +11,7 @@ if (! $version) {
 $columnCount = 4;
 $rowCount = 7;
 
-$data = "Blog/VersionStats/Data/version-stats-{$version}.json"
+$data = "Blog/VersionStats/Data/{$version}-version-stats.json"
     |> src_path(...)
     |> file_get_contents(...)
     |> (fn ($x) => json_decode($x, associative: true))

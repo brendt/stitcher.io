@@ -8,7 +8,7 @@ if (! $version) {
     return;
 }
 
-$source = "Blog/VersionStats/Data/{$version}-version-stats.json"
+$source = "Blog/VersionStats/Data/{$version}-up-to-date.json"
     |> src_path(...)
     |> file_get_contents(...)
     |> (fn ($x) => json_decode($x, associative: true, flags: JSON_THROW_ON_ERROR));
@@ -16,80 +16,61 @@ $source = "Blog/VersionStats/Data/{$version}-version-stats.json"
 $dates = array_keys($source);
 sort($dates);
 
-$versions = [];
-
-foreach ($source as $stats) {
-    foreach (array_keys($stats) as $phpVersion) {
-        $versions[$phpVersion] = $phpVersion;
-    }
-}
-
-uksort($versions, version_compare(...));
-
-$colorsByMajorVersion = [
-    '5' => ['#D89086', '#C76F66', '#B4504B', '#963B39'],
-    '7' => ['#8FB0D8', '#6F97C9', '#527DB4', '#3F6396', '#314B78'],
-    '8' => ['#8DCB99', '#6FB982', '#54A56D', '#3F8758', '#326C49', '#28553B'],
+$series = [
+    'installs' => [
+        'label' => 'Installs with supported PHP version',
+        'color' => '#3F8758',
+        'values' => [],
+    ],
+//    'packages' => [
+//        'label' => 'Packages with only supported PHP versions',
+//        'color' => '#527DB4',
+//        'values' => [],
+//    ],
 ];
 
-$firstMinorVersionByMajorVersion = [
-    '5' => 3,
-    '7' => 0,
-    '8' => 0,
-];
-
-$colorForVersion = function (string $phpVersion) use ($colorsByMajorVersion, $firstMinorVersionByMajorVersion): string {
-    [$majorVersion, $minorVersion] = array_pad(explode('.', $phpVersion, 2), 2, '0');
-
-    $colorShades = $colorsByMajorVersion[$majorVersion] ?? ['#A3A3A3'];
-    $colorIndex = max(0, (int) $minorVersion - ($firstMinorVersionByMajorVersion[$majorVersion] ?? 0));
-
-    return $colorShades[min($colorIndex, count($colorShades) - 1)];
-};
-
-$datasets = [];
-$maxUsagePercentage = 0;
-
-foreach (array_values($versions) as $phpVersion) {
-    $values = [];
-
-    foreach ($dates as $date) {
-        $value = $source[$date][$phpVersion] ?? null;
+foreach ($dates as $date) {
+    foreach ($series as $key => $data) {
+        $value = $source[$date][$key] ?? null;
 
         if ($value === null || $value === '') {
-            $values[] = null;
+            $series[$key]['values'][] = null;
 
             continue;
         }
 
-        $percentage = round((float) $value * 100, 2);
-        $maxUsagePercentage = max($maxUsagePercentage, $percentage);
-
-        $values[] = $percentage;
+        $series[$key]['values'][] = round((float) $value * 100, 2);
     }
-
-    $color = $colorForVersion($phpVersion);
-
-    $datasets[] = [
-        'label' => $phpVersion,
-        'data' => $values,
-        'borderColor' => $color,
-        'backgroundColor' => $color,
-        'borderWidth' => 2,
-        'pointRadius' => 0,
-        'pointHoverRadius' => 5,
-        'tension' => 0.35,
-        'spanGaps' => false,
-    ];
 }
+
+$allValues = array_filter(
+    array_merge(...array_column($series, 'values')),
+    static fn (?float $value): bool => $value !== null,
+);
+
+$yAxisMin = max(0, min($allValues) - 5);
 
 $chartData = [
     'labels' => $dates,
-    'datasets' => $datasets,
+    'datasets' => array_values(
+        array_map(
+            static fn (array $data): array => [
+                'label' => $data['label'],
+                'data' => $data['values'],
+                'borderColor' => $data['color'],
+                'backgroundColor' => $data['color'],
+                'borderWidth' => 2,
+                'pointRadius' => 0,
+                'pointHoverRadius' => 5,
+                'tension' => 0.35,
+                'spanGaps' => false,
+            ],
+            $series,
+        ),
+    ),
 ];
 
-$yAxisMax = ceil($maxUsagePercentage + 5);
-$chartId = 'version-stats-graph-' . preg_replace('/[^a-z0-9]+/i', '-', $version) . '-' . bin2hex(random_bytes(4));
+$chartId = 'version-stats-up-to-date-graph-' . bin2hex(random_bytes(4));
 $chartDataJson = json_encode($chartData, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
 ?>
 
@@ -169,8 +150,8 @@ $chartDataJson = json_encode($chartData, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SL
                             },
                         },
                         y: {
-                            beginAtZero: true,
-                            max: <?= $yAxisMax ?>,
+                            min: <?= $yAxisMin ?>,
+                            max: 100,
                             ticks: {
                                 callback: (value) => `${value}%`,
                             },
