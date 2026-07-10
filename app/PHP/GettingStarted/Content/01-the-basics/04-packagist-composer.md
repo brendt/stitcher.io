@@ -141,7 +141,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 $book = new App\Models\Book('Timeline Taxi');
 ```
 
-Success! We're now using composer's autoloader, and it will take care of requiring the right files for us, based on the class and its namespace. By the way, the "class + namespace" combo is officially called "Fully Qualified Class Name" — FCQN for short.
+Success! We're now using composer's autoloader, and it will take care of requiring the right files for us, based on the class and its namespace. By the way, the "class + namespace" combo is officially called "Fully Qualified Class Name" — FQCN for short.
 
 If you want to (and it's highly recommended you do), you can move all FQCNs to the start of your PHP file, and `use` them once; so that you can write short class names throughout your code instead:
 
