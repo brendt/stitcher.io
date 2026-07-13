@@ -106,7 +106,9 @@ final readonly class TimeController
 
         $perWeek = WeekEntry::fromTimeEntries(...$entries);
         $isRunning = TimeEntry::select()->whereNull('end')->first() !== null;
+        /** @var \App\Time\WeekEntry $pastWeek */
+        $pastWeek = $perWeek[DateTime::now(Timezone::EUROPE_BRUSSELS)->minusDays(7)->format('yyyy-ww')] ?? null;
 
-        return view('x-time-entries.view.php', perWeek: $perWeek, isRunning: $isRunning);
+        return view('x-time-entries.view.php', perWeek: $perWeek, pastWeek: $pastWeek, isRunning: $isRunning);
     }
 }
