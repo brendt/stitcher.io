@@ -1,9 +1,10 @@
 <?php
 
+use App\Time\WeekEntry;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\Timezone;
 
-$targetHours = 30.4;
+$targetHours = WeekEntry::TARGET_HOURS;
 $dayOfWeek = (int) date('N');
 $workDaysElapsed = min($dayOfWeek, 5);
 $expectedHours = $workDaysElapsed * ($targetHours / 5);
@@ -18,7 +19,7 @@ foreach ($perWeek as $w) {
     }
 }
 
-$currentHours = round($currentWeek->totalHours ?? 0, 1);
+$currentHours = round(($currentWeek->totalHours ?? 0) + ($pastWeek?->overtimeHours ?? 0), 1);
 $progressPct = min(100, ($currentHours / $targetHours) * 100);
 $hoursDiff = round(abs($currentHours - $expectedHours), 1);
 $isOnTrack = $currentHours >= $expectedHours;
@@ -60,9 +61,14 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
                         <span class="text-3xl font-bold tabular-nums">{{ $currentHours }}</span>
                         <span class="text-gray-400">/ {{ $targetHours }}h</span>
                     </div>
-                    <span class="text-xs font-semibold px-2.5 py-1 rounded-full {{ $statusColor }}">
+                    <div class="flex items-baseline gap-1.5">
+                        <span :if="$pastWeek?->overtimeHours" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-100 text-green-700">
+                            {{ $pastWeek->overtimeHours }} overtime
+                        </span>
+                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full {{ $statusColor }}">
                         {{ $statusLabel }}
                     </span>
+                    </div>
                 </div>
 
                 <div class="relative h-2 bg-gray-100 rounded-full overflow-visible">

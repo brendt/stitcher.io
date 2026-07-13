@@ -25,9 +25,18 @@ final readonly class TimeController
             ->all();
 
         $perWeek = WeekEntry::fromTimeEntries(...$entries);
+
+        /** @var \App\Time\WeekEntry $pastWeek */
+        $pastWeek = $perWeek[DateTime::now(Timezone::EUROPE_BRUSSELS)->minusDays(7)->format('yyyy-ww')] ?? null;
+
         $isRunning = TimeEntry::select()->whereNull('end')->first() !== null;
 
-        return view('time.view.php', perWeek: $perWeek, isRunning: $isRunning);
+        return view(
+            'time.view.php',
+            perWeek: $perWeek,
+            pastWeek: $pastWeek,
+            isRunning: $isRunning,
+        );
     }
 
     #[Post('/start')]

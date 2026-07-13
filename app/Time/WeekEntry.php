@@ -7,6 +7,8 @@ use Tempest\DateTime\Timezone;
 
 final class WeekEntry
 {
+    public const float TARGET_HOURS = 30.4;
+
     public function __construct(
         public string $week,
         /** @var TimeEntry[] */
@@ -18,6 +20,10 @@ final class WeekEntry
             fn (TimeEntry $entry) => $entry->totalHours,
             $this->timeEntries,
         ));
+    }
+
+    public float $overtimeHours {
+        get => $this->totalHours - self::TARGET_HOURS;
     }
 
     public bool $isCurrent {
