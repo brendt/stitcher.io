@@ -1,6 +1,5 @@
 <?php
 
-use App\Aggregate\Posts\PostsController;
 use App\Aggregate\Suggestions\SuggestionController;
 
 use function Tempest\Router\uri;
@@ -9,7 +8,7 @@ use function Tempest\Router\uri;
 
 <x-base title="Feed">
     <x-slot name="head">
-        <script :if="$user?->isAdmin" src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 let copyUris = document.querySelectorAll('.copy-uri');
@@ -27,6 +26,21 @@ use function Tempest\Router\uri;
                         element.classList.add('copied');
                     });
                 })
+            });
+
+            document.addEventListener('htmx:afterRequest', (event) => {
+                if (!event.detail.elt.closest('#search-controls')) return;
+
+                const controls = document.getElementById('search-controls');
+                const q = controls.querySelector('[name="q"]').value;
+                const sort = controls.querySelector('[name="sort"]').value;
+
+                const params = new URLSearchParams();
+                if (q) params.set('q', q);
+                if (sort !== 'recent') params.set('sort', sort);
+
+                const qs = params.toString();
+                history.replaceState(null, '', '/feed/' + (qs ? '?' + qs : ''));
             });
         </script>
     </x-slot>
@@ -54,33 +68,37 @@ use function Tempest\Router\uri;
             </p>
         </x-card>
 
-        <div
-                :foreach="$posts as $index => $post"
-                class="rounded-xs bg-white shadow-sm hover:shadow-lg flex items-center justify-between"
-        >
-            <div class="pl-4">
-                <span class="text-md sm:text-xs p-1 px-2 rounded-sm {{ $color($post) }}">{{ $post->visits }}</span>
-            </div>
-
-            <a :href="uri([PostsController::class, 'visit'], post: $post->id)" class="hover:underline grow p-4">
-                <span class="font-bold wrap-anywhere">{{ $post->title }}</span>
-                <x-template :if="$post->source">
-                    <br class="inline sm:hidden">
-                    <span class="hidden sm:inline">&nbsp;</span>
-                    <span class="text-sm block overflow-hidden">{{ $post->sourceName }}</span>
-                </x-template>
-            </a>
-
-            <div class="flex p-4 cursor-pointer group copy-uri" :data-uri="uri([PostsController::class, 'visit'], post: $post->id)">
-                <x-icon
-                        name="lucide:link"
-                        class="icon-copy size-7 sm:size-6 p-1 bg-gray-100 rounded-sm group-hover:bg-gray-200"
-                />
-                <x-icon
-                        name="lucide:check"
-                        class="icon-copied size-7 sm:size-6 p-1 bg-emerald-600 text-emerald-50 rounded-sm"
-                />
+        <div id="search-controls" class="flex gap-2">
+            <input
+                    type="search"
+                    name="q"
+                    placeholder="Search..."
+                    :value="$q ?? ''"
+                    class="grow p-2 px-4 rounded-xs bg-white shadow-sm border-0 outline-none"
+                    hx-get="/feed/search"
+                    hx-trigger="input changed delay:300ms, search"
+                    hx-target="#feed-posts"
+                    hx-swap="outerHTML"
+                    hx-include="#search-controls"
+            />
+            <div class="relative">
+            <select
+                    name="sort"
+                    class="appearance-none p-2 pl-4 pr-8 rounded-xs bg-white shadow-sm border-0 outline-none cursor-pointer"
+                    hx-get="/feed/search"
+                    hx-trigger="change"
+                    hx-target="#feed-posts"
+                    hx-swap="outerHTML"
+                    hx-include="#search-controls"
+            >
+                <option value="top" :selected="($sort ?? 'recent') === 'top'">Top</option>
+                <option value="recent" :selected="($sort ?? 'recent') === 'recent'">Most recent</option>
+                <option value="oldest" :selected="($sort ?? 'recent') === 'oldest'">Oldest</option>
+            </select>
+            <x-icon name="lucide:chevron-down" class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
             </div>
         </div>
+
+        <x-feed-posts :posts="$posts" :color="$color" />
     </div>
 </x-base>

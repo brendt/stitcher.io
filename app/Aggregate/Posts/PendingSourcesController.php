@@ -2,8 +2,7 @@
 
 namespace App\Aggregate\Posts;
 
-use App\Authentication\AdminMiddleware;
-use Tempest\Router;
+use App\Support\Authentication\AdminMiddleware;
 use Tempest\Router\Post;
 use Tempest\View\View;
 
@@ -39,6 +38,6 @@ final class PendingSourcesController
             ->limit(5)
             ->all();
 
-        return \Tempest\View\view('x-pending-sources.view.php', pendingSources: $pendingSources);
+        return view('x-pending-sources.view.php', pendingSources: $pendingSources);
     }
 }
