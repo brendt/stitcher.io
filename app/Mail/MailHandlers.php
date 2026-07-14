@@ -11,29 +11,30 @@ use Tempest\DateTime\DateTime;
 use Tempest\Markdown\Markdown;
 use Tempest\View\ViewRenderer;
 
+use function Tempest\Router\uri;
 use function Tempest\View\view;
 
-final readonly class CampaignHandlers
+final readonly class MailHandlers
 {
     public function __construct(
         private ViewRenderer $viewRenderer,
         private Markdown $markdown,
     ) {}
 
-    #[Async, CommandHandler]
-    public function onStartCampaign(StartCampaign $startCampaign): void
+    #[CommandHandler]
+    public function onStartMailCampaign(StartMailCampaign $command): void
     {
         $campaign = OutboxCampaign::create(
-            path: $startCampaign->path,
+            path: $command->path,
             startedAt: DateTime::now(),
         );
 
-        $content = @file_get_contents($startCampaign->path);
+        $content = @file_get_contents($command->path);
 
         if ($content === false) {
             $campaign->update(
                 failedAt: DateTime::now(),
-                log: "File not found: {$startCampaign->path}",
+                log: "File not found: {$command->path}",
             );
 
             return;
@@ -45,7 +46,7 @@ final readonly class CampaignHandlers
         if (! $subject) {
             $campaign->update(
                 failedAt: DateTime::now(),
-                log: "Missing subject in frontmatter: {$startCampaign->path}",
+                log: "Missing subject in frontmatter: {$command->path}",
             );
 
             return;
@@ -54,8 +55,9 @@ final readonly class CampaignHandlers
         $html = $this->viewRenderer->render(view(
             __DIR__ . '/mail-export.view.php',
             mail: new Mail(
-                slug: $startCampaign->path,
-                title: $parsed->frontmatter['title'] ?? pathinfo($startCampaign->path, PATHINFO_FILENAME),
+                path: $command->path,
+                slug: $command->path,
+                title: $parsed->frontmatter['title'] ?? pathinfo($command->path, PATHINFO_FILENAME),
                 content: $parsed->html,
                 date: DateTime::now(),
                 pretext: $parsed->frontmatter['pretext'] ?? null,
@@ -68,9 +70,11 @@ final readonly class CampaignHandlers
                 function (array $subscribers) use ($campaign, $subject, $html) {
                     /** @var Subscriber $subscriber */
                     foreach ($subscribers as $subscriber) {
+                        $unsubUri = uri([MailController::class, 'unsubscribe'], uuid: $subscriber->uuid);
+
                         $html = str_replace(
-                            ['{{ $subscriber }}', '{{ $unsubUri }}'],
-                            [$subscriber->name, ''],
+                            ['{{ $subscriber }}', '::subscriber.first_name::', '{{ $unsubUri }}', '::unsubscribeUrl::'],
+                            [$subscriber->name, $subscriber->name, $unsubUri, $unsubUri],
                             $html,
                         );
 
@@ -84,5 +88,9 @@ final readonly class CampaignHandlers
                 },
                 1000,
             );
+
+        $campaign->update(
+            endedAt: DateTime::now(),
+        );
     }
 }

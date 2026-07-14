@@ -2,8 +2,10 @@
 
 namespace App\Mail;
 
+use App\Mail\Models\OutboxCampaign;
 use Tempest\DateTime\DateTime;
 
+use function Tempest\Database\query;
 use function Tempest\Router\uri;
 
 final class Mail
@@ -23,5 +25,12 @@ final class Mail
 
     public string $uri {
         get => uri([MailController::class, 'show'], slug: $this->slug);
+    }
+
+    public bool $isSent {
+        get => query(OutboxCampaign::class)
+            ->count()
+            ->where('path', $this->path)
+            ->execute() > 0;
     }
 }

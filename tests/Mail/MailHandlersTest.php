@@ -2,11 +2,11 @@
 
 namespace Tests\Mail;
 
-use App\Mail\CampaignHandlers;
+use App\Mail\MailHandlers;
 use App\Mail\Models\OutboxCampaign;
 use App\Mail\Models\OutboxMail;
 use App\Mail\Models\Subscriber;
-use App\Mail\StartCampaign;
+use App\Mail\StartMailCampaign;
 use PHPUnit\Framework\Attributes\PreCondition;
 use PHPUnit\Framework\Attributes\Test;
 use Tempest\DateTime\DateTime;
@@ -17,7 +17,7 @@ use Tests\IntegrationTestCase;
 use function Tempest\Database\query;
 use function Tempest\Framework\Testing\factory;
 
-final class CampaignHandlersTest extends IntegrationTestCase
+final class MailHandlersTest extends IntegrationTestCase
 {
     #[PreCondition]
     public function setupTestingMailer(): void
@@ -26,19 +26,19 @@ final class CampaignHandlersTest extends IntegrationTestCase
     }
 
     #[Test]
-    public function test_start_campaign(): void
+    public function test_start_mail_campaign(): void
     {
         $this->database->reset();
 
         factory(Subscriber::class)->with(email: 'sub@stitcher.io', name: 'Brent')->times(10)->save();
         factory(Subscriber::class)->with(email: 'unsub@stitcher.io', unsubscribedAt: DateTime::now())->times(10)->save();
 
-        /** @var CampaignHandlers $handlers */
-        $handlers = $this->container->get(CampaignHandlers::class);
+        /** @var MailHandlers $handlers */
+        $handlers = $this->container->get(MailHandlers::class);
 
         $path = __DIR__ . '/2026-07-07-test.md';
 
-        $handlers->onStartCampaign(new StartCampaign($path));
+        $handlers->onStartMailCampaign(new StartMailCampaign($path));
 
         $this->assertSame(
             1,
@@ -73,16 +73,16 @@ final class CampaignHandlersTest extends IntegrationTestCase
     }
 
     #[Test]
-    public function test_start_campaign_with_invalid_path(): void
+    public function test_start_mail_campaign_with_invalid_path(): void
     {
         $this->database->reset();
 
-        /** @var CampaignHandlers $handlers */
-        $handlers = $this->container->get(CampaignHandlers::class);
+        /** @var MailHandlers $handlers */
+        $handlers = $this->container->get(MailHandlers::class);
 
         $path = 'invalid';
 
-        $handlers->onStartCampaign(new StartCampaign($path));
+        $handlers->onStartMailCampaign(new StartMailCampaign($path));
 
         $this->assertSame(
             1,
@@ -97,16 +97,16 @@ final class CampaignHandlersTest extends IntegrationTestCase
     }
 
     #[Test]
-    public function test_start_campaign_with_missing_subject(): void
+    public function test_start_mail_campaign_with_missing_subject(): void
     {
         $this->database->reset();
 
-        /** @var CampaignHandlers $handlers */
-        $handlers = $this->container->get(CampaignHandlers::class);
+        /** @var MailHandlers $handlers */
+        $handlers = $this->container->get(MailHandlers::class);
 
         $path = __DIR__ . '/2026-07-07-invalid.md';
 
-        $handlers->onStartCampaign(new StartCampaign($path));
+        $handlers->onStartMailCampaign(new StartMailCampaign($path));
 
         $this->assertSame(
             1,

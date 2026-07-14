@@ -2,7 +2,10 @@
 
 namespace App\Mail;
 
-final readonly class StartCampaign
+use Tempest\CommandBus\Async;
+
+#[Async]
+final readonly class StartMailCampaign
 {
     public function __construct(
         public string $path,

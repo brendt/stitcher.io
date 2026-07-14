@@ -2,15 +2,19 @@
 
 namespace App\Mail;
 
+use App\Mail\Models\Subscriber;
 use App\Support\Authentication\Admin;
 use Tempest\CommandBus\CommandBus;
+use Tempest\DateTime\DateTime;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\NotFound;
+use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
 
+use function Tempest\Database\query;
 use function Tempest\View\view;
 
 final class MailController
@@ -48,6 +52,19 @@ final class MailController
         return view('mail-export.view.php', mail: $mail);
     }
 
+    #[Get('/mail/unsubscribe/{uuid}')]
+    public function unsubscribe(string $uuid): View
+    {
+        query(Subscriber::class)
+            ->update(
+                unsubscribedAt: DateTime::now()
+            )
+            ->where('uuid', $uuid)
+            ->execute();
+
+        return view('mail-unsubscribe.view.php');
+    }
+
     #[Admin, Post('/mail/send/{slug}')]
     public function send(string $slug, MailRepository $repository, CommandBus $commandBus): Response|View
     {
@@ -57,6 +74,8 @@ final class MailController
             return new NotFound();
         }
 
-        $commandBus->dispatch(new StartCampaign($mail->slug));
+        $commandBus->dispatch(new StartMailCampaign($mail->path));
+
+        return new Ok();
     }
 }

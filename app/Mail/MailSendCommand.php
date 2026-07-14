@@ -26,17 +26,27 @@ final readonly class MailSendCommand
     ) {}
 
     #[ConsoleCommand, Schedule(Every::MINUTE)]
-    public function __invoke(int $chunk = 1000): void
+    public function __invoke(int $chunk = 1000, bool $retry = false): void
     {
-        $mails = query(OutboxMail::class)
+        $query = query(OutboxMail::class)
             ->select()
-            ->whereNull('sendingAt')
-            ->whereNull('failedAt')
             ->whereNull('sentAt')
-            ->limit($chunk)
-            ->all();
+            ->limit($chunk);
+
+        if (! $retry) {
+            $query = $query
+                ->whereNull('sendingAt')
+                ->whereNull('failedAt');
+        }
+
+        $mails = $query->all();
 
         $ids = arr($mails)->map(fn (OutboxMail $outboxMail) => $outboxMail->id->value)->toArray();
+
+        if ($ids === []) {
+            $this->info('Nothing to send');
+            return;
+        }
 
         query(OutboxMail::class)
             ->update(
@@ -52,13 +62,15 @@ final readonly class MailSendCommand
                     subject: $mail->subject,
                     to: $mail->receiver,
                     html: $mail->content,
-                    from: env('MAIL_FROM_ADDRESS', 'brendt@stitcher.io'),
-                    replyTo: env('MAIL_FROM_ADDRESS', 'brendt@stitcher.io'),
+                    from: env('MAIL_SENDER_EMAIL', 'brendt@stitcher.io'),
+                    replyTo: env('MAIL_SENDER_EMAIL', 'brendt@stitcher.io'),
                 ));
 
                 $mail->update(
                     sentAt: $this->clock->now(),
                 );
+
+                $this->info("Sent to {$mail->receiver}");
             } catch (Throwable $e) {
                 $mail->update(
                     failedAt: $this->clock->now(),
@@ -66,5 +78,7 @@ final readonly class MailSendCommand
                 );
             }
         }
+
+        $this->success('Done');
     }
 }
