@@ -2,22 +2,22 @@
     <x-container class="grid gap-4">
         <x-menu />
 
-        <a
-                class="bg-white p-4 shadow-sm rounded-xs text-sm group"
-                href="https://tideways.com/profiler/profiling-tracing?utm_source=stitcherio&utm_campaign=stitcherio1"
-                target="_blank" rel="noopener noreferrer"
-        >
-            <?php
-                $messages = [
-                    'From slow page to root cause in minutes with performance insights from <strong class="text-[#001f4d] underline group-hover:no-underline">Tideways</strong>.',
-                    '<strong class="text-[#001f4d] underline group-hover:no-underline">Tideways</strong>: Performance insights to get from slow page to root cause in minutes',
-                ];
-
-                $message = $messages[array_rand($messages)];
-            ?>
-
-            {!! $message !!}
-        </a>
+<!--        <a-->
+<!--                class="bg-white p-4 shadow-sm rounded-xs text-sm group"-->
+<!--                href="https://tideways.com/profiler/profiling-tracing?utm_source=stitcherio&utm_campaign=stitcherio1"-->
+<!--                target="_blank" rel="noopener noreferrer"-->
+<!--        >-->
+<!--            --><?php
+//                $messages = [
+//                    'From slow page to root cause in minutes with performance insights from <strong class="text-[#001f4d]">Tideways</strong>.<br><span class="underline group-hover:no-underline">Start trial →</span>',
+//                    '<strong class="text-[#001f4d] underline group-hover:no-underline">Tideways</strong>: Performance insights to get from slow page to root cause in minutes',
+//                ];
+//
+//                $message = $messages[array_rand($messages)];
+//            ?>
+<!---->
+<!--            {!! $message !!}-->
+<!--        </a>-->
 
         <x-article>
             <div>
