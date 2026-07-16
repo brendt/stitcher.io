@@ -94,24 +94,24 @@
 
             <!-- Main content -->
             <main class="flex-1 min-w-0">
-                <a
-                    href="https://github.com/brendt/stitcher.io/tree/main/app/PHP/GettingStarted/Content"
-                    class="
-                        block
-                        bg-primary/30   text-primary font-bold
-                        dark:bg-gray-800 dark:text-primary
-                        dark:border-gray-700 dark:border
-                        mb-4 p-4 md:px-10 rounded-lg shadow-sm
-                        group
-                    "
-                >
-                    Work in progress! If you're an experienced PHP developer, it would be awesome if you could help by providing feedback or sending pull requests <span class="underline group-hover:no-underline">on GitHub</span>.
-                </a>
-
                 <article class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 px-4 md:px-8 py-6 md:px-14 md:py-14">
                     <h1 class="text-4xl font-bold text-primary leading-tight mb-4 md:mb-8">{{ $page->title }}</h1>
                     {!! $page->content !!}
                 </article>
+
+                <a
+                        href="https://github.com/brendt/stitcher.io/tree/main/app/PHP/GettingStarted/Content"
+                        class="
+                        block
+                        bg-primary/10   text-primary/80 font-bold
+                        dark:bg-gray-800 dark:text-primary
+                        dark:border-gray-700 dark:border
+                        mt-4 p-4 md:px-8 rounded-lg shadow-sm
+                        group
+                    "
+                >
+                    If you're an experienced PHP developer who wants to contribute to this course, you're more than welcome to provide feedback or sending pull requests <span class="underline group-hover:no-underline">on GitHub</span>.
+                </a>
 
                 <div class="mt-6 flex-wrap flex items-center gap-4 justify-center sm:justify-between">
                     <a
@@ -134,7 +134,6 @@
                         </svg>
                     </a>
                 </div>
-
             </main>
 
             <!-- On this page (desktop) -->
