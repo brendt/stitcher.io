@@ -14,9 +14,9 @@ $title ??= null;
 $meta ??= new Meta();
 
 if (($meta->title ?? null) === null) {
-    $meta->title = $title ?? 'Getting started with PHP | stitcher.io';
+    $meta->title = $title ?? 'Getting started with PHP';
 } else {
-    $meta->title .= ' | Getting started with PHP | stitcher.io';
+    $meta->title .= ' | Getting started with PHP';
 }
 $meta->description ??= 'Learn modern PHP from the ground up: syntax, Composer, frameworks, QA tooling, deployment, HTTP, databases, and more.';
 $meta->image ??= uri('/meta/meta_lg.png');

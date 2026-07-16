@@ -1,6 +1,8 @@
 ---
-title: Hello, PHP
-description: Install PHP, run your first script, use the built-in web server, and learn how modern PHP fits into web and command-line development.
+title: Getting started with PHP
+meta:
+  title: Learn PHP programming in 2026
+description: We start by installing and running PHP, then we'll learn the basic syntax and work from there.
 image: meta/php/01-hello-php.png
 ---
 

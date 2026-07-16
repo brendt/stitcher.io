@@ -1,5 +1,7 @@
 ---
 title: Packagist and Composer
+meta:
+  title: PHP's package manager explained
 description: Learn how modern PHP projects use Packagist and Composer to install packages, manage dependencies, configure autoloading, and share code.
 image: meta/php/04-packagist-composer.png
 ---

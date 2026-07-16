@@ -1,5 +1,7 @@
 ---
 title: Frameworks
+meta:
+  title: PHP Frameworks explained
 description: Compare popular PHP frameworks like Laravel, Symfony, Tempest, Laminas, and Slim, and learn when a framework helps a project.
 image: meta/php/05-frameworks.png
 ---

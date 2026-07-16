@@ -1,5 +1,7 @@
 ---
 title: QA Tooling
+meta:
+  title: How to use PHP debuggers, code formatters, and more
 description: Learn the PHP quality tools that keep projects reliable, including static analysis, code formatting, testing, debugging, and CI checks.
 image: meta/php/07-qa-tooling.png
 ---

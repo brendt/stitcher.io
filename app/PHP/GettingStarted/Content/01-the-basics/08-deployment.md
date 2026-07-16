@@ -1,5 +1,7 @@
 ---
 title: Deployment
+meta:
+  title: How to deploy PHP to production in 2026
 description: Learn about the different options to deploy your PHP website to productions.
 image: meta/php/08-deployment.png
 ---

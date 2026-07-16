@@ -1,5 +1,7 @@
 ---
 title: The Standard Library
+meta:
+  title: "Learn about every built-in PHP feature"
 description: Explore PHP's standard library, built-in functions, extensions, arrays, strings, dates, JSON, file handling, and core runtime tools.
 image: meta/php/03-standard-lib.png
 ---
