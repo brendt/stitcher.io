@@ -16,9 +16,7 @@ Most frameworks provide you with a set of common tools: HTTP routing, database s
 
 ## Laravel
 
-Going by Packagist numbers, Laravel is by far the biggest framework in PHP these days. However, it's only fair to note that some parts of Laravel itself are also powered by lower-level Symfony components. Laravel takes a Rapid Application Development — RAD — approach to software design. Laravel users like it because it makes them feel incredibly productive with only small amounts of code. 
-
-People who don't like Laravel say the framework can be unintuitive and often lead to lower-quality code bases when used by inexperienced developers. That being said, Laravel is used at scale for massive production projects, has been around for over a decade, and is a solid choice for most PHP projects.
+Going by Packagist numbers, Laravel is by far the biggest framework in PHP these days. However, it's only fair to note that some parts of Laravel itself are also powered by lower-level Symfony components. Laravel takes a Rapid Application Development — RAD — approach to software design. Laravel users like it because it makes them feel incredibly productive with only small amounts of code.
 
 You can learn how to get started with Laravel in [the Laravel docs](https://laravel.com/docs/13.x) and check out the [Laracast's 30 Days to Learn Laravel](https://www.youtube.com/watch?v=1NjOWtQ7S2o) video series.
 
