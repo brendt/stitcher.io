@@ -975,16 +975,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.14.1",
+            "version": "7.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "6b1d2429a2c312474c523aa9017fba0c07b5f4a0"
+                "reference": "fa88c57803501ad0770f5cddb1e60525d49da9a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/6b1d2429a2c312474c523aa9017fba0c07b5f4a0",
-                "reference": "6b1d2429a2c312474c523aa9017fba0c07b5f4a0",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/fa88c57803501ad0770f5cddb1e60525d49da9a1",
+                "reference": "fa88c57803501ad0770f5cddb1e60525d49da9a1",
                 "shasum": ""
             },
             "require": {
@@ -1083,7 +1083,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.14.1"
+                "source": "https://github.com/guzzle/guzzle/tree/7.14.2"
             },
             "funding": [
                 {
@@ -1099,7 +1099,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-13T01:32:54+00:00"
+            "time": "2026-07-14T18:15:01+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -5895,16 +5895,16 @@
         },
         {
             "name": "tempest/framework",
-            "version": "v3.14.1",
+            "version": "v3.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/tempest-framework.git",
-                "reference": "b9f4c6f36b6b2ae182d20882959bebe7b3888716"
+                "reference": "d031b79adaa208fc5b9863c18fb4c14c0991b6bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/b9f4c6f36b6b2ae182d20882959bebe7b3888716",
-                "reference": "b9f4c6f36b6b2ae182d20882959bebe7b3888716",
+                "url": "https://api.github.com/repos/tempestphp/tempest-framework/zipball/d031b79adaa208fc5b9863c18fb4c14c0991b6bf",
+                "reference": "d031b79adaa208fc5b9863c18fb4c14c0991b6bf",
                 "shasum": ""
             },
             "require": {
@@ -6122,7 +6122,7 @@
             "description": "The PHP framework that gets out of your way.",
             "support": {
                 "issues": "https://github.com/tempestphp/tempest-framework/issues",
-                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.14.1"
+                "source": "https://github.com/tempestphp/tempest-framework/tree/v3.14.2"
             },
             "funding": [
                 {
@@ -6130,7 +6130,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-08T06:53:30+00:00"
+            "time": "2026-07-15T11:17:40+00:00"
         },
         {
             "name": "tempest/highlight",

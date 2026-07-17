@@ -29,12 +29,24 @@ final class FeedController
     #[Get('/')]
     public function home(Authenticator $authenticator, Request $request): View
     {
-        $posts = arr(
-            Post::published()
-                ->orderBy('publicationDate DESC')
-                ->limit(20)
-                ->all(),
-        );
+        $query = $request->get('q', '');
+        $sort = $request->get('sort', 'recent');
+
+        $postQuery = Post::published()->limit(20);
+
+        $postQuery = match ($sort) {
+            'recent' => $postQuery->orderBy('publicationDate DESC'),
+            'oldest' => $postQuery->orderBy('publicationDate ASC'),
+            default  => $postQuery->orderBy('posts.visits DESC'),
+        };
+
+        if ($query !== '') {
+            $postQuery = $postQuery
+                ->where('posts.title LIKE ?', '%' . $query . '%')
+                ->orWhereRaw('sources.name LIKE ?', '%' . $query . '%');
+        }
+
+        $posts = arr($postQuery->all());
 
         /** @var User $user */
         $user = $authenticator->current();
@@ -58,6 +70,8 @@ final class FeedController
             pendingCount: $pendingCount ?? null,
             suggestions: $suggestions ?? [],
             success: $request->has('success'),
+            q: $query,
+            sort: $sort,
         );
     }
 
@@ -106,6 +120,35 @@ final class FeedController
         );
 
         return new Ok($xml)->addHeader('Content-Type', 'application/xml;charset=UTF-8');
+    }
+
+    #[Stateless, Get('/search')]
+    public function search(Request $request): View
+    {
+        $query = $request->get('q', '');
+        $sort = $request->get('sort', 'recent');
+
+        $postQuery = Post::published()->limit(20);
+
+        $postQuery = match ($sort) {
+            'recent' => $postQuery->orderBy('publicationDate DESC'),
+            'oldest' => $postQuery->orderBy('publicationDate ASC'),
+            default  => $postQuery->orderBy('posts.visits DESC'),
+        };
+
+        if ($query !== '') {
+            $postQuery = $postQuery
+                ->where('posts.title LIKE ?', '%' . $query . '%')
+                ->orWhereRaw('sources.name LIKE ?', '%' . $query . '%');
+        }
+
+        $posts = arr($postQuery->all());
+
+        return \Tempest\View\view(
+            'x-feed-posts.view.php',
+            posts: $posts,
+            color: $this->createColorFunction($posts),
+        );
     }
 
     private function createColorFunction(ImmutableArray $posts): Closure

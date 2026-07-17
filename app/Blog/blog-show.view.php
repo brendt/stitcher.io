@@ -2,14 +2,35 @@
     <x-container class="grid gap-4">
         <x-menu />
 
-        <x-article>
-            <div>
-                <h1 class="text-4xl font-bold text-primary">{{ $post->title }}</h1>
-                <small class="pl-1">Written on {{ $post->date->format('YYYY-MM-dd') }}</small>
+        <div class="relative">
+            <div class="mb-4 xl:mb-0 xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:w-44 xl:h-full">
+                <div class="xl:sticky xl:top-8">
+                    <span class="text-xs text-gray-400 uppercase tracking-widest block mb-2">Sponsors</span>
+
+                    <div class="flex gap-3 flex-wrap xl:flex-col">
+                        <x-sponsor href="/click/ploi">
+                            Deploy your next server in a few clicks: <span class="underline group-hover:no-underline text-[#5b8bfb] font-bold">ploi.io</span>
+                        </x-sponsor>
+
+<!--                        <x-sponsor :if="random_int(0, 1) === 1" href="/click/tdw1">-->
+<!--                            Turn slow pages into fast fixes with <strong class="text-[#001f4d]">Tideways</strong> performance insights. <span class="underline group-hover:no-underline">Start trial →</span>-->
+<!--                        </x-sponsor>-->
+<!--                        <x-sponsor :else href="/click/tdw2">-->
+<!--                            <strong class="text-[#001f4d]">Tideways</strong>: from slow request to root cause in minutes. <span class="underline group-hover:no-underline">Start trial →</span>-->
+<!--                        </x-sponsor>-->
+                    </div>
+                </div>
             </div>
 
-            {!! $post->content !!}
-        </x-article>
+            <x-article>
+                <div>
+                    <h1 class="text-4xl font-bold text-primary">{{ $post->title }}</h1>
+                    <small class="pl-1">Written on {{ $post->date->format('YYYY-MM-dd') }}</small>
+                </div>
+
+                {!! $post->content !!}
+            </x-article>
+        </div>
 
         <x-footer class="mt-4">
             <x-button href="/">Back</x-button>

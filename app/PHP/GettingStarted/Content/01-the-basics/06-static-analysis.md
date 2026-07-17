@@ -1,5 +1,7 @@
 ---
 title: Static Analysis
+meta:
+  title: How to use static analysis in PHP?
 description: Learn how modern PHP and static analysis go hand in hand.
 image: meta/php/06-static-analysis.png
 ---

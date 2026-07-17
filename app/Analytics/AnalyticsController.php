@@ -12,6 +12,7 @@ use App\Analytics\VisitsPerMonth\VisitsPerMonth;
 use App\Analytics\VisitsPerPostPerDay\VisitsPerPostPerDay;
 use App\Analytics\VisitsPerPostPerWeek\VisitsPerPostPerWeek;
 use App\Analytics\VisitsPerYear\VisitsPerYear;
+use App\Click\Click;
 use Tempest\DateTime\DateTime;
 use Tempest\Router\Get;
 use Tempest\Router\StaticPage;
@@ -156,6 +157,8 @@ final class AnalyticsController
             ->limit(8)
             ->all();
 
+        $clicks = Click::all();
+
         return view(
             'analytics.view.php',
             realtimeVisitCount: $this->realtimeVisitCount(),
@@ -168,6 +171,7 @@ final class AnalyticsController
             visitsPerYear: $visitsPerYear,
             popularPosts: $popularPosts,
             popularGettingStartedPages: $popularGettingStartedPages,
+            clicks: $clicks,
         );
     }
 

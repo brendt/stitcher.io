@@ -1,5 +1,7 @@
 ---
 title: The Standard Library
+meta:
+  title: "Learn about every built-in PHP feature"
 description: Explore PHP's standard library, built-in functions, extensions, arrays, strings, dates, JSON, file handling, and core runtime tools.
 image: meta/php/03-standard-lib.png
 ---
@@ -296,7 +298,7 @@ $data = json_decode($json);
 
 This chapter showed you an overview of some of the most common functionality in PHP, but there is so much more. The good thing about mastering a programming language is that you don't have to know all functionality by heart, you need to know how to find it. 
 
-So this chapter's exercise will be a little different: go online and find the PHP manual. Take a high-level overivew at all functionality available. Don't look at anything in-depth, rather just familiarize yourself with all the things PHP has to offer. 
+So this chapter's exercise will be a little different: go online and find the PHP manual. Take a high-level overview at all functionality available. Don't look at anything in-depth, rather just familiarize yourself with all the things PHP has to offer. 
 
 {{{
 Your starting point should be [https://www.php.net/manual/en/index.php](https://www.php.net/manual/en/index.php).

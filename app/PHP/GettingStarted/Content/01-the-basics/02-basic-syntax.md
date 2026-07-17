@@ -1,6 +1,8 @@
 ---
 title: Basic Syntax
-description: Learn the essentials of PHP syntax, including opening tags, variables, comments, strings, arrays, functions, classes, and type basics.
+meta:
+  title: PHP's syntax explained
+description: Learn the essentials of PHP syntax, including variables, type basics, comments, strings, arrays, functions, classes, and more.
 image: meta/php/02-basic-syntax.png
 ---
 

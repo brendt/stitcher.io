@@ -1,6 +1,8 @@
 ---
-title: Hello, PHP
-description: Install PHP, run your first script, use the built-in web server, and learn how modern PHP fits into web and command-line development.
+title: Getting started with PHP
+meta:
+  title: Learn PHP programming in 2026
+description: PHP is a general-purpose programming language with a focus on backend web development. It's powering big parts the modern web like Wikipedia and Slack
 image: meta/php/01-hello-php.png
 ---
 

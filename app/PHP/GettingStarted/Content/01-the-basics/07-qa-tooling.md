@@ -1,5 +1,7 @@
 ---
 title: QA Tooling
+meta:
+  title: How to use PHP debuggers, code formatters, and more
 description: Learn the PHP quality tools that keep projects reliable, including static analysis, code formatting, testing, debugging, and CI checks.
 image: meta/php/07-qa-tooling.png
 ---
@@ -16,9 +18,9 @@ I'd say all these tools are valid choices, and you should take a look at all of 
 
 Consistency is key, that's also true for code styling. Not worrying about how and where to place brackets and colons will help any team focus on the things that truly matter when coding.
 
-When it comes to ensuring consistent coding styles, there are a couple of options: [Pint](https://laravel.com/docs/13.x/pint) originated from Laravel, [PHP CS Fixer](https://github.com/php-cs-fixer/php-cs-fixer) originated from Symfony, is written in PHP, and has been around for years and years. The final alternative is [Mago](https://mago.carthage.software/). Mago actually aims to be a whole toolchain for PHP, doing analysis, formatting, and linting. We've already seen that Mago is written in Rust, and thus considerably faster than PHP CS Fixer.
+When it comes to ensuring consistent coding styles, there are a couple of options: [Pint](https://laravel.com/docs/13.x/pint) originated from Laravel, [PHP CS Fixer](https://github.com/php-cs-fixer/php-cs-fixer) originated from Symfony. Both tools are written in PHP. The alternative is [Mago](https://mago.carthage.software/). Mago actually aims to be a whole toolchain for PHP, doing analysis, formatting, and linting. We've already seen that Mago is written in Rust, and thus considerably faster than the others.
 
-Whichever tool you prefer, you still need to know about which coding standard to follow. For the longest time there was [PSR-12](https://www.php-fig.org/psr/psr-12/) (created by the same group that made the autoloading standard). A couple of years ago we got an update on PSR-12 called [PER Coding Style](https://www.php-fig.org/per/coding-style/). Both Mago and PHP CS Fixer come with presets for these two. 
+Whichever tool you prefer, you still need to know about which coding standard to follow. For the longest time there was [PSR-12](https://www.php-fig.org/psr/psr-12/) (created by the same group that made the autoloading standard). A couple of years ago we got an update on PSR-12 called [PER Coding Style](https://www.php-fig.org/per/coding-style/). Both Mago, Pint, and PHP CS Fixer come with presets for these two. 
 
 That being said, in this day and age coding style standards aren't as important anymore as they used to be: modern PHP projects pick a standard and enforce it during their CI process, ensuring all code ending up on team member's machines is styled consistently.
 
