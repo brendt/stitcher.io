@@ -8,14 +8,14 @@
                     <span class="text-xs text-gray-400 uppercase tracking-widest block mb-2">Sponsors</span>
 
                     <div class="flex gap-3 flex-wrap xl:flex-col">
-                        <x-sponsor href="https://ploi.io/?ref=stitcher.io">
+                        <x-sponsor href="/click/ploi">
                             Deploy your next server in a few clicks: <span class="underline group-hover:no-underline text-[#5b8bfb] font-bold">ploi.io</span>
                         </x-sponsor>
 
-<!--                        <x-sponsor :if="random_int(0, 1) === 1" href="https://tideways.com/profiler/profiling-tracing?utm_source=stitcherio&utm_campaign=stitcherio1">-->
+<!--                        <x-sponsor :if="random_int(0, 1) === 1" href="/click/tdw1">-->
 <!--                            Turn slow pages into fast fixes with <strong class="text-[#001f4d]">Tideways</strong> performance insights. <span class="underline group-hover:no-underline">Start trial →</span>-->
 <!--                        </x-sponsor>-->
-<!--                        <x-sponsor :else href="https://tideways.com/profiler/profiling-tracing?utm_source=stitcherio&utm_campaign=stitcherio1">-->
+<!--                        <x-sponsor :else href="/click/tdw2">-->
 <!--                            <strong class="text-[#001f4d]">Tideways</strong>: from slow request to root cause in minutes. <span class="underline group-hover:no-underline">Start trial →</span>-->
 <!--                        </x-sponsor>-->
                     </div>
