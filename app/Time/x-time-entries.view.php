@@ -9,6 +9,8 @@ $dayOfWeek = (int) date('N');
 $workDaysElapsed = min($dayOfWeek, 5);
 $expectedHours = $workDaysElapsed * ($targetHours / 5);
 
+/** @var \App\Time\WeekEntry[] $perWeek */
+/** @var \App\Time\WeekEntry|null $pastWeek */
 $currentWeek = null;
 $pastWeeks = [];
 foreach ($perWeek as $w) {

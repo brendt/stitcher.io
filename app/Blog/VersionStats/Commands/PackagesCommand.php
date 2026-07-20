@@ -9,6 +9,7 @@ use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\Duration;
+use Tempest\Http\Response;
 use Tempest\HttpClient\HttpClient;
 
 use function Tempest\Database\query;
@@ -40,11 +41,20 @@ final class PackagesCommand
                 expiration: Duration::minutes(10),
             );
 
-            arr(json_decode($payload->body, associative: true)['packages'])
+            if (! $payload instanceof Response || ! is_string($payload->body)) {
+                continue;
+            }
+
+            $decoded = json_decode($payload->body, associative: true, flags: JSON_THROW_ON_ERROR);
+            $packages = is_array($decoded) && isset($decoded['packages']) && is_array($decoded['packages'])
+                ? $decoded['packages']
+                : [];
+
+            arr($packages)
                 ->each(function (array $packageData) {
                     $name = $packageData['name'] ?? null;
 
-                    if (! $name) {
+                    if (! is_string($name) || $name === '') {
                         return null;
                     }
 
@@ -80,9 +90,21 @@ final class PackagesCommand
                 ->limit(1000)
                 ->all(),
         )
-            ->mapWithKeys(fn (array $row) => yield $row['minVersion'] => $row['amount']);
+            ->mapWithKeys(function (mixed $row) {
+                if (! is_array($row)) {
+                    return;
+                }
 
-        $this->success($data->encodeJson(true));
+                $minVersion = $row['minVersion'] ?? null;
+
+                if (! is_string($minVersion) || $minVersion === '') {
+                    return;
+                }
+
+                yield $minVersion => $row['amount'] ?? 0;
+            });
+
+        $this->success((string) $data->encodeJson(true));
     }
 
     /**
@@ -97,11 +119,19 @@ final class PackagesCommand
                 expiration: Duration::minutes(10),
             );
 
-            $packageData = arr(json_decode($payload->body, associative: true)['packages'][$package->name][0] ?? []);
+            if (! $payload instanceof Response || ! is_string($payload->body)) {
+                continue;
+            }
+
+            $decoded = json_decode($payload->body, associative: true, flags: JSON_THROW_ON_ERROR);
+            $rawPackageData = is_array($decoded)
+                ? $decoded['packages'][$package->name][0] ?? []
+                : [];
+            $packageData = arr(is_array($rawPackageData) ? $rawPackageData : []);
 
             $versionString = $packageData->get('require.php') ?? $packageData->get('require.php-64bit');
 
-            if (! $versionString) {
+            if (! is_string($versionString) || $versionString === '') {
                 // TODO
                 continue;
             }
@@ -114,7 +144,13 @@ final class PackagesCommand
 
             $package->versionString = $versionString;
             $package->minVersion = $minVersion;
-            $package->lastReleasedAt = DateTime::parse($packageData->get('time'));
+            $time = $packageData->get('time');
+
+            if (! is_string($time) || $time === '') {
+                continue;
+            }
+
+            $package->lastReleasedAt = DateTime::parse($time);
             $package->checkedAt = DateTime::now();
             $package->save();
 

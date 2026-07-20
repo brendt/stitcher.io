@@ -7,6 +7,7 @@ use App\Mail\Models\OutboxMail;
 use App\Mail\Models\Subscriber;
 use Tempest\Clock\Clock;
 use Tempest\CommandBus\CommandHandler;
+use Tempest\DateTime\DateTime;
 use Tempest\Markdown\Markdown;
 use Tempest\View\ViewRenderer;
 
@@ -26,6 +27,10 @@ final readonly class MailHandlers
     {
         $campaign = Campaign::get($command->campaignId);
 
+        if ($campaign === null) {
+            return;
+        }
+
         if ($campaign->processedAt) {
             return;
         }
@@ -44,7 +49,7 @@ final readonly class MailHandlers
         $parsed = $this->markdown->parse($content);
         $subject = $parsed->frontmatter['subject'] ?? $parsed->frontmatter['title'] ?? null;
 
-        if (! $subject) {
+        if (! is_string($subject) || $subject === '') {
             $campaign->update(
                 failedAt: $this->clock->now(),
                 log: "Missing subject in frontmatter: {$campaign->path}",
@@ -53,15 +58,19 @@ final readonly class MailHandlers
             return;
         }
 
+        $title = $parsed->frontmatter['title'] ?? pathinfo($campaign->path, PATHINFO_FILENAME);
+        $title = is_string($title) && $title !== '' ? $title : pathinfo($campaign->path, PATHINFO_FILENAME);
+        $pretext = $parsed->frontmatter['pretext'] ?? null;
+
         $html = $this->viewRenderer->render(view(
             __DIR__ . '/mail-export.view.php',
             mail: new Mail(
                 path: $campaign->path,
                 slug: $campaign->path,
-                title: $parsed->frontmatter['title'] ?? pathinfo($campaign->path, PATHINFO_FILENAME),
+                title: $title,
                 content: $parsed->html,
-                date: $this->clock->now(),
-                pretext: $parsed->frontmatter['pretext'] ?? null,
+                date: DateTime::parse($this->clock->now()->format('YYYY-MM-dd HH:mm:ss')),
+                pretext: is_string($pretext) ? $pretext : null,
             ),
         ));
 

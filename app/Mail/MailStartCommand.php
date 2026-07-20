@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Mail\Models\Campaign;
+use Tempest\Clock\Clock;
 use Tempest\CommandBus\CommandBus;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
@@ -15,6 +16,7 @@ final readonly class MailStartCommand
 
     public function __construct(
         private CommandBus $commandBus,
+        private Clock $clock,
     ) {}
 
     #[ConsoleCommand]
@@ -39,7 +41,12 @@ final readonly class MailStartCommand
             return;
         }
 
-        $this->commandBus->dispatch(new StartMailCampaign($path));
+        $campaign = Campaign::create(
+            path: $path,
+            startedAt: $this->clock->now(),
+        );
+
+        $this->commandBus->dispatch(new StartMailCampaign($campaign->id));
 
         $this->success('Mail campaign started');
     }

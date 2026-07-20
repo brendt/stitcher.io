@@ -4,10 +4,11 @@ use function Tempest\src_path;
 
 $version ??= null;
 
-if (! $version) {
+if (! is_string($version) || $version === '') {
     return;
 }
 
+/** @var array<string, array<string, float|string|null>> $source */
 $source = "Blog/VersionStats/Data/{$version}-version-stats.json"
     |> src_path(...)
     |> file_get_contents(...)
@@ -24,7 +25,7 @@ foreach ($source as $stats) {
     }
 }
 
-uksort($versions, version_compare(...));
+uksort($versions, static fn (string|int $a, string|int $b): int => version_compare((string) $a, (string) $b));
 
 $colorsByMajorVersion = [
     '5' => ['#D89086', '#C76F66', '#B4504B', '#963B39'],
@@ -56,7 +57,7 @@ foreach (array_values($versions) as $phpVersion) {
     foreach ($dates as $date) {
         $value = $source[$date][$phpVersion] ?? null;
 
-        if ($value === null || $value === '') {
+        if ($value === null || $value === '' || ! is_numeric($value)) {
             $values[] = null;
 
             continue;
@@ -89,7 +90,8 @@ $chartData = [
 ];
 
 $yAxisMax = ceil($maxUsagePercentage + 5);
-$chartId = 'version-stats-graph-' . preg_replace('/[^a-z0-9]+/i', '-', $version) . '-' . bin2hex(random_bytes(4));
+$chartVersion = preg_replace('/[^a-z0-9]+/i', '-', $version) ?? 'version';
+$chartId = 'version-stats-graph-' . $chartVersion . '-' . bin2hex(random_bytes(4));
 $chartDataJson = json_encode($chartData, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
 ?>
 

@@ -30,7 +30,9 @@ final class FeedController
     public function home(Authenticator $authenticator, Request $request): View
     {
         $query = $request->get('q', '');
+        $query = is_string($query) ? $query : '';
         $sort = $request->get('sort', 'recent');
+        $sort = is_string($sort) ? $sort : 'recent';
 
         $postQuery = Post::published()->limit(20);
 
@@ -126,7 +128,9 @@ final class FeedController
     public function search(Request $request): View
     {
         $query = $request->get('q', '');
+        $query = is_string($query) ? $query : '';
         $sort = $request->get('sort', 'recent');
+        $sort = is_string($sort) ? $sort : 'recent';
 
         $postQuery = Post::published()->limit(20);
 

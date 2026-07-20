@@ -4,12 +4,13 @@ use function Tempest\src_path;
 
 $version ??= null;
 
-if (! $version) {
+if (! is_string($version) || $version === '') {
     return;
 }
 
 $columnCount = 4;
 
+/** @var array<string, array<string, int|string|null>> $data */
 $data = "Blog/VersionStats/Data/{$version}-package-stats.json"
     |> src_path(...)
     |> file_get_contents(...)
@@ -27,7 +28,7 @@ foreach ($data as $month) {
     }
 }
 
-uksort($versions, version_compare(...));
+uksort($versions, static fn (string|int $a, string|int $b): int => version_compare((string) $a, (string) $b));
 
 $rows = [];
 $headers = array_keys($data);
