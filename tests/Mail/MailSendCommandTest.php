@@ -2,7 +2,7 @@
 
 namespace Tests\Mail;
 
-use App\Mail\Models\OutboxCampaign;
+use App\Mail\Models\Campaign;
 use App\Mail\Models\OutboxMail;
 use PHPUnit\Framework\Attributes\PreCondition;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,7 +31,7 @@ class MailSendCommandTest extends IntegrationTestCase
         $now = $this->clock()->now();
         $this->database->reset();
 
-        $campaign = factory(OutboxCampaign::class)->save();
+        $campaign = factory(Campaign::class)->save();
 
         factory(OutboxMail::class)
             ->with(campaign: $campaign)
@@ -56,7 +56,7 @@ class MailSendCommandTest extends IntegrationTestCase
     {
         $this->database->reset();
 
-        $campaign = factory(OutboxCampaign::class)->save();
+        $campaign = factory(Campaign::class)->save();
 
         factory(OutboxMail::class)
             ->with(
@@ -84,7 +84,7 @@ class MailSendCommandTest extends IntegrationTestCase
         $now = $this->clock()->now();
         $this->database->reset();
 
-        $campaign = factory(OutboxCampaign::class)->save();
+        $campaign = factory(Campaign::class)->save();
 
         factory(OutboxMail::class)
             ->with(campaign: $campaign)
@@ -115,7 +115,7 @@ class MailSendCommandTest extends IntegrationTestCase
         $now = $this->clock()->now();
         $this->database->reset();
 
-        $campaign = factory(OutboxCampaign::class)->save();
+        $campaign = factory(Campaign::class)->save();
 
         factory(OutboxMail::class)
             ->with(campaign: $campaign)

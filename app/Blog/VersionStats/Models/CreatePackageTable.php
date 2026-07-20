@@ -2,7 +2,6 @@
 
 namespace App\Blog\VersionStats\Models;
 
-use Tempest\Database\DatabaseMigration;
 use Tempest\Database\MigratesUp;
 use Tempest\Database\QueryStatement;
 use Tempest\Database\QueryStatements\CreateTableStatement;

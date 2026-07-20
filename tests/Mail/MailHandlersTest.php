@@ -3,7 +3,7 @@
 namespace Tests\Mail;
 
 use App\Mail\MailHandlers;
-use App\Mail\Models\OutboxCampaign;
+use App\Mail\Models\Campaign;
 use App\Mail\Models\OutboxMail;
 use App\Mail\Models\Subscriber;
 use App\Mail\StartMailCampaign;
@@ -43,7 +43,7 @@ final class MailHandlersTest extends IntegrationTestCase
 
         $this->assertSame(
             1,
-            query(OutboxCampaign::class)
+            query(Campaign::class)
                 ->count()
                 ->where('path', $path)
                 ->where('startedAt', $now)
@@ -87,7 +87,7 @@ final class MailHandlersTest extends IntegrationTestCase
 
         $this->assertSame(
             1,
-            query(OutboxCampaign::class)
+            query(Campaign::class)
                 ->count()
                 ->where('path', $path)
                 ->where('startedAt', $now)
@@ -112,7 +112,7 @@ final class MailHandlersTest extends IntegrationTestCase
 
         $this->assertSame(
             1,
-            query(OutboxCampaign::class)
+            query(Campaign::class)
                 ->count()
                 ->where('path', $path)
                 ->where('startedAt', $now)

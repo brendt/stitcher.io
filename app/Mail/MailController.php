@@ -64,7 +64,7 @@ final class MailController
     {
         query(Subscriber::class)
             ->update(
-                unsubscribedAt: DateTime::now()
+                unsubscribedAt: DateTime::now(),
             )
             ->where('uuid', $uuid)
             ->execute();

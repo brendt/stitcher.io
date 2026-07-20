@@ -2,13 +2,11 @@
 
 namespace App\Mail;
 
-use App\Mail\Models\OutboxCampaign;
+use App\Mail\Models\Campaign;
 use App\Mail\Models\OutboxMail;
 use App\Mail\Models\Subscriber;
 use Tempest\Clock\Clock;
-use Tempest\CommandBus\Async;
 use Tempest\CommandBus\CommandHandler;
-use Tempest\DateTime\DateTime;
 use Tempest\Markdown\Markdown;
 use Tempest\View\ViewRenderer;
 
@@ -26,14 +24,13 @@ final readonly class MailHandlers
     #[CommandHandler]
     public function onStartMailCampaign(StartMailCampaign $command): void
     {
-        if (OutboxCampaign::count()
+        if (Campaign::count()
             ->where('path', $command->path)
-            ->execute() > 0
-        ) {
+            ->execute() > 0) {
             return;
         }
 
-        $campaign = OutboxCampaign::create(
+        $campaign = Campaign::create(
             path: $command->path,
             startedAt: $this->clock->now(),
         );

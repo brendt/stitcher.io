@@ -9,7 +9,7 @@ final class OutboxMail
 {
     use IsDatabaseModel;
 
-    public OutboxCampaign $campaign;
+    public Campaign $campaign;
     public string $receiver;
     public string $subject;
     public string $content;

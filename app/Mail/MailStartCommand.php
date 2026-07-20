@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Mail\Models\OutboxCampaign;
+use App\Mail\Models\Campaign;
 use Tempest\CommandBus\CommandBus;
 use Tempest\Console\ConsoleCommand;
 use Tempest\Console\HasConsole;
@@ -28,7 +28,7 @@ final readonly class MailStartCommand
             return;
         }
 
-        $exists = query(OutboxCampaign::class)
+        $exists = query(Campaign::class)
             ->count()
             ->where('path', $path)
             ->execute() > 0;

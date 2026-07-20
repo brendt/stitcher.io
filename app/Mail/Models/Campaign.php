@@ -5,7 +5,7 @@ namespace App\Mail\Models;
 use Tempest\Database\IsDatabaseModel;
 use Tempest\DateTime\DateTime;
 
-final class OutboxCampaign
+final class Campaign
 {
     use IsDatabaseModel;
 

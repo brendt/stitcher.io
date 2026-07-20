@@ -23,6 +23,6 @@ final class CreateOutboxMailTable implements MigratesUp
             ->datetime('sentAt', nullable: true)
             ->datetime('failedAt', nullable: true)
             ->text('log', nullable: true, length: DatabaseTextLength::LONG)
-            ->belongsTo('outbox_mails.campaign_id', 'outbox_campaigns.id');
+            ->belongsTo('outbox_mails.campaign_id', 'campaigns.id');
     }
 }

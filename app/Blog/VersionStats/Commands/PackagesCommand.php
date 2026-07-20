@@ -10,6 +10,7 @@ use Tempest\Console\HasConsole;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\Duration;
 use Tempest\HttpClient\HttpClient;
+
 use function Tempest\Database\query;
 use function Tempest\Support\arr;
 use function Tempest\Support\str;
@@ -27,7 +28,7 @@ final class PackagesCommand
     public function fetch(): void
     {
         foreach (range(1, 10) as $page) {
-            $this->info("Fetching page $page");
+            $this->info("Fetching page {$page}");
 
             $payload = $this->cache->resolve(
                 key: 'packages' . $page,
@@ -70,13 +71,15 @@ final class PackagesCommand
     #[ConsoleCommand]
     public function store(): void
     {
-        $data = arr(query('packages')
-            ->select('minVersion, COUNT(*) as amount')
-            ->whereNotNull('minVersion')
-            ->groupBy('minVersion')
-            ->orderBy('minVersion')
-            ->limit(1000)
-            ->all())
+        $data = arr(
+            query('packages')
+                ->select('minVersion, COUNT(*) as amount')
+                ->whereNotNull('minVersion')
+                ->groupBy('minVersion')
+                ->orderBy('minVersion')
+                ->limit(1000)
+                ->all(),
+        )
             ->mapWithKeys(fn (array $row) => yield $row['minVersion'] => $row['amount']);
 
         $this->success($data->encodeJson(true));
@@ -103,7 +106,7 @@ final class PackagesCommand
                 continue;
             }
 
-            $minVersion = (new GetMinVersion)($versionString);
+            $minVersion = (new GetMinVersion())($versionString);
 
             if ($minVersion === null) {
                 return;

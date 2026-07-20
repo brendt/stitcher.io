@@ -2,7 +2,6 @@
 
 namespace App\Blog\VersionStats\Models;
 
-use Tempest\Database\Id;
 use Tempest\Database\IsDatabaseModel;
 use Tempest\Database\PrimaryKey;
 use Tempest\DateTime\DateTime;

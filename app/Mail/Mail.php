@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Mail\Models\OutboxCampaign;
+use App\Mail\Models\Campaign;
 use Tempest\DateTime\DateTime;
 
 use function Tempest\Database\query;
@@ -28,7 +28,7 @@ final class Mail
     }
 
     public bool $isSent {
-        get => query(OutboxCampaign::class)
+        get => query(Campaign::class)
             ->count()
             ->where('path', $this->path)
             ->execute() > 0;
