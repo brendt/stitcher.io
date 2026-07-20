@@ -1765,12 +1765,6 @@ message = 'Could not infer a precise return type for function `App\Dungeon\Tile:
 count = 1
 
 [[issues]]
-file = "app/Mail/MailPurgeCommand.php"
-code = "implicit-to-string-cast"
-message = 'Implicit conversion to `string` for left operand via `Tempest\Support\Str\ImmutableString::__toString()`.'
-count = 2
-
-[[issues]]
 file = "app/Mail/MailRepository.php"
 code = "invalid-argument"
 message = 'Invalid argument type for argument #1 of `Tempest\Cache\Cache::remove`: expected `Stringable|string`, but found `int`.'
@@ -1834,36 +1828,6 @@ count = 1
 file = "app/Support/AppSeeder.php"
 code = "unused-property"
 message = "Property `$repository` is never used."
-count = 1
-
-[[issues]]
-file = "app/Support/Authentication/AuthController.php"
-code = "less-specific-nested-argument-type"
-message = 'Argument type mismatch for argument #2 of `Tempest\Auth\OAuth\OAuthClient::authenticate`: expected `(closure(Tempest\Auth\OAuth\OAuthUser): Tempest\Auth\Authentication\Authenticatable)`, but provided type `(closure(Tempest\Auth\OAuth\OAuthUser): truthy-mixed)` is less specific.'
-count = 1
-
-[[issues]]
-file = "app/Support/Authentication/AuthController.php"
-code = "mixed-method-access"
-message = "Attempting to access a method on a non-object type (`truthy-mixed`)."
-count = 1
-
-[[issues]]
-file = "app/Support/Authentication/AuthController.php"
-code = "mixed-property-access"
-message = "Attempting to access a property on a non-object type (`truthy-mixed`)."
-count = 1
-
-[[issues]]
-file = "app/Support/Authentication/AuthController.php"
-code = "mixed-return-statement"
-message = "Could not infer a precise return type for function `{closure:app/Support/Authentication/AuthController.php:56:40}`. Saw type `truthy-mixed`."
-count = 1
-
-[[issues]]
-file = "app/Support/Authentication/AuthController.php"
-code = "template-constraint-violation"
-message = "Argument type mismatch for template `T`."
 count = 1
 
 [[issues]]
@@ -2032,24 +1996,6 @@ count = 1
 file = "app/Time/TimeEntry.php"
 code = "possibly-false-operand"
 message = "Left operand in arithmetic operation might be `false` (type `false|int`)."
-count = 1
-
-[[issues]]
-file = "app/Time/x-time-entries.view.php"
-code = "invalid-iterator"
-message = "The expression provided to `foreach` is not iterable. It resolved to type `mixed`, which is not iterable."
-count = 1
-
-[[issues]]
-file = "app/Time/x-time-entries.view.php"
-code = "mixed-property-access"
-message = "Attempting to access a property on a non-object type (`mixed`)."
-count = 1
-
-[[issues]]
-file = "app/Time/x-time-entries.view.php"
-code = "undefined-variable"
-message = "Undefined variable: `$perWeek`."
 count = 1
 
 [[issues]]

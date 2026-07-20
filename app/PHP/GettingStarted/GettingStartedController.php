@@ -10,7 +10,6 @@ use Tempest\Router\Prefix;
 use Tempest\Router\StaticPage;
 use Tempest\View\View;
 
-use function Tempest\Support\str;
 use function Tempest\View\view;
 
 #[Prefix('/php')]
@@ -23,7 +22,6 @@ final readonly class GettingStartedController
     #[Get('/')]
     public function index(): Response
     {
-        /** @var \App\PHP\GettingStarted\GettingStartedPage|null $first */
         $first = $this->repository->all()[0] ?? null;
 
         if (! $first) {

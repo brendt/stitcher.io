@@ -2,9 +2,7 @@
 
 namespace App\PHP\Support\Markdown;
 
-use App\Support\Markdown\SnippetRule;
 use Tempest\Markdown\Parser;
-use Tempest\Markdown\Rules\ParagraphRule;
 use Tempest\Markdown\Token;
 
 final readonly class SummaryToken implements Token

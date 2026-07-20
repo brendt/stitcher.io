@@ -9,6 +9,8 @@ $dayOfWeek = (int) date('N');
 $workDaysElapsed = min($dayOfWeek, 5);
 $expectedHours = $workDaysElapsed * ($targetHours / 5);
 
+/** @var \App\Time\WeekEntry[] $perWeek */
+/** @var \App\Time\WeekEntry|null $pastWeek */
 $currentWeek = null;
 $pastWeeks = [];
 foreach ($perWeek as $w) {
@@ -19,7 +21,7 @@ foreach ($perWeek as $w) {
     }
 }
 
-$currentHours = round(($currentWeek->totalHours ?? 0) + ($pastWeek?->overtimeHours ?? 0), 1);
+$currentHours = round(($currentWeek->totalHours ?? 0) + ($pastWeek->overtimeHours ?? 0), 1);
 $progressPct = min(100, ($currentHours / $targetHours) * 100);
 $hoursDiff = round(abs($currentHours - $expectedHours), 1);
 $isOnTrack = $currentHours >= $expectedHours;

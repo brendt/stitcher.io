@@ -30,14 +30,16 @@ final class FeedController
     public function home(Authenticator $authenticator, Request $request): View
     {
         $query = $request->get('q', '');
+        $query = is_string($query) ? $query : '';
         $sort = $request->get('sort', 'recent');
+        $sort = is_string($sort) ? $sort : 'recent';
 
         $postQuery = Post::published()->limit(20);
 
         $postQuery = match ($sort) {
             'recent' => $postQuery->orderBy('publicationDate DESC'),
             'oldest' => $postQuery->orderBy('publicationDate ASC'),
-            default  => $postQuery->orderBy('posts.visits DESC'),
+            default => $postQuery->orderBy('posts.visits DESC'),
         };
 
         if ($query !== '') {
@@ -126,14 +128,16 @@ final class FeedController
     public function search(Request $request): View
     {
         $query = $request->get('q', '');
+        $query = is_string($query) ? $query : '';
         $sort = $request->get('sort', 'recent');
+        $sort = is_string($sort) ? $sort : 'recent';
 
         $postQuery = Post::published()->limit(20);
 
         $postQuery = match ($sort) {
             'recent' => $postQuery->orderBy('publicationDate DESC'),
             'oldest' => $postQuery->orderBy('publicationDate ASC'),
-            default  => $postQuery->orderBy('posts.visits DESC'),
+            default => $postQuery->orderBy('posts.visits DESC'),
         };
 
         if ($query !== '') {

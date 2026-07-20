@@ -2,6 +2,7 @@
 
 namespace App\Support\Authentication;
 
+use League\OAuth2\Client\Token\AccessToken;
 use Tempest\Auth\Authentication\Authenticatable;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Auth\OAuth\OAuthClient;
@@ -53,19 +54,21 @@ final readonly class AuthController
             return $oauth->createRedirect();
         }
 
-        $oauth->authenticate($request, function (OAuthUser $oauthUser): Authenticatable {
+        $oauth->authenticate($request, function (OAuthUser $oauthUser, AccessToken $token): Authenticatable {
             $user = User::select()
                 ->where('email = ?', $oauthUser->email)
                 ->first();
 
-            if (! $user) {
+            $name = $oauthUser->name ?? $oauthUser->nickname ?? $oauthUser->email ?? 'Unknown';
+
+            if (! $user instanceof User) {
                 $user = User::create(
                     email: $oauthUser->email,
-                    name: $oauthUser->name ?? $oauthUser->nickname,
+                    name: $name,
                     role: Role::USER,
                 );
             } else {
-                $user->name = $oauthUser->name ?? $oauthUser->nickname;
+                $user->name = $name;
                 $user->save();
             }
 

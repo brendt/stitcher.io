@@ -4,10 +4,11 @@ use function Tempest\src_path;
 
 $version ??= null;
 
-if (! $version) {
+if (! is_string($version) || $version === '') {
     return;
 }
 
+/** @var array<string, array<string, int|string|null>> $source */
 $source = "Blog/VersionStats/Data/{$version}-package-stats.json"
     |> src_path(...)
     |> file_get_contents(...)
@@ -25,15 +26,21 @@ foreach ($dates as $date) {
 $years = array_slice(array_keys($latestDateByYear), -6);
 $latestYear = array_key_last($latestDateByYear);
 
-$versions = [];
-
-foreach ($source[$latestDateByYear[$latestYear]] as $phpVersion => $value) {
-    if ($value !== '') {
-        $versions[$phpVersion] = $phpVersion;
-    }
+if ($latestYear === null) {
+    return;
 }
 
-uksort($versions, version_compare(...));
+$versions = [];
+
+foreach ($source[$latestDateByYear[$latestYear]] ?? [] as $phpVersion => $value) {
+    if ($value === '') {
+        continue;
+    }
+
+    $versions[$phpVersion] = $phpVersion;
+}
+
+uksort($versions, static fn (string|int $a, string|int $b): int => version_compare((string) $a, (string) $b));
 $versions = array_reverse($versions);
 
 $colorsByMajorVersion = [
@@ -87,7 +94,8 @@ $chartData = [
     'datasets' => $datasets,
 ];
 
-$chartId = 'package-stats-usage-graph-' . preg_replace('/[^a-z0-9]+/i', '-', $version) . '-' . bin2hex(random_bytes(4));
+$chartVersion = preg_replace('/[^a-z0-9]+/i', '-', $version) ?? 'version';
+$chartId = 'package-stats-usage-graph-' . $chartVersion . '-' . bin2hex(random_bytes(4));
 $chartDataJson = json_encode($chartData, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
 ?>
 

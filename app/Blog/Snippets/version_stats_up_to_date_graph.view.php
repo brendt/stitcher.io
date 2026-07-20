@@ -4,10 +4,11 @@ use function Tempest\src_path;
 
 $version ??= null;
 
-if (! $version) {
+if (! is_string($version) || $version === '') {
     return;
 }
 
+/** @var array<string, array<string, float|string|null>> $source */
 $source = "Blog/VersionStats/Data/{$version}-up-to-date.json"
     |> src_path(...)
     |> file_get_contents(...)
@@ -22,18 +23,18 @@ $series = [
         'color' => '#3F8758',
         'values' => [],
     ],
-//    'packages' => [
-//        'label' => 'Packages with only supported PHP versions',
-//        'color' => '#527DB4',
-//        'values' => [],
-//    ],
+    //    'packages' => [
+    //        'label' => 'Packages with only supported PHP versions',
+    //        'color' => '#527DB4',
+    //        'values' => [],
+    //    ],
 ];
 
 foreach ($dates as $date) {
     foreach ($series as $key => $data) {
         $value = $source[$date][$key] ?? null;
 
-        if ($value === null || $value === '') {
+        if ($value === null || $value === '' || ! is_numeric($value)) {
             $series[$key]['values'][] = null;
 
             continue;

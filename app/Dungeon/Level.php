@@ -114,8 +114,7 @@ enum Level: int
         return match ($this) {
             self::NOOB => 0,
             self::NOVICE => 1,
-            self::MASTER => 2,
-            self::GRANDMASTER => 2,
+            self::MASTER, self::GRANDMASTER => 2,
             self::LEGENDARY => 3,
         };
     }

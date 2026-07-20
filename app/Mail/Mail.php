@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Mail\Models\Campaign;
 use Tempest\DateTime\DateTime;
 
 use function Tempest\Router\uri;
@@ -9,6 +10,7 @@ use function Tempest\Router\uri;
 final class Mail
 {
     public function __construct(
+        public string $path,
         public string $slug,
         public string $title,
         public string $content,
@@ -22,5 +24,19 @@ final class Mail
 
     public string $uri {
         get => uri([MailController::class, 'show'], slug: $this->slug);
+    }
+
+    public ?Campaign $campaign {
+        get {
+            $campaign = Campaign::select()
+                ->where('path', $this->path)
+                ->first();
+
+            if (! $campaign instanceof Campaign) {
+                return null;
+            }
+
+            return $campaign;
+        }
     }
 }

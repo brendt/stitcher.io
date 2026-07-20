@@ -14,12 +14,14 @@ final readonly class PackageStatsConvertCommand
     {
         $handle = fopen(__DIR__ . '/../Data/package-stats.csv', 'r');
 
+        /** @var array<int, string> $headers */
         $headers = [];
+        /** @var array<string, array<string, string>> $data */
         $data = [];
 
         while ($line = fgetcsv($handle)) {
             if ($line[0] === 'version') {
-                $headers = $line;
+                $headers = array_map(static fn (?string $header): string => $header ?? '', $line);
                 continue;
             }
 
@@ -27,7 +29,11 @@ final readonly class PackageStatsConvertCommand
 
             foreach ($line as $index => $value) {
                 if ($index === 0) {
-                    $version = $value;
+                    $version = is_string($value) ? $value : null;
+                    continue;
+                }
+
+                if ($version === null || ! isset($headers[$index]) || $headers[$index] === '' || ! is_string($value)) {
                     continue;
                 }
 

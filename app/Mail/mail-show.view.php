@@ -8,7 +8,7 @@ use function Tempest\Router\uri;
 
 <x-base>
     <x-container class="grid gap-4">
-        <x-menu />
+        <x-menu/>
         <x-article>
             <div>
                 <h1>{{ $mail->title }}</h1>
@@ -31,6 +31,8 @@ use function Tempest\Router\uri;
 
         <x-footer class="mt-4">
             <x-button :href="uri([MailController::class, 'overview'])">Back</x-button>
+
+            <x-mail-send :if="$user?->isAdmin" :mail="$mail" :campaign="$campaign" />
         </x-footer>
 
         <x-card>

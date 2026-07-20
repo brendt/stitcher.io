@@ -4,18 +4,19 @@ use function Tempest\src_path;
 
 $version ??= null;
 
-if (! $version) {
+if (! is_string($version) || $version === '') {
     return;
 }
 
 $columnCount = 4;
 $rowCount = 7;
 
+/** @var array<string, array<string, float|string|null>> $data */
 $data = "Blog/VersionStats/Data/{$version}-version-stats.json"
     |> src_path(...)
     |> file_get_contents(...)
-    |> (fn ($x) => json_decode($x, associative: true))
-    |> (fn ($x) => array_slice($x, -1 * $columnCount, $columnCount));
+    |> (fn ($x) => json_decode($x, associative: true, flags: JSON_THROW_ON_ERROR))
+    |> (fn ($x) => array_slice($x, -1 * $columnCount, $columnCount, preserve_keys: true));
 
 foreach ($data as $date => $month) {
     $data[$date] = array_slice($month, -1 * $rowCount, $rowCount);
