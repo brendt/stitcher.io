@@ -39,7 +39,12 @@ final class MailHandlersTest extends IntegrationTestCase
 
         $path = __DIR__ . '/2026-07-07-test.md';
 
-        $handlers->onStartMailCampaign(new StartMailCampaign($path));
+        $campaign = Campaign::create(
+            path: $path,
+            startedAt: $now,
+        );
+
+        $handlers->onStartMailCampaign(new StartMailCampaign($campaign->id));
 
         $this->assertSame(
             1,
@@ -83,7 +88,12 @@ final class MailHandlersTest extends IntegrationTestCase
 
         $path = 'invalid';
 
-        $handlers->onStartMailCampaign(new StartMailCampaign($path));
+        $campaign = Campaign::create(
+            path: $path,
+            startedAt: $now,
+        );
+
+        $handlers->onStartMailCampaign(new StartMailCampaign($campaign->id));
 
         $this->assertSame(
             1,
@@ -108,7 +118,12 @@ final class MailHandlersTest extends IntegrationTestCase
 
         $path = __DIR__ . '/2026-07-07-invalid.md';
 
-        $handlers->onStartMailCampaign(new StartMailCampaign($path));
+        $campaign = Campaign::create(
+            path: $path,
+            startedAt: $now,
+        );
+
+        $handlers->onStartMailCampaign(new StartMailCampaign($campaign->id));
 
         $this->assertSame(
             1,
