@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Mail\Models\OutboxCampaign;
 use App\Mail\Models\OutboxMail;
 use App\Mail\Models\Subscriber;
+use Tempest\Clock\Clock;
 use Tempest\CommandBus\Async;
 use Tempest\CommandBus\CommandHandler;
 use Tempest\DateTime\DateTime;
@@ -19,21 +20,29 @@ final readonly class MailHandlers
     public function __construct(
         private ViewRenderer $viewRenderer,
         private Markdown $markdown,
+        private Clock $clock,
     ) {}
 
     #[CommandHandler]
     public function onStartMailCampaign(StartMailCampaign $command): void
     {
+        if (OutboxCampaign::count()
+            ->where('path', $command->path)
+            ->execute() > 0
+        ) {
+            return;
+        }
+
         $campaign = OutboxCampaign::create(
             path: $command->path,
-            startedAt: DateTime::now(),
+            startedAt: $this->clock->now(),
         );
 
         $content = @file_get_contents($command->path);
 
         if ($content === false) {
             $campaign->update(
-                failedAt: DateTime::now(),
+                failedAt: $this->clock->now(),
                 log: "File not found: {$command->path}",
             );
 
@@ -45,7 +54,7 @@ final readonly class MailHandlers
 
         if (! $subject) {
             $campaign->update(
-                failedAt: DateTime::now(),
+                failedAt: $this->clock->now(),
                 log: "Missing subject in frontmatter: {$command->path}",
             );
 
@@ -59,7 +68,7 @@ final readonly class MailHandlers
                 slug: $command->path,
                 title: $parsed->frontmatter['title'] ?? pathinfo($command->path, PATHINFO_FILENAME),
                 content: $parsed->html,
-                date: DateTime::now(),
+                date: $this->clock->now(),
                 pretext: $parsed->frontmatter['pretext'] ?? null,
             ),
         ));
@@ -90,7 +99,7 @@ final readonly class MailHandlers
             );
 
         $campaign->update(
-            endedAt: DateTime::now(),
+            endedAt: $this->clock->now(),
         );
     }
 }

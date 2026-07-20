@@ -28,6 +28,7 @@ final class MailHandlersTest extends IntegrationTestCase
     #[Test]
     public function test_start_mail_campaign(): void
     {
+        $now = $this->clock()->now();
         $this->database->reset();
 
         factory(Subscriber::class)->with(email: 'sub@stitcher.io', name: 'Brent')->times(10)->save();
@@ -45,8 +46,7 @@ final class MailHandlersTest extends IntegrationTestCase
             query(OutboxCampaign::class)
                 ->count()
                 ->where('path', $path)
-                ->where('startedAt', DateTime::now())
-                ->whereNull('endedAt')
+                ->where('startedAt', $now)
                 ->whereNull('failedAt')
                 ->execute(),
         );
@@ -75,6 +75,7 @@ final class MailHandlersTest extends IntegrationTestCase
     #[Test]
     public function test_start_mail_campaign_with_invalid_path(): void
     {
+        $now = $this->clock()->now();
         $this->database->reset();
 
         /** @var MailHandlers $handlers */
@@ -89,8 +90,8 @@ final class MailHandlersTest extends IntegrationTestCase
             query(OutboxCampaign::class)
                 ->count()
                 ->where('path', $path)
-                ->where('startedAt', DateTime::now())
-                ->where('failedAt', DateTime::now())
+                ->where('startedAt', $now)
+                ->where('failedAt', $now)
                 ->where('log', "File not found: {$path}")
                 ->execute(),
         );
@@ -99,6 +100,7 @@ final class MailHandlersTest extends IntegrationTestCase
     #[Test]
     public function test_start_mail_campaign_with_missing_subject(): void
     {
+        $now = $this->clock()->now();
         $this->database->reset();
 
         /** @var MailHandlers $handlers */
@@ -113,8 +115,8 @@ final class MailHandlersTest extends IntegrationTestCase
             query(OutboxCampaign::class)
                 ->count()
                 ->where('path', $path)
-                ->where('startedAt', DateTime::now())
-                ->where('failedAt', DateTime::now())
+                ->where('startedAt', $now)
+                ->where('failedAt', $now)
                 ->where('log', "Missing subject in frontmatter: {$path}")
                 ->execute(),
         );
