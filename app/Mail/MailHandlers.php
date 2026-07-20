@@ -72,7 +72,7 @@ final readonly class MailHandlers
                     foreach ($subscribers as $subscriber) {
                         $unsubUri = uri([MailController::class, 'unsubscribe'], uuid: $subscriber->uuid);
 
-                        $html = str_replace(
+                        $personalizedHtml = str_replace(
                             ['{{ $subscriber }}', '::subscriber.first_name::', '{{ $unsubUri }}', '::unsubscribeUrl::'],
                             [$subscriber->name, $subscriber->name, $unsubUri, $unsubUri],
                             $html,
@@ -82,7 +82,7 @@ final readonly class MailHandlers
                             campaign: $campaign,
                             receiver: $subscriber->email,
                             subject: $subject,
-                            content: $html,
+                            content: $personalizedHtml,
                         );
                     }
                 },
