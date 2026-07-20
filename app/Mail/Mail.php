@@ -5,7 +5,6 @@ namespace App\Mail;
 use App\Mail\Models\Campaign;
 use Tempest\DateTime\DateTime;
 
-use function Tempest\Database\query;
 use function Tempest\Router\uri;
 
 final class Mail
@@ -27,10 +26,17 @@ final class Mail
         get => uri([MailController::class, 'show'], slug: $this->slug);
     }
 
-    public bool $isSent {
-        get => query(Campaign::class)
-            ->count()
-            ->where('path', $this->path)
-            ->execute() > 0;
+    public ?Campaign $campaign {
+        get {
+            $campaign = Campaign::select()
+                ->where('path', $this->path)
+                ->first();
+
+            if (! $campaign instanceof Campaign) {
+                return null;
+            }
+
+            return $campaign;
+        }
     }
 }

@@ -18,7 +18,7 @@ final class CreateCampaignTable implements MigratesUp
             ->primary()
             ->string('path')
             ->datetime('startedAt')
-            ->datetime('endedAt', nullable: true)
+            ->datetime('processedAt', nullable: true)
             ->datetime('failedAt', nullable: true)
             ->text('log', nullable: true, length: DatabaseTextLength::LONG);
     }

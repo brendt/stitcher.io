@@ -8,7 +8,7 @@ use function Tempest\Router\uri;
 
 <x-base>
     <x-container class="grid gap-4">
-        <x-menu />
+        <x-menu/>
         <x-article>
             <div>
                 <h1>{{ $mail->title }}</h1>
@@ -32,16 +32,7 @@ use function Tempest\Router\uri;
         <x-footer class="mt-4">
             <x-button :href="uri([MailController::class, 'overview'])">Back</x-button>
 
-            <button
-                :if="! $mail->isSent"
-                :hx-post="uri([MailController::class, 'send'], slug: $mail->slug)"
-                hx-confirm="Are you sure you want to send this mail?"
-                hx-on::after-request="if (event.detail.successful) { this.textContent = 'Sent!'; this.disabled = true; this.classList.remove('bg-primary'); this.classList.add('bg-green-600', 'cursor-not-allowed', 'no-underline'); }"
-                class="text-center bg-primary rounded-full text-white font-bold shadow-sm underline hover:no-underline hover:shadow-lg p-3 px-5 cursor-pointer"
-            >Send</button>
-            <span :else class="text-green-600 font-bold">
-                Sent!
-            </span>
+            <x-mail-send :if="$user?->isAdmin" :mail="$mail" :campaign="$campaign" />
         </x-footer>
 
         <x-card>

@@ -2,13 +2,15 @@
 
 namespace App\Mail;
 
+use App\Mail\Models\Campaign;
 use App\Mail\Models\Subscriber;
 use App\Support\Authentication\Admin;
+use Tempest\Auth\Authentication\Authenticator;
+use Tempest\Clock\Clock;
 use Tempest\CommandBus\CommandBus;
 use Tempest\DateTime\DateTime;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\NotFound;
-use Tempest\Http\Responses\Ok;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
@@ -38,11 +40,20 @@ final class MailController
 
     #[Get('/mail/archive/{slug}')]
     #[StaticPage(MailRepository::class)]
-    public function show(string $slug, MailRepository $repository): View
+    public function show(string $slug, Authenticator $authenticator, MailRepository $repository): Response|View
     {
         $mail = $repository->find($slug);
 
-        return view('mail-show.view.php', mail: $mail);
+        if (! $mail) {
+            return new NotFound();
+        }
+
+        return view(
+            'mail-show.view.php',
+            mail: $mail,
+            campaign: $mail->campaign,
+            user: $authenticator->current(),
+        );
     }
 
     #[Get('/mail/export/{slug}')]
@@ -73,7 +84,30 @@ final class MailController
     }
 
     #[Admin, Post('/mail/send/{slug}')]
-    public function send(string $slug, MailRepository $repository, CommandBus $commandBus): Response|View
+    public function send(
+        string $slug,
+        MailRepository $repository,
+        Clock $clock,
+        CommandBus $commandBus,
+    ): Response|View {
+        $mail = $repository->find($slug);
+
+        if (! $mail) {
+            return new NotFound();
+        }
+
+        $campaign = Campaign::create(
+            path: $mail->path,
+            startedAt: $clock->now(),
+        );
+
+        $commandBus->dispatch(new StartMailCampaign($campaign->id));
+
+        return view('x-mail-send.view.php', mail: $mail, campaign: $campaign);
+    }
+
+    #[Admin, Get('/mail/status/{slug}')]
+    public function status(string $slug, MailRepository $repository): Response|View
     {
         $mail = $repository->find($slug);
 
@@ -81,8 +115,6 @@ final class MailController
             return new NotFound();
         }
 
-        $commandBus->dispatch(new StartMailCampaign($mail->path));
-
-        return new Ok();
+        return view('x-mail-send.view.php', mail: $mail, campaign: $mail->campaign);
     }
 }

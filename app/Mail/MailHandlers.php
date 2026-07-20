@@ -24,23 +24,18 @@ final readonly class MailHandlers
     #[CommandHandler]
     public function onStartMailCampaign(StartMailCampaign $command): void
     {
-        if (Campaign::count()
-            ->where('path', $command->path)
-            ->execute() > 0) {
+        $campaign = Campaign::get($command->campaignId);
+
+        if ($campaign->processedAt) {
             return;
         }
 
-        $campaign = Campaign::create(
-            path: $command->path,
-            startedAt: $this->clock->now(),
-        );
-
-        $content = @file_get_contents($command->path);
+        $content = @file_get_contents($campaign->path);
 
         if ($content === false) {
             $campaign->update(
                 failedAt: $this->clock->now(),
-                log: "File not found: {$command->path}",
+                log: "File not found: {$campaign->path}",
             );
 
             return;
@@ -52,7 +47,7 @@ final readonly class MailHandlers
         if (! $subject) {
             $campaign->update(
                 failedAt: $this->clock->now(),
-                log: "Missing subject in frontmatter: {$command->path}",
+                log: "Missing subject in frontmatter: {$campaign->path}",
             );
 
             return;
@@ -61,9 +56,9 @@ final readonly class MailHandlers
         $html = $this->viewRenderer->render(view(
             __DIR__ . '/mail-export.view.php',
             mail: new Mail(
-                path: $command->path,
-                slug: $command->path,
-                title: $parsed->frontmatter['title'] ?? pathinfo($command->path, PATHINFO_FILENAME),
+                path: $campaign->path,
+                slug: $campaign->path,
+                title: $parsed->frontmatter['title'] ?? pathinfo($campaign->path, PATHINFO_FILENAME),
                 content: $parsed->html,
                 date: $this->clock->now(),
                 pretext: $parsed->frontmatter['pretext'] ?? null,
@@ -96,7 +91,7 @@ final readonly class MailHandlers
             );
 
         $campaign->update(
-            endedAt: $this->clock->now(),
+            processedAt: $this->clock->now(),
         );
     }
 }
