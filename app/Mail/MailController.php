@@ -9,6 +9,7 @@ use Tempest\DateTime\DateTime;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
+use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\Router\StaticPage;
@@ -52,8 +53,14 @@ final class MailController
         return view('mail-export.view.php', mail: $mail);
     }
 
-    #[Get('/mail/unsubscribe/{uuid}')]
-    public function unsubscribe(string $uuid): View
+    #[Get('/mail/unsubscribe/{?uuid}')]
+    public function unsubscribe(?string $uuid = null): View
+    {
+        return view('mail-unsubscribe.view.php', uuid: $uuid);
+    }
+
+    #[Post('/mail/unsubscribe/{uuid}')]
+    public function submitUnsubscribe(string $uuid): Redirect
     {
         query(Subscriber::class)
             ->update(
@@ -62,7 +69,7 @@ final class MailController
             ->where('uuid', $uuid)
             ->execute();
 
-        return view('mail-unsubscribe.view.php');
+        return new Redirect('/mail/unsubscribe');
     }
 
     #[Admin, Post('/mail/send/{slug}')]
