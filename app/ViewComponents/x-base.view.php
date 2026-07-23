@@ -95,7 +95,7 @@ $isLoggedIn = get(Authenticator::class)->current() !== null;
         <a class="underline hover:no-underline" href="/mail">Newsletter</a>
         <a class="underline hover:no-underline" href="https://tempestphp.com/discord">Discord</a>
 
-        <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
+        <span>&copy; {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
 
         <a :if="!$isLoggedIn" class="underline hover:no-underline" href="/login">Login</a>
         <a :else class="underline hover:no-underline" href="/logout">Logout</a>

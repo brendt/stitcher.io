@@ -10,8 +10,8 @@ use function Tempest\defer;
 final readonly class ClickController
 {
     private const array URIS = [
-        'tdw1' => 'https://tideways.com/profiler/profiling-tracing?utm_source=stitcherio&utm_campaign=stitcherio1',
-        'tdw2' => 'https://tideways.com/profiler/profiling-tracing?utm_source=stitcherio&utm_campaign=stitcherio1',
+        'tdw1' => 'https://tideways.com/?utm_medium=partner&utm_source=stitcherio&utm_campaign=speed-up-application-with-performance-insights',
+        'tdw2' => 'https://tideways.com/?utm_medium=partner&utm_source=stitcherio&utm_campaign=performance-insights-every-request',
         'ploi' => 'https://ploi.io/?ref=stitcher.io',
     ];
 

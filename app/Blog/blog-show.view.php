@@ -1,6 +1,6 @@
 <x-base :meta="$post->meta ?? null" :title="$post->title">
     <x-container class="grid gap-4">
-        <x-menu />
+        <x-menu/>
 
         <div class="relative">
             <div class="mb-4 xl:mb-0 xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:w-44 xl:h-full">
@@ -8,16 +8,25 @@
                     <span class="text-xs text-gray-400 uppercase tracking-widest block mb-2">Sponsors</span>
 
                     <div class="flex gap-3 flex-wrap xl:flex-col">
-                        <x-sponsor href="/click/ploi">
-                            Deploy your next server in a few clicks: <span class="underline group-hover:no-underline text-[#5b8bfb] font-bold">ploi.io</span>
-                        </x-sponsor>
+                        <?php
+                        $sponsors = [
+                                '/click/ploi' => 'Deploy your next server in a few clicks: <span class="underline group-hover:no-underline text-[#5b8bfb] font-bold">ploi.io</span>',
+                        ];
 
-<!--                        <x-sponsor :if="random_int(0, 1) === 1" href="/click/tdw1">-->
-<!--                            Turn slow pages into fast fixes with <strong class="text-[#001f4d]">Tideways</strong> performance insights. <span class="underline group-hover:no-underline">Start trial →</span>-->
-<!--                        </x-sponsor>-->
-<!--                        <x-sponsor :else href="/click/tdw2">-->
-<!--                            <strong class="text-[#001f4d]">Tideways</strong>: from slow request to root cause in minutes. <span class="underline group-hover:no-underline">Start trial →</span>-->
-<!--                        </x-sponsor>-->
+//                        if (random_int(0, 1) === 1) {
+//                            $sponsors['/click/tdw1'] = '<strong class="text-[#001f4d]">Tideways</strong>: Speed up your application with actionable performance insights. <span class="text-[#001f4d] font-bold underline group-hover:no-underline">Start trial →</span>';
+//                        } else {
+//                            $sponsors['/click/tdw2'] = '<strong class="text-[#001f4d]">Tideways</strong>: Performance insights for every request. <span class="text-[#001f4d] font-bold underline group-hover:no-underline">Start trial →</span>';
+//                        }
+
+                        shuffle($sponsors);
+                        ?>
+
+                        <x-template :foreach="$sponsors as $uri => $message">
+                            <x-sponsor :href="$uri" :message="$message">
+                                {!! $message !!}
+                            </x-sponsor>
+                        </x-template>
                     </div>
                 </div>
             </div>
@@ -45,7 +54,7 @@
 
         <x-card :post="$post">
             <h2 hx-trigger="load" :hx-get="'/blog/' . $post->slug . '/comments'" hx-target="#comments">Comments</h2>
-            <x-comments :post="$post" :initial="true" />
+            <x-comments :post="$post" :initial="true"/>
         </x-card>
     </x-container>
 </x-base>

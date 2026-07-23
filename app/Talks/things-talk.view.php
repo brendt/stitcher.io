@@ -103,7 +103,7 @@ $meta->canonical ??= null;
         <a href="/rss">RSS</a>
         <a href="/mail">Newsletter</a>
         <a href="https://tempestphp.com/discord">Discord</a>
-        <span>&copy {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
+        <span>&copy; {{ \Tempest\DateTime\DateTime::now()->format('YYYY') }} stitcher.io</span>
     </div>
 </div>
 
