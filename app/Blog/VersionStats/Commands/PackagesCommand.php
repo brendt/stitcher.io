@@ -28,7 +28,7 @@ final class PackagesCommand
     public function fetch(): void
     {
         foreach (range(1, 10) as $page) {
-            $this->info("Fetching page $page");
+            $this->info("Fetching page {$page}");
 
             $payload = $this->cache->resolve(
                 key: 'packages' . $page,

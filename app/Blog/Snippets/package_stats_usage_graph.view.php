@@ -28,9 +28,11 @@ $latestYear = array_key_last($latestDateByYear);
 $versions = [];
 
 foreach ($source[$latestDateByYear[$latestYear]] as $phpVersion => $value) {
-    if ($value !== '') {
-        $versions[$phpVersion] = $phpVersion;
+    if ($value === '') {
+        continue;
     }
+
+    $versions[$phpVersion] = $phpVersion;
 }
 
 uksort($versions, version_compare(...));
