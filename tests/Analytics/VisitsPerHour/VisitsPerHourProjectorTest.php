@@ -2,18 +2,25 @@
 
 namespace Tests\Analytics\VisitsPerHour;
 
-use App\Analytics\VisitsPerMinute\VisitsPerMinuteProjector;
-use PHPUnit\Framework\Attributes\Test;
+use App\Analytics\VisitsPerHour\VisitsPerHourProjector;
+use Tempest\Testing\Test;
+use Tempest\Testing\Testers\Console\TestsConsole;
+use Tempest\Testing\Testers\Database\TestsDatabase;
+use Tempest\Testing\Testers\HasContainer;
 use Tests\Analytics\TestsAnalytics;
-use Tests\IntegrationTestCase;
 
-class VisitsPerHourProjectorTest extends IntegrationTestCase
+class VisitsPerHourProjectorTest
 {
     use TestsAnalytics;
+    use TestsDatabase;
+    use TestsConsole;
+    use HasContainer;
 
     #[Test]
     public function events_are_persisted(): void
     {
+        $this->database->reset();
+
         $this->triggerVisit('2026-01-01 01:10:00');
 
         $this->database->assertTableHasRow(
@@ -41,11 +48,13 @@ class VisitsPerHourProjectorTest extends IntegrationTestCase
     #[Test]
     public function replay_test(): void
     {
+        $this->database->reset();
+
         $this->triggerVisit('2026-01-01 01:00:00');
         $this->triggerVisit('2026-01-01 01:00:00');
         $this->triggerVisit('2026-01-01 01:00:00');
 
-        $this->console->call(sprintf('replay "%s" --force', VisitsPerMinuteProjector::class))->assertSuccess();
+        $this->console->call(sprintf('replay "%s" --force', VisitsPerHourProjector::class))->succeeds();
 
         $this->database->assertTableHasRow(
             table: 'visits_per_hour',

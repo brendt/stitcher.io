@@ -3,17 +3,24 @@
 namespace Tests\Analytics\VisitsPerPostPerDay;
 
 use App\Analytics\VisitsPerPostPerDay\VisitsPerPostPerDayProjector;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
+use Tempest\Testing\Testers\Console\TestsConsole;
+use Tempest\Testing\Testers\Database\TestsDatabase;
+use Tempest\Testing\Testers\HasContainer;
 use Tests\Analytics\TestsAnalytics;
-use Tests\IntegrationTestCase;
 
-class VisitsPerPostPerDayProjectorTest extends IntegrationTestCase
+class VisitsPerPostPerDayProjectorTest
 {
     use TestsAnalytics;
+    use TestsDatabase;
+    use TestsConsole;
+    use HasContainer;
 
     #[Test]
     public function events_are_persisted(): void
     {
+        $this->database->reset();
+
         $this->triggerVisit('2026-01-05 10:00:00', '/a');
 
         $this->database->assertTableHasRow(
@@ -60,11 +67,13 @@ class VisitsPerPostPerDayProjectorTest extends IntegrationTestCase
     #[Test]
     public function replay_test(): void
     {
+        $this->database->reset();
+
         $this->triggerVisit('2026-01-10 10:00:00', '/a');
         $this->triggerVisit('2026-01-10 10:00:00', '/a');
         $this->triggerVisit('2026-01-10 10:00:00', '/b');
 
-        $this->console->call(sprintf('replay "%s" --force', VisitsPerPostPerDayProjector::class))->assertSuccess();
+        $this->console->call(sprintf('replay "%s" --force', VisitsPerPostPerDayProjector::class))->succeeds();
 
         $this->database->assertTableHasRow(
             table: 'visits_per_post_per_day',

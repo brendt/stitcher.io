@@ -2,18 +2,25 @@
 
 namespace Tests\Analytics\VisitsPerPostPerWeek;
 
-use App\Analytics\VisitsPerMonth\VisitsPerMonthProjector;
-use PHPUnit\Framework\Attributes\Test;
+use App\Analytics\VisitsPerPostPerWeek\VisitsPerPostPerWeekProjector;
+use Tempest\Testing\Test;
+use Tempest\Testing\Testers\Console\TestsConsole;
+use Tempest\Testing\Testers\Database\TestsDatabase;
+use Tempest\Testing\Testers\HasContainer;
 use Tests\Analytics\TestsAnalytics;
-use Tests\IntegrationTestCase;
 
-class VisitsPerPostPerWeekProjectorTest extends IntegrationTestCase
+class VisitsPerPostPerWeekProjectorTest
 {
     use TestsAnalytics;
+    use TestsDatabase;
+    use TestsConsole;
+    use HasContainer;
 
     #[Test]
     public function events_are_persisted(): void
     {
+        $this->database->reset();
+
         $this->triggerVisit('2026-01-06 ', '/a');
 
         $this->database->assertTableHasRow(
@@ -60,11 +67,13 @@ class VisitsPerPostPerWeekProjectorTest extends IntegrationTestCase
     #[Test]
     public function replay_test(): void
     {
+        $this->database->reset();
+
         $this->triggerVisit('2026-01-06 ', '/a');
         $this->triggerVisit('2026-01-06 ', '/a');
         $this->triggerVisit('2026-01-06 ', '/b');
 
-        $this->console->call(sprintf('replay "%s" --force', VisitsPerMonthProjector::class))->assertSuccess();
+        $this->console->call(sprintf('replay "%s" --force', VisitsPerPostPerWeekProjector::class))->succeeds();
 
         $this->database->assertTableHasRow(
             table: 'visits_per_post_per_week',
