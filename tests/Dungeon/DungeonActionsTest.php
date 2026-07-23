@@ -46,6 +46,7 @@ use App\Dungeon\Listeners\PlayerMovementListener;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
 use Tempest\Testing\Test;
+
 use function Tempest\Testing\test;
 
 final class DungeonActionsTest extends DungeonTest

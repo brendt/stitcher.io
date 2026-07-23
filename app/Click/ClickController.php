@@ -5,6 +5,7 @@ namespace App\Click;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Redirect;
 use Tempest\Router\Get;
+
 use function Tempest\defer;
 
 final readonly class ClickController

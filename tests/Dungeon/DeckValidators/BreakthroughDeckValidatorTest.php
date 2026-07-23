@@ -2,13 +2,13 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
-use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\BreakthroughMajor;
 use App\Dungeon\Cards\BreakthroughMinor;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\DeckValidators\BreakthroughDeckValidator;
-use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
+use Tempest\Testing\Test;
+use Tests\Dungeon\DungeonAssertions;
 
 final class BreakthroughDeckValidatorTest
 {

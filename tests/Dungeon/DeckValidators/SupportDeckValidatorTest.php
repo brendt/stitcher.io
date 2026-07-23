@@ -2,13 +2,13 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
-use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\Cards\SupportMajor;
 use App\Dungeon\Cards\SupportMinor;
 use App\Dungeon\DeckValidators\SupportDeckValidator;
-use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
+use Tempest\Testing\Test;
+use Tests\Dungeon\DungeonAssertions;
 
 final class SupportDeckValidatorTest
 {

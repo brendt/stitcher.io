@@ -2,14 +2,14 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
-use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\Cards\LocateHealthAltar;
 use App\Dungeon\Cards\LocateManaAltar;
 use App\Dungeon\Cards\LocateStabilityAltar;
 use App\Dungeon\DeckValidators\LocateDeckValidator;
-use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
+use Tempest\Testing\Test;
+use Tests\Dungeon\DungeonAssertions;
 
 final class LocateDeckValidatorTest
 {

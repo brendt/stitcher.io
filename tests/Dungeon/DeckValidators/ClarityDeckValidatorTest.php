@@ -2,12 +2,12 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
-use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\DeckValidators\ClarityDeckValidator;
-use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
+use Tempest\Testing\Test;
+use Tests\Dungeon\DungeonAssertions;
 
 final class ClarityDeckValidatorTest
 {

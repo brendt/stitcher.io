@@ -2,13 +2,13 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
-use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\Cards\RumbleMajor;
 use App\Dungeon\Cards\RumbleMinor;
 use App\Dungeon\DeckValidators\RumbleDeckValidator;
-use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
+use Tempest\Testing\Test;
+use Tests\Dungeon\DungeonAssertions;
 
 final class RumbleDeckValidatorTest
 {

@@ -2,14 +2,14 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
-use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\ChestplateMajorPermanent;
 use App\Dungeon\Cards\ChestplateMinorPermanent;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\Cards\ManaPerMovePermanent;
 use App\Dungeon\DeckValidators\PermanentCardDeckValidator;
-use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
+use Tempest\Testing\Test;
+use Tests\Dungeon\DungeonAssertions;
 
 final class PermanentCardDeckValidatorTest
 {

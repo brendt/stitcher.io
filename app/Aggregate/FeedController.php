@@ -37,7 +37,7 @@ final class FeedController
         $postQuery = match ($sort) {
             'recent' => $postQuery->orderBy('publicationDate DESC'),
             'oldest' => $postQuery->orderBy('publicationDate ASC'),
-            default  => $postQuery->orderBy('posts.visits DESC'),
+            default => $postQuery->orderBy('posts.visits DESC'),
         };
 
         if ($query !== '') {
@@ -133,7 +133,7 @@ final class FeedController
         $postQuery = match ($sort) {
             'recent' => $postQuery->orderBy('publicationDate DESC'),
             'oldest' => $postQuery->orderBy('publicationDate ASC'),
-            default  => $postQuery->orderBy('posts.visits DESC'),
+            default => $postQuery->orderBy('posts.visits DESC'),
         };
 
         if ($query !== '') {

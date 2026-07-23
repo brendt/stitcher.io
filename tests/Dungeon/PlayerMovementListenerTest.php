@@ -6,9 +6,9 @@ use App\Dungeon\Direction;
 use App\Dungeon\Events\RelicCollected;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
+use Tempest\Container\Container;
 use Tempest\Testing\Before;
 use Tempest\Testing\Test;
-use Tempest\Container\Container;
 
 final class PlayerMovementListenerTest extends DungeonTest
 {

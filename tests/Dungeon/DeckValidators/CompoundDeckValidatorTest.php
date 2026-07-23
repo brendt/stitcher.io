@@ -2,14 +2,14 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
-use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Card;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\DeckValidationFailed;
 use App\Dungeon\DeckValidator;
 use App\Dungeon\DeckValidators\CompoundDeckValidator;
-use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
+use Tempest\Testing\Test;
+use Tests\Dungeon\DungeonAssertions;
 
 final class CompoundDeckValidatorTest
 {

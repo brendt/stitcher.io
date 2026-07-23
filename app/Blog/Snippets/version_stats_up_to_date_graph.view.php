@@ -22,11 +22,11 @@ $series = [
         'color' => '#3F8758',
         'values' => [],
     ],
-//    'packages' => [
-//        'label' => 'Packages with only supported PHP versions',
-//        'color' => '#527DB4',
-//        'values' => [],
-//    ],
+    //    'packages' => [
+    //        'label' => 'Packages with only supported PHP versions',
+    //        'color' => '#527DB4',
+    //        'values' => [],
+    //    ],
 ];
 
 foreach ($dates as $date) {
