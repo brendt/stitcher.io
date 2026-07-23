@@ -1,13 +1,6 @@
 {
     "name": "tempest/app",
     "type": "project",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../tempest-testing",
-            "symlink": true
-        }
-    ],
     "require": {
         "php": "^8.5",
         "tempest/framework": "^3.11.2",
@@ -21,7 +14,6 @@
         "tempest/markdown": "^1.1.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.3.10",
         "symfony/var-dumper": "^7.3.3",
         "carthage-software/mago": "^1.30",
         "rector/rector": "^2.3",
@@ -50,7 +42,7 @@
         "fmt": "vendor/bin/mago fmt",
         "lint": "vendor/bin/mago lint --reporting-format=rich && vendor/bin/mago lint --fix --format-after-fix",
         "analyse": "vendor/bin/mago analyse --baseline=mago-baseline.toml",
-        "test": "vendor/bin/phpunit --display-warnings --display-skipped --display-deprecations --display-errors --display-notices",
+        "test": "tempest test",
         "qa": [
             "composer fmt",
             "composer lint",
@@ -60,7 +52,7 @@
         "github:lint": "vendor/bin/mago lint --potentially-unsafe --minimum-fail-level=note --reporting-format=github",
         "github:fmt": "vendor/bin/mago fmt --check",
         "github:analyse": "vendor/bin/mago analyse --baseline=mago-baseline.toml",
-        "github:test": "vendor/bin/phpunit"
+        "github:test": "tempest test --no-interaction"
     },
     "license": "MIT",
     "minimum-stability": "dev",
