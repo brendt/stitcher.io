@@ -15,7 +15,7 @@
     },
     "require-dev": {
         "symfony/var-dumper": "^7.3.3",
-        "carthage-software/mago": "^1.30",
+        "carthage-software/mago": "^1.40",
         "rector/rector": "^2.3",
         "tempest/testing": "dev-main"
     },
