@@ -1,6 +1,13 @@
 {
     "name": "tempest/app",
     "type": "project",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../tempest-testing",
+            "symlink": true
+        }
+    ],
     "require": {
         "php": "^8.5",
         "tempest/framework": "^3.11.2",
@@ -17,7 +24,8 @@
         "phpunit/phpunit": "^12.3.10",
         "symfony/var-dumper": "^7.3.3",
         "carthage-software/mago": "^1.30",
-        "rector/rector": "^2.3"
+        "rector/rector": "^2.3",
+        "tempest/testing": "dev-main"
     },
     "autoload": {
         "psr-4": {
