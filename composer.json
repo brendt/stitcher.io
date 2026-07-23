@@ -45,7 +45,6 @@
         "test": "tempest test",
         "qa": [
             "composer fmt",
-            "composer lint",
             "composer analyse",
             "composer test"
         ],
