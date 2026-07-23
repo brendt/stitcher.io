@@ -2,15 +2,15 @@
 
 namespace Tests\Dungeon\Cards;
 
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
+use function Tempest\Testing\test;
 
 final class SupportEpicTest extends DungeonTest
 {
     #[Test]
     public function interact_with_tile(): void
     {
-        // TODO: SupportEpic.interactWithTile() is not yet implemented
-        $this->markTestSkipped('SupportEpic is not yet implemented');
+        test()->skip('SupportEpic is not yet implemented');
     }
 }

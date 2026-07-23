@@ -7,7 +7,7 @@ use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\TileCoinsCollected;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class GreedTest extends DungeonTest

@@ -3,7 +3,7 @@
 namespace Tests\Dungeon\Cards;
 
 use App\Dungeon\Cards\VictoryPoint;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class VictoryPointTest extends DungeonTest

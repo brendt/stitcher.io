@@ -2,15 +2,15 @@
 
 namespace Tests\Dungeon\Cards;
 
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
+use function Tempest\Testing\test;
 
 final class LocateShardTest extends DungeonTest
 {
     #[Test]
     public function play(): void
     {
-        // TODO: LocateShard.play() is not yet implemented
-        $this->markTestSkipped('LocateShard is not yet implemented');
+        test()->skip('LocateShard.play() is not yet implemented');
     }
 }

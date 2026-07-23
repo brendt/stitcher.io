@@ -9,7 +9,7 @@ use App\Dungeon\Events\PlayerStabilityDecreased;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class RumbleMajorTest extends DungeonTest

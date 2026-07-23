@@ -6,7 +6,7 @@ use App\Dungeon\Cards\UpperHandMinor;
 use App\Dungeon\Events\DwellerDespawned;
 use App\Dungeon\Events\DwellerSpawned;
 use App\Dungeon\Point;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class UpperHandMinorTest extends DungeonTest

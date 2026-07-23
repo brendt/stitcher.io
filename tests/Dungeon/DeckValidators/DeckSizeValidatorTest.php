@@ -2,14 +2,16 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
+use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\DeckValidators\DeckSizeValidator;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
+use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
 
-final class DeckSizeValidatorTest extends TestCase
+final class DeckSizeValidatorTest
 {
+    use DungeonAssertions;
+
     #[Test]
     public function validate_returns_null_when_deck_has_fewer_than_20_cards(): void
     {

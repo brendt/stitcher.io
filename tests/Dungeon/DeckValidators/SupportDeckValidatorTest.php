@@ -2,16 +2,18 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
+use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\Cards\SupportMajor;
 use App\Dungeon\Cards\SupportMinor;
 use App\Dungeon\DeckValidators\SupportDeckValidator;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
+use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
 
-final class SupportDeckValidatorTest extends TestCase
+final class SupportDeckValidatorTest
 {
+    use DungeonAssertions;
+
     #[Test]
     public function validate_returns_null_for_non_support_card(): void
     {

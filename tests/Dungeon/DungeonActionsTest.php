@@ -45,7 +45,8 @@ use App\Dungeon\LakePoint;
 use App\Dungeon\Listeners\PlayerMovementListener;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
+use function Tempest\Testing\test;
 
 final class DungeonActionsTest extends DungeonTest
 {
@@ -828,8 +829,7 @@ final class DungeonActionsTest extends DungeonTest
     #[Test]
     public function play_card_does_nothing_when_active_slot_is_already_occupied(): void
     {
-        // TODO: requires a concrete active card implementation (Type::ACTIVE)
-        $this->markTestSkipped('Requires a concrete active card implementation');
+        test()->skip('Requires a concrete active card implementation');
     }
 
     // -------------------------------------------------------------------------
@@ -963,8 +963,7 @@ final class DungeonActionsTest extends DungeonTest
     #[Test]
     public function notify_cards(): void
     {
-        // TODO: requires a PassiveCard implementation and a DungeonEvent; verify handle() is called on active/passive/permanent cards
-        $this->markTestSkipped('Requires a PassiveCard implementation and a DungeonEvent');
+        test()->skip('Requires a PassiveCard implementation and a DungeonEvent');
     }
 
     // -------------------------------------------------------------------------
@@ -974,8 +973,7 @@ final class DungeonActionsTest extends DungeonTest
     #[Test]
     public function interact_with_tile(): void
     {
-        // TODO: requires a concrete ActiveCard implementation
-        $this->markTestSkipped('Requires a concrete active card implementation');
+        test()->skip('Requires a concrete active card implementation');
     }
 
     // -------------------------------------------------------------------------

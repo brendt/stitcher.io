@@ -9,7 +9,7 @@ use App\Dungeon\Events\PlayerHealthDecreased;
 use App\Dungeon\Events\PlayerHealthIncreased;
 use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Point;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class ProtectionMinorTest extends DungeonTest

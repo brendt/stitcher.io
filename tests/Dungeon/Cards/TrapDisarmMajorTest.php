@@ -8,7 +8,7 @@ use App\Dungeon\Events\CardUpdated;
 use App\Dungeon\Events\TileUpdated;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class TrapDisarmMajorTest extends DungeonTest

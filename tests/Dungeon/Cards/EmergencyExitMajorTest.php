@@ -4,7 +4,7 @@ namespace Tests\Dungeon\Cards;
 
 use App\Dungeon\Cards\EmergencyExitMajor;
 use App\Dungeon\Events\PlayerExited;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class EmergencyExitMajorTest extends DungeonTest

@@ -2,16 +2,18 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
+use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\BreakthroughMajor;
 use App\Dungeon\Cards\BreakthroughMinor;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\DeckValidators\BreakthroughDeckValidator;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
+use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
 
-final class BreakthroughDeckValidatorTest extends TestCase
+final class BreakthroughDeckValidatorTest
 {
+    use DungeonAssertions;
+
     #[Test]
     public function validate_returns_null_for_non_breakthrough_card(): void
     {

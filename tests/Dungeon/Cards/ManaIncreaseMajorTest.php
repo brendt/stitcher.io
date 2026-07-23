@@ -4,7 +4,7 @@ namespace Tests\Dungeon\Cards;
 
 use App\Dungeon\Cards\ManaIncreaseMajor;
 use App\Dungeon\Events\PlayerMaxManaIncreased;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class ManaIncreaseMajorTest extends DungeonTest

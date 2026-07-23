@@ -4,7 +4,7 @@ namespace Tests\Dungeon\Cards;
 
 use App\Dungeon\Cards\StabilityMajor;
 use App\Dungeon\Events\PlayerStabilityIncreased;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class StabilityMajorTest extends DungeonTest

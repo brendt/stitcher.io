@@ -5,7 +5,7 @@ namespace Tests\Dungeon\Cards;
 use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Events\PlayerStabilityIncreased;
 use App\Dungeon\Events\VisibilityChanged;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class ClarityTest extends DungeonTest

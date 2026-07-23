@@ -5,7 +5,7 @@ namespace Tests\Dungeon\Cards;
 use App\Dungeon\Cards\HealthIncreaseMinor;
 use App\Dungeon\Events\PlayerHealthIncreased;
 use App\Dungeon\Events\PlayerMaxHealthIncreased;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class HealthIncreaseMinorTest extends DungeonTest

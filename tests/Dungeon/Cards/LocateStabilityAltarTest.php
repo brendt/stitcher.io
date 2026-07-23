@@ -5,7 +5,7 @@ namespace Tests\Dungeon\Cards;
 use App\Dungeon\Cards\LocateStabilityAltar;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Point;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class LocateStabilityAltarTest extends DungeonTest

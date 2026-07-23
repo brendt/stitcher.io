@@ -2,17 +2,19 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
+use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Card;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\DeckValidationFailed;
 use App\Dungeon\DeckValidator;
 use App\Dungeon\DeckValidators\CompoundDeckValidator;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
+use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
 
-final class CompoundDeckValidatorTest extends TestCase
+final class CompoundDeckValidatorTest
 {
+    use DungeonAssertions;
+
     #[Test]
     public function validate_returns_null_when_all_validators_pass(): void
     {

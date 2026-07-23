@@ -2,15 +2,17 @@
 
 namespace Tests\Dungeon\DeckValidators;
 
+use Tests\Dungeon\DungeonAssertions;
 use App\Dungeon\Cards\Clarity;
 use App\Dungeon\Cards\HealMinor;
 use App\Dungeon\DeckValidators\ClarityDeckValidator;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
+use Tempest\Testing\Test;
 use Tempest\Support\Arr\ImmutableArray;
 
-final class ClarityDeckValidatorTest extends TestCase
+final class ClarityDeckValidatorTest
 {
+    use DungeonAssertions;
+
     #[Test]
     public function validate_returns_null_for_non_clarity_card(): void
     {

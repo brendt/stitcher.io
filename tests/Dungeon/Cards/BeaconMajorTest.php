@@ -11,7 +11,7 @@ use App\Dungeon\Events\PlayerMoved;
 use App\Dungeon\Events\TileGenerated;
 use App\Dungeon\Point;
 use App\Dungeon\Tile;
-use PHPUnit\Framework\Attributes\Test;
+use Tempest\Testing\Test;
 use Tests\Dungeon\DungeonTest;
 
 final class BeaconMajorTest extends DungeonTest
