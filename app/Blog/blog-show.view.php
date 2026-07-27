@@ -13,11 +13,11 @@
                             '/click/ploi' => 'Deploy your next server in a few clicks: <span class="underline group-hover:no-underline text-[#5b8bfb] font-bold">ploi.io</span>',
                         ];
 
-                        //                        if (random_int(0, 1) === 1) {
-                        //                            $sponsors['/click/tdw1'] = '<strong class="text-[#001f4d]">Tideways</strong>: Speed up your application with actionable performance insights. <span class="text-[#001f4d] font-bold underline group-hover:no-underline">Start trial →</span>';
-                        //                        } else {
-                        //                            $sponsors['/click/tdw2'] = '<strong class="text-[#001f4d]">Tideways</strong>: Performance insights for every request. <span class="text-[#001f4d] font-bold underline group-hover:no-underline">Start trial →</span>';
-                        //                        }
+//                                                if (random_int(0, 1) === 1) {
+//                                                    $sponsors['/click/tdw1'] = '<strong class="text-[#001f4d]">Tideways</strong>: Speed up your application with actionable performance insights. <span class="text-[#001f4d] font-bold underline group-hover:no-underline">Start trial →</span>';
+//                                                } else {
+//                                                    $sponsors['/click/tdw2'] = '<strong class="text-[#001f4d]">Tideways</strong>: Performance insights for every request. <span class="text-[#001f4d] font-bold underline group-hover:no-underline">Start trial →</span>';
+//                                                }
 
                         shuffle($sponsors);
                         ?>
