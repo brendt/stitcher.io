@@ -28,11 +28,11 @@ Every package in Rust can thus define its own edition, and different packages wi
 
 PHP doesn't hold on to backwards compatibility just for the sake of it. It does indeed bring stability to the ecosystem. PHP's backwards compatibility promise has made the language a reliable and trusted choice. For example, the recent [state of GitHub in 2025](https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/#what-changed-in-2025) shows that PHP has been a steady programming language for years:
 
-![](/img/blog/editions/octoverse-2025-top-programming-languages.webp)
+![](/img/blog/editions/octoverse-2025-top-programming-languages.png)
 
 Stability comes at a cost, though. It's getting increasingly difficult to evolve PHP and shape it into a more modern language. Expectations of a programming language in 2025 are different from those in 2000, and PHP is struggling to keep up. [JetBrains' recent dev ecosystem survey](https://blog.jetbrains.com/phpstorm/2025/10/state-of-php-2025/), for example, shows that a large portion of surveyed developers consider adopting languages like Go, Python, or Rust, alongside or instead of PHP. I don't think that in itself is bad: using different technologies for different tasks has its merits; but it also shows that there is room for PHP to grow. 
 
-![](/img/blog/editions/php-to-go.webp)
+![](/img/blog/editions/php-to-go.png)
 
 Here's a powerful insight that [Nikita Popov shared](https://externals.io/message/106453#106454) on the matter when he was still working on PHP:
  
