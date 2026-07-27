@@ -76,7 +76,6 @@
                 <x-chart :chart="$visitsPerYear" label="Visits" title="Visits per year"></x-chart>
             </div>
 
-
             <div class="w-full mx-auto grid md:grid-cols-2 xl:grid-cols-2 gap-8">
                 <x-analytics-card title="Clicks">
                     <div class="grid rounded overflow-hidden">
@@ -88,8 +87,8 @@
                                 :foreach="$clicks as $click"
                                 class="flex justify-between w-full px-3 py-1 bg-pastel"
                         >
-                            <span>{{ $click->uri }}</span>
-                            <span>{{ number_format($click->clicks) }}</span>
+                            <div class="break-all pr-8">{{ $click->uri }}</div>
+                            <div>{{ number_format($click->clicks) }}</div>
                         </div>
                     </div>
                 </x-analytics-card>
