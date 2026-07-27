@@ -23,7 +23,7 @@ final class WeekEntry
     }
 
     public float $overtimeHours {
-        get => $this->totalHours - self::TARGET_HOURS;
+        get => max(0, $this->totalHours - self::TARGET_HOURS);
     }
 
     public bool $isCurrent {
