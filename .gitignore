@@ -1,11 +1,11 @@
-.tempest
+/.*/
+!/.github/
 node_modules/
 vendor/
 /public/main.css
 /package-lock.json
 /.php-cs-fixer.cache
 .env
-.idea
 .phpunit.result.cache
 log/
 *.local.config.php
@@ -25,7 +25,6 @@ public/**/index.html
 last-id
 app/Mail/input
 app/Mail/output.sql
-/.claude/
 /app/Php/Docs/md/
 /app/Php/Docs/xml/
 

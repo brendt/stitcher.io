@@ -17,7 +17,11 @@
         "symfony/var-dumper": "^7.3.3",
         "carthage-software/mago": "^1.40",
         "rector/rector": "^2.3",
-        "tempest/testing": "dev-main"
+        "tempest/testing": "dev-main",
+        "testo/testo": "*",
+        "llm/skills": "^1.9",
+        "phpunit/phpunit": "^13.2",
+        "testo/bridge-rector": "^0.2.0"
     },
     "autoload": {
         "psr-4": {
@@ -26,7 +30,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Tests\\PHPUnit\\": "phpunit/",
+            "Tests\\Testo\\": "testo/"
         }
     },
     "scripts": {
@@ -43,6 +49,8 @@
         "lint": "vendor/bin/mago lint --reporting-format=rich && vendor/bin/mago lint --fix --format-after-fix",
         "analyse": "vendor/bin/mago analyse --baseline=mago-baseline.toml",
         "test": "tempest test",
+        "testo": "testo run",
+        "phpunit": "phpunit",
         "qa": [
             "composer fmt",
             "composer analyse",
@@ -60,7 +68,8 @@
         "allow-plugins": {
             "php-http/discovery": true,
             "carthage-software/mago": true,
-            "codewithkyrian/platform-package-installer": true
+            "codewithkyrian/platform-package-installer": true,
+            "llm/skills": true
         }
     }
 }
