@@ -19,7 +19,7 @@
                             $sponsors['/click/tdw2'] = '<strong class="text-[#001f4d]">Tideways</strong>: Performance insights for every request. <span class="text-[#001f4d] font-bold underline group-hover:no-underline">Start trial →</span>';
                         }
 
-                        uksort($sponsors, fn ($a, $b) => random_int(0, 1));
+                        uksort($sponsors, fn ($a, $b) => random_int(-1, 1));
                         ?>
 
                         <x-template :foreach="$sponsors as $uri => $message">
