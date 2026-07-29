@@ -3,14 +3,15 @@
         <x-menu/>
 
         <div class="relative">
-            <div class="mb-4 xl:mb-0 xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:w-44 xl:h-full">
+            <div class="mb-1 sm:mb-3 xl:mb-0 xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:w-44 xl:h-full">
                 <div class="xl:sticky xl:top-8">
                     <span class="text-xs text-gray-400 uppercase tracking-widest block mb-2">Sponsors</span>
 
-                    <div class="flex gap-3 flex-wrap xl:flex-col">
+                    <div class="flex gap-1 sm:gap-3 flex-wrap xl:flex-col">
                         <?php
                         $sponsors = [
                             '/click/ploi' => 'Deploy your next server in a few clicks: <span class="underline group-hover:no-underline text-[#5b8bfb] font-bold">ploi.io</span>',
+                            '/click/ohdear' => '<span class="text-[#ff3901] font-bold">Oh Dear</span>: Health checks, scheduled tasks, uptime and SSL — all checked every minute, in one dashboard. <span class="text-[#ff3901] font-bold underline group-hover:no-underline">Start monitoring →</span>'
                         ];
 
                         if (random_int(0, 1) === 1) {
