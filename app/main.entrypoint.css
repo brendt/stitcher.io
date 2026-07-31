@@ -15,16 +15,18 @@ pre {
     padding: 1em;
     font-size: 0.9rem;
     overflow-x: auto;
-    border-radius: 0.1em;
     line-height: 2em;
+    corner-shape: squircle;
+    border-radius: 1em;
 }
 
 code {
     font-size: 0.9em;
     background-color: var(--color-gray-100);
     padding: 3px 5px;
-    border-radius: 0.1em;
     word-break: break-word;
+    corner-shape: squircle;
+    border-radius: 1em;
 }
 
 pre code {
@@ -116,6 +118,8 @@ h2, h3, h4 {
 
 iframe {
     width: 100%;
+    corner-shape: squircle;
+    border-radius: 20px;
 }
 
 .table-container {
@@ -125,6 +129,7 @@ iframe {
 table {
     background-color: var(--color-pastel);
     border-radius: .5em;
+    corner-shape: squircle;
     width: 100%;
 
     & .table-head {
@@ -237,4 +242,19 @@ blockquote {
     & .during-request {
         display: inline-block;
     }
+}
+
+.squircle {
+    corner-shape: squircle;
+    border-radius: 90px;
+}
+
+.squircle-sm {
+    corner-shape: squircle;
+    border-radius: 20px;
+}
+
+.squircle-xs {
+    corner-shape: squircle;
+    border-radius: 10px;
 }

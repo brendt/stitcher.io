@@ -9,7 +9,7 @@ use function Tempest\Router\uri;
 <div id="feed-posts" class="grid gap-2">
     <div
             :foreach="$posts as $index => $post"
-            class="rounded-xs bg-white shadow-sm hover:shadow-lg flex items-center justify-between"
+            class="squircle-sm rounded-xs bg-white shadow-sm hover:shadow-lg flex items-center justify-between"
     >
         <div class="pl-4">
             <span class="text-md sm:text-xs p-1 px-2 rounded-sm {{ $color($post) }}">{{ $post->visits }}</span>

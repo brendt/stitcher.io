@@ -74,7 +74,7 @@ use function Tempest\Router\uri;
                     name="q"
                     placeholder="Search..."
                     :value="$q ?? ''"
-                    class="grow p-2 px-4 rounded-xs bg-white shadow-sm border-0 outline-none"
+                    class="squircle grow p-4 px-4 rounded-xs bg-white shadow-sm border-0 outline-none"
                     hx-get="/feed/search"
                     hx-trigger="input changed delay:300ms, search"
                     hx-target="#feed-posts"
@@ -84,7 +84,7 @@ use function Tempest\Router\uri;
             <div class="relative">
             <select
                     name="sort"
-                    class="appearance-none p-2 pl-4 pr-8 rounded-xs bg-white shadow-sm border-0 outline-none cursor-pointer"
+                    class="squircle appearance-none p-4 pl-4 pr-8 rounded-xs bg-white shadow-sm border-0 outline-none cursor-pointer"
                     hx-get="/feed/search"
                     hx-trigger="change"
                     hx-target="#feed-posts"
