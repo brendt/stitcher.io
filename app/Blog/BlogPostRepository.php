@@ -62,6 +62,7 @@ final class BlogPostRepository
                 author: $meta['author'] ?? null,
                 canonical: $meta['canonical'] ?? null,
             ),
+            showSections: $frontMatter['showSections'] ?? false,
         );
 
         $allPosts = $this->all();
@@ -126,6 +127,7 @@ final class BlogPostRepository
                         author: $meta['author'] ?? null,
                         canonical: $meta['canonical'] ?? null,
                     ),
+                    showSections: $frontMatter['showSections'] ?? false,
                 );
             })
             ->sortByCallback(fn (BlogPost $a, BlogPost $b) => $b->date <=> $a->date);

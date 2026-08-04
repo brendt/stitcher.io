@@ -76,6 +76,14 @@
     border-bottom: 2px dotted #f00;
 }
 
+.hl-dep,
+.hl-deprecated {
+    text-decoration: line-through;
+    text-decoration-color: #ff000055;
+    text-decoration-skip-ink: all;
+    text-decoration-thickness: 5px;
+}
+
 .hl-console-underline {
     text-decoration: underline;
 }

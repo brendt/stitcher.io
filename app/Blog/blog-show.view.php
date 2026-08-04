@@ -3,6 +3,15 @@
         <x-menu/>
 
         <div class="relative">
+            <div :if="$post->showSections" class="xl:absolute xl:right-full xl:top-0 xl:mr-6 xl:w-52 xl:h-full hidden xl:block">
+                <div class="xl:sticky xl:top-8">
+                    <span class="text-xs text-gray-400 uppercase tracking-widest block mb-2">In this post</span>
+
+                    <div class="squircle-sm grid gap-2 min-w-48 bg-white px-4 py-5 shadow-sm rounded-xs text-sm">
+                        <a :foreach="$post->sections as $uri => $title" :href="$uri" class="hover:underline decoration-primary decoration-2">{!! $title !!}</a>
+                    </div>
+                </div>
+            </div>
             <div class="mb-1 sm:mb-3 xl:mb-0 xl:absolute xl:left-full xl:top-0 xl:ml-6 xl:w-44 xl:h-full">
                 <div class="xl:sticky xl:top-8">
                     <span class="text-xs text-gray-400 uppercase tracking-widest block mb-2">Sponsors</span>
