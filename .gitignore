@@ -20,6 +20,7 @@ public/**/meta.png
 !public/meta/meta_small.png
 !public/meta/meta_lg.png
 !public/meta/php
+!public/meta/blog
 public/**/index.html
 .transformers-cache
 last-id
