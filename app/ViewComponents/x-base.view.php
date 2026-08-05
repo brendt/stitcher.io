@@ -33,8 +33,8 @@ $isLoggedIn = get(Authenticator::class)->current() !== null;
 <html lang="en" class="h-dvh flex flex-col md:p-4 bg-gray-100" :class="$isProduction ? 'sm:bg-primary' : 'sm:bg-green-600'">
 <head>
     <!-- General -->
-    <title :if="$title">{{ $title }} | Stitcher.io</title>
-    <title :else>Stitcher.io</title>
+    <title :if="$title">{{ $title }} | stitcher.io</title>
+    <title :else>stitcher.io</title>
     <meta charset="UTF-8"/>
 
     <!-- Favicon -->

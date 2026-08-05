@@ -20,6 +20,7 @@ foreach ($perWeek as $w) {
 }
 
 $currentHours = round(($currentWeek->totalHours ?? 0) + ($pastWeek->overtimeHours ?? 0), 1);
+$hoursLeft = $targetHours - $currentHours;
 $progressPct = min(100, ($currentHours / $targetHours) * 100);
 $hoursDiff = round(abs($currentHours - $expectedHours), 1);
 $isOnTrack = $currentHours >= $expectedHours;
@@ -59,11 +60,12 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-baseline gap-1.5">
                         <span class="text-3xl font-bold tabular-nums">{{ $currentHours }}</span>
-                        <span class="text-gray-400">/ {{ $targetHours }}h</span>
+                        <span class="text-gray-400">{{ $targetHours }}h</span>
                     </div>
                     <div class="flex items-baseline gap-1.5">
-                        <span :if="$pastWeek?->overtimeHours" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-100 text-green-700">
-                            {{ $pastWeek->overtimeHours }} overtime
+                        <span class="text-xs font-semibold px-2.5 bg-blue-100 text-blue-900 py-1 rounded-full">{{ $hoursLeft }}h left</span>
+                        <span :if="$pastWeek?->overtimeHours" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
+                            {{ $pastWeek->overtimeHours }} overtime taken
                         </span>
                         <span class="text-xs font-semibold px-2.5 py-1 rounded-full {{ $statusColor }}">
                         {{ $statusLabel }}
