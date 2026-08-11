@@ -30,8 +30,6 @@ $dayMarkers = array_map(
     [20, 40, 60, 80],
 );
 $onTrackThreshold = $targetHours / 5;
-$statusLabel = $isOnTrack || $hoursDiff < $onTrackThreshold ? 'On track' : "-{$hoursDiff}h behind";
-$statusColor = $isOnTrack || $hoursDiff < $onTrackThreshold ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700';
 $barColor = $isOnTrack ? 'bg-green-500' : 'bg-orange-400';
 $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:mm');
 ?>
@@ -65,11 +63,8 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
                     <div class="flex items-baseline gap-1.5">
                         <span class="text-xs font-semibold px-2.5 bg-blue-100 text-blue-900 py-1 rounded-full">{{ $hoursLeft }}h left</span>
                         <span :if="$pastWeek?->overtimeHours" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
-                            {{ $pastWeek->overtimeHours }} overtime taken
+                            {{ $pastWeek->overtimeHours }}h overtime
                         </span>
-                        <span class="text-xs font-semibold px-2.5 py-1 rounded-full {{ $statusColor }}">
-                        {{ $statusLabel }}
-                    </span>
                     </div>
                 </div>
 
