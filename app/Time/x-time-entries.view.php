@@ -87,7 +87,7 @@ $todayPrefill = DateTime::now(Timezone::EUROPE_BRUSSELS)->format('yyyy-MM-dd HH:
             </div>
 
             {{-- This week's entries --}}
-            <div :if="$currentWeek" class="border-t border-gray-100 divide-y divide-gray-50">
+            <div :if="$currentWeek" class="border-t border-gray-100 divide-y divide-gray-50 max-h-[50vh] overflow-y-auto">
                 <details
                     :foreach="$currentWeek->timeEntries as $timeEntry"
                     class="group"
