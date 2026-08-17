@@ -90,6 +90,11 @@ $meta->canonical ??= null;
         <li>
             <a href="https://www.anthropic.com/research/AI-assistance-coding-skills">How AI assistance impacts the formation of coding skills</a> — a study by Anthropic.
         </li>
+        <li>
+            <a href="https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260817~754a8a4418.en.html">
+                The AI boom: rational enthusiasm or the next dot-com bubble?
+            </a> — a blog post by the European Central Bank.
+        </li>
     </ul>
 </div>
 
