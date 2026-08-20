@@ -1,0 +1,7 @@
+I don't know about you, but summer holidays are always a bit chaotic for me with the kids being home from school for two months. This might not be the same for you, but I'm pretty bad at context switching — and you can imagine how working from home during the summer break requires more context-switching than usual. I was reminded of two years ago when [I came pretty close to burning out](https://stitcher.io/blog/twitter-exit), and delibirately had to take some time to recharge.
+
+Luckily I've learned from that prior experience, and I'm now much more aware of guarding my own boundaries. Still, it's probably a good time to remind myself (and maybe you?) of the most important lesson I learned back then: amidst all the chaos, please find something that gives you joy. Joy alone doesn't pay the bills, I know that, but taking care of your own well-being is just so — so important. Maybe this message isn't for you, but I'm fairly certain there are some readers here who need that reminder. I know I need it often enough.
+
+Personally, I've found tremendous joy lately in revisiting an old passion of mine: RuneScape; and making some content about it (I just can't help it 😅) I figure I might as well share it with you, even though it's not programming related at all: [https://www.youtube.com/watch?v=R0-m0Z4mRZw](https://www.youtube.com/watch?v=R0-m0Z4mRZw).
+
+That being said, if you have the need to share about how you're doing during the summer break, don't hesitate to [send me an email](mailto:brendt@stitcher.io)!
