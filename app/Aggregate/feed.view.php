@@ -82,7 +82,7 @@ use function Tempest\Router\uri;
                     hx-include="#search-controls"
             />
             <div class="relative">
-            <select
+                <select
                     name="sort"
                     class="squircle appearance-none p-4 pl-4 pr-8 rounded-xs bg-white shadow-sm border-0 outline-none cursor-pointer"
                     hx-get="/feed/search"
@@ -91,10 +91,12 @@ use function Tempest\Router\uri;
                     hx-swap="outerHTML"
                     hx-include="#search-controls"
             >
-                <option value="top" :selected="($sort ?? 'recent') === 'top'">Top</option>
-                <option value="recent" :selected="($sort ?? 'recent') === 'recent'">Most recent</option>
-                <option value="oldest" :selected="($sort ?? 'recent') === 'oldest'">Oldest</option>
-            </select>
+                    <option value="recent" :selected="($sort ?? 'recent') === 'recent'">Most recent</option>
+                    <option value="top_month" :selected="($sort ?? 'recent') === 'top_month'">Top this month</option>
+                    <option value="top_year" :selected="($sort ?? 'recent') === 'top_year'">Top this year</option>
+                    <option value="oldest" :selected="($sort ?? 'recent') === 'oldest'">Oldest</option>
+                    <option value="top" :selected="($sort ?? 'recent') === 'top'">Top all time</option>
+                </select>
             <x-icon name="lucide:chevron-down" class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
             </div>
         </div>

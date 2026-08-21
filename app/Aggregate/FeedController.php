@@ -8,6 +8,7 @@ use App\Support\Authentication\User;
 use Closure;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Cache\Cache;
+use Tempest\Database\Builder\QueryBuilders\SelectQueryBuilder;
 use Tempest\DateTime\DateTime;
 use Tempest\DateTime\FormatPattern;
 use Tempest\Http\Request;
@@ -32,13 +33,7 @@ final class FeedController
         $query = $request->get('q', '');
         $sort = $request->get('sort', 'recent');
 
-        $postQuery = Post::published()->limit(20);
-
-        $postQuery = match ($sort) {
-            'recent' => $postQuery->orderBy('publicationDate DESC'),
-            'oldest' => $postQuery->orderBy('publicationDate ASC'),
-            default => $postQuery->orderBy('posts.visits DESC'),
-        };
+        $postQuery = $this->sortPosts(Post::published()->limit(20), $sort);
 
         if ($query !== '') {
             $postQuery = $postQuery
@@ -128,13 +123,7 @@ final class FeedController
         $query = $request->get('q', '');
         $sort = $request->get('sort', 'recent');
 
-        $postQuery = Post::published()->limit(20);
-
-        $postQuery = match ($sort) {
-            'recent' => $postQuery->orderBy('publicationDate DESC'),
-            'oldest' => $postQuery->orderBy('publicationDate ASC'),
-            default => $postQuery->orderBy('posts.visits DESC'),
-        };
+        $postQuery = $this->sortPosts(Post::published()->limit(20), $sort);
 
         if ($query !== '') {
             $postQuery = $postQuery
@@ -159,6 +148,25 @@ final class FeedController
             ->mapWithKeys(fn (Post $post, int $index) => yield $post->id->value => $index);
 
         return fn (Post $post) => $this->color($postRating[$post->id->value] ?? null);
+    }
+
+    /**
+     * @param SelectQueryBuilder<Post> $postQuery
+     * @return SelectQueryBuilder<Post>
+     */
+    private function sortPosts(SelectQueryBuilder $postQuery, string $sort): SelectQueryBuilder
+    {
+        $postQuery = match ($sort) {
+            'recent' => $postQuery->orderBy('publicationDate DESC'),
+            'oldest' => $postQuery->orderBy('publicationDate ASC'),
+            default => $postQuery->orderBy('posts.visits DESC'),
+        };
+
+        return match ($sort) {
+            'top_month' => $postQuery->whereRaw('publicationDate >= NOW() - INTERVAL 1 MONTH'),
+            'top_year' => $postQuery->whereRaw('publicationDate >= NOW() - INTERVAL 1 YEAR'),
+            default => $postQuery,
+        };
     }
 
     public function color(?int $index): string
