@@ -6,7 +6,7 @@ Ask AI to write something in a language I're familiar with, and… well I'm neve
 
 Ask AI to write something in a language I don't know, and… my mind is blown 🤯. "How can it possibly be that something _I_ don't understand, AI does so flawlessly??"
 
-Now, taking that first experience into account, how big do you think the chances are that AI just happens to be a master in a technology I don't know, while it was average in a technology I do know?
+Now, taking that first experience into account, how big do you think the chances are that AI just _happens_ to be a master in a technology I don't know, while it was average in a technology I do know?
 
 Or… could it be that the quality of both contexts is the same, but _I_ simply am more impressed by one of them because _my_ understanding of that second context is much more limited? It's like a magic trick that's impressive as long as you don't know how it works.
 
