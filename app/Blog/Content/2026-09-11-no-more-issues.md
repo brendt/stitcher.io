@@ -2,7 +2,7 @@
 title: No more issues
 ---
 
-An interesting change at Laravel yesterday: they disabled the ability to create issues on a number of repositories and instead encourage people to create pull-requests instead:
+An [interesting change at Laravel](https://x.com/taylorotwell/status/2095516796748996843) yesterday: they disabled the ability to create issues on a number of repositories and instead encourage people to create pull-requests instead:
 
 ![](/img/blog/issues/1.png)
 
