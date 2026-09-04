@@ -11,7 +11,8 @@
         "codewithkyrian/transformers": "^0.6.2",
         "predis/predis": "^3.4",
         "spatie/yaml-front-matter": "^2.1",
-        "tempest/markdown": "^1.2"
+        "tempest/markdown": "^1.2",
+        "ext-gd": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^7.3.3",

@@ -40,7 +40,7 @@ final class BlogPostRepository
 
         unset($frontMatter['meta'], $frontMatter['next']);
 
-        $metaImage = $meta['image'] ?? uri('/meta/meta_lg.png');
+        $metaImage = $meta['image'] ?? uri("/blog/{$slug}/meta.png");
 
         if (! str_starts_with($metaImage, 'http')) {
             if (! str_starts_with($metaImage, '/')) {
