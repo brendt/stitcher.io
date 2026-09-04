@@ -26,7 +26,7 @@ The main problem I see with "PR spam" isn't necessarily the number of PRs, but r
 
 ## We're in this together
 
-One good thing I think this change highlights, is that we're in this together. Open source isn't about just dumping an issue an expect someone else to fix it. You're encouraged to contribute, and without contributions, most open source projects would fail.
+One good thing I think this change highlights, is that we're in this together. Open source isn't about just dumping an issue and expect someone else to fix it. You're encouraged to contribute, and without contributions, most open source projects would fail.
 
 That being said. Laravel isn't really an open source company anymore. They are selling products and services to an ecosystem that originated from open source. From a business point of view, with a team working full-time on open source, the change seems odd.
 
