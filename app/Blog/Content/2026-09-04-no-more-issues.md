@@ -44,7 +44,7 @@ Finally, there's the point of inclusivity (related to AI, that is). Now, I don't
 
 Although, that argument also goes the other way: there are still many people not using AI, some limited by financial means, others rejecting AI on ethical concerns; and indeed: the investment in sending a PR without AI might be too big to people who'd have no problem submitting an issue.
 
-There's also the matter of programmer exprience. Because in the end, LLM-generated code still needs an experienced human eye to review. [Taylor even says that himself](https://github.com/laravel/vapor-cli/pull/285):
+There's also the matter of programmer experience. Because in the end, LLM-generated code still needs an experienced human eye to review. [Taylor even says that himself](https://github.com/laravel/vapor-cli/pull/285):
 
 ![](/img/blog/issues/2.png)
 
