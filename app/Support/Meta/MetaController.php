@@ -55,7 +55,7 @@ final readonly class MetaController
         imagesavealpha($image, true);
 
         $fontPath = path($this->kernel->root, 'public/fonts/MonaspaceArgon-Bold.woff')->toString();
-        $fontSize = 50;
+        $fontSize = 80;
         $maxWidth = 980;
 
         do {
@@ -66,7 +66,7 @@ final readonly class MetaController
         $fontSize += 4;
         $lineHeight = $fontSize + 40;
         $top = (int) round((imagesy($image) - count($lines) * $lineHeight) / 2);
-        $color = imagecolorallocate($image, 19, 25, 46);
+        $color = imagecolorallocate($image, 255, 255, 255);
 
         foreach ($lines as $index => $line) {
             $box = $this->textBox($line, $fontPath, $fontSize);
