@@ -1,5 +1,5 @@
 ---
-title: Artifical Debt
+title: Artificial Debt
 ---
 
 It's eigth in the evening, the kids are asleep and I'm watching a crime series with my wife. Suddenly, my phone rings. It's my cousin. 
