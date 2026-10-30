@@ -5,9 +5,12 @@ namespace App\Todo;
 use App\Support\Authentication\Admin;
 use App\Support\Authentication\User;
 use Tempest\Auth\Authentication\Authenticator;
+use Tempest\DateTime\DateTime;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\NotFound;
+use Tempest\Http\Responses\Ok;
 use Tempest\Router\Get;
+use Tempest\Router\Post;
 use Tempest\Router\Prefix;
 use Tempest\View\View;
 
@@ -33,14 +36,50 @@ final readonly class TodoController
         return $this->render($workspaceId);
     }
 
+    #[Post('/projects/{projectId}/complete')]
+    public function completeProject(int $projectId): Response
+    {
+        /** @var Project|null $project */
+        $project = Project::select()
+            ->where('projects.id = ?', $projectId)
+            ->where('projects.workspace_id IN (SELECT workspaces.id FROM workspaces WHERE workspaces.user_id = ?)', $this->user()->id->value)
+            ->first();
+
+        if (! $project) {
+            return new NotFound();
+        }
+
+        $project->update(completedAt: DateTime::now());
+
+        return new Ok();
+    }
+
+    #[Post('/tasks/{taskId}/complete')]
+    public function completeTask(int $taskId): Response
+    {
+        /** @var Task|null $task */
+        $task = Task::select()
+            ->where('tasks.id = ?', $taskId)
+            ->where(
+                'tasks.project_id IN (SELECT projects.id FROM projects INNER JOIN workspaces ON workspaces.id = projects.workspace_id WHERE workspaces.user_id = ?)',
+                $this->user()->id->value,
+            )
+            ->first();
+
+        if (! $task) {
+            return new NotFound();
+        }
+
+        $task->update(completedAt: DateTime::now());
+
+        return new Ok();
+    }
+
     private function render(?int $workspaceId): View|Response
     {
-        /** @var User $user */
-        $user = $this->authenticator->current();
-
         $workspaces = Workspace::select()
             ->with('projects.tasks')
-            ->where('workspaces.user_id = ?', $user->id->value)
+            ->where('workspaces.user_id = ?', $this->user()->id->value)
             ->orderBy('workspaces.id ASC, projects.id ASC, projects_tasks.id ASC')
             ->all();
 
@@ -57,6 +96,13 @@ final readonly class TodoController
             workspaces: $workspaces,
             workspace: $workspace,
             markdown: $workspace ? $this->markdown->render($workspace) : '',
+            items: $workspace ? $this->markdown->items($workspace) : [],
         );
+    }
+
+    private function user(): User
+    {
+        /** @var User */
+        return $this->authenticator->current();
     }
 }

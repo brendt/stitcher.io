@@ -38,6 +38,9 @@ use function Tempest\Router\uri;
         <textarea
             id="todo-markdown"
             name="markdown"
+            :data-items="json_encode($items)"
+            :data-complete-project-url="uri([TodoController::class, 'completeProject'], projectId: '__ID__')"
+            :data-complete-task-url="uri([TodoController::class, 'completeTask'], taskId: '__ID__')"
             class="block w-full min-h-[70vh] font-mono resize-none focus:outline-none"
             placeholder="# Project name&#10;&#10;- Todo 1&#10;- Todo 2"
             autofocus
