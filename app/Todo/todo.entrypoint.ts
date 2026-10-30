@@ -966,6 +966,38 @@ function confirmBulkDelete(view: EditorView): boolean {
 }
 
 /**
+ * Text right above or below a task gets a blank line in between, the same way it's shown when loading the page.
+ * The line with the cursor on it is left alone until the cursor moves away, so that it doesn't change while typing.
+ */
+const separateTextFromTasks = EditorState.transactionFilter.of((transaction) => {
+    if (! transaction.docChanged && ! transaction.selection) {
+        return transaction
+    }
+
+    const { doc, selection } = transaction.state
+    const cursorLine = doc.lineAt(selection.main.head).number
+    const changes: { from: number, insert: string }[] = []
+
+    for (let number = 1; number <= doc.lines; number++) {
+        const line = doc.line(number)
+
+        if (number === cursorLine || ! isText(line) || ! isProject(blockOf(transaction.state, line).start)) {
+            continue
+        }
+
+        if (number > 1 && isTask(doc.line(number - 1))) {
+            changes.push({ from: line.from, insert: '\n' })
+        }
+
+        if (number < doc.lines && isTask(doc.line(number + 1))) {
+            changes.push({ from: line.to, insert: '\n' })
+        }
+    }
+
+    return changes.length === 0 ? transaction : [transaction, { changes, sequential: true }]
+})
+
+/**
  * Backspace on a task that's still empty removes its `- ` at once, instead of only the space.
  */
 function removeEmptyTask(view: EditorView): boolean {
@@ -1559,6 +1591,7 @@ if (textarea) {
             ]),
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
+            separateTextFromTasks,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
             EditorState.readOnly.of(mode !== 'workspace'),
             EditorView.editable.of(mode === 'workspace'),
