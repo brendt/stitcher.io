@@ -434,7 +434,8 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             }
 
             if (item.id !== null && item.type === 'project') {
-                if (projectFold(state, line)) {
+                // Archived projects are always shown completely
+                if (! actions.isArchive && projectFold(state, line)) {
                     decorations.push(Decoration.widget({
                         widget: new CollapseButton(item, foldAt(state, line) !== null, actions.collapse),
                         side: -1,
@@ -1321,7 +1322,7 @@ if (textarea) {
     for (let number = 1; number <= view.state.doc.lines; number++) {
         const line = view.state.doc.line(number)
         const item = itemOn(view.state, markers, line)
-        const fold = item?.collapsed ? projectFold(view.state, line) : null
+        const fold = item?.collapsed && ! isArchive ? projectFold(view.state, line) : null
 
         if (fold) {
             folds.push(foldEffect.of(fold))
