@@ -19,6 +19,13 @@ type Item = {
 // Keep this in sync with `TodoMarkdown::TAG`.
 const TAG = /(^|\s)([#@][\p{L}\p{N}_-]+)/gu
 
+// The hashtag or mention the tasks are currently filtered by, matched case-insensitively like the server does
+let activeFilter: string | null = null
+
+function isActiveFilter(tag: string): boolean {
+    return activeFilter !== null && tag.toLowerCase() === activeFilter
+}
+
 const projectLine = Decoration.line({ class: 'cm-project' })
 const completedLine = Decoration.line({ class: 'cm-completed' })
 const mutedLine = Decoration.line({ class: 'cm-muted' })
@@ -47,7 +54,10 @@ function decorateSyntax(view: EditorView): DecorationSet {
                     const start = line.from + match.index + match[1].length
                     const tag = match[2]
 
-                    builder.add(start, start + tag.length, Decoration.mark({ class: 'cm-tag', attributes: { 'data-tag': tag } }))
+                    builder.add(start, start + tag.length, Decoration.mark({
+                        class: isActiveFilter(tag) ? 'cm-tag cm-tag-active' : 'cm-tag',
+                        attributes: { 'data-tag': tag },
+                    }))
                 }
             }
 
@@ -542,6 +552,9 @@ const theme = EditorView.theme({
         fontWeight: 'bold',
         cursor: 'pointer',
     },
+    '.cm-tag-active': {
+        textDecoration: 'underline',
+    },
     '.cm-tag:hover': {
         textDecoration: 'underline',
     },
@@ -610,6 +623,7 @@ if (textarea) {
     }
 
     const filterUrl = textarea.dataset.filterUrl
+    activeFilter = textarea.dataset.filter?.toLowerCase() ?? null
     const saveUrl = textarea.dataset.saveUrl
     const status = document.querySelector<HTMLElement>('#todo-status')
 
@@ -658,7 +672,8 @@ if (textarea) {
                     }
 
                     event.preventDefault()
-                    window.location.href = `${filterUrl}?filter=${encodeURIComponent(tag)}`
+                    // Clicking the tag that's already being filtered on clears the filter
+                    window.location.href = isActiveFilter(tag) ? filterUrl : `${filterUrl}?filter=${encodeURIComponent(tag)}`
 
                     return true
                 },

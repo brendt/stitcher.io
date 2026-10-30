@@ -45,6 +45,7 @@ use function Tempest\Router\uri;
             id="todo-markdown"
             name="markdown"
             :data-items="json_encode($items)"
+            :data-filter="$filter"
             :data-filter-url="$workspace ? uri([TodoController::class, 'show'], workspaceId: $workspace->id) : null"
             :data-save-url="$workspace ? uri([TodoController::class, 'save'], workspaceId: $workspace->id) : null"
             :data-complete-project-url="uri([TodoController::class, 'completeProject'], projectId: '__ID__')"
