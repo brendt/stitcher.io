@@ -4,10 +4,13 @@ namespace App\Todo;
 
 use App\Support\Authentication\Admin;
 use App\Support\Authentication\User;
+use Closure;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\DateTime\DateTime;
+use Tempest\DateTime\FormatPattern;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
+use Tempest\Http\Responses\Forbidden;
 use Tempest\Http\Responses\Json;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
@@ -41,6 +44,41 @@ final readonly class TodoController
         return $this->render($workspaceId, $this->filter($request));
     }
 
+    /**
+     * Archived projects of all workspaces, most recently archived first. They can be unarchived, but not edited.
+     */
+    #[Get('/archived')]
+    public function archived(Request $request): View
+    {
+        $filters = $this->filter($request);
+        $workspaces = $this->workspaces();
+        $projects = [];
+
+        foreach ($workspaces as $workspace) {
+            foreach ($workspace->projects as $project) {
+                if ($project->archivedAt === null) {
+                    continue;
+                }
+
+                $projects[] = $project;
+            }
+        }
+
+        usort(
+            $projects,
+            fn (Project $a, Project $b) => ($b->archivedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '') <=> ($a->archivedAt?->format(FormatPattern::SQL_DATE_TIME) ?? ''),
+        );
+
+        return $this->view(
+            workspaces: $workspaces,
+            workspace: null,
+            projects: $projects,
+            filters: $filters,
+            baseUri: uri([self::class, 'archived']),
+            isArchive: true,
+        );
+    }
+
     #[Post('/{workspaceId}/save')]
     public function save(int $workspaceId, Request $request): Response
     {
@@ -67,13 +105,46 @@ final readonly class TodoController
     #[Post('/projects/{projectId}/complete')]
     public function completeProject(int $projectId): Response
     {
-        return $this->updateProject($projectId, DateTime::now());
+        return $this->updateProject($projectId, fn (Project $project) => $project->update(completedAt: DateTime::now()));
     }
 
     #[Post('/projects/{projectId}/reopen')]
     public function reopenProject(int $projectId): Response
     {
-        return $this->updateProject($projectId, null);
+        return $this->updateProject($projectId, fn (Project $project) => $project->update(completedAt: null));
+    }
+
+    #[Post('/projects/{projectId}/archive')]
+    public function archiveProject(int $projectId): Response
+    {
+        return $this->updateProject($projectId, function (Project $project): ?Response {
+            // Only completed projects can be archived
+            if ($project->completedAt === null) {
+                return new Forbidden();
+            }
+
+            $project->update(archivedAt: DateTime::now());
+
+            return null;
+        });
+    }
+
+    #[Post('/projects/{projectId}/unarchive')]
+    public function unarchiveProject(int $projectId): Response
+    {
+        return $this->updateProject($projectId, fn (Project $project) => $project->update(archivedAt: null));
+    }
+
+    #[Post('/projects/{projectId}/collapse')]
+    public function collapseProject(int $projectId): Response
+    {
+        return $this->updateProject($projectId, fn (Project $project) => $project->update(collapsed: true));
+    }
+
+    #[Post('/projects/{projectId}/expand')]
+    public function expandProject(int $projectId): Response
+    {
+        return $this->updateProject($projectId, fn (Project $project) => $project->update(collapsed: false));
     }
 
     #[Post('/tasks/{taskId}/complete')]
@@ -88,7 +159,10 @@ final readonly class TodoController
         return $this->updateTask($taskId, null);
     }
 
-    private function updateProject(int $projectId, ?DateTime $completedAt): Response
+    /**
+     * @param Closure(Project): mixed $update Returning a response here, stops the update with that response.
+     */
+    private function updateProject(int $projectId, Closure $update): Response
     {
         /** @var Project|null $project */
         $project = Project::select()
@@ -100,9 +174,9 @@ final readonly class TodoController
             return new NotFound();
         }
 
-        $project->update(completedAt: $completedAt);
+        $response = $update($project);
 
-        return new Ok();
+        return $response instanceof Response ? $response : new Ok();
     }
 
     private function updateTask(int $taskId, ?DateTime $completedAt): Response
@@ -130,11 +204,7 @@ final readonly class TodoController
      */
     private function render(?int $workspaceId, array $filters): View|Response
     {
-        $workspaces = Workspace::select()
-            ->with('projects.tasks')
-            ->where('workspaces.user_id = ?', $this->user()->id->value)
-            ->orderBy('workspaces.id ASC, projects.id ASC, projects_tasks.id ASC')
-            ->all();
+        $workspaces = $this->workspaces();
 
         $workspace = $workspaceId === null
             ? $workspaces[0] ?? null
@@ -144,16 +214,48 @@ final readonly class TodoController
             return new NotFound();
         }
 
+        return $this->view(
+            workspaces: $workspaces,
+            workspace: $workspace,
+            projects: array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null),
+            filters: $filters,
+            baseUri: $workspace ? uri([self::class, 'show'], workspaceId: $workspace->id) : uri([self::class, 'index']),
+        );
+    }
+
+    /**
+     * @param Workspace[] $workspaces
+     * @param Project[] $projects
+     * @param string[] $filters
+     */
+    private function view(array $workspaces, ?Workspace $workspace, array $projects, array $filters, string $baseUri, bool $isArchive = false): View
+    {
         return view(
             'todo.view.php',
             workspaces: $workspaces,
             workspace: $workspace,
+            isArchive: $isArchive,
+            placeholder: $isArchive ? 'Nothing archived yet' : "# Project name\n\n- Todo 1\n- Todo 2",
             filters: $filters,
-            filterLinks: $workspace ? $this->filterLinks($workspace, $filters) : [],
-            markdown: $workspace ? $this->markdown->render($workspace, $filters) : '',
-            items: $workspace ? $this->markdown->items($workspace, $filters) : [],
+            filterLinks: $this->filterLinks($baseUri, $filters),
+            baseUri: $baseUri,
+            markdown: $this->markdown->render($projects, $filters),
+            items: $this->markdown->items($projects, $filters),
             tags: $this->markdown->tags(...$workspaces),
         );
+    }
+
+    /**
+     * @return Workspace[]
+     */
+    private function workspaces(): array
+    {
+        /** @var Workspace[] */
+        return Workspace::select()
+            ->with('projects.tasks')
+            ->where('workspaces.user_id = ?', $this->user()->id->value)
+            ->orderBy('workspaces.id ASC, projects.id ASC, projects_tasks.id ASC')
+            ->all();
     }
 
     /**
@@ -183,19 +285,19 @@ final readonly class TodoController
     }
 
     /**
-     * For every active filter, the URL that shows the workspace without it.
+     * For every active filter, the URL that shows the page without it.
      *
      * @param string[] $filters
      * @return array<string, string>
      */
-    private function filterLinks(Workspace $workspace, array $filters): array
+    private function filterLinks(string $baseUri, array $filters): array
     {
         $links = [];
 
         foreach ($filters as $filter) {
             $remaining = array_filter($filters, fn (string $other) => $other !== $filter);
 
-            $links[$filter] = $this->filterUri($workspace, $remaining);
+            $links[$filter] = $this->filterUri($baseUri, $remaining);
         }
 
         return $links;
@@ -204,11 +306,9 @@ final readonly class TodoController
     /**
      * @param string[] $filters
      */
-    private function filterUri(Workspace $workspace, array $filters): string
+    private function filterUri(string $baseUri, array $filters): string
     {
-        $uri = uri([self::class, 'show'], workspaceId: $workspace->id);
-
-        return $filters === [] ? $uri : $uri . '?filter=' . rawurlencode(implode(' ', $filters));
+        return $filters === [] ? $baseUri : $baseUri . '?filter=' . rawurlencode(implode(' ', $filters));
     }
 
     private function user(): User

@@ -1,8 +1,9 @@
 import { autocompletion } from '@codemirror/autocomplete'
+import { codeFolding, foldedRanges, foldEffect, foldState, unfoldEffect } from '@codemirror/language'
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
-import { MapMode, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
-import type { EditorState, Line, Range } from '@codemirror/state'
+import { Annotation, EditorState, MapMode, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
+import type { Line, Range } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
 
@@ -12,6 +13,8 @@ type Item = {
     type: ItemType
     // `null` until a newly written project or task has been saved
     id: number | null
+    // Only for projects, whether it was collapsed when loading the page
+    collapsed?: boolean
     // Identifies the item within the editor, also before it has an ID
     key: string
     completed: boolean
@@ -265,6 +268,69 @@ class CheckButton extends WidgetType {
     }
 }
 
+class CollapseButton extends WidgetType {
+    constructor(
+        readonly item: Item,
+        readonly isCollapsed: boolean,
+        readonly collapse: (view: EditorView, item: Item) => void,
+    ) {
+        super()
+    }
+
+    eq(other: CollapseButton): boolean {
+        return isSameItem(other.item, this.item) && other.isCollapsed === this.isCollapsed
+    }
+
+    toDOM(view: EditorView): HTMLElement {
+        const button = document.createElement('button')
+
+        button.type = 'button'
+        button.className = this.isCollapsed ? 'cm-collapse cm-collapse-collapsed' : 'cm-collapse'
+        button.title = this.isCollapsed ? 'Expand project' : 'Collapse project'
+        button.setAttribute('aria-label', button.title)
+        button.setAttribute('aria-expanded', String(! this.isCollapsed))
+        button.textContent = '▾'
+        button.addEventListener('mousedown', (event) => event.preventDefault())
+        button.addEventListener('click', () => this.collapse(view, this.item))
+
+        return button
+    }
+
+    ignoreEvent(): boolean {
+        return true
+    }
+}
+
+class ArchiveButton extends WidgetType {
+    constructor(
+        readonly item: Item,
+        readonly isArchived: boolean,
+        readonly archive: (view: EditorView, item: Item) => void,
+    ) {
+        super()
+    }
+
+    eq(other: ArchiveButton): boolean {
+        return isSameItem(other.item, this.item) && other.isArchived === this.isArchived
+    }
+
+    toDOM(view: EditorView): HTMLElement {
+        const button = document.createElement('button')
+
+        button.type = 'button'
+        button.className = 'cm-archive'
+        button.textContent = this.isArchived ? 'Unarchive' : 'Archive'
+        button.addEventListener('mousedown', (event) => event.preventDefault())
+        button.addEventListener('click', () => this.archive(view, this.item))
+
+        return button
+    }
+
+    ignoreEvent(): boolean {
+        return true
+    }
+}
+
 /**
  * A block runs from a project's title until the next project, or the end of the document.
  * Lines before the first project form a block of their own.
@@ -341,8 +407,15 @@ function itemLines(state: EditorState, markers: StateField<RangeSet<ItemMarker>>
     return lines
 }
 
-function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, toggle: (view: EditorView, item: Item) => void) {
-    return EditorView.decorations.compute(['doc', markers], (state) => {
+type Actions = {
+    toggle: (view: EditorView, item: Item) => void
+    collapse: (view: EditorView, item: Item) => void
+    archive: (view: EditorView, item: Item) => void
+    isArchive: boolean
+}
+
+function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Actions) {
+    return EditorView.decorations.compute(['doc', markers, foldState], (state) => {
         const decorations: Range<Decoration>[] = []
 
         for (let number = 1; number <= state.doc.lines; number++) {
@@ -353,8 +426,24 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, toggle: (vie
                 continue
             }
 
-            if (item.id !== null) {
-                decorations.push(Decoration.widget({ widget: new CheckButton(item, toggle), side: -1 }).range(line.from))
+            if (item.id !== null && ! actions.isArchive) {
+                decorations.push(Decoration.widget({ widget: new CheckButton(item, actions.toggle), side: -1 }).range(line.from))
+            }
+
+            if (item.id !== null && item.type === 'project') {
+                if (projectFold(state, line)) {
+                    decorations.push(Decoration.widget({
+                        widget: new CollapseButton(item, foldAt(state, line) !== null, actions.collapse),
+                        side: -1,
+                    }).range(line.from))
+                }
+
+                if (item.completed || actions.isArchive) {
+                    decorations.push(Decoration.widget({
+                        widget: new ArchiveButton(item, actions.isArchive, actions.archive),
+                        side: -1,
+                    }).range(line.from))
+                }
             }
 
             if (! item.completed) {
@@ -377,28 +466,59 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, toggle: (vie
 }
 
 /**
- * Cuts a task's line, or a project with all of its tasks, and places it right before `target`.
- * Without a target, it goes to the bottom of its project (tasks) or the bottom of the workspace (projects).
+ * The part of a project that's hidden when it's collapsed: everything after its title, until its last task.
+ */
+function projectFold(state: EditorState, line: Line): { from: number, to: number } | null {
+    const { last } = blockOf(state, line)
+
+    return last.number > line.number ? { from: line.to, to: last.to } : null
+}
+
+function foldAt(state: EditorState, line: Line): { from: number, to: number } | null {
+    let folded: { from: number, to: number } | null = null
+
+    foldedRanges(state).between(line.to, line.to, (from, to) => {
+        if (from === line.to) {
+            folded = { from, to }
+
+            return false
+        }
+    })
+
+    return folded
+}
+
+// Marks the transaction that collapses projects when loading the page, which doesn't need to be saved
+const restoringFolds = Annotation.define<boolean>()
+
+/**
+ * The part of the document that's removed when a project disappears from it, together with its tasks.
+ */
+function projectRange(state: EditorState, line: Line): { from: number, to: number } {
+    const { next } = blockOf(state, line)
+
+    if (next) {
+        return { from: line.from, to: next.from }
+    }
+
+    return { from: line.number > 1 ? lastFilledLine(state, line.number).to : 0, to: state.doc.length }
+}
+
+/**
+ * Cuts a task's line and places it right before `target`, or at the bottom of its project without a target.
  */
 function moveTo(state: EditorState, line: Line, item: Item, completed: boolean, target: Line | null): Move | null {
-    const { last, next } = blockOf(state, line)
-    const isTask = item.type === 'task'
-    const separator = isTask ? '\n' : '\n\n'
-    const end = isTask ? last : lastFilledLine(state)
+    const { last } = blockOf(state, line)
 
     const isInPlace = target
-        ? target.number === (isTask ? line.number + 1 : next?.number)
-        : end.number <= (isTask ? line.number : last.number)
+        ? target.number === line.number + 1
+        : last.number <= line.number
 
     if (isInPlace) {
         return null
     }
 
-    const text = isTask ? line.text : state.doc.sliceString(line.from, last.to)
-
-    const [from, to] = isTask
-        ? (line.number < state.doc.lines ? [line.from, line.to + 1] : [line.from - 1, line.to])
-        : (next ? [line.from, next.from] : [lastFilledLine(state, line.number).to, state.doc.length])
+    const [from, to] = line.number < state.doc.lines ? [line.from, line.to + 1] : [line.from - 1, line.to]
 
     return {
         item,
@@ -406,28 +526,25 @@ function moveTo(state: EditorState, line: Line, item: Item, completed: boolean, 
         from,
         to,
         textFrom: line.from,
-        textLength: text.length,
-        insertAt: target ? target.from : end.to,
-        insert: target ? text + separator : separator + text,
-        offset: target ? 0 : separator.length,
+        textLength: line.length,
+        insertAt: target ? target.from : last.to,
+        insert: target ? line.text + '\n' : '\n' + line.text,
+        offset: target ? 0 : 1,
     }
 }
 
 /**
- * Completed items go to the top of the completed items, so that the most recently completed one comes first.
- * Reopened items go back between the open items, ordered by when they were created.
+ * Completed tasks go to the top of the completed tasks, so that the most recently completed one comes first.
+ * Reopened tasks go back between the open tasks, ordered by when they were created.
  * This is the same order as when loading the page.
  */
 function targetFor(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, item: Item, completed: boolean): Line | null {
     const { start, last } = blockOf(state, line)
 
-    const siblings = item.type === 'task'
-        ? itemLines(state, markers, 'task', start.number, last.number)
-        : itemLines(state, markers, 'project', 1, state.doc.lines)
-
-    const target = siblings.find(({ item: sibling }) => ! isSameItem(sibling, item) && (completed
-        ? sibling.completed
-        : sibling.completed || sibling.id === null || (item.id !== null && sibling.id > item.id)))
+    const target = itemLines(state, markers, 'task', start.number, last.number)
+        .find(({ item: sibling }) => ! isSameItem(sibling, item) && (completed
+            ? sibling.completed
+            : sibling.completed || sibling.id === null || (item.id !== null && sibling.id > item.id)))
 
     return target?.line ?? null
 }
@@ -451,7 +568,8 @@ function toggleItem(state: EditorState, markers: StateField<RangeSet<ItemMarker>
 
     const completed = ! item.completed
 
-    const move = moveTo(state, line, item, completed, targetFor(state, markers, line, item, completed))
+    // Projects stay where they are, only tasks move between the open and completed ones
+    const move = (item.type === 'task' ? moveTo(state, line, item, completed, targetFor(state, markers, line, item, completed)) : null)
         ?? { item, completed, from: line.from, to: line.from, textFrom: line.from, textLength: 0, insertAt: line.from, insert: '', offset: 0 }
 
     return state.update({
@@ -684,6 +802,62 @@ const theme = EditorView.theme({
         textDecoration: 'none',
         fontWeight: 'bold',
     },
+    '.cm-collapse': {
+        position: 'absolute',
+        top: '50%',
+        left: '-3.5rem',
+        transform: 'translateY(-50%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '1.125rem',
+        height: '1.125rem',
+        padding: '0',
+        color: 'var(--color-gray-400)',
+        fontSize: '0.875rem',
+        fontWeight: 'normal',
+        lineHeight: '1',
+        cursor: 'pointer',
+        opacity: '0',
+    },
+    '.cm-collapse-collapsed': {
+        transform: 'translateY(-50%) rotate(-90deg)',
+        opacity: '1',
+    },
+    '.cm-line:hover .cm-collapse, .cm-collapse:hover': {
+        opacity: '1',
+        color: 'var(--color-gray-900)',
+    },
+    '.cm-archive': {
+        position: 'absolute',
+        top: '50%',
+        left: 'calc(100% + 1rem)',
+        transform: 'translateY(-50%)',
+        padding: '0',
+        color: 'var(--color-gray-400)',
+        fontSize: '0.75rem',
+        fontWeight: 'normal',
+        lineHeight: '1',
+        whiteSpace: 'nowrap',
+        cursor: 'pointer',
+        opacity: '0',
+    },
+    '.cm-line:hover .cm-archive': {
+        opacity: '1',
+    },
+    '.cm-archive:hover': {
+        color: 'var(--color-gray-900)',
+        textDecoration: 'underline',
+    },
+    '.cm-foldPlaceholder': {
+        marginLeft: '0.5rem',
+        padding: '0',
+        border: 'none',
+        backgroundColor: 'transparent',
+        color: 'var(--color-gray-400)',
+        fontWeight: 'normal',
+        cursor: 'pointer',
+    },
     '.cm-tag-sign': {
         fontWeight: 'bold',
     },
@@ -766,6 +940,16 @@ if (textarea) {
         },
     }
 
+    // Archived projects are shown read-only, and can only be unarchived
+    const isArchive = textarea.dataset.archive !== undefined
+
+    const projectUrls = {
+        archive: textarea.dataset.archiveProjectUrl ?? '',
+        unarchive: textarea.dataset.unarchiveProjectUrl ?? '',
+        collapse: textarea.dataset.collapseProjectUrl ?? '',
+        expand: textarea.dataset.expandProjectUrl ?? '',
+    }
+
     const filterUrl = textarea.dataset.filterUrl
     const usedTags: string[] = JSON.parse(textarea.dataset.tags ?? '[]')
     activeFilters = (textarea.dataset.filter ?? '').split(' ').filter((filter) => filter !== '')
@@ -791,6 +975,79 @@ if (textarea) {
         }
     }
 
+    const collapse = (view: EditorView, item: Item) => {
+        const line = findLine(view.state, markers, item)
+        const fold = line ? projectFold(view.state, line) : null
+
+        if (! line || ! fold) {
+            return
+        }
+
+        const folded = foldAt(view.state, line)
+
+        view.dispatch({ effects: folded ? unfoldEffect.of(folded) : foldEffect.of(fold) })
+    }
+
+    // Collapsing or expanding a project is saved, also when it's expanded by clicking its `…`
+    const saveFolds = (update: ViewUpdate) => {
+        for (const transaction of update.transactions) {
+            if (transaction.annotation(restoringFolds)) {
+                continue
+            }
+
+            for (const effect of transaction.effects) {
+                if (! effect.is(foldEffect) && ! effect.is(unfoldEffect)) {
+                    continue
+                }
+
+                const item = itemOn(update.state, markers, update.state.doc.lineAt(effect.value.from))
+
+                if (item?.type !== 'project' || item.id === null) {
+                    continue
+                }
+
+                const url = effect.is(foldEffect) ? projectUrls.collapse : projectUrls.expand
+
+                fetch(url.replace('__ID__', String(item.id)), { method: 'POST' })
+            }
+        }
+    }
+
+    const archive = async (view: EditorView, item: Item) => {
+        const url = isArchive ? projectUrls.unarchive : projectUrls.archive
+        const response = await fetch(url.replace('__ID__', String(item.id)), { method: 'POST' })
+
+        if (! response.ok) {
+            alert(`Could not ${isArchive ? 'unarchive' : 'archive'} this project`)
+
+            return
+        }
+
+        const line = findLine(view.state, markers, item)
+
+        if (! line) {
+            return
+        }
+
+        // The project and its tasks are forgotten, so that saving doesn't think they were deleted
+        const { last } = blockOf(view.state, line)
+
+        for (const { item: task } of itemLines(view.state, markers, 'task', line.number + 1, last.number)) {
+            if (task.id !== null) {
+                known.task.delete(task.id)
+            }
+        }
+
+        if (item.id !== null) {
+            known.project.delete(item.id)
+        }
+
+        view.dispatch({
+            changes: projectRange(view.state, line),
+            annotations: Transaction.addToHistory.of(false),
+        })
+    }
+
     // The cursor position is remembered per workspace and filter, so that refreshing the page continues where you left off
     const cursorKey = `todo-cursor:${window.location.pathname}${window.location.search}`
     const storedCursor = Number(window.localStorage.getItem(cursorKey))
@@ -805,8 +1062,22 @@ if (textarea) {
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
+            EditorState.readOnly.of(isArchive),
+            EditorView.editable.of(! isArchive),
+            codeFolding({
+                placeholderDOM(_view, onclick) {
+                    const placeholder = document.createElement('span')
+
+                    placeholder.className = 'cm-foldPlaceholder'
+                    placeholder.title = 'Expand project'
+                    placeholder.textContent = '…'
+                    placeholder.addEventListener('click', onclick)
+
+                    return placeholder
+                },
+            }),
             markers,
-            itemDecorations(markers, toggle),
+            itemDecorations(markers, { toggle, collapse, archive, isArchive }),
             syntax,
             theme,
             EditorView.domEventHandlers({
@@ -829,6 +1100,8 @@ if (textarea) {
                 },
             }),
             EditorView.updateListener.of((update) => {
+                saveFolds(update)
+
                 if (update.docChanged) {
                     textarea.value = update.state.doc.toString()
                     scheduleSave()
@@ -963,6 +1236,20 @@ if (textarea) {
 
     textarea.after(view.dom)
     textarea.hidden = true
+
+    const folds = []
+
+    for (let number = 1; number <= view.state.doc.lines; number++) {
+        const line = view.state.doc.line(number)
+        const item = itemOn(view.state, markers, line)
+        const fold = item?.collapsed ? projectFold(view.state, line) : null
+
+        if (fold) {
+            folds.push(foldEffect.of(fold))
+        }
+    }
+
+    view.dispatch({ effects: folds, annotations: restoringFolds.of(true) })
     view.focus()
     view.dispatch({ effects: EditorView.scrollIntoView(cursor, { y: 'center' }) })
 }

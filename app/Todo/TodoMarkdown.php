@@ -19,13 +19,14 @@ final readonly class TodoMarkdown
     }
 
     /**
+     * @param Project[] $projects Rendered in the given order
      * @param string[] $filters Only tasks with all of these hashtags or mentions are included
      */
-    public function render(Workspace $workspace, array $filters = []): string
+    public function render(array $projects, array $filters = []): string
     {
         $lines = [];
 
-        foreach ($this->lines($workspace, $filters) as [$text]) {
+        foreach ($this->lines($projects, $filters) as [$text]) {
             $lines[] = $text;
         }
 
@@ -65,15 +66,16 @@ final readonly class TodoMarkdown
     /**
      * Maps line numbers (starting at 1) to the project or task they represent.
      *
+     * @param Project[] $projects
      * @param string[] $filters Only tasks with all of these hashtags or mentions are included
-     * @return array<int, array{type: 'project'|'task', id: int, completed: bool}>
+     * @return array<int, array{type: 'project'|'task', id: int, completed: bool, collapsed?: bool}>
      */
-    public function items(Workspace $workspace, array $filters = []): array
+    public function items(array $projects, array $filters = []): array
     {
         $items = [];
         $lineNumber = 0;
 
-        foreach ($this->lines($workspace, $filters) as [, $item]) {
+        foreach ($this->lines($projects, $filters) as [, $item]) {
             $lineNumber++;
 
             if ($item) {
@@ -85,14 +87,17 @@ final readonly class TodoMarkdown
     }
 
     /**
+     * Projects keep their order, also when they're completed. Within a project, completed tasks go last.
+     *
+     * @param Project[] $projects
      * @param string[] $filters
-     * @return Generator<array{0: string, 1: array{type: 'project'|'task', id: int, completed: bool}|null}>
+     * @return Generator<array{0: string, 1: array{type: 'project'|'task', id: int, completed: bool, collapsed?: bool}|null}>
      */
-    private function lines(Workspace $workspace, array $filters): Generator
+    private function lines(array $projects, array $filters): Generator
     {
         $isFirstProject = true;
 
-        foreach ($this->completedLast($workspace->projects) as $project) {
+        foreach ($projects as $project) {
             $tasks = $this->completedLast($project->tasks);
 
             if ($filters !== []) {
@@ -111,7 +116,12 @@ final readonly class TodoMarkdown
 
             yield [
                 "# {$project->name}",
-                ['type' => 'project', 'id' => (int) $project->id->value, 'completed' => $project->completedAt !== null],
+                [
+                    'type' => 'project',
+                    'id' => (int) $project->id->value,
+                    'completed' => $project->completedAt !== null,
+                    'collapsed' => $project->collapsed,
+                ],
             ];
             yield ['', null];
 
@@ -130,22 +140,19 @@ final readonly class TodoMarkdown
     }
 
     /**
-     * Keeps open items in their original order, followed by completed items, most recently completed first.
+     * Keeps open tasks in their original order, followed by completed tasks, most recently completed first.
      *
-     * @template T of Project|Task
-     * @param T[] $items
-     * @return T[]
+     * @param Task[] $tasks
+     * @return Task[]
      */
-    private function completedLast(array $items): array
+    private function completedLast(array $tasks): array
     {
-        $open = array_filter($items, fn (Project|Task $item) => $item->completedAt === null);
-        $completed = array_filter($items, fn (Project|Task $item) => $item->completedAt !== null);
+        $open = array_filter($tasks, fn (Task $task) => $task->completedAt === null);
+        $completed = array_filter($tasks, fn (Task $task) => $task->completedAt !== null);
 
         usort(
             $completed,
-            fn (Project|Task $a, Project|Task $b) => (
-                ($b->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '') <=> ($a->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '')
-            ),
+            fn (Task $a, Task $b) => ($b->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '') <=> ($a->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? ''),
         );
 
         return [...$open, ...$completed];

@@ -14,6 +14,8 @@ final class Project implements Bindable
         public Workspace $workspace,
         public string $name,
         public ?DateTime $completedAt = null,
+        public ?DateTime $archivedAt = null,
+        public bool $collapsed = false,
     ) {}
 
     /** @var \App\Todo\Task[] */
