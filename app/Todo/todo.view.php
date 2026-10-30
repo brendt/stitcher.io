@@ -67,7 +67,13 @@ use function Tempest\Router\uri;
             :title="'Stop filtering on ' . $tag"
             class="group font-bold"
         >{{ $tag }} <span class="font-normal text-gray-400 group-hover:text-gray-900">×</span></a>
-        <a :href="$baseUri" class="text-gray-400 hover:text-gray-900">Clear filter</a>
+        <a :href="$baseUri" title="Clear filter" aria-label="Clear filter" class="group text-gray-400 hover:text-gray-900">
+            <!-- On small screens, a button like the ones in the editor -->
+            <span class="flex items-center justify-center w-7 h-7 rounded border-[1.5px] border-gray-400 bg-white group-hover:border-gray-900 lg:hidden">
+                <svg viewBox="0 0 16 16" class="w-3 h-3" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <span class="hidden lg:inline">Clear filter</span>
+        </a>
     </div>
 </nav>
 
