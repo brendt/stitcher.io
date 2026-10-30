@@ -67,6 +67,9 @@ const projectLine = Decoration.line({ class: 'cm-project' })
 const completedLine = Decoration.line({ class: 'cm-completed' })
 const mutedLine = Decoration.line({ class: 'cm-muted' })
 const virtualLine = Decoration.line({ class: 'cm-virtual' })
+const virtualSectionLine = Decoration.line({ class: 'cm-virtual-section' })
+const virtualSectionFirstLine = Decoration.line({ class: 'cm-virtual-section cm-virtual-first' })
+const virtualSectionLastLine = Decoration.line({ class: 'cm-virtual-section cm-virtual-last' })
 
 function isProject(line: Line): boolean {
     return line.text.startsWith('# ')
@@ -683,6 +686,15 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
         for (let number = 1; number <= state.doc.lines; number++) {
             const line = state.doc.line(number)
             const item = itemOn(state, markers, line)
+
+            // The virtual project gets a background of its own, from its title until its last task
+            if (isVirtual(state, markers, line)) {
+                const { start, last } = blockOf(state, line)
+
+                if (line.number <= last.number) {
+                    decorations.push((line.number === start.number ? virtualSectionFirstLine : (line.number === last.number ? virtualSectionLastLine : virtualSectionLine)).range(line.from))
+                }
+            }
 
             if (actions.mode === 'workspace' && (isSortable(state, markers, line) || isSortableProject(state, markers, line))) {
                 decorations.push(Decoration.widget({ widget: new DragHandle(actions.drag, isProject(line)), side: -1 }).range(line.from))
@@ -1597,6 +1609,29 @@ const theme = EditorView.theme({
     },
     '.cm-project-title:hover': {
         textDecoration: 'underline',
+    },
+    // The background of the virtual project reaches a bit beyond its text, without moving the text itself
+    '.cm-virtual-section': {
+        backgroundColor: 'var(--color-gray-50)',
+        margin: '0 -0.75rem',
+        paddingLeft: '0.75rem',
+        paddingRight: '0.75rem',
+    },
+    '.cm-virtual-first': {
+        paddingTop: '0.5rem',
+        borderTopLeftRadius: '0.5rem',
+        borderTopRightRadius: '0.5rem',
+    },
+    '.cm-virtual-last': {
+        paddingBottom: '0.5rem',
+        borderBottomLeftRadius: '0.5rem',
+        borderBottomRightRadius: '0.5rem',
+    },
+    '.cm-virtual-section .cm-check': {
+        left: '-1.25rem',
+    },
+    '.cm-virtual-last .cm-check': {
+        transform: 'translateY(calc(-50% - 0.25rem))',
     },
     // The virtual project's title can't be clicked to only show that project
     '.cm-virtual .cm-project-title': {
