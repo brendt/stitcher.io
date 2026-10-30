@@ -1995,7 +1995,7 @@ if (textarea) {
      * On touch screens, where the checkbox, drag handle, and archive button are hidden:
      * swiping a line to the left completes or reopens it, swiping a project to the right archives it (or unarchives it),
      * and pressing and holding a line picks it up to drag it up or down.
-     * Holding a project's title without moving it collapses or expands the project.
+     * Double tapping a project's title collapses or expands the project.
      */
     const SWIPE_DISTANCE = 80
     const HOLD_DURATION = 400
@@ -2028,8 +2028,8 @@ if (textarea) {
     const canReorder = (view: EditorView, line: Line) => mode === 'workspace' && (isSortable(view.state, markers, line) || isSortableProject(view.state, markers, line))
 
     const enableTouchGestures = (view: EditorView) => {
-        let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'hold' | 'scroll' | null = null
-        let hasMoved = false
+        let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'scroll' | null = null
+        let lastTap: { line: number, time: number } | null = null
         let start = { x: 0, y: 0 }
         let distance = 0
         let line: Line | null = null
@@ -2049,7 +2049,6 @@ if (textarea) {
             swipedElements = []
 
             gesture = null
-            hasMoved = false
             line = null
             lineElement = null
             reordering = null
@@ -2076,16 +2075,13 @@ if (textarea) {
                     return
                 }
 
-                if (canReorder(view, line)) {
-                    gesture = 'reorder'
-                    reordering = startReorder(view, line, lineElement)
-                    reordering.move(start.y)
-                } else if (canCollapse(view, line)) {
-                    gesture = 'hold'
-                } else {
+                if (! canReorder(view, line)) {
                     return
                 }
 
+                gesture = 'reorder'
+                reordering = startReorder(view, line, lineElement)
+                reordering.move(start.y)
                 navigator.vibrate?.(10)
             }, HOLD_DURATION)
         }, { passive: true })
@@ -2139,31 +2135,27 @@ if (textarea) {
 
             if (gesture === 'reorder' && reordering) {
                 event.preventDefault()
-                hasMoved ||= Math.abs(dy) > MOVE_TOLERANCE
                 reordering.move(touch.clientY)
                 reordering.follow(dy)
             }
-
-            if (gesture === 'hold') {
-                event.preventDefault()
-            }
         }, { passive: false })
 
-        const end = () => {
+        const DOUBLE_TAP_DURATION = 350
+
+        const end = (event: TouchEvent) => {
             const isFarEnough = Math.abs(distance) >= SWIPE_DISTANCE
             const item = (gesture === 'swipe' || gesture === 'archive') && isFarEnough && line ? itemOn(view.state, markers, line) : null
             const action = gesture === 'archive' ? archive : toggle
 
-            // Letting go of a held project title without dragging it collapses or expands it
-            const isCollapsing = line !== null && (gesture === 'hold' || (gesture === 'reorder' && ! hasMoved)) && canCollapse(view, line)
-            const project = isCollapsing && line ? itemOn(view.state, markers, line) : null
+            // Tapping a project's title twice in a row collapses or expands it
+            const isTap = gesture === 'pending' && line !== null
+            const isDoubleTap = isTap && lastTap !== null && lastTap.line === line?.number && event.timeStamp - lastTap.time < DOUBLE_TAP_DURATION
+            const project = isDoubleTap && line && canCollapse(view, line) ? itemOn(view.state, markers, line) : null
+
+            lastTap = isTap && ! isDoubleTap && line ? { line: line.number, time: event.timeStamp } : null
 
             if (gesture === 'reorder' && reordering) {
-                if (isCollapsing) {
-                    reordering.cancel()
-                } else {
-                    reordering.drop()
-                }
+                reordering.drop()
             }
 
             reset()
@@ -2173,11 +2165,13 @@ if (textarea) {
             }
 
             if (project) {
+                // Without this, the browser would zoom in or select a word on the second tap
+                event.preventDefault()
                 collapse(view, project)
             }
         }
 
-        view.contentDOM.addEventListener('touchend', end)
+        view.contentDOM.addEventListener('touchend', end, { passive: false })
         view.contentDOM.addEventListener('touchcancel', reset)
 
         // Holding a line shouldn't open the browser's menu while it's being dragged
