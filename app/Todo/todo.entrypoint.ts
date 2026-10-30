@@ -65,26 +65,37 @@ function typeOf(line: Line): ItemType | null {
     return isText(line) ? 'text' : null
 }
 
+// A link is a word starting with `http://` or `https://`, without punctuation that follows it, like a full stop
+const LINK = /https?:\/\/[^\s]*[^\s.,;:!?)\]'"]/gu
+
+const link = Decoration.mark({ class: 'cm-link' })
+
 function decorateSyntax(view: EditorView): DecorationSet {
-    const builder = new RangeSetBuilder<Decoration>()
+    const decorations: Range<Decoration>[] = []
 
     for (const { from, to } of view.visibleRanges) {
         for (let position = from; position <= to;) {
             const line = view.state.doc.lineAt(position)
 
             if (isProject(line)) {
-                builder.add(line.from, line.from, projectLine)
+                decorations.push(projectLine.range(line.from))
             }
 
-            if (isTask(line)) {
+            if (isTask(line) || isText(line)) {
                 for (const match of line.text.matchAll(TAG)) {
                     const start = line.from + match.index + match[1].length
                     const tag = match[2]
 
-                    builder.add(start, start + tag.length, tag.length === 1 ? tagSign : Decoration.mark({
+                    decorations.push((tag.length === 1 ? tagSign : Decoration.mark({
                         class: isActiveFilter(tag) ? 'cm-tag cm-tag-active' : 'cm-tag',
                         attributes: { 'data-tag': tag },
-                    }))
+                    })).range(start, start + tag.length))
+                }
+
+                for (const match of line.text.matchAll(LINK)) {
+                    const start = line.from + match.index
+
+                    decorations.push(link.range(start, start + match[0].length))
                 }
             }
 
@@ -92,7 +103,7 @@ function decorateSyntax(view: EditorView): DecorationSet {
         }
     }
 
-    return builder.finish()
+    return Decoration.set(decorations, true)
 }
 
 const syntax = ViewPlugin.fromClass(
@@ -624,7 +635,7 @@ function tagCompletions(usedTags: string[]) {
         const line = context.state.doc.lineAt(word.from)
         const before = context.state.sliceDoc(word.from - 1, word.from)
 
-        if (! isTask(line) || (word.from > line.from && ! /\s/.test(before))) {
+        if (! (isTask(line) || isText(line)) || (word.from > line.from && ! /\s/.test(before))) {
             return null
         }
 
@@ -633,7 +644,7 @@ function tagCompletions(usedTags: string[]) {
         for (let number = 1; number <= context.state.doc.lines; number++) {
             const current = context.state.doc.line(number)
 
-            if (! isTask(current)) {
+            if (! isTask(current) && ! isText(current)) {
                 continue
             }
 
@@ -960,6 +971,9 @@ const theme = EditorView.theme({
         color: 'var(--color-gray-400)',
         fontWeight: 'normal',
         cursor: 'pointer',
+    },
+    '.cm-link': {
+        fontWeight: 'bold',
     },
     '.cm-tag-sign': {
         fontWeight: 'bold',
