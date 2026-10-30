@@ -1337,7 +1337,8 @@ const theme = EditorView.theme({
     },
     // The project and tags that are being filtered on look the same
     '.cm-tag-active, .cm-project-title-active': {
-        textDecoration: 'underline',
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'dotted',
         backgroundColor: 'var(--color-gray-100)',
         border: '1px solid black',
         borderRadius: '0.25rem',
@@ -1346,6 +1347,9 @@ const theme = EditorView.theme({
     },
     '.cm-tag:hover': {
         textDecoration: 'underline',
+    },
+    '.cm-tag-active:hover, .cm-project-title-active:hover': {
+        textDecorationStyle: 'dotted',
     },
     '.cm-placeholder': {
         color: 'var(--color-gray-400)',
