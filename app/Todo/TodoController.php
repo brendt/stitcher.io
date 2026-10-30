@@ -14,12 +14,14 @@ use Tempest\Http\Responses\Forbidden;
 use Tempest\Http\Responses\Json;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
+use Tempest\Http\Responses\Redirect;
 use Tempest\Http\Responses\ServerError;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\Router\Prefix;
 use Tempest\View\View;
 
+use function Tempest\Database\query;
 use function Tempest\Router\uri;
 use function Tempest\View\view;
 
@@ -32,16 +34,50 @@ final readonly class TodoController
         private TodoSync $sync,
     ) {}
 
+    /**
+     * Shows the workspace that was opened last, or the first one when there isn't one yet.
+     */
     #[Get('/')]
-    public function index(Request $request): View|Response
+    public function index(Request $request): View
     {
-        return $this->render(null, $this->filter($request));
+        $workspaces = $this->workspaces();
+        $latestWorkspaceId = $this->user()->latestWorkspaceId;
+
+        $workspace = array_find($workspaces, fn (Workspace $workspace) => $workspace->id->value === $latestWorkspaceId) ?? $workspaces[0] ?? null;
+
+        return $this->view(
+            workspaces: $workspaces,
+            workspace: $workspace,
+            groups: TodoGroup::forProjects(array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null)),
+            filters: $this->filter($request),
+            baseUri: uri([self::class, 'index']),
+        );
     }
 
-    #[Get('/{workspaceId}')]
-    public function show(int $workspaceId, Request $request): View|Response
+    /**
+     * Switches to another workspace, which is remembered so that it's shown from now on.
+     * The workspace is posted instead of being part of the URL, so that the URL of the todo page stays the same.
+     */
+    #[Post('/workspace')]
+    public function openWorkspace(Request $request): Response
     {
-        return $this->render($workspaceId, $this->filter($request));
+        $workspaceId = filter_var($request->get('workspace'), FILTER_VALIDATE_INT);
+
+        /** @var Workspace|null $workspace */
+        $workspace = $workspaceId === false
+            ? null
+            : Workspace::select()
+                ->where('workspaces.id = ?', $workspaceId)
+                ->where('workspaces.user_id = ?', $this->user()->id->value)
+                ->first();
+
+        if (! $workspace) {
+            return new NotFound();
+        }
+
+        query('users')->update(latestWorkspaceId: $workspaceId)->where('id = ?', $this->user()->id->value)->execute();
+
+        return new Redirect(uri([self::class, 'index']));
     }
 
     /**
@@ -215,30 +251,6 @@ final readonly class TodoController
         $task->update(completedAt: $completedAt);
 
         return new Ok();
-    }
-
-    /**
-     * @param string[] $filters
-     */
-    private function render(?int $workspaceId, array $filters): View|Response
-    {
-        $workspaces = $this->workspaces();
-
-        $workspace = $workspaceId === null
-            ? $workspaces[0] ?? null
-            : array_find($workspaces, fn (Workspace $workspace) => $workspace->id->value === $workspaceId);
-
-        if ($workspaceId !== null && ! $workspace) {
-            return new NotFound();
-        }
-
-        return $this->view(
-            workspaces: $workspaces,
-            workspace: $workspace,
-            groups: TodoGroup::forProjects(array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null)),
-            filters: $filters,
-            baseUri: $workspace ? uri([self::class, 'show'], workspaceId: $workspace->id) : uri([self::class, 'index']),
-        );
     }
 
     /**

@@ -28,11 +28,15 @@ use function Tempest\Router\uri;
     :if="$workspaces !== []"
     class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-6 py-4 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:justify-start lg:gap-2 lg:px-10 lg:py-24"
 >
-    <a
-        :foreach="$workspaces as $item"
-        :href="uri([TodoController::class, 'show'], workspaceId: $item->id)"
-        :class="$workspace?->id->equals($item->id) ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
-    >{{ $item->name }}</a>
+    <form :foreach="$workspaces as $item" method="post" :action="uri([TodoController::class, 'openWorkspace'])" class="contents">
+        <button
+            type="submit"
+            name="workspace"
+            :value="$item->id"
+            class="text-left cursor-pointer"
+            :class="$workspace?->id->equals($item->id) ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
+        >{{ $item->name }}</button>
+    </form>
 
     <a
         :href="uri([TodoController::class, 'soon'])"
@@ -67,6 +71,7 @@ use function Tempest\Router\uri;
             :data-filter="implode(' ', $filters)"
             :data-filter-url="$baseUri"
             :data-mode="$mode->value"
+            :data-workspace-id="$workspace?->id"
             :data-save-url="$workspace ? uri([TodoController::class, 'save'], workspaceId: $workspace->id) : null"
             :data-complete-project-url="uri([TodoController::class, 'completeProject'], projectId: '__ID__')"
             :data-complete-task-url="uri([TodoController::class, 'completeTask'], taskId: '__ID__')"

@@ -1157,7 +1157,7 @@ if (textarea) {
     }
 
     // The cursor position is remembered per workspace and filter, so that refreshing the page continues where you left off
-    const cursorKey = `todo-cursor:${window.location.pathname}${window.location.search}`
+    const cursorKey = `todo-cursor:${mode}:${textarea.dataset.workspaceId ?? ''}:${window.location.search}`
     const storedCursor = Number(window.localStorage.getItem(cursorKey))
     const cursor = Number.isInteger(storedCursor) ? Math.min(Math.max(storedCursor, 0), textarea.value.length) : 0
 
