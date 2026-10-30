@@ -1069,13 +1069,13 @@ const normalizeSpacing = EditorState.transactionFilter.of((transaction) => {
 })
 
 /**
- * Typing `today`, `tomorrow`, or `next week` in a task or text writes it as a date instead, like `2026-10-30`,
+ * Typing `#today`, `#tomorrow`, or `#nextweek` in a task or text writes it as a date instead, like `2026-10-30`,
  * so that it can be filtered on and shows up in Soon. Only lines that are being edited change, once the word is finished:
  * not while the cursor is still right after it, so that typing a longer word doesn't get replaced halfway.
  */
-const RELATIVE_DATES = /(^|\s)(today|tomorrow|next week)(?=$|[\s.,;:!?)])/giu
+const RELATIVE_DATES = /(^|\s)(#today|#tomorrow|#nextweek)(?=$|[\s.,;:!?)])/giu
 
-const DAYS_FROM_TODAY: Record<string, number> = { 'today': 0, 'tomorrow': 1, 'next week': 7 }
+const DAYS_FROM_TODAY: Record<string, number> = { '#today': 0, '#tomorrow': 1, '#nextweek': 7 }
 
 function dateInDays(days: number): string {
     const date = new Date()
