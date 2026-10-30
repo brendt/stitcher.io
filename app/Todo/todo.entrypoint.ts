@@ -2019,6 +2019,13 @@ if (textarea) {
             && (mode === 'workspace' || mode === 'archived')
     }
 
+    // Shows only the given project, or all projects again when it's the one shown already
+    const openProject = (project: string) => {
+        if (filterUrl) {
+            window.location.href = filterHref(filterUrl, activeFilters, isActiveProject(project) ? null : project)
+        }
+    }
+
     const canCollapse = (view: EditorView, line: Line) => {
         const item = itemOn(view.state, markers, line)
 
@@ -2030,6 +2037,8 @@ if (textarea) {
     const enableTouchGestures = (view: EditorView) => {
         let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'scroll' | null = null
         let lastTap: { line: number, time: number } | null = null
+        let tappedProject: string | null = null
+        let openProjectTimer: number | undefined
         let start = { x: 0, y: 0 }
         let distance = 0
         let line: Line | null = null
@@ -2069,6 +2078,7 @@ if (textarea) {
             distance = 0
             line = view.state.doc.lineAt(position)
             lineElement = (event.target as HTMLElement).closest<HTMLElement>('.cm-line')
+            tappedProject = (event.target as HTMLElement).closest<HTMLElement>('.cm-line:not(.cm-virtual) .cm-project-title')?.dataset.project ?? null
 
             holdTimer = window.setTimeout(() => {
                 if (gesture !== 'pending' || ! line) {
@@ -2153,6 +2163,19 @@ if (textarea) {
             const project = isDoubleTap && line && canCollapse(view, line) ? itemOn(view.state, markers, line) : null
 
             lastTap = isTap && ! isDoubleTap && line ? { line: line.number, time: event.timeStamp } : null
+
+            // A single tap on a project's title shows only that project, but only once it's clear that it's not a double tap
+            window.clearTimeout(openProjectTimer)
+
+            if (isTap && ! isDoubleTap && tappedProject) {
+                const project = tappedProject
+
+                openProjectTimer = window.setTimeout(() => openProject(project), DOUBLE_TAP_DURATION)
+            }
+
+            if (isDoubleTap) {
+                event.preventDefault()
+            }
 
             if (gesture === 'reorder' && reordering) {
                 reordering.drop()
@@ -2344,7 +2367,12 @@ if (textarea) {
 
                     if (project) {
                         event.preventDefault()
-                        window.location.href = filterHref(filterUrl, activeFilters, isActiveProject(project) ? null : project)
+
+                        // On touch screens, a tap on a project's title could be the first of a double tap, which collapses it instead.
+                        // Touch gestures take care of that, see `enableTouchGestures`.
+                        if (! isTouchScreen) {
+                            openProject(project)
+                        }
 
                         return true
                     }
