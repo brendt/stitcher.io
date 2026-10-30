@@ -24,34 +24,40 @@ final class TodoSeeder implements DatabaseSeeder
         $workspaces = [
             'Private' => [
                 'House' => [
-                    'Fix the leaking tap' => true,
-                    'Paint the bedroom' => false,
-                    'Clean out the garage' => false,
+                    'Fix the leaking tap with @sam' => true,
+                    'Paint the bedroom #weekend' => false,
+                    'Clean out the garage #weekend' => false,
+                    'Buy paint and brushes #shopping' => false,
                 ],
                 'Garden' => [
-                    'Mow the lawn' => true,
+                    'Mow the lawn #weekend' => true,
                     'Plant tulip bulbs' => false,
+                    'Get compost #shopping' => false,
+                    'Borrow the hedge trimmer from @sam' => false,
                 ],
                 'Holiday' => [
                     'Book flights' => true,
-                    'Book hotel' => true,
-                    'Renew passport' => true,
+                    'Book hotel with @alex' => true,
+                    'Renew passport #urgent' => true,
                 ],
             ],
             'Work' => [
                 'stitcher.io' => [
-                    'Write blog post on PHP 8.6' => false,
+                    'Write blog post on PHP 8.6 #writing' => false,
                     'Update newsletter template' => true,
-                    'Fix RSS feed dates' => false,
+                    'Fix RSS feed dates #urgent' => false,
+                    'Ask @alex to proofread the newsletter #writing' => false,
                 ],
                 'Tempest' => [
-                    'Review open pull requests' => false,
-                    'Tag new release' => false,
-                    'Update database docs' => true,
+                    'Review open pull requests #urgent' => false,
+                    'Tag new release with @jordan' => false,
+                    'Update database docs #writing' => true,
+                    'Pair with @jordan on the router' => false,
                 ],
                 'Conference talk' => [
-                    'Submit abstract' => true,
+                    'Submit abstract #writing' => true,
                     'Prepare slides' => false,
+                    'Send travel details to @alex #urgent' => false,
                 ],
             ],
         ];
