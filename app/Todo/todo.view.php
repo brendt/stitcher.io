@@ -44,7 +44,7 @@ use function Tempest\Router\uri;
         <!-- On wide screens, everything is listed in the sidebar -->
         <div class="hidden lg:contents">
             <button type="button" onclick="document.getElementById('new-workspace').showModal()" class="text-left text-gray-400 hover:text-gray-900 cursor-pointer">+ New workspace</button>
-            <button :if="$workspace" type="button" onclick="document.getElementById('edit-workspace').showModal()" class="text-left text-gray-400 hover:text-gray-900 cursor-pointer">Edit workspace</button>
+            <button :if="$workspace" type="button" onclick="document.getElementById('edit-workspace').showModal()" class="inline-flex items-center gap-1.5 text-left text-gray-400 hover:text-gray-900 cursor-pointer"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Edit workspace</button>
 
             <a
                 :href="uri([TodoController::class, 'soon'])"
@@ -76,7 +76,7 @@ use function Tempest\Router\uri;
                 >Archived</a>
 
                 <button type="button" onclick="this.closest('details').open = false; document.getElementById('new-workspace').showModal()" class="text-left text-gray-600 cursor-pointer">+ New workspace</button>
-                <button :if="$workspace" type="button" onclick="this.closest('details').open = false; document.getElementById('edit-workspace').showModal()" class="text-left text-gray-600 cursor-pointer">Edit workspace</button>
+                <button :if="$workspace" type="button" onclick="this.closest('details').open = false; document.getElementById('edit-workspace').showModal()" class="inline-flex items-center gap-1.5 text-left text-gray-600 cursor-pointer"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Edit workspace</button>
             </div>
         </details>
     </div>
