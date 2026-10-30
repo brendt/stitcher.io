@@ -294,7 +294,7 @@ final readonly class TodoController
         return Workspace::select()
             ->with('projects.tasks')
             ->where('workspaces.user_id = ?', $this->user()->id->value)
-            ->orderBy('workspaces.id ASC, projects.id ASC, projects_tasks.id ASC')
+            ->orderBy('workspaces.id ASC, projects.position ASC, projects.id ASC, projects_tasks.id ASC')
             ->all();
     }
 

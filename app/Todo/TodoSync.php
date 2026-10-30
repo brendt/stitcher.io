@@ -13,7 +13,8 @@ use function Tempest\Database\query;
  * Items without an ID are created, items with an ID are renamed or moved to another project when needed.
  * Only items the editor explicitly reports as deleted are removed,
  * so that saving a filtered view never touches what wasn't shown.
- * For the same reason, the order of tasks is only saved when the editor shows everything, which it reports as `ordered`.
+ * For the same reason, the order of tasks is only saved when the editor shows all of a project's tasks, which it reports as `ordered`,
+ * and the order of projects only when it shows all projects, which it reports as `orderedProjects`.
  */
 final readonly class TodoSync
 {
@@ -52,6 +53,8 @@ final readonly class TodoSync
         $presentTasks = [];
 
         $isOrdered = ($payload['ordered'] ?? false) === true;
+        $areProjectsOrdered = ($payload['orderedProjects'] ?? false) === true;
+        $lastProjectPosition = max([0, ...array_map(fn (Project $project) => $project->position, $projects)]);
 
         /** @var array<int, int> $lastPositions */
         $lastPositions = [];
@@ -67,11 +70,15 @@ final readonly class TodoSync
             $tasks,
             $taskProjects,
             $isOrdered,
+            $areProjectsOrdered,
+            &$lastProjectPosition,
             &$lastPositions,
             &$createdIds,
             &$presentProjects,
             &$presentTasks,
         ): void {
+            $projectPosition = 0;
+
             foreach ($this->list($payload['projects'] ?? null) as $projectData) {
                 if (! is_array($projectData)) {
                     continue;
@@ -83,15 +90,30 @@ final readonly class TodoSync
                     continue;
                 }
 
+                $projectPosition++;
                 $id = $this->id($projectData['id'] ?? null);
                 $project = $id !== null ? $projects[$id] ?? null : null;
 
-                if ($project) {
-                    if ($project->name !== $name) {
-                        query('projects')->update(name: $name)->where('id = ?', $id)->execute();
+                if ($project && $id !== null) {
+                    $changes = array_filter(
+                        [
+                            'name' => $project->name !== $name ? $name : null,
+                            'position' => $areProjectsOrdered && $project->position !== $projectPosition ? $projectPosition : null,
+                        ],
+                        fn (mixed $value) => $value !== null,
+                    );
+
+                    if ($changes !== []) {
+                        query('projects')->update(...$changes)->where('id = ?', $id)->execute();
                     }
                 } else {
-                    $project = Project::create(workspace: $workspace, name: $name);
+                    $project = Project::create(
+                        workspace: $workspace,
+                        name: $name,
+                        // Without knowing the full order, new projects go after all others
+                        position: $areProjectsOrdered ? $projectPosition : ++$lastProjectPosition,
+                    );
+
                     $createdIds[$this->key($projectData['key'] ?? null)] = (int) $project->id->value;
                 }
 

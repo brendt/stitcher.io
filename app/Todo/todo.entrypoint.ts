@@ -188,7 +188,8 @@ function isSameItem(a: Item, b: Item): boolean {
  * The item's text starts at `textFrom` in the old document, and at `offset` within `insert`.
  */
 type Move = {
-    item: Item
+    // The item whose `completed` changes, if any
+    item: Item | null
     completed: boolean
     from: number
     to: number
@@ -260,7 +261,7 @@ function moveMarkers(markers: RangeSet<ItemMarker>, transaction: Transaction): R
     }
 
     const isMoved = (from: number) => moves.some((move) => move.insert !== '' && from >= move.textFrom && from < move.textFrom + move.textLength)
-    const moveOf = (item: Item) => moves.find((move) => isSameItem(move.item, item))
+    const moveOf = (item: Item) => moves.find((move) => move.item !== null && isSameItem(move.item, item))
     const moved: Range<ItemMarker>[] = []
 
     for (const move of moves) {
@@ -334,18 +335,19 @@ class CheckButton extends WidgetType {
 class DragHandle extends WidgetType {
     constructor(
         readonly drag: (view: EditorView, event: MouseEvent, handle: HTMLElement) => void,
+        readonly isProject: boolean,
     ) {
         super()
     }
 
-    eq(): boolean {
-        return true
+    eq(other: DragHandle): boolean {
+        return other.isProject === this.isProject
     }
 
     toDOM(view: EditorView): HTMLElement {
         const handle = document.createElement('span')
 
-        handle.className = 'cm-drag'
+        handle.className = this.isProject ? 'cm-drag cm-drag-project' : 'cm-drag'
         handle.title = 'Drag to reorder'
         handle.setAttribute('aria-hidden', 'true')
         handle.innerHTML = '<svg viewBox="0 0 10 16" aria-hidden="true"><g fill="currentColor"><circle cx="3" cy="3" r="1.25"/><circle cx="7" cy="3" r="1.25"/><circle cx="3" cy="8" r="1.25"/><circle cx="7" cy="8" r="1.25"/><circle cx="3" cy="13" r="1.25"/><circle cx="7" cy="13" r="1.25"/></g></svg>'
@@ -361,8 +363,13 @@ class DragHandle extends WidgetType {
 
 /**
  * Open tasks and text within a project can be put in another order. Completed tasks stay below them, ordered by when they were completed.
+ * With tags filtered on, not all tasks are shown, so their order can't be saved.
  */
 function isSortable(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): boolean {
+    if (activeFilters.length > 0) {
+        return false
+    }
+
     const type = typeOf(line)
 
     if (type !== 'task' && type !== 'text') {
@@ -370,6 +377,64 @@ function isSortable(state: EditorState, markers: StateField<RangeSet<ItemMarker>
     }
 
     return isProject(blockOf(state, line).start) && ! itemOn(state, markers, line)?.completed
+}
+
+/**
+ * Projects can be put in another order, as long as all of them are shown, so that their order can be saved.
+ */
+function isSortableProject(line: Line): boolean {
+    return isProject(line) && activeFilters.length === 0 && activeProject === null
+}
+
+function projectLines(state: EditorState): Line[] {
+    const lines: Line[] = []
+
+    for (let number = 1; number <= state.doc.lines; number++) {
+        if (isProject(state.doc.line(number))) {
+            lines.push(state.doc.line(number))
+        }
+    }
+
+    return lines
+}
+
+/**
+ * Moves a project with all of its tasks and text to another slot between `projects`,
+ * like `reorder` does for a single line. A collapsed project stays collapsed.
+ */
+function reorderProject(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, projects: Line[], slot: number): Transaction[] {
+    const current = projects.findIndex((other) => other.number === line.number)
+
+    if (slot === current || slot === current + 1) {
+        return []
+    }
+
+    const { last } = blockOf(state, line)
+    const { from, to } = projectRange(state, line)
+    const text = state.doc.sliceString(line.from, last.to)
+    const isBefore = slot < projects.length
+    const insertAt = isBefore ? projects[slot].from : lastFilledLine(state).to
+    const insert = isBefore ? text + '\n\n' : '\n\n' + text
+    const offset = isBefore ? 0 : 2
+    const item = itemOn(state, markers, line)
+    const fold = foldAt(state, line)
+
+    const transaction = state.update({
+        changes: [{ from, to }, { from: insertAt, insert }],
+        effects: moveItem.of({ item, completed: item?.completed ?? false, from, to, textFrom: line.from, textLength: text.length, insertAt, insert, offset }),
+        annotations: Transaction.addToHistory.of(false),
+    })
+
+    if (! fold) {
+        return [transaction]
+    }
+
+    const moved = transaction.state.doc.lineAt(transaction.changes.mapPos(insertAt, -1) + offset)
+    const refold = projectFold(transaction.state, moved)
+
+    return refold
+        ? [transaction, transaction.state.update({ effects: foldEffect.of(refold), annotations: restoringFolds.of(true) })]
+        : [transaction]
 }
 
 /**
@@ -585,8 +650,8 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             const line = state.doc.line(number)
             const item = itemOn(state, markers, line)
 
-            if (actions.mode === 'workspace' && isSortable(state, markers, line)) {
-                decorations.push(Decoration.widget({ widget: new DragHandle(actions.drag), side: -1 }).range(line.from))
+            if (actions.mode === 'workspace' && (isSortable(state, markers, line) || isSortableProject(line))) {
+                decorations.push(Decoration.widget({ widget: new DragHandle(actions.drag, isProject(line)), side: -1 }).range(line.from))
             }
 
             if (! item) {
@@ -926,8 +991,10 @@ type Payload = {
         tasks: { key: string, id: number | null, name: string, kind: 'task' | 'text' }[]
     }[]
     deleted: Record<'projects' | 'tasks', number[]>
-    // Only when everything is shown, the order of the tasks can be saved
+    // Only when all tasks of a project are shown, their order can be saved
     ordered: boolean
+    // Only when all projects are shown, their order can be saved
+    orderedProjects: boolean
 }
 
 /**
@@ -937,7 +1004,12 @@ type Payload = {
  * Tasks and text above the first project don't belong to any project, so they aren't saved.
  */
 function snapshot(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, known: Known, createKey: () => string): { payload: Payload, added: Range<ItemMarker>[] } {
-    const payload: Payload = { projects: [], deleted: { projects: [], tasks: [] }, ordered: activeFilters.length === 0 }
+    const payload: Payload = {
+        projects: [],
+        deleted: { projects: [], tasks: [] },
+        ordered: activeFilters.length === 0,
+        orderedProjects: activeFilters.length === 0 && activeProject === null,
+    }
     const added: Range<ItemMarker>[] = []
     const present: Known = { project: new Set(), task: new Set(), text: new Set() }
 
@@ -1081,6 +1153,9 @@ const theme = EditorView.theme({
         color: 'var(--color-gray-400)',
         cursor: 'grab',
         opacity: '0',
+    },
+    '.cm-drag-project': {
+        left: '-4.75rem',
     },
     '.cm-drag svg': {
         display: 'block',
@@ -1281,16 +1356,24 @@ if (textarea) {
         }
     }
 
-    // Dragging a line shows where it will go, and moves it there when letting go
+    // Dragging a line shows where it will go, and moves it there when letting go.
+    // A task or text moves between the other tasks and text of its project, a project moves between the other projects.
     const drag = (view: EditorView, event: MouseEvent, handle: HTMLElement) => {
         event.preventDefault()
 
         const line = view.state.doc.lineAt(view.posAtDOM(handle))
-        const lines = sortableLines(view.state, markers, line)
+        const isProjectLine = isProject(line)
+        const lines = isProjectLine ? projectLines(view.state) : sortableLines(view.state, markers, line)
         const lineElement = handle.closest<HTMLElement>('.cm-line')
         const content = view.contentDOM.getBoundingClientRect()
         const indicator = document.createElement('div')
         let slot = lines.findIndex((other) => other.number === line.number)
+
+        // The space each slot covers on screen: a whole project including its tasks, or a single line
+        const spans = () => lines.map((other) => ({
+            top: view.lineBlockAt(other.from).top,
+            bottom: view.lineBlockAt(isProjectLine ? blockOf(view.state, other).last.to : other.from).bottom,
+        }))
 
         Object.assign(indicator.style, {
             position: 'fixed',
@@ -1308,14 +1391,14 @@ if (textarea) {
         lineElement?.classList.add('cm-dragged')
 
         const move = (event: MouseEvent) => {
-            const blocks = lines.map((other) => view.lineBlockAt(other.from))
-            const found = blocks.findIndex((block) => event.clientY < view.documentTop + block.top + block.height / 2)
+            const current = spans()
+            const found = current.findIndex((span) => event.clientY < view.documentTop + (span.top + span.bottom) / 2)
 
             slot = found === -1 ? lines.length : found
 
-            const block = slot < blocks.length ? blocks[slot] : blocks[blocks.length - 1]
+            const top = slot < current.length ? current[slot].top : current[current.length - 1].bottom
 
-            indicator.style.top = `${view.documentTop + (slot < blocks.length ? block.top : block.bottom)}px`
+            indicator.style.top = `${view.documentTop + top}px`
         }
 
         const drop = () => {
@@ -1325,9 +1408,11 @@ if (textarea) {
             document.body.style.cursor = ''
             lineElement?.classList.remove('cm-dragged')
 
-            const transaction = reorder(view.state, markers, line, lines, slot)
+            const transactions = isProjectLine
+                ? reorderProject(view.state, markers, line, lines, slot)
+                : [reorder(view.state, markers, line, lines, slot)].filter((transaction) => transaction !== null)
 
-            if (transaction) {
+            for (const transaction of transactions) {
                 view.dispatch(transaction)
             }
         }

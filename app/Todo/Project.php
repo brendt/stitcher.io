@@ -16,6 +16,8 @@ final class Project implements Bindable
         public ?DateTime $completedAt = null,
         public ?DateTime $archivedAt = null,
         public bool $collapsed = false,
+        // Projects are shown in this order, which is the order they were saved in
+        public int $position = 0,
     ) {}
 
     /** @var \App\Todo\Task[] */
