@@ -1,3 +1,11 @@
+<?php
+
+use App\Todo\TodoController;
+
+use function Tempest\Router\uri;
+
+?>
+
 <!doctype html>
 <html lang="en" class="bg-white">
 <head>
@@ -13,6 +21,14 @@
     <x-vite-tags entrypoint="app/main.entrypoint.css"/>
 </head>
 <body class="antialiased bg-white">
+<nav :if="count($workspaces) > 1" class="absolute top-0 right-0 flex gap-4 px-6 py-4 font-mono text-sm">
+    <a
+        :foreach="$workspaces as $item"
+        :href="uri([TodoController::class, 'show'], workspaceId: $item->id)"
+        :class="$item->id->equals($workspace->id) ? 'text-gray-900' : 'text-gray-400 hover:text-gray-900'"
+    >{{ $item->name }}</a>
+</nav>
+
 <textarea
     id="todo-markdown"
     name="markdown"
