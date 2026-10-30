@@ -1630,6 +1630,20 @@ if (textarea) {
         }
     }
 
+    /**
+     * The elements showing a line, or a project with all of its tasks and text.
+     * Lines outside of the screen might not be shown, and lines of a collapsed project are hidden.
+     */
+    const elementsOf = (view: EditorView, line: Line): HTMLElement[] => {
+        const last = isProject(line) ? blockOf(view.state, line).last.number : line.number
+
+        return Array.from(view.contentDOM.querySelectorAll<HTMLElement>(':scope > .cm-line')).filter((element) => {
+            const number = view.state.doc.lineAt(view.posAtDOM(element)).number
+
+            return number >= line.number && number <= last
+        })
+    }
+
     // Dragging a line shows where it will go, and moves it there when letting go.
     // A task or text moves between the other tasks and text of its project, a project moves between the other projects.
     const startReorder = (view: EditorView, line: Line, lineElement: HTMLElement | null) => {
@@ -1637,17 +1651,7 @@ if (textarea) {
         const lines = isProjectLine ? projectLines(view.state) : sortableLines(view.state, markers, line)
 
         // A project is dragged together with its tasks and text
-        const draggedElements: HTMLElement[] = []
-        const lastDragged = isProjectLine ? blockOf(view.state, line).last.number : line.number
-
-        for (let number = line.number; number <= lastDragged; number++) {
-            const { node } = view.domAtPos(view.state.doc.line(number).from)
-            const element = (node instanceof HTMLElement ? node : node.parentElement)?.closest<HTMLElement>('.cm-line')
-
-            if (element && ! draggedElements.includes(element)) {
-                draggedElements.push(element)
-            }
-        }
+        const draggedElements = elementsOf(view, line)
 
         if (lineElement && ! draggedElements.includes(lineElement)) {
             draggedElements.push(lineElement)
@@ -1780,17 +1784,19 @@ if (textarea) {
         let distance = 0
         let line: Line | null = null
         let lineElement: HTMLElement | null = null
+        let swipedElements: HTMLElement[] = []
         let holdTimer: number | undefined
         let reordering: ReturnType<typeof startReorder> | null = null
 
         const reset = () => {
             window.clearTimeout(holdTimer)
 
-            if (lineElement) {
-                lineElement.style.transform = ''
-                lineElement.style.backgroundColor = ''
-                lineElement.style.borderRadius = ''
+            for (const element of swipedElements) {
+                element.style.transform = ''
+                element.style.backgroundColor = ''
             }
+
+            swipedElements = []
 
             gesture = null
             line = null
@@ -1842,6 +1848,11 @@ if (textarea) {
                 } else {
                     gesture = 'scroll'
                 }
+
+                // Swiping a project moves and colors it as a whole, including its tasks and text
+                if ((gesture === 'swipe' || gesture === 'archive') && line) {
+                    swipedElements = elementsOf(view, line)
+                }
             }
 
             // Once the browser started scrolling, it can't be stopped anymore. Scrolling wins then, instead of swiping or dragging.
@@ -1852,7 +1863,7 @@ if (textarea) {
                 return
             }
 
-            if ((gesture === 'swipe' || gesture === 'archive') && lineElement) {
+            if (gesture === 'swipe' || gesture === 'archive') {
                 event.preventDefault()
                 distance = gesture === 'swipe' ? Math.min(0, dx) : Math.max(0, dx)
 
@@ -1861,9 +1872,10 @@ if (textarea) {
                 const strength = progress < 1 ? progress * 0.2 : 0.35
                 const color = gesture === 'swipe' ? '34 197 94' : '168 85 247'
 
-                lineElement.style.transform = `translateX(${distance}px)`
-                lineElement.style.backgroundColor = `rgb(${color} / ${strength})`
-                lineElement.style.borderRadius = '0.25rem'
+                for (const element of swipedElements) {
+                    element.style.transform = `translateX(${distance}px)`
+                    element.style.backgroundColor = `rgb(${color} / ${strength})`
+                }
             }
 
             if (gesture === 'reorder' && reordering) {
