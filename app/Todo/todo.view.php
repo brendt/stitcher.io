@@ -86,13 +86,13 @@ use function Tempest\Router\uri;
             :if="$project"
             :href="$projectLink"
             :title="'Stop showing only ' . $project"
-            class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black underline decoration-dotted"
+            class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black"
         ># {{ $project }}</a>
         <a
             :foreach="$filterLinks as $tag => $removeUri"
             :href="$removeUri"
             :title="'Stop filtering on ' . $tag"
-            class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black underline decoration-dotted"
+            class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black"
         >{{ $tag }}</a>
     </div>
 </nav>

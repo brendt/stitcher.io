@@ -1664,8 +1664,7 @@ const theme = EditorView.theme({
     },
     // The project and tags that are being filtered on look the same
     '.cm-tag-active, .cm-project-title-active': {
-        textDecorationLine: 'underline',
-        textDecorationStyle: 'dotted',
+        textDecoration: 'none',
         backgroundColor: 'var(--color-gray-100)',
         border: '1px dotted black',
         borderRadius: '0.25rem',
@@ -1673,7 +1672,7 @@ const theme = EditorView.theme({
         padding: '0.125rem 0.375rem',
     },
     '.cm-tag-active:hover, .cm-project-title-active:hover': {
-        textDecorationStyle: 'dotted',
+        textDecoration: 'none',
     },
     // The placeholder is shown on top of the empty document, so that its lines don't make the first line, and the cursor on it, as tall as all of them
     '.cm-placeholder': {
