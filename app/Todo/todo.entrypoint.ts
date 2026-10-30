@@ -2252,19 +2252,8 @@ if (textarea) {
         tidy(view)
     }
 
-    // The cursor position is remembered per workspace and filter, so that refreshing the page continues where you left off
-    // Switching to another workspace, or to Soon or Archived, starts at the top instead
-    const page = `${mode}:${textarea.dataset.workspaceId ?? ''}`
-    const isSamePage = window.localStorage.getItem('todo-page') === page
-    window.localStorage.setItem('todo-page', page)
-
-    const cursorKey = `todo-cursor:${page}:${window.location.search}`
-    const storedCursor = isSamePage ? Number(window.localStorage.getItem(cursorKey)) : 0
-    const cursor = Number.isInteger(storedCursor) ? Math.min(Math.max(storedCursor, 0), textarea.value.length) : 0
-
     const view = new EditorView({
         doc: textarea.value,
-        selection: { anchor: cursor },
         extensions: [
             history(),
             keymap.of([
@@ -2371,10 +2360,6 @@ if (textarea) {
                 // A task that just got a date is saved right away, so that it shows up in the virtual project as soon as possible
                 if (update.transactions.some((transaction) => transaction.annotation(relativeDateResolved))) {
                     scheduleSave(0)
-                }
-
-                if (update.selectionSet || update.docChanged) {
-                    window.localStorage.setItem(cursorKey, String(update.state.selection.main.head))
                 }
             }),
         ],
@@ -2524,5 +2509,4 @@ if (textarea) {
 
     view.dispatch({ effects: folds, annotations: restoringFolds.of(true) })
     view.focus()
-    view.dispatch({ effects: EditorView.scrollIntoView(cursor, { y: 'center' }) })
 }

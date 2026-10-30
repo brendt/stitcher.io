@@ -80,7 +80,6 @@ use function Tempest\Router\uri;
             :data-project="$project"
             :data-filter-url="$baseUri"
             :data-mode="$mode->value"
-            :data-workspace-id="$workspace?->id"
             :data-save-url="$workspace ? uri([TodoController::class, 'save'], workspaceId: $workspace->id) : null"
             :data-complete-project-url="uri([TodoController::class, 'completeProject'], projectId: '__ID__')"
             :data-complete-task-url="uri([TodoController::class, 'completeTask'], taskId: '__ID__')"
