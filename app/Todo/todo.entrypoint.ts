@@ -426,7 +426,10 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
                 continue
             }
 
-            if (item.id !== null && ! actions.isArchive) {
+            // A collapsed project can't be completed, its tasks need to be visible for that
+            const isCollapsedProject = item.type === 'project' && foldAt(state, line) !== null
+
+            if (item.id !== null && ! actions.isArchive && ! isCollapsedProject) {
                 decorations.push(Decoration.widget({ widget: new CheckButton(item, actions.toggle), side: -1 }).range(line.from))
             }
 
@@ -1008,6 +1011,12 @@ if (textarea) {
     const markers = createItemMarkers(items)
 
     const toggle = async (view: EditorView, item: Item) => {
+        const line = findLine(view.state, markers, item)
+
+        if (item.type === 'project' && line && foldAt(view.state, line)) {
+            return
+        }
+
         const url = item.completed ? urls[item.type].reopen : urls[item.type].complete
         const response = await fetch(url.replace('__ID__', String(item.id)), { method: 'POST' })
 
