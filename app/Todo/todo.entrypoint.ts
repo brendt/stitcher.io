@@ -1,8 +1,8 @@
-import { autocompletion } from '@codemirror/autocomplete'
+import { acceptCompletion, autocompletion } from '@codemirror/autocomplete'
 import { codeFolding, foldedRanges, foldEffect, foldState, unfoldEffect } from '@codemirror/language'
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
-import { Annotation, EditorState, MapMode, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
+import { Annotation, EditorState, MapMode, Prec, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
 import type { Line, Range } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
@@ -1826,6 +1826,8 @@ if (textarea) {
             EditorView.lineWrapping,
             normalizeSpacing,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
+            // Tab picks the selected suggestion while suggestions are shown, and indents otherwise
+            Prec.highest(keymap.of([{ key: 'Tab', run: acceptCompletion }])),
             EditorState.readOnly.of(mode !== 'workspace'),
             EditorView.editable.of(mode === 'workspace'),
             codeFolding({
