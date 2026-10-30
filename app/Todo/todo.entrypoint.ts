@@ -16,8 +16,12 @@ type Item = {
 }
 
 // A hashtag or mention is a word within a task that starts with `#` or `@`.
-// Keep this in sync with `TodoMarkdown::TAG`.
-const TAG = /(^|\s)([#@][\p{L}\p{N}_-]+)/gu
+// Keep this in sync with `TodoMarkdown::TAG`, except that a `#` or `@` on its own is matched here as well,
+// so that it's already styled while you're still typing the rest of the word.
+const TAG = /(^|\s)([#@][\p{L}\p{N}_-]*)/gu
+
+// Just a `#` or `@` without a word yet is styled like a tag, but can't be clicked to filter on
+const tagSign = Decoration.mark({ class: 'cm-tag-sign' })
 
 // The hashtags and mentions the tasks are currently filtered by, matched case-insensitively like the server does
 let activeFilters: string[] = []
@@ -54,7 +58,7 @@ function decorateSyntax(view: EditorView): DecorationSet {
                     const start = line.from + match.index + match[1].length
                     const tag = match[2]
 
-                    builder.add(start, start + tag.length, Decoration.mark({
+                    builder.add(start, start + tag.length, tag.length === 1 ? tagSign : Decoration.mark({
                         class: isActiveFilter(tag) ? 'cm-tag cm-tag-active' : 'cm-tag',
                         attributes: { 'data-tag': tag },
                     }))
@@ -551,6 +555,9 @@ const theme = EditorView.theme({
     '.cm-tag': {
         fontWeight: 'bold',
         cursor: 'pointer',
+    },
+    '.cm-tag-sign': {
+        fontWeight: 'bold',
     },
     '.cm-tag-active': {
         textDecoration: 'underline',
