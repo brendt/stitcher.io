@@ -45,6 +45,24 @@ final readonly class TodoController
     }
 
     /**
+     * Open tasks with a date from all workspaces, below their project and sorted by date, latest first.
+     */
+    #[Get('/soon')]
+    public function soon(Request $request): View
+    {
+        $workspaces = $this->workspaces();
+
+        return $this->view(
+            workspaces: $workspaces,
+            workspace: null,
+            groups: $this->markdown->soon(...$workspaces),
+            filters: $this->filter($request),
+            baseUri: uri([self::class, 'soon']),
+            mode: TodoMode::SOON,
+        );
+    }
+
+    /**
      * Archived projects of all workspaces, most recently archived first. They can be unarchived, but not edited.
      */
     #[Get('/archived')]
@@ -72,10 +90,10 @@ final readonly class TodoController
         return $this->view(
             workspaces: $workspaces,
             workspace: null,
-            projects: $projects,
+            groups: TodoGroup::forProjects($projects),
             filters: $filters,
             baseUri: uri([self::class, 'archived']),
-            isArchive: true,
+            mode: TodoMode::ARCHIVED,
         );
     }
 
@@ -217,7 +235,7 @@ final readonly class TodoController
         return $this->view(
             workspaces: $workspaces,
             workspace: $workspace,
-            projects: array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null),
+            groups: TodoGroup::forProjects(array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null)),
             filters: $filters,
             baseUri: $workspace ? uri([self::class, 'show'], workspaceId: $workspace->id) : uri([self::class, 'index']),
         );
@@ -225,22 +243,23 @@ final readonly class TodoController
 
     /**
      * @param Workspace[] $workspaces
-     * @param Project[] $projects
+     * @param TodoGroup[] $groups
      * @param string[] $filters
      */
-    private function view(array $workspaces, ?Workspace $workspace, array $projects, array $filters, string $baseUri, bool $isArchive = false): View
+    private function view(array $workspaces, ?Workspace $workspace, array $groups, array $filters, string $baseUri, TodoMode $mode = TodoMode::WORKSPACE): View
     {
         return view(
             'todo.view.php',
             workspaces: $workspaces,
             workspace: $workspace,
-            isArchive: $isArchive,
-            placeholder: $isArchive ? 'Nothing archived yet' : "# Project name\n\n- Todo 1\n- Todo 2",
+            mode: $mode,
+            title: $workspace->name ?? $mode->title(),
+            placeholder: $mode->placeholder(),
             filters: $filters,
             filterLinks: $this->filterLinks($baseUri, $filters),
             baseUri: $baseUri,
-            markdown: $this->markdown->render($projects, $filters),
-            items: $this->markdown->items($projects, $filters),
+            markdown: $this->markdown->render($groups, $filters),
+            items: $this->markdown->items($groups, $filters),
             tags: $this->markdown->tags(...$workspaces),
         );
     }

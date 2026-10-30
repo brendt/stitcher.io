@@ -413,8 +413,12 @@ type Actions = {
     toggle: (view: EditorView, item: Item) => void
     collapse: (view: EditorView, item: Item) => void
     archive: (view: EditorView, item: Item) => void
-    isArchive: boolean
+    mode: Mode
 }
+
+// What the page is showing, see `TodoMode`:
+// a workspace can be edited, the tasks coming up can only be completed, archived projects can only be unarchived
+type Mode = 'workspace' | 'soon' | 'archived'
 
 function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Actions) {
     return EditorView.decorations.compute(['doc', markers, foldState], (state) => {
@@ -431,22 +435,22 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             // A collapsed project can't be completed, its tasks need to be visible for that
             const isCollapsedProject = item.type === 'project' && foldAt(state, line) !== null
 
-            if (item.id !== null && ! actions.isArchive && ! isCollapsedProject) {
+            if (item.id !== null && actions.mode !== 'archived' && ! isCollapsedProject) {
                 decorations.push(Decoration.widget({ widget: new CheckButton(item, actions.toggle), side: -1 }).range(line.from))
             }
 
             if (item.id !== null && item.type === 'project') {
                 // Archived projects are always shown completely
-                if (! actions.isArchive && projectFold(state, line)) {
+                if (actions.mode === 'workspace' && projectFold(state, line)) {
                     decorations.push(Decoration.widget({
                         widget: new CollapseButton(item, foldAt(state, line) !== null, actions.collapse),
                         side: -1,
                     }).range(line.from))
                 }
 
-                if (item.completed || actions.isArchive) {
+                if ((actions.mode === 'workspace' && item.completed) || actions.mode === 'archived') {
                     decorations.push(Decoration.widget({
-                        widget: new ArchiveButton(item, actions.isArchive, actions.archive),
+                        widget: new ArchiveButton(item, actions.mode === 'archived', actions.archive),
                         side: -1,
                     }).range(line.from))
                 }
@@ -1024,8 +1028,8 @@ if (textarea) {
         },
     }
 
-    // Archived projects are shown read-only, and can only be unarchived
-    const isArchive = textarea.dataset.archive !== undefined
+    const mode = (textarea.dataset.mode ?? 'workspace') as Mode
+    const isArchive = mode === 'archived'
 
     const projectUrls = {
         archive: textarea.dataset.archiveProjectUrl ?? '',
@@ -1175,8 +1179,8 @@ if (textarea) {
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
-            EditorState.readOnly.of(isArchive),
-            EditorView.editable.of(! isArchive),
+            EditorState.readOnly.of(mode !== 'workspace'),
+            EditorView.editable.of(mode === 'workspace'),
             codeFolding({
                 placeholderDOM(_view, onclick) {
                     const placeholder = document.createElement('span')
@@ -1190,7 +1194,7 @@ if (textarea) {
                 },
             }),
             markers,
-            itemDecorations(markers, { toggle, collapse, archive, isArchive }),
+            itemDecorations(markers, { toggle, collapse, archive, mode }),
             syntax,
             theme,
             EditorView.domEventHandlers({
@@ -1355,7 +1359,7 @@ if (textarea) {
     for (let number = 1; number <= view.state.doc.lines; number++) {
         const line = view.state.doc.line(number)
         const item = itemOn(view.state, markers, line)
-        const fold = item?.collapsed && ! isArchive ? projectFold(view.state, line) : null
+        const fold = item?.collapsed && mode === 'workspace' ? projectFold(view.state, line) : null
 
         if (fold) {
             folds.push(foldEffect.of(fold))

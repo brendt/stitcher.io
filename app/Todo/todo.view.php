@@ -1,6 +1,7 @@
 <?php
 
 use App\Todo\TodoController;
+use App\Todo\TodoMode;
 
 use function Tempest\Router\uri;
 
@@ -9,8 +10,8 @@ use function Tempest\Router\uri;
 <!doctype html>
 <html lang="en" class="bg-white">
 <head>
-    <title :if="$filters">{{ implode(' ', $filters) }} | {{ $workspace?->name ?? 'Archived' }} | Todo</title>
-    <title :elseif="$workspace || $isArchive">{{ $workspace?->name ?? 'Archived' }} | Todo</title>
+    <title :if="$filters">{{ implode(' ', $filters) }} | {{ $title }} | Todo</title>
+    <title :elseif="$title">{{ $title }} | Todo</title>
     <title :else>Todo</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
@@ -34,9 +35,14 @@ use function Tempest\Router\uri;
     >{{ $item->name }}</a>
 
     <a
-        :href="uri([TodoController::class, 'archived'])"
+        :href="uri([TodoController::class, 'soon'])"
         class="lg:mt-4"
-        :class="$isArchive ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
+        :class="$mode === TodoMode::SOON ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
+    >Soon</a>
+
+    <a
+        :href="uri([TodoController::class, 'archived'])"
+        :class="$mode === TodoMode::ARCHIVED ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
     >Archived</a>
 
     <div :if="$filters" class="flex flex-wrap gap-x-4 gap-y-2 lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
@@ -60,7 +66,7 @@ use function Tempest\Router\uri;
             :data-tags="json_encode($tags)"
             :data-filter="implode(' ', $filters)"
             :data-filter-url="$baseUri"
-            :data-archive="$isArchive"
+            :data-mode="$mode->value"
             :data-save-url="$workspace ? uri([TodoController::class, 'save'], workspaceId: $workspace->id) : null"
             :data-complete-project-url="uri([TodoController::class, 'completeProject'], projectId: '__ID__')"
             :data-complete-task-url="uri([TodoController::class, 'completeTask'], taskId: '__ID__')"

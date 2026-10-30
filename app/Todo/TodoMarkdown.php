@@ -3,7 +3,6 @@
 namespace App\Todo;
 
 use Generator;
-use Tempest\DateTime\FormatPattern;
 
 final readonly class TodoMarkdown
 {
@@ -12,7 +11,9 @@ final readonly class TodoMarkdown
      * a hashtag or mention starting with `#` or `@`, or a date formatted like `2026-10-30`.
      * Keep this in sync with `TAG` in todo.entrypoint.ts.
      */
-    public const string TAG = '(?:[#@][\\p{L}\\p{N}_-]+|\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01]))(?![\\p{L}\\p{N}_-])';
+    public const string TAG = '(?:[#@][\\p{L}\\p{N}_-]+|' . self::DATE . ')(?![\\p{L}\\p{N}_-])';
+
+    private const string DATE = '\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])';
 
     public static function isTag(string $value): bool
     {
@@ -20,14 +21,14 @@ final readonly class TodoMarkdown
     }
 
     /**
-     * @param Project[] $projects Rendered in the given order
-     * @param string[] $filters Only tasks with all of these hashtags or mentions are included
+     * @param TodoGroup[] $groups Rendered in the given order
+     * @param string[] $filters Only tasks with all of these tags are included
      */
-    public function render(array $projects, array $filters = []): string
+    public function render(array $groups, array $filters = []): string
     {
         $lines = [];
 
-        foreach ($this->lines($projects, $filters) as [$text]) {
+        foreach ($this->lines($groups, $filters) as [$text]) {
             $lines[] = $text;
         }
 
@@ -67,16 +68,16 @@ final readonly class TodoMarkdown
     /**
      * Maps line numbers (starting at 1) to the project or task they represent.
      *
-     * @param Project[] $projects
-     * @param string[] $filters Only tasks with all of these hashtags or mentions are included
+     * @param TodoGroup[] $groups
+     * @param string[] $filters Only tasks with all of these tags are included
      * @return array<int, array{type: 'project'|'task', id: int, completed: bool, collapsed?: bool}>
      */
-    public function items(array $projects, array $filters = []): array
+    public function items(array $groups, array $filters = []): array
     {
         $items = [];
         $lineNumber = 0;
 
-        foreach ($this->lines($projects, $filters) as [, $item]) {
+        foreach ($this->lines($groups, $filters) as [, $item]) {
             $lineNumber++;
 
             if ($item) {
@@ -88,18 +89,60 @@ final readonly class TodoMarkdown
     }
 
     /**
-     * Projects keep their order, also when they're completed. Within a project, completed tasks go last.
+     * Open tasks with a date, below their project. Projects keep their usual order, their tasks are sorted by their first date, latest first.
+     * Tasks of completed or archived projects are left out, those are done.
      *
-     * @param Project[] $projects
+     * @return TodoGroup[]
+     */
+    public function soon(Workspace ...$workspaces): array
+    {
+        /** @var array<int, array{project: Project, tasks: array<array{date: string, task: Task}>}> $projects */
+        $projects = [];
+
+        foreach ($workspaces as $workspace) {
+            foreach ($workspace->projects as $project) {
+                if ($project->completedAt !== null || $project->archivedAt !== null) {
+                    continue;
+                }
+
+                foreach ($project->tasks as $task) {
+                    $date = $this->dateOf($task);
+
+                    if ($task->completedAt !== null || $date === null) {
+                        continue;
+                    }
+
+                    $id = (int) $project->id->value;
+                    $projects[$id] ??= ['project' => $project, 'tasks' => []];
+                    $projects[$id]['tasks'][] = ['date' => $date, 'task' => $task];
+                }
+            }
+        }
+
+        $groups = [];
+
+        foreach ($projects as ['project' => $project, 'tasks' => $tasks]) {
+            usort($tasks, fn (array $a, array $b) => [$b['date'], $a['task']->id->value] <=> [$a['date'], $b['task']->id->value]);
+
+            $groups[] = new TodoGroup($project->name, $project, array_column($tasks, 'task'));
+        }
+
+        return $groups;
+    }
+
+    /**
+     * Groups are separated by a blank line. A group that's a project can be completed and collapsed, other groups are just a title.
+     *
+     * @param TodoGroup[] $groups
      * @param string[] $filters
      * @return Generator<array{0: string, 1: array{type: 'project'|'task', id: int, completed: bool, collapsed?: bool}|null}>
      */
-    private function lines(array $projects, array $filters): Generator
+    private function lines(array $groups, array $filters): Generator
     {
-        $isFirstProject = true;
+        $isFirstGroup = true;
 
-        foreach ($projects as $project) {
-            $tasks = $this->completedLast($project->tasks);
+        foreach ($groups as $group) {
+            $tasks = $group->tasks;
 
             if ($filters !== []) {
                 $tasks = array_filter($tasks, fn (Task $task) => array_all($filters, fn (string $filter) => $this->hasTag($task, $filter)));
@@ -109,20 +152,21 @@ final readonly class TodoMarkdown
                 }
             }
 
-            if (! $isFirstProject) {
+            if (! $isFirstGroup) {
                 yield ['', null];
             }
 
-            $isFirstProject = false;
+            $isFirstGroup = false;
 
             yield [
-                "# {$project->name}",
-                [
-                    'type' => 'project',
-                    'id' => (int) $project->id->value,
-                    'completed' => $project->completedAt !== null,
-                    'collapsed' => $project->collapsed,
-                ],
+                "# {$group->title}",
+                $group->project
+                    ? [
+                        'type' => 'project',
+                        'id' => (int) $group->project->id->value,
+                        'completed' => $group->project->completedAt !== null,
+                        'collapsed' => $group->project->collapsed,
+                    ] : null,
             ];
             yield ['', null];
 
@@ -135,27 +179,15 @@ final readonly class TodoMarkdown
         }
     }
 
+    private function dateOf(Task $task): ?string
+    {
+        $matches = [];
+
+        return preg_match('/(?:^|\\s)(' . self::DATE . ')(?![\\p{L}\\p{N}_-])/u', $task->name, $matches) === 1 ? $matches[1] : null;
+    }
+
     private function hasTag(Task $task, string $tag): bool
     {
         return preg_match('/(?:^|\\s)' . preg_quote($tag, '/') . '(?![\\p{L}\\p{N}_-])/iu', $task->name) === 1;
-    }
-
-    /**
-     * Keeps open tasks in their original order, followed by completed tasks, most recently completed first.
-     *
-     * @param Task[] $tasks
-     * @return Task[]
-     */
-    private function completedLast(array $tasks): array
-    {
-        $open = array_filter($tasks, fn (Task $task) => $task->completedAt === null);
-        $completed = array_filter($tasks, fn (Task $task) => $task->completedAt !== null);
-
-        usort(
-            $completed,
-            fn (Task $a, Task $b) => ($b->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '') <=> ($a->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? ''),
-        );
-
-        return [...$open, ...$completed];
     }
 }
