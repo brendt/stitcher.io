@@ -733,7 +733,23 @@ function confirmBulkDelete(view: EditorView): boolean {
         ? `This deletes ${counts.join(' and ')}. Are you sure?`
         : 'This deletes multiple lines. Are you sure?'
 
-    return ! window.confirm(message)
+    return ! window.confirm(`${message}\n\nHold ${modifierKey} while deleting to skip this question.`)
+}
+
+const modifierKey = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘' : 'Ctrl'
+
+/**
+ * Holding Cmd (or Ctrl) while pressing Backspace or Delete deletes a selection right away, without asking for confirmation.
+ * Without a selection, it does what it usually does, like deleting until the start or end of the line.
+ */
+function deleteSelectionWithoutConfirming(view: EditorView): boolean {
+    if (view.state.selection.ranges.every((range) => range.empty)) {
+        return false
+    }
+
+    view.dispatch(view.state.update(view.state.replaceSelection(''), { scrollIntoView: true, userEvent: 'delete.selection' }))
+
+    return true
 }
 
 type Known = Record<ItemType, Set<number>>
@@ -1149,6 +1165,8 @@ if (textarea) {
                 { key: 'Enter', run: continueTask },
                 { key: 'Backspace', run: confirmBulkDelete },
                 { key: 'Delete', run: confirmBulkDelete },
+                { key: 'Mod-Backspace', run: deleteSelectionWithoutConfirming },
+                { key: 'Mod-Delete', run: deleteSelectionWithoutConfirming },
                 ...defaultKeymap,
                 ...historyKeymap,
                 indentWithTab,
