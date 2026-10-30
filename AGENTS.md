@@ -2,6 +2,7 @@
 
 - All documentation for Tempest can be found in vendor/tempest/framework/docs
 - Use `php tempest make:` commands to create framework-specific classes. These are interactive commands that will guide you through setup
+- Feel free to use atomic commits
 
 ## QA
 
