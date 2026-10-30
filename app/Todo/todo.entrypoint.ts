@@ -1,5 +1,6 @@
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
 import { RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
+import type { EditorState, Line, Range } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
 
@@ -8,9 +9,16 @@ type ItemType = 'project' | 'task'
 type Item = {
     type: ItemType
     id: number
+    completed: boolean
 }
 
 const projectLine = Decoration.line({ class: 'cm-project' })
+const completedLine = Decoration.line({ class: 'cm-completed' })
+const mutedLine = Decoration.line({ class: 'cm-muted' })
+
+function isProject(line: Line): boolean {
+    return line.text.startsWith('# ')
+}
 
 function decorateProjects(view: EditorView): DecorationSet {
     const builder = new RangeSetBuilder<Decoration>()
@@ -19,7 +27,7 @@ function decorateProjects(view: EditorView): DecorationSet {
         for (let position = from; position <= to;) {
             const line = view.state.doc.lineAt(position)
 
-            if (line.text.startsWith('# ')) {
+            if (isProject(line)) {
                 builder.add(line.from, line.from, projectLine)
             }
 
@@ -60,11 +68,30 @@ class ItemMarker extends RangeValue {
     }
 
     eq(other: ItemMarker): boolean {
-        return other.item.type === this.item.type && other.item.id === this.item.id && other.text === this.text
+        return other.item.type === this.item.type
+            && other.item.id === this.item.id
+            && other.item.completed === this.item.completed
+            && other.text === this.text
     }
 }
 
-const removeItem = StateEffect.define<Item>()
+function isSameItem(a: Item, b: Item): boolean {
+    return a.type === b.type && a.id === b.id
+}
+
+/**
+ * Moves the text between `from` and `to` (old document positions) to `insertAt`, preceded by `prefix`,
+ * and marks the given item as completed.
+ */
+type Move = {
+    item: Item
+    from: number
+    to: number
+    insertAt: number
+    prefix: string
+}
+
+const moveItem = StateEffect.define<Move>()
 
 function createItemMarkers(items: Record<string, Item>) {
     return StateField.define<RangeSet<ItemMarker>>({
@@ -81,17 +108,44 @@ function createItemMarkers(items: Record<string, Item>) {
         },
 
         update(markers, transaction) {
-            markers = markers.map(transaction.changes)
+            const moves = transaction.effects.filter((effect) => effect.is(moveItem)).map((effect) => effect.value as Move)
 
-            for (const effect of transaction.effects) {
-                if (effect.is(removeItem)) {
-                    markers = markers.update({
-                        filter: (_from, _to, marker) => marker.item.type !== effect.value.type || marker.item.id !== effect.value.id,
-                    })
-                }
+            if (moves.length === 0) {
+                return markers.map(transaction.changes)
             }
 
-            return markers
+            const isMoved = (from: number) => moves.some((move) => from >= move.from && from < move.to)
+            const isCompleted = (item: Item) => moves.some((move) => isSameItem(move.item, item))
+            const moved: Range<ItemMarker>[] = []
+
+            for (const move of moves) {
+                const start = transaction.changes.mapPos(move.insertAt, -1) + move.prefix.length
+
+                markers.between(move.from, move.to, (from, _to, marker) => {
+                    if (from < move.to) {
+                        moved.push(new ItemMarker(marker.item, marker.text).range(start + from - move.from))
+                    }
+                })
+            }
+
+            markers = markers
+                .update({ filter: (from) => ! isMoved(from) })
+                .map(transaction.changes)
+                .update({ add: moved, sort: true })
+
+            const completed: Range<ItemMarker>[] = []
+
+            markers.between(0, transaction.state.doc.length, (from, _to, marker) => {
+                if (isCompleted(marker.item)) {
+                    completed.push(new ItemMarker({ ...marker.item, completed: true }, marker.text).range(from))
+                }
+            })
+
+            return markers.update({
+                filter: (_from, _to, marker) => ! isCompleted(marker.item),
+                add: completed,
+                sort: true,
+            })
         },
     })
 }
@@ -105,7 +159,7 @@ class CompleteButton extends WidgetType {
     }
 
     eq(other: CompleteButton): boolean {
-        return other.item.type === this.item.type && other.item.id === this.item.id
+        return isSameItem(other.item, this.item)
     }
 
     toDOM(view: EditorView): HTMLElement {
@@ -127,71 +181,113 @@ class CompleteButton extends WidgetType {
     }
 }
 
-function completeButtons(markers: StateField<RangeSet<ItemMarker>>, complete: (view: EditorView, item: Item) => void) {
+/**
+ * A block runs from a project's title until the next project, or the end of the document.
+ * Lines before the first project form a block of their own.
+ */
+function blockOf(state: EditorState, line: Line): { start: Line, last: Line, next: Line | null } {
+    const doc = state.doc
+
+    let start = line
+
+    while (! isProject(start) && start.number > 1) {
+        start = doc.line(start.number - 1)
+    }
+
+    let last = start
+    let next: Line | null = null
+
+    for (let number = start.number + 1; number <= doc.lines; number++) {
+        const current = doc.line(number)
+
+        if (isProject(current)) {
+            next = current
+            break
+        }
+
+        if (current.text.trim() !== '') {
+            last = current
+        }
+    }
+
+    return { start, last, next }
+}
+
+function lastFilledLine(state: EditorState): Line {
+    for (let number = state.doc.lines; number > 1; number--) {
+        const line = state.doc.line(number)
+
+        if (line.text.trim() !== '') {
+            return line
+        }
+    }
+
+    return state.doc.line(1)
+}
+
+function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, complete: (view: EditorView, item: Item) => void) {
     return EditorView.decorations.compute(['doc', markers], (state) => {
-        const builder = new RangeSetBuilder<Decoration>()
-        let previousLine = -1
+        const decorations: Range<Decoration>[] = []
+        const decoratedLines = new Set<number>()
 
         for (let cursor = state.field(markers).iter(); cursor.value; cursor.next()) {
             const line = state.doc.lineAt(cursor.from)
+            const { item, text } = cursor.value
 
-            if (line.from !== cursor.from || line.text !== cursor.value.text || line.number === previousLine) {
+            if (line.from !== cursor.from || line.text !== text || decoratedLines.has(line.number)) {
                 continue
             }
 
-            previousLine = line.number
+            decoratedLines.add(line.number)
 
-            builder.add(line.from, line.from, Decoration.widget({
-                widget: new CompleteButton(cursor.value.item, complete),
-                side: -1,
-            }))
+            if (! item.completed) {
+                decorations.push(Decoration.widget({ widget: new CompleteButton(item, complete), side: -1 }).range(line.from))
+
+                continue
+            }
+
+            decorations.push(completedLine.range(line.from))
+
+            if (item.type === 'project') {
+                const { last } = blockOf(state, line)
+
+                for (let number = line.number + 1; number <= last.number; number++) {
+                    decorations.push(mutedLine.range(state.doc.line(number).from))
+                }
+            }
         }
 
-        return builder.finish()
+        return Decoration.set(decorations, true)
     })
 }
 
 /**
- * Finds the part of the document that should disappear once an item is completed:
- * a task is a single line, while a project runs until the next project.
+ * Completed tasks move to the bottom of their project, completed projects move to the bottom of the workspace.
  */
-function rangeOf(view: EditorView, line: { from: number, to: number, number: number }, type: ItemType) {
-    const doc = view.state.doc
+function moveToBottom(state: EditorState, line: Line, item: Item): Move | null {
+    if (item.type === 'task') {
+        const { last } = blockOf(state, line)
 
-    if (type === 'task') {
-        return line.number < doc.lines
-            ? { from: line.from, to: line.to + 1 }
-            : { from: Math.max(0, line.from - 1), to: line.to }
-    }
-
-    for (let number = line.number + 1; number <= doc.lines; number++) {
-        const next = doc.line(number)
-
-        if (next.text.startsWith('# ')) {
-            return { from: line.from, to: next.from }
-        }
-    }
-
-    let from = line.from
-
-    for (let number = line.number - 1; number >= 1; number--) {
-        const previous = doc.line(number)
-
-        if (previous.text.trim() !== '') {
-            from = previous.to
-            break
+        if (last.number <= line.number) {
+            return null
         }
 
-        from = previous.from
+        return { item, from: line.from, to: line.to + 1, insertAt: last.to, prefix: '\n' }
     }
 
-    return { from, to: doc.length }
+    const { next } = blockOf(state, line)
+
+    if (! next) {
+        return null
+    }
+
+    return { item, from: line.from, to: next.from, insertAt: lastFilledLine(state).to, prefix: '\n\n' }
 }
 
-function findLine(view: EditorView, markers: StateField<RangeSet<ItemMarker>>, item: Item) {
-    for (let cursor = view.state.field(markers).iter(); cursor.value; cursor.next()) {
-        if (cursor.value.item.type === item.type && cursor.value.item.id === item.id) {
-            return view.state.doc.lineAt(cursor.from)
+function findLine(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, item: Item): Line | null {
+    for (let cursor = state.field(markers).iter(); cursor.value; cursor.next()) {
+        if (isSameItem(cursor.value.item, item)) {
+            return state.doc.lineAt(cursor.from)
         }
     }
 
@@ -223,6 +319,13 @@ const theme = EditorView.theme({
         fontSize: '1.5rem',
         fontWeight: 'bold',
         lineHeight: '2',
+    },
+    '.cm-completed': {
+        color: 'var(--color-gray-400)',
+        textDecoration: 'line-through',
+    },
+    '.cm-muted': {
+        color: 'var(--color-gray-400)',
     },
     '.cm-placeholder': {
         color: 'var(--color-gray-400)',
@@ -274,11 +377,23 @@ if (textarea) {
             return
         }
 
-        const line = findLine(view, markers, item)
+        const line = findLine(view.state, markers, item)
+
+        if (! line) {
+            return
+        }
+
+        const move = moveToBottom(view.state, line, item)
+            ?? { item, from: line.from, to: line.from, insertAt: line.from, prefix: '' }
+
+        const text = view.state.doc.sliceString(move.from, move.to).replace(/\n+$/, '')
 
         view.dispatch({
-            changes: line ? rangeOf(view, line, item.type) : [],
-            effects: removeItem.of(item),
+            changes: move.from === move.to ? [] : [
+                { from: move.from, to: move.to },
+                { from: move.insertAt, insert: move.prefix + text },
+            ],
+            effects: moveItem.of(move),
             annotations: Transaction.addToHistory.of(false),
         })
     }
@@ -291,7 +406,7 @@ if (textarea) {
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
             markers,
-            completeButtons(markers, complete),
+            itemDecorations(markers, complete),
             projects,
             theme,
             EditorView.updateListener.of((update) => {
