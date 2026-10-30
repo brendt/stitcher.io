@@ -208,10 +208,12 @@ final class AnalyticsController
     {
         $time = DateTime::parse(DateTime::now()->minusMinutes(4)->format('yyyy-MM-dd HH:mm') . ':00');
 
-        return query(VisitsPerMinute::class)
-            ->select()
-            ->where('time > ?', $time)
-            ->first()
-            ->count ?? 0;
+        return (
+            query(VisitsPerMinute::class)
+                ->select()
+                ->where('time > ?', $time)
+                ->first()
+                ->count ?? 0
+        );
     }
 }

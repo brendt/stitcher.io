@@ -16,3 +16,5 @@
 
 - Use TailwindCSS
 - Use Tempest view components where it makes sense
+- Assume that `bun` is always running and frontend assets will be compiled
+- Never perform browser checks nor make screenshots

@@ -106,7 +106,7 @@ final class PackagesCommand
                 continue;
             }
 
-            $minVersion = (new GetMinVersion())($versionString);
+            $minVersion = new GetMinVersion()($versionString);
 
             if ($minVersion === null) {
                 return;

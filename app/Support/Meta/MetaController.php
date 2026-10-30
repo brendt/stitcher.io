@@ -12,6 +12,7 @@ use Tempest\Http\Responses\NotFound;
 use Tempest\Router\Get;
 use Tempest\Router\Stateless;
 use Tempest\View\ViewRenderer;
+
 use function Tempest\Support\path;
 
 final readonly class MetaController
@@ -65,13 +66,13 @@ final readonly class MetaController
 
         $fontSize += 4;
         $lineHeight = $fontSize + 40;
-        $top = (int) round((imagesy($image) - count($lines) * $lineHeight) / 2);
+        $top = (int) round((imagesy($image) - (count($lines) * $lineHeight)) / 2);
         $color = imagecolorallocate($image, 255, 255, 255);
 
         foreach ($lines as $index => $line) {
             $box = $this->textBox($line, $fontPath, $fontSize);
             $x = (int) round((imagesx($image) - $box['width']) / 2) - $box['left'];
-            $y = $top + $index * $lineHeight + $box['height'];
+            $y = $top + ($index * $lineHeight) + $box['height'];
 
             imagettftext($image, $fontSize, 0, $x, $y, $color, $fontPath, $line);
         }
