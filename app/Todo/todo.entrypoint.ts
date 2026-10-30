@@ -1788,7 +1788,8 @@ if (textarea) {
 
             if (lineElement) {
                 lineElement.style.transform = ''
-                lineElement.style.opacity = ''
+                lineElement.style.backgroundColor = ''
+                lineElement.style.borderRadius = ''
             }
 
             gesture = null
@@ -1854,8 +1855,15 @@ if (textarea) {
             if ((gesture === 'swipe' || gesture === 'archive') && lineElement) {
                 event.preventDefault()
                 distance = gesture === 'swipe' ? Math.min(0, dx) : Math.max(0, dx)
+
+                // Green for completing, purple for archiving, stronger once letting go would do it
+                const progress = Math.min(1, Math.abs(distance) / SWIPE_DISTANCE)
+                const strength = progress < 1 ? progress * 0.2 : 0.35
+                const color = gesture === 'swipe' ? '34 197 94' : '168 85 247'
+
                 lineElement.style.transform = `translateX(${distance}px)`
-                lineElement.style.opacity = String(Math.max(0.3, 1 - Math.abs(distance) / (SWIPE_DISTANCE * 2)))
+                lineElement.style.backgroundColor = `rgb(${color} / ${strength})`
+                lineElement.style.borderRadius = '0.25rem'
             }
 
             if (gesture === 'reorder' && reordering) {
