@@ -1539,6 +1539,9 @@ const theme = EditorView.theme({
         '.cm-drag': {
             display: 'none',
         },
+        '.cm-archive': {
+            display: 'none',
+        },
         // Sideways swipes are handled by the editor, so the browser shouldn't pan the page for them
         '.cm-content': {
             touchAction: 'pan-y pinch-zoom',
@@ -1743,8 +1746,9 @@ if (textarea) {
     }
 
     /**
-     * On touch screens, where the checkbox and drag handle are hidden:
-     * swiping a line to the left completes or reopens it, and pressing and holding a line picks it up to drag it up or down.
+     * On touch screens, where the checkbox, drag handle, and archive button are hidden:
+     * swiping a line to the left completes or reopens it, swiping a completed project to the right archives it (or unarchives it),
+     * and pressing and holding a line picks it up to drag it up or down.
      */
     const SWIPE_DISTANCE = 80
     const HOLD_DURATION = 400
@@ -1760,10 +1764,18 @@ if (textarea) {
             && ! (item.type === 'project' && foldAt(view.state, line))
     }
 
+    const canArchive = (view: EditorView, line: Line) => {
+        const item = itemOn(view.state, markers, line)
+
+        return item?.type === 'project'
+            && item.id !== null
+            && ((mode === 'workspace' && item.completed) || mode === 'archived')
+    }
+
     const canReorder = (view: EditorView, line: Line) => mode === 'workspace' && (isSortable(view.state, markers, line) || isSortableProject(line))
 
     const enableTouchGestures = (view: EditorView) => {
-        let gesture: 'pending' | 'swipe' | 'reorder' | 'scroll' | null = null
+        let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'scroll' | null = null
         let start = { x: 0, y: 0 }
         let distance = 0
         let line: Line | null = null
@@ -1820,22 +1832,30 @@ if (textarea) {
 
             if (gesture === 'pending' && Math.max(Math.abs(dx), Math.abs(dy)) > MOVE_TOLERANCE) {
                 window.clearTimeout(holdTimer)
-                gesture = dx < 0 && Math.abs(dx) > Math.abs(dy) && line && canToggle(view, line) ? 'swipe' : 'scroll'
+                const isSideways = Math.abs(dx) > Math.abs(dy)
+
+                if (isSideways && dx < 0 && line && canToggle(view, line)) {
+                    gesture = 'swipe'
+                } else if (isSideways && dx > 0 && line && canArchive(view, line)) {
+                    gesture = 'archive'
+                } else {
+                    gesture = 'scroll'
+                }
             }
 
             // Once the browser started scrolling, it can't be stopped anymore. Scrolling wins then, instead of swiping or dragging.
-            if ((gesture === 'swipe' || gesture === 'reorder') && ! event.cancelable) {
+            if ((gesture === 'swipe' || gesture === 'archive' || gesture === 'reorder') && ! event.cancelable) {
                 reordering?.cancel()
                 reset()
 
                 return
             }
 
-            if (gesture === 'swipe' && lineElement) {
+            if ((gesture === 'swipe' || gesture === 'archive') && lineElement) {
                 event.preventDefault()
-                distance = Math.min(0, dx)
+                distance = gesture === 'swipe' ? Math.min(0, dx) : Math.max(0, dx)
                 lineElement.style.transform = `translateX(${distance}px)`
-                lineElement.style.opacity = String(Math.max(0.3, 1 + distance / (SWIPE_DISTANCE * 2)))
+                lineElement.style.opacity = String(Math.max(0.3, 1 - Math.abs(distance) / (SWIPE_DISTANCE * 2)))
             }
 
             if (gesture === 'reorder' && reordering) {
@@ -1846,8 +1866,9 @@ if (textarea) {
         }, { passive: false })
 
         const end = () => {
-            const swipedLine = gesture === 'swipe' && distance <= -SWIPE_DISTANCE ? line : null
-            const item = swipedLine ? itemOn(view.state, markers, swipedLine) : null
+            const isFarEnough = Math.abs(distance) >= SWIPE_DISTANCE
+            const item = (gesture === 'swipe' || gesture === 'archive') && isFarEnough && line ? itemOn(view.state, markers, line) : null
+            const action = gesture === 'archive' ? archive : toggle
 
             if (gesture === 'reorder' && reordering) {
                 reordering.drop()
@@ -1856,7 +1877,7 @@ if (textarea) {
             reset()
 
             if (item) {
-                toggle(view, item)
+                action(view, item)
             }
         }
 
