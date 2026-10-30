@@ -7,7 +7,8 @@ import type { Line, Range } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
 
-type ItemType = 'project' | 'task'
+// Text is any other line within a project, which is saved but can't be completed
+type ItemType = 'project' | 'task' | 'text'
 
 type Item = {
     type: ItemType
@@ -46,6 +47,22 @@ function isProject(line: Line): boolean {
 
 function isTask(line: Line): boolean {
     return line.text.startsWith('- ')
+}
+
+function isText(line: Line): boolean {
+    return ! isProject(line) && ! isTask(line) && line.text.trim() !== ''
+}
+
+function typeOf(line: Line): ItemType | null {
+    if (isProject(line)) {
+        return 'project'
+    }
+
+    if (isTask(line)) {
+        return 'task'
+    }
+
+    return isText(line) ? 'text' : null
 }
 
 function decorateSyntax(view: EditorView): DecorationSet {
@@ -384,7 +401,7 @@ function itemOn(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, l
     let found: Item | null = null
 
     state.field(markers).between(line.from, line.from, (from, _to, marker) => {
-        if (from === line.from && (marker.item.type === 'project' ? isProject(line) : isTask(line))) {
+        if (from === line.from && marker.item.type === typeOf(line)) {
             found = marker.item
 
             return false
@@ -435,7 +452,7 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             // A collapsed project can't be completed, its tasks need to be visible for that
             const isCollapsedProject = item.type === 'project' && foldAt(state, line) !== null
 
-            if (item.id !== null && actions.mode !== 'archived' && ! isCollapsedProject) {
+            if (item.id !== null && item.type !== 'text' && actions.mode !== 'archived' && ! isCollapsedProject) {
                 decorations.push(Decoration.widget({ widget: new CheckButton(item, actions.toggle), side: -1 }).range(line.from))
             }
 
@@ -544,17 +561,15 @@ function moveTo(state: EditorState, line: Line, item: Item, completed: boolean, 
 }
 
 /**
- * Completed tasks go to the top of the completed tasks, so that the most recently completed one comes first.
- * Reopened tasks go back between the open tasks, ordered by when they were created.
- * This is the same order as when loading the page.
+ * Both completed and reopened tasks go right before the first completed task:
+ * completed ones end up at the top of the completed tasks, so that the most recently completed one comes first,
+ * and reopened ones at the bottom of the open tasks. This is the same order as when loading the page.
  */
-function targetFor(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, item: Item, completed: boolean): Line | null {
+function targetFor(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, item: Item): Line | null {
     const { start, last } = blockOf(state, line)
 
     const target = itemLines(state, markers, 'task', start.number, last.number)
-        .find(({ item: sibling }) => ! isSameItem(sibling, item) && (completed
-            ? sibling.completed
-            : sibling.completed || sibling.id === null || (item.id !== null && sibling.id > item.id)))
+        .find(({ item: sibling }) => ! isSameItem(sibling, item) && sibling.completed)
 
     return target?.line ?? null
 }
@@ -579,7 +594,7 @@ function toggleItem(state: EditorState, markers: StateField<RangeSet<ItemMarker>
     const completed = ! item.completed
 
     // Projects stay where they are, only tasks move between the open and completed ones
-    const move = (item.type === 'task' ? moveTo(state, line, item, completed, targetFor(state, markers, line, item, completed)) : null)
+    const move = (item.type === 'task' ? moveTo(state, line, item, completed, targetFor(state, markers, line, item)) : null)
         ?? { item, completed, from: line.from, to: line.from, textFrom: line.from, textLength: 0, insertAt: line.from, insert: '', offset: 0 }
 
     return state.update({
@@ -764,29 +779,31 @@ type Payload = {
         key: string
         id: number | null
         name: string
-        tasks: { key: string, id: number | null, name: string }[]
+        tasks: { key: string, id: number | null, name: string, kind: 'task' | 'text' }[]
     }[]
     deleted: Record<'projects' | 'tasks', number[]>
+    // Only when everything is shown, the order of the tasks can be saved
+    ordered: boolean
 }
 
 /**
- * Collects all projects and their tasks in the document, ready to be saved.
+ * Collects all projects with their tasks and text in the document, ready to be saved.
  * Lines that aren't tracked yet get a new item, which are returned so that they can be tracked from now on.
  * Items that were known before but can't be found anymore, are reported as deleted.
- * Tasks above the first project don't belong to any project, so they aren't saved.
+ * Tasks and text above the first project don't belong to any project, so they aren't saved.
  */
 function snapshot(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, known: Known, createKey: () => string): { payload: Payload, added: Range<ItemMarker>[] } {
-    const payload: Payload = { projects: [], deleted: { projects: [], tasks: [] } }
+    const payload: Payload = { projects: [], deleted: { projects: [], tasks: [] }, ordered: activeFilters.length === 0 }
     const added: Range<ItemMarker>[] = []
-    const present: Known = { project: new Set(), task: new Set() }
+    const present: Known = { project: new Set(), task: new Set(), text: new Set() }
 
     for (let number = 1; number <= state.doc.lines; number++) {
         const line = state.doc.line(number)
-        const type: ItemType | null = isProject(line) ? 'project' : (isTask(line) ? 'task' : null)
-        const name = line.text.slice(2).trim()
+        const type = typeOf(line)
+        const name = type === 'text' ? line.text.trimEnd() : line.text.slice(2).trim()
         const project = payload.projects.at(-1)
 
-        if (type === null || name === '' || (type === 'task' && ! project)) {
+        if (type === null || name === '' || (type !== 'project' && ! project)) {
             continue
         }
 
@@ -804,12 +821,16 @@ function snapshot(state: EditorState, markers: StateField<RangeSet<ItemMarker>>,
         if (type === 'project') {
             payload.projects.push({ key: item.key, id: item.id, name, tasks: [] })
         } else {
-            project?.tasks.push({ key: item.key, id: item.id, name })
+            project?.tasks.push({ key: item.key, id: item.id, name, kind: type })
         }
     }
 
     payload.deleted.projects = [...known.project].filter((id) => ! present.project.has(id))
-    payload.deleted.tasks = [...known.task].filter((id) => ! present.task.has(id))
+    // Tasks and text are stored together, so they're deleted together as well
+    payload.deleted.tasks = [
+        ...[...known.task].filter((id) => ! present.task.has(id)),
+        ...[...known.text].filter((id) => ! present.text.has(id)),
+    ]
 
     return { payload, added }
 }
@@ -1007,7 +1028,7 @@ const textarea = document.querySelector<HTMLTextAreaElement>('#todo-markdown')
 
 if (textarea) {
     const items: Record<string, Item> = {}
-    const known: Known = { project: new Set(), task: new Set() }
+    const known: Known = { project: new Set(), task: new Set(), text: new Set() }
 
     for (const [lineNumber, item] of Object.entries<Omit<Item, 'key'> & { id: number }>(JSON.parse(textarea.dataset.items ?? '{}'))) {
         items[lineNumber] = { ...item, key: `${item.type}-${item.id}` }
@@ -1017,7 +1038,8 @@ if (textarea) {
     let lastKey = 0
     const createKey = () => `new-${++lastKey}`
 
-    const urls: Record<ItemType, { complete: string, reopen: string }> = {
+    // Only projects and tasks can be completed, text can't
+    const urls: Record<Exclude<ItemType, 'text'>, { complete: string, reopen: string }> = {
         project: {
             complete: textarea.dataset.completeProjectUrl ?? '',
             reopen: textarea.dataset.reopenProjectUrl ?? '',
@@ -1050,6 +1072,10 @@ if (textarea) {
         const line = findLine(view.state, markers, item)
 
         if (item.type === 'project' && line && foldAt(view.state, line)) {
+            return
+        }
+
+        if (item.type === 'text') {
             return
         }
 
@@ -1140,9 +1166,11 @@ if (textarea) {
         // The project and its tasks are forgotten, so that saving doesn't think they were deleted
         const { last } = blockOf(view.state, line)
 
-        for (const { item: task } of itemLines(view.state, markers, 'task', line.number + 1, last.number)) {
-            if (task.id !== null) {
-                known.task.delete(task.id)
+        for (const type of ['task', 'text'] as const) {
+            for (const { item: task } of itemLines(view.state, markers, type, line.number + 1, last.number)) {
+                if (task.id !== null) {
+                    known[type].delete(task.id)
+                }
             }
         }
 
@@ -1294,7 +1322,7 @@ if (textarea) {
 
             for (const project of payload.projects) {
                 types.set(project.key, 'project')
-                project.tasks.forEach((task) => types.set(task.key, 'task'))
+                project.tasks.forEach((task) => types.set(task.key, task.kind))
             }
 
             for (const [key, id] of Object.entries(ids)) {

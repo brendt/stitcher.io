@@ -13,6 +13,7 @@ use function Tempest\Database\query;
  * Items without an ID are created, items with an ID are renamed or moved to another project when needed.
  * Only items the editor explicitly reports as deleted are removed,
  * so that saving a filtered view never touches what wasn't shown.
+ * For the same reason, the order of tasks is only saved when the editor shows everything, which it reports as `ordered`.
  */
 final readonly class TodoSync
 {
@@ -50,12 +51,23 @@ final readonly class TodoSync
         $presentProjects = [];
         $presentTasks = [];
 
+        $isOrdered = ($payload['ordered'] ?? false) === true;
+
+        /** @var array<int, int> $lastPositions */
+        $lastPositions = [];
+
+        foreach ($tasks as $id => $task) {
+            $lastPositions[$taskProjects[$id]] = max($lastPositions[$taskProjects[$id]] ?? 0, $task->position);
+        }
+
         $saved = $this->database->withinTransaction(function () use (
             $workspace,
             $payload,
             $projects,
             $tasks,
             $taskProjects,
+            $isOrdered,
+            &$lastPositions,
             &$createdIds,
             &$presentProjects,
             &$presentTasks,
@@ -86,26 +98,49 @@ final readonly class TodoSync
                 $projectId = (int) $project->id->value;
                 $presentProjects[$projectId] = true;
 
+                $position = 0;
+
                 foreach ($this->list($projectData['tasks'] ?? null) as $taskData) {
                     if (! is_array($taskData)) {
                         continue;
                     }
 
-                    $name = $this->name($taskData['name'] ?? null);
+                    $kind = TaskKind::tryFrom(is_string($taskData['kind'] ?? null) ? $taskData['kind'] : '') ?? TaskKind::TASK;
+                    $name = $this->name($taskData['name'] ?? null, keepIndentation: $kind === TaskKind::TEXT);
 
                     if ($name === null) {
                         continue;
                     }
 
+                    $position++;
                     $id = $this->id($taskData['id'] ?? null);
                     $task = $id !== null ? $tasks[$id] ?? null : null;
 
                     if ($task && $id !== null) {
-                        if ($task->name !== $name || $taskProjects[$id] !== $projectId) {
-                            query('tasks')->update(name: $name, project_id: $projectId)->where('id = ?', $id)->execute();
+                        $changes = array_filter(
+                            [
+                                'name' => $task->name !== $name ? $name : null,
+                                'project_id' => $taskProjects[$id] !== $projectId ? $projectId : null,
+                                'kind' => $task->kind !== $kind ? $kind->value : null,
+                                'position' => $isOrdered && $task->position !== $position ? $position : null,
+                            ],
+                            fn (mixed $value) => $value !== null,
+                        );
+
+                        if ($changes !== []) {
+                            query('tasks')->update(...$changes)->where('id = ?', $id)->execute();
                         }
                     } else {
-                        $task = Task::create(project: $project, name: $name);
+                        $lastPositions[$projectId] = ($lastPositions[$projectId] ?? 0) + 1;
+
+                        $task = Task::create(
+                            project: $project,
+                            name: $name,
+                            kind: $kind,
+                            // Without knowing the full order, new tasks go after all others in their project
+                            position: $isOrdered ? $position : $lastPositions[$projectId],
+                        );
+
                         $createdIds[$this->key($taskData['key'] ?? null)] = (int) $task->id->value;
                     }
 
@@ -143,13 +178,16 @@ final readonly class TodoSync
         return is_array($value) ? array_values($value) : [];
     }
 
-    private function name(mixed $value): ?string
+    /**
+     * Text keeps its indentation, so that it doesn't become a task or project when it's shown again.
+     */
+    private function name(mixed $value, bool $keepIndentation = false): ?string
     {
         if (! is_string($value)) {
             return null;
         }
 
-        $name = mb_substr(trim($value), 0, self::MAX_NAME_LENGTH);
+        $name = mb_substr($keepIndentation ? rtrim($value) : trim($value), 0, self::MAX_NAME_LENGTH);
 
         return $name === '' ? null : $name;
     }

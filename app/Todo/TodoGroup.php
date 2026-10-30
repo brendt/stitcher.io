@@ -20,7 +20,7 @@ final readonly class TodoGroup
 
     /**
      * Projects keep their order, also when they're completed.
-     * Within a project, open tasks keep their order, followed by completed tasks, most recently completed first.
+     * Within a project, open tasks and text keep the order they were saved in, followed by completed tasks, most recently completed first.
      *
      * @param Project[] $projects
      * @return self[]
@@ -41,6 +41,8 @@ final readonly class TodoGroup
     {
         $open = array_filter($tasks, fn (Task $task) => $task->completedAt === null);
         $completed = array_filter($tasks, fn (Task $task) => $task->completedAt !== null);
+
+        usort($open, fn (Task $a, Task $b) => [$a->position, $a->id->value] <=> [$b->position, $b->id->value]);
 
         usort(
             $completed,

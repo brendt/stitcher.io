@@ -70,7 +70,7 @@ final readonly class TodoMarkdown
      *
      * @param TodoGroup[] $groups
      * @param string[] $filters Only tasks with all of these tags are included
-     * @return array<int, array{type: 'project'|'task', id: int, completed: bool, collapsed?: bool}>
+     * @return array<int, array{type: 'project'|'task'|'text', id: int, completed: bool, collapsed?: bool}>
      */
     public function items(array $groups, array $filters = []): array
     {
@@ -108,7 +108,7 @@ final readonly class TodoMarkdown
                 foreach ($project->tasks as $task) {
                     $date = $this->dateOf($task);
 
-                    if ($task->completedAt !== null || $date === null) {
+                    if ($task->isText || $task->completedAt !== null || $date === null) {
                         continue;
                     }
 
@@ -132,10 +132,11 @@ final readonly class TodoMarkdown
 
     /**
      * Groups are separated by a blank line. A group that's a project can be completed and collapsed, other groups are just a title.
+     * Blank lines within a group aren't saved, so one is added wherever tasks and text meet, to keep them apart.
      *
      * @param TodoGroup[] $groups
      * @param string[] $filters
-     * @return Generator<array{0: string, 1: array{type: 'project'|'task', id: int, completed: bool, collapsed?: bool}|null}>
+     * @return Generator<array{0: string, 1: array{type: 'project'|'task'|'text', id: int, completed: bool, collapsed?: bool}|null}>
      */
     private function lines(array $groups, array $filters): Generator
     {
@@ -170,10 +171,22 @@ final readonly class TodoMarkdown
             ];
             yield ['', null];
 
+            $previous = null;
+
             foreach ($tasks as $task) {
+                if ($previous !== null && $previous->isText !== $task->isText) {
+                    yield ['', null];
+                }
+
+                $previous = $task;
+
                 yield [
-                    "- {$task->name}",
-                    ['type' => 'task', 'id' => (int) $task->id->value, 'completed' => $task->completedAt !== null],
+                    $task->isText ? $task->name : "- {$task->name}",
+                    [
+                        'type' => $task->isText ? 'text' : 'task',
+                        'id' => (int) $task->id->value,
+                        'completed' => $task->completedAt !== null,
+                    ],
                 ];
             }
         }
