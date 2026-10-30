@@ -1332,10 +1332,11 @@ const theme = EditorView.theme({
     '.cm-project-title': {
         cursor: 'pointer',
     },
-    '.cm-project-title:hover, .cm-project-title-active': {
+    '.cm-project-title:hover': {
         textDecoration: 'underline',
     },
-    '.cm-tag-active': {
+    // The project and tags that are being filtered on look the same
+    '.cm-tag-active, .cm-project-title-active': {
         textDecoration: 'underline',
         backgroundColor: 'var(--color-gray-100)',
         border: '1px solid black',
