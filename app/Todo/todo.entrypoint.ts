@@ -869,9 +869,17 @@ function tagCompletions(usedTags: string[]) {
             return true
         })
 
+        // `#today`, `#tomorrow`, and `#nextweek` are suggested first, and are written as their date when picked
+        const relativeDates = word.text.startsWith('#')
+            ? Object.entries(DAYS_FROM_TODAY).map(([tag, days]) => ({ label: tag, detail: dateInDays(days), apply: dateInDays(days) + ' ', boost: 99 }))
+            : []
+
         return {
             from: word.from,
-            options: tags.map((tag, index) => ({ label: tag, boost: Math.max(-99, -index) })),
+            options: [
+                ...relativeDates.filter((option) => option.label !== word.text.toLowerCase()),
+                ...tags.filter((tag) => ! (tag.toLowerCase() in DAYS_FROM_TODAY)).map((tag, index) => ({ label: tag, boost: Math.max(-99, -index) })),
+            ],
             validFor: TAG_WORD,
         }
     }
@@ -1131,6 +1139,39 @@ const replaceRelativeDates = EditorState.transactionFilter.of((transaction) => {
 
     return changes.length === 0 ? transaction : [transaction, { changes, sequential: true }]
 })
+
+/**
+ * Tab right after `#today`, `#tomorrow`, or `#nextweek` writes the date right away, followed by a space to continue typing.
+ */
+function expandRelativeDate(view: EditorView): boolean {
+    const selection = view.state.selection.main
+
+    if (view.state.selection.ranges.length > 1 || ! selection.empty) {
+        return false
+    }
+
+    const line = view.state.doc.lineAt(selection.head)
+    const match = line.text.slice(0, selection.head - line.from).match(/(^|\s)(#today|#tomorrow|#nextweek)$/iu)
+
+    if (! match || (! isTask(line) && ! isText(line))) {
+        return false
+    }
+
+    const from = selection.head - match[2].length
+    const date = dateInDays(DAYS_FROM_TODAY[match[2].toLowerCase()])
+
+    // When there's already a space after it, the cursor moves past that one instead of adding another
+    const hasSpace = view.state.sliceDoc(selection.head, selection.head + 1) === ' '
+    const insert = hasSpace ? date : date + ' '
+
+    view.dispatch({
+        changes: { from, to: selection.head, insert },
+        selection: { anchor: from + date.length + 1 },
+        userEvent: 'input.complete',
+    })
+
+    return true
+}
 
 /**
  * Backspace on a task that's still empty removes its `- ` at once, instead of only the space.
@@ -1909,7 +1950,7 @@ if (textarea) {
             replaceRelativeDates,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
             // Tab picks the selected suggestion while suggestions are shown, and indents otherwise
-            Prec.highest(keymap.of([{ key: 'Tab', run: acceptCompletion }])),
+            Prec.highest(keymap.of([{ key: 'Tab', run: expandRelativeDate }, { key: 'Tab', run: acceptCompletion }])),
             EditorState.readOnly.of(mode !== 'workspace'),
             EditorView.editable.of(mode === 'workspace'),
             codeFolding({
