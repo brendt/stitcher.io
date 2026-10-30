@@ -53,8 +53,8 @@ use function Tempest\Router\uri;
     </div>
 
     <div :if="$filters || $project" class="flex flex-wrap gap-x-4 gap-y-2 lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
-        <span :if="$mode === TodoMode::SOON && $project">Showing soon items in</span>
-        <span :else>Showing</span>
+        <span :if="$mode === TodoMode::SOON && $project" class="hidden lg:inline">Showing soon items in</span>
+        <span :else class="hidden lg:inline">Showing</span>
         <a
             :if="$project"
             :href="$projectLink"
