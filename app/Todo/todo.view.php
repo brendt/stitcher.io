@@ -9,7 +9,8 @@ use function Tempest\Router\uri;
 <!doctype html>
 <html lang="en" class="bg-white">
 <head>
-    <title :if="$workspace">{{ $workspace->name }} | Todo</title>
+    <title :if="$workspace && $filter">{{ $filter }} | {{ $workspace->name }} | Todo</title>
+    <title :elseif="$workspace">{{ $workspace->name }} | Todo</title>
     <title :else>Todo</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
@@ -23,14 +24,19 @@ use function Tempest\Router\uri;
 </head>
 <body class="antialiased bg-white text-gray-900">
 <nav
-    :if="count($workspaces) > 1"
-    class="flex justify-end gap-4 px-6 py-4 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:justify-start lg:gap-2 lg:px-10 lg:py-24"
+    :if="$workspace && (count($workspaces) > 1 || $filter)"
+    class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-6 py-4 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:justify-start lg:gap-2 lg:px-10 lg:py-24"
 >
     <a
         :foreach="$workspaces as $item"
         :href="uri([TodoController::class, 'show'], workspaceId: $item->id)"
         :class="$item->id->equals($workspace->id) ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
     >{{ $item->name }}</a>
+
+    <div :if="$filter" class="flex gap-4 lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
+        <span>Showing <span class="font-bold">{{ $filter }}</span></span>
+        <a :href="uri([TodoController::class, 'show'], workspaceId: $workspace->id)" class="text-gray-400 hover:text-gray-900">Clear filter</a>
+    </div>
 </nav>
 
 <main class="px-6 pt-4 pb-24 lg:px-56 lg:pt-24">
@@ -39,6 +45,7 @@ use function Tempest\Router\uri;
             id="todo-markdown"
             name="markdown"
             :data-items="json_encode($items)"
+            :data-filter-url="$workspace ? uri([TodoController::class, 'show'], workspaceId: $workspace->id) : null"
             :data-complete-project-url="uri([TodoController::class, 'completeProject'], projectId: '__ID__')"
             :data-complete-task-url="uri([TodoController::class, 'completeTask'], taskId: '__ID__')"
             :data-reopen-project-url="uri([TodoController::class, 'reopenProject'], projectId: '__ID__')"

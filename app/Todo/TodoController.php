@@ -6,6 +6,7 @@ use App\Support\Authentication\Admin;
 use App\Support\Authentication\User;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\DateTime\DateTime;
+use Tempest\Http\Request;
 use Tempest\Http\Response;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
@@ -25,15 +26,15 @@ final readonly class TodoController
     ) {}
 
     #[Get('/')]
-    public function index(): View|Response
+    public function index(Request $request): View|Response
     {
-        return $this->render(null);
+        return $this->render(null, $this->filter($request));
     }
 
     #[Get('/{workspaceId}')]
-    public function show(int $workspaceId): View|Response
+    public function show(int $workspaceId, Request $request): View|Response
     {
-        return $this->render($workspaceId);
+        return $this->render($workspaceId, $this->filter($request));
     }
 
     #[Post('/projects/{projectId}/complete')]
@@ -97,7 +98,7 @@ final readonly class TodoController
         return new Ok();
     }
 
-    private function render(?int $workspaceId): View|Response
+    private function render(?int $workspaceId, ?string $filter): View|Response
     {
         $workspaces = Workspace::select()
             ->with('projects.tasks')
@@ -117,9 +118,17 @@ final readonly class TodoController
             'todo.view.php',
             workspaces: $workspaces,
             workspace: $workspace,
-            markdown: $workspace ? $this->markdown->render($workspace) : '',
-            items: $workspace ? $this->markdown->items($workspace) : [],
+            filter: $filter,
+            markdown: $workspace ? $this->markdown->render($workspace, $filter) : '',
+            items: $workspace ? $this->markdown->items($workspace, $filter) : [],
         );
+    }
+
+    private function filter(Request $request): ?string
+    {
+        $filter = $request->get('filter');
+
+        return is_string($filter) && TodoMarkdown::isTag($filter) ? $filter : null;
     }
 
     private function user(): User

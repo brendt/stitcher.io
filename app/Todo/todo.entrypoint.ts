@@ -12,6 +12,10 @@ type Item = {
     completed: boolean
 }
 
+// A hashtag or mention is a word within a task that starts with `#` or `@`.
+// Keep this in sync with `TodoMarkdown::TAG`.
+const TAG = /(^|\s)([#@][\p{L}\p{N}_-]+)/gu
+
 const projectLine = Decoration.line({ class: 'cm-project' })
 const completedLine = Decoration.line({ class: 'cm-completed' })
 const mutedLine = Decoration.line({ class: 'cm-muted' })
@@ -20,7 +24,11 @@ function isProject(line: Line): boolean {
     return line.text.startsWith('# ')
 }
 
-function decorateProjects(view: EditorView): DecorationSet {
+function isTask(line: Line): boolean {
+    return line.text.startsWith('- ')
+}
+
+function decorateSyntax(view: EditorView): DecorationSet {
     const builder = new RangeSetBuilder<Decoration>()
 
     for (const { from, to } of view.visibleRanges) {
@@ -31,6 +39,15 @@ function decorateProjects(view: EditorView): DecorationSet {
                 builder.add(line.from, line.from, projectLine)
             }
 
+            if (isTask(line)) {
+                for (const match of line.text.matchAll(TAG)) {
+                    const start = line.from + match.index + match[1].length
+                    const tag = match[2]
+
+                    builder.add(start, start + tag.length, Decoration.mark({ class: 'cm-tag', attributes: { 'data-tag': tag } }))
+                }
+            }
+
             position = line.to + 1
         }
     }
@@ -38,17 +55,17 @@ function decorateProjects(view: EditorView): DecorationSet {
     return builder.finish()
 }
 
-const projects = ViewPlugin.fromClass(
+const syntax = ViewPlugin.fromClass(
     class {
         decorations: DecorationSet
 
         constructor(view: EditorView) {
-            this.decorations = decorateProjects(view)
+            this.decorations = decorateSyntax(view)
         }
 
         update(update: ViewUpdate) {
             if (update.docChanged || update.viewportChanged) {
-                this.decorations = decorateProjects(update.view)
+                this.decorations = decorateSyntax(update.view)
             }
         }
     },
@@ -423,6 +440,13 @@ const theme = EditorView.theme({
     '.cm-muted': {
         color: 'var(--color-gray-400)',
     },
+    '.cm-tag': {
+        fontWeight: 'bold',
+        cursor: 'pointer',
+    },
+    '.cm-tag:hover': {
+        textDecoration: 'underline',
+    },
     '.cm-placeholder': {
         color: 'var(--color-gray-400)',
     },
@@ -478,6 +502,8 @@ if (textarea) {
         },
     }
 
+    const filterUrl = textarea.dataset.filterUrl
+
     const markers = createItemMarkers(items)
 
     const toggle = async (view: EditorView, item: Item) => {
@@ -506,8 +532,22 @@ if (textarea) {
             EditorView.lineWrapping,
             markers,
             itemDecorations(markers, toggle),
-            projects,
+            syntax,
             theme,
+            EditorView.domEventHandlers({
+                mousedown(event) {
+                    const tag = (event.target as HTMLElement).closest<HTMLElement>('.cm-tag')?.dataset.tag
+
+                    if (! tag || ! filterUrl) {
+                        return false
+                    }
+
+                    event.preventDefault()
+                    window.location.href = `${filterUrl}?filter=${encodeURIComponent(tag)}`
+
+                    return true
+                },
+            }),
             EditorView.updateListener.of((update) => {
                 if (update.docChanged) {
                     textarea.value = update.state.doc.toString()

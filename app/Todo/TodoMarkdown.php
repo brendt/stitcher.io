@@ -7,11 +7,22 @@ use Tempest\DateTime\FormatPattern;
 
 final readonly class TodoMarkdown
 {
-    public function render(Workspace $workspace): string
+    /**
+     * A hashtag or mention is a word within a task that starts with `#` or `@`.
+     * Keep this in sync with `TAG` in todo.entrypoint.ts.
+     */
+    public const string TAG = '[#@][\\p{L}\\p{N}_-]+';
+
+    public static function isTag(string $value): bool
+    {
+        return preg_match('/^' . self::TAG . '$/u', $value) === 1;
+    }
+
+    public function render(Workspace $workspace, ?string $filter = null): string
     {
         $lines = [];
 
-        foreach ($this->lines($workspace) as [$text]) {
+        foreach ($this->lines($workspace, $filter) as [$text]) {
             $lines[] = $text;
         }
 
@@ -23,12 +34,12 @@ final readonly class TodoMarkdown
      *
      * @return array<int, array{type: 'project'|'task', id: int, completed: bool}>
      */
-    public function items(Workspace $workspace): array
+    public function items(Workspace $workspace, ?string $filter = null): array
     {
         $items = [];
         $lineNumber = 0;
 
-        foreach ($this->lines($workspace) as [, $item]) {
+        foreach ($this->lines($workspace, $filter) as [, $item]) {
             $lineNumber++;
 
             if ($item) {
@@ -42,11 +53,21 @@ final readonly class TodoMarkdown
     /**
      * @return Generator<array{0: string, 1: array{type: 'project'|'task', id: int, completed: bool}|null}>
      */
-    private function lines(Workspace $workspace): Generator
+    private function lines(Workspace $workspace, ?string $filter): Generator
     {
         $isFirstProject = true;
 
         foreach ($this->completedLast($workspace->projects) as $project) {
+            $tasks = $this->completedLast($project->tasks);
+
+            if ($filter !== null) {
+                $tasks = array_filter($tasks, fn (Task $task) => $this->hasTag($task, $filter));
+
+                if ($tasks === []) {
+                    continue;
+                }
+            }
+
             if (! $isFirstProject) {
                 yield ['', null];
             }
@@ -59,13 +80,18 @@ final readonly class TodoMarkdown
             ];
             yield ['', null];
 
-            foreach ($this->completedLast($project->tasks) as $task) {
+            foreach ($tasks as $task) {
                 yield [
                     "- {$task->name}",
                     ['type' => 'task', 'id' => (int) $task->id->value, 'completed' => $task->completedAt !== null],
                 ];
             }
         }
+    }
+
+    private function hasTag(Task $task, string $tag): bool
+    {
+        return preg_match('/(?:^|\\s)' . preg_quote($tag, '/') . '(?![\\p{L}\\p{N}_-])/iu', $task->name) === 1;
     }
 
     /**
