@@ -69,7 +69,7 @@ final readonly class TodoMarkdown
     }
 
     /**
-     * Keeps open items in their original order, followed by completed items in the order they were completed.
+     * Keeps open items in their original order, followed by completed items, most recently completed first.
      *
      * @template T of Project|Task
      * @param T[] $items
@@ -83,7 +83,7 @@ final readonly class TodoMarkdown
         usort(
             $completed,
             fn (Project|Task $a, Project|Task $b) => (
-                ($a->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '') <=> ($b->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '')
+                ($b->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '') <=> ($a->completedAt?->format(FormatPattern::SQL_DATE_TIME) ?? '')
             ),
         );
 

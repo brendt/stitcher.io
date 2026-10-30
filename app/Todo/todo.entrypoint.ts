@@ -303,94 +303,59 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, toggle: (vie
 }
 
 /**
- * Completed tasks move to the bottom of their project, completed projects move to the bottom of the workspace.
+ * Cuts a task's line, or a project with all of its tasks, and places it right before `target`.
+ * Without a target, it goes to the bottom of its project (tasks) or the bottom of the workspace (projects).
  */
-function moveToBottom(state: EditorState, line: Line, item: Item): Move | null {
+function moveTo(state: EditorState, line: Line, item: Item, completed: boolean, target: Line | null): Move | null {
     const { last, next } = blockOf(state, line)
+    const isTask = item.type === 'task'
+    const separator = isTask ? '\n' : '\n\n'
+    const end = isTask ? last : lastFilledLine(state)
 
-    if (item.type === 'task') {
-        if (last.number <= line.number) {
-            return null
-        }
+    const isInPlace = target
+        ? target.number === (isTask ? line.number + 1 : next?.number)
+        : end.number <= (isTask ? line.number : last.number)
 
-        return {
-            item,
-            completed: true,
-            from: line.from,
-            to: line.to + 1,
-            textFrom: line.from,
-            textLength: line.length,
-            insertAt: last.to,
-            insert: '\n' + line.text,
-            offset: 1,
-        }
-    }
-
-    if (! next) {
+    if (isInPlace) {
         return null
     }
 
-    const text = state.doc.sliceString(line.from, last.to)
+    const text = isTask ? line.text : state.doc.sliceString(line.from, last.to)
+
+    const [from, to] = isTask
+        ? (line.number < state.doc.lines ? [line.from, line.to + 1] : [line.from - 1, line.to])
+        : (next ? [line.from, next.from] : [lastFilledLine(state, line.number).to, state.doc.length])
 
     return {
         item,
-        completed: true,
-        from: line.from,
-        to: next.from,
+        completed,
+        from,
+        to,
         textFrom: line.from,
         textLength: text.length,
-        insertAt: lastFilledLine(state).to,
-        insert: '\n\n' + text,
-        offset: 2,
+        insertAt: target ? target.from : end.to,
+        insert: target ? text + separator : separator + text,
+        offset: target ? 0 : separator.length,
     }
 }
 
 /**
- * Reopened tasks and projects move back to where they'd be when loading the page:
- * between the open items, ordered by when they were created.
+ * Completed items go to the top of the completed items, so that the most recently completed one comes first.
+ * Reopened items go back between the open items, ordered by when they were created.
+ * This is the same order as when loading the page.
  */
-function moveBack(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, item: Item): Move | null {
-    const { start, last, next } = item.type === 'task'
-        ? blockOf(state, line)
-        : { ...blockOf(state, line), start: state.doc.line(1) }
+function targetFor(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, item: Item, completed: boolean): Line | null {
+    const { start, last } = blockOf(state, line)
 
-    const siblings = itemLines(state, markers, item.type, start.number, item.type === 'task' ? last.number : state.doc.lines)
-    const target = siblings.find(({ item: sibling }) => ! isSameItem(sibling, item) && (sibling.completed || sibling.id > item.id))
+    const siblings = item.type === 'task'
+        ? itemLines(state, markers, 'task', start.number, last.number)
+        : itemLines(state, markers, 'project', 1, state.doc.lines)
 
-    if (! target || target.line.number > line.number) {
-        return null
-    }
+    const target = siblings.find(({ item: sibling }) => ! isSameItem(sibling, item) && (completed
+        ? sibling.completed
+        : sibling.completed || sibling.id > item.id))
 
-    if (item.type === 'task') {
-        const isLastLine = line.number === state.doc.lines
-
-        return {
-            item,
-            completed: false,
-            from: isLastLine ? line.from - 1 : line.from,
-            to: isLastLine ? line.to : line.to + 1,
-            textFrom: line.from,
-            textLength: line.length,
-            insertAt: target.line.from,
-            insert: line.text + '\n',
-            offset: 0,
-        }
-    }
-
-    const { last: blockLast } = blockOf(state, line)
-    const text = state.doc.sliceString(line.from, blockLast.to)
-
-    return {
-        item,
-        completed: false,
-        from: next ? line.from : lastFilledLine(state, line.number).to,
-        to: next ? next.from : state.doc.length,
-        textFrom: line.from,
-        textLength: text.length,
-        insertAt: target.line.from,
-        insert: text + '\n\n',
-        offset: 0,
-    }
+    return target?.line ?? null
 }
 
 function findLine(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, item: Item): Line | null {
@@ -412,7 +377,7 @@ function toggleItem(state: EditorState, markers: StateField<RangeSet<ItemMarker>
 
     const completed = ! item.completed
 
-    const move = (completed ? moveToBottom(state, line, item) : moveBack(state, markers, line, item))
+    const move = moveTo(state, line, item, completed, targetFor(state, markers, line, item, completed))
         ?? { item, completed, from: line.from, to: line.from, textFrom: line.from, textLength: 0, insertAt: line.from, insert: '', offset: 0 }
 
     return state.update({
