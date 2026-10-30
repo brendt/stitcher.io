@@ -36,11 +36,20 @@ final readonly class TodoController
 
     /**
      * Shows the workspace that was opened last, or the first one when there isn't one yet.
+     * A first workspace is created when there are none yet.
      */
     #[Get('/')]
     public function index(Request $request): View
     {
         $workspaces = $this->workspaces();
+
+        // Without a workspace, there's nowhere to save to, so there's always at least one
+        if ($workspaces === []) {
+            Workspace::create(user: $this->user(), name: 'Private');
+
+            $workspaces = $this->workspaces();
+        }
+
         $latestWorkspaceId = $this->user()->latestWorkspaceId;
 
         $workspace = array_find($workspaces, fn (Workspace $workspace) => $workspace->id->value === $latestWorkspaceId) ?? $workspaces[0] ?? null;
