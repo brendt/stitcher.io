@@ -965,6 +965,31 @@ function confirmBulkDelete(view: EditorView): boolean {
     return ! window.confirm(`${message}\n\nHold ${modifierKey} while deleting to skip this question.`)
 }
 
+/**
+ * Backspace on a task that's still empty removes its `- ` at once, instead of only the space.
+ */
+function removeEmptyTask(view: EditorView): boolean {
+    const selection = view.state.selection.main
+
+    if (view.state.selection.ranges.length > 1 || ! selection.empty) {
+        return false
+    }
+
+    const line = view.state.doc.lineAt(selection.head)
+
+    if (line.text !== '- ' || selection.head !== line.to) {
+        return false
+    }
+
+    view.dispatch({
+        changes: { from: line.from, to: line.to },
+        selection: { anchor: line.from },
+        userEvent: 'delete.backward',
+    })
+
+    return true
+}
+
 const modifierKey = /Mac|iPhone|iPad/.test(navigator.platform) ? '⌘' : 'Ctrl'
 
 /**
@@ -1524,6 +1549,7 @@ if (textarea) {
             keymap.of([
                 { key: 'Enter', run: continueTask },
                 { key: 'Backspace', run: confirmBulkDelete },
+                { key: 'Backspace', run: removeEmptyTask },
                 { key: 'Delete', run: confirmBulkDelete },
                 { key: 'Mod-Backspace', run: deleteSelectionWithoutConfirming },
                 { key: 'Mod-Delete', run: deleteSelectionWithoutConfirming },
