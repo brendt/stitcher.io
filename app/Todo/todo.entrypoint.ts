@@ -878,7 +878,7 @@ function tagCompletions(usedTags: string[]) {
 }
 
 /**
- * Pressing Enter at the end of a new project's title starts its first task, below a blank line like when loading the page.
+ * Pressing Enter at the end of a new project's title starts its first task right below it.
  * Pressing Enter within a task starts a new task right away.
  * Pressing Enter on a task that's still empty removes its `- ` again, which leaves a blank line,
  * and continues on the next line, for example to start a new project.
@@ -900,8 +900,8 @@ function continueTask(view: EditorView): boolean {
 
     if (isNewProject) {
         view.dispatch({
-            changes: { from: line.to, insert: '\n\n- ' },
-            selection: { anchor: line.to + 4 },
+            changes: { from: line.to, insert: '\n- ' },
+            selection: { anchor: line.to + 3 },
             scrollIntoView: true,
             userEvent: 'input',
         })

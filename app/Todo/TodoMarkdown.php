@@ -173,7 +173,6 @@ final readonly class TodoMarkdown
                         'collapsed' => $group->project->collapsed,
                     ] : null,
             ];
-            yield ['', null];
 
             $previous = null;
 
