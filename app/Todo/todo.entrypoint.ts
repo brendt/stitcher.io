@@ -903,7 +903,14 @@ const theme = EditorView.theme({
         color: 'var(--color-gray-900)',
         textDecoration: 'underline',
     },
+    // CodeMirror's invisible helpers around widgets, aligned at the baseline they make lines with a collapsed project taller
+    '.cm-widgetBuffer': {
+        verticalAlign: 'top',
+    },
     '.cm-foldPlaceholder': {
+        // As an inline block, the strikethrough of a completed project's title doesn't run through it
+        display: 'inline-block',
+        textDecoration: 'none',
         marginLeft: '0.5rem',
         padding: '0',
         border: 'none',
