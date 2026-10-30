@@ -632,8 +632,14 @@ if (textarea) {
         }
     }
 
+    // The cursor position is remembered per workspace and filter, so that refreshing the page continues where you left off
+    const cursorKey = `todo-cursor:${window.location.pathname}${window.location.search}`
+    const storedCursor = Number(window.localStorage.getItem(cursorKey))
+    const cursor = Number.isInteger(storedCursor) ? Math.min(Math.max(storedCursor, 0), textarea.value.length) : 0
+
     const view = new EditorView({
         doc: textarea.value,
+        selection: { anchor: cursor },
         extensions: [
             history(),
             keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
@@ -661,6 +667,10 @@ if (textarea) {
                 if (update.docChanged) {
                     textarea.value = update.state.doc.toString()
                     scheduleSave()
+                }
+
+                if (update.selectionSet || update.docChanged) {
+                    window.localStorage.setItem(cursorKey, String(update.state.selection.main.head))
                 }
             }),
         ],
@@ -789,4 +799,5 @@ if (textarea) {
     textarea.after(view.dom)
     textarea.hidden = true
     view.focus()
+    view.dispatch({ effects: EditorView.scrollIntoView(cursor, { y: 'center' }) })
 }
