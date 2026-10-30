@@ -1676,8 +1676,11 @@ const theme = EditorView.theme({
     '.cm-tag-active:hover, .cm-project-title-active:hover': {
         textDecorationStyle: 'dotted',
     },
+    // The placeholder is shown on top of the empty document, so that its lines don't make the first line, and the cursor on it, as tall as all of them
     '.cm-placeholder': {
+        position: 'absolute',
         color: 'var(--color-gray-400)',
+        pointerEvents: 'none',
     },
     '.cm-check': {
         position: 'absolute',

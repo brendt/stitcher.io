@@ -19,7 +19,7 @@ enum TodoMode: string
     public function placeholder(): string
     {
         return match ($this) {
-            self::WORKSPACE => "# Project name\n\n- Todo 1\n- Todo 2",
+            self::WORKSPACE => "# Project name\n- Todo 1\n- Todo 2",
             self::SOON => 'Nothing coming up',
             self::ARCHIVED => 'Nothing archived yet',
         };
