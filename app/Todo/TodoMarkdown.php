@@ -22,7 +22,7 @@ final readonly class TodoMarkdown
 
     /**
      * @param TodoGroup[] $groups Rendered in the given order
-     * @param string[] $filters Only tasks with all of these tags are included
+     * @param string[] $filters Only tasks with all of these tags are included, together with the text of their projects
      */
     public function render(array $groups, array $filters = []): string
     {
@@ -145,12 +145,15 @@ final readonly class TodoMarkdown
         foreach ($groups as $group) {
             $tasks = $group->tasks;
 
+            // Filtering shows the matching tasks, together with all text of their project to give them context
             if ($filters !== []) {
-                $tasks = array_filter($tasks, fn (Task $task) => array_all($filters, fn (string $filter) => $this->hasTag($task, $filter)));
+                $matches = fn (Task $task) => array_all($filters, fn (string $filter) => $this->hasTag($task, $filter));
 
-                if ($tasks === []) {
+                if (! array_any($tasks, $matches)) {
                     continue;
                 }
+
+                $tasks = array_filter($tasks, fn (Task $task) => $task->isText || $matches($task));
             }
 
             if (! $isFirstGroup) {
