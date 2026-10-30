@@ -1122,6 +1122,9 @@ const RELATIVE_DATES = /(^|\s)(#today|#tomorrow|#nextweek)(?=$|[\s.,;:!?)])/giu
 
 // The number of days from today, worked out when it's used, so that it's always right for the current day.
 // The next week starts on its Monday.
+// Marks a transaction in which `#today`, `#tomorrow`, or `#nextweek` was written as a date, which is saved right away
+const relativeDateResolved = Annotation.define<boolean>()
+
 const DAYS_FROM_TODAY: Record<string, () => number> = {
     '#today': () => 0,
     '#tomorrow': () => 1,
@@ -1184,7 +1187,7 @@ const replaceRelativeDates = EditorState.transactionFilter.of((transaction) => {
         }
     }
 
-    return changes.length === 0 ? transaction : [transaction, { changes, sequential: true }]
+    return changes.length === 0 ? transaction : [transaction, { changes, sequential: true, annotations: relativeDateResolved.of(true) }]
 })
 
 /**
@@ -1215,6 +1218,7 @@ function expandRelativeDate(view: EditorView): boolean {
         changes: { from, to: selection.head, insert },
         selection: { anchor: from + date.length + 1 },
         userEvent: 'input.complete',
+        annotations: relativeDateResolved.of(true),
     })
 
     return true
@@ -2318,6 +2322,11 @@ if (textarea) {
                     scheduleUpcoming(update.view)
                 }
 
+                // A task that just got a date is saved right away, so that it shows up in the virtual project as soon as possible
+                if (update.transactions.some((transaction) => transaction.annotation(relativeDateResolved))) {
+                    scheduleSave(0)
+                }
+
                 if (update.selectionSet || update.docChanged) {
                     window.localStorage.setItem(cursorKey, String(update.state.selection.main.head))
                 }
@@ -2383,6 +2392,9 @@ if (textarea) {
             const { ids } = await response.json() as { ids: Record<string, number> }
 
             view.dispatch({ effects: assignIds.of(ids) })
+
+            // Tasks only show up in the virtual project once they're saved, because it needs to know which task each copy belongs to
+            updateUpcoming(view)
 
             const types = new Map<string, ItemType>()
 
