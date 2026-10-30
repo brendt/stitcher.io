@@ -1069,6 +1069,70 @@ const normalizeSpacing = EditorState.transactionFilter.of((transaction) => {
 })
 
 /**
+ * Typing `today`, `tomorrow`, or `next week` in a task or text writes it as a date instead, like `2026-10-30`,
+ * so that it can be filtered on and shows up in Soon. Only lines that are being edited change, once the word is finished:
+ * not while the cursor is still right after it, so that typing a longer word doesn't get replaced halfway.
+ */
+const RELATIVE_DATES = /(^|\s)(today|tomorrow|next week)(?=$|[\s.,;:!?)])/giu
+
+const DAYS_FROM_TODAY: Record<string, number> = { 'today': 0, 'tomorrow': 1, 'next week': 7 }
+
+function dateInDays(days: number): string {
+    const date = new Date()
+
+    date.setDate(date.getDate() + days)
+
+    return [
+        date.getFullYear(),
+        String(date.getMonth() + 1).padStart(2, '0'),
+        String(date.getDate()).padStart(2, '0'),
+    ].join('-')
+}
+
+const replaceRelativeDates = EditorState.transactionFilter.of((transaction) => {
+    if (! transaction.docChanged || transaction.isUserEvent('undo') || transaction.isUserEvent('redo')) {
+        return transaction
+    }
+
+    if (transaction.effects.some((effect) => effect.is(moveItem))) {
+        return transaction
+    }
+
+    const { doc, selection } = transaction.state
+    const head = selection.main.head
+    const lines = new Set<number>()
+
+    transaction.changes.iterChangedRanges((_fromA, _toA, fromB, toB) => {
+        for (let number = doc.lineAt(fromB).number; number <= doc.lineAt(toB).number; number++) {
+            lines.add(number)
+        }
+    })
+
+    const changes: { from: number, to: number, insert: string }[] = []
+
+    for (const number of lines) {
+        const line = doc.line(number)
+
+        if (! isTask(line) && ! isText(line)) {
+            continue
+        }
+
+        for (const match of line.text.matchAll(RELATIVE_DATES)) {
+            const from = line.from + match.index + match[1].length
+            const to = from + match[2].length
+
+            if (to === head) {
+                continue
+            }
+
+            changes.push({ from, to, insert: dateInDays(DAYS_FROM_TODAY[match[2].toLowerCase()]) })
+        }
+    }
+
+    return changes.length === 0 ? transaction : [transaction, { changes, sequential: true }]
+})
+
+/**
  * Backspace on a task that's still empty removes its `- ` at once, instead of only the space.
  */
 function removeEmptyTask(view: EditorView): boolean {
@@ -1842,6 +1906,7 @@ if (textarea) {
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
             normalizeSpacing,
+            replaceRelativeDates,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
             // Tab picks the selected suggestion while suggestions are shown, and indents otherwise
             Prec.highest(keymap.of([{ key: 'Tab', run: acceptCompletion }])),
