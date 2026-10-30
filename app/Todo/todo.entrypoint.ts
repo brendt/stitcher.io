@@ -37,6 +37,30 @@ function isActiveFilter(tag: string): boolean {
     return activeFilters.some((filter) => filter.toLowerCase() === tag.toLowerCase())
 }
 
+// The project that's shown on its own, matched by name like the server does
+let activeProject: string | null = null
+
+function isActiveProject(name: string): boolean {
+    return activeProject !== null && activeProject.toLowerCase() === name.toLowerCase()
+}
+
+/**
+ * The URL of the current page with other filters, like `?filter=#urgent @alex&project=Tempest`.
+ */
+function filterHref(baseUrl: string, filters: string[], project: string | null): string {
+    const query = new URLSearchParams()
+
+    if (filters.length > 0) {
+        query.set('filter', filters.join(' '))
+    }
+
+    if (project !== null) {
+        query.set('project', project)
+    }
+
+    return query.size > 0 ? `${baseUrl}?${query}` : baseUrl
+}
+
 const projectLine = Decoration.line({ class: 'cm-project' })
 const completedLine = Decoration.line({ class: 'cm-completed' })
 const mutedLine = Decoration.line({ class: 'cm-muted' })
@@ -77,6 +101,17 @@ function decorateSyntax(view: EditorView): DecorationSet {
 
             if (isProject(line)) {
                 decorations.push(projectLine.range(line.from))
+
+                // The title can be clicked to only show that project
+                const name = line.text.slice(2).trim()
+                const start = line.from + line.text.indexOf(name, 2)
+
+                if (name !== '') {
+                    decorations.push(Decoration.mark({
+                        class: isActiveProject(name) ? 'cm-project-title cm-project-title-active' : 'cm-project-title',
+                        attributes: { 'data-project': name },
+                    }).range(start, start + name.length))
+                }
             }
 
             if (isTask(line) || isText(line)) {
@@ -1108,6 +1143,12 @@ const theme = EditorView.theme({
     '.cm-tag-sign': {
         fontWeight: 'bold',
     },
+    '.cm-project-title': {
+        cursor: 'pointer',
+    },
+    '.cm-project-title:hover, .cm-project-title-active': {
+        textDecoration: 'underline',
+    },
     '.cm-tag-active': {
         textDecoration: 'underline',
         backgroundColor: 'var(--color-gray-100)',
@@ -1207,6 +1248,7 @@ if (textarea) {
     const filterUrl = textarea.dataset.filterUrl
     const usedTags: string[] = JSON.parse(textarea.dataset.tags ?? '[]')
     activeFilters = (textarea.dataset.filter ?? '').split(' ').filter((filter) => filter !== '')
+    activeProject = textarea.dataset.project ?? null
     const saveUrl = textarea.dataset.saveUrl
     const status = document.querySelector<HTMLElement>('#todo-status')
 
@@ -1437,9 +1479,23 @@ if (textarea) {
                         return true
                     }
 
+                    if (! filterUrl) {
+                        return false
+                    }
+
+                    // Clicking a project's title only shows that project, clicking it again shows all projects again
+                    const project = (event.target as HTMLElement).closest<HTMLElement>('.cm-project-title')?.dataset.project
+
+                    if (project) {
+                        event.preventDefault()
+                        window.location.href = filterHref(filterUrl, activeFilters, isActiveProject(project) ? null : project)
+
+                        return true
+                    }
+
                     const tag = (event.target as HTMLElement).closest<HTMLElement>('.cm-tag')?.dataset.tag
 
-                    if (! tag || ! filterUrl) {
+                    if (! tag) {
                         return false
                     }
 
@@ -1449,7 +1505,7 @@ if (textarea) {
                         ? activeFilters.filter((filter) => filter.toLowerCase() !== tag.toLowerCase())
                         : [...activeFilters, tag]
 
-                    window.location.href = filters.length > 0 ? `${filterUrl}?filter=${encodeURIComponent(filters.join(' '))}` : filterUrl
+                    window.location.href = filterHref(filterUrl, filters, activeProject)
 
                     return true
                 },

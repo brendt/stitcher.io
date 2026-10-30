@@ -49,7 +49,7 @@ final readonly class TodoController
             workspaces: $workspaces,
             workspace: $workspace,
             groups: TodoGroup::forProjects(array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null)),
-            filters: $this->filter($request),
+            request: $request,
             baseUri: uri([self::class, 'index']),
         );
     }
@@ -92,7 +92,7 @@ final readonly class TodoController
             workspaces: $workspaces,
             workspace: null,
             groups: $this->markdown->soon(...$workspaces),
-            filters: $this->filter($request),
+            request: $request,
             baseUri: uri([self::class, 'soon']),
             mode: TodoMode::SOON,
         );
@@ -104,7 +104,6 @@ final readonly class TodoController
     #[Get('/archived')]
     public function archived(Request $request): View
     {
-        $filters = $this->filter($request);
         $workspaces = $this->workspaces();
         $projects = [];
 
@@ -127,7 +126,7 @@ final readonly class TodoController
             workspaces: $workspaces,
             workspace: null,
             groups: TodoGroup::forProjects($projects),
-            filters: $filters,
+            request: $request,
             baseUri: uri([self::class, 'archived']),
             mode: TodoMode::ARCHIVED,
         );
@@ -254,12 +253,20 @@ final readonly class TodoController
     }
 
     /**
+     * Shows the given groups, optionally filtered by tags and a project, as requested.
+     *
      * @param Workspace[] $workspaces
      * @param TodoGroup[] $groups
-     * @param string[] $filters
      */
-    private function view(array $workspaces, ?Workspace $workspace, array $groups, array $filters, string $baseUri, TodoMode $mode = TodoMode::WORKSPACE): View
+    private function view(array $workspaces, ?Workspace $workspace, array $groups, Request $request, string $baseUri, TodoMode $mode = TodoMode::WORKSPACE): View
     {
+        $filters = $this->filter($request);
+        $project = $this->project($request);
+
+        if ($project !== null) {
+            $groups = array_values(array_filter($groups, fn (TodoGroup $group) => mb_strtolower($group->title) === mb_strtolower($project)));
+        }
+
         return view(
             'todo.view.php',
             workspaces: $workspaces,
@@ -268,7 +275,9 @@ final readonly class TodoController
             title: $workspace->name ?? $mode->title(),
             placeholder: $mode->placeholder(),
             filters: $filters,
-            filterLinks: $this->filterLinks($baseUri, $filters),
+            filterLinks: $this->filterLinks($baseUri, $filters, $project),
+            project: $project,
+            projectLink: $project !== null ? $this->filterUri($baseUri, $filters, null) : null,
             baseUri: $baseUri,
             markdown: $this->markdown->render($groups, $filters),
             items: $this->markdown->items($groups, $filters),
@@ -316,19 +325,33 @@ final readonly class TodoController
     }
 
     /**
-     * For every active filter, the URL that shows the page without it.
+     * Shows only the project with this name, for example `?project=Tempest`.
+     */
+    private function project(Request $request): ?string
+    {
+        $project = $request->get('project');
+
+        if (! is_string($project) || trim($project) === '') {
+            return null;
+        }
+
+        return trim($project);
+    }
+
+    /**
+     * For every active tag filter, the URL that shows the page without it, but with the other filters.
      *
      * @param string[] $filters
      * @return array<string, string>
      */
-    private function filterLinks(string $baseUri, array $filters): array
+    private function filterLinks(string $baseUri, array $filters, ?string $project): array
     {
         $links = [];
 
         foreach ($filters as $filter) {
             $remaining = array_filter($filters, fn (string $other) => $other !== $filter);
 
-            $links[$filter] = $this->filterUri($baseUri, $remaining);
+            $links[$filter] = $this->filterUri($baseUri, $remaining, $project);
         }
 
         return $links;
@@ -337,9 +360,14 @@ final readonly class TodoController
     /**
      * @param string[] $filters
      */
-    private function filterUri(string $baseUri, array $filters): string
+    private function filterUri(string $baseUri, array $filters, ?string $project): string
     {
-        return $filters === [] ? $baseUri : $baseUri . '?filter=' . rawurlencode(implode(' ', $filters));
+        $query = http_build_query(array_filter([
+            'filter' => $filters === [] ? null : implode(' ', $filters),
+            'project' => $project,
+        ]), encoding_type: PHP_QUERY_RFC3986);
+
+        return $query === '' ? $baseUri : $baseUri . '?' . $query;
     }
 
     private function user(): User

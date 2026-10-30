@@ -10,7 +10,7 @@ use function Tempest\Router\uri;
 <!doctype html>
 <html lang="en" class="bg-white">
 <head>
-    <title :if="$filters">{{ implode(' ', $filters) }} | {{ $title }} | Todo</title>
+    <title :if="$filters || $project">{{ implode(' ', array_filter([$project, ...$filters])) }} | {{ $title }} | Todo</title>
     <title :elseif="$title">{{ $title }} | Todo</title>
     <title :else>Todo</title>
     <meta charset="UTF-8"/>
@@ -49,8 +49,14 @@ use function Tempest\Router\uri;
         :class="$mode === TodoMode::ARCHIVED ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
     >Archived</a>
 
-    <div :if="$filters" class="flex flex-wrap gap-x-4 gap-y-2 lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
+    <div :if="$filters || $project" class="flex flex-wrap gap-x-4 gap-y-2 lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
         <span>Showing</span>
+        <a
+            :if="$project"
+            :href="$projectLink"
+            :title="'Stop showing only ' . $project"
+            class="group font-bold"
+        ># {{ $project }} <span class="font-normal text-gray-400 group-hover:text-gray-900">×</span></a>
         <a
             :foreach="$filterLinks as $tag => $removeUri"
             :href="$removeUri"
@@ -69,6 +75,7 @@ use function Tempest\Router\uri;
             :data-items="json_encode($items)"
             :data-tags="json_encode($tags)"
             :data-filter="implode(' ', $filters)"
+            :data-project="$project"
             :data-filter-url="$baseUri"
             :data-mode="$mode->value"
             :data-workspace-id="$workspace?->id"
