@@ -1729,6 +1729,17 @@ const theme = EditorView.theme({
             textDecorationStyle: 'dotted',
         },
     },
+    // On wide screens, there's room for more space around the virtual project
+    '@media (min-width: 1024px)': {
+        '.cm-virtual-section': {
+            margin: '0 -1.5rem',
+            paddingLeft: '1.5rem',
+            paddingRight: '1.5rem',
+        },
+        '.cm-virtual-section .cm-check': {
+            left: '-0.5rem',
+        },
+    },
 })
 
 const textarea = document.querySelector<HTMLTextAreaElement>('#todo-markdown')
