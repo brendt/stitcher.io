@@ -1041,12 +1041,12 @@ function confirmBulkDelete(view: EditorView): boolean {
 }
 
 /**
- * Keeps the spacing the same as when loading the page: two blank lines above every project,
+ * Keeps the spacing the same as when loading the page: a blank line above every project,
  * a blank line between text and a task right above or below it, and no blank lines between two tasks,
  * for example after the text between them was removed.
  * Lines near the cursor are left alone until the cursor moves away, so that they don't change while typing.
  */
-const BLANK_LINES_ABOVE_PROJECTS = 2
+const BLANK_LINES_ABOVE_PROJECTS = 1
 
 // Moves skip `normalizeSpacing`, so the spacing is fixed right after them instead
 function tidy(view: EditorView): void {

@@ -179,7 +179,7 @@ final readonly class TodoMarkdown
     }
 
     /**
-     * Groups are separated by two blank lines. A group that's a project can be completed and collapsed, other groups are just a title.
+     * Groups are separated by a blank line. A group that's a project can be completed and collapsed, other groups are just a title.
      * Blank lines within a group aren't saved, so one is added wherever tasks and text meet, to keep them apart.
      *
      * @param TodoGroup[] $groups
@@ -205,7 +205,6 @@ final readonly class TodoMarkdown
             }
 
             if (! $isFirstGroup) {
-                yield ['', null];
                 yield ['', null];
             }
 
