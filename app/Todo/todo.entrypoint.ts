@@ -133,7 +133,7 @@ function decorateSyntax(view: EditorView): DecorationSet {
                     const tag = match[2]
 
                     decorations.push((tag.length === 1 ? tagSign : Decoration.mark({
-                        class: isActiveFilter(tag) ? 'cm-tag cm-tag-active' : 'cm-tag',
+                        class: isActiveFilter(tag) ? 'cm-tag cm-filterable cm-tag-active' : 'cm-tag cm-filterable',
                         attributes: { 'data-tag': tag },
                     })).range(start, start + tag.length))
                 }
@@ -725,7 +725,7 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             // In the virtual project, the name of a task's own project can be clicked to only show that project
             if (item.virtual && item.type === 'task' && item.project && line.text.startsWith(`- ${item.project}: `)) {
                 decorations.push(Decoration.mark({
-                    class: 'cm-project-title cm-project-name',
+                    class: 'cm-project-title cm-filterable',
                     attributes: { 'data-project': item.project },
                 }).range(line.from + 2, line.from + 2 + item.project.length))
             }
@@ -1485,9 +1485,15 @@ const theme = EditorView.theme({
     '.cm-muted': {
         color: 'var(--color-gray-400)',
     },
-    '.cm-tag': {
+    // Everything that can be clicked to filter on looks the same: hashtags, mentions, dates, and project names in the virtual project
+    '.cm-filterable': {
         fontWeight: 'bold',
         cursor: 'pointer',
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'dotted',
+    },
+    '.cm-filterable:hover': {
+        textDecorationStyle: 'solid',
     },
     '.cm-tooltip.cm-tooltip-autocomplete': {
         border: '1px solid var(--color-gray-200)',
@@ -1648,10 +1654,6 @@ const theme = EditorView.theme({
     '.cm-virtual-last .cm-check': {
         transform: 'translateY(calc(-50% - 0.25rem))',
     },
-    '.cm-project-name': {
-        textDecorationLine: 'underline',
-        textDecorationStyle: 'dotted',
-    },
     // The virtual project's title can't be clicked to only show that project
     '.cm-virtual .cm-project-title': {
         cursor: 'text',
@@ -1669,9 +1671,6 @@ const theme = EditorView.theme({
         borderRadius: '0.25rem',
         boxDecorationBreak: 'clone',
         padding: '0.125rem 0.375rem',
-    },
-    '.cm-tag:hover': {
-        textDecoration: 'underline',
     },
     '.cm-tag-active:hover, .cm-project-title-active:hover': {
         textDecorationStyle: 'dotted',
@@ -1752,11 +1751,6 @@ const theme = EditorView.theme({
         // Sideways swipes are handled by the editor, so the browser shouldn't pan the page for them
         '.cm-content': {
             touchAction: 'pan-y pinch-zoom',
-        },
-        // Without hovering, the underline shows that tags can be tapped
-        '.cm-tag': {
-            textDecorationLine: 'underline',
-            textDecorationStyle: 'dotted',
         },
     },
     // On wide screens, there's room for more space around the virtual project
