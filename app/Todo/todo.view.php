@@ -50,7 +50,8 @@ use function Tempest\Router\uri;
     >Archived</a>
 
     <div :if="$filters || $project" class="flex flex-wrap gap-x-4 gap-y-2 lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
-        <span>Showing</span>
+        <span :if="$mode === TodoMode::SOON && $project">Showing soon items in</span>
+        <span :else>Showing</span>
         <a
             :if="$project"
             :href="$projectLink"
@@ -92,6 +93,12 @@ use function Tempest\Router\uri;
             :placeholder="$placeholder"
             autofocus
         >{{ $markdown }}</textarea>
+
+        <form :if="$showAll" method="post" :action="uri([TodoController::class, 'openWorkspace'])" class="mt-12">
+            <input type="hidden" name="workspace" :value="$showAll['workspace']">
+            <input type="hidden" name="project" :value="$showAll['project']">
+            <button type="submit" class="font-mono text-sm text-gray-400 hover:text-gray-900 cursor-pointer">Show all of # {{ $showAll['project'] }} →</button>
+        </form>
     </div>
 </main>
 

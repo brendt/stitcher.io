@@ -57,6 +57,7 @@ final readonly class TodoController
     /**
      * Switches to another workspace, which is remembered so that it's shown from now on.
      * The workspace is posted instead of being part of the URL, so that the URL of the todo page stays the same.
+     * Optionally, only one of its projects is shown after switching.
      */
     #[Post('/workspace')]
     public function openWorkspace(Request $request): Response
@@ -77,7 +78,7 @@ final readonly class TodoController
 
         query('users')->update(latestWorkspaceId: $workspaceId)->where('id = ?', $this->user()->id->value)->execute();
 
-        return new Redirect(uri([self::class, 'index']));
+        return new Redirect($this->filterUri(uri([self::class, 'index']), [], $this->project($request)));
     }
 
     /**
@@ -87,6 +88,22 @@ final readonly class TodoController
     public function soon(Request $request): View
     {
         $workspaces = $this->workspaces();
+        $project = $this->project($request);
+
+        // When showing a single project, it can be opened with all of its tasks, in the workspace it belongs to
+        $showAll = null;
+
+        foreach ($workspaces as $workspace) {
+            foreach ($workspace->projects as $candidate) {
+                if ($showAll !== null || $project === null || $candidate->archivedAt !== null) {
+                    continue;
+                }
+
+                if (mb_strtolower($candidate->name) === mb_strtolower($project)) {
+                    $showAll = ['workspace' => $workspace->id->value, 'project' => $candidate->name];
+                }
+            }
+        }
 
         return $this->view(
             workspaces: $workspaces,
@@ -95,6 +112,7 @@ final readonly class TodoController
             request: $request,
             baseUri: uri([self::class, 'soon']),
             mode: TodoMode::SOON,
+            showAll: $showAll,
         );
     }
 
@@ -257,9 +275,17 @@ final readonly class TodoController
      *
      * @param Workspace[] $workspaces
      * @param TodoGroup[] $groups
+     * @param array{workspace: int|string, project: string}|null $showAll Where to see all tasks of the project that's shown
      */
-    private function view(array $workspaces, ?Workspace $workspace, array $groups, Request $request, string $baseUri, TodoMode $mode = TodoMode::WORKSPACE): View
-    {
+    private function view(
+        array $workspaces,
+        ?Workspace $workspace,
+        array $groups,
+        Request $request,
+        string $baseUri,
+        TodoMode $mode = TodoMode::WORKSPACE,
+        ?array $showAll = null,
+    ): View {
         $filters = $this->filter($request);
         $project = $this->project($request);
 
@@ -277,6 +303,7 @@ final readonly class TodoController
             filters: $filters,
             filterLinks: $this->filterLinks($baseUri, $filters, $project),
             project: $project,
+            showAll: $showAll,
             projectLink: $project !== null ? $this->filterUri($baseUri, $filters, null) : null,
             baseUri: $baseUri,
             markdown: $this->markdown->render($groups, $filters),
