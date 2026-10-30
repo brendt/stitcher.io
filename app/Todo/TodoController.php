@@ -181,6 +181,35 @@ final readonly class TodoController
         return new Redirect(uri([self::class, 'index']));
     }
 
+    /**
+     * Renames a workspace. Like when switching workspaces, the workspace is posted instead of being part of the URL.
+     */
+    #[Post('/workspace/rename')]
+    public function renameWorkspace(Request $request): Response
+    {
+        $workspaceId = filter_var($request->get('workspace'), FILTER_VALIDATE_INT);
+        $name = $request->get('name');
+        $name = is_string($name) ? mb_substr(trim($name), 0, 255) : '';
+
+        /** @var Workspace|null $workspace */
+        $workspace = $workspaceId === false
+            ? null
+            : Workspace::select()
+                ->where('workspaces.id = ?', $workspaceId)
+                ->where('workspaces.user_id = ?', $this->user()->id->value)
+                ->first();
+
+        if (! $workspace) {
+            return new NotFound();
+        }
+
+        if ($name !== '') {
+            query('workspaces')->update(name: $name)->where('id = ?', $workspaceId)->execute();
+        }
+
+        return new Redirect(uri([self::class, 'index']));
+    }
+
     #[Post('/{workspaceId}/save')]
     public function save(int $workspaceId, Request $request): Response
     {
