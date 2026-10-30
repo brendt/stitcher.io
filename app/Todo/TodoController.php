@@ -56,7 +56,10 @@ final readonly class TodoController
         return $this->view(
             workspaces: $workspaces,
             workspace: $workspace,
-            groups: TodoGroup::forProjects(array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null)),
+            groups: [
+                ...array_filter([$workspace ? $this->markdown->today($workspace) : null]),
+                ...TodoGroup::forProjects(array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null)),
+            ],
             request: $request,
             baseUri: uri([self::class, 'index']),
         );

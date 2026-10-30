@@ -16,6 +16,8 @@ type Item = {
     id: number | null
     // Only for projects, whether it was collapsed when loading the page
     collapsed?: boolean
+    // Part of the "Today" project at the top, which only shows tasks of other projects again
+    virtual?: boolean
     // Identifies the item within the editor, also before it has an ID
     key: string
     completed: boolean
@@ -64,6 +66,7 @@ function filterHref(baseUrl: string, filters: string[], project: string | null):
 const projectLine = Decoration.line({ class: 'cm-project' })
 const completedLine = Decoration.line({ class: 'cm-completed' })
 const mutedLine = Decoration.line({ class: 'cm-muted' })
+const virtualLine = Decoration.line({ class: 'cm-virtual' })
 
 function isProject(line: Line): boolean {
     return line.text.startsWith('# ')
@@ -362,6 +365,31 @@ class DragHandle extends WidgetType {
 }
 
 /**
+ * Whether a line is part of the virtual "Today" project, which only shows tasks of other projects again.
+ * It can't be edited or moved, and isn't saved.
+ */
+function isVirtual(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): boolean {
+    const { start } = blockOf(state, line)
+
+    return isProject(start) && itemOn(state, markers, start)?.virtual === true
+}
+
+/**
+ * Where the virtual project is in the document, including the line break after it, so that nothing can be added at its end.
+ */
+function virtualRange(state: EditorState, markers: StateField<RangeSet<ItemMarker>>): { from: number, to: number } | null {
+    for (const line of projectLines(state, markers, true)) {
+        if (isVirtual(state, markers, line)) {
+            const { last } = blockOf(state, line)
+
+            return { from: line.from, to: Math.min(last.to + 1, state.doc.length) }
+        }
+    }
+
+    return null
+}
+
+/**
  * Open tasks and text within a project can be put in another order. Completed tasks stay below them, ordered by when they were completed.
  * With tags filtered on, not all tasks are shown, so their order can't be saved.
  */
@@ -376,22 +404,27 @@ function isSortable(state: EditorState, markers: StateField<RangeSet<ItemMarker>
         return false
     }
 
-    return isProject(blockOf(state, line).start) && ! itemOn(state, markers, line)?.completed
+    return isProject(blockOf(state, line).start) && ! isVirtual(state, markers, line) && ! itemOn(state, markers, line)?.completed
 }
 
 /**
  * Projects can be put in another order, as long as all of them are shown, so that their order can be saved.
  */
-function isSortableProject(line: Line): boolean {
-    return isProject(line) && activeFilters.length === 0 && activeProject === null
+function isSortableProject(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): boolean {
+    return isProject(line) && activeFilters.length === 0 && activeProject === null && ! isVirtual(state, markers, line)
 }
 
-function projectLines(state: EditorState): Line[] {
+/**
+ * The titles of all projects, leaving out the virtual one unless asked for.
+ */
+function projectLines(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, includeVirtual: boolean = false): Line[] {
     const lines: Line[] = []
 
     for (let number = 1; number <= state.doc.lines; number++) {
-        if (isProject(state.doc.line(number))) {
-            lines.push(state.doc.line(number))
+        const line = state.doc.line(number)
+
+        if (isProject(line) && (includeVirtual || itemOn(state, markers, line)?.virtual !== true)) {
+            lines.push(line)
         }
     }
 
@@ -651,7 +684,7 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             const line = state.doc.line(number)
             const item = itemOn(state, markers, line)
 
-            if (actions.mode === 'workspace' && (isSortable(state, markers, line) || isSortableProject(line))) {
+            if (actions.mode === 'workspace' && (isSortable(state, markers, line) || isSortableProject(state, markers, line))) {
                 decorations.push(Decoration.widget({ widget: new DragHandle(actions.drag, isProject(line)), side: -1 }).range(line.from))
             }
 
@@ -664,6 +697,10 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
 
             if (item.id !== null && item.type !== 'text' && actions.mode !== 'archived' && ! isCollapsedProject) {
                 decorations.push(Decoration.widget({ widget: new CheckButton(item, actions.toggle), side: -1 }).range(line.from))
+            }
+
+            if (item.virtual && item.type === 'project') {
+                decorations.push(virtualLine.range(line.from))
             }
 
             if (item.id !== null && item.type === 'project') {
@@ -1262,6 +1299,11 @@ function snapshot(state: EditorState, markers: StateField<RangeSet<ItemMarker>>,
         const name = type === 'text' ? line.text.trimEnd() : line.text.slice(2).trim()
         const project = payload.projects.at(-1)
 
+        // The virtual project only shows tasks of other projects again
+        if (isVirtual(state, markers, line)) {
+            continue
+        }
+
         if (type === null || name === '' || (type !== 'project' && ! project)) {
             continue
         }
@@ -1467,6 +1509,14 @@ const theme = EditorView.theme({
     '.cm-project-title:hover': {
         textDecoration: 'underline',
     },
+    // The virtual project's title can't be clicked to only show that project
+    '.cm-virtual .cm-project-title': {
+        cursor: 'text',
+        textDecoration: 'none',
+    },
+    '.cm-virtual .cm-project-title:hover': {
+        textDecoration: 'none',
+    },
     // The project and tags that are being filtered on look the same
     '.cm-tag-active, .cm-project-title-active': {
         textDecorationLine: 'underline',
@@ -1560,9 +1610,13 @@ if (textarea) {
     const items: Record<string, Item> = {}
     const known: Known = { project: new Set(), task: new Set(), text: new Set() }
 
-    for (const [lineNumber, item] of Object.entries<Omit<Item, 'key'> & { id: number }>(JSON.parse(textarea.dataset.items ?? '{}'))) {
-        items[lineNumber] = { ...item, key: `${item.type}-${item.id}` }
-        known[item.type].add(item.id)
+    for (const [lineNumber, item] of Object.entries<Omit<Item, 'key'>>(JSON.parse(textarea.dataset.items ?? '{}'))) {
+        // Tasks in the virtual project are shown twice, so they need another key than in their own project
+        items[lineNumber] = { ...item, key: item.virtual ? `today-${item.type}-${item.id ?? 'title'}` : `${item.type}-${item.id}` }
+
+        if (! item.virtual && item.id !== null) {
+            known[item.type].add(item.id)
+        }
     }
 
     let lastKey = 0
@@ -1626,8 +1680,19 @@ if (textarea) {
 
         if (transaction) {
             view.dispatch(transaction)
-            tidy(view)
         }
+
+        // A task that's shown in the virtual project as well, is completed or reopened in both places
+        const otherKey = item.virtual ? `${item.type}-${item.id}` : `today-${item.type}-${item.id}`
+        const otherLine = findLine(view.state, markers, { ...item, key: otherKey })
+        const other = otherLine ? itemOn(view.state, markers, otherLine) : null
+        const otherTransaction = other && other.completed === item.completed ? toggleItem(view.state, markers, other) : null
+
+        if (otherTransaction) {
+            view.dispatch(otherTransaction)
+        }
+
+        tidy(view)
     }
 
     /**
@@ -1648,7 +1713,7 @@ if (textarea) {
     // A task or text moves between the other tasks and text of its project, a project moves between the other projects.
     const startReorder = (view: EditorView, line: Line, lineElement: HTMLElement | null) => {
         const isProjectLine = isProject(line)
-        const lines = isProjectLine ? projectLines(view.state) : sortableLines(view.state, markers, line)
+        const lines = isProjectLine ? projectLines(view.state, markers) : sortableLines(view.state, markers, line)
 
         // A project is dragged together with its tasks and text
         const draggedElements = elementsOf(view, line)
@@ -1776,7 +1841,7 @@ if (textarea) {
             && (mode === 'workspace' || mode === 'archived')
     }
 
-    const canReorder = (view: EditorView, line: Line) => mode === 'workspace' && (isSortable(view.state, markers, line) || isSortableProject(line))
+    const canReorder = (view: EditorView, line: Line) => mode === 'workspace' && (isSortable(view.state, markers, line) || isSortableProject(view.state, markers, line))
 
     const enableTouchGestures = (view: EditorView) => {
         let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'scroll' | null = null
@@ -2038,6 +2103,16 @@ if (textarea) {
             // Tab picks the selected suggestion while suggestions are shown, and indents otherwise
             Prec.highest(keymap.of([{ key: 'Tab', run: expandRelativeDate }, { key: 'Tab', run: acceptCompletion }])),
             EditorState.readOnly.of(mode !== 'workspace'),
+            // The virtual project can't be edited by typing, only by completing its tasks, which the editor does itself
+            EditorState.changeFilter.of((transaction) => {
+                if (transaction.annotation(Transaction.addToHistory) === false) {
+                    return true
+                }
+
+                const range = virtualRange(transaction.startState, markers)
+
+                return range ? [range.from, range.to] : true
+            }),
             EditorView.editable.of(mode === 'workspace'),
             codeFolding({
                 placeholderDOM(_view, onclick) {
@@ -2072,7 +2147,7 @@ if (textarea) {
                     }
 
                     // Clicking a project's title only shows that project, clicking it again shows all projects again
-                    const project = (event.target as HTMLElement).closest<HTMLElement>('.cm-project-title')?.dataset.project
+                    const project = (event.target as HTMLElement).closest<HTMLElement>('.cm-line:not(.cm-virtual) .cm-project-title')?.dataset.project
 
                     if (project) {
                         event.preventDefault()

@@ -3,6 +3,7 @@
 namespace App\Todo;
 
 use Generator;
+use Tempest\DateTime\DateTime;
 
 final readonly class TodoMarkdown
 {
@@ -70,7 +71,7 @@ final readonly class TodoMarkdown
      *
      * @param TodoGroup[] $groups
      * @param string[] $filters Only tasks with all of these tags are included
-     * @return array<int, array{type: 'project'|'task'|'text', id: int, completed: bool, collapsed?: bool}>
+     * @return array<int, array{type: 'project'|'task'|'text', id: int|null, completed: bool, collapsed?: bool, virtual?: bool}>
      */
     public function items(array $groups, array $filters = []): array
     {
@@ -131,12 +132,47 @@ final readonly class TodoMarkdown
     }
 
     /**
+     * Tasks that are due today, shown together at the top as a virtual "Today" project, with the name of their own project.
+     * Completed ones are included as well, so that they don't disappear when checking them off.
+     */
+    public function today(Workspace $workspace): ?TodoGroup
+    {
+        $today = DateTime::now()->format('yyyy-MM-dd');
+        $tasks = [];
+        $projectNames = [];
+
+        foreach ($workspace->projects as $project) {
+            if ($project->completedAt !== null || $project->archivedAt !== null) {
+                continue;
+            }
+
+            foreach ($project->tasks as $task) {
+                if ($task->isText || ! $this->hasTag($task, $today)) {
+                    continue;
+                }
+
+                $tasks[] = $task;
+                $projectNames[(int) $task->id->value] = $project->name;
+            }
+        }
+
+        if ($tasks === []) {
+            return null;
+        }
+
+        $open = array_filter($tasks, fn (Task $task) => $task->completedAt === null);
+        $completed = array_filter($tasks, fn (Task $task) => $task->completedAt !== null);
+
+        return new TodoGroup('Today', null, [...$open, ...$completed], $projectNames, isVirtual: true);
+    }
+
+    /**
      * Groups are separated by two blank lines. A group that's a project can be completed and collapsed, other groups are just a title.
      * Blank lines within a group aren't saved, so one is added wherever tasks and text meet, to keep them apart.
      *
      * @param TodoGroup[] $groups
      * @param string[] $filters
-     * @return Generator<array{0: string, 1: array{type: 'project'|'task'|'text', id: int, completed: bool, collapsed?: bool}|null}>
+     * @return Generator<array{0: string, 1: array{type: 'project'|'task'|'text', id: int|null, completed: bool, collapsed?: bool, virtual?: bool}|null}>
      */
     private function lines(array $groups, array $filters): Generator
     {
@@ -165,13 +201,16 @@ final readonly class TodoMarkdown
 
             yield [
                 "# {$group->title}",
-                $group->project
-                    ? [
+                match (true) {
+                    $group->isVirtual => ['type' => 'project', 'id' => null, 'completed' => false, 'virtual' => true],
+                    $group->project !== null => [
                         'type' => 'project',
                         'id' => (int) $group->project->id->value,
                         'completed' => $group->project->completedAt !== null,
                         'collapsed' => $group->project->collapsed,
-                    ] : null,
+                    ],
+                    default => null,
+                },
             ];
 
             $previous = null;
@@ -183,14 +222,20 @@ final readonly class TodoMarkdown
 
                 $previous = $task;
 
-                yield [
-                    $task->isText ? $task->name : "- {$task->name}",
-                    [
-                        'type' => $task->isText ? 'text' : 'task',
-                        'id' => (int) $task->id->value,
-                        'completed' => $task->completedAt !== null,
-                    ],
+                $projectName = $group->projectNames[(int) $task->id->value] ?? null;
+                $name = $projectName !== null ? "{$projectName}: {$task->name}" : $task->name;
+
+                $item = [
+                    'type' => $task->isText ? 'text' : 'task',
+                    'id' => (int) $task->id->value,
+                    'completed' => $task->completedAt !== null,
                 ];
+
+                if ($group->isVirtual) {
+                    $item['virtual'] = true;
+                }
+
+                yield [$task->isText ? $name : "- {$name}", $item];
             }
         }
     }

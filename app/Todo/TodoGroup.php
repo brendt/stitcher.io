@@ -11,11 +11,15 @@ final readonly class TodoGroup
 {
     /**
      * @param Task[] $tasks Shown in the given order
+     * @param array<int, string> $projectNames When given, tasks are shown together with the name of their project, keyed by task ID
+     * @param bool $isVirtual A virtual group only shows tasks that belong to other projects, so it can't be edited or saved
      */
     public function __construct(
         public string $title,
         public ?Project $project,
         public array $tasks,
+        public array $projectNames = [],
+        public bool $isVirtual = false,
     ) {}
 
     /**
