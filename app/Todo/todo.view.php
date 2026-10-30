@@ -31,6 +31,8 @@ use function Tempest\Router\uri;
 >
     <!-- On small screens, a filtered view only shows its filters at the top -->
     <div :class="$filters || $project ? 'hidden lg:contents' : 'contents'">
+        <span class="font-bold text-gray-900 lg:mb-4">{{ $user->name }}</span>
+
         <form :foreach="$workspaces as $item" method="post" :action="uri([TodoController::class, 'openWorkspace'])" class="contents">
             <button
                 type="submit"

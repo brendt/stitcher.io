@@ -304,6 +304,7 @@ final readonly class TodoController
 
         return view(
             'todo.view.php',
+            user: $this->user(),
             workspaces: $workspaces,
             workspace: $workspace,
             mode: $mode,
