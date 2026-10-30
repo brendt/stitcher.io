@@ -4,22 +4,26 @@ namespace App\Todo;
 
 use App\Support\Authentication\Role;
 use App\Support\Authentication\User;
-use RuntimeException;
 use Tempest\Database\DatabaseSeeder;
 use Tempest\DateTime\DateTime;
 use UnitEnum;
+
+use function Tempest\env;
 
 final class TodoSeeder implements DatabaseSeeder
 {
     public function run(UnitEnum|string|null $database): void
     {
+        // The todo app is only accessible to admins, so make sure there is one to seed todos for
         $user = User::select()
             ->where('role = ?', Role::ADMIN->name)
             ->first();
 
-        if (! $user) {
-            throw new RuntimeException('No admin user found to seed todos for, run AppSeeder first');
-        }
+        $user ??= User::create(
+            name: 'Brent',
+            email: env('SEEDER_EMAIL', 'test@example.com'),
+            role: Role::ADMIN,
+        );
 
         $workspaces = [
             'Private' => [
