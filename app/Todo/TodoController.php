@@ -161,6 +161,26 @@ final readonly class TodoController
         );
     }
 
+    /**
+     * Creates a new workspace, which is opened right away.
+     */
+    #[Post('/workspaces')]
+    public function createWorkspace(Request $request): Response
+    {
+        $name = $request->get('name');
+        $name = is_string($name) ? mb_substr(trim($name), 0, 255) : '';
+
+        if ($name === '') {
+            return new Redirect(uri([self::class, 'index']));
+        }
+
+        $workspace = Workspace::create(user: $this->user(), name: $name);
+
+        query('users')->update(latestWorkspaceId: $workspace->id->value)->where('id = ?', $this->user()->id->value)->execute();
+
+        return new Redirect(uri([self::class, 'index']));
+    }
+
     #[Post('/{workspaceId}/save')]
     public function save(int $workspaceId, Request $request): Response
     {

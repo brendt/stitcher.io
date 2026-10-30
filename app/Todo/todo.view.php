@@ -41,6 +41,18 @@ use function Tempest\Router\uri;
             >{{ $item->name }}</button>
         </form>
 
+        <form method="post" :action="uri([TodoController::class, 'createWorkspace'])" class="contents">
+            <input
+                type="text"
+                name="name"
+                placeholder="+ New workspace"
+                aria-label="New workspace"
+                autocomplete="off"
+                maxlength="255"
+                class="w-36 lg:w-full bg-transparent border-b border-dotted border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:outline-none"
+            />
+        </form>
+
         <a
             :href="uri([TodoController::class, 'soon'])"
             class="lg:mt-4"
