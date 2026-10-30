@@ -117,7 +117,7 @@ function decorateSyntax(view: EditorView): DecorationSet {
 
                 if (name !== '') {
                     decorations.push(Decoration.mark({
-                        class: isActiveProject(name) ? 'cm-project-title cm-project-title-active' : 'cm-project-title',
+                        class: isActiveProject(name) ? 'cm-project-title cm-filterable cm-project-title-active' : 'cm-project-title cm-filterable',
                         attributes: { 'data-project': name },
                     }).range(start, start + name.length))
                 }
@@ -1485,7 +1485,7 @@ const theme = EditorView.theme({
     '.cm-muted': {
         color: 'var(--color-gray-400)',
     },
-    // Everything that can be clicked to filter on looks the same: hashtags, mentions, dates, and project names in the virtual project
+    // Everything that can be clicked to filter on looks the same: hashtags, mentions, dates, project titles, and project names in the virtual project
     '.cm-filterable': {
         fontWeight: 'bold',
         cursor: 'pointer',
@@ -1627,9 +1627,6 @@ const theme = EditorView.theme({
     },
     '.cm-project-title': {
         cursor: 'pointer',
-    },
-    '.cm-project-title:hover': {
-        textDecoration: 'underline',
     },
     // The background of the virtual project reaches a bit beyond its text, without moving the text itself
     '.cm-virtual-section': {
