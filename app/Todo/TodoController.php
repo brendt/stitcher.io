@@ -10,7 +10,6 @@ use Tempest\DateTime\DateTime;
 use Tempest\DateTime\FormatPattern;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
-use Tempest\Http\Responses\Forbidden;
 use Tempest\Http\Responses\Json;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
@@ -197,16 +196,7 @@ final readonly class TodoController
     #[Post('/projects/{projectId}/archive')]
     public function archiveProject(int $projectId): Response
     {
-        return $this->updateProject($projectId, function (Project $project): ?Response {
-            // Only completed projects can be archived
-            if ($project->completedAt === null) {
-                return new Forbidden();
-            }
-
-            $project->update(archivedAt: DateTime::now());
-
-            return null;
-        });
+        return $this->updateProject($projectId, fn (Project $project) => $project->update(archivedAt: DateTime::now()));
     }
 
     #[Post('/projects/{projectId}/unarchive')]

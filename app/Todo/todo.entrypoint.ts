@@ -675,7 +675,7 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
                     }).range(line.from))
                 }
 
-                if ((actions.mode === 'workspace' && item.completed) || actions.mode === 'archived') {
+                if (actions.mode === 'workspace' || actions.mode === 'archived') {
                     decorations.push(Decoration.widget({
                         widget: new ArchiveButton(item, actions.mode === 'archived', actions.archive),
                         side: -1,
@@ -1751,7 +1751,7 @@ if (textarea) {
 
     /**
      * On touch screens, where the checkbox, drag handle, and archive button are hidden:
-     * swiping a line to the left completes or reopens it, swiping a completed project to the right archives it (or unarchives it),
+     * swiping a line to the left completes or reopens it, swiping a project to the right archives it (or unarchives it),
      * and pressing and holding a line picks it up to drag it up or down.
      */
     const SWIPE_DISTANCE = 80
@@ -1773,7 +1773,7 @@ if (textarea) {
 
         return item?.type === 'project'
             && item.id !== null
-            && ((mode === 'workspace' && item.completed) || mode === 'archived')
+            && (mode === 'workspace' || mode === 'archived')
     }
 
     const canReorder = (view: EditorView, line: Line) => mode === 'workspace' && (isSortable(view.state, markers, line) || isSortableProject(line))
