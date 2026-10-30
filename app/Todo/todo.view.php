@@ -8,7 +8,7 @@ use function Tempest\Router\uri;
 ?>
 
 <!doctype html>
-<html lang="en" class="bg-white">
+<html lang="en" class="bg-white overflow-x-clip">
 <head>
     <title :if="$filters || $project">{{ implode(' ', array_filter([$project, ...$filters])) }} | {{ $title }} | Todo</title>
     <title :elseif="$title">{{ $title }} | Todo</title>
@@ -23,7 +23,7 @@ use function Tempest\Router\uri;
     <x-vite-tags entrypoint="app/main.entrypoint.css"/>
     <x-vite-tags entrypoint="app/Todo/todo.entrypoint.ts"/>
 </head>
-<body class="antialiased bg-white text-gray-900">
+<body class="antialiased bg-white text-gray-900 overflow-x-clip">
 <nav
     :if="$workspaces !== []"
     class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-6 py-4 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:justify-start lg:gap-2 lg:px-10 lg:py-24"

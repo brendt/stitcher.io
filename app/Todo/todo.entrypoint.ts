@@ -1407,6 +1407,10 @@ const theme = EditorView.theme({
         '.cm-drag': {
             display: 'none',
         },
+        // Sideways swipes are handled by the editor, so the browser shouldn't pan the page for them
+        '.cm-content': {
+            touchAction: 'pan-y pinch-zoom',
+        },
     },
 })
 
