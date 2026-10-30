@@ -968,10 +968,16 @@ function confirmBulkDelete(view: EditorView): boolean {
 
 /**
  * Keeps the spacing the same as when loading the page: two blank lines above every project,
- * and a blank line between text and a task right above or below it.
+ * a blank line between text and a task right above or below it, and no blank lines between two tasks,
+ * for example after the text between them was removed.
  * Lines near the cursor are left alone until the cursor moves away, so that they don't change while typing.
  */
 const BLANK_LINES_ABOVE_PROJECTS = 2
+
+// Moves skip `normalizeSpacing`, so the spacing is fixed right after them instead
+function tidy(view: EditorView): void {
+    view.dispatch({ selection: view.state.selection, annotations: Transaction.addToHistory.of(false) })
+}
 
 const normalizeSpacing = EditorState.transactionFilter.of((transaction) => {
     if (! transaction.docChanged && ! transaction.selection) {
@@ -1008,6 +1014,23 @@ const normalizeSpacing = EditorState.transactionFilter.of((transaction) => {
             changes.push(blankLines < BLANK_LINES_ABOVE_PROJECTS
                 ? { from: line.from, insert: '\n'.repeat(BLANK_LINES_ABOVE_PROJECTS - blankLines) }
                 : { from: doc.line(number - blankLines).from, to: doc.line(number - BLANK_LINES_ABOVE_PROJECTS).from })
+
+            continue
+        }
+
+        if (isTask(line)) {
+            let blankLines = 0
+
+            while (number + blankLines < doc.lines && doc.line(number + blankLines + 1).text.trim() === '') {
+                blankLines++
+            }
+
+            const next = number + blankLines + 1
+            const isNearCursor = cursorLine > number && cursorLine < next
+
+            if (blankLines > 0 && next <= doc.lines && isTask(doc.line(next)) && ! isNearCursor) {
+                changes.push({ from: line.to, to: doc.line(number + blankLines).to })
+            }
 
             continue
         }
@@ -1441,6 +1464,7 @@ if (textarea) {
 
         if (transaction) {
             view.dispatch(transaction)
+            tidy(view)
         }
     }
 
@@ -1503,6 +1527,8 @@ if (textarea) {
             for (const transaction of transactions) {
                 view.dispatch(transaction)
             }
+
+            tidy(view)
         }
 
         move(event)
@@ -1597,6 +1623,8 @@ if (textarea) {
             changes: projectRange(view.state, line),
             annotations: Transaction.addToHistory.of(false),
         })
+
+        tidy(view)
     }
 
     // The cursor position is remembered per workspace and filter, so that refreshing the page continues where you left off
