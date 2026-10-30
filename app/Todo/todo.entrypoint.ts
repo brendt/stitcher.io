@@ -3,7 +3,7 @@ import { codeFolding, foldedRanges, foldEffect, foldState, unfoldEffect } from '
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
 import { Annotation, EditorState, MapMode, Prec, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
-import type { Line, Range } from '@codemirror/state'
+import type { Line, Range, TransactionSpec } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
 
@@ -1261,6 +1261,74 @@ function deleteSelectionWithoutConfirming(view: EditorView): boolean {
     return true
 }
 
+/**
+ * The next virtual project to show at the top, the same way as `TodoMarkdown::upcoming()` does when loading the page:
+ * open tasks due today, or else tomorrow, or else in the coming week, latest first, with the name of their own project.
+ */
+function upcomingProject(state: EditorState, markers: StateField<RangeSet<ItemMarker>>): TransactionSpec | null {
+    if (activeProject !== null || virtualRange(state, markers)) {
+        return null
+    }
+
+    const { doc } = state
+    const tasks: { item: Item, text: string, project: string, dates: string[] }[] = []
+
+    for (let number = 1; number <= doc.lines; number++) {
+        const line = doc.line(number)
+        const item = itemOn(state, markers, line)
+        const { start } = blockOf(state, line)
+        const project = isProject(start) ? itemOn(state, markers, start) : null
+
+        if (item?.type !== 'task' || item.id === null || item.completed || ! project || project.completed || project.virtual) {
+            continue
+        }
+
+        const tags = [...line.text.matchAll(TAG)].map((match) => match[2])
+
+        if (! activeFilters.every((filter) => tags.some((tag) => tag.toLowerCase() === filter.toLowerCase()))) {
+            continue
+        }
+
+        tasks.push({ item, text: line.text.slice(2), project: start.text.slice(2).trim(), dates: tags.filter((tag) => /^\d{4}-/.test(tag)) })
+    }
+
+    for (const [title, fromDays, toDays] of [['Today', 0, 0], ['Tomorrow', 1, 1], ['Soon', 0, 7]] as const) {
+        const from = dateInDays(fromDays)
+        const to = dateInDays(toDays)
+
+        const found = tasks
+            .map((task) => ({ ...task, date: task.dates.filter((date) => date >= from && date <= to).sort()[0] }))
+            .filter((task) => task.date !== undefined)
+            .sort((a, b) => b.date.localeCompare(a.date))
+
+        if (found.length === 0) {
+            continue
+        }
+
+        const lines = [`# ${title}`, ...found.map((task) => `- ${task.project}: ${task.text}`)]
+        const insert = lines.join('\n') + '\n'.repeat(BLANK_LINES_ABOVE_PROJECTS + 1)
+        const added: Range<ItemMarker>[] = []
+        let position = 0
+
+        lines.forEach((text, index) => {
+            const item: Item = index === 0
+                ? { type: 'project', id: null, key: 'today-project-title', completed: false, virtual: true }
+                : { ...found[index - 1].item, key: `today-task-${found[index - 1].item.id}`, virtual: true }
+
+            added.push(new ItemMarker(item).range(position))
+            position += text.length + 1
+        })
+
+        return {
+            changes: { from: 0, insert },
+            effects: addItems.of(added),
+            annotations: Transaction.addToHistory.of(false),
+        }
+    }
+
+    return null
+}
+
 type Known = Record<ItemType, Set<number>>
 
 type Payload = {
@@ -1700,7 +1768,7 @@ if (textarea) {
         tidy(view)
     }
 
-    // Takes a task out of the virtual project, together with the whole project when it was the last one in it
+    // Takes a task out of the virtual project. When it was the last one in it, the next virtual project is shown instead, if there is one.
     const removeVirtualLine = (view: EditorView, line: Line) => {
         const { start } = blockOf(view.state, line)
         const isLast = itemLines(view.state, markers, 'task', start.number + 1, blockOf(view.state, start).last.number).length === 1
@@ -1710,6 +1778,18 @@ if (textarea) {
             : (line.number < view.state.doc.lines ? { from: line.from, to: line.to + 1 } : { from: line.from - 1, to: line.to })
 
         view.dispatch({ changes: range, annotations: Transaction.addToHistory.of(false) })
+
+        if (isLast) {
+            showUpcoming(view)
+        }
+    }
+
+    const showUpcoming = (view: EditorView) => {
+        const spec = upcomingProject(view.state, markers)
+
+        if (spec) {
+            view.dispatch(spec)
+        }
     }
 
     /**
