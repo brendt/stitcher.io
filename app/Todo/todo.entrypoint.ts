@@ -562,6 +562,7 @@ const theme = EditorView.theme({
     '.cm-tag-active': {
         textDecoration: 'underline',
         backgroundColor: 'var(--color-gray-100)',
+        border: '1px solid black',
         borderRadius: '0.25rem',
         boxDecorationBreak: 'clone',
         padding: '0.125rem 0.375rem',
