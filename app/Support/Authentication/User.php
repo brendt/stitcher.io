@@ -17,6 +17,9 @@ final class User implements Authenticatable
         public Role $role = Role::USER,
     ) {}
 
+    // The todo workspace that was opened last, so that it's opened again next time
+    public ?int $latestWorkspaceId = null;
+
     #[Virtual]
     public bool $isAdmin {
         get => $this->role === Role::ADMIN;

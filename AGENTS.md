@@ -2,6 +2,7 @@
 
 - All documentation for Tempest can be found in vendor/tempest/framework/docs
 - Use `php tempest make:` commands to create framework-specific classes. These are interactive commands that will guide you through setup
+- Feel free to use atomic commits
 
 ## QA
 
@@ -16,3 +17,5 @@
 
 - Use TailwindCSS
 - Use Tempest view components where it makes sense
+- Assume that `bun` is always running and frontend assets will be compiled
+- Never perform browser checks nor make screenshots

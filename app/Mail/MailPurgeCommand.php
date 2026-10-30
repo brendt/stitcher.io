@@ -67,7 +67,8 @@ final class MailPurgeCommand
                 ->update(unsubscribed_at: DateTime::now()->format(FormatPattern::SQL_DATE_TIME))
                 ->whereNull('unsubscribed_at')
                 ->whereIn('email', $emails)
-                ->toRawSql() . ';',
+                ->toRawSql()
+                . ';',
         );
         fclose($output);
 

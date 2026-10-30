@@ -50,7 +50,7 @@ final readonly class SuggestionController
                 $suggestion->save();
             }
 
-            if ($feedUri = (new FindSuggestionFeedUri())($suggestion->uri)) {
+            if ($feedUri = new FindSuggestionFeedUri()($suggestion->uri)) {
                 $suggestion->feedUri = $feedUri;
                 $suggestion->save();
             }
