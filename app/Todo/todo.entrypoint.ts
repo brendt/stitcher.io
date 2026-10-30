@@ -1632,6 +1632,31 @@ if (textarea) {
     const startReorder = (view: EditorView, line: Line, lineElement: HTMLElement | null) => {
         const isProjectLine = isProject(line)
         const lines = isProjectLine ? projectLines(view.state) : sortableLines(view.state, markers, line)
+
+        // A project is dragged together with its tasks and text
+        const draggedElements: HTMLElement[] = []
+        const lastDragged = isProjectLine ? blockOf(view.state, line).last.number : line.number
+
+        for (let number = line.number; number <= lastDragged; number++) {
+            const { node } = view.domAtPos(view.state.doc.line(number).from)
+            const element = (node instanceof HTMLElement ? node : node.parentElement)?.closest<HTMLElement>('.cm-line')
+
+            if (element && ! draggedElements.includes(element)) {
+                draggedElements.push(element)
+            }
+        }
+
+        if (lineElement && ! draggedElements.includes(lineElement)) {
+            draggedElements.push(lineElement)
+        }
+
+        const release = () => {
+            for (const element of draggedElements) {
+                element.classList.remove('cm-dragged')
+                element.style.transform = ''
+                element.style.zIndex = ''
+            }
+        }
         const content = view.contentDOM.getBoundingClientRect()
         const indicator = document.createElement('div')
         let slot = lines.findIndex((other) => other.number === line.number)
@@ -1654,9 +1679,17 @@ if (textarea) {
         })
 
         document.body.append(indicator)
-        lineElement?.classList.add('cm-dragged')
+        draggedElements.forEach((element) => element.classList.add('cm-dragged'))
 
         return {
+            // Moves the dragged lines along with a finger, by the given distance from where dragging started
+            follow(distance: number) {
+                for (const element of draggedElements) {
+                    element.style.transform = `translateY(${distance}px)`
+                    element.style.zIndex = '10'
+                }
+            },
+
             move(clientY: number) {
                 const current = spans()
                 const found = current.findIndex((span) => clientY < view.documentTop + (span.top + span.bottom) / 2)
@@ -1670,12 +1703,12 @@ if (textarea) {
 
             cancel() {
                 indicator.remove()
-                lineElement?.classList.remove('cm-dragged')
+                release()
             },
 
             drop() {
                 indicator.remove()
-                lineElement?.classList.remove('cm-dragged')
+                release()
 
                 const transactions = isProjectLine
                     ? reorderProject(view.state, markers, line, lines, slot)
@@ -1808,6 +1841,7 @@ if (textarea) {
             if (gesture === 'reorder' && reordering) {
                 event.preventDefault()
                 reordering.move(touch.clientY)
+                reordering.follow(dy)
             }
         }, { passive: false })
 
