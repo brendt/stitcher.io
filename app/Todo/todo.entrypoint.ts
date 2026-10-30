@@ -1676,23 +1676,37 @@ if (textarea) {
             return
         }
 
-        const transaction = toggleItem(view.state, markers, item)
+        // A task that's shown in the virtual project as well, is completed or reopened in its own project,
+        // and taken out of the virtual project once it's completed, which only shows open tasks
+        const ownKey = item.virtual ? `${item.type}-${item.id}` : item.key
+        const virtualKey = item.virtual ? item.key : `today-${item.type}-${item.id}`
+        const ownLine = findLine(view.state, markers, { ...item, key: ownKey })
+        const own = ownLine ? itemOn(view.state, markers, ownLine) : null
+        const transaction = own ? toggleItem(view.state, markers, own) : null
 
         if (transaction) {
             view.dispatch(transaction)
         }
 
-        // A task that's shown in the virtual project as well, is completed or reopened in both places
-        const otherKey = item.virtual ? `${item.type}-${item.id}` : `today-${item.type}-${item.id}`
-        const otherLine = findLine(view.state, markers, { ...item, key: otherKey })
-        const other = otherLine ? itemOn(view.state, markers, otherLine) : null
-        const otherTransaction = other && other.completed === item.completed ? toggleItem(view.state, markers, other) : null
+        const virtualLine = findLine(view.state, markers, { ...item, key: virtualKey })
 
-        if (otherTransaction) {
-            view.dispatch(otherTransaction)
+        if (virtualLine && ! item.completed) {
+            removeVirtualLine(view, virtualLine)
         }
 
         tidy(view)
+    }
+
+    // Takes a task out of the virtual project, together with the whole project when it was the last one in it
+    const removeVirtualLine = (view: EditorView, line: Line) => {
+        const { start } = blockOf(view.state, line)
+        const isLast = itemLines(view.state, markers, 'task', start.number + 1, blockOf(view.state, start).last.number).length === 1
+
+        const range = isLast
+            ? projectRange(view.state, start)
+            : (line.number < view.state.doc.lines ? { from: line.from, to: line.to + 1 } : { from: line.from - 1, to: line.to })
+
+        view.dispatch({ changes: range, annotations: Transaction.addToHistory.of(false) })
     }
 
     /**

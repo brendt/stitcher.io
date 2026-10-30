@@ -134,7 +134,7 @@ final readonly class TodoMarkdown
     /**
      * Tasks that are coming up, shown together at the top as a virtual project, with the name of their own project:
      * the ones due today, or else tomorrow, or else in the coming week. Without any of those, there's nothing to show.
-     * Completed ones are included as well, so that they don't disappear when checking them off.
+     * Only open tasks are shown, completed ones are done already.
      */
     public function upcoming(Workspace $workspace): ?TodoGroup
     {
@@ -156,7 +156,7 @@ final readonly class TodoMarkdown
                 foreach ($project->tasks as $task) {
                     $dates = array_filter($this->datesOf($task), fn (string $date) => $date >= $from && $date <= $to);
 
-                    if ($task->isText || $dates === []) {
+                    if ($task->isText || $task->completedAt !== null || $dates === []) {
                         continue;
                     }
 
@@ -172,11 +172,7 @@ final readonly class TodoMarkdown
             // Latest first, like the Soon page. Within the same day, tasks keep the order of their projects.
             usort($found, fn (array $a, array $b) => $b['date'] <=> $a['date']);
 
-            $tasks = array_column($found, 'task');
-            $open = array_filter($tasks, fn (Task $task) => $task->completedAt === null);
-            $completed = array_filter($tasks, fn (Task $task) => $task->completedAt !== null);
-
-            return new TodoGroup($title, null, [...$open, ...$completed], $projectNames, isVirtual: true);
+            return new TodoGroup($title, null, array_column($found, 'task'), $projectNames, isVirtual: true);
         }
 
         return null;
