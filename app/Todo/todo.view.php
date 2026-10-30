@@ -26,7 +26,7 @@ use function Tempest\Router\uri;
 <body class="antialiased bg-white text-gray-900 overflow-x-clip">
 <nav
     :if="$workspaces !== []"
-    class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-6 py-4 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:justify-start lg:gap-2 lg:px-10 lg:py-24"
+    class="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4 bg-white border-b border-gray-200 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:items-start lg:justify-start lg:gap-2 lg:px-10 lg:py-24 lg:bg-transparent lg:border-b-0"
 >
     <!-- On small screens, a filtered view only shows its filters at the top -->
     <div :class="$filters || $project ? 'hidden lg:contents' : 'contents'">
