@@ -685,6 +685,52 @@ function continueTask(view: EditorView): boolean {
     return true
 }
 
+/**
+ * Deleting a selection that spans multiple lines asks for confirmation first, so that projects and tasks aren't removed by accident.
+ * Returning `true` stops the deletion, returning `false` lets it go ahead as usual.
+ */
+function confirmBulkDelete(view: EditorView): boolean {
+    const { doc } = view.state
+    const ranges = view.state.selection.ranges.filter((range) => doc.lineAt(range.from).number !== doc.lineAt(range.to).number)
+
+    if (ranges.length === 0) {
+        return false
+    }
+
+    let projects = 0
+    let tasks = 0
+
+    for (const range of ranges) {
+        for (let number = doc.lineAt(range.from).number; number <= doc.lineAt(range.to).number; number++) {
+            const line = doc.line(number)
+
+            // A line only counts as deleted when its first character, its `#` or `-`, is removed
+            const keepsFirstCharacter = range.from > line.from || (range.to === line.from && line.length > 0)
+
+            if (keepsFirstCharacter) {
+                continue
+            }
+
+            if (isProject(line)) {
+                projects++
+            } else if (isTask(line)) {
+                tasks++
+            }
+        }
+    }
+
+    const counts = [
+        projects > 0 ? `${projects} ${projects === 1 ? 'project' : 'projects'}` : null,
+        tasks > 0 ? `${tasks} ${tasks === 1 ? 'task' : 'tasks'}` : null,
+    ].filter((count) => count !== null)
+
+    const message = counts.length > 0
+        ? `This deletes ${counts.join(' and ')}. Are you sure?`
+        : 'This deletes multiple lines. Are you sure?'
+
+    return ! window.confirm(message)
+}
+
 type Known = Record<ItemType, Set<number>>
 
 type Payload = {
@@ -1058,7 +1104,14 @@ if (textarea) {
         selection: { anchor: cursor },
         extensions: [
             history(),
-            keymap.of([{ key: 'Enter', run: continueTask }, ...defaultKeymap, ...historyKeymap, indentWithTab]),
+            keymap.of([
+                { key: 'Enter', run: continueTask },
+                { key: 'Backspace', run: confirmBulkDelete },
+                { key: 'Delete', run: confirmBulkDelete },
+                ...defaultKeymap,
+                ...historyKeymap,
+                indentWithTab,
+            ]),
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
