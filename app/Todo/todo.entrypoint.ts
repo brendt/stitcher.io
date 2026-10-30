@@ -1867,10 +1867,11 @@ if (textarea) {
                 event.preventDefault()
                 distance = gesture === 'swipe' ? Math.min(0, dx) : Math.max(0, dx)
 
-                // Green for completing, purple for archiving, stronger once letting go would do it
+                // Green for completing, gray for reopening, purple for archiving, stronger once letting go would do it
                 const progress = Math.min(1, Math.abs(distance) / SWIPE_DISTANCE)
                 const strength = progress < 1 ? progress * 0.2 : 0.35
-                const color = gesture === 'swipe' ? '34 197 94' : '168 85 247'
+                const isReopening = gesture === 'swipe' && line !== null && itemOn(view.state, markers, line)?.completed === true
+                const color = gesture === 'archive' ? '168 85 247' : (isReopening ? '107 114 128' : '34 197 94')
 
                 for (const element of swipedElements) {
                     element.style.transform = `translateX(${distance}px)`
