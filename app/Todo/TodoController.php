@@ -54,7 +54,6 @@ final readonly class TodoController
 
         return view(
             'todo.view.php',
-            workspaces: $workspaces,
             workspace: $workspace,
             markdown: $workspace ? $this->markdown->render($workspace) : '',
         );

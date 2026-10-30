@@ -1,47 +1,41 @@
-<?php
+<!doctype html>
+<html lang="en" class="bg-white">
+<head>
+    <title :if="$workspace">{{ $workspace->name }} | Todo</title>
+    <title :else>Todo</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+    <meta name="theme-color" content="#ffffff">
 
-use App\Todo\TodoController;
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
 
-use function Tempest\Router\uri;
+    <x-vite-tags entrypoint="app/main.entrypoint.css"/>
+</head>
+<body class="antialiased bg-white">
+<textarea
+    id="todo-markdown"
+    name="markdown"
+    class="block w-full max-w-[80ch] min-h-dvh mx-auto px-6 py-12 bg-white font-mono text-sm resize-none overflow-hidden focus:outline-none"
+    placeholder="# Project name&#10;&#10;- Todo 1&#10;- Todo 2"
+    autofocus
+>{{ $markdown }}</textarea>
 
-?>
+<script>
+    const textarea = document.querySelector('#todo-markdown');
 
-<x-base title="Todo" :footer="false">
-    <x-container>
-        <nav class="flex gap-2 mb-4" :if="$workspaces !== []">
-            <a
-                :foreach="$workspaces as $item"
-                :href="uri([TodoController::class, 'show'], workspaceId: $item->id)"
-                class="px-3 py-1 rounded-md font-bold"
-                :class="$item->id->equals($workspace->id) ? 'bg-primary text-white' : 'bg-white text-gray-600 hover:bg-gray-200'"
-            >{{ $item->name }}</a>
-        </nav>
+    const grow = () => {
+        const scrollY = window.scrollY;
 
-        <textarea
-            id="todo-markdown"
-            name="markdown"
-            class="w-full min-h-[80vh] p-4 bg-white rounded-md shadow-sm font-mono text-sm resize-none overflow-hidden focus:outline-none"
-            placeholder="# Project name&#10;&#10;- Todo 1&#10;- Todo 2"
-            autofocus
-        >{{ $markdown }}</textarea>
-    </x-container>
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
 
-    <x-slot name="scripts">
-        <script>
-            const textarea = document.querySelector('#todo-markdown');
+        window.scrollTo(0, scrollY);
+    };
 
-            const grow = () => {
-                const scrollY = window.scrollY;
-
-                textarea.style.height = 'auto';
-                textarea.style.height = textarea.scrollHeight + 'px';
-
-                window.scrollTo(0, scrollY);
-            };
-
-            textarea.addEventListener('input', grow);
-            window.addEventListener('resize', grow);
-            grow();
-        </script>
-    </x-slot>
-</x-base>
+    textarea.addEventListener('input', grow);
+    window.addEventListener('resize', grow);
+    grow();
+</script>
+</body>
+</html>
