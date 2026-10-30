@@ -352,10 +352,13 @@ final readonly class TodoController
             title: $workspace->name ?? $mode->title(),
             placeholder: $mode->placeholder(),
             filters: $filters,
-            filterLinks: $this->filterLinks($baseUri, $filters, $project),
             project: $project,
+            // The project filter comes first, followed by the tags
+            activeFilterLinks: [
+                ...($project !== null ? ['# ' . $project => $this->filterUri($baseUri, $filters, null)] : []),
+                ...$this->filterLinks($baseUri, $filters, $project),
+            ],
             showAll: $showAll,
-            projectLink: $project !== null ? $this->filterUri($baseUri, $filters, null) : null,
             baseUri: $baseUri,
             markdown: $this->markdown->render($groups, $filters),
             items: $this->markdown->items($groups, $filters),

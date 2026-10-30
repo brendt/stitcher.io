@@ -81,23 +81,17 @@ use function Tempest\Router\uri;
         </details>
     </div>
 
-    <div :if="$filters || $project" class="flex flex-wrap justify-center gap-x-4 gap-y-2 lg:justify-start lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
-        <a
-            :if="$project"
-            :href="$projectLink"
-            :title="'Stop showing only ' . $project"
-            class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black"
-        ># {{ $project }}</a>
-        <a
-            :foreach="$filterLinks as $tag => $removeUri"
-            :href="$removeUri"
-            :title="'Stop filtering on ' . $tag"
-            class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black"
-        >{{ $tag }}</a>
+    <!-- On small screens, the active filters are shown at the top, on wide screens they're shown above the editor -->
+    <div :if="$filters || $project" class="contents lg:hidden">
+        <x-todo-filters :links="$activeFilterLinks" />
     </div>
 </nav>
 
 <main class="px-6 pt-4 pb-[50vh] lg:px-56 lg:pt-24">
+    <div :if="$filters || $project" class="hidden sticky top-0 z-20 -mt-20 mb-8 py-6 bg-white font-mono text-sm lg:block">
+        <x-todo-filters :links="$activeFilterLinks" />
+    </div>
+
     <div class="max-w-[65ch] mx-auto">
         <textarea
             id="todo-markdown"
