@@ -8,8 +8,10 @@ use Tempest\Auth\Authentication\Authenticator;
 use Tempest\DateTime\DateTime;
 use Tempest\Http\Request;
 use Tempest\Http\Response;
+use Tempest\Http\Responses\Json;
 use Tempest\Http\Responses\NotFound;
 use Tempest\Http\Responses\Ok;
+use Tempest\Http\Responses\ServerError;
 use Tempest\Router\Get;
 use Tempest\Router\Post;
 use Tempest\Router\Prefix;
@@ -23,6 +25,7 @@ final readonly class TodoController
     public function __construct(
         private Authenticator $authenticator,
         private TodoMarkdown $markdown,
+        private TodoSync $sync,
     ) {}
 
     #[Get('/')]
@@ -35,6 +38,29 @@ final readonly class TodoController
     public function show(int $workspaceId, Request $request): View|Response
     {
         return $this->render($workspaceId, $this->filter($request));
+    }
+
+    #[Post('/{workspaceId}/save')]
+    public function save(int $workspaceId, Request $request): Response
+    {
+        /** @var Workspace|null $workspace */
+        $workspace = Workspace::select()
+            ->with('projects.tasks')
+            ->where('workspaces.id = ?', $workspaceId)
+            ->where('workspaces.user_id = ?', $this->user()->id->value)
+            ->first();
+
+        if (! $workspace) {
+            return new NotFound();
+        }
+
+        $ids = $this->sync->sync($workspace, $request->body);
+
+        if ($ids === null) {
+            return new ServerError();
+        }
+
+        return new Json(['ids' => (object) $ids]);
     }
 
     #[Post('/projects/{projectId}/complete')]

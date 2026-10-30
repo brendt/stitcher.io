@@ -1,5 +1,5 @@
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
-import { RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
+import { MapMode, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
 import type { EditorState, Line, Range } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
@@ -8,7 +8,10 @@ type ItemType = 'project' | 'task'
 
 type Item = {
     type: ItemType
-    id: number
+    // `null` until a newly written project or task has been saved
+    id: number | null
+    // Identifies the item within the editor, also before it has an ID
+    key: string
     completed: boolean
 }
 
@@ -74,28 +77,29 @@ const syntax = ViewPlugin.fromClass(
 
 /**
  * Remembers which line belongs to which project or task, and follows that line while the document is being edited.
- * The original text is kept as well, so that a line which was changed or removed no longer counts as that item.
  */
 class ItemMarker extends RangeValue {
     constructor(
         readonly item: Item,
-        readonly text: string,
     ) {
         super()
     }
 
     eq(other: ItemMarker): boolean {
         return isSameItem(other.item, this.item)
+            && other.item.id === this.item.id
             && other.item.completed === this.item.completed
-            && other.text === this.text
     }
 }
 
 // Text inserted right at the start of a line ends up before that line's marker, instead of taking it over.
 ItemMarker.prototype.startSide = ItemMarker.prototype.endSide = 1
 
+// Deleting the first character of a line (its `#` or `-`) means that line no longer is that item.
+ItemMarker.prototype.mapMode = MapMode.TrackAfter
+
 function isSameItem(a: Item, b: Item): boolean {
-    return a.type === b.type && a.id === b.id
+    return a.key === b.key
 }
 
 /**
@@ -116,6 +120,12 @@ type Move = {
 
 const moveItem = StateEffect.define<Move>()
 
+// Tracks lines that were written in the editor, so that they can be matched with their ID once saved
+const addItems = StateEffect.define<Range<ItemMarker>[]>()
+
+// Assigns IDs to saved items, keyed by their `key`
+const assignIds = StateEffect.define<Record<string, number>>()
+
 function createItemMarkers(items: Record<string, Item>) {
     return StateField.define<RangeSet<ItemMarker>>({
         create(state) {
@@ -124,58 +134,87 @@ function createItemMarkers(items: Record<string, Item>) {
             for (const [lineNumber, item] of Object.entries(items).sort(([a], [b]) => Number(a) - Number(b))) {
                 const line = state.doc.line(Number(lineNumber))
 
-                builder.add(line.from, line.from, new ItemMarker(item, line.text))
+                builder.add(line.from, line.from, new ItemMarker(item))
             }
 
             return builder.finish()
         },
 
         update(markers, transaction) {
-            const moves = transaction.effects.filter((effect) => effect.is(moveItem)).map((effect) => effect.value as Move)
+            markers = moveMarkers(markers, transaction)
 
-            if (moves.length === 0) {
-                return markers.map(transaction.changes)
-            }
-
-            const isMoved = (from: number) => moves.some((move) => move.insert !== '' && from >= move.textFrom && from < move.textFrom + move.textLength)
-            const moveOf = (item: Item) => moves.find((move) => isSameItem(move.item, item))
-            const moved: Range<ItemMarker>[] = []
-
-            for (const move of moves) {
-                if (move.insert === '') {
-                    continue
+            for (const effect of transaction.effects) {
+                if (effect.is(addItems)) {
+                    markers = markers.update({ add: effect.value, sort: true })
                 }
 
-                const start = transaction.changes.mapPos(move.insertAt, -1) + move.offset
+                if (effect.is(assignIds)) {
+                    const ids = effect.value
+                    const assigned: Range<ItemMarker>[] = []
 
-                markers.between(move.textFrom, move.textFrom + move.textLength, (from, _to, marker) => {
-                    if (from < move.textFrom + move.textLength) {
-                        moved.push(new ItemMarker(marker.item, marker.text).range(start + from - move.textFrom))
-                    }
-                })
+                    markers.between(0, transaction.state.doc.length, (from, _to, marker) => {
+                        if (marker.item.key in ids) {
+                            assigned.push(new ItemMarker({ ...marker.item, id: ids[marker.item.key] }).range(from))
+                        }
+                    })
+
+                    markers = markers.update({
+                        filter: (_from, _to, marker) => ! (marker.item.key in ids),
+                        add: assigned,
+                        sort: true,
+                    })
+                }
             }
 
-            markers = markers
-                .update({ filter: (from) => ! isMoved(from) })
-                .map(transaction.changes)
-                .update({ add: moved, sort: true })
-
-            const updated: Range<ItemMarker>[] = []
-
-            markers.between(0, transaction.state.doc.length, (from, _to, marker) => {
-                const move = moveOf(marker.item)
-
-                if (move) {
-                    updated.push(new ItemMarker({ ...marker.item, completed: move.completed }, marker.text).range(from))
-                }
-            })
-
-            return markers.update({
-                filter: (_from, _to, marker) => ! moveOf(marker.item),
-                add: updated,
-                sort: true,
-            })
+            return markers
         },
+    })
+}
+
+function moveMarkers(markers: RangeSet<ItemMarker>, transaction: Transaction): RangeSet<ItemMarker> {
+    const moves = transaction.effects.filter((effect) => effect.is(moveItem)).map((effect) => effect.value as Move)
+
+    if (moves.length === 0) {
+        return markers.map(transaction.changes)
+    }
+
+    const isMoved = (from: number) => moves.some((move) => move.insert !== '' && from >= move.textFrom && from < move.textFrom + move.textLength)
+    const moveOf = (item: Item) => moves.find((move) => isSameItem(move.item, item))
+    const moved: Range<ItemMarker>[] = []
+
+    for (const move of moves) {
+        if (move.insert === '') {
+            continue
+        }
+
+        const start = transaction.changes.mapPos(move.insertAt, -1) + move.offset
+
+        markers.between(move.textFrom, move.textFrom + move.textLength, (from, _to, marker) => {
+            if (from < move.textFrom + move.textLength) {
+                moved.push(new ItemMarker(marker.item).range(start + from - move.textFrom))
+            }
+        })
+    }
+
+    markers = markers
+        .update({ filter: (from) => ! isMoved(from) })
+        .map(transaction.changes)
+        .update({ add: moved, sort: true })
+
+    const updated: Range<ItemMarker>[] = []
+
+    markers.between(0, transaction.state.doc.length, (from, _to, marker) => {
+        const move = moveOf(marker.item)
+
+        if (move) {
+            updated.push(new ItemMarker({ ...marker.item, completed: move.completed }).range(from))
+        }
+    })
+
+    return markers.update({
+        filter: (_from, _to, marker) => ! moveOf(marker.item),
+        add: updated,
+        sort: true,
     })
 }
 
@@ -188,7 +227,7 @@ class CheckButton extends WidgetType {
     }
 
     eq(other: CheckButton): boolean {
-        return isSameItem(other.item, this.item) && other.item.completed === this.item.completed
+        return isSameItem(other.item, this.item) && other.item.id === this.item.id && other.item.completed === this.item.completed
     }
 
     toDOM(view: EditorView): HTMLElement {
@@ -255,13 +294,13 @@ function lastFilledLine(state: EditorState, before: number = state.doc.lines + 1
 }
 
 /**
- * Returns the item on the given line, as long as that line still has the text it had when the item was loaded.
+ * Returns the item on the given line, as long as that line is still a project or task like the item is.
  */
 function itemOn(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): Item | null {
     let found: Item | null = null
 
     state.field(markers).between(line.from, line.from, (from, _to, marker) => {
-        if (from === line.from && marker.text === line.text) {
+        if (from === line.from && (marker.item.type === 'project' ? isProject(line) : isTask(line))) {
             found = marker.item
 
             return false
@@ -298,7 +337,9 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, toggle: (vie
                 continue
             }
 
-            decorations.push(Decoration.widget({ widget: new CheckButton(item, toggle), side: -1 }).range(line.from))
+            if (item.id !== null) {
+                decorations.push(Decoration.widget({ widget: new CheckButton(item, toggle), side: -1 }).range(line.from))
+            }
 
             if (! item.completed) {
                 continue
@@ -370,7 +411,7 @@ function targetFor(state: EditorState, markers: StateField<RangeSet<ItemMarker>>
 
     const target = siblings.find(({ item: sibling }) => ! isSameItem(sibling, item) && (completed
         ? sibling.completed
-        : sibling.completed || sibling.id > item.id))
+        : sibling.completed || sibling.id === null || (item.id !== null && sibling.id > item.id)))
 
     return target?.line ?? null
 }
@@ -405,6 +446,63 @@ function toggleItem(state: EditorState, markers: StateField<RangeSet<ItemMarker>
         effects: moveItem.of(move),
         annotations: Transaction.addToHistory.of(false),
     })
+}
+
+type Known = Record<ItemType, Set<number>>
+
+type Payload = {
+    projects: {
+        key: string
+        id: number | null
+        name: string
+        tasks: { key: string, id: number | null, name: string }[]
+    }[]
+    deleted: Record<'projects' | 'tasks', number[]>
+}
+
+/**
+ * Collects all projects and their tasks in the document, ready to be saved.
+ * Lines that aren't tracked yet get a new item, which are returned so that they can be tracked from now on.
+ * Items that were known before but can't be found anymore, are reported as deleted.
+ * Tasks above the first project don't belong to any project, so they aren't saved.
+ */
+function snapshot(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, known: Known, createKey: () => string): { payload: Payload, added: Range<ItemMarker>[] } {
+    const payload: Payload = { projects: [], deleted: { projects: [], tasks: [] } }
+    const added: Range<ItemMarker>[] = []
+    const present: Known = { project: new Set(), task: new Set() }
+
+    for (let number = 1; number <= state.doc.lines; number++) {
+        const line = state.doc.line(number)
+        const type: ItemType | null = isProject(line) ? 'project' : (isTask(line) ? 'task' : null)
+        const name = line.text.slice(2).trim()
+        const project = payload.projects.at(-1)
+
+        if (type === null || name === '' || (type === 'task' && ! project)) {
+            continue
+        }
+
+        let item = itemOn(state, markers, line)
+
+        if (! item) {
+            item = { type, id: null, key: createKey(), completed: false }
+            added.push(new ItemMarker(item).range(line.from))
+        }
+
+        if (item.id !== null) {
+            present[type].add(item.id)
+        }
+
+        if (type === 'project') {
+            payload.projects.push({ key: item.key, id: item.id, name, tasks: [] })
+        } else {
+            project?.tasks.push({ key: item.key, id: item.id, name })
+        }
+    }
+
+    payload.deleted.projects = [...known.project].filter((id) => ! present.project.has(id))
+    payload.deleted.tasks = [...known.task].filter((id) => ! present.task.has(id))
+
+    return { payload, added }
 }
 
 const theme = EditorView.theme({
@@ -489,7 +587,16 @@ const theme = EditorView.theme({
 const textarea = document.querySelector<HTMLTextAreaElement>('#todo-markdown')
 
 if (textarea) {
-    const items: Record<string, Item> = JSON.parse(textarea.dataset.items ?? '{}')
+    const items: Record<string, Item> = {}
+    const known: Known = { project: new Set(), task: new Set() }
+
+    for (const [lineNumber, item] of Object.entries<Omit<Item, 'key'> & { id: number }>(JSON.parse(textarea.dataset.items ?? '{}'))) {
+        items[lineNumber] = { ...item, key: `${item.type}-${item.id}` }
+        known[item.type].add(item.id)
+    }
+
+    let lastKey = 0
+    const createKey = () => `new-${++lastKey}`
 
     const urls: Record<ItemType, { complete: string, reopen: string }> = {
         project: {
@@ -503,6 +610,8 @@ if (textarea) {
     }
 
     const filterUrl = textarea.dataset.filterUrl
+    const saveUrl = textarea.dataset.saveUrl
+    const status = document.querySelector<HTMLElement>('#todo-status')
 
     const markers = createItemMarkers(items)
 
@@ -551,9 +660,118 @@ if (textarea) {
             EditorView.updateListener.of((update) => {
                 if (update.docChanged) {
                     textarea.value = update.state.doc.toString()
+                    scheduleSave()
                 }
             }),
         ],
+    })
+
+    // Saving waits until there haven't been any changes for a moment, and only one save runs at a time.
+    const SAVE_DELAY = 1000
+    const RETRY_DELAY = 5000
+
+    let saveTimer: number | undefined
+    let isSaving = false
+    let hasChanges = false
+
+    let statusTimer: number | undefined
+
+    const showStatus = (text: string, clearAfter: number | null = null) => {
+        window.clearTimeout(statusTimer)
+
+        if (status) {
+            status.textContent = text
+        }
+
+        if (clearAfter !== null) {
+            statusTimer = window.setTimeout(() => showStatus(''), clearAfter)
+        }
+    }
+
+    const scheduleSave = (delay: number = SAVE_DELAY) => {
+        hasChanges = true
+        window.clearTimeout(saveTimer)
+        saveTimer = window.setTimeout(save, delay)
+    }
+
+    const save = async () => {
+        if (isSaving || ! hasChanges || ! saveUrl) {
+            return
+        }
+
+        isSaving = true
+        hasChanges = false
+
+        const { payload, added } = snapshot(view.state, markers, known, createKey)
+
+        if (added.length > 0) {
+            view.dispatch({ effects: addItems.of(added) })
+        }
+
+        showStatus('Saving…')
+
+        try {
+            const response = await fetch(saveUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify(payload),
+            })
+
+            if (! response.ok) {
+                throw new Error(`Saving failed with status ${response.status}`)
+            }
+
+            const { ids } = await response.json() as { ids: Record<string, number> }
+
+            view.dispatch({ effects: assignIds.of(ids) })
+
+            const types = new Map<string, ItemType>()
+
+            for (const project of payload.projects) {
+                types.set(project.key, 'project')
+                project.tasks.forEach((task) => types.set(task.key, 'task'))
+            }
+
+            for (const [key, id] of Object.entries(ids)) {
+                const type = types.get(key)
+
+                if (type) {
+                    known[type].add(id)
+                }
+            }
+
+            payload.deleted.projects.forEach((id) => known.project.delete(id))
+            payload.deleted.tasks.forEach((id) => known.task.delete(id))
+
+            showStatus(hasChanges ? '' : 'Saved', 2000)
+        } catch {
+            showStatus('Not saved, retrying…')
+            hasChanges = true
+            window.clearTimeout(saveTimer)
+            saveTimer = window.setTimeout(save, RETRY_DELAY)
+
+            return
+        } finally {
+            isSaving = false
+        }
+
+        if (hasChanges) {
+            scheduleSave()
+        }
+    }
+
+    // Changes that haven't been saved yet are still sent when leaving the page
+    window.addEventListener('pagehide', () => {
+        if (! hasChanges || ! saveUrl) {
+            return
+        }
+
+        fetch(saveUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(snapshot(view.state, markers, known, createKey).payload),
+            keepalive: true,
+        })
     })
 
     textarea.after(view.dom)

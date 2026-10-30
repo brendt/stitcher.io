@@ -46,6 +46,7 @@ use function Tempest\Router\uri;
             name="markdown"
             :data-items="json_encode($items)"
             :data-filter-url="$workspace ? uri([TodoController::class, 'show'], workspaceId: $workspace->id) : null"
+            :data-save-url="$workspace ? uri([TodoController::class, 'save'], workspaceId: $workspace->id) : null"
             :data-complete-project-url="uri([TodoController::class, 'completeProject'], projectId: '__ID__')"
             :data-complete-task-url="uri([TodoController::class, 'completeTask'], taskId: '__ID__')"
             :data-reopen-project-url="uri([TodoController::class, 'reopenProject'], projectId: '__ID__')"
@@ -56,5 +57,7 @@ use function Tempest\Router\uri;
         >{{ $markdown }}</textarea>
     </div>
 </main>
+
+<div id="todo-status" class="fixed bottom-4 right-6 font-mono text-xs text-gray-400" aria-live="polite"></div>
 </body>
 </html>
