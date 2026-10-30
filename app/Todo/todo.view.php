@@ -19,39 +19,30 @@ use function Tempest\Router\uri;
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
 
     <x-vite-tags entrypoint="app/main.entrypoint.css"/>
+    <x-vite-tags entrypoint="app/Todo/todo.entrypoint.ts"/>
 </head>
-<body class="antialiased bg-white">
-<nav :if="count($workspaces) > 1" class="absolute top-0 right-0 flex gap-4 px-6 py-4 font-mono text-sm">
+<body class="antialiased bg-white text-gray-900">
+<nav
+    :if="count($workspaces) > 1"
+    class="flex justify-end gap-4 px-6 py-4 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:justify-start lg:gap-2 lg:px-10 lg:py-24"
+>
     <a
         :foreach="$workspaces as $item"
         :href="uri([TodoController::class, 'show'], workspaceId: $item->id)"
-        :class="$item->id->equals($workspace->id) ? 'text-gray-900' : 'text-gray-400 hover:text-gray-900'"
+        :class="$item->id->equals($workspace->id) ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
     >{{ $item->name }}</a>
 </nav>
 
-<textarea
-    id="todo-markdown"
-    name="markdown"
-    class="block w-full max-w-[80ch] min-h-dvh mx-auto px-6 py-12 bg-white font-mono text-sm resize-none overflow-hidden focus:outline-none"
-    placeholder="# Project name&#10;&#10;- Todo 1&#10;- Todo 2"
-    autofocus
->{{ $markdown }}</textarea>
-
-<script>
-    const textarea = document.querySelector('#todo-markdown');
-
-    const grow = () => {
-        const scrollY = window.scrollY;
-
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
-
-        window.scrollTo(0, scrollY);
-    };
-
-    textarea.addEventListener('input', grow);
-    window.addEventListener('resize', grow);
-    grow();
-</script>
+<main class="px-6 pt-4 pb-24 lg:px-56 lg:pt-24">
+    <div class="max-w-[65ch] mx-auto">
+        <textarea
+            id="todo-markdown"
+            name="markdown"
+            class="block w-full min-h-[70vh] font-mono resize-none focus:outline-none"
+            placeholder="# Project name&#10;&#10;- Todo 1&#10;- Todo 2"
+            autofocus
+        >{{ $markdown }}</textarea>
+    </div>
+</main>
 </body>
 </html>
