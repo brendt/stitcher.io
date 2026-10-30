@@ -133,15 +133,16 @@ final readonly class TodoMarkdown
 
     /**
      * Tasks that are coming up, shown together at the top as a virtual project, with the name of their own project:
-     * the ones due today, or else tomorrow, or else in the coming week. Without any of those, there's nothing to show.
+     * the ones due today or overdue, or else tomorrow, or else in the coming week. Without any of those, there's nothing to show.
      * Only open tasks are shown, completed ones are done already.
      */
     public function upcoming(Workspace $workspace): ?TodoGroup
     {
         $today = DateTime::now();
 
-        foreach ([['Today', 0, 0], ['Tomorrow', 1, 1], ['Soon', 0, 7]] as [$title, $fromDays, $toDays]) {
-            $from = $today->plusDays($fromDays)->format('yyyy-MM-dd');
+        // Today also shows overdue tasks, which have a date before today
+        foreach ([['Today', null, 0], ['Tomorrow', 1, 1], ['Soon', 0, 7]] as [$title, $fromDays, $toDays]) {
+            $from = $fromDays === null ? '' : $today->plusDays($fromDays)->format('yyyy-MM-dd');
             $to = $today->plusDays($toDays)->format('yyyy-MM-dd');
 
             /** @var array<array{task: Task, date: string}> $found */

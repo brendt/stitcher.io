@@ -1294,7 +1294,7 @@ function deleteSelectionWithoutConfirming(view: EditorView): boolean {
 
 /**
  * Keeps the virtual project at the top up to date with the document, the same way as `TodoMarkdown::upcoming()` does when loading the page:
- * open tasks due today, or else tomorrow, or else in the coming week, latest first, with the name of their own project.
+ * open tasks due today or overdue, or else tomorrow, or else in the coming week, latest first, with the name of their own project.
  * Returns the changes to make when it should look different than it does now, for example after adding a task for today.
  */
 function refreshUpcoming(state: EditorState, markers: StateField<RangeSet<ItemMarker>>): TransactionSpec | null {
@@ -1331,8 +1331,9 @@ function refreshUpcoming(state: EditorState, markers: StateField<RangeSet<ItemMa
         tasks.push({ item, text: line.text.slice(2), project: start.text.slice(2).trim(), dates: tags.filter((tag) => /^\d{4}-/.test(tag)) })
     }
 
-    for (const [title, fromDays, toDays] of [['Today', 0, 0], ['Tomorrow', 1, 1], ['Soon', 0, 7]] as const) {
-        const from = dateInDays(fromDays)
+    // Today also shows overdue tasks, which have a date before today
+    for (const [title, fromDays, toDays] of [['Today', null, 0], ['Tomorrow', 1, 1], ['Soon', 0, 7]] as const) {
+        const from = fromDays === null ? '' : dateInDays(fromDays)
         const to = dateInDays(toDays)
 
         const found = tasks
