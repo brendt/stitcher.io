@@ -152,6 +152,7 @@ final readonly class TodoController
             filterLinks: $workspace ? $this->filterLinks($workspace, $filters) : [],
             markdown: $workspace ? $this->markdown->render($workspace, $filters) : '',
             items: $workspace ? $this->markdown->items($workspace, $filters) : [],
+            tags: $this->markdown->tags(...$workspaces),
         );
     }
 

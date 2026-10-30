@@ -1,3 +1,5 @@
+import { autocompletion } from '@codemirror/autocomplete'
+import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
 import { MapMode, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
 import type { EditorState, Line, Range } from '@codemirror/state'
@@ -462,6 +464,66 @@ function toggleItem(state: EditorState, markers: StateField<RangeSet<ItemMarker>
     })
 }
 
+const TAG_WORD = /^[#@][\p{L}\p{N}_-]*$/u
+
+/**
+ * Suggests hashtags and mentions while typing one in a task: the ones used before, most used first,
+ * followed by new ones that were written in the editor but haven't been loaded from the server yet.
+ */
+function tagCompletions(usedTags: string[]) {
+    return (context: CompletionContext): CompletionResult | null => {
+        const word = context.matchBefore(/[#@][\p{L}\p{N}_-]*/u)
+
+        if (! word) {
+            return null
+        }
+
+        const line = context.state.doc.lineAt(word.from)
+        const before = context.state.sliceDoc(word.from - 1, word.from)
+
+        if (! isTask(line) || (word.from > line.from && ! /\s/.test(before))) {
+            return null
+        }
+
+        const writtenTags: string[] = []
+
+        for (let number = 1; number <= context.state.doc.lines; number++) {
+            const current = context.state.doc.line(number)
+
+            if (! isTask(current)) {
+                continue
+            }
+
+            for (const match of current.text.matchAll(TAG)) {
+                const from = current.from + match.index + match[1].length
+
+                if (from !== word.from && match[2].length > 1) {
+                    writtenTags.push(match[2])
+                }
+            }
+        }
+
+        const seen = new Set<string>([word.text.toLowerCase()])
+        const tags = [...usedTags, ...writtenTags].filter((tag) => {
+            const key = tag.toLowerCase()
+
+            if (tag[0] !== word.text[0] || seen.has(key)) {
+                return false
+            }
+
+            seen.add(key)
+
+            return true
+        })
+
+        return {
+            from: word.from,
+            options: tags.map((tag, index) => ({ label: tag, boost: Math.max(-99, -index) })),
+            validFor: TAG_WORD,
+        }
+    }
+}
+
 type Known = Record<ItemType, Set<number>>
 
 type Payload = {
@@ -556,6 +618,29 @@ const theme = EditorView.theme({
         fontWeight: 'bold',
         cursor: 'pointer',
     },
+    '.cm-tooltip.cm-tooltip-autocomplete': {
+        border: '1px solid var(--color-gray-200)',
+        borderRadius: '0.375rem',
+        backgroundColor: 'white',
+        boxShadow: '0 4px 12px rgb(0 0 0 / 0.08)',
+        overflow: 'hidden',
+    },
+    '.cm-tooltip.cm-tooltip-autocomplete > ul': {
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.875rem',
+        maxHeight: '12rem',
+    },
+    '.cm-tooltip.cm-tooltip-autocomplete > ul > li': {
+        padding: '0.25rem 0.75rem',
+    },
+    '.cm-tooltip.cm-tooltip-autocomplete > ul > li[aria-selected]': {
+        backgroundColor: 'var(--color-gray-100)',
+        color: 'var(--color-gray-900)',
+    },
+    '.cm-completionMatchedText': {
+        textDecoration: 'none',
+        fontWeight: 'bold',
+    },
     '.cm-tag-sign': {
         fontWeight: 'bold',
     },
@@ -635,6 +720,7 @@ if (textarea) {
     }
 
     const filterUrl = textarea.dataset.filterUrl
+    const usedTags: string[] = JSON.parse(textarea.dataset.tags ?? '[]')
     activeFilters = (textarea.dataset.filter ?? '').split(' ').filter((filter) => filter !== '')
     const saveUrl = textarea.dataset.saveUrl
     const status = document.querySelector<HTMLElement>('#todo-status')
@@ -671,6 +757,7 @@ if (textarea) {
             keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
+            autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
             markers,
             itemDecorations(markers, toggle),
             syntax,

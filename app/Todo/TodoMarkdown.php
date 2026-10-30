@@ -33,6 +33,36 @@ final readonly class TodoMarkdown
     }
 
     /**
+     * All hashtags and mentions used in tasks, most used first. Tags that only differ in case are counted as one.
+     *
+     * @return string[]
+     */
+    public function tags(Workspace ...$workspaces): array
+    {
+        /** @var array<string, array{tag: string, count: int}> $tags */
+        $tags = [];
+
+        foreach ($workspaces as $workspace) {
+            foreach ($workspace->projects as $project) {
+                foreach ($project->tasks as $task) {
+                    $matches = [];
+                    preg_match_all('/(?:^|\\s)(' . self::TAG . ')/u', $task->name, $matches);
+
+                    foreach ($matches[1] ?? [] as $tag) {
+                        $key = mb_strtolower($tag);
+                        $tags[$key] ??= ['tag' => $tag, 'count' => 0];
+                        $tags[$key]['count']++;
+                    }
+                }
+            }
+        }
+
+        uasort($tags, fn (array $a, array $b) => [$b['count'], $a['tag']] <=> [$a['count'], $b['tag']]);
+
+        return array_values(array_column($tags, 'tag'));
+    }
+
+    /**
      * Maps line numbers (starting at 1) to the project or task they represent.
      *
      * @param string[] $filters Only tasks with all of these hashtags or mentions are included
