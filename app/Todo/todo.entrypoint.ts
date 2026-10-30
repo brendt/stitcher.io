@@ -1536,6 +1536,11 @@ if (textarea) {
                 indicator.style.top = `${view.documentTop + top}px`
             },
 
+            cancel() {
+                indicator.remove()
+                lineElement?.classList.remove('cm-dragged')
+            },
+
             drop() {
                 indicator.remove()
                 lineElement?.classList.remove('cm-dragged')
@@ -1651,6 +1656,14 @@ if (textarea) {
             if (gesture === 'pending' && Math.max(Math.abs(dx), Math.abs(dy)) > MOVE_TOLERANCE) {
                 window.clearTimeout(holdTimer)
                 gesture = dx < 0 && Math.abs(dx) > Math.abs(dy) && line && canToggle(view, line) ? 'swipe' : 'scroll'
+            }
+
+            // Once the browser started scrolling, it can't be stopped anymore. Scrolling wins then, instead of swiping or dragging.
+            if ((gesture === 'swipe' || gesture === 'reorder') && ! event.cancelable) {
+                reordering?.cancel()
+                reset()
+
+                return
             }
 
             if (gesture === 'swipe' && lineElement) {
