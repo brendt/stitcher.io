@@ -39,6 +39,29 @@ final readonly class TodoController
     #[Post('/projects/{projectId}/complete')]
     public function completeProject(int $projectId): Response
     {
+        return $this->updateProject($projectId, DateTime::now());
+    }
+
+    #[Post('/projects/{projectId}/reopen')]
+    public function reopenProject(int $projectId): Response
+    {
+        return $this->updateProject($projectId, null);
+    }
+
+    #[Post('/tasks/{taskId}/complete')]
+    public function completeTask(int $taskId): Response
+    {
+        return $this->updateTask($taskId, DateTime::now());
+    }
+
+    #[Post('/tasks/{taskId}/reopen')]
+    public function reopenTask(int $taskId): Response
+    {
+        return $this->updateTask($taskId, null);
+    }
+
+    private function updateProject(int $projectId, ?DateTime $completedAt): Response
+    {
         /** @var Project|null $project */
         $project = Project::select()
             ->where('projects.id = ?', $projectId)
@@ -49,13 +72,12 @@ final readonly class TodoController
             return new NotFound();
         }
 
-        $project->update(completedAt: DateTime::now());
+        $project->update(completedAt: $completedAt);
 
         return new Ok();
     }
 
-    #[Post('/tasks/{taskId}/complete')]
-    public function completeTask(int $taskId): Response
+    private function updateTask(int $taskId, ?DateTime $completedAt): Response
     {
         /** @var Task|null $task */
         $task = Task::select()
@@ -70,7 +92,7 @@ final readonly class TodoController
             return new NotFound();
         }
 
-        $task->update(completedAt: DateTime::now());
+        $task->update(completedAt: $completedAt);
 
         return new Ok();
     }
