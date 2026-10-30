@@ -18,10 +18,30 @@ use function Tempest\Router\uri;
         </nav>
 
         <textarea
+            id="todo-markdown"
             name="markdown"
-            class="w-full min-h-[80vh] p-4 bg-white rounded-md shadow-sm font-mono text-sm resize-none focus:outline-none"
+            class="w-full min-h-[80vh] p-4 bg-white rounded-md shadow-sm font-mono text-sm resize-none overflow-hidden focus:outline-none"
             placeholder="# Project name&#10;&#10;- Todo 1&#10;- Todo 2"
             autofocus
         >{{ $markdown }}</textarea>
     </x-container>
+
+    <x-slot name="scripts">
+        <script>
+            const textarea = document.querySelector('#todo-markdown');
+
+            const grow = () => {
+                const scrollY = window.scrollY;
+
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+
+                window.scrollTo(0, scrollY);
+            };
+
+            textarea.addEventListener('input', grow);
+            window.addEventListener('resize', grow);
+            grow();
+        </script>
+    </x-slot>
 </x-base>
