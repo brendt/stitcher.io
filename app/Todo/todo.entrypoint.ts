@@ -298,6 +298,101 @@ class CheckButton extends WidgetType {
     }
 }
 
+class DragHandle extends WidgetType {
+    constructor(
+        readonly drag: (view: EditorView, event: MouseEvent, handle: HTMLElement) => void,
+    ) {
+        super()
+    }
+
+    eq(): boolean {
+        return true
+    }
+
+    toDOM(view: EditorView): HTMLElement {
+        const handle = document.createElement('span')
+
+        handle.className = 'cm-drag'
+        handle.title = 'Drag to reorder'
+        handle.setAttribute('aria-hidden', 'true')
+        handle.innerHTML = '<svg viewBox="0 0 10 16" aria-hidden="true"><g fill="currentColor"><circle cx="3" cy="3" r="1.25"/><circle cx="7" cy="3" r="1.25"/><circle cx="3" cy="8" r="1.25"/><circle cx="7" cy="8" r="1.25"/><circle cx="3" cy="13" r="1.25"/><circle cx="7" cy="13" r="1.25"/></g></svg>'
+        handle.addEventListener('mousedown', (event) => this.drag(view, event, handle))
+
+        return handle
+    }
+
+    ignoreEvent(): boolean {
+        return true
+    }
+}
+
+/**
+ * Open tasks and text within a project can be put in another order. Completed tasks stay below them, ordered by when they were completed.
+ */
+function isSortable(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): boolean {
+    const type = typeOf(line)
+
+    if (type !== 'task' && type !== 'text') {
+        return false
+    }
+
+    return isProject(blockOf(state, line).start) && ! itemOn(state, markers, line)?.completed
+}
+
+/**
+ * The lines a line can be dragged between: the other open tasks and text in its project.
+ */
+function sortableLines(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): Line[] {
+    const { start, last } = blockOf(state, line)
+    const lines: Line[] = []
+
+    for (let number = start.number + 1; number <= last.number; number++) {
+        const current = state.doc.line(number)
+
+        if (isSortable(state, markers, current)) {
+            lines.push(current)
+        }
+    }
+
+    return lines
+}
+
+/**
+ * Moves a line to another slot between `lines`: slot 0 is before the first line, the last slot is after the last line.
+ * The item on the line keeps following it, so that it stays the same task or text.
+ */
+function reorder(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, lines: Line[], slot: number): Transaction | null {
+    const current = lines.findIndex((other) => other.number === line.number)
+
+    // The slots right before and after the line itself keep it where it is
+    if (slot === current || slot === current + 1) {
+        return null
+    }
+
+    const isBefore = slot < lines.length
+    const target = isBefore ? lines[slot] : lines[lines.length - 1]
+    const [from, to] = line.number < state.doc.lines ? [line.from, line.to + 1] : [line.from - 1, line.to]
+    const insertAt = isBefore ? target.from : target.to
+    const insert = isBefore ? line.text + '\n' : '\n' + line.text
+    const item = itemOn(state, markers, line)
+
+    return state.update({
+        changes: [{ from, to }, { from: insertAt, insert }],
+        effects: item ? moveItem.of({
+            item,
+            completed: item.completed,
+            from,
+            to,
+            textFrom: line.from,
+            textLength: line.length,
+            insertAt,
+            insert,
+            offset: isBefore ? 0 : 1,
+        }) : [],
+        annotations: Transaction.addToHistory.of(false),
+    })
+}
+
 class CollapseButton extends WidgetType {
     constructor(
         readonly item: Item,
@@ -438,6 +533,7 @@ function itemLines(state: EditorState, markers: StateField<RangeSet<ItemMarker>>
 }
 
 type Actions = {
+    drag: (view: EditorView, event: MouseEvent, handle: HTMLElement) => void
     toggle: (view: EditorView, item: Item) => void
     collapse: (view: EditorView, item: Item) => void
     archive: (view: EditorView, item: Item) => void
@@ -455,6 +551,10 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
         for (let number = 1; number <= state.doc.lines; number++) {
             const line = state.doc.line(number)
             const item = itemOn(state, markers, line)
+
+            if (actions.mode === 'workspace' && isSortable(state, markers, line)) {
+                decorations.push(Decoration.widget({ widget: new DragHandle(actions.drag), side: -1 }).range(line.from))
+            }
 
             if (! item) {
                 continue
@@ -935,6 +1035,34 @@ const theme = EditorView.theme({
         borderColor: 'var(--color-gray-900)',
         color: 'var(--color-gray-900)',
     },
+    '.cm-drag': {
+        position: 'absolute',
+        top: '50%',
+        left: '-3.375rem',
+        transform: 'translateY(-50%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '1.125rem',
+        height: '1.125rem',
+        color: 'var(--color-gray-400)',
+        cursor: 'grab',
+        opacity: '0',
+    },
+    '.cm-drag svg': {
+        display: 'block',
+        width: '0.625rem',
+        height: '1rem',
+    },
+    '.cm-line:hover .cm-drag': {
+        opacity: '1',
+    },
+    '.cm-drag:hover': {
+        color: 'var(--color-gray-900)',
+    },
+    '.cm-dragged': {
+        opacity: '0.4',
+    },
     '.cm-archive': {
         position: 'absolute',
         top: '50%',
@@ -1109,6 +1237,62 @@ if (textarea) {
         }
     }
 
+    // Dragging a line shows where it will go, and moves it there when letting go
+    const drag = (view: EditorView, event: MouseEvent, handle: HTMLElement) => {
+        event.preventDefault()
+
+        const line = view.state.doc.lineAt(view.posAtDOM(handle))
+        const lines = sortableLines(view.state, markers, line)
+        const lineElement = handle.closest<HTMLElement>('.cm-line')
+        const content = view.contentDOM.getBoundingClientRect()
+        const indicator = document.createElement('div')
+        let slot = lines.findIndex((other) => other.number === line.number)
+
+        Object.assign(indicator.style, {
+            position: 'fixed',
+            left: `${content.left}px`,
+            width: `${content.width}px`,
+            height: '2px',
+            marginTop: '-1px',
+            backgroundColor: 'var(--color-gray-900)',
+            pointerEvents: 'none',
+            zIndex: '50',
+        })
+
+        document.body.append(indicator)
+        document.body.style.cursor = 'grabbing'
+        lineElement?.classList.add('cm-dragged')
+
+        const move = (event: MouseEvent) => {
+            const blocks = lines.map((other) => view.lineBlockAt(other.from))
+            const found = blocks.findIndex((block) => event.clientY < view.documentTop + block.top + block.height / 2)
+
+            slot = found === -1 ? lines.length : found
+
+            const block = slot < blocks.length ? blocks[slot] : blocks[blocks.length - 1]
+
+            indicator.style.top = `${view.documentTop + (slot < blocks.length ? block.top : block.bottom)}px`
+        }
+
+        const drop = () => {
+            window.removeEventListener('mousemove', move)
+            window.removeEventListener('mouseup', drop)
+            indicator.remove()
+            document.body.style.cursor = ''
+            lineElement?.classList.remove('cm-dragged')
+
+            const transaction = reorder(view.state, markers, line, lines, slot)
+
+            if (transaction) {
+                view.dispatch(transaction)
+            }
+        }
+
+        move(event)
+        window.addEventListener('mousemove', move)
+        window.addEventListener('mouseup', drop)
+    }
+
     const collapse = (view: EditorView, item: Item) => {
         const line = findLine(view.state, markers, item)
         const fold = line ? projectFold(view.state, line) : null
@@ -1236,7 +1420,7 @@ if (textarea) {
                 },
             }),
             markers,
-            itemDecorations(markers, { toggle, collapse, archive, mode }),
+            itemDecorations(markers, { drag, toggle, collapse, archive, mode }),
             syntax,
             theme,
             EditorView.domEventHandlers({
