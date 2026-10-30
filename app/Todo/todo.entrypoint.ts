@@ -1262,13 +1262,21 @@ function deleteSelectionWithoutConfirming(view: EditorView): boolean {
 }
 
 /**
- * The next virtual project to show at the top, the same way as `TodoMarkdown::upcoming()` does when loading the page:
+ * Keeps the virtual project at the top up to date with the document, the same way as `TodoMarkdown::upcoming()` does when loading the page:
  * open tasks due today, or else tomorrow, or else in the coming week, latest first, with the name of their own project.
+ * Returns the changes to make when it should look different than it does now, for example after adding a task for today.
  */
-function upcomingProject(state: EditorState, markers: StateField<RangeSet<ItemMarker>>): TransactionSpec | null {
-    if (activeProject !== null || virtualRange(state, markers)) {
+function refreshUpcoming(state: EditorState, markers: StateField<RangeSet<ItemMarker>>): TransactionSpec | null {
+    if (activeProject !== null) {
         return null
     }
+
+    const current = virtualRange(state, markers)
+    const currentHeading = current ? state.doc.lineAt(current.from) : null
+    const currentText = currentHeading ? state.sliceDoc(currentHeading.from, blockOf(state, currentHeading).last.to) : null
+
+    // The current virtual project is replaced as a whole, together with the blank lines after it
+    const replace = currentHeading ? projectRange(state, currentHeading) : { from: 0, to: 0 }
 
     const { doc } = state
     const tasks: { item: Item, text: string, project: string, dates: string[] }[] = []
@@ -1306,7 +1314,13 @@ function upcomingProject(state: EditorState, markers: StateField<RangeSet<ItemMa
         }
 
         const lines = [`# ${title}`, ...found.map((task) => `- ${task.project}: ${task.text}`)]
-        const insert = lines.join('\n') + '\n'.repeat(BLANK_LINES_ABOVE_PROJECTS + 1)
+
+        if (lines.join('\n') === currentText) {
+            return null
+        }
+
+        const hasProjectsBelow = replace.to < state.doc.length || (currentHeading === null && state.doc.length > 0)
+        const insert = lines.join('\n') + (hasProjectsBelow ? '\n'.repeat(BLANK_LINES_ABOVE_PROJECTS + 1) : '')
         const added: Range<ItemMarker>[] = []
         let position = 0
 
@@ -1320,13 +1334,16 @@ function upcomingProject(state: EditorState, markers: StateField<RangeSet<ItemMa
         })
 
         return {
-            changes: { from: 0, insert },
+            changes: { from: replace.from, to: replace.to, insert },
             effects: addItems.of(added),
             annotations: Transaction.addToHistory.of(false),
         }
     }
 
-    return null
+    // Nothing is coming up anymore, so the current virtual project goes away
+    return currentHeading
+        ? { changes: replace, annotations: Transaction.addToHistory.of(false) }
+        : null
 }
 
 type Known = Record<ItemType, Set<number>>
@@ -1748,9 +1765,8 @@ if (textarea) {
         }
 
         // A task that's shown in the virtual project as well, is completed or reopened in its own project,
-        // and taken out of the virtual project once it's completed, which only shows open tasks
+        // after which the virtual project is brought up to date, which only shows open tasks
         const ownKey = item.virtual ? `${item.type}-${item.id}` : item.key
-        const virtualKey = item.virtual ? item.key : `today-${item.type}-${item.id}`
         const ownLine = findLine(view.state, markers, { ...item, key: ownKey })
         const own = ownLine ? itemOn(view.state, markers, ownLine) : null
         const transaction = own ? toggleItem(view.state, markers, own) : null
@@ -1759,37 +1775,24 @@ if (textarea) {
             view.dispatch(transaction)
         }
 
-        const virtualLine = findLine(view.state, markers, { ...item, key: virtualKey })
-
-        if (virtualLine && ! item.completed) {
-            removeVirtualLine(view, virtualLine)
-        }
-
+        updateUpcoming(view)
         tidy(view)
     }
 
-    // Takes a task out of the virtual project. When it was the last one in it, the next virtual project is shown instead, if there is one.
-    const removeVirtualLine = (view: EditorView, line: Line) => {
-        const { start } = blockOf(view.state, line)
-        const isLast = itemLines(view.state, markers, 'task', start.number + 1, blockOf(view.state, start).last.number).length === 1
-
-        const range = isLast
-            ? projectRange(view.state, start)
-            : (line.number < view.state.doc.lines ? { from: line.from, to: line.to + 1 } : { from: line.from - 1, to: line.to })
-
-        view.dispatch({ changes: range, annotations: Transaction.addToHistory.of(false) })
-
-        if (isLast) {
-            showUpcoming(view)
-        }
-    }
-
-    const showUpcoming = (view: EditorView) => {
-        const spec = upcomingProject(view.state, markers)
+    const updateUpcoming = (view: EditorView) => {
+        const spec = mode === 'workspace' ? refreshUpcoming(view.state, markers) : null
 
         if (spec) {
             view.dispatch(spec)
         }
+    }
+
+    // After typing, the virtual project is brought up to date once there haven't been any changes for a moment
+    let upcomingTimer: number | undefined
+
+    const scheduleUpcoming = (view: EditorView) => {
+        window.clearTimeout(upcomingTimer)
+        upcomingTimer = window.setTimeout(() => updateUpcoming(view), 500)
     }
 
     /**
@@ -2309,6 +2312,10 @@ if (textarea) {
                 if (update.docChanged) {
                     textarea.value = update.state.doc.toString()
                     scheduleSave()
+                }
+
+                if (update.transactions.some((transaction) => transaction.docChanged && transaction.annotation(Transaction.addToHistory) !== false)) {
+                    scheduleUpcoming(update.view)
                 }
 
                 if (update.selectionSet || update.docChanged) {
