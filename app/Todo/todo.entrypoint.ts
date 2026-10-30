@@ -256,7 +256,8 @@ class CheckButton extends WidgetType {
         button.className = this.item.completed ? 'cm-check cm-check-completed' : 'cm-check'
         button.title = this.item.completed ? `Mark ${this.item.type} as open` : `Mark ${this.item.type} as completed`
         button.setAttribute('aria-label', button.title)
-        button.textContent = '✓'
+        // Drawn instead of using a `✓` character, so that it doesn't depend on the font or styling of the line it's on
+        button.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
         button.addEventListener('mousedown', (event) => event.preventDefault())
         button.addEventListener('click', () => this.toggle(view, this.item))
 
@@ -946,11 +947,17 @@ const theme = EditorView.theme({
         fontSize: '0.75rem',
         fontWeight: 'bold',
         lineHeight: '1',
+        textDecoration: 'none',
         cursor: 'pointer',
         opacity: '0',
     },
     '.cm-line:hover .cm-check': {
         opacity: '1',
+    },
+    '.cm-check svg': {
+        display: 'block',
+        width: '0.75rem',
+        height: '0.75rem',
     },
     '.cm-check:hover': {
         borderColor: 'var(--color-gray-900)',
