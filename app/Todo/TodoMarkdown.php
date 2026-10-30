@@ -71,7 +71,7 @@ final readonly class TodoMarkdown
      *
      * @param TodoGroup[] $groups
      * @param string[] $filters Only tasks with all of these tags are included
-     * @return array<int, array{type: 'project'|'task'|'text', id: int|null, completed: bool, collapsed?: bool, virtual?: bool}>
+     * @return array<int, array{type: 'project'|'task'|'text', id: int|null, completed: bool, collapsed?: bool, virtual?: bool, project?: string}>
      */
     public function items(array $groups, array $filters = []): array
     {
@@ -184,7 +184,7 @@ final readonly class TodoMarkdown
      *
      * @param TodoGroup[] $groups
      * @param string[] $filters
-     * @return Generator<array{0: string, 1: array{type: 'project'|'task'|'text', id: int|null, completed: bool, collapsed?: bool, virtual?: bool}|null}>
+     * @return Generator<array{0: string, 1: array{type: 'project'|'task'|'text', id: int|null, completed: bool, collapsed?: bool, virtual?: bool, project?: string}|null}>
      */
     private function lines(array $groups, array $filters): Generator
     {
@@ -244,6 +244,10 @@ final readonly class TodoMarkdown
 
                 if ($group->isVirtual) {
                     $item['virtual'] = true;
+                }
+
+                if ($projectName !== null) {
+                    $item['project'] = $projectName;
                 }
 
                 yield [$task->isText ? $name : "- {$name}", $item];

@@ -18,6 +18,8 @@ type Item = {
     collapsed?: boolean
     // Part of the virtual project at the top, like "Today", which only shows tasks of other projects again
     virtual?: boolean
+    // For tasks in the virtual project, the name of the project they belong to, which is shown in front of them
+    project?: string
     // Identifies the item within the editor, also before it has an ID
     key: string
     completed: boolean
@@ -720,6 +722,14 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
                 decorations.push(virtualLine.range(line.from))
             }
 
+            // In the virtual project, the name of a task's own project can be clicked to only show that project
+            if (item.virtual && item.type === 'task' && item.project && line.text.startsWith(`- ${item.project}: `)) {
+                decorations.push(Decoration.mark({
+                    class: 'cm-project-title cm-project-name',
+                    attributes: { 'data-project': item.project },
+                }).range(line.from + 2, line.from + 2 + item.project.length))
+            }
+
             if (item.id !== null && item.type === 'project') {
                 // Archived projects are always shown completely
                 if (actions.mode === 'workspace' && projectFold(state, line)) {
@@ -1348,7 +1358,7 @@ function refreshUpcoming(state: EditorState, markers: StateField<RangeSet<ItemMa
         lines.forEach((text, index) => {
             const item: Item = index === 0
                 ? { type: 'project', id: null, key: 'today-project-title', completed: false, virtual: true }
-                : { ...found[index - 1].item, key: `today-task-${found[index - 1].item.id}`, virtual: true }
+                : { ...found[index - 1].item, key: `today-task-${found[index - 1].item.id}`, virtual: true, project: found[index - 1].project }
 
             added.push(new ItemMarker(item).range(position))
             position += text.length + 1
@@ -1637,6 +1647,10 @@ const theme = EditorView.theme({
     },
     '.cm-virtual-last .cm-check': {
         transform: 'translateY(calc(-50% - 0.25rem))',
+    },
+    '.cm-project-name': {
+        textDecorationLine: 'underline',
+        textDecorationStyle: 'dotted',
     },
     // The virtual project's title can't be clicked to only show that project
     '.cm-virtual .cm-project-title': {
