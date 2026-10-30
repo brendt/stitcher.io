@@ -17,6 +17,7 @@ use Tempest\Router\Post;
 use Tempest\Router\Prefix;
 use Tempest\View\View;
 
+use function Tempest\Router\uri;
 use function Tempest\View\view;
 
 #[Prefix('/todo'), Admin]
@@ -124,7 +125,10 @@ final readonly class TodoController
         return new Ok();
     }
 
-    private function render(?int $workspaceId, ?string $filter): View|Response
+    /**
+     * @param string[] $filters
+     */
+    private function render(?int $workspaceId, array $filters): View|Response
     {
         $workspaces = Workspace::select()
             ->with('projects.tasks')
@@ -144,17 +148,66 @@ final readonly class TodoController
             'todo.view.php',
             workspaces: $workspaces,
             workspace: $workspace,
-            filter: $filter,
-            markdown: $workspace ? $this->markdown->render($workspace, $filter) : '',
-            items: $workspace ? $this->markdown->items($workspace, $filter) : [],
+            filters: $filters,
+            filterLinks: $workspace ? $this->filterLinks($workspace, $filters) : [],
+            markdown: $workspace ? $this->markdown->render($workspace, $filters) : '',
+            items: $workspace ? $this->markdown->items($workspace, $filters) : [],
         );
     }
 
-    private function filter(Request $request): ?string
+    /**
+     * Multiple hashtags or mentions are separated by spaces, for example `?filter=#urgent @alex`.
+     *
+     * @return string[]
+     */
+    private function filter(Request $request): array
     {
         $filter = $request->get('filter');
 
-        return is_string($filter) && TodoMarkdown::isTag($filter) ? $filter : null;
+        if (! is_string($filter)) {
+            return [];
+        }
+
+        $filters = [];
+
+        foreach (preg_split('/\s+/', $filter, flags: PREG_SPLIT_NO_EMPTY) ?: [] as $tag) {
+            if (! TodoMarkdown::isTag($tag)) {
+                continue;
+            }
+
+            $filters[mb_strtolower($tag)] ??= $tag;
+        }
+
+        return array_values($filters);
+    }
+
+    /**
+     * For every active filter, the URL that shows the workspace without it.
+     *
+     * @param string[] $filters
+     * @return array<string, string>
+     */
+    private function filterLinks(Workspace $workspace, array $filters): array
+    {
+        $links = [];
+
+        foreach ($filters as $filter) {
+            $remaining = array_filter($filters, fn (string $other) => $other !== $filter);
+
+            $links[$filter] = $this->filterUri($workspace, $remaining);
+        }
+
+        return $links;
+    }
+
+    /**
+     * @param string[] $filters
+     */
+    private function filterUri(Workspace $workspace, array $filters): string
+    {
+        $uri = uri([self::class, 'show'], workspaceId: $workspace->id);
+
+        return $filters === [] ? $uri : $uri . '?filter=' . rawurlencode(implode(' ', $filters));
     }
 
     private function user(): User

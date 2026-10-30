@@ -18,11 +18,14 @@ final readonly class TodoMarkdown
         return preg_match('/^' . self::TAG . '$/u', $value) === 1;
     }
 
-    public function render(Workspace $workspace, ?string $filter = null): string
+    /**
+     * @param string[] $filters Only tasks with all of these hashtags or mentions are included
+     */
+    public function render(Workspace $workspace, array $filters = []): string
     {
         $lines = [];
 
-        foreach ($this->lines($workspace, $filter) as [$text]) {
+        foreach ($this->lines($workspace, $filters) as [$text]) {
             $lines[] = $text;
         }
 
@@ -32,14 +35,15 @@ final readonly class TodoMarkdown
     /**
      * Maps line numbers (starting at 1) to the project or task they represent.
      *
+     * @param string[] $filters Only tasks with all of these hashtags or mentions are included
      * @return array<int, array{type: 'project'|'task', id: int, completed: bool}>
      */
-    public function items(Workspace $workspace, ?string $filter = null): array
+    public function items(Workspace $workspace, array $filters = []): array
     {
         $items = [];
         $lineNumber = 0;
 
-        foreach ($this->lines($workspace, $filter) as [, $item]) {
+        foreach ($this->lines($workspace, $filters) as [, $item]) {
             $lineNumber++;
 
             if ($item) {
@@ -51,17 +55,18 @@ final readonly class TodoMarkdown
     }
 
     /**
+     * @param string[] $filters
      * @return Generator<array{0: string, 1: array{type: 'project'|'task', id: int, completed: bool}|null}>
      */
-    private function lines(Workspace $workspace, ?string $filter): Generator
+    private function lines(Workspace $workspace, array $filters): Generator
     {
         $isFirstProject = true;
 
         foreach ($this->completedLast($workspace->projects) as $project) {
             $tasks = $this->completedLast($project->tasks);
 
-            if ($filter !== null) {
-                $tasks = array_filter($tasks, fn (Task $task) => $this->hasTag($task, $filter));
+            if ($filters !== []) {
+                $tasks = array_filter($tasks, fn (Task $task) => array_all($filters, fn (string $filter) => $this->hasTag($task, $filter)));
 
                 if ($tasks === []) {
                     continue;

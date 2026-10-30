@@ -19,11 +19,11 @@ type Item = {
 // Keep this in sync with `TodoMarkdown::TAG`.
 const TAG = /(^|\s)([#@][\p{L}\p{N}_-]+)/gu
 
-// The hashtag or mention the tasks are currently filtered by, matched case-insensitively like the server does
-let activeFilter: string | null = null
+// The hashtags and mentions the tasks are currently filtered by, matched case-insensitively like the server does
+let activeFilters: string[] = []
 
 function isActiveFilter(tag: string): boolean {
-    return activeFilter !== null && tag.toLowerCase() === activeFilter
+    return activeFilters.some((filter) => filter.toLowerCase() === tag.toLowerCase())
 }
 
 const projectLine = Decoration.line({ class: 'cm-project' })
@@ -623,7 +623,7 @@ if (textarea) {
     }
 
     const filterUrl = textarea.dataset.filterUrl
-    activeFilter = textarea.dataset.filter?.toLowerCase() ?? null
+    activeFilters = (textarea.dataset.filter ?? '').split(' ').filter((filter) => filter !== '')
     const saveUrl = textarea.dataset.saveUrl
     const status = document.querySelector<HTMLElement>('#todo-status')
 
@@ -672,8 +672,12 @@ if (textarea) {
                     }
 
                     event.preventDefault()
-                    // Clicking the tag that's already being filtered on clears the filter
-                    window.location.href = isActiveFilter(tag) ? filterUrl : `${filterUrl}?filter=${encodeURIComponent(tag)}`
+                    // Clicking a tag adds it to the filter, clicking a tag that's already being filtered on removes it again
+                    const filters = isActiveFilter(tag)
+                        ? activeFilters.filter((filter) => filter.toLowerCase() !== tag.toLowerCase())
+                        : [...activeFilters, tag]
+
+                    window.location.href = filters.length > 0 ? `${filterUrl}?filter=${encodeURIComponent(filters.join(' '))}` : filterUrl
 
                     return true
                 },
