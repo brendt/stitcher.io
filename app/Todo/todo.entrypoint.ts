@@ -1592,6 +1592,9 @@ const theme = EditorView.theme({
         '.cm-archive': {
             display: 'none',
         },
+        '.cm-collapse': {
+            display: 'none',
+        },
         // Sideways swipes are handled by the editor, so the browser shouldn't pan the page for them
         '.cm-content': {
             touchAction: 'pan-y pinch-zoom',
@@ -1832,6 +1835,7 @@ if (textarea) {
      * On touch screens, where the checkbox, drag handle, and archive button are hidden:
      * swiping a line to the left completes or reopens it, swiping a project to the right archives it (or unarchives it),
      * and pressing and holding a line picks it up to drag it up or down.
+     * Holding a project's title without moving it collapses or expands the project.
      */
     const SWIPE_DISTANCE = 80
     const HOLD_DURATION = 400
@@ -1855,10 +1859,17 @@ if (textarea) {
             && (mode === 'workspace' || mode === 'archived')
     }
 
+    const canCollapse = (view: EditorView, line: Line) => {
+        const item = itemOn(view.state, markers, line)
+
+        return mode === 'workspace' && item?.type === 'project' && item.id !== null && ! item.virtual && projectFold(view.state, line) !== null
+    }
+
     const canReorder = (view: EditorView, line: Line) => mode === 'workspace' && (isSortable(view.state, markers, line) || isSortableProject(view.state, markers, line))
 
     const enableTouchGestures = (view: EditorView) => {
-        let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'scroll' | null = null
+        let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'hold' | 'scroll' | null = null
+        let hasMoved = false
         let start = { x: 0, y: 0 }
         let distance = 0
         let line: Line | null = null
@@ -1878,6 +1889,7 @@ if (textarea) {
             swipedElements = []
 
             gesture = null
+            hasMoved = false
             line = null
             lineElement = null
             reordering = null
@@ -1900,13 +1912,20 @@ if (textarea) {
             lineElement = (event.target as HTMLElement).closest<HTMLElement>('.cm-line')
 
             holdTimer = window.setTimeout(() => {
-                if (gesture !== 'pending' || ! line || ! canReorder(view, line)) {
+                if (gesture !== 'pending' || ! line) {
                     return
                 }
 
-                gesture = 'reorder'
-                reordering = startReorder(view, line, lineElement)
-                reordering.move(start.y)
+                if (canReorder(view, line)) {
+                    gesture = 'reorder'
+                    reordering = startReorder(view, line, lineElement)
+                    reordering.move(start.y)
+                } else if (canCollapse(view, line)) {
+                    gesture = 'hold'
+                } else {
+                    return
+                }
+
                 navigator.vibrate?.(10)
             }, HOLD_DURATION)
         }, { passive: true })
@@ -1960,8 +1979,13 @@ if (textarea) {
 
             if (gesture === 'reorder' && reordering) {
                 event.preventDefault()
+                hasMoved ||= Math.abs(dy) > MOVE_TOLERANCE
                 reordering.move(touch.clientY)
                 reordering.follow(dy)
+            }
+
+            if (gesture === 'hold') {
+                event.preventDefault()
             }
         }, { passive: false })
 
@@ -1970,14 +1994,26 @@ if (textarea) {
             const item = (gesture === 'swipe' || gesture === 'archive') && isFarEnough && line ? itemOn(view.state, markers, line) : null
             const action = gesture === 'archive' ? archive : toggle
 
+            // Letting go of a held project title without dragging it collapses or expands it
+            const isCollapsing = line !== null && (gesture === 'hold' || (gesture === 'reorder' && ! hasMoved)) && canCollapse(view, line)
+            const project = isCollapsing && line ? itemOn(view.state, markers, line) : null
+
             if (gesture === 'reorder' && reordering) {
-                reordering.drop()
+                if (isCollapsing) {
+                    reordering.cancel()
+                } else {
+                    reordering.drop()
+                }
             }
 
             reset()
 
             if (item) {
                 action(view, item)
+            }
+
+            if (project) {
+                collapse(view, project)
             }
         }
 
