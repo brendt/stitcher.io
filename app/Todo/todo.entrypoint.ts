@@ -1411,6 +1411,11 @@ const theme = EditorView.theme({
         '.cm-content': {
             touchAction: 'pan-y pinch-zoom',
         },
+        // Without hovering, the underline shows that tags can be tapped
+        '.cm-tag': {
+            textDecorationLine: 'underline',
+            textDecorationStyle: 'dotted',
+        },
     },
 })
 
