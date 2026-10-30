@@ -760,6 +760,18 @@ if (textarea) {
         }
     }
 
+    // Cmd+S (or Ctrl+S) saves right away, instead of opening the browser's save dialog
+    window.addEventListener('keydown', (event) => {
+        if (! (event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 's') {
+            return
+        }
+
+        event.preventDefault()
+        hasChanges = true
+        window.clearTimeout(saveTimer)
+        save()
+    })
+
     // Changes that haven't been saved yet are still sent when leaving the page
     window.addEventListener('pagehide', () => {
         if (! hasChanges || ! saveUrl) {
