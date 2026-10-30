@@ -20,10 +20,11 @@ type Item = {
     completed: boolean
 }
 
-// A hashtag or mention is a word within a task that starts with `#` or `@`.
+// A tag is a word within a task that can be filtered on:
+// a hashtag or mention starting with `#` or `@`, or a date formatted like `2026-10-30`.
 // Keep this in sync with `TodoMarkdown::TAG`, except that a `#` or `@` on its own is matched here as well,
 // so that it's already styled while you're still typing the rest of the word.
-const TAG = /(^|\s)([#@][\p{L}\p{N}_-]*)/gu
+const TAG = /(^|\s)([#@][\p{L}\p{N}_-]*|\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01]))(?![\p{L}\p{N}_-])/gu
 
 // Just a `#` or `@` without a word yet is styled like a tag, but can't be clicked to filter on
 const tagSign = Decoration.mark({ class: 'cm-tag-sign' })

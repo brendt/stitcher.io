@@ -8,10 +8,11 @@ use Tempest\DateTime\FormatPattern;
 final readonly class TodoMarkdown
 {
     /**
-     * A hashtag or mention is a word within a task that starts with `#` or `@`.
+     * A tag is a word within a task that can be filtered on:
+     * a hashtag or mention starting with `#` or `@`, or a date formatted like `2026-10-30`.
      * Keep this in sync with `TAG` in todo.entrypoint.ts.
      */
-    public const string TAG = '[#@][\\p{L}\\p{N}_-]+';
+    public const string TAG = '(?:[#@][\\p{L}\\p{N}_-]+|\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01]))(?![\\p{L}\\p{N}_-])';
 
     public static function isTag(string $value): bool
     {
