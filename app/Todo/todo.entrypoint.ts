@@ -524,6 +524,49 @@ function tagCompletions(usedTags: string[]) {
     }
 }
 
+/**
+ * Pressing Enter within a task starts a new task right away.
+ * Pressing Enter on a task that's still empty removes its `- ` again, which leaves a blank line,
+ * and continues on the next line, for example to start a new project.
+ */
+function continueTask(view: EditorView): boolean {
+    const { state } = view
+    const selection = state.selection.main
+
+    if (state.selection.ranges.length > 1 || ! selection.empty) {
+        return false
+    }
+
+    const line = state.doc.lineAt(selection.head)
+
+    if (! isTask(line) || selection.head < line.from + 2) {
+        return false
+    }
+
+    if (line.text.trim() === '-') {
+        view.dispatch({
+            changes: { from: line.from, to: line.to, insert: '\n' },
+            selection: { anchor: line.from + 1 },
+            scrollIntoView: true,
+            userEvent: 'input',
+        })
+
+        return true
+    }
+
+    // When splitting a task in two, the second one shouldn't start with the space that separated them
+    const spaces = line.text.slice(selection.head - line.from).match(/^ */)?.[0].length ?? 0
+
+    view.dispatch({
+        changes: { from: selection.head, to: selection.head + spaces, insert: '\n- ' },
+        selection: { anchor: selection.head + 3 },
+        scrollIntoView: true,
+        userEvent: 'input',
+    })
+
+    return true
+}
+
 type Known = Record<ItemType, Set<number>>
 
 type Payload = {
@@ -758,7 +801,7 @@ if (textarea) {
         selection: { anchor: cursor },
         extensions: [
             history(),
-            keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
+            keymap.of([{ key: 'Enter', run: continueTask }, ...defaultKeymap, ...historyKeymap, indentWithTab]),
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
