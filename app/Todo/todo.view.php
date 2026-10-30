@@ -54,8 +54,6 @@ use function Tempest\Router\uri;
     </div>
 
     <div :if="$filters || $project" class="flex flex-wrap justify-center gap-x-4 gap-y-2 lg:justify-start lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
-        <span :if="$mode === TodoMode::SOON && $project" class="hidden lg:inline">Showing soon items in</span>
-        <span :else class="hidden lg:inline">Showing</span>
         <a
             :if="$project"
             :href="$projectLink"
@@ -68,7 +66,6 @@ use function Tempest\Router\uri;
             :title="'Stop filtering on ' . $tag"
             class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black underline decoration-dotted"
         >{{ $tag }}</a>
-        <a :href="$baseUri" class="hidden text-gray-400 hover:text-gray-900 lg:inline">Clear filter</a>
     </div>
 </nav>
 
