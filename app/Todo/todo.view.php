@@ -28,26 +28,29 @@ use function Tempest\Router\uri;
     :if="$workspaces !== []"
     class="flex flex-wrap justify-end gap-x-4 gap-y-2 px-6 py-4 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:justify-start lg:gap-2 lg:px-10 lg:py-24"
 >
-    <form :foreach="$workspaces as $item" method="post" :action="uri([TodoController::class, 'openWorkspace'])" class="contents">
-        <button
-            type="submit"
-            name="workspace"
-            :value="$item->id"
-            class="text-left cursor-pointer"
-            :class="$workspace?->id->equals($item->id) ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
-        >{{ $item->name }}</button>
-    </form>
+    <!-- On small screens, a filtered view only shows its filters at the top -->
+    <div :class="$filters || $project ? 'hidden lg:contents' : 'contents'">
+        <form :foreach="$workspaces as $item" method="post" :action="uri([TodoController::class, 'openWorkspace'])" class="contents">
+            <button
+                type="submit"
+                name="workspace"
+                :value="$item->id"
+                class="text-left cursor-pointer"
+                :class="$workspace?->id->equals($item->id) ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
+            >{{ $item->name }}</button>
+        </form>
 
-    <a
-        :href="uri([TodoController::class, 'soon'])"
-        class="lg:mt-4"
-        :class="$mode === TodoMode::SOON ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
-    >Soon</a>
+        <a
+            :href="uri([TodoController::class, 'soon'])"
+            class="lg:mt-4"
+            :class="$mode === TodoMode::SOON ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
+        >Soon</a>
 
-    <a
-        :href="uri([TodoController::class, 'archived'])"
-        :class="$mode === TodoMode::ARCHIVED ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
-    >Archived</a>
+        <a
+            :href="uri([TodoController::class, 'archived'])"
+            :class="$mode === TodoMode::ARCHIVED ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
+        >Archived</a>
+    </div>
 
     <div :if="$filters || $project" class="flex flex-wrap gap-x-4 gap-y-2 lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
         <span :if="$mode === TodoMode::SOON && $project">Showing soon items in</span>
