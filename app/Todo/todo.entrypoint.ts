@@ -414,8 +414,9 @@ function reorderProject(state: EditorState, markers: StateField<RangeSet<ItemMar
     const text = state.doc.sliceString(line.from, last.to)
     const isBefore = slot < projects.length
     const insertAt = isBefore ? projects[slot].from : lastFilledLine(state).to
-    const insert = isBefore ? text + '\n\n' : '\n\n' + text
-    const offset = isBefore ? 0 : 2
+    const separator = '\n'.repeat(BLANK_LINES_ABOVE_PROJECTS + 1)
+    const insert = isBefore ? text + separator : separator + text
+    const offset = isBefore ? 0 : separator.length
     const item = itemOn(state, markers, line)
     const fold = foldAt(state, line)
 
@@ -966,20 +967,50 @@ function confirmBulkDelete(view: EditorView): boolean {
 }
 
 /**
- * Text right above or below a task gets a blank line in between, the same way it's shown when loading the page.
- * The line with the cursor on it is left alone until the cursor moves away, so that it doesn't change while typing.
+ * Keeps the spacing the same as when loading the page: two blank lines above every project,
+ * and a blank line between text and a task right above or below it.
+ * Lines near the cursor are left alone until the cursor moves away, so that they don't change while typing.
  */
-const separateTextFromTasks = EditorState.transactionFilter.of((transaction) => {
+const BLANK_LINES_ABOVE_PROJECTS = 2
+
+const normalizeSpacing = EditorState.transactionFilter.of((transaction) => {
     if (! transaction.docChanged && ! transaction.selection) {
+        return transaction
+    }
+
+    // Moving items keeps track of where their lines end up, which extra changes in the same transaction would throw off.
+    // Their spacing is fixed by the next transaction instead.
+    if (transaction.effects.some((effect) => effect.is(moveItem))) {
         return transaction
     }
 
     const { doc, selection } = transaction.state
     const cursorLine = doc.lineAt(selection.main.head).number
-    const changes: { from: number, insert: string }[] = []
+    const changes: { from: number, to?: number, insert?: string }[] = []
 
     for (let number = 1; number <= doc.lines; number++) {
         const line = doc.line(number)
+
+        if (isProject(line)) {
+            let blankLines = 0
+
+            while (number - blankLines > 1 && doc.line(number - blankLines - 1).text.trim() === '') {
+                blankLines++
+            }
+
+            const isAtTop = number - blankLines === 1
+            const isNearCursor = cursorLine >= number - blankLines && cursorLine <= number
+
+            if (isAtTop || isNearCursor || blankLines === BLANK_LINES_ABOVE_PROJECTS) {
+                continue
+            }
+
+            changes.push(blankLines < BLANK_LINES_ABOVE_PROJECTS
+                ? { from: line.from, insert: '\n'.repeat(BLANK_LINES_ABOVE_PROJECTS - blankLines) }
+                : { from: doc.line(number - blankLines).from, to: doc.line(number - BLANK_LINES_ABOVE_PROJECTS).from })
+
+            continue
+        }
 
         if (number === cursorLine || ! isText(line) || ! isProject(blockOf(transaction.state, line).start)) {
             continue
@@ -1591,7 +1622,7 @@ if (textarea) {
             ]),
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
-            separateTextFromTasks,
+            normalizeSpacing,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
             EditorState.readOnly.of(mode !== 'workspace'),
             EditorView.editable.of(mode === 'workspace'),
