@@ -64,6 +64,7 @@ function filterHref(baseUrl: string, filters: string[], project: string | null):
 }
 
 const projectLine = Decoration.line({ class: 'cm-project' })
+const taskLine = Decoration.line({ class: 'cm-task' })
 const completedLine = Decoration.line({ class: 'cm-completed' })
 const mutedLine = Decoration.line({ class: 'cm-muted' })
 const virtualLine = Decoration.line({ class: 'cm-virtual' })
@@ -118,6 +119,10 @@ function decorateSyntax(view: EditorView): DecorationSet {
                         attributes: { 'data-project': name },
                     }).range(start, start + name.length))
                 }
+            }
+
+            if (isTask(line)) {
+                decorations.push(taskLine.range(line.from))
             }
 
             if (isTask(line) || isText(line)) {
@@ -1718,6 +1723,14 @@ const theme = EditorView.theme({
         },
         '.cm-collapse': {
             display: 'none',
+        },
+        // A bit more room around tasks makes them easier to swipe and drag
+        '.cm-task': {
+            paddingTop: '0.25rem',
+            paddingBottom: '0.25rem',
+        },
+        '.cm-task.cm-virtual-last': {
+            paddingBottom: '0.5rem',
         },
         // Sideways swipes are handled by the editor, so the browser shouldn't pan the page for them
         '.cm-content': {
