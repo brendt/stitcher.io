@@ -730,8 +730,8 @@ const theme = EditorView.theme({
         color: 'var(--color-gray-900)',
     },
     '.cm-check-completed': {
-        borderColor: 'var(--color-gray-900)',
-        backgroundColor: 'var(--color-gray-900)',
+        borderColor: 'var(--color-gray-400)',
+        backgroundColor: 'var(--color-gray-400)',
         color: 'white',
     },
     '.cm-check-completed:hover': {
