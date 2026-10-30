@@ -289,7 +289,7 @@ class CollapseButton extends WidgetType {
         button.title = this.isCollapsed ? 'Expand project' : 'Collapse project'
         button.setAttribute('aria-label', button.title)
         button.setAttribute('aria-expanded', String(! this.isCollapsed))
-        button.textContent = '▾'
+        button.textContent = this.isCollapsed ? '▸' : '▾'
         button.addEventListener('mousedown', (event) => event.preventDefault())
         button.addEventListener('click', () => this.collapse(view, this.item))
 
@@ -848,10 +848,11 @@ const theme = EditorView.theme({
         textDecoration: 'none',
         fontWeight: 'bold',
     },
+    // Looks like the checkbox next to it
     '.cm-collapse': {
         position: 'absolute',
         top: '50%',
-        left: '-3.5rem',
+        left: '-3.375rem',
         transform: 'translateY(-50%)',
         display: 'flex',
         alignItems: 'center',
@@ -859,19 +860,21 @@ const theme = EditorView.theme({
         width: '1.125rem',
         height: '1.125rem',
         padding: '0',
+        borderRadius: '0.25rem',
+        border: '1.5px solid var(--color-gray-400)',
+        backgroundColor: 'white',
         color: 'var(--color-gray-400)',
-        fontSize: '0.875rem',
+        fontSize: '0.625rem',
         fontWeight: 'normal',
         lineHeight: '1',
         cursor: 'pointer',
         opacity: '0',
     },
-    '.cm-collapse-collapsed': {
-        transform: 'translateY(-50%) rotate(-90deg)',
+    '.cm-line:hover .cm-collapse, .cm-collapse-collapsed': {
         opacity: '1',
     },
-    '.cm-line:hover .cm-collapse, .cm-collapse:hover': {
-        opacity: '1',
+    '.cm-collapse:hover': {
+        borderColor: 'var(--color-gray-900)',
         color: 'var(--color-gray-900)',
     },
     '.cm-archive': {
