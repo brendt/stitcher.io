@@ -68,8 +68,6 @@ function typeOf(line: Line): ItemType | null {
 // A link is a word starting with `http://` or `https://`, without punctuation that follows it, like a full stop
 const LINK = /https?:\/\/[^\s]*[^\s.,;:!?)\]'"]/gu
 
-const link = Decoration.mark({ class: 'cm-link' })
-
 function decorateSyntax(view: EditorView): DecorationSet {
     const decorations: Range<Decoration>[] = []
 
@@ -95,7 +93,7 @@ function decorateSyntax(view: EditorView): DecorationSet {
                 for (const match of line.text.matchAll(LINK)) {
                     const start = line.from + match.index
 
-                    decorations.push(link.range(start, start + match[0].length))
+                    decorations.push(Decoration.mark({ class: 'cm-link', attributes: { 'data-href': match[0] } }).range(start, start + match[0].length))
                 }
             }
 
@@ -1102,6 +1100,10 @@ const theme = EditorView.theme({
     },
     '.cm-link': {
         fontWeight: 'bold',
+        cursor: 'pointer',
+    },
+    '.cm-link:hover': {
+        textDecoration: 'underline',
     },
     '.cm-tag-sign': {
         fontWeight: 'bold',
@@ -1425,6 +1427,16 @@ if (textarea) {
             theme,
             EditorView.domEventHandlers({
                 mousedown(event) {
+                    // Clicking a link opens it in a new tab
+                    const href = (event.target as HTMLElement).closest<HTMLElement>('.cm-link')?.dataset.href
+
+                    if (href) {
+                        event.preventDefault()
+                        window.open(href, '_blank', 'noopener')
+
+                        return true
+                    }
+
                     const tag = (event.target as HTMLElement).closest<HTMLElement>('.cm-tag')?.dataset.tag
 
                     if (! tag || ! filterUrl) {
