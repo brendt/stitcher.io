@@ -59,14 +59,14 @@ use function Tempest\Router\uri;
             :if="$project"
             :href="$projectLink"
             :title="'Stop showing only ' . $project"
-            class="group self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black"
-        ><span class="underline decoration-dotted"># {{ $project }}</span> <span class="font-normal text-gray-400 group-hover:text-gray-900">×</span></a>
+            class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black underline decoration-dotted"
+        ># {{ $project }}</a>
         <a
             :foreach="$filterLinks as $tag => $removeUri"
             :href="$removeUri"
             :title="'Stop filtering on ' . $tag"
-            class="group self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black"
-        ><span class="underline decoration-dotted">{{ $tag }}</span> <span class="font-normal text-gray-400 group-hover:text-gray-900">×</span></a>
+            class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black underline decoration-dotted"
+        >{{ $tag }}</a>
         <a :href="$baseUri" title="Clear filter" aria-label="Clear filter" class="group text-gray-400 hover:text-gray-900">
             <!-- On small screens, a button like the ones in the editor -->
             <span class="flex items-center justify-center w-7 h-7 rounded border-[1.5px] border-gray-400 bg-white group-hover:border-gray-900 lg:hidden">
