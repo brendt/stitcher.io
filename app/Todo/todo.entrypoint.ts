@@ -1340,7 +1340,7 @@ const theme = EditorView.theme({
         textDecorationLine: 'underline',
         textDecorationStyle: 'dotted',
         backgroundColor: 'var(--color-gray-100)',
-        border: '1px solid black',
+        border: '1px dotted black',
         borderRadius: '0.25rem',
         boxDecorationBreak: 'clone',
         padding: '0.125rem 0.375rem',
