@@ -16,7 +16,7 @@ type Item = {
     id: number | null
     // Only for projects, whether it was collapsed when loading the page
     collapsed?: boolean
-    // Part of the "Today" project at the top, which only shows tasks of other projects again
+    // Part of the virtual project at the top, like "Today", which only shows tasks of other projects again
     virtual?: boolean
     // Identifies the item within the editor, also before it has an ID
     key: string
@@ -365,7 +365,7 @@ class DragHandle extends WidgetType {
 }
 
 /**
- * Whether a line is part of the virtual "Today" project, which only shows tasks of other projects again.
+ * Whether a line is part of the virtual project at the top, like "Today", which only shows tasks of other projects again.
  * It can't be edited or moved, and isn't saved.
  */
 function isVirtual(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): boolean {

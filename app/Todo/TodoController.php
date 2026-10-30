@@ -57,7 +57,7 @@ final readonly class TodoController
             workspaces: $workspaces,
             workspace: $workspace,
             groups: [
-                ...array_filter([$workspace ? $this->markdown->today($workspace) : null]),
+                ...array_filter([$workspace ? $this->markdown->upcoming($workspace) : null]),
                 ...TodoGroup::forProjects(array_filter($workspace->projects ?? [], fn (Project $project) => $project->archivedAt === null)),
             ],
             request: $request,

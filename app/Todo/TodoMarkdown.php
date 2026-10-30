@@ -132,38 +132,54 @@ final readonly class TodoMarkdown
     }
 
     /**
-     * Tasks that are due today, shown together at the top as a virtual "Today" project, with the name of their own project.
+     * Tasks that are coming up, shown together at the top as a virtual project, with the name of their own project:
+     * the ones due today, or else tomorrow, or else in the coming week. Without any of those, there's nothing to show.
      * Completed ones are included as well, so that they don't disappear when checking them off.
      */
-    public function today(Workspace $workspace): ?TodoGroup
+    public function upcoming(Workspace $workspace): ?TodoGroup
     {
-        $today = DateTime::now()->format('yyyy-MM-dd');
-        $tasks = [];
-        $projectNames = [];
+        $today = DateTime::now();
 
-        foreach ($workspace->projects as $project) {
-            if ($project->completedAt !== null || $project->archivedAt !== null) {
-                continue;
-            }
+        foreach ([['Today', 0, 0], ['Tomorrow', 1, 1], ['Soon', 0, 7]] as [$title, $fromDays, $toDays]) {
+            $from = $today->plusDays($fromDays)->format('yyyy-MM-dd');
+            $to = $today->plusDays($toDays)->format('yyyy-MM-dd');
 
-            foreach ($project->tasks as $task) {
-                if ($task->isText || ! $this->hasTag($task, $today)) {
+            /** @var array<array{task: Task, date: string}> $found */
+            $found = [];
+            $projectNames = [];
+
+            foreach ($workspace->projects as $project) {
+                if ($project->completedAt !== null || $project->archivedAt !== null) {
                     continue;
                 }
 
-                $tasks[] = $task;
-                $projectNames[(int) $task->id->value] = $project->name;
+                foreach ($project->tasks as $task) {
+                    $dates = array_filter($this->datesOf($task), fn (string $date) => $date >= $from && $date <= $to);
+
+                    if ($task->isText || $dates === []) {
+                        continue;
+                    }
+
+                    $found[] = ['task' => $task, 'date' => min($dates)];
+                    $projectNames[(int) $task->id->value] = $project->name;
+                }
             }
+
+            if ($found === []) {
+                continue;
+            }
+
+            // Latest first, like the Soon page. Within the same day, tasks keep the order of their projects.
+            usort($found, fn (array $a, array $b) => $b['date'] <=> $a['date']);
+
+            $tasks = array_column($found, 'task');
+            $open = array_filter($tasks, fn (Task $task) => $task->completedAt === null);
+            $completed = array_filter($tasks, fn (Task $task) => $task->completedAt !== null);
+
+            return new TodoGroup($title, null, [...$open, ...$completed], $projectNames, isVirtual: true);
         }
 
-        if ($tasks === []) {
-            return null;
-        }
-
-        $open = array_filter($tasks, fn (Task $task) => $task->completedAt === null);
-        $completed = array_filter($tasks, fn (Task $task) => $task->completedAt !== null);
-
-        return new TodoGroup('Today', null, [...$open, ...$completed], $projectNames, isVirtual: true);
+        return null;
     }
 
     /**
@@ -238,6 +254,18 @@ final readonly class TodoMarkdown
                 yield [$task->isText ? $name : "- {$name}", $item];
             }
         }
+    }
+
+    /**
+     * @return string[]
+     */
+    private function datesOf(Task $task): array
+    {
+        $matches = [];
+
+        preg_match_all('/(?:^|\\s)(' . self::DATE . ')(?![\\p{L}\\p{N}_-])/u', $task->name, $matches);
+
+        return $matches[1] ?? [];
     }
 
     private function dateOf(Task $task): ?string
