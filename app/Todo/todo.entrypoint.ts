@@ -871,7 +871,7 @@ function tagCompletions(usedTags: string[]) {
 
         // `#today`, `#tomorrow`, and `#nextweek` are suggested first, and are written as their date when picked
         const relativeDates = word.text.startsWith('#')
-            ? Object.entries(DAYS_FROM_TODAY).map(([tag, days]) => ({ label: tag, detail: dateInDays(days), apply: dateInDays(days) + ' ', boost: 99 }))
+            ? Object.keys(DAYS_FROM_TODAY).map((tag) => ({ label: tag, detail: relativeDate(tag), apply: relativeDate(tag) + ' ', boost: 99 }))
             : []
 
         return {
@@ -1083,7 +1083,17 @@ const normalizeSpacing = EditorState.transactionFilter.of((transaction) => {
  */
 const RELATIVE_DATES = /(^|\s)(#today|#tomorrow|#nextweek)(?=$|[\s.,;:!?)])/giu
 
-const DAYS_FROM_TODAY: Record<string, number> = { '#today': 0, '#tomorrow': 1, '#nextweek': 7 }
+// The number of days from today, worked out when it's used, so that it's always right for the current day.
+// The next week starts on its Monday.
+const DAYS_FROM_TODAY: Record<string, () => number> = {
+    '#today': () => 0,
+    '#tomorrow': () => 1,
+    '#nextweek': () => (8 - new Date().getDay()) % 7 || 7,
+}
+
+function relativeDate(tag: string): string {
+    return dateInDays(DAYS_FROM_TODAY[tag.toLowerCase()]())
+}
 
 function dateInDays(days: number): string {
     const date = new Date()
@@ -1133,7 +1143,7 @@ const replaceRelativeDates = EditorState.transactionFilter.of((transaction) => {
                 continue
             }
 
-            changes.push({ from, to, insert: dateInDays(DAYS_FROM_TODAY[match[2].toLowerCase()]) })
+            changes.push({ from, to, insert: relativeDate(match[2]) })
         }
     }
 
@@ -1158,7 +1168,7 @@ function expandRelativeDate(view: EditorView): boolean {
     }
 
     const from = selection.head - match[2].length
-    const date = dateInDays(DAYS_FROM_TODAY[match[2].toLowerCase()])
+    const date = relativeDate(match[2])
 
     // When there's already a space after it, the cursor moves past that one instead of adding another
     const hasSpace = view.state.sliceDoc(selection.head, selection.head + 1) === ' '
