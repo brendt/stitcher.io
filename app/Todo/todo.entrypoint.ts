@@ -1779,8 +1779,13 @@ if (textarea) {
     }
 
     // The cursor position is remembered per workspace and filter, so that refreshing the page continues where you left off
-    const cursorKey = `todo-cursor:${mode}:${textarea.dataset.workspaceId ?? ''}:${window.location.search}`
-    const storedCursor = Number(window.localStorage.getItem(cursorKey))
+    // Switching to another workspace, or to Soon or Archived, starts at the top instead
+    const page = `${mode}:${textarea.dataset.workspaceId ?? ''}`
+    const isSamePage = window.localStorage.getItem('todo-page') === page
+    window.localStorage.setItem('todo-page', page)
+
+    const cursorKey = `todo-cursor:${page}:${window.location.search}`
+    const storedCursor = isSamePage ? Number(window.localStorage.getItem(cursorKey)) : 0
     const cursor = Number.isInteger(storedCursor) ? Math.min(Math.max(storedCursor, 0), textarea.value.length) : 0
 
     const view = new EditorView({
