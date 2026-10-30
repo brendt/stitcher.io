@@ -26,7 +26,8 @@ use function Tempest\Router\uri;
 <body class="antialiased bg-white text-gray-900 overflow-x-clip">
 <nav
     :if="$workspaces !== []"
-    class="sticky top-0 z-20 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4 bg-white border-b border-gray-200 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:items-start lg:justify-start lg:gap-2 lg:px-10 lg:py-24 lg:bg-transparent lg:border-b-0"
+    :class="$filters || $project ? 'justify-center' : 'justify-between'"
+    class="sticky top-0 z-20 flex flex-wrap items-center gap-x-4 gap-y-2 px-6 py-4 bg-white border-b border-gray-200 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:items-start lg:justify-start lg:gap-2 lg:px-10 lg:py-24 lg:bg-transparent lg:border-b-0"
 >
     <!-- On small screens, a filtered view only shows its filters at the top -->
     <div :class="$filters || $project ? 'hidden lg:contents' : 'contents'">
@@ -52,7 +53,7 @@ use function Tempest\Router\uri;
         >Archived</a>
     </div>
 
-    <div :if="$filters || $project" class="flex flex-wrap gap-x-4 gap-y-2 lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
+    <div :if="$filters || $project" class="flex flex-wrap justify-center gap-x-4 gap-y-2 lg:justify-start lg:flex-col lg:gap-2 lg:mt-6 lg:pt-6 lg:border-t lg:border-gray-200">
         <span :if="$mode === TodoMode::SOON && $project" class="hidden lg:inline">Showing soon items in</span>
         <span :else class="hidden lg:inline">Showing</span>
         <a
@@ -67,13 +68,7 @@ use function Tempest\Router\uri;
             :title="'Stop filtering on ' . $tag"
             class="self-start font-bold px-1.5 py-0.5 rounded bg-gray-100 border border-dotted border-black underline decoration-dotted"
         >{{ $tag }}</a>
-        <a :href="$baseUri" title="Clear filter" aria-label="Clear filter" class="group text-gray-400 hover:text-gray-900">
-            <!-- On small screens, a button like the ones in the editor -->
-            <span class="flex items-center justify-center w-7 h-7 rounded border-[1.5px] border-gray-400 bg-white group-hover:border-gray-900 lg:hidden">
-                <svg viewBox="0 0 16 16" class="w-3 h-3" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </span>
-            <span class="hidden lg:inline">Clear filter</span>
-        </a>
+        <a :href="$baseUri" class="hidden text-gray-400 hover:text-gray-900 lg:inline">Clear filter</a>
     </div>
 </nav>
 
