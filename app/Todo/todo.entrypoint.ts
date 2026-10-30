@@ -1030,8 +1030,22 @@ if (textarea) {
         }
 
         const folded = foldAt(view.state, line)
+        const head = view.state.selection.main.head
 
-        view.dispatch({ effects: folded ? unfoldEffect.of(folded) : foldEffect.of(fold) })
+        // The title should stay exactly where it is on screen, also when the page becomes shorter by collapsing
+        const top = view.coordsAtPos(line.from)?.top
+
+        view.dispatch({
+            effects: folded ? unfoldEffect.of(folded) : foldEffect.of(fold),
+            // A cursor within the tasks that are being hidden moves to the end of the title
+            selection: ! folded && head > fold.from && head <= fold.to ? { anchor: fold.from } : undefined,
+        })
+
+        const topAfter = view.coordsAtPos(line.from)?.top
+
+        if (top !== undefined && topAfter !== undefined && topAfter !== top) {
+            window.scrollBy(0, topAfter - top)
+        }
     }
 
     // Collapsing or expanding a project is saved, also when it's expanded by clicking its `…`

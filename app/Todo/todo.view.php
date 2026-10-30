@@ -51,7 +51,7 @@ use function Tempest\Router\uri;
     </div>
 </nav>
 
-<main class="px-6 pt-4 pb-24 lg:px-56 lg:pt-24">
+<main class="px-6 pt-4 pb-[50vh] lg:px-56 lg:pt-24">
     <div class="max-w-[65ch] mx-auto">
         <textarea
             id="todo-markdown"
