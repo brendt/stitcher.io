@@ -1398,6 +1398,16 @@ const theme = EditorView.theme({
         backgroundColor: 'white',
         color: 'var(--color-gray-400)',
     },
+    // Touch screens use gestures instead, see `enableTouchGestures`.
+    // This comes last, so that it wins over the styles above.
+    '@media (pointer: coarse)': {
+        '.cm-check': {
+            display: 'none',
+        },
+        '.cm-drag': {
+            display: 'none',
+        },
+    },
 })
 
 const textarea = document.querySelector<HTMLTextAreaElement>('#todo-markdown')
@@ -1427,6 +1437,9 @@ if (textarea) {
     }
 
     const mode = (textarea.dataset.mode ?? 'workspace') as Mode
+
+    // Touch screens use gestures instead of the checkbox and drag handle, which are too small to use there
+    const isTouchScreen = window.matchMedia('(pointer: coarse)').matches
     const isArchive = mode === 'archived'
 
     const projectUrls = {
@@ -1475,13 +1488,9 @@ if (textarea) {
 
     // Dragging a line shows where it will go, and moves it there when letting go.
     // A task or text moves between the other tasks and text of its project, a project moves between the other projects.
-    const drag = (view: EditorView, event: MouseEvent, handle: HTMLElement) => {
-        event.preventDefault()
-
-        const line = view.state.doc.lineAt(view.posAtDOM(handle))
+    const startReorder = (view: EditorView, line: Line, lineElement: HTMLElement | null) => {
         const isProjectLine = isProject(line)
         const lines = isProjectLine ? projectLines(view.state) : sortableLines(view.state, markers, line)
-        const lineElement = handle.closest<HTMLElement>('.cm-line')
         const content = view.contentDOM.getBoundingClientRect()
         const indicator = document.createElement('div')
         let slot = lines.findIndex((other) => other.number === line.number)
@@ -1504,41 +1513,174 @@ if (textarea) {
         })
 
         document.body.append(indicator)
-        document.body.style.cursor = 'grabbing'
         lineElement?.classList.add('cm-dragged')
 
-        const move = (event: MouseEvent) => {
-            const current = spans()
-            const found = current.findIndex((span) => event.clientY < view.documentTop + (span.top + span.bottom) / 2)
+        return {
+            move(clientY: number) {
+                const current = spans()
+                const found = current.findIndex((span) => clientY < view.documentTop + (span.top + span.bottom) / 2)
 
-            slot = found === -1 ? lines.length : found
+                slot = found === -1 ? lines.length : found
 
-            const top = slot < current.length ? current[slot].top : current[current.length - 1].bottom
+                const top = slot < current.length ? current[slot].top : current[current.length - 1].bottom
 
-            indicator.style.top = `${view.documentTop + top}px`
+                indicator.style.top = `${view.documentTop + top}px`
+            },
+
+            drop() {
+                indicator.remove()
+                lineElement?.classList.remove('cm-dragged')
+
+                const transactions = isProjectLine
+                    ? reorderProject(view.state, markers, line, lines, slot)
+                    : [reorder(view.state, markers, line, lines, slot)].filter((transaction) => transaction !== null)
+
+                for (const transaction of transactions) {
+                    view.dispatch(transaction)
+                }
+
+                tidy(view)
+            },
         }
+    }
+
+    const drag = (view: EditorView, event: MouseEvent, handle: HTMLElement) => {
+        event.preventDefault()
+
+        const reordering = startReorder(view, view.state.doc.lineAt(view.posAtDOM(handle)), handle.closest<HTMLElement>('.cm-line'))
+        const move = (event: MouseEvent) => reordering.move(event.clientY)
 
         const drop = () => {
             window.removeEventListener('mousemove', move)
             window.removeEventListener('mouseup', drop)
-            indicator.remove()
             document.body.style.cursor = ''
-            lineElement?.classList.remove('cm-dragged')
-
-            const transactions = isProjectLine
-                ? reorderProject(view.state, markers, line, lines, slot)
-                : [reorder(view.state, markers, line, lines, slot)].filter((transaction) => transaction !== null)
-
-            for (const transaction of transactions) {
-                view.dispatch(transaction)
-            }
-
-            tidy(view)
+            reordering.drop()
         }
 
+        document.body.style.cursor = 'grabbing'
         move(event)
         window.addEventListener('mousemove', move)
         window.addEventListener('mouseup', drop)
+    }
+
+    /**
+     * On touch screens, where the checkbox and drag handle are hidden:
+     * swiping a line to the left completes or reopens it, and pressing and holding a line picks it up to drag it up or down.
+     */
+    const SWIPE_DISTANCE = 80
+    const HOLD_DURATION = 400
+    const MOVE_TOLERANCE = 10
+
+    const canToggle = (view: EditorView, line: Line) => {
+        const item = itemOn(view.state, markers, line)
+
+        return item !== null
+            && item.id !== null
+            && item.type !== 'text'
+            && mode !== 'archived'
+            && ! (item.type === 'project' && foldAt(view.state, line))
+    }
+
+    const canReorder = (view: EditorView, line: Line) => mode === 'workspace' && (isSortable(view.state, markers, line) || isSortableProject(line))
+
+    const enableTouchGestures = (view: EditorView) => {
+        let gesture: 'pending' | 'swipe' | 'reorder' | 'scroll' | null = null
+        let start = { x: 0, y: 0 }
+        let distance = 0
+        let line: Line | null = null
+        let lineElement: HTMLElement | null = null
+        let holdTimer: number | undefined
+        let reordering: ReturnType<typeof startReorder> | null = null
+
+        const reset = () => {
+            window.clearTimeout(holdTimer)
+
+            if (lineElement) {
+                lineElement.style.transform = ''
+                lineElement.style.opacity = ''
+            }
+
+            gesture = null
+            line = null
+            lineElement = null
+            reordering = null
+        }
+
+        view.contentDOM.addEventListener('touchstart', (event) => {
+            reset()
+
+            const touch = event.touches[0]
+            const position = event.touches.length === 1 ? view.posAtCoords({ x: touch.clientX, y: touch.clientY }) : null
+
+            if (position === null) {
+                return
+            }
+
+            gesture = 'pending'
+            start = { x: touch.clientX, y: touch.clientY }
+            distance = 0
+            line = view.state.doc.lineAt(position)
+            lineElement = (event.target as HTMLElement).closest<HTMLElement>('.cm-line')
+
+            holdTimer = window.setTimeout(() => {
+                if (gesture !== 'pending' || ! line || ! canReorder(view, line)) {
+                    return
+                }
+
+                gesture = 'reorder'
+                reordering = startReorder(view, line, lineElement)
+                reordering.move(start.y)
+                navigator.vibrate?.(10)
+            }, HOLD_DURATION)
+        }, { passive: true })
+
+        view.contentDOM.addEventListener('touchmove', (event) => {
+            const touch = event.touches[0]
+            const dx = touch.clientX - start.x
+            const dy = touch.clientY - start.y
+
+            if (gesture === 'pending' && Math.max(Math.abs(dx), Math.abs(dy)) > MOVE_TOLERANCE) {
+                window.clearTimeout(holdTimer)
+                gesture = dx < 0 && Math.abs(dx) > Math.abs(dy) && line && canToggle(view, line) ? 'swipe' : 'scroll'
+            }
+
+            if (gesture === 'swipe' && lineElement) {
+                event.preventDefault()
+                distance = Math.min(0, dx)
+                lineElement.style.transform = `translateX(${distance}px)`
+                lineElement.style.opacity = String(Math.max(0.3, 1 + distance / (SWIPE_DISTANCE * 2)))
+            }
+
+            if (gesture === 'reorder' && reordering) {
+                event.preventDefault()
+                reordering.move(touch.clientY)
+            }
+        }, { passive: false })
+
+        const end = () => {
+            const swipedLine = gesture === 'swipe' && distance <= -SWIPE_DISTANCE ? line : null
+            const item = swipedLine ? itemOn(view.state, markers, swipedLine) : null
+
+            if (gesture === 'reorder' && reordering) {
+                reordering.drop()
+            }
+
+            reset()
+
+            if (item) {
+                toggle(view, item)
+            }
+        }
+
+        view.contentDOM.addEventListener('touchend', end)
+        view.contentDOM.addEventListener('touchcancel', reset)
+
+        // Holding a line shouldn't open the browser's menu while it's being dragged
+        view.contentDOM.addEventListener('contextmenu', (event) => {
+            if (gesture === 'reorder') {
+                event.preventDefault()
+            }
+        })
     }
 
     const collapse = (view: EditorView, item: Item) => {
@@ -1855,6 +1997,10 @@ if (textarea) {
 
     textarea.after(view.dom)
     textarea.hidden = true
+
+    if (isTouchScreen) {
+        enableTouchGestures(view)
+    }
 
     const folds = []
 
