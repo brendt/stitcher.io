@@ -2627,8 +2627,13 @@ if (textarea) {
             view.dispatch({ effects: editing.reconfigure(editable(isEditable)) })
             editButton.setAttribute('aria-pressed', String(isEditable))
 
-            // Focusing opens the keyboard right away, blurring closes it again
+            // Focusing opens the keyboard right away, blurring closes it again.
+            // The cursor goes in the middle of what's shown, so that the page doesn't scroll to wherever it was before.
             if (isEditable) {
+                const content = view.contentDOM.getBoundingClientRect()
+                const anchor = view.posAtCoords({ x: content.left + content.width / 2, y: window.innerHeight / 2 }, false)
+
+                view.dispatch({ selection: { anchor } })
                 view.focus()
             } else {
                 view.contentDOM.blur()
