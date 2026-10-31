@@ -189,13 +189,16 @@ use function Tempest\Router\uri;
             placeholder="Task"
             class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 focus:border-gray-900 focus:outline-none"
         />
-        <select
-            id="new-task-project"
-            name="project"
-            required
-            aria-label="Project"
-            class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 bg-white focus:border-gray-900 focus:outline-none"
-        ></select>
+        <div class="relative">
+            <select
+                id="new-task-project"
+                name="project"
+                required
+                aria-label="Project"
+                class="w-full appearance-none pl-3 pr-9 py-2 rounded border-[1.5px] border-gray-300 bg-white text-gray-900 focus:border-gray-900 focus:outline-none"
+            ></select>
+            <svg viewBox="0 0 16 16" class="pointer-events-none absolute right-3 top-1/2 w-3.5 h-3.5 -translate-y-1/2 text-gray-400" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
         <div class="flex justify-end gap-2">
             <button type="button" onclick="this.closest('dialog').close()" class="px-3 py-2 rounded border-[1.5px] border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900 cursor-pointer">Cancel</button>
             <button type="submit" class="px-3 py-2 rounded border-[1.5px] border-gray-900 bg-gray-900 text-white cursor-pointer">Add</button>
