@@ -2600,9 +2600,9 @@ if (textarea) {
         let lastProject = activeProject
 
         // `#` and `@` are hard to find on a phone's keyboard, so they can be inserted with a button,
-        // followed by the most used hashtags and mentions, which are added or removed again with a single tap
-        const MOST_USED_TAGS = 8
-        const tagChips = new Map<string, HTMLButtonElement>()
+        // followed by `#today`, `#tomorrow`, and `#nextweek`, which add or remove their date with a single tap
+        // On Sundays, tomorrow and next week are the same day, so the dates aren't unique
+        let dateChips: { date: string, button: HTMLButtonElement }[] = []
 
         const chip = (label: string, onTap: () => void) => {
             const button = document.createElement('button')
@@ -2652,19 +2652,23 @@ if (textarea) {
             })
         }
 
-        const toggleTag = (tag: string) => {
-            const ranges = rangesOf(tag)
+        // A task only gets one of these dates, so picking another one replaces it
+        const toggleDate = (date: string) => {
+            const isAdded = rangesOf(date).length > 0
+            const ranges = [...new Set(dateChips.map(({ date }) => date))].flatMap(rangesOf)
 
             if (ranges.length > 0) {
                 taskView.dispatch({ changes: ranges, userEvent: 'delete' })
-            } else {
-                insert(tag + ' ')
+            }
+
+            if (! isAdded) {
+                insert(date + ' ')
             }
         }
 
         const updateTagChips = () => {
-            for (const [tag, button] of tagChips) {
-                button.setAttribute('aria-pressed', String(rangesOf(tag).length > 0))
+            for (const { date, button } of dateChips) {
+                button.setAttribute('aria-pressed', String(rangesOf(date).length > 0))
             }
         }
 
@@ -2675,11 +2679,17 @@ if (textarea) {
             }))
         }
 
-        for (const tag of usedTags.filter((tag) => /^[#@]/.test(tag)).slice(0, MOST_USED_TAGS)) {
-            const button = chip(tag, () => toggleTag(tag))
+        // The dates are worked out when the popup opens, so that they're right for the current day
+        const addDateChips = () => {
+            dateChips.forEach(({ button }) => button.remove())
 
-            tagChips.set(tag, button)
-            newTaskTags.append(button)
+            dateChips = Object.keys(DAYS_FROM_TODAY).map((tag) => {
+                const date = relativeDate(tag)
+
+                return { date, button: chip(tag, () => toggleDate(date)) }
+            })
+
+            newTaskTags.append(...dateChips.map(({ button }) => button))
         }
 
         // The task is written in an editor of its own, so that its hashtags and mentions are suggested and styled like in the main editor.
@@ -2729,6 +2739,8 @@ if (textarea) {
             newTaskProject.replaceChildren(...options)
             newTaskProject.value = titles.find((title) => title.toLowerCase() === lastProject?.toLowerCase()) ?? titles[0] ?? ''
             taskView.dispatch({ changes: { from: 0, to: taskView.state.doc.length } })
+            addDateChips()
+            updateTagChips()
             newTask.showModal()
             taskView.focus()
         })

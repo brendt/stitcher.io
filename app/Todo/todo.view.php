@@ -181,7 +181,7 @@ use function Tempest\Router\uri;
         <p id="new-task-label" class="font-bold">New task</p>
         <!-- The task is written in an editor, which is added here, see `todo.entrypoint.ts` -->
         <div id="new-task-text" class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 focus-within:border-gray-900"></div>
-        <!-- Buttons for `#` and `@`, and the most used tags, are added here, see `todo.entrypoint.ts`. The row scrolls sideways when they don't fit. -->
+        <!-- Buttons for `#` and `@`, and for `#today`, `#tomorrow`, and `#nextweek`, are added here, see `todo.entrypoint.ts`. The row scrolls sideways when they don't fit. -->
         <div id="new-task-tags" class="flex gap-2 -mx-6 px-6 overflow-x-auto [scrollbar-width:none]"></div>
         <div class="relative">
             <select
