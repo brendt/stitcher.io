@@ -1,4 +1,4 @@
-import { acceptCompletion, autocompletion } from '@codemirror/autocomplete'
+import { acceptCompletion, autocompletion, startCompletion } from '@codemirror/autocomplete'
 import { codeFolding, foldedRanges, foldEffect, foldState, unfoldEffect } from '@codemirror/language'
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
@@ -2591,12 +2591,96 @@ if (textarea) {
     const newTaskForm = newTask?.querySelector('form')
     const newTaskText = newTask?.querySelector<HTMLElement>('#new-task-text')
     const newTaskProject = newTask?.querySelector<HTMLSelectElement>('#new-task-project')
+    const newTaskTags = newTask?.querySelector<HTMLElement>('#new-task-tags')
 
-    if (addButton && newTask && newTaskForm && newTaskText && newTaskProject && isTouchScreen && mode === 'workspace') {
+    if (addButton && newTask && newTaskForm && newTaskText && newTaskProject && newTaskTags && isTouchScreen && mode === 'workspace') {
         const titleOf = (line: Line) => line.text.slice(2).trim()
 
         // The project that's shown on its own is picked by default, and otherwise the one a task was last added to
         let lastProject = activeProject
+
+        // `#` and `@` are hard to find on a phone's keyboard, so they can be inserted with a button,
+        // followed by the most used hashtags and mentions, which are added or removed again with a single tap
+        const MOST_USED_TAGS = 8
+        const tagChips = new Map<string, HTMLButtonElement>()
+
+        const chip = (label: string, onTap: () => void) => {
+            const button = document.createElement('button')
+
+            button.type = 'button'
+            button.textContent = label
+            button.className = 'shrink-0 px-3 py-1 rounded-full border-[1.5px] border-gray-300 text-gray-600 whitespace-nowrap cursor-pointer aria-pressed:border-dotted aria-pressed:border-gray-900 aria-pressed:bg-gray-100 aria-pressed:text-gray-900'
+            // Keeps the editor focused, so that the keyboard stays open
+            button.addEventListener('mousedown', (event) => event.preventDefault())
+            button.addEventListener('click', () => {
+                onTap()
+                taskView.focus()
+            })
+
+            return button
+        }
+
+        // The ranges of a tag in the task, including one space next to it, so that removing it doesn't leave two spaces behind
+        const rangesOf = (tag: string) => {
+            const text = taskView.state.doc.toString()
+            const ranges: { from: number, to: number }[] = []
+
+            for (const match of text.matchAll(TAG)) {
+                if (match[2].toLowerCase() !== tag.toLowerCase()) {
+                    continue
+                }
+
+                const from = match.index + match[1].length
+                const to = from + match[2].length
+
+                ranges.push(text[to] === ' ' ? { from, to: to + 1 } : { from: from - match[1].length, to })
+            }
+
+            return ranges
+        }
+
+        // Inserts at the cursor, with a space in front when it would otherwise be stuck to the word before it
+        const insert = (text: string) => {
+            const { from, to } = taskView.state.selection.main
+            const before = taskView.state.sliceDoc(from - 1, from)
+            const prefix = before !== '' && ! /\s/.test(before) ? ' ' : ''
+
+            taskView.dispatch({
+                changes: { from, to, insert: prefix + text },
+                selection: { anchor: from + prefix.length + text.length },
+                userEvent: 'input',
+            })
+        }
+
+        const toggleTag = (tag: string) => {
+            const ranges = rangesOf(tag)
+
+            if (ranges.length > 0) {
+                taskView.dispatch({ changes: ranges, userEvent: 'delete' })
+            } else {
+                insert(tag + ' ')
+            }
+        }
+
+        const updateTagChips = () => {
+            for (const [tag, button] of tagChips) {
+                button.setAttribute('aria-pressed', String(rangesOf(tag).length > 0))
+            }
+        }
+
+        for (const sign of ['#', '@']) {
+            newTaskTags.append(chip(sign, () => {
+                insert(sign)
+                startCompletion(taskView)
+            }))
+        }
+
+        for (const tag of usedTags.filter((tag) => /^[#@]/.test(tag)).slice(0, MOST_USED_TAGS)) {
+            const button = chip(tag, () => toggleTag(tag))
+
+            tagChips.set(tag, button)
+            newTaskTags.append(button)
+        }
 
         // The task is written in an editor of its own, so that its hashtags and mentions are suggested and styled like in the main editor.
         // A task is a single line, so Enter adds it, unless a suggestion is being picked.
@@ -2617,6 +2701,11 @@ if (textarea) {
                 Prec.highest(keymap.of([{ key: 'Tab', run: expandRelativeDate }, { key: 'Tab', run: acceptCompletion }])),
                 syntax,
                 theme,
+                EditorView.updateListener.of((update) => {
+                    if (update.docChanged) {
+                        updateTagChips()
+                    }
+                }),
                 // Three lines high, like a textarea, instead of as high as the main editor
                 Prec.highest(EditorView.theme({
                     '.cm-content': {
