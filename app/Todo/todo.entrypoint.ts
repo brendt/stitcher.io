@@ -2053,12 +2053,16 @@ if (textarea) {
 
     const canReorder = (view: EditorView, line: Line) => mode === 'workspace' && (isSortable(view.state, markers, line) || isSortableProject(view.state, markers, line))
 
+    // Set up along with the edit button, see below
+    let startEditingAt: ((position: number) => void) | null = null
+
     const enableTouchGestures = (view: EditorView) => {
         let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'scroll' | null = null
         let lastTap: { line: number, time: number } | null = null
         let tappedProject: string | null = null
         let openProjectTimer: number | undefined
         let start = { x: 0, y: 0 }
+        let tapPosition = 0
         let distance = 0
         let line: Line | null = null
         let lineElement: HTMLElement | null = null
@@ -2094,6 +2098,7 @@ if (textarea) {
 
             gesture = 'pending'
             start = { x: touch.clientX, y: touch.clientY }
+            tapPosition = position
             distance = 0
             line = view.state.doc.lineAt(position)
             lineElement = (event.target as HTMLElement).closest<HTMLElement>('.cm-line')
@@ -2181,6 +2186,9 @@ if (textarea) {
             const isDoubleTap = isTap && lastTap !== null && lastTap.line === line?.number && event.timeStamp - lastTap.time < DOUBLE_TAP_DURATION
             const project = isDoubleTap && line && canCollapse(view, line) ? itemOn(view.state, markers, line) : null
 
+            // Tapping anywhere else twice in a row starts editing there, while editing it selects a word like it usually does
+            const startsEditing = isDoubleTap && ! project && startEditingAt !== null && ! view.state.facet(EditorView.editable)
+
             lastTap = isTap && ! isDoubleTap && line ? { line: line.number, time: event.timeStamp } : null
 
             // A single tap on a project's title shows only that project, but only once it's clear that it's not a double tap
@@ -2210,6 +2218,10 @@ if (textarea) {
                 // Without this, the browser would zoom in or select a word on the second tap
                 event.preventDefault()
                 collapse(view, project)
+            }
+
+            if (startsEditing) {
+                startEditingAt?.(tapPosition)
             }
         }
 
@@ -2656,22 +2668,26 @@ if (textarea) {
         // Keeps the editor focused while tapping the button, so that it's only turned off by the button itself, see below
         editButton.addEventListener('mousedown', (event) => event.preventDefault())
 
+        // Focusing opens the keyboard right away
+        startEditingAt = (position: number) => {
+            setEditing(true)
+            view.dispatch({ selection: { anchor: position } })
+            view.focus()
+        }
+
         editButton.addEventListener('click', () => {
-            const isEditable = ! isEditing()
-
-            setEditing(isEditable)
-
-            // Focusing opens the keyboard right away, blurring closes it again.
-            // The cursor goes in the middle of what's shown, so that the page doesn't scroll to wherever it was before.
-            if (isEditable) {
+            // The cursor goes in the middle of what's shown, so that the page doesn't scroll to wherever it was before
+            if (! isEditing()) {
                 const content = view.contentDOM.getBoundingClientRect()
-                const anchor = view.posAtCoords({ x: content.left + content.width / 2, y: window.innerHeight / 2 }, false)
 
-                view.dispatch({ selection: { anchor } })
-                view.focus()
-            } else {
-                view.contentDOM.blur()
+                startEditingAt?.(view.posAtCoords({ x: content.left + content.width / 2, y: window.innerHeight / 2 }, false))
+
+                return
             }
+
+            // Blurring closes the keyboard again
+            setEditing(false)
+            view.contentDOM.blur()
         })
 
         // Closing the keyboard, like with the checkmark above it on iOS, or tapping outside of the editor, turns editing off as well.
