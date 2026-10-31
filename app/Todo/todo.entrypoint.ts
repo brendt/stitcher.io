@@ -2579,7 +2579,7 @@ if (textarea) {
     const addButton = document.querySelector<HTMLButtonElement>('#todo-add')
     const newTask = document.querySelector<HTMLDialogElement>('#new-task')
     const newTaskForm = newTask?.querySelector('form')
-    const newTaskText = newTask?.querySelector<HTMLInputElement>('#new-task-text')
+    const newTaskText = newTask?.querySelector<HTMLTextAreaElement>('#new-task-text')
     const newTaskProject = newTask?.querySelector<HTMLSelectElement>('#new-task-project')
 
     if (addButton && newTask && newTaskForm && newTaskText && newTaskProject && isTouchScreen && mode === 'workspace') {
@@ -2609,7 +2609,8 @@ if (textarea) {
             event.preventDefault()
 
             const project = projectLines(view.state, markers).find((line) => titleOf(line) === newTaskProject.value)
-            const text = newTaskText.value.trim().replace(/^- +/, '')
+            // A task is a single line, so line breaks are written as spaces
+            const text = newTaskText.value.replace(/\s+/g, ' ').trim().replace(/^- +/, '')
 
             if (! project || text === '') {
                 return
