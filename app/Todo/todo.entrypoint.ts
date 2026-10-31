@@ -2617,12 +2617,12 @@ if (textarea) {
                 Prec.highest(keymap.of([{ key: 'Tab', run: expandRelativeDate }, { key: 'Tab', run: acceptCompletion }])),
                 syntax,
                 theme,
-                // Three lines high, like a textarea
-                EditorView.theme({
+                // Three lines high, like a textarea, instead of as high as the main editor
+                Prec.highest(EditorView.theme({
                     '.cm-content': {
                         minHeight: '5.25em',
                     },
-                }),
+                })),
             ],
         })
 
