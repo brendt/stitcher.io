@@ -902,7 +902,35 @@ const TAG_WORD = /^[#@][\p{L}\p{N}_-]*$/u
  * Suggests hashtags and mentions while typing one in a task: the ones used before, most used first,
  * followed by new ones that were written in the editor but haven't been loaded from the server yet.
  */
-function tagCompletions(usedTags: string[]) {
+/**
+ * The hashtags, mentions, and dates written in tasks and text, leaving out the one starting at `except`, which is still being written.
+ */
+function writtenTags(state: EditorState, except: number | null = null): string[] {
+    const tags: string[] = []
+
+    for (let number = 1; number <= state.doc.lines; number++) {
+        const line = state.doc.line(number)
+
+        if (! isTask(line) && ! isText(line)) {
+            continue
+        }
+
+        for (const match of line.text.matchAll(TAG)) {
+            const from = line.from + match.index + match[1].length
+
+            if (from !== except && match[2].length > 1) {
+                tags.push(match[2])
+            }
+        }
+    }
+
+    return tags
+}
+
+/**
+ * Suggests the tags of `otherTags` as well, which are written somewhere else, like in the main editor while adding a task in a popup.
+ */
+function tagCompletions(usedTags: string[], otherTags: () => string[] = () => []) {
     return (context: CompletionContext): CompletionResult | null => {
         const word = context.matchBefore(/[#@][\p{L}\p{N}_-]*/u)
 
@@ -917,26 +945,8 @@ function tagCompletions(usedTags: string[]) {
             return null
         }
 
-        const writtenTags: string[] = []
-
-        for (let number = 1; number <= context.state.doc.lines; number++) {
-            const current = context.state.doc.line(number)
-
-            if (! isTask(current) && ! isText(current)) {
-                continue
-            }
-
-            for (const match of current.text.matchAll(TAG)) {
-                const from = current.from + match.index + match[1].length
-
-                if (from !== word.from && match[2].length > 1) {
-                    writtenTags.push(match[2])
-                }
-            }
-        }
-
         const seen = new Set<string>([word.text.toLowerCase()])
-        const tags = [...usedTags, ...writtenTags].filter((tag) => {
+        const tags = [...usedTags, ...writtenTags(context.state, word.from), ...otherTags()].filter((tag) => {
             const key = tag.toLowerCase()
 
             if (tag[0] !== word.text[0] || seen.has(key)) {
@@ -2579,7 +2589,7 @@ if (textarea) {
     const addButton = document.querySelector<HTMLButtonElement>('#todo-add')
     const newTask = document.querySelector<HTMLDialogElement>('#new-task')
     const newTaskForm = newTask?.querySelector('form')
-    const newTaskText = newTask?.querySelector<HTMLTextAreaElement>('#new-task-text')
+    const newTaskText = newTask?.querySelector<HTMLElement>('#new-task-text')
     const newTaskProject = newTask?.querySelector<HTMLSelectElement>('#new-task-project')
 
     if (addButton && newTask && newTaskForm && newTaskText && newTaskProject && isTouchScreen && mode === 'workspace') {
@@ -2587,6 +2597,34 @@ if (textarea) {
 
         // The project that's shown on its own is picked by default, and otherwise the one a task was last added to
         let lastProject = activeProject
+
+        // The task is written in an editor of its own, so that its hashtags and mentions are suggested and styled like in the main editor.
+        // A task is a single line, so Enter adds it, unless a suggestion is being picked.
+        const taskView = new EditorView({
+            parent: newTaskText,
+            extensions: [
+                history(),
+                keymap.of([
+                    { key: 'Enter', run: () => (newTaskForm.requestSubmit(), true) },
+                    ...defaultKeymap,
+                    ...historyKeymap,
+                ]),
+                placeholder('Task'),
+                EditorView.lineWrapping,
+                EditorView.contentAttributes.of({ 'aria-labelledby': 'new-task-label' }),
+                replaceRelativeDates,
+                autocompletion({ override: [tagCompletions(usedTags, () => writtenTags(view.state))], icons: false }),
+                Prec.highest(keymap.of([{ key: 'Tab', run: expandRelativeDate }, { key: 'Tab', run: acceptCompletion }])),
+                syntax,
+                theme,
+                // Three lines high, like a textarea
+                EditorView.theme({
+                    '.cm-content': {
+                        minHeight: '5.25em',
+                    },
+                }),
+            ],
+        })
 
         addButton.hidden = false
 
@@ -2601,8 +2639,9 @@ if (textarea) {
 
             newTaskProject.replaceChildren(...options)
             newTaskProject.value = titles.find((title) => title.toLowerCase() === lastProject?.toLowerCase()) ?? titles[0] ?? ''
-            newTaskText.value = ''
+            taskView.dispatch({ changes: { from: 0, to: taskView.state.doc.length } })
             newTask.showModal()
+            taskView.focus()
         })
 
         newTaskForm.addEventListener('submit', (event) => {
@@ -2610,7 +2649,7 @@ if (textarea) {
 
             const project = projectLines(view.state, markers).find((line) => titleOf(line) === newTaskProject.value)
             // A task is a single line, so line breaks are written as spaces
-            const text = newTaskText.value.replace(/\s+/g, ' ').trim().replace(/^- +/, '')
+            const text = taskView.state.doc.toString().replace(/\s+/g, ' ').trim().replace(/^- +/, '')
 
             if (! project || text === '') {
                 return

@@ -178,17 +178,9 @@ use function Tempest\Router\uri;
 
 <dialog id="new-task" class="m-auto w-[min(24rem,calc(100%-3rem))] p-6 rounded-lg border border-gray-200 shadow-xl font-mono text-sm text-gray-900 backdrop:bg-black/20">
     <form class="flex flex-col gap-4">
-        <label for="new-task-text" class="font-bold">New task</label>
-        <textarea
-            id="new-task-text"
-            name="text"
-            rows="3"
-            required
-            autofocus
-            autocomplete="off"
-            placeholder="Task"
-            class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 resize-none focus:border-gray-900 focus:outline-none"
-        ></textarea>
+        <p id="new-task-label" class="font-bold">New task</p>
+        <!-- The task is written in an editor, which is added here, see `todo.entrypoint.ts` -->
+        <div id="new-task-text" class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 focus-within:border-gray-900"></div>
         <div class="relative">
             <select
                 id="new-task-project"
