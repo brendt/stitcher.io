@@ -848,6 +848,21 @@ function targetFor(state: EditorState, markers: StateField<RangeSet<ItemMarker>>
     return target?.line ?? null
 }
 
+/**
+ * Adds a task at the bottom of a project's open tasks, right before the first completed one, where reopened tasks go as well.
+ */
+function addTask(view: EditorView, markers: StateField<RangeSet<ItemMarker>>, project: Line, text: string): void {
+    const { last } = blockOf(view.state, project)
+    const target = itemLines(view.state, markers, 'task', project.number, last.number).find(({ item }) => item.completed)?.line
+    const task = `- ${text}`
+
+    view.dispatch({
+        changes: target ? { from: target.from, insert: task + '\n' } : { from: last.to, insert: '\n' + task },
+        effects: EditorView.scrollIntoView(target ? target.from : last.to + 1, { y: 'center' }),
+        userEvent: 'input',
+    })
+}
+
 function findLine(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, item: Item): Line | null {
     for (let cursor = state.field(markers).iter(); cursor.value; cursor.next()) {
         if (isSameItem(cursor.value.item, item)) {
@@ -2558,6 +2573,51 @@ if (textarea) {
             } else {
                 view.contentDOM.blur()
             }
+        })
+    }
+
+    const addButton = document.querySelector<HTMLButtonElement>('#todo-add')
+    const newTask = document.querySelector<HTMLDialogElement>('#new-task')
+    const newTaskForm = newTask?.querySelector('form')
+    const newTaskText = newTask?.querySelector<HTMLInputElement>('#new-task-text')
+    const newTaskProject = newTask?.querySelector<HTMLSelectElement>('#new-task-project')
+
+    if (addButton && newTask && newTaskForm && newTaskText && newTaskProject && isTouchScreen && mode === 'workspace') {
+        const titleOf = (line: Line) => line.text.slice(2).trim()
+
+        // The project that's shown on its own is picked by default, and otherwise the one a task was last added to
+        let lastProject = activeProject
+
+        addButton.hidden = false
+
+        addButton.addEventListener('click', () => {
+            const titles = projectLines(view.state, markers).map(titleOf).filter((title) => title !== '')
+            const options = titles.map((title) => new Option(title, title))
+
+            if (options.length === 0) {
+                options.push(new Option('No projects yet', '', true, true))
+                options[0].disabled = true
+            }
+
+            newTaskProject.replaceChildren(...options)
+            newTaskProject.value = titles.find((title) => title.toLowerCase() === lastProject?.toLowerCase()) ?? titles[0] ?? ''
+            newTaskText.value = ''
+            newTask.showModal()
+        })
+
+        newTaskForm.addEventListener('submit', (event) => {
+            event.preventDefault()
+
+            const project = projectLines(view.state, markers).find((line) => titleOf(line) === newTaskProject.value)
+            const text = newTaskText.value.trim().replace(/^- +/, '')
+
+            if (! project || text === '') {
+                return
+            }
+
+            addTask(view, markers, project, text)
+            lastProject = newTaskProject.value
+            newTask.close()
         })
     }
 

@@ -167,6 +167,42 @@ use function Tempest\Router\uri;
     </form>
 </dialog>
 
+<!-- On touch screens, tasks can be added with this button, without having to edit the text, see `todo.entrypoint.ts` -->
+<button
+    id="todo-add"
+    type="button"
+    hidden
+    aria-label="Add task"
+    class="fixed right-6 bottom-[calc(5.25rem+env(safe-area-inset-bottom))] z-30 flex items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-gray-900 bg-white text-gray-900 shadow-lg cursor-pointer"
+><svg viewBox="0 0 16 16" class="w-5 h-5" aria-hidden="true"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+
+<dialog id="new-task" class="m-auto w-[min(24rem,calc(100%-3rem))] p-6 rounded-lg border border-gray-200 shadow-xl font-mono text-sm text-gray-900 backdrop:bg-black/20">
+    <form class="flex flex-col gap-4">
+        <label for="new-task-text" class="font-bold">New task</label>
+        <input
+            id="new-task-text"
+            type="text"
+            name="text"
+            required
+            autofocus
+            autocomplete="off"
+            placeholder="Task"
+            class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 focus:border-gray-900 focus:outline-none"
+        />
+        <select
+            id="new-task-project"
+            name="project"
+            required
+            aria-label="Project"
+            class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 bg-white focus:border-gray-900 focus:outline-none"
+        ></select>
+        <div class="flex justify-end gap-2">
+            <button type="button" onclick="this.closest('dialog').close()" class="px-3 py-2 rounded border-[1.5px] border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900 cursor-pointer">Cancel</button>
+            <button type="submit" class="px-3 py-2 rounded border-[1.5px] border-gray-900 bg-gray-900 text-white cursor-pointer">Add</button>
+        </div>
+    </form>
+</dialog>
+
 <!-- On touch screens, the editor is read-only until editing is turned on with this button, see `todo.entrypoint.ts` -->
 <button
     id="todo-edit"
