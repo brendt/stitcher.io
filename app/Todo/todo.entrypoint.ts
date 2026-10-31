@@ -2618,7 +2618,7 @@ if (textarea) {
 
     // On iOS, fixed elements are placed at the bottom of the page as a whole, not of the part that's visible,
     // so they'd end up behind the keyboard, and move along while scrolling with the keyboard open.
-    // How much of the page the keyboard covers is kept up to date in `--keyboard-inset`, so that the floating buttons can stay right above it.
+    // How much of the page the keyboard covers is kept up to date in `--keyboard-inset`, so that the status and floating buttons can stay right above it.
     const viewport = window.visualViewport
 
     if (isTouchScreen && viewport) {
@@ -2648,6 +2648,9 @@ if (textarea) {
         const setEditing = (isEditable: boolean) => {
             view.dispatch({ effects: editing.reconfigure(editable(isEditable)) })
             editButton.setAttribute('aria-pressed', String(isEditable))
+
+            // The floating buttons are hidden while editing, editing is turned off by closing the keyboard instead, see below
+            document.body.toggleAttribute('data-editing', isEditable)
         }
 
         // Keeps the editor focused while tapping the button, so that it's only turned off by the button itself, see below
