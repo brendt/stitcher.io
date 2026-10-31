@@ -35,7 +35,7 @@ use function Tempest\Router\uri;
 <nav
     :if="$workspaces !== []"
     :class="$filters || $project ? 'justify-center' : 'justify-between'"
-    class="sticky top-0 z-20 select-none [-webkit-touch-callout:none] flex flex-wrap items-center gap-x-4 gap-y-2 px-6 py-4 bg-white border-b border-gray-200 font-mono text-sm lg:fixed lg:inset-y-0 lg:left-0 lg:w-56 lg:flex-col lg:flex-nowrap lg:items-start lg:justify-start lg:gap-2 lg:px-10 lg:py-24 lg:bg-transparent lg:border-b-0"
+    class="sticky top-0 z-20 select-none [-webkit-touch-callout:none] flex flex-wrap items-center gap-x-4 gap-y-2 px-6 py-4 bg-white border-b border-gray-200 font-mono text-sm lg:flex-nowrap lg:px-10"
 >
     <!-- On small screens, a filtered view only shows its filters at the top -->
     <div :class="$filters || $project ? 'hidden lg:contents' : 'contents'">
@@ -49,14 +49,10 @@ use function Tempest\Router\uri;
             >{{ $item->name }}</button>
         </form>
 
-        <!-- On wide screens, everything is listed in the sidebar -->
-        <div class="hidden lg:contents">
-            <button type="button" onclick="document.getElementById('new-workspace').showModal()" class="text-left text-gray-400 hover:text-gray-900 cursor-pointer">+ New workspace</button>
-            <button :if="$workspace" type="button" onclick="document.getElementById('edit-workspace').showModal()" class="inline-flex items-center gap-1.5 text-left text-gray-400 hover:text-gray-900 cursor-pointer"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Edit workspace</button>
-
+        <!-- On wide screens, there's room for these next to the workspaces -->
+        <div class="hidden lg:flex lg:items-center lg:gap-4 lg:ml-auto">
             <a
                 :href="uri([TodoController::class, 'soon'])"
-                class="lg:mt-4"
                 :class="$mode === TodoMode::SOON ? 'text-gray-900 font-bold' : 'text-gray-400 hover:text-gray-900'"
             >Soon</a>
 
@@ -66,27 +62,29 @@ use function Tempest\Router\uri;
             >Archived</a>
         </div>
 
-        <!-- On small screens, only the workspaces fit, the rest is behind a menu -->
-        <details class="relative ml-auto lg:hidden">
-            <summary aria-label="Menu" class="flex items-center justify-center w-7 h-7 rounded border-[1.5px] border-gray-400 bg-white text-gray-400 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+        <!-- The rest is behind a menu -->
+        <details class="relative ml-auto lg:ml-0">
+            <summary aria-label="Menu" class="flex items-center justify-center w-7 h-7 rounded border-[1.5px] border-gray-400 bg-white text-gray-400 hover:border-gray-900 hover:text-gray-900 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                 <svg viewBox="0 0 16 16" class="w-3.5 h-3.5" aria-hidden="true"><path d="M2.5 4h11M2.5 8h11M2.5 12h11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
             </summary>
 
             <div class="absolute right-0 top-full z-30 mt-2 flex flex-col gap-3 min-w-48 p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
                 <a
                     :href="uri([TodoController::class, 'soon'])"
+                    class="lg:hidden"
                     :class="$mode === TodoMode::SOON ? 'text-gray-900 font-bold' : 'text-gray-600'"
                 >Soon</a>
 
                 <a
                     :href="uri([TodoController::class, 'archived'])"
+                    class="lg:hidden"
                     :class="$mode === TodoMode::ARCHIVED ? 'text-gray-900 font-bold' : 'text-gray-600'"
                 >Archived</a>
 
-                <button type="button" onclick="this.closest('details').open = false; document.getElementById('new-workspace').showModal()" class="text-left text-gray-600 cursor-pointer">+ New workspace</button>
-                <button :if="$workspace" type="button" onclick="this.closest('details').open = false; document.getElementById('edit-workspace').showModal()" class="inline-flex items-center gap-1.5 text-left text-gray-600 cursor-pointer"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Edit workspace</button>
+                <button type="button" onclick="this.closest('details').open = false; document.getElementById('new-workspace').showModal()" class="text-left text-gray-600 hover:text-gray-900 cursor-pointer">+ New workspace</button>
+                <button :if="$workspace" type="button" onclick="this.closest('details').open = false; document.getElementById('edit-workspace').showModal()" class="inline-flex items-center gap-1.5 text-left text-gray-600 hover:text-gray-900 cursor-pointer"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Edit workspace</button>
                 <!-- Apps on the home screen don't have a reload button of their own. Unsaved changes are saved first, see `todo.entrypoint.ts` -->
-                <button id="todo-refresh" type="button" onclick="window.location.reload()" class="inline-flex items-center gap-1.5 text-left text-gray-600 cursor-pointer"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.5M13 2.5v3h-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Refresh</button>
+                <button id="todo-refresh" type="button" onclick="window.location.reload()" class="inline-flex items-center gap-1.5 text-left text-gray-600 cursor-pointer lg:hidden"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.5M13 2.5v3h-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Refresh</button>
             </div>
         </details>
     </div>
@@ -97,8 +95,9 @@ use function Tempest\Router\uri;
     </div>
 </nav>
 
-<main class="px-6 pt-4 pb-[50vh] lg:px-56 lg:pt-24">
-    <div :if="$filters || $project" class="hidden sticky top-0 z-20 -mt-20 mb-8 py-6 bg-white font-mono text-sm lg:block">
+<main class="px-6 pt-4 pb-[50vh] lg:pt-12">
+    <!-- Sticks right below the navigation, which is 61px high -->
+    <div :if="$filters || $project" class="hidden sticky top-[61px] z-20 -mt-12 mb-6 py-6 bg-white font-mono text-sm lg:block">
         <x-todo-filters :links="$activeFilterLinks" />
     </div>
 
