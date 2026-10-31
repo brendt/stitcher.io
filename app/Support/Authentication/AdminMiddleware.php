@@ -12,6 +12,7 @@ use Tempest\Router\HttpMiddleware;
 use Tempest\Router\HttpMiddlewareCallable;
 
 use function Tempest\Router\uri;
+use function Tempest\Support\Uri\set_query;
 
 #[SkipDiscovery]
 final readonly class AdminMiddleware implements HttpMiddleware
@@ -26,9 +27,7 @@ final readonly class AdminMiddleware implements HttpMiddleware
         $user = $this->authenticator->current();
 
         if (! $user instanceof User) {
-            $query = http_build_query($request->query);
-
-            $this->session->set('back', $query === '' ? $request->path : "{$request->path}?{$query}");
+            $this->session->set('back', set_query($request->path, ...$request->query));
 
             return new Redirect(uri([AuthController::class, 'auth']));
         }
