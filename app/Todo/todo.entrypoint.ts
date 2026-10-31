@@ -2545,6 +2545,44 @@ if (textarea) {
         save()
     })
 
+    // On a phone, the page isn't loaded again when coming back to it, especially when it's added to the home screen as an app:
+    // it's shown as it was, maybe days ago. Editing it then would save over changes made somewhere else in the meantime,
+    // so it's loaded again when it's been away for a while, once its own changes are saved.
+    const RELOAD_AFTER = 5 * 60 * 1000
+
+    let hiddenAt: number | null = null
+
+    const reloadWhenSaved = () => {
+        if (hasChanges || isSaving) {
+            window.setTimeout(reloadWhenSaved, 500)
+
+            return
+        }
+
+        window.location.reload()
+    }
+
+    if (isTouchScreen) {
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                hiddenAt = Date.now()
+
+                // Apps that are put away might not get the chance to save later on
+                window.clearTimeout(saveTimer)
+                save()
+
+                return
+            }
+
+            if (hiddenAt !== null && Date.now() - hiddenAt >= RELOAD_AFTER) {
+                showStatus('Loading…')
+                reloadWhenSaved()
+            }
+
+            hiddenAt = null
+        })
+    }
+
     // Changes that haven't been saved yet are still sent when leaving the page
     window.addEventListener('pagehide', () => {
         if (! hasChanges || ! saveUrl) {
@@ -2609,7 +2647,7 @@ if (textarea) {
 
             button.type = 'button'
             button.textContent = label
-            button.className = 'shrink-0 px-3 py-1 rounded-full border-[1.5px] border-gray-300 text-gray-600 whitespace-nowrap cursor-pointer aria-pressed:border-dotted aria-pressed:border-gray-900 aria-pressed:bg-gray-100 aria-pressed:text-gray-900'
+            button.className = 'shrink-0 select-none px-3 py-1 rounded-full border-[1.5px] border-gray-300 text-gray-600 whitespace-nowrap cursor-pointer aria-pressed:border-dotted aria-pressed:border-gray-900 aria-pressed:bg-gray-100 aria-pressed:text-gray-900'
             // Keeps the editor focused, so that the keyboard stays open
             button.addEventListener('mousedown', (event) => event.preventDefault())
             button.addEventListener('click', () => {
