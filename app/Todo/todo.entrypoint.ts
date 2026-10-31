@@ -2621,11 +2621,20 @@ if (textarea) {
     if (editButton && isTouchScreen && mode === 'workspace') {
         editButton.hidden = false
 
-        editButton.addEventListener('click', () => {
-            const isEditable = ! view.state.facet(EditorView.editable)
+        const isEditing = () => view.state.facet(EditorView.editable)
 
+        const setEditing = (isEditable: boolean) => {
             view.dispatch({ effects: editing.reconfigure(editable(isEditable)) })
             editButton.setAttribute('aria-pressed', String(isEditable))
+        }
+
+        // Keeps the editor focused while tapping the button, so that it's only turned off by the button itself, see below
+        editButton.addEventListener('mousedown', (event) => event.preventDefault())
+
+        editButton.addEventListener('click', () => {
+            const isEditable = ! isEditing()
+
+            setEditing(isEditable)
 
             // Focusing opens the keyboard right away, blurring closes it again.
             // The cursor goes in the middle of what's shown, so that the page doesn't scroll to wherever it was before.
@@ -2637,6 +2646,14 @@ if (textarea) {
                 view.focus()
             } else {
                 view.contentDOM.blur()
+            }
+        })
+
+        // Closing the keyboard, like with the checkmark above it on iOS, or tapping outside of the editor, turns editing off as well.
+        // Switching to another app doesn't, the page loses focus as a whole then.
+        view.contentDOM.addEventListener('blur', () => {
+            if (isEditing() && document.hasFocus()) {
+                setEditing(false)
             }
         })
     }
