@@ -167,6 +167,16 @@ use function Tempest\Router\uri;
     </form>
 </dialog>
 
-<div id="todo-status" class="fixed bottom-4 right-6 font-mono text-xs text-gray-400" aria-live="polite"></div>
+<!-- On touch screens, the editor is read-only until editing is turned on with this button, see `todo.entrypoint.ts` -->
+<button
+    id="todo-edit"
+    type="button"
+    hidden
+    aria-label="Edit"
+    aria-pressed="false"
+    class="fixed right-6 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-30 flex items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-gray-900 bg-white text-gray-900 shadow-lg cursor-pointer aria-pressed:bg-gray-900 aria-pressed:text-white"
+><svg viewBox="0 0 16 16" class="w-5 h-5" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></button>
+
+<div id="todo-status" class="fixed bottom-4 right-6 font-mono text-xs text-gray-400 pointer-coarse:right-22 pointer-coarse:bottom-[calc(2.75rem+env(safe-area-inset-bottom))]" aria-live="polite"></div>
 </body>
 </html>

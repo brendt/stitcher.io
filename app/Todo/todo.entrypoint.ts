@@ -2,7 +2,7 @@ import { acceptCompletion, autocompletion } from '@codemirror/autocomplete'
 import { codeFolding, foldedRanges, foldEffect, foldState, unfoldEffect } from '@codemirror/language'
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
-import { Annotation, EditorState, MapMode, Prec, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
+import { Annotation, Compartment, EditorState, MapMode, Prec, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
 import type { Line, Range, TransactionSpec } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
@@ -2290,6 +2290,9 @@ if (textarea) {
         tidy(view)
     }
 
+    const editing = new Compartment()
+    const editable = (isEditable: boolean) => [EditorState.readOnly.of(! isEditable), EditorView.editable.of(isEditable)]
+
     const view = new EditorView({
         doc: textarea.value,
         extensions: [
@@ -2312,7 +2315,8 @@ if (textarea) {
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
             // Tab picks the selected suggestion while suggestions are shown, and indents otherwise
             Prec.highest(keymap.of([{ key: 'Tab', run: expandRelativeDate }, { key: 'Tab', run: acceptCompletion }])),
-            EditorState.readOnly.of(mode !== 'workspace'),
+            // On touch screens, editing is toggled with a button, so that tapping around doesn't open the keyboard
+            editing.of(editable(mode === 'workspace' && ! isTouchScreen)),
             // The virtual project can't be edited by typing, only by completing its tasks, which the editor does itself
             EditorState.changeFilter.of((transaction) => {
                 if (transaction.annotation(Transaction.addToHistory) === false) {
@@ -2323,7 +2327,6 @@ if (textarea) {
 
                 return range ? [range.from, range.to] : true
             }),
-            EditorView.editable.of(mode === 'workspace'),
             codeFolding({
                 placeholderDOM(_view, onclick) {
                     const placeholder = document.createElement('span')
@@ -2538,6 +2541,26 @@ if (textarea) {
         enableTouchGestures(view)
     }
 
+    const editButton = document.querySelector<HTMLButtonElement>('#todo-edit')
+
+    if (editButton && isTouchScreen && mode === 'workspace') {
+        editButton.hidden = false
+
+        editButton.addEventListener('click', () => {
+            const isEditable = ! view.state.facet(EditorView.editable)
+
+            view.dispatch({ effects: editing.reconfigure(editable(isEditable)) })
+            editButton.setAttribute('aria-pressed', String(isEditable))
+
+            // Focusing opens the keyboard right away, blurring closes it again
+            if (isEditable) {
+                view.focus()
+            } else {
+                view.contentDOM.blur()
+            }
+        })
+    }
+
     const folds = []
 
     for (let number = 1; number <= view.state.doc.lines; number++) {
@@ -2551,5 +2574,8 @@ if (textarea) {
     }
 
     view.dispatch({ effects: folds, annotations: restoringFolds.of(true) })
-    view.focus()
+
+    if (view.state.facet(EditorView.editable)) {
+        view.focus()
+    }
 }
