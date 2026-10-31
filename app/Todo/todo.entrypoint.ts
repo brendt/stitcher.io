@@ -2616,6 +2616,28 @@ if (textarea) {
         enableTouchGestures(view)
     }
 
+    // On iOS, fixed elements are placed at the bottom of the page as a whole, not of the part that's visible,
+    // so they'd end up behind the keyboard, and move along while scrolling with the keyboard open.
+    // How much of the page the keyboard covers is kept up to date in `--keyboard-inset`, so that the floating buttons can stay right above it.
+    const viewport = window.visualViewport
+
+    if (isTouchScreen && viewport) {
+        let frame: number | undefined
+
+        const updateKeyboardInset = () => {
+            window.cancelAnimationFrame(frame ?? 0)
+
+            frame = window.requestAnimationFrame(() => {
+                const inset = Math.max(0, document.documentElement.clientHeight - viewport.height - viewport.offsetTop)
+
+                document.documentElement.style.setProperty('--keyboard-inset', `${inset}px`)
+            })
+        }
+
+        viewport.addEventListener('resize', updateKeyboardInset)
+        viewport.addEventListener('scroll', updateKeyboardInset)
+    }
+
     const editButton = document.querySelector<HTMLButtonElement>('#todo-edit')
 
     if (editButton && isTouchScreen && mode === 'workspace') {

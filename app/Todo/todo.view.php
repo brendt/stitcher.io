@@ -177,13 +177,14 @@ use function Tempest\Router\uri;
     </form>
 </dialog>
 
+<!-- The floating buttons stay right above the keyboard while it's open, see `--keyboard-inset` in `todo.entrypoint.ts` -->
 <!-- On touch screens, tasks can be added with this button, without having to edit the text, see `todo.entrypoint.ts` -->
 <button
     id="todo-add"
     type="button"
     hidden
     aria-label="Add task"
-    class="fixed right-6 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-30 flex items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-gray-900 bg-white text-gray-900 shadow-lg cursor-pointer select-none [-webkit-touch-callout:none]"
+    class="fixed right-6 bottom-[max(1.5rem_+_env(safe-area-inset-bottom),0.75rem_+_var(--keyboard-inset,0px))] z-30 flex items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-gray-900 bg-white text-gray-900 shadow-lg cursor-pointer select-none [-webkit-touch-callout:none]"
 ><svg viewBox="0 0 16 16" class="w-5 h-5" aria-hidden="true"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
 
 <dialog id="new-task" class="m-auto w-[min(24rem,calc(100%-3rem))] p-6 rounded-lg border border-gray-200 shadow-xl font-mono text-sm text-gray-900 backdrop:bg-black/20">
@@ -217,9 +218,9 @@ use function Tempest\Router\uri;
     hidden
     aria-label="Edit"
     aria-pressed="false"
-    class="fixed left-6 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-30 flex items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-gray-900 bg-white text-gray-900 shadow-lg cursor-pointer select-none [-webkit-touch-callout:none] aria-pressed:bg-gray-900 aria-pressed:text-white"
+    class="fixed left-6 bottom-[max(1.5rem_+_env(safe-area-inset-bottom),0.75rem_+_var(--keyboard-inset,0px))] z-30 flex items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-gray-900 bg-white text-gray-900 shadow-lg cursor-pointer select-none [-webkit-touch-callout:none] aria-pressed:bg-gray-900 aria-pressed:text-white"
 ><svg viewBox="0 0 16 16" class="w-5 h-5" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></button>
 
-<div id="todo-status" class="fixed bottom-4 right-6 font-mono text-xs text-gray-400 pointer-coarse:right-22 pointer-coarse:bottom-[calc(2.75rem+env(safe-area-inset-bottom))]" aria-live="polite"></div>
+<div id="todo-status" class="fixed bottom-4 right-6 font-mono text-xs text-gray-400 pointer-coarse:right-22 pointer-coarse:bottom-[calc(max(1.5rem_+_env(safe-area-inset-bottom),0.75rem_+_var(--keyboard-inset,0px))_+_1.25rem)]" aria-live="polite"></div>
 </body>
 </html>
