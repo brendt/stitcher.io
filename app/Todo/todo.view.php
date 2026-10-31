@@ -85,6 +85,8 @@ use function Tempest\Router\uri;
 
                 <button type="button" onclick="this.closest('details').open = false; document.getElementById('new-workspace').showModal()" class="text-left text-gray-600 cursor-pointer">+ New workspace</button>
                 <button :if="$workspace" type="button" onclick="this.closest('details').open = false; document.getElementById('edit-workspace').showModal()" class="inline-flex items-center gap-1.5 text-left text-gray-600 cursor-pointer"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Edit workspace</button>
+                <!-- Apps on the home screen don't have a reload button of their own. Unsaved changes are saved first, see `todo.entrypoint.ts` -->
+                <button id="todo-refresh" type="button" onclick="window.location.reload()" class="inline-flex items-center gap-1.5 text-left text-gray-600 cursor-pointer"><svg viewBox="0 0 16 16" class="w-3.5 h-3.5 shrink-0" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.5M13 2.5v3h-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg> Refresh</button>
             </div>
         </details>
     </div>

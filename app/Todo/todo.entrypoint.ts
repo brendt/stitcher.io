@@ -2562,6 +2562,18 @@ if (textarea) {
         window.location.reload()
     }
 
+    const refreshButton = document.querySelector<HTMLButtonElement>('#todo-refresh')
+
+    if (refreshButton) {
+        refreshButton.onclick = () => {
+            refreshButton.closest('details')?.removeAttribute('open')
+            showStatus('Loading…')
+            window.clearTimeout(saveTimer)
+            save()
+            reloadWhenSaved()
+        }
+    }
+
     if (isTouchScreen) {
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'hidden') {
