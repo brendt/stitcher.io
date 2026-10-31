@@ -39,6 +39,12 @@ final readonly class AuthController
     #[Get('/auth/{?type}')]
     public function auth(?string $type, Request $request): Response
     {
+        $back = $request->get('back');
+
+        if (is_string($back) && str_starts_with($back, '/') && ! str_starts_with($back, '//')) {
+            $this->session->set('back', $back);
+        }
+
         if ($response = $this->autoLogin()) {
             return $response;
         }

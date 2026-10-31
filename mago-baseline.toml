@@ -5907,7 +5907,7 @@ count = 1
 [[issues]]
 file = "app/Support/Authentication/AuthController.php"
 code = "mixed-return-statement"
-message = "Could not infer a precise return type for function `{closure:app/Support/Authentication/AuthController.php:56:40}`. Saw type `truthy-mixed`."
+message = "Could not infer a precise return type for function `{closure:app/Support/Authentication/AuthController.php:62:40}`. Saw type `truthy-mixed`."
 count = 1
 
 [[issues]]
