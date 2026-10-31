@@ -863,6 +863,112 @@ function addTask(view: EditorView, markers: StateField<RangeSet<ItemMarker>>, pr
     })
 }
 
+/**
+ * `#` and `@` are hard to find on a phone's keyboard, so they can be inserted with a button,
+ * followed by `#today`, `#tomorrow`, and `#nextweek`, which add or remove their date on the cursor's line with a single tap.
+ * The editor is passed lazily, so that the buttons can be set up before it.
+ */
+function tagShortcuts(container: HTMLElement, editor: () => EditorView): { update: () => void, refreshDates: () => void } {
+    // On Sundays, tomorrow and next week are the same day, so the dates aren't unique
+    let dateChips: { date: string, button: HTMLButtonElement }[] = []
+
+    const chip = (label: string, onTap: () => void) => {
+        const button = document.createElement('button')
+
+        button.type = 'button'
+        button.textContent = label
+        button.className = 'shrink-0 select-none px-3 py-1 rounded-full border-[1.5px] border-gray-300 bg-white text-gray-600 whitespace-nowrap cursor-pointer aria-pressed:border-dotted aria-pressed:border-gray-900 aria-pressed:bg-gray-100 aria-pressed:text-gray-900'
+        // Keeps the editor focused, so that the keyboard stays open
+        button.addEventListener('mousedown', (event) => event.preventDefault())
+        button.addEventListener('click', () => {
+            onTap()
+            editor().focus()
+        })
+
+        return button
+    }
+
+    // The ranges of a tag on the cursor's line, including one space next to it, so that removing it doesn't leave two spaces behind
+    const rangesOf = (tag: string) => {
+        const { state } = editor()
+        const line = state.doc.lineAt(state.selection.main.head)
+        const ranges: { from: number, to: number }[] = []
+
+        for (const match of line.text.matchAll(TAG)) {
+            if (match[2].toLowerCase() !== tag.toLowerCase()) {
+                continue
+            }
+
+            const from = match.index + match[1].length
+            const to = from + match[2].length
+
+            ranges.push(line.text[to] === ' '
+                ? { from: line.from + from, to: line.from + to + 1 }
+                : { from: line.from + from - match[1].length, to: line.from + to })
+        }
+
+        return ranges
+    }
+
+    // Inserts at the cursor, with a space in front when it would otherwise be stuck to the word before it
+    const insert = (text: string) => {
+        const view = editor()
+        const { from, to } = view.state.selection.main
+        const before = view.state.sliceDoc(from - 1, from)
+        const prefix = before !== '' && ! /\s/.test(before) ? ' ' : ''
+
+        view.dispatch({
+            changes: { from, to, insert: prefix + text },
+            selection: { anchor: from + prefix.length + text.length },
+            scrollIntoView: true,
+            userEvent: 'input',
+        })
+    }
+
+    // A task only gets one of these dates, so picking another one replaces it
+    const toggleDate = (date: string) => {
+        const isAdded = rangesOf(date).length > 0
+        const ranges = [...new Set(dateChips.map(({ date }) => date))].flatMap(rangesOf)
+
+        if (ranges.length > 0) {
+            editor().dispatch({ changes: ranges, userEvent: 'delete' })
+        }
+
+        if (! isAdded) {
+            insert(date + ' ')
+        }
+    }
+
+    const update = () => {
+        for (const { date, button } of dateChips) {
+            button.setAttribute('aria-pressed', String(rangesOf(date).length > 0))
+        }
+    }
+
+    for (const sign of ['#', '@']) {
+        container.append(chip(sign, () => {
+            insert(sign)
+            startCompletion(editor())
+        }))
+    }
+
+    // The dates are worked out again when the buttons are shown, so that they're right for the current day
+    const refreshDates = () => {
+        dateChips.forEach(({ button }) => button.remove())
+
+        dateChips = Object.keys(DAYS_FROM_TODAY).map((tag) => {
+            const date = relativeDate(tag)
+
+            return { date, button: chip(tag, () => toggleDate(date)) }
+        })
+
+        container.append(...dateChips.map(({ button }) => button))
+        update()
+    }
+
+    return { update, refreshDates }
+}
+
 function findLine(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, item: Item): Line | null {
     for (let cursor = state.field(markers).iter(); cursor.value; cursor.next()) {
         if (isSameItem(cursor.value.item, item)) {
@@ -2668,9 +2774,28 @@ if (textarea) {
         // Keeps the editor focused while tapping the button, so that it's only turned off by the button itself, see below
         editButton.addEventListener('mousedown', (event) => event.preventDefault())
 
+        // While editing, the same buttons as in the new task popup are shown right above the keyboard
+        const shortcutBar = document.querySelector<HTMLElement>('#todo-shortcuts')
+        const shortcuts = shortcutBar ? tagShortcuts(shortcutBar, () => view) : null
+
+        if (shortcuts) {
+            view.dispatch({
+                effects: StateEffect.appendConfig.of([
+                    EditorView.updateListener.of((update) => {
+                        if (update.docChanged || update.selectionSet) {
+                            shortcuts.update()
+                        }
+                    }),
+                    // Keeps the line that's being edited clear of the buttons
+                    EditorView.scrollMargins.of(() => ({ bottom: 64 })),
+                ]),
+            })
+        }
+
         // Focusing opens the keyboard right away
         startEditingAt = (position: number) => {
             setEditing(true)
+            shortcuts?.refreshDates()
             view.dispatch({ selection: { anchor: position } })
             view.focus()
         }
@@ -2712,98 +2837,7 @@ if (textarea) {
         // The project that's shown on its own is picked by default, and otherwise the one a task was last added to
         let lastProject = activeProject
 
-        // `#` and `@` are hard to find on a phone's keyboard, so they can be inserted with a button,
-        // followed by `#today`, `#tomorrow`, and `#nextweek`, which add or remove their date with a single tap
-        // On Sundays, tomorrow and next week are the same day, so the dates aren't unique
-        let dateChips: { date: string, button: HTMLButtonElement }[] = []
-
-        const chip = (label: string, onTap: () => void) => {
-            const button = document.createElement('button')
-
-            button.type = 'button'
-            button.textContent = label
-            button.className = 'shrink-0 select-none px-3 py-1 rounded-full border-[1.5px] border-gray-300 text-gray-600 whitespace-nowrap cursor-pointer aria-pressed:border-dotted aria-pressed:border-gray-900 aria-pressed:bg-gray-100 aria-pressed:text-gray-900'
-            // Keeps the editor focused, so that the keyboard stays open
-            button.addEventListener('mousedown', (event) => event.preventDefault())
-            button.addEventListener('click', () => {
-                onTap()
-                taskView.focus()
-            })
-
-            return button
-        }
-
-        // The ranges of a tag in the task, including one space next to it, so that removing it doesn't leave two spaces behind
-        const rangesOf = (tag: string) => {
-            const text = taskView.state.doc.toString()
-            const ranges: { from: number, to: number }[] = []
-
-            for (const match of text.matchAll(TAG)) {
-                if (match[2].toLowerCase() !== tag.toLowerCase()) {
-                    continue
-                }
-
-                const from = match.index + match[1].length
-                const to = from + match[2].length
-
-                ranges.push(text[to] === ' ' ? { from, to: to + 1 } : { from: from - match[1].length, to })
-            }
-
-            return ranges
-        }
-
-        // Inserts at the cursor, with a space in front when it would otherwise be stuck to the word before it
-        const insert = (text: string) => {
-            const { from, to } = taskView.state.selection.main
-            const before = taskView.state.sliceDoc(from - 1, from)
-            const prefix = before !== '' && ! /\s/.test(before) ? ' ' : ''
-
-            taskView.dispatch({
-                changes: { from, to, insert: prefix + text },
-                selection: { anchor: from + prefix.length + text.length },
-                userEvent: 'input',
-            })
-        }
-
-        // A task only gets one of these dates, so picking another one replaces it
-        const toggleDate = (date: string) => {
-            const isAdded = rangesOf(date).length > 0
-            const ranges = [...new Set(dateChips.map(({ date }) => date))].flatMap(rangesOf)
-
-            if (ranges.length > 0) {
-                taskView.dispatch({ changes: ranges, userEvent: 'delete' })
-            }
-
-            if (! isAdded) {
-                insert(date + ' ')
-            }
-        }
-
-        const updateTagChips = () => {
-            for (const { date, button } of dateChips) {
-                button.setAttribute('aria-pressed', String(rangesOf(date).length > 0))
-            }
-        }
-
-        for (const sign of ['#', '@']) {
-            newTaskTags.append(chip(sign, () => {
-                insert(sign)
-                startCompletion(taskView)
-            }))
-        }
-
-        // The dates are worked out when the popup opens, so that they're right for the current day
-        const addDateChips = () => {
-            dateChips.forEach(({ button }) => button.remove())
-
-            dateChips = Object.keys(DAYS_FROM_TODAY).map((tag) => {
-                const date = relativeDate(tag)
-
-                return { date, button: chip(tag, () => toggleDate(date)) }
-            })
-
-            newTaskTags.append(...dateChips.map(({ button }) => button))
-        }
+        const shortcuts = tagShortcuts(newTaskTags, () => taskView)
 
         // The task is written in an editor of its own, so that its hashtags and mentions are suggested and styled like in the main editor.
         // A task is a single line, so Enter adds it, unless a suggestion is being picked.
@@ -2826,7 +2860,7 @@ if (textarea) {
                 theme,
                 EditorView.updateListener.of((update) => {
                     if (update.docChanged) {
-                        updateTagChips()
+                        shortcuts.update()
                     }
                 }),
                 // Three lines high, like a textarea, instead of as high as the main editor
@@ -2852,8 +2886,7 @@ if (textarea) {
             newTaskProject.replaceChildren(...options)
             newTaskProject.value = titles.find((title) => title.toLowerCase() === lastProject?.toLowerCase()) ?? titles[0] ?? ''
             taskView.dispatch({ changes: { from: 0, to: taskView.state.doc.length } })
-            addDateChips()
-            updateTagChips()
+            shortcuts.refreshDates()
             newTask.showModal()
             taskView.focus()
         })

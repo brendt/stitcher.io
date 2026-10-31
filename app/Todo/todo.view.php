@@ -221,6 +221,9 @@ use function Tempest\Router\uri;
     class="fixed left-6 bottom-[max(1.5rem_+_env(safe-area-inset-bottom),0.75rem_+_var(--keyboard-inset,0px))] z-30 flex in-data-editing:hidden items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-gray-900 bg-white text-gray-900 shadow-lg cursor-pointer select-none [-webkit-touch-callout:none] aria-pressed:bg-gray-900 aria-pressed:text-white"
 ><svg viewBox="0 0 16 16" class="w-5 h-5" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3l7.5-7.5zM9 4l3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg></button>
 
-<div id="todo-status" class="fixed bottom-4 right-6 font-mono text-xs text-gray-400 pointer-coarse:right-22 pointer-coarse:bottom-[calc(max(1.5rem_+_env(safe-area-inset-bottom),0.75rem_+_var(--keyboard-inset,0px))_+_1.25rem)]" aria-live="polite"></div>
+<!-- While editing on touch screens, buttons for `#`, `@`, and dates are added here, right above the keyboard, see `tagShortcuts` in `todo.entrypoint.ts` -->
+<div id="todo-shortcuts" class="fixed inset-x-0 bottom-[var(--keyboard-inset,0px)] z-30 hidden in-data-editing:flex gap-2 px-6 py-2 overflow-x-auto [scrollbar-width:none] bg-white border-t border-gray-200 font-mono text-sm"></div>
+
+<div id="todo-status" class="fixed bottom-4 right-6 font-mono text-xs text-gray-400 pointer-coarse:right-22 pointer-coarse:bottom-[calc(max(1.5rem_+_env(safe-area-inset-bottom),0.75rem_+_var(--keyboard-inset,0px))_+_1.25rem)] pointer-coarse:in-data-editing:bottom-[calc(var(--keyboard-inset,0px)_+_3.5rem)]" aria-live="polite"></div>
 </body>
 </html>
