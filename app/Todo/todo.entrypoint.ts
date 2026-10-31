@@ -1617,7 +1617,8 @@ const theme = EditorView.theme({
     '.cm-muted': {
         color: 'var(--color-gray-400)',
     },
-    // Everything that can be clicked to filter on looks the same: hashtags, mentions, dates, project titles, and project names in the virtual project
+    // Everything that can be clicked to filter on looks the same: hashtags, mentions, dates, project titles, and project names in the virtual project,
+    // except that project names aren't underlined, see below
     '.cm-filterable': {
         fontWeight: 'bold',
         cursor: 'pointer',
@@ -1757,8 +1758,13 @@ const theme = EditorView.theme({
     '.cm-tag-sign': {
         fontWeight: 'bold',
     },
+    // Unlike tags, project names aren't underlined until hovering them
     '.cm-project-title': {
         cursor: 'pointer',
+        textDecorationLine: 'none',
+    },
+    '.cm-project-title:hover': {
+        textDecorationLine: 'underline',
     },
     // The background of the virtual project reaches a bit beyond its text, without moving the text itself
     '.cm-virtual-section': {
