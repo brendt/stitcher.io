@@ -14,6 +14,8 @@ final readonly class TodoMarkdown
      */
     public const string TAG = '(?:[#@][\\p{L}\\p{N}_-]+|' . self::DATE . ')(?![\\p{L}\\p{N}_-])';
 
+    private const string INDENT = '  ';
+
     private const string DATE = '\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])';
 
     public static function isTag(string $value): bool
@@ -194,7 +196,8 @@ final readonly class TodoMarkdown
         foreach ($groups as $group) {
             $tasks = $group->tasks;
 
-            // Filtering shows the matching tasks, together with all text of their project to give them context
+            // Filtering shows the matching tasks, together with all text of their project to give them context.
+            // The tasks a matching subtask belongs to are shown as well, so that it stays a subtask of them when saving.
             if ($filters !== []) {
                 $matches = fn (Task $task) => array_all($filters, fn (string $filter) => $this->hasTag($task, $filter));
 
@@ -202,7 +205,15 @@ final readonly class TodoMarkdown
                     continue;
                 }
 
-                $tasks = array_filter($tasks, fn (Task $task) => $task->isText || $matches($task));
+                $shown = [];
+
+                foreach (array_filter($tasks, $matches) as $task) {
+                    for ($current = $task; $current !== null && ! isset($shown[(int) $current->id->value]); $current = $current->parent) {
+                        $shown[(int) $current->id->value] = true;
+                    }
+                }
+
+                $tasks = array_filter($tasks, fn (Task $task) => $task->isText || isset($shown[(int) $task->id->value]));
             }
 
             if (! $isFirstGroup) {
@@ -251,7 +262,10 @@ final readonly class TodoMarkdown
                     $item['project'] = $projectName;
                 }
 
-                yield [$task->isText ? $name : "- {$name}", $item];
+                // Subtasks are indented by two spaces for every level, keep this in sync with `INDENT` in todo.entrypoint.ts
+                $indentation = str_repeat(self::INDENT, $group->depths[(int) $task->id->value] ?? 0);
+
+                yield [$task->isText ? $name : "{$indentation}- {$name}", $item];
             }
         }
     }

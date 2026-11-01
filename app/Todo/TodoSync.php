@@ -15,6 +15,7 @@ use function Tempest\Database\query;
  * so that saving a filtered view never touches what wasn't shown.
  * For the same reason, the order of tasks is only saved when the editor shows all of a project's tasks, which it reports as `ordered`,
  * and the order of projects only when it shows all projects, which it reports as `orderedProjects`.
+ * A subtask refers to its parent by the editor's key for it, which comes before it within the same project.
  */
 final readonly class TodoSync
 {
@@ -122,6 +123,9 @@ final readonly class TodoSync
 
                 $position = 0;
 
+                /** @var array<string, Task> $parents The tasks of this project that subtasks can belong to, keyed by the editor's key for them */
+                $parents = [];
+
                 foreach ($this->list($projectData['tasks'] ?? null) as $taskData) {
                     if (! is_array($taskData)) {
                         continue;
@@ -137,6 +141,7 @@ final readonly class TodoSync
                     $position++;
                     $id = $this->id($taskData['id'] ?? null);
                     $task = $id !== null ? $tasks[$id] ?? null : null;
+                    $parent = $kind === TaskKind::TASK ? $parents[$this->key($taskData['parent'] ?? null)] ?? null : null;
 
                     if ($task && $id !== null) {
                         $changes = array_filter(
@@ -148,6 +153,11 @@ final readonly class TodoSync
                             ],
                             fn (mixed $value) => $value !== null,
                         );
+
+                        // Unlike the other changes, the parent can change to `null`, when a subtask becomes a task of its own
+                        if ($task->parent?->id->value !== $parent?->id->value) {
+                            $changes['parent_id'] = $parent?->id->value;
+                        }
 
                         if ($changes !== []) {
                             query('tasks')->update(...$changes)->where('id = ?', $id)->execute();
@@ -161,12 +171,17 @@ final readonly class TodoSync
                             kind: $kind,
                             // Without knowing the full order, new tasks go after all others in their project
                             position: $isOrdered ? $position : $lastPositions[$projectId],
+                            parent: $parent,
                         );
 
                         $createdIds[$this->key($taskData['key'] ?? null)] = (int) $task->id->value;
                     }
 
                     $presentTasks[(int) $task->id->value] = true;
+
+                    if ($kind === TaskKind::TASK && $this->key($taskData['key'] ?? null) !== '') {
+                        $parents[$this->key($taskData['key'] ?? null)] = $task;
+                    }
                 }
             }
 

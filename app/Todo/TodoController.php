@@ -224,6 +224,8 @@ final readonly class TodoController
             return new NotFound();
         }
 
+        $this->linkSubtasks($workspace);
+
         $ids = $this->sync->sync($workspace, $request->body);
 
         if ($ids === null) {
@@ -371,12 +373,32 @@ final readonly class TodoController
      */
     private function workspaces(): array
     {
-        /** @var Workspace[] */
-        return Workspace::select()
+        /** @var Workspace[] $workspaces */
+        $workspaces = Workspace::select()
             ->with('projects.tasks')
             ->where('workspaces.user_id = ?', $this->user()->id->value)
             ->orderBy('workspaces.id ASC, projects.position ASC, projects.id ASC, projects_tasks.id ASC')
             ->all();
+
+        $this->linkSubtasks(...$workspaces);
+
+        return $workspaces;
+    }
+
+    /**
+     * Subtasks can't be loaded together with the workspace yet, so they're linked to their parent afterwards, see `Task::linkFamilies()`.
+     */
+    private function linkSubtasks(Workspace ...$workspaces): void
+    {
+        $tasks = [];
+
+        foreach ($workspaces as $workspace) {
+            foreach ($workspace->projects as $project) {
+                array_push($tasks, ...$project->tasks);
+            }
+        }
+
+        Task::linkFamilies(...$tasks);
     }
 
     /**
