@@ -920,6 +920,88 @@ function foldAt(state: EditorState, line: Line): { from: number, to: number } | 
 // Marks the transaction that collapses projects when loading the page, which doesn't need to be saved
 const restoringFolds = Annotation.define<boolean>()
 
+// Hides or shows completed tasks and projects again
+const hideCompleted = StateEffect.define<boolean>()
+
+const hiddenLines = Decoration.replace({ block: true })
+
+/**
+ * The parts of the document that are hidden while completed items are hidden:
+ * completed tasks with their subtasks, and completed projects with their tasks and text.
+ * Blank lines right above them are hidden as well, so that there's no more space between what's left than usual.
+ * A project at the top has nothing above it, so the blank lines below it are hidden instead.
+ */
+function completedRanges(state: EditorState, markers: StateField<RangeSet<ItemMarker>>): { from: number, to: number }[] {
+    const ranges: { from: number, to: number }[] = []
+    const { doc } = state
+
+    for (let number = 1; number <= doc.lines; number++) {
+        const line = doc.line(number)
+        const item = itemOn(state, markers, line)
+
+        if (! item?.completed || item.type === 'text' || item.virtual) {
+            continue
+        }
+
+        let first = line
+        let last = item.type === 'project' ? blockOf(state, line).last : lastDescendant(state, line)
+
+        while (first.number > 1 && doc.line(first.number - 1).text.trim() === '') {
+            first = doc.line(first.number - 1)
+        }
+
+        if (first.number === 1) {
+            while (last.number < doc.lines && doc.line(last.number + 1).text.trim() === '') {
+                last = doc.line(last.number + 1)
+            }
+        }
+
+        const previous = ranges.at(-1)
+
+        // Completed tasks right below each other are hidden as a whole
+        if (previous && previous.to + 1 >= first.from) {
+            previous.to = last.to
+        } else {
+            ranges.push({ from: first.from, to: last.to })
+        }
+
+        number = last.number
+    }
+
+    return ranges
+}
+
+/**
+ * Completed tasks and projects are only hidden from view, they're still part of the document, so they're saved like always.
+ * The cursor skips over them, so that they can't be changed without seeing them.
+ */
+function createCompletedHiding(markers: StateField<RangeSet<ItemMarker>>, isHidden: boolean) {
+    const build = (state: EditorState, hidden: boolean) => hidden
+        ? Decoration.set(completedRanges(state, markers).map(({ from, to }) => hiddenLines.range(from, to)))
+        : Decoration.none
+
+    return StateField.define<{ hidden: boolean, decorations: DecorationSet }>({
+        create: (state) => ({ hidden: isHidden, decorations: build(state, isHidden) }),
+
+        update(value, transaction) {
+            const effect = transaction.effects.find((effect) => effect.is(hideCompleted))
+            const hidden = effect ? effect.value as boolean : value.hidden
+
+            // Completing a task changes its marker without changing the document, so any effect could change what's hidden
+            if (! transaction.docChanged && transaction.effects.length === 0) {
+                return value
+            }
+
+            return { hidden, decorations: build(transaction.state, hidden) }
+        },
+
+        provide: (field) => [
+            EditorView.decorations.from(field, (value) => value.decorations),
+            EditorView.atomicRanges.of((view) => view.state.field(field).decorations),
+        ],
+    })
+}
+
 /**
  * The part of the document that's removed when a project disappears from it, together with its tasks.
  */
@@ -2632,6 +2714,10 @@ if (textarea) {
         tidy(view)
     }
 
+    // Whether completed tasks and projects are hidden is remembered on this device
+    const HIDE_COMPLETED_KEY = 'todo-hide-completed'
+    const completedHiding = createCompletedHiding(markers, localStorage.getItem(HIDE_COMPLETED_KEY) === 'true')
+
     const editing = new Compartment()
     const editable = (isEditable: boolean) => [EditorState.readOnly.of(! isEditable), EditorView.editable.of(isEditable)]
 
@@ -2683,6 +2769,7 @@ if (textarea) {
             }),
             markers,
             itemDecorations(markers, { drag, toggle, collapse, archive, mode }),
+            completedHiding,
             syntax,
             theme,
             EditorView.domEventHandlers({
@@ -2953,6 +3040,43 @@ if (textarea) {
 
         viewport.addEventListener('resize', updateKeyboardInset)
         viewport.addEventListener('scroll', updateKeyboardInset)
+    }
+
+    const hideCompletedButton = document.querySelector<HTMLButtonElement>('#todo-hide-completed')
+
+    if (hideCompletedButton) {
+        const label = hideCompletedButton.querySelector('span')
+
+        const showState = () => {
+            const isHidden = view.state.field(completedHiding).hidden
+
+            hideCompletedButton.setAttribute('aria-pressed', String(isHidden))
+
+            if (label) {
+                label.textContent = isHidden ? 'Show completed' : 'Hide completed'
+            }
+        }
+
+        hideCompletedButton.addEventListener('click', () => {
+            hideCompletedButton.closest('details')?.removeAttribute('open')
+
+            const isHidden = ! view.state.field(completedHiding).hidden
+            const ranges = isHidden ? completedRanges(view.state, markers) : []
+            const head = view.state.selection.main.head
+            const hiding = ranges.find(({ from, to }) => head >= from && head <= to)
+
+            view.dispatch({
+                effects: hideCompleted.of(isHidden),
+                // A cursor on a line that's being hidden moves right above it, or below it at the top,
+                // so that typing doesn't change what can't be seen
+                selection: hiding ? { anchor: hiding.from > 0 ? hiding.from - 1 : Math.min(hiding.to + 1, view.state.doc.length) } : undefined,
+            })
+
+            localStorage.setItem(HIDE_COMPLETED_KEY, String(isHidden))
+            showState()
+        })
+
+        showState()
     }
 
     const editButton = document.querySelector<HTMLButtonElement>('#todo-edit')
