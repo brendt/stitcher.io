@@ -1,7 +1,7 @@
 import { acceptCompletion, autocompletion, startCompletion } from '@codemirror/autocomplete'
 import { codeFolding, foldedRanges, foldEffect, foldState, unfoldEffect } from '@codemirror/language'
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
-import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
+import { defaultKeymap, history, historyKeymap, indentLess, indentMore, indentWithTab } from '@codemirror/commands'
 import { Annotation, Compartment, EditorState, MapMode, Prec, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
 import type { Line, Range, TransactionSpec } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
@@ -67,6 +67,7 @@ function filterHref(baseUrl: string, filters: string[], project: string | null):
 
 const projectLine = Decoration.line({ class: 'cm-project' })
 const taskLine = Decoration.line({ class: 'cm-task' })
+const subtaskLine = Decoration.line({ class: 'cm-task cm-subtask' })
 const completedLine = Decoration.line({ class: 'cm-completed' })
 const mutedLine = Decoration.line({ class: 'cm-muted' })
 const virtualLine = Decoration.line({ class: 'cm-virtual' })
@@ -78,8 +79,102 @@ function isProject(line: Line): boolean {
     return line.text.startsWith('# ')
 }
 
+// A subtask is indented below the task it belongs to, by two spaces for every level.
+// Keep this in sync with `TodoMarkdown::INDENT`.
+const INDENT = '  '
+const TASK_PREFIX = /^[ \t]*- /
+
 function isTask(line: Line): boolean {
-    return line.text.startsWith('- ')
+    return TASK_PREFIX.test(line.text)
+}
+
+function indentOf(line: Line): number {
+    return line.text.length - line.text.trimStart().length
+}
+
+// What's written after a task's indentation and `- `
+function taskText(line: Line): string {
+    return line.text.replace(TASK_PREFIX, '')
+}
+
+/**
+ * A subtask belongs to the closest task above it that's indented less, with only other tasks and blank lines in between.
+ * Text and tasks that aren't indented don't belong to any task.
+ */
+function parentOf(state: EditorState, line: Line): Line | null {
+    const indent = indentOf(line)
+
+    if (! isTask(line) || indent === 0) {
+        return null
+    }
+
+    for (let number = line.number - 1; number >= 1; number--) {
+        const current = state.doc.line(number)
+
+        if (current.text.trim() === '') {
+            continue
+        }
+
+        if (! isTask(current)) {
+            return null
+        }
+
+        if (indentOf(current) < indent) {
+            return current
+        }
+    }
+
+    return null
+}
+
+/**
+ * The last line of a task together with its subtasks, and theirs, which move along with it. Without subtasks, that's the task itself.
+ */
+function lastDescendant(state: EditorState, line: Line): Line {
+    let last = line
+
+    if (! isTask(line)) {
+        return last
+    }
+
+    for (let number = line.number + 1; number <= state.doc.lines; number++) {
+        const current = state.doc.line(number)
+
+        if (current.text.trim() === '') {
+            continue
+        }
+
+        if (! isTask(current) || indentOf(current) <= indentOf(line)) {
+            break
+        }
+
+        last = current
+    }
+
+    return last
+}
+
+/**
+ * The tasks and text that belong to the same task as the given line, including the line itself.
+ * Tasks and text that don't belong to any task are siblings within their project.
+ */
+function siblingsOf(state: EditorState, line: Line): Line[] {
+    const parent = parentOf(state, line)
+    const { start, last } = blockOf(state, line)
+    const from = (parent ?? start).number + 1
+    const to = parent ? lastDescendant(state, parent).number : last.number
+    const lines: Line[] = []
+
+    for (let number = from; number <= to; number++) {
+        const current = state.doc.line(number)
+        const type = typeOf(current)
+
+        if ((type === 'task' || type === 'text') && parentOf(state, current)?.number === parent?.number) {
+            lines.push(current)
+        }
+    }
+
+    return lines
 }
 
 function isText(line: Line): boolean {
@@ -124,7 +219,7 @@ function decorateSyntax(view: EditorView): DecorationSet {
             }
 
             if (isTask(line)) {
-                decorations.push(taskLine.range(line.from))
+                decorations.push((indentOf(line) > 0 ? subtaskLine : taskLine).range(line.from))
             }
 
             if (isTask(line) || isText(line)) {
@@ -238,6 +333,10 @@ function createItemMarkers(items: Record<string, Item>) {
         update(markers, transaction) {
             markers = moveMarkers(markers, transaction)
 
+            if (transaction.docChanged) {
+                markers = keepAtLineStart(markers, transaction.state)
+            }
+
             for (const effect of transaction.effects) {
                 if (effect.is(addItems)) {
                     markers = markers.update({ add: effect.value, sort: true })
@@ -264,6 +363,40 @@ function createItemMarkers(items: Record<string, Item>) {
             return markers
         },
     })
+}
+
+/**
+ * Indenting a line inserts spaces right at its start, which would end up before the line's marker, see `ItemMarker`.
+ * The marker goes back to the start of the line then, so that it's still the same task, but now as a subtask.
+ */
+function keepAtLineStart(markers: RangeSet<ItemMarker>, state: EditorState): RangeSet<ItemMarker> {
+    // The starts of lines that have a marker already, and the markers that go back to the start of their line, by where they are now
+    const taken = new Set<number>()
+    const moved = new Map<number, Range<ItemMarker>>()
+
+    markers.between(0, state.doc.length, (from, _to, marker) => {
+        const line = state.doc.lineAt(from)
+
+        if (from === line.from) {
+            taken.add(line.from)
+        } else if (state.sliceDoc(line.from, from).trim() === '') {
+            moved.set(from, marker.range(line.from))
+        }
+    })
+
+    for (const [from, range] of moved) {
+        if (taken.has(range.from)) {
+            moved.delete(from)
+        }
+
+        taken.add(range.from)
+    }
+
+    if (moved.size === 0) {
+        return markers
+    }
+
+    return markers.update({ filter: (from) => ! moved.has(from), add: [...moved.values()], sort: true })
 }
 
 function moveMarkers(markers: RangeSet<ItemMarker>, transaction: Transaction): RangeSet<ItemMarker> {
@@ -482,26 +615,15 @@ function reorderProject(state: EditorState, markers: StateField<RangeSet<ItemMar
 }
 
 /**
- * The lines a line can be dragged between: the other open tasks and text in its project.
+ * The lines a line can be dragged between: the other open tasks and text in its project, or of the task it's a subtask of.
  */
 function sortableLines(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): Line[] {
-    const { start, last } = blockOf(state, line)
-    const lines: Line[] = []
-
-    for (let number = start.number + 1; number <= last.number; number++) {
-        const current = state.doc.line(number)
-
-        if (isSortable(state, markers, current)) {
-            lines.push(current)
-        }
-    }
-
-    return lines
+    return siblingsOf(state, line).filter((sibling) => isSortable(state, markers, sibling))
 }
 
 /**
- * Moves a line to another slot between `lines`: slot 0 is before the first line, the last slot is after the last line.
- * The item on the line keeps following it, so that it stays the same task or text.
+ * Moves a line, together with its subtasks, to another slot between `lines`: slot 0 is before the first line, the last slot is after the last line.
+ * The items on the lines keep following them, so that they stay the same tasks or text.
  */
 function reorder(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, lines: Line[], slot: number): Transaction | null {
     const current = lines.findIndex((other) => other.number === line.number)
@@ -511,26 +633,28 @@ function reorder(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, 
         return null
     }
 
+    const last = lastDescendant(state, line)
+    const text = state.sliceDoc(line.from, last.to)
     const isBefore = slot < lines.length
-    const target = isBefore ? lines[slot] : lines[lines.length - 1]
-    const [from, to] = line.number < state.doc.lines ? [line.from, line.to + 1] : [line.from - 1, line.to]
+    const target = isBefore ? lines[slot] : lastDescendant(state, lines[lines.length - 1])
+    const [from, to] = last.number < state.doc.lines ? [line.from, last.to + 1] : [line.from - 1, last.to]
     const insertAt = isBefore ? target.from : target.to
-    const insert = isBefore ? line.text + '\n' : '\n' + line.text
+    const insert = isBefore ? text + '\n' : '\n' + text
     const item = itemOn(state, markers, line)
 
     return state.update({
         changes: [{ from, to }, { from: insertAt, insert }],
-        effects: item ? moveItem.of({
+        effects: moveItem.of({
             item,
-            completed: item.completed,
+            completed: item?.completed ?? false,
             from,
             to,
             textFrom: line.from,
-            textLength: line.length,
+            textLength: text.length,
             insertAt,
             insert,
             offset: isBefore ? 0 : 1,
-        }) : [],
+        }),
         annotations: Transaction.addToHistory.of(false),
     })
 }
@@ -703,8 +827,11 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
                 }
             }
 
+            // The checkbox and drag handle of a subtask go right before its `- `, see `.cm-subtask` in the theme
+            const start = isTask(line) ? line.from + indentOf(line) : line.from
+
             if (actions.mode === 'workspace' && (isSortable(state, markers, line) || isSortableProject(state, markers, line))) {
-                decorations.push(Decoration.widget({ widget: new DragHandle(actions.drag, isProject(line)), side: -1 }).range(line.from))
+                decorations.push(Decoration.widget({ widget: new DragHandle(actions.drag, isProject(line)), side: -1 }).range(start))
             }
 
             if (! item) {
@@ -715,7 +842,7 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             const isCollapsedProject = item.type === 'project' && foldAt(state, line) !== null
 
             if (item.id !== null && item.type !== 'text' && actions.mode !== 'archived' && ! isCollapsedProject) {
-                decorations.push(Decoration.widget({ widget: new CheckButton(item, actions.toggle), side: -1 }).range(line.from))
+                decorations.push(Decoration.widget({ widget: new CheckButton(item, actions.toggle), side: -1 }).range(start))
             }
 
             if (item.virtual && item.type === 'project') {
@@ -753,8 +880,9 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
 
             decorations.push(completedLine.range(line.from))
 
-            if (item.type === 'project') {
-                const { last } = blockOf(state, line)
+            // The tasks and text of a completed project are muted, like the subtasks of a completed task
+            if (item.type === 'project' || item.type === 'task') {
+                const last = item.type === 'project' ? blockOf(state, line).last : lastDescendant(state, line)
 
                 for (let next = line.number + 1; next <= last.number; next++) {
                     decorations.push(mutedLine.range(state.doc.line(next).from))
@@ -806,20 +934,24 @@ function projectRange(state: EditorState, line: Line): { from: number, to: numbe
 }
 
 /**
- * Cuts a task's line and places it right before `target`, or at the bottom of its project without a target.
+ * Cuts a task's line, together with its subtasks, and places it right before `target`,
+ * or at the bottom of its project, or of the task it's a subtask of, without a target.
  */
 function moveTo(state: EditorState, line: Line, item: Item, completed: boolean, target: Line | null): Move | null {
-    const { last } = blockOf(state, line)
+    const parent = parentOf(state, line)
+    const bottom = parent ? lastDescendant(state, parent) : blockOf(state, line).last
+    const last = lastDescendant(state, line)
 
     const isInPlace = target
-        ? target.number === line.number + 1
-        : last.number <= line.number
+        ? target.number === last.number + 1
+        : bottom.number <= last.number
 
     if (isInPlace) {
         return null
     }
 
-    const [from, to] = line.number < state.doc.lines ? [line.from, line.to + 1] : [line.from - 1, line.to]
+    const text = state.sliceDoc(line.from, last.to)
+    const [from, to] = last.number < state.doc.lines ? [line.from, last.to + 1] : [line.from - 1, last.to]
 
     return {
         item,
@@ -827,25 +959,24 @@ function moveTo(state: EditorState, line: Line, item: Item, completed: boolean, 
         from,
         to,
         textFrom: line.from,
-        textLength: line.length,
-        insertAt: target ? target.from : last.to,
-        insert: target ? line.text + '\n' : '\n' + line.text,
+        textLength: text.length,
+        insertAt: target ? target.from : bottom.to,
+        insert: target ? text + '\n' : '\n' + text,
         offset: target ? 0 : 1,
     }
 }
 
 /**
- * Both completed and reopened tasks go right before the first completed task:
+ * Both completed and reopened tasks go right before the first completed task among their siblings:
  * completed ones end up at the top of the completed tasks, so that the most recently completed one comes first,
  * and reopened ones at the bottom of the open tasks. This is the same order as when loading the page.
  */
 function targetFor(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line, item: Item): Line | null {
-    const { start, last } = blockOf(state, line)
+    return siblingsOf(state, line).find((sibling) => {
+        const other = itemOn(state, markers, sibling)
 
-    const target = itemLines(state, markers, 'task', start.number, last.number)
-        .find(({ item: sibling }) => ! isSameItem(sibling, item) && sibling.completed)
-
-    return target?.line ?? null
+        return other?.type === 'task' && ! isSameItem(other, item) && other.completed
+    }) ?? null
 }
 
 /**
@@ -853,7 +984,8 @@ function targetFor(state: EditorState, markers: StateField<RangeSet<ItemMarker>>
  */
 function addTask(view: EditorView, markers: StateField<RangeSet<ItemMarker>>, project: Line, text: string): void {
     const { last } = blockOf(view.state, project)
-    const target = itemLines(view.state, markers, 'task', project.number, last.number).find(({ item }) => item.completed)?.line
+    const target = itemLines(view.state, markers, 'task', project.number, last.number)
+        .find(({ line, item }) => item.completed && parentOf(view.state, line) === null)?.line
     const task = `- ${text}`
 
     view.dispatch({
@@ -866,17 +998,23 @@ function addTask(view: EditorView, markers: StateField<RangeSet<ItemMarker>>, pr
 /**
  * `#` and `@` are hard to find on a phone's keyboard, so they can be inserted with a button,
  * followed by `#today`, `#tomorrow`, and `#nextweek`, which add or remove their date on the cursor's line with a single tap.
+ * Phones don't have a Tab key either, so with `canIndent`, there are buttons in front of them to make a task a subtask and back.
  * The editor is passed lazily, so that the buttons can be set up before it.
  */
-function tagShortcuts(container: HTMLElement, editor: () => EditorView): { update: () => void, refreshDates: () => void } {
+function tagShortcuts(container: HTMLElement, editor: () => EditorView, canIndent: boolean = false): { update: () => void, refreshDates: () => void } {
     // On Sundays, tomorrow and next week are the same day, so the dates aren't unique
     let dateChips: { date: string, button: HTMLButtonElement }[] = []
 
-    const chip = (label: string, onTap: () => void) => {
+    const chip = (label: string, onTap: () => void, ariaLabel: string | null = null) => {
         const button = document.createElement('button')
 
         button.type = 'button'
         button.textContent = label
+
+        if (ariaLabel !== null) {
+            button.setAttribute('aria-label', ariaLabel)
+        }
+
         button.className = 'shrink-0 select-none px-3 py-1 rounded-full border-[1.5px] border-gray-300 bg-white text-gray-600 whitespace-nowrap cursor-pointer aria-pressed:border-dotted aria-pressed:border-gray-900 aria-pressed:bg-gray-100 aria-pressed:text-gray-900'
         // Keeps the editor focused, so that the keyboard stays open
         button.addEventListener('mousedown', (event) => event.preventDefault())
@@ -943,6 +1081,13 @@ function tagShortcuts(container: HTMLElement, editor: () => EditorView): { updat
         for (const { date, button } of dateChips) {
             button.setAttribute('aria-pressed', String(rangesOf(date).length > 0))
         }
+    }
+
+    if (canIndent) {
+        container.append(
+            chip('⇤', () => indentLess(editor()), 'Indent less'),
+            chip('⇥', () => indentMore(editor()), 'Indent more'),
+        )
     }
 
     for (const sign of ['#', '@']) {
@@ -1081,8 +1226,20 @@ function tagCompletions(usedTags: string[], otherTags: () => string[] = () => []
 }
 
 /**
+ * Removes one level of indentation from a subtask, so that it belongs to the task above the one it belonged to.
+ */
+function outdent(view: EditorView, line: Line): void {
+    view.dispatch({
+        changes: { from: line.from, to: line.from + Math.min(indentOf(line), INDENT.length) },
+        scrollIntoView: true,
+        userEvent: 'delete.dedent',
+    })
+}
+
+/**
  * Pressing Enter at the end of a new project's title starts its first task right below it.
- * Pressing Enter within a task starts a new task right away.
+ * Pressing Enter within a task starts a new task right away, indented as far as the task itself.
+ * Pressing Enter on a subtask that's still empty indents it less.
  * Pressing Enter on a task that's still empty removes its `- ` again, which leaves a blank line,
  * and continues on the next line, for example to start a new project.
  */
@@ -1112,8 +1269,14 @@ function continueTask(view: EditorView): boolean {
         return true
     }
 
-    if (! isTask(line) || selection.head < line.from + 2) {
+    if (! isTask(line) || selection.head < line.from + indentOf(line) + 2) {
         return false
+    }
+
+    if (line.text.trim() === '-' && indentOf(line) > 0) {
+        outdent(view, line)
+
+        return true
     }
 
     if (line.text.trim() === '-') {
@@ -1129,10 +1292,11 @@ function continueTask(view: EditorView): boolean {
 
     // When splitting a task in two, the second one shouldn't start with the space that separated them
     const spaces = line.text.slice(selection.head - line.from).match(/^ */)?.[0].length ?? 0
+    const insert = '\n' + line.text.slice(0, indentOf(line)) + '- '
 
     view.dispatch({
-        changes: { from: selection.head, to: selection.head + spaces, insert: '\n- ' },
-        selection: { anchor: selection.head + 3 },
+        changes: { from: selection.head, to: selection.head + spaces, insert },
+        selection: { anchor: selection.head + insert.length },
         scrollIntoView: true,
         userEvent: 'input',
     })
@@ -1384,6 +1548,7 @@ function expandRelativeDate(view: EditorView): boolean {
 
 /**
  * Backspace on a task that's still empty removes its `- ` at once, instead of only the space.
+ * On a subtask that's still empty, it indents it less instead.
  */
 function removeEmptyTask(view: EditorView): boolean {
     const selection = view.state.selection.main
@@ -1394,8 +1559,14 @@ function removeEmptyTask(view: EditorView): boolean {
 
     const line = view.state.doc.lineAt(selection.head)
 
-    if (line.text !== '- ' || selection.head !== line.to) {
+    if (! isTask(line) || taskText(line) !== '' || selection.head !== line.to) {
         return false
+    }
+
+    if (indentOf(line) > 0) {
+        outdent(view, line)
+
+        return true
     }
 
     view.dispatch({
@@ -1459,7 +1630,7 @@ function refreshUpcoming(state: EditorState, markers: StateField<RangeSet<ItemMa
             continue
         }
 
-        tasks.push({ item, text: line.text.slice(2), project: start.text.slice(2).trim(), dates: tags.filter((tag) => /^\d{4}-/.test(tag)) })
+        tasks.push({ item, text: taskText(line), project: start.text.slice(2).trim(), dates: tags.filter((tag) => /^\d{4}-/.test(tag)) })
     }
 
     // Today also shows overdue tasks, which have a date before today
@@ -1516,7 +1687,8 @@ type Payload = {
         key: string
         id: number | null
         name: string
-        tasks: { key: string, id: number | null, name: string, kind: 'task' | 'text' }[]
+        // A subtask refers to the task it belongs to by its key, which comes before it within the same project
+        tasks: { key: string, id: number | null, name: string, kind: 'task' | 'text', parent: string | null }[]
     }[]
     deleted: Record<'projects' | 'tasks', number[]>
     // Only when all tasks of a project are shown, their order can be saved
@@ -1541,10 +1713,13 @@ function snapshot(state: EditorState, markers: StateField<RangeSet<ItemMarker>>,
     const added: Range<ItemMarker>[] = []
     const present: Known = { project: new Set(), task: new Set(), text: new Set() }
 
+    // The keys of the tasks that are saved, by their line number, so that their subtasks can refer to them
+    const taskKeys = new Map<number, string>()
+
     for (let number = 1; number <= state.doc.lines; number++) {
         const line = state.doc.line(number)
         const type = typeOf(line)
-        const name = type === 'text' ? line.text.trimEnd() : line.text.slice(2).trim()
+        const name = type === 'text' ? line.text.trimEnd() : (type === 'task' ? taskText(line) : line.text.slice(2)).trim()
         const project = payload.projects.at(-1)
 
         // The virtual project only shows tasks of other projects again
@@ -1570,7 +1745,13 @@ function snapshot(state: EditorState, markers: StateField<RangeSet<ItemMarker>>,
         if (type === 'project') {
             payload.projects.push({ key: item.key, id: item.id, name, tasks: [] })
         } else {
-            project?.tasks.push({ key: item.key, id: item.id, name, kind: type })
+            const parent = parentOf(state, line)
+
+            project?.tasks.push({ key: item.key, id: item.id, name, kind: type, parent: parent ? taskKeys.get(parent.number) ?? null : null })
+        }
+
+        if (type === 'task') {
+            taskKeys.set(line.number, item.key)
         }
     }
 
@@ -1859,13 +2040,25 @@ const theme = EditorView.theme({
         backgroundColor: 'white',
         color: 'var(--color-gray-400)',
     },
+    // A subtask's checkbox and drag handle are placed right before its `- `, instead of at the start of the line, so that they're indented along with it.
+    // Without `left`, they stay where they're written in the line, which only works for inline elements.
+    '.cm-subtask .cm-check, .cm-subtask .cm-drag': {
+        display: 'inline-flex',
+        left: 'auto',
+    },
+    '.cm-subtask .cm-check': {
+        marginLeft: '-2rem',
+    },
+    '.cm-subtask .cm-drag': {
+        marginLeft: '-3.375rem',
+    },
     // Touch screens use gestures instead, see `enableTouchGestures`.
     // This comes last, so that it wins over the styles above.
     '@media (pointer: coarse)': {
-        '.cm-check': {
+        '.cm-check, .cm-subtask .cm-check': {
             display: 'none',
         },
-        '.cm-drag': {
+        '.cm-drag, .cm-subtask .cm-drag': {
             display: 'none',
         },
         '.cm-archive': {
@@ -2004,11 +2197,11 @@ if (textarea) {
     }
 
     /**
-     * The elements showing a line, or a project with all of its tasks and text.
+     * The elements showing a line, a task with all of its subtasks, or a project with all of its tasks and text.
      * Lines outside of the screen might not be shown, and lines of a collapsed project are hidden.
      */
     const elementsOf = (view: EditorView, line: Line): HTMLElement[] => {
-        const last = isProject(line) ? blockOf(view.state, line).last.number : line.number
+        const last = isProject(line) ? blockOf(view.state, line).last.number : lastDescendant(view.state, line).number
 
         return Array.from(view.contentDOM.querySelectorAll<HTMLElement>(':scope > .cm-line')).filter((element) => {
             const number = view.state.doc.lineAt(view.posAtDOM(element)).number
@@ -2023,7 +2216,7 @@ if (textarea) {
         const isProjectLine = isProject(line)
         const lines = isProjectLine ? projectLines(view.state, markers) : sortableLines(view.state, markers, line)
 
-        // A project is dragged together with its tasks and text
+        // A project is dragged together with its tasks and text, a task together with its subtasks
         const draggedElements = elementsOf(view, line)
 
         if (lineElement && ! draggedElements.includes(lineElement)) {
@@ -2041,10 +2234,10 @@ if (textarea) {
         const indicator = document.createElement('div')
         let slot = lines.findIndex((other) => other.number === line.number)
 
-        // The space each slot covers on screen: a whole project including its tasks, or a single line
+        // The space each slot covers on screen: a whole project including its tasks, or a task including its subtasks
         const spans = () => lines.map((other) => ({
             top: view.lineBlockAt(other.from).top,
-            bottom: view.lineBlockAt(isProjectLine ? blockOf(view.state, other).last.to : other.from).bottom,
+            bottom: view.lineBlockAt(isProjectLine ? blockOf(view.state, other).last.to : lastDescendant(view.state, other).to).bottom,
         }))
 
         Object.assign(indicator.style, {
@@ -2782,7 +2975,7 @@ if (textarea) {
 
         // While editing, the same buttons as in the new task popup are shown right above the keyboard
         const shortcutBar = document.querySelector<HTMLElement>('#todo-shortcuts')
-        const shortcuts = shortcutBar ? tagShortcuts(shortcutBar, () => view) : null
+        const shortcuts = shortcutBar ? tagShortcuts(shortcutBar, () => view, true) : null
 
         if (shortcuts) {
             view.dispatch({
