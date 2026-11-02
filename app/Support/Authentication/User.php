@@ -21,9 +21,6 @@ final class User implements Authenticatable
     // There's no default, so that saving a user without loading its profile doesn't unlink it.
     public ?Profile $profile;
 
-    // The todo workspace that was opened last, so that it's opened again next time
-    public ?int $latestWorkspaceId = null;
-
     #[Virtual]
     public bool $isAdmin {
         get => $this->role === Role::ADMIN;

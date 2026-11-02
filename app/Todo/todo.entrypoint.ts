@@ -2,8 +2,8 @@ import { acceptCompletion, autocompletion, startCompletion } from '@codemirror/a
 import { codeFolding, foldedRanges, foldEffect, foldState, unfoldEffect } from '@codemirror/language'
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
 import { defaultKeymap, history, historyKeymap, indentLess, indentMore, indentWithTab } from '@codemirror/commands'
-import { Annotation, Compartment, EditorState, MapMode, Prec, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
-import type { Line, Range, TransactionSpec } from '@codemirror/state'
+import { Annotation, ChangeSet, Compartment, EditorState, MapMode, Prec, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
+import type { Line, Range, Text, TransactionSpec } from '@codemirror/state'
 import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
 
@@ -1794,6 +1794,102 @@ function refreshUpcoming(state: EditorState, markers: StateField<RangeSet<ItemMa
         : null
 }
 
+/**
+ * Only the text of the tasks in the virtual project can be edited, not the name of their project in front of it, nor its title.
+ */
+function virtualChangeFilter(markers: StateField<RangeSet<ItemMarker>>) {
+    return EditorState.changeFilter.of((transaction) => {
+        // Changes made by the editor itself, like bringing the virtual project up to date
+        if (transaction.annotation(Transaction.addToHistory) === false) {
+            return true
+        }
+
+        const { startState: state } = transaction
+        const range = virtualRange(state, markers)
+
+        if (! range) {
+            return true
+        }
+
+        // Everything in between the text of the tasks can't be changed
+        const suppressed = [range.from]
+
+        for (let number = state.doc.lineAt(range.from).number; number <= state.doc.lineAt(range.to).number; number++) {
+            const text = virtualTaskText(state, markers, state.doc.line(number))
+
+            if (text) {
+                suppressed.push(text.from, text.to)
+            }
+        }
+
+        suppressed.push(range.to)
+
+        return suppressed
+    })
+}
+
+/**
+ * Editing a task in the virtual project edits it in its own project as well, which is where it's saved from.
+ * A task can't be split into more lines there, new tasks are added to their own project instead.
+ * Keep this before other transaction filters, so that it runs after them and copies what they changed as well, like a date written for `#today`.
+ */
+function mirrorVirtualEdits(markers: StateField<RangeSet<ItemMarker>>) {
+    return EditorState.transactionFilter.of((transaction) => {
+        if (! transaction.docChanged || transaction.annotation(Transaction.addToHistory) === false) {
+            return transaction
+        }
+
+        const { startState: state } = transaction
+        const range = virtualRange(state, markers)
+
+        if (! range) {
+            return transaction
+        }
+
+        const mirrored: { from: number, to: number, insert: Text }[] = []
+        let isSplit = false
+
+        transaction.changes.iterChanges((fromA, toA, _fromB, _toB, inserted) => {
+            if (fromA < range.from || toA > range.to) {
+                return
+            }
+
+            const line = state.doc.lineAt(fromA)
+            const text = virtualTaskText(state, markers, line)
+
+            if (! text || fromA < text.from || toA > text.to) {
+                return
+            }
+
+            if (inserted.lines > 1) {
+                isSplit = true
+
+                return
+            }
+
+            const item = itemOn(state, markers, line)
+            const own = item ? ownLineOf(state, markers, item) : null
+
+            // Right after its own line was edited, the virtual project might not be up to date yet, it's brought up to date in a moment
+            if (! own || taskText(own) !== state.sliceDoc(text.from, text.to)) {
+                return
+            }
+
+            const ownFrom = own.to - taskText(own).length
+
+            mirrored.push({ from: ownFrom + fromA - text.from, to: ownFrom + toA - text.from, insert: inserted })
+        })
+
+        if (isSplit) {
+            return {}
+        }
+
+        return mirrored.length === 0
+            ? transaction
+            : [transaction, { changes: ChangeSet.of(mirrored, state.doc.length).map(transaction.changes), sequential: true }]
+    })
+}
+
 type Known = Record<ItemType, Set<number>>
 
 type Payload = {
@@ -2281,8 +2377,7 @@ if (textarea) {
 
         // A task that's shown in the virtual project as well, is completed or reopened in its own project,
         // after which the virtual project is brought up to date, which only shows open tasks
-        const ownKey = item.virtual ? `${item.type}-${item.id}` : item.key
-        const ownLine = findLine(view.state, markers, { ...item, key: ownKey })
+        const ownLine = item.virtual ? ownLineOf(view.state, markers, item) : findLine(view.state, markers, item)
         const own = ownLine ? itemOn(view.state, markers, ownLine) : null
         const transaction = own ? toggleItem(view.state, markers, own) : null
 
@@ -2770,6 +2865,7 @@ if (textarea) {
             ]),
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
+            mirrorVirtualEdits(markers),
             normalizeSpacing,
             replaceRelativeDates,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
@@ -2777,16 +2873,7 @@ if (textarea) {
             Prec.highest(keymap.of([{ key: 'Tab', run: expandRelativeDate }, { key: 'Tab', run: acceptCompletion }])),
             // On touch screens, editing is toggled with a button, so that tapping around doesn't open the keyboard
             editing.of(editable(mode === 'workspace' && ! isTouchScreen)),
-            // The virtual project can't be edited by typing, only by completing its tasks, which the editor does itself
-            EditorState.changeFilter.of((transaction) => {
-                if (transaction.annotation(Transaction.addToHistory) === false) {
-                    return true
-                }
-
-                const range = virtualRange(transaction.startState, markers)
-
-                return range ? [range.from, range.to] : true
-            }),
+            virtualChangeFilter(markers),
             codeFolding({
                 placeholderDOM(_view, onclick) {
                     const placeholder = document.createElement('span')

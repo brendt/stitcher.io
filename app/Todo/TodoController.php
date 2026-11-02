@@ -50,7 +50,7 @@ final readonly class TodoController
             $workspaces = $this->workspaces();
         }
 
-        $latestWorkspaceId = $this->user()->latestWorkspaceId;
+        $latestWorkspaceId = $this->profile()->latestWorkspaceId;
 
         $workspace = array_find($workspaces, fn (Workspace $workspace) => $workspace->id->value === $latestWorkspaceId) ?? $workspaces[0] ?? null;
 
@@ -88,7 +88,7 @@ final readonly class TodoController
             return new NotFound();
         }
 
-        query('users')->update(latestWorkspaceId: $workspaceId)->where('id = ?', $this->user()->id->value)->execute();
+        query('profiles')->update(latestWorkspaceId: $workspaceId)->where('id = ?', $this->profile()->id->value)->execute();
 
         return new Redirect($this->filterUri(uri([self::class, 'index']), [], $this->project($request)));
     }
@@ -177,7 +177,7 @@ final readonly class TodoController
 
         $workspace = Workspace::create(profile: $this->profile(), name: $name);
 
-        query('users')->update(latestWorkspaceId: $workspace->id->value)->where('id = ?', $this->user()->id->value)->execute();
+        query('profiles')->update(latestWorkspaceId: $workspace->id->value)->where('id = ?', $this->profile()->id->value)->execute();
 
         return new Redirect(uri([self::class, 'index']));
     }

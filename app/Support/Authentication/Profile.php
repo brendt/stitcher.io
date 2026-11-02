@@ -15,6 +15,9 @@ final class Profile
         public string $name,
     ) {}
 
+    // The todo workspace that was opened last, so that it's opened again next time
+    public ?int $latestWorkspaceId = null;
+
     /** @var \App\Support\Authentication\User[] */
     public array $users = [];
 }
