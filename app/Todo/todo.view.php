@@ -190,28 +190,31 @@ use function Tempest\Router\uri;
     class="fixed right-6 bottom-[max(1.5rem_+_env(safe-area-inset-bottom),0.75rem_+_var(--keyboard-inset,0px))] z-30 flex in-data-editing:hidden items-center justify-center w-12 h-12 rounded-full border-[1.5px] border-gray-900 bg-white text-gray-900 shadow-lg cursor-pointer select-none [-webkit-touch-callout:none]"
 ><svg viewBox="0 0 16 16" class="w-5 h-5" aria-hidden="true"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
 
-<dialog id="new-task" class="m-auto w-[min(24rem,calc(100%-3rem))] p-6 rounded-lg border border-gray-200 shadow-xl font-mono text-sm text-gray-900 backdrop:bg-black/20">
-    <form class="flex flex-col gap-4">
-        <p id="new-task-label" class="font-bold">New task</p>
-        <!-- The task is written in an editor, which is added here, see `todo.entrypoint.ts` -->
-        <div id="new-task-text" class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 focus-within:border-gray-900"></div>
+<!-- Only used on touch screens, where it fills the screen above the keyboard, see `--viewport-top` and `--keyboard-inset` in `todo.entrypoint.ts` -->
+<dialog id="new-task" class="fixed inset-x-0 top-[var(--viewport-top,0px)] bottom-[var(--keyboard-inset,0px)] m-0 w-auto h-auto max-w-none max-h-none p-0 border-0 bg-white font-mono text-sm text-gray-900">
+    <form class="flex flex-col h-full">
+        <div class="flex flex-col flex-1 min-h-0 gap-4 p-6">
+            <p id="new-task-label" class="font-bold">New task</p>
+            <!-- The task is written in an editor, which is added here and takes up the space that's left, see `todo.entrypoint.ts` -->
+            <div id="new-task-text" class="flex-1 min-h-0 w-full px-3 py-2 rounded border-[1.5px] border-gray-300 focus-within:border-gray-900"></div>
+            <div class="relative">
+                <select
+                    id="new-task-project"
+                    name="project"
+                    required
+                    aria-label="Project"
+                    class="w-full appearance-none pl-3 pr-9 py-2 pointer-coarse:text-base rounded border-[1.5px] border-gray-300 bg-white text-gray-900 focus:border-gray-900 focus:outline-none"
+                ></select>
+                <svg viewBox="0 0 16 16" class="pointer-events-none absolute right-3 top-1/2 w-3.5 h-3.5 -translate-y-1/2 text-gray-400" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button type="button" onclick="this.closest('dialog').close()" class="px-3 py-2 rounded select-none border-[1.5px] border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900 cursor-pointer">Cancel</button>
+                <button type="submit" class="px-3 py-2 rounded select-none border-[1.5px] border-gray-900 bg-gray-900 text-white cursor-pointer">Add</button>
+            </div>
+        </div>
         <!-- Buttons for `#` and `@`, and for `#today`, `#today+`, `#tomorrow`, and `#nextweek`, are added here, see `todo.entrypoint.ts`. The row scrolls sideways when they don't fit. -->
-        <!-- Like `#todo-shortcuts`, they're shown right above the keyboard. They're part of the popup, because everything outside of it can't be tapped while it's open. -->
-        <div id="new-task-tags" class="fixed inset-x-0 bottom-[var(--keyboard-inset,0px)] z-30 flex gap-2 px-6 py-2 overflow-x-auto [scrollbar-width:none] bg-white border-t border-gray-200 font-mono text-sm"></div>
-        <div class="relative">
-            <select
-                id="new-task-project"
-                name="project"
-                required
-                aria-label="Project"
-                class="w-full appearance-none pl-3 pr-9 py-2 pointer-coarse:text-base rounded border-[1.5px] border-gray-300 bg-white text-gray-900 focus:border-gray-900 focus:outline-none"
-            ></select>
-            <svg viewBox="0 0 16 16" class="pointer-events-none absolute right-3 top-1/2 w-3.5 h-3.5 -translate-y-1/2 text-gray-400" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
-        </div>
-        <div class="flex justify-end gap-2">
-            <button type="button" onclick="this.closest('dialog').close()" class="px-3 py-2 rounded select-none border-[1.5px] border-gray-300 text-gray-600 hover:border-gray-900 hover:text-gray-900 cursor-pointer">Cancel</button>
-            <button type="submit" class="px-3 py-2 rounded select-none border-[1.5px] border-gray-900 bg-gray-900 text-white cursor-pointer">Add</button>
-        </div>
+        <!-- Like `#todo-shortcuts`, they're right above the keyboard, at the bottom of the popup -->
+        <div id="new-task-tags" class="shrink-0 flex gap-2 px-6 py-2 overflow-x-auto [scrollbar-width:none] bg-white border-t border-gray-200"></div>
     </form>
 </dialog>
 

@@ -3162,7 +3162,7 @@ if (textarea) {
 
     // On iOS, fixed elements are placed at the bottom of the page as a whole, not of the part that's visible,
     // so they'd end up behind the keyboard, and move along while scrolling with the keyboard open.
-    // How much of the page the keyboard covers is kept up to date in `--keyboard-inset`, so that the status and floating buttons can stay right above it.
+    // How much of the page the keyboard covers is kept up to date in `--keyboard-inset`, so that the status, floating buttons, and new task popup can stay right above it.
     const viewport = window.visualViewport
 
     if (isTouchScreen && viewport) {
@@ -3175,6 +3175,8 @@ if (textarea) {
                 const inset = Math.max(0, document.documentElement.clientHeight - viewport.height - viewport.offsetTop)
 
                 document.documentElement.style.setProperty('--keyboard-inset', `${inset}px`)
+                // With the keyboard open, the part that's visible might be scrolled down, which the new task popup keeps up with
+                document.documentElement.style.setProperty('--viewport-top', `${Math.max(0, viewport.offsetTop)}px`)
             })
         }
 
@@ -3326,10 +3328,13 @@ if (textarea) {
                         shortcuts.update()
                     }
                 }),
-                // Three lines high, like a textarea, instead of as high as the main editor
+                // As high as the space it's given in the popup, instead of as high as its text
                 Prec.highest(EditorView.theme({
-                    '.cm-content': {
-                        minHeight: '5.25em',
+                    '&': {
+                        height: '100%',
+                    },
+                    '.cm-scroller': {
+                        overflow: 'auto',
                     },
                 })),
             ],
