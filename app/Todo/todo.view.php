@@ -196,7 +196,8 @@ use function Tempest\Router\uri;
         <!-- The task is written in an editor, which is added here, see `todo.entrypoint.ts` -->
         <div id="new-task-text" class="w-full px-3 py-2 rounded border-[1.5px] border-gray-300 focus-within:border-gray-900"></div>
         <!-- Buttons for `#` and `@`, and for `#today`, `#today+`, `#tomorrow`, and `#nextweek`, are added here, see `todo.entrypoint.ts`. The row scrolls sideways when they don't fit. -->
-        <div id="new-task-tags" class="flex gap-2 -mx-6 px-6 overflow-x-auto [scrollbar-width:none]"></div>
+        <!-- Like `#todo-shortcuts`, they're shown right above the keyboard. They're part of the popup, because everything outside of it can't be tapped while it's open. -->
+        <div id="new-task-tags" class="fixed inset-x-0 bottom-[var(--keyboard-inset,0px)] z-30 flex gap-2 px-6 py-2 overflow-x-auto [scrollbar-width:none] bg-white border-t border-gray-200 font-mono text-sm"></div>
         <div class="relative">
             <select
                 id="new-task-project"
