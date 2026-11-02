@@ -1551,10 +1551,13 @@ const normalizeSpacing = EditorState.transactionFilter.of((transaction) => {
 
 /**
  * Typing `#today`, `#tomorrow`, or `#nextweek` in a task or text writes it as a date instead, like `2026-10-30`,
- * so that it can be filtered on and shows up in Soon. Only lines that are being edited change, once the word is finished:
+ * so that it can be filtered on and shows up in Soon. `#today+5` is written as the date five days from today.
+ * Only lines that are being edited change, once the word is finished:
  * not while the cursor is still right after it, so that typing a longer word doesn't get replaced halfway.
  */
-const RELATIVE_DATES = /(^|\s)(#today|#tomorrow|#nextweek)(?=$|[\s.,;:!?)])/giu
+const RELATIVE_DATE = '#today\\+\\d{1,4}|#today|#tomorrow|#nextweek'
+const RELATIVE_DATES = new RegExp(`(^|\\s)(${RELATIVE_DATE})(?=$|[\\s.,;:!?)])`, 'giu')
+const RELATIVE_DATE_BEFORE_CURSOR = new RegExp(`(^|\\s)(${RELATIVE_DATE})$`, 'iu')
 
 // The number of days from today, worked out when it's used, so that it's always right for the current day.
 // The next week starts on its Monday.
@@ -1568,7 +1571,9 @@ const DAYS_FROM_TODAY: Record<string, () => number> = {
 }
 
 function relativeDate(tag: string): string {
-    return dateInDays(DAYS_FROM_TODAY[tag.toLowerCase()]())
+    const offset = tag.match(/^#today\+(\d+)$/iu)
+
+    return dateInDays(offset ? Number(offset[1]) : DAYS_FROM_TODAY[tag.toLowerCase()]())
 }
 
 function dateInDays(days: number): string {
@@ -1627,7 +1632,7 @@ const replaceRelativeDates = EditorState.transactionFilter.of((transaction) => {
 })
 
 /**
- * Tab right after `#today`, `#tomorrow`, or `#nextweek` writes the date right away, followed by a space to continue typing.
+ * Tab right after `#today`, `#today+5`, `#tomorrow`, or `#nextweek` writes the date right away, followed by a space to continue typing.
  */
 function expandRelativeDate(view: EditorView): boolean {
     const selection = view.state.selection.main
@@ -1637,7 +1642,7 @@ function expandRelativeDate(view: EditorView): boolean {
     }
 
     const line = view.state.doc.lineAt(selection.head)
-    const match = line.text.slice(0, selection.head - line.from).match(/(^|\s)(#today|#tomorrow|#nextweek)$/iu)
+    const match = line.text.slice(0, selection.head - line.from).match(RELATIVE_DATE_BEFORE_CURSOR)
 
     if (! match || (! isTask(line) && ! isText(line))) {
         return false
