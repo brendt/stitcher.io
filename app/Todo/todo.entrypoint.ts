@@ -2542,7 +2542,7 @@ if (textarea) {
      * On touch screens, where the checkbox, drag handle, and archive button are hidden:
      * swiping a line to the left completes or reopens it, swiping a project to the right archives it (or unarchives it),
      * and pressing and holding a line picks it up to drag it up or down.
-     * Double tapping a project's title collapses or expands the project.
+     * Double tapping a project's title collapses or expands the project, tapping anywhere else starts editing there.
      */
     const SWIPE_DISTANCE = 80
     const HOLD_DURATION = 400
@@ -2588,6 +2588,7 @@ if (textarea) {
         let gesture: 'pending' | 'swipe' | 'archive' | 'reorder' | 'scroll' | null = null
         let lastTap: { line: number, time: number } | null = null
         let tappedProject: string | null = null
+        let tappedLink = false
         let openProjectTimer: number | undefined
         let start = { x: 0, y: 0 }
         let tapPosition = 0
@@ -2631,6 +2632,8 @@ if (textarea) {
             line = view.state.doc.lineAt(position)
             lineElement = (event.target as HTMLElement).closest<HTMLElement>('.cm-line')
             tappedProject = (event.target as HTMLElement).closest<HTMLElement>('.cm-line:not(.cm-virtual) .cm-project-title')?.dataset.project ?? null
+            // Tags and links do something of their own when tapped, see `domEventHandlers`, and so does the placeholder of a collapsed project
+            tappedLink = (event.target as HTMLElement).closest('.cm-tag, .cm-link, .cm-foldPlaceholder') !== null
 
             holdTimer = window.setTimeout(() => {
                 if (gesture !== 'pending' || ! line) {
@@ -2714,10 +2717,13 @@ if (textarea) {
             const isDoubleTap = isTap && lastTap !== null && lastTap.line === line?.number && event.timeStamp - lastTap.time < DOUBLE_TAP_DURATION
             const project = isDoubleTap && line && canCollapse(view, line) ? itemOn(view.state, markers, line) : null
 
-            // Tapping anywhere else twice in a row starts editing there, while editing it selects a word like it usually does
-            const startsEditing = isDoubleTap && ! project && startEditingAt !== null && ! view.state.facet(EditorView.editable)
+            // Tapping anywhere else starts editing there, except on a project that can be collapsed, which would be the first tap of a double tap.
+            // There, tapping twice in a row starts editing instead. While editing, tapping places the cursor like it usually does.
+            const isCollapsible = line !== null && canCollapse(view, line)
+            const startsEditing = isTap && (isDoubleTap || ! isCollapsible) && ! project && ! tappedProject && ! tappedLink
+                && startEditingAt !== null && ! view.state.facet(EditorView.editable)
 
-            lastTap = isTap && ! isDoubleTap && line ? { line: line.number, time: event.timeStamp } : null
+            lastTap = isTap && ! isDoubleTap && ! startsEditing && line ? { line: line.number, time: event.timeStamp } : null
 
             // A single tap on a project's title shows only that project, but only once it's clear that it's not a double tap
             window.clearTimeout(openProjectTimer)
@@ -2728,7 +2734,8 @@ if (textarea) {
                 openProjectTimer = window.setTimeout(() => openProject(project), DOUBLE_TAP_DURATION)
             }
 
-            if (isDoubleTap) {
+            // Without this, the browser would place the cursor again, or zoom in on a double tap
+            if (isDoubleTap || startsEditing) {
                 event.preventDefault()
             }
 
