@@ -884,7 +884,7 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             // In the virtual project, the name of a task's own project can be clicked to only show that project
             if (item.virtual && item.type === 'task' && item.project && line.text.startsWith(`- ${item.project}: `)) {
                 decorations.push(Decoration.mark({
-                    class: 'cm-project-title cm-filterable',
+                    class: 'cm-project-title cm-project-name cm-filterable',
                     attributes: { 'data-project': item.project },
                 }).range(line.from + 2, line.from + 2 + item.project.length))
             }
@@ -2009,7 +2009,7 @@ const theme = EditorView.theme({
         color: 'var(--color-gray-400)',
     },
     // Everything that can be clicked to filter on looks the same: hashtags, mentions, dates, project titles, and project names in the virtual project,
-    // except that project names aren't underlined, see below
+    // except that project titles aren't underlined, see below
     '.cm-filterable': {
         fontWeight: 'bold',
         cursor: 'pointer',
@@ -2155,6 +2155,10 @@ const theme = EditorView.theme({
         textDecorationLine: 'none',
     },
     '.cm-project-title:hover': {
+        textDecorationLine: 'underline',
+    },
+    // In the virtual project, the names of the tasks' own projects are underlined like tags, so that they stand out from the tasks
+    '.cm-project-name': {
         textDecorationLine: 'underline',
     },
     // The background of the virtual project reaches a bit beyond its text, without moving the text itself
