@@ -2,6 +2,7 @@
 
 namespace App\Todo;
 
+use App\Support\Authentication\Profile;
 use App\Support\Authentication\Role;
 use App\Support\Authentication\User;
 use Tempest\Database\DatabaseSeeder;
@@ -15,6 +16,7 @@ final class TodoSeeder implements DatabaseSeeder
     public function run(UnitEnum|string|null $database): void
     {
         // The todo app is only accessible to admins, so make sure there is one to seed todos for
+        /** @var User|null $user */
         $user = User::select()
             ->where('role = ?', Role::ADMIN->name)
             ->first();
@@ -24,6 +26,15 @@ final class TodoSeeder implements DatabaseSeeder
             email: env('SEEDER_EMAIL', 'test@example.com'),
             role: Role::ADMIN,
         );
+
+        // Todos belong to the profile of the user
+        $profile = $user->load('profile')->profile;
+
+        if ($profile === null) {
+            $profile = Profile::create(name: $user->name);
+
+            $user->update(profile: $profile);
+        }
 
         // Dates are relative to when seeding, so that there are always some in the past and some coming up
         $date = fn (int $days) => DateTime::now()->plusDays($days)->format('yyyy-MM-dd');
@@ -74,7 +85,7 @@ final class TodoSeeder implements DatabaseSeeder
 
         foreach ($workspaces as $workspaceName => $projects) {
             $workspace = Workspace::create(
-                user: $user,
+                profile: $profile,
                 name: $workspaceName,
             );
 

@@ -2,7 +2,7 @@
 
 namespace App\Todo;
 
-use App\Support\Authentication\User;
+use App\Support\Authentication\Profile;
 use Tempest\Database\IsDatabaseModel;
 use Tempest\Router\Bindable;
 
@@ -11,7 +11,7 @@ final class Workspace implements Bindable
     use IsDatabaseModel;
 
     public function __construct(
-        public User $user,
+        public Profile $profile,
         public string $name,
     ) {}
 

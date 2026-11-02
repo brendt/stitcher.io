@@ -509,7 +509,7 @@ class DragHandle extends WidgetType {
 
 /**
  * Whether a line is part of the virtual project at the top, like "Today", which only shows tasks of other projects again.
- * It can't be edited or moved, and isn't saved.
+ * It can't be moved, and isn't saved. Only the text of its tasks can be edited, which edits them in their own project, see `mirrorVirtualEdits`.
  */
 function isVirtual(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): boolean {
     const { start } = blockOf(state, line)
@@ -526,6 +526,38 @@ function virtualRange(state: EditorState, markers: StateField<RangeSet<ItemMarke
             const { last } = blockOf(state, line)
 
             return { from: line.from, to: Math.min(last.to + 1, state.doc.length) }
+        }
+    }
+
+    return null
+}
+
+/**
+ * Where the text of a task in the virtual project is, after the name of its own project in front of it.
+ */
+function virtualTaskText(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): { from: number, to: number } | null {
+    const item = itemOn(state, markers, line)
+
+    if (! item?.virtual || item.type !== 'task' || ! item.project) {
+        return null
+    }
+
+    const prefix = `- ${item.project}: `
+
+    return line.text.startsWith(prefix) ? { from: line.from + prefix.length, to: line.to } : null
+}
+
+/**
+ * The line of a task in its own project, for a task that's shown in the virtual project as well.
+ */
+function ownLineOf(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, item: Item): Line | null {
+    for (let cursor = state.field(markers).iter(); cursor.value; cursor.next()) {
+        const other = cursor.value.item
+
+        if (! other.virtual && other.type === item.type && other.id === item.id) {
+            const line = state.doc.lineAt(cursor.from)
+
+            return itemOn(state, markers, line) === other ? line : null
         }
     }
 

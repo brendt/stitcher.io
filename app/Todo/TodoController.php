@@ -3,6 +3,7 @@
 namespace App\Todo;
 
 use App\Support\Authentication\Admin;
+use App\Support\Authentication\Profile;
 use App\Support\Authentication\User;
 use Closure;
 use Tempest\Auth\Authentication\Authenticator;
@@ -44,7 +45,7 @@ final readonly class TodoController
 
         // Without a workspace, there's nowhere to save to, so there's always at least one
         if ($workspaces === []) {
-            Workspace::create(user: $this->user(), name: 'Private');
+            Workspace::create(profile: $this->profile(), name: 'Private');
 
             $workspaces = $this->workspaces();
         }
@@ -80,7 +81,7 @@ final readonly class TodoController
             ? null
             : Workspace::select()
                 ->where('workspaces.id = ?', $workspaceId)
-                ->where('workspaces.user_id = ?', $this->user()->id->value)
+                ->where('workspaces.profile_id = ?', $this->profile()->id->value)
                 ->first();
 
         if (! $workspace) {
@@ -174,7 +175,7 @@ final readonly class TodoController
             return new Redirect(uri([self::class, 'index']));
         }
 
-        $workspace = Workspace::create(user: $this->user(), name: $name);
+        $workspace = Workspace::create(profile: $this->profile(), name: $name);
 
         query('users')->update(latestWorkspaceId: $workspace->id->value)->where('id = ?', $this->user()->id->value)->execute();
 
@@ -196,7 +197,7 @@ final readonly class TodoController
             ? null
             : Workspace::select()
                 ->where('workspaces.id = ?', $workspaceId)
-                ->where('workspaces.user_id = ?', $this->user()->id->value)
+                ->where('workspaces.profile_id = ?', $this->profile()->id->value)
                 ->first();
 
         if (! $workspace) {
@@ -217,7 +218,7 @@ final readonly class TodoController
         $workspace = Workspace::select()
             ->with('projects.tasks')
             ->where('workspaces.id = ?', $workspaceId)
-            ->where('workspaces.user_id = ?', $this->user()->id->value)
+            ->where('workspaces.profile_id = ?', $this->profile()->id->value)
             ->first();
 
         if (! $workspace) {
@@ -291,7 +292,7 @@ final readonly class TodoController
         /** @var Project|null $project */
         $project = Project::select()
             ->where('projects.id = ?', $projectId)
-            ->where('projects.workspace_id IN (SELECT workspaces.id FROM workspaces WHERE workspaces.user_id = ?)', $this->user()->id->value)
+            ->where('projects.workspace_id IN (SELECT workspaces.id FROM workspaces WHERE workspaces.profile_id = ?)', $this->profile()->id->value)
             ->first();
 
         if (! $project) {
@@ -309,8 +310,8 @@ final readonly class TodoController
         $task = Task::select()
             ->where('tasks.id = ?', $taskId)
             ->where(
-                'tasks.project_id IN (SELECT projects.id FROM projects INNER JOIN workspaces ON workspaces.id = projects.workspace_id WHERE workspaces.user_id = ?)',
-                $this->user()->id->value,
+                'tasks.project_id IN (SELECT projects.id FROM projects INNER JOIN workspaces ON workspaces.id = projects.workspace_id WHERE workspaces.profile_id = ?)',
+                $this->profile()->id->value,
             )
             ->first();
 
@@ -376,7 +377,7 @@ final readonly class TodoController
         /** @var Workspace[] $workspaces */
         $workspaces = Workspace::select()
             ->with('projects.tasks')
-            ->where('workspaces.user_id = ?', $this->user()->id->value)
+            ->where('workspaces.profile_id = ?', $this->profile()->id->value)
             ->orderBy('workspaces.id ASC, projects.position ASC, projects.id ASC, projects_tasks.id ASC')
             ->all();
 
@@ -477,5 +478,24 @@ final readonly class TodoController
     {
         /** @var User */
         return $this->authenticator->current();
+    }
+
+    /**
+     * Todos belong to the profile of the user, so that they're shared by every user of that profile.
+     * A user without a profile gets one of their own.
+     */
+    private function profile(): Profile
+    {
+        $user = $this->user()->load('profile');
+
+        if ($user->profile !== null) {
+            return $user->profile;
+        }
+
+        $profile = Profile::create(name: $user->name);
+
+        $user->update(profile: $profile);
+
+        return $profile;
     }
 }
