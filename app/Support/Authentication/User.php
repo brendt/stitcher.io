@@ -17,6 +17,10 @@ final class User implements Authenticatable
         public Role $role = Role::USER,
     ) {}
 
+    // Users of the same profile are the same person, logged in differently.
+    // There's no default, so that saving a user without loading its profile doesn't unlink it.
+    public ?Profile $profile;
+
     // The todo workspace that was opened last, so that it's opened again next time
     public ?int $latestWorkspaceId = null;
 
