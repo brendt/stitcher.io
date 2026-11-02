@@ -20,6 +20,6 @@ You could argue that this would be a better job for the Foundation to take care 
 
 But no, instead we've applied a band-aid to one wound, hoping by the time the next one comes around, Ondřej will be there once again.
 
-What I want to say… Just update. Just do it. Do it now without time pressure, instead of postponing until the next time a critical vulnarability is disclosed right when you're on vacation or having a day off. 
+What I want to say… Just update. Just do it. Do it now without time pressure, instead of postponing until the next time a critical vulnerability is disclosed right when you're on vacation or having a day off. 
 
 Invest in certainty instead of gambling.
