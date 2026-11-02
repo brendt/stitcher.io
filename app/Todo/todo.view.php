@@ -49,6 +49,20 @@ use function Tempest\Router\uri;
             >{{ $item->name }}</button>
         </form>
 
+        <!-- On wide screens, the search bar is in the middle of the navigation, on small screens it's in the menu. Both are set up in `todo.entrypoint.ts` -->
+        <div class="hidden lg:block absolute left-1/2 top-1/2 w-80 -translate-x-1/2 -translate-y-1/2">
+            <input
+                id="todo-search"
+                type="search"
+                data-search="todo-search-results"
+                aria-label="Search tasks and projects"
+                placeholder="Search ⌘K"
+                autocomplete="off"
+                class="w-full px-3 py-1 rounded border-[1.5px] border-gray-300 bg-white text-gray-900 select-text placeholder:text-gray-400 pointer-coarse:text-base focus:border-gray-900 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+            />
+            <div id="todo-search-results" hidden class="absolute top-full inset-x-0 z-30 mt-2 flex flex-col p-1 max-h-96 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-lg"></div>
+        </div>
+
         <!-- On wide screens, there's room for these next to the workspaces -->
         <div class="hidden lg:flex lg:items-center lg:gap-4 lg:ml-auto">
             <a
@@ -68,7 +82,19 @@ use function Tempest\Router\uri;
                 <svg viewBox="0 0 16 16" class="w-3.5 h-3.5" aria-hidden="true"><path d="M2.5 4h11M2.5 8h11M2.5 12h11" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
             </summary>
 
-            <div class="absolute right-0 top-full z-30 mt-2 flex flex-col gap-3 min-w-48 p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
+            <div class="absolute right-0 top-full z-30 mt-2 flex flex-col gap-3 min-w-48 max-lg:w-72 p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
+                <div class="lg:hidden flex flex-col gap-2">
+                    <input
+                        id="todo-search-menu"
+                        type="search"
+                        data-search="todo-search-menu-results"
+                        aria-label="Search tasks and projects"
+                        placeholder="Search"
+                        autocomplete="off"
+                        class="w-full px-3 py-1 rounded border-[1.5px] border-gray-300 bg-white text-gray-900 select-text placeholder:text-gray-400 pointer-coarse:text-base focus:border-gray-900 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+                    />
+                    <div id="todo-search-menu-results" hidden class="flex flex-col -mx-2 max-h-[50vh] overflow-y-auto"></div>
+                </div>
                 <a
                     :href="uri([TodoController::class, 'soon'])"
                     class="lg:hidden"

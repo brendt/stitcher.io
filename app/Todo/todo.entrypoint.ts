@@ -1989,6 +1989,117 @@ function snapshot(state: EditorState, markers: StateField<RangeSet<ItemMarker>>,
     return { payload, added }
 }
 
+/**
+ * Whether all characters of `query` are found in `text`, in the same order, ignoring case and spaces in the query.
+ * The score is higher when characters follow each other, or start a word, and when it's found as a whole.
+ * Returns where the characters were found, so that they can be highlighted.
+ */
+function fuzzyMatch(query: string, text: string): { score: number, indices: number[] } | null {
+    const characters = [...query.toLowerCase().replace(/\s+/g, '')]
+    const lower = text.toLowerCase()
+
+    if (characters.length === 0) {
+        return null
+    }
+
+    const indices: number[] = []
+    let score = 0
+    let position = 0
+
+    for (const character of characters) {
+        const index = lower.indexOf(character, position)
+
+        if (index === -1) {
+            return null
+        }
+
+        const isConsecutive = indices.length > 0 && index === indices[indices.length - 1] + 1
+        const isWordStart = index === 0 || /[\s\-_/#@:.]/.test(lower[index - 1])
+
+        score += 1 + (isConsecutive ? 3 : 0) + (isWordStart ? 2 : 0)
+        indices.push(index)
+        position = index + 1
+    }
+
+    if (lower.includes(query.toLowerCase().trim())) {
+        score += 10
+    }
+
+    // Shorter texts match more closely
+    return { score: score - text.length / 100, indices }
+}
+
+/**
+ * A line on the page that was found while searching
+ */
+type SearchResult = {
+    line: number
+    type: 'project' | 'task'
+    text: string
+    project: string | null
+    indices: number[]
+    score: number
+}
+
+const SEARCH_LIMIT = 10
+
+/**
+ * Searches the projects and tasks on the page, best matches first. The virtual project only shows tasks again, so it's left out,
+ * and so are lines for which `isHidden` is true, like completed tasks that are hidden.
+ */
+function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, query: string, isHidden: (line: Line) => boolean): SearchResult[] {
+    const results: SearchResult[] = []
+    let project: string | null = null
+
+    for (let number = 1; number <= state.doc.lines; number++) {
+        const line = state.doc.line(number)
+        const type = typeOf(line)
+
+        if (type === 'project') {
+            project = line.text.slice(2).trim()
+        }
+
+        if ((type !== 'project' && type !== 'task') || isVirtual(state, markers, line) || isHidden(line)) {
+            continue
+        }
+
+        const text = type === 'project' ? line.text.slice(2).trim() : taskText(line).trim()
+        const match = fuzzyMatch(query, text)
+
+        if (match) {
+            results.push({ line: number, type, text, project: type === 'task' ? project : null, ...match })
+        }
+    }
+
+    return results.sort((a, b) => b.score - a.score || a.line - b.line).slice(0, SEARCH_LIMIT)
+}
+
+// A line that was jumped to from the search results is highlighted for a moment
+const flashLine = StateEffect.define<number | null>()
+
+const flashedLine = StateField.define<DecorationSet>({
+    create: () => Decoration.none,
+
+    update(decorations, transaction) {
+        // Once something changes, the highlight isn't needed anymore
+        if (transaction.docChanged) {
+            decorations = Decoration.none
+        }
+
+        for (const effect of transaction.effects) {
+            if (effect.is(flashLine)) {
+                decorations = effect.value === null
+                    ? Decoration.none
+                    : Decoration.set([Decoration.line({ class: 'cm-flash' }).range(effect.value)])
+            }
+        }
+
+        return decorations
+    },
+
+    provide: (field) => EditorView.decorations.from(field),
+})
+
 const theme = EditorView.theme({
     '&': {
         fontSize: '1rem',
@@ -2021,6 +2132,9 @@ const theme = EditorView.theme({
     },
     '.cm-muted': {
         color: 'var(--color-gray-400)',
+    },
+    '.cm-flash': {
+        backgroundColor: 'rgb(254 249 195)',
     },
     // Everything that can be clicked to filter on looks the same: hashtags, mentions, dates, project titles, and project names in the virtual project,
     // except that project titles aren't underlined, see below
@@ -2912,6 +3026,7 @@ if (textarea) {
                 },
             }),
             markers,
+            flashedLine,
             itemDecorations(markers, { drag, toggle, collapse, archive, mode }),
             completedHiding,
             syntax,
@@ -3224,6 +3339,214 @@ if (textarea) {
 
         showState()
     }
+
+    // Searching projects and tasks, with a search bar in the navigation on wide screens and in the menu on small screens
+    const searchInputs = Array.from(document.querySelectorAll<HTMLInputElement>('[data-search]'))
+
+    // Folded projects are expanded to show what was found, and the line is highlighted for a moment
+    const jumpTo = (number: number) => {
+        const line = view.state.doc.line(number)
+        const unfold: StateEffect<{ from: number, to: number }>[] = []
+
+        foldedRanges(view.state).between(line.from, line.from, (from, to) => {
+            if (from <= line.from && to >= line.from) {
+                unfold.push(unfoldEffect.of({ from, to }))
+            }
+        })
+
+        view.dispatch({
+            effects: [...unfold, flashLine.of(line.from), EditorView.scrollIntoView(line.from, { y: 'center' })],
+            selection: { anchor: line.from + (isTask(line) ? line.text.length - taskText(line).length : 2) },
+        })
+
+        window.setTimeout(() => view.dispatch({ effects: flashLine.of(null) }), 1500)
+
+        // On touch screens, focusing would open the keyboard, which editing does instead
+        if (! isTouchScreen) {
+            view.focus()
+        }
+    }
+
+    // Lines that are hidden, like completed tasks while those are hidden, can't be shown, so they aren't found
+    const isHiddenLine = (line: Line) => {
+        let isHidden = false
+
+        view.state.field(completedHiding).decorations.between(line.from, line.from, (from, to) => {
+            if (from <= line.from && to > line.from) {
+                isHidden = true
+
+                return false
+            }
+        })
+
+        return isHidden
+    }
+
+    for (const input of searchInputs) {
+        const resultsElement = document.getElementById(input.dataset.search ?? '')
+
+        if (! resultsElement) {
+            continue
+        }
+
+        let results: SearchResult[] = []
+        let active = 0
+
+        const close = () => {
+            resultsElement.hidden = true
+            resultsElement.replaceChildren()
+        }
+
+        const pick = (index: number) => {
+            const result = results[index]
+
+            if (! result) {
+                return
+            }
+
+            input.value = ''
+            close()
+            input.blur()
+            input.closest('details')?.removeAttribute('open')
+            jumpTo(result.line)
+        }
+
+        // The characters that were found are highlighted
+        const highlighted = (text: string, indices: number[]) => {
+            const element = document.createElement('span')
+            const found = new Set(indices)
+
+            element.className = 'min-w-0 truncate'
+
+            for (const [index, character] of [...text].entries()) {
+                if (found.has(index)) {
+                    const mark = document.createElement('mark')
+
+                    mark.className = 'bg-transparent font-bold text-gray-900'
+                    mark.textContent = character
+                    element.append(mark)
+                } else {
+                    element.append(character)
+                }
+            }
+
+            return element
+        }
+
+        const render = () => {
+            if (input.value.trim() === '') {
+                close()
+
+                return
+            }
+
+            if (results.length === 0) {
+                const empty = document.createElement('p')
+
+                empty.className = 'px-3 py-1.5 text-gray-400'
+                empty.textContent = 'Nothing found'
+                resultsElement.replaceChildren(empty)
+                resultsElement.hidden = false
+
+                return
+            }
+
+            resultsElement.replaceChildren(...results.map((result, index) => {
+                const button = document.createElement('button')
+
+                button.type = 'button'
+                button.className = 'flex w-full items-baseline gap-2 px-3 py-1.5 text-left text-gray-600 rounded cursor-pointer aria-selected:bg-gray-100'
+                button.setAttribute('aria-selected', String(index === active))
+                // Keeps the search bar focused, so that it doesn't close before the result is picked
+                button.addEventListener('mousedown', (event) => event.preventDefault())
+                button.addEventListener('click', () => pick(index))
+
+                if (result.type === 'project') {
+                    const sign = document.createElement('span')
+
+                    sign.className = 'shrink-0 text-gray-400'
+                    sign.textContent = '#'
+                    button.append(sign, highlighted(result.text, result.indices))
+                } else {
+                    button.append(highlighted(result.text, result.indices))
+
+                    if (result.project) {
+                        const project = document.createElement('span')
+
+                        project.className = 'ml-auto shrink-0 max-w-[40%] truncate text-xs text-gray-400'
+                        project.textContent = result.project
+                        button.append(project)
+                    }
+                }
+
+                return button
+            }))
+
+            resultsElement.hidden = false
+            resultsElement.children[active]?.scrollIntoView({ block: 'nearest' })
+        }
+
+        input.addEventListener('input', () => {
+            results = search(view.state, markers, input.value, isHiddenLine)
+            active = 0
+            render()
+        })
+
+        input.addEventListener('focus', () => {
+            if (input.value.trim() !== '') {
+                results = search(view.state, markers, input.value, isHiddenLine)
+                render()
+            }
+        })
+
+        input.addEventListener('blur', close)
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                event.preventDefault()
+
+                if (results.length > 0) {
+                    active = (active + (event.key === 'ArrowDown' ? 1 : -1) + results.length) % results.length
+                    render()
+                }
+            }
+
+            if (event.key === 'Enter') {
+                event.preventDefault()
+                pick(active)
+            }
+
+            if (event.key === 'Escape') {
+                event.preventDefault()
+                input.value = ''
+                close()
+                input.blur()
+
+                if (! isTouchScreen) {
+                    view.focus()
+                }
+            }
+        })
+    }
+
+    // Cmd+K (or Ctrl+K) focuses the search bar that's shown, which is in the menu on small screens
+    window.addEventListener('keydown', (event) => {
+        if (! (event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'k') {
+            return
+        }
+
+        const input = searchInputs.find((input) => input.offsetParent !== null)
+            ?? searchInputs.find((input) => input.closest('details') !== null)
+
+        if (! input) {
+            return
+        }
+
+        event.preventDefault()
+        input.closest('details')?.setAttribute('open', '')
+        input.focus()
+        input.select()
+    })
 
     const editButton = document.querySelector<HTMLButtonElement>('#todo-edit')
 
