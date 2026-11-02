@@ -1112,6 +1112,7 @@ function addTask(view: EditorView, markers: StateField<RangeSet<ItemMarker>>, pr
 /**
  * `#` and `@` are hard to find on a phone's keyboard, so they can be inserted with a button,
  * followed by `#today`, `#tomorrow`, and `#nextweek`, which add or remove their date on the cursor's line with a single tap.
+ * `#today+` is inserted as it is instead, so that the number of days can be typed after it, see `RELATIVE_DATES`.
  * Phones don't have a Tab key either, so with `canIndent`, there are buttons in front of them to make a task a subtask and back.
  * The editor is passed lazily, so that the buttons can be set up before it.
  */
@@ -1211,6 +1212,8 @@ function tagShortcuts(container: HTMLElement, editor: () => EditorView, canInden
         }))
     }
 
+    const todayPlus = chip('#today+', () => insert('#today+'))
+
     // The dates are worked out again when the buttons are shown, so that they're right for the current day
     const refreshDates = () => {
         dateChips.forEach(({ button }) => button.remove())
@@ -1222,6 +1225,8 @@ function tagShortcuts(container: HTMLElement, editor: () => EditorView, canInden
         })
 
         container.append(...dateChips.map(({ button }) => button))
+        // Right after `#today`
+        dateChips[0].button.after(todayPlus)
         update()
     }
 
