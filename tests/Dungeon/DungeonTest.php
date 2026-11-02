@@ -6,6 +6,7 @@ use App\Dungeon\Dungeon;
 use App\Dungeon\Repositories\DeckRepository;
 use App\Dungeon\Repositories\StatsRepository;
 use App\Dungeon\Support\DungeonInitializer;
+use App\Support\Authentication\Profile;
 use App\Support\Authentication\User;
 use Tempest\Auth\Authentication\Authenticator;
 use Tempest\Container\Container;
@@ -79,7 +80,7 @@ abstract class DungeonTest
         $this->container->singleton(GenericRequest::class, $request);
 
         // Setup auth
-        $this->user = new User('Brent', 'example@example.com')->save();
+        $this->user = User::create(name: 'Brent', email: 'example@example.com', profile: Profile::create(name: 'Brent'));
         $this->container->get(Authenticator::class)->authenticate($this->user);
 
         // Setup stats

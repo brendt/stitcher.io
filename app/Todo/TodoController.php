@@ -482,20 +482,9 @@ final readonly class TodoController
 
     /**
      * Todos belong to the profile of the user, so that they're shared by every user of that profile.
-     * A user without a profile gets one of their own.
      */
     private function profile(): Profile
     {
-        $user = $this->user()->load('profile');
-
-        if ($user->profile !== null) {
-            return $user->profile;
-        }
-
-        $profile = Profile::create(name: $user->name);
-
-        $user->update(profile: $profile);
-
-        return $profile;
+        return $this->user()->load('profile')->profile;
     }
 }

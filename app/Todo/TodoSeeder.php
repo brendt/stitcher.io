@@ -25,16 +25,11 @@ final class TodoSeeder implements DatabaseSeeder
             name: 'Brent',
             email: env('SEEDER_EMAIL', 'test@example.com'),
             role: Role::ADMIN,
+            profile: Profile::create(name: 'Brent'),
         );
 
         // Todos belong to the profile of the user
         $profile = $user->load('profile')->profile;
-
-        if ($profile === null) {
-            $profile = Profile::create(name: $user->name);
-
-            $user->update(profile: $profile);
-        }
 
         // Dates are relative to when seeding, so that there are always some in the past and some coming up
         $date = fn (int $days) => DateTime::now()->plusDays($days)->format('yyyy-MM-dd');

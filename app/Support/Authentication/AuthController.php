@@ -65,10 +65,13 @@ final readonly class AuthController
                 ->first();
 
             if (! $user) {
+                $name = $oauthUser->name ?? $oauthUser->nickname;
+
                 $user = User::create(
                     email: $oauthUser->email,
-                    name: $oauthUser->name ?? $oauthUser->nickname,
+                    name: $name,
                     role: Role::USER,
+                    profile: Profile::create(name: $name),
                 );
             } else {
                 $user->name = $oauthUser->name ?? $oauthUser->nickname;
@@ -100,6 +103,7 @@ final readonly class AuthController
                 name: 'Brent',
                 email: env('SEEDER_EMAIL', 'test@example.com'),
                 role: Role::ADMIN,
+                profile: Profile::create(name: 'Brent'),
             );
         }
 

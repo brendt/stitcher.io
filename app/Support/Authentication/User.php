@@ -17,9 +17,9 @@ final class User implements Authenticatable
         public Role $role = Role::USER,
     ) {}
 
-    // Users of the same profile are the same person, logged in differently.
-    // There's no default, so that saving a user without loading its profile doesn't unlink it.
-    public ?Profile $profile;
+    // Users of the same profile are the same person, logged in differently. Every user has a profile, which is created along with the user.
+    // It isn't loaded by default, and isn't saved when it's not loaded, so saving a user doesn't unlink it.
+    public Profile $profile;
 
     #[Virtual]
     public bool $isAdmin {

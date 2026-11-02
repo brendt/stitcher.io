@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Blog\BlogPostRepository;
 use App\Dungeon\Dungeon;
 use App\Dungeon\Persistence\DungeonUserStats;
+use App\Support\Authentication\Profile;
 use App\Support\Authentication\Role;
 use App\Support\Authentication\User;
 use App\Time\TimeEntry;
@@ -26,6 +27,7 @@ final class AppSeeder implements DatabaseSeeder
             name: 'Brent',
             email: env('SEEDER_EMAIL', 'test@example.com'),
             role: Role::ADMIN,
+            profile: Profile::create(name: 'Brent'),
         );
 
         foreach (range(0, 100) as $i) {
@@ -33,6 +35,7 @@ final class AppSeeder implements DatabaseSeeder
                 name: 'Brent',
                 email: "test+{$i}@example.com",
                 role: Role::USER,
+                profile: Profile::create(name: 'Brent'),
             );
 
             $games = random_int(0, 1000);
