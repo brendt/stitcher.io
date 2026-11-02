@@ -366,7 +366,57 @@ final readonly class TodoController
             markdown: $this->markdown->render($groups, $filters),
             items: $this->markdown->items($groups, $filters),
             tags: $this->tags($workspaces, $workspace),
+            searchItems: $this->searchItems($workspaces),
         );
+    }
+
+    /**
+     * The projects and tasks of all workspaces, so that they can be searched from any page, see `todo.entrypoint.ts`.
+     * Archived projects aren't shown in their workspace, so they can't be found. Text isn't a task, so it isn't either.
+     * Tasks of a completed project count as completed as well.
+     *
+     * @param Workspace[] $workspaces
+     * @return array<array{type: 'project'|'task', id: int, workspace: int, workspaceName: string, project: string|null, text: string, completed: bool}>
+     */
+    private function searchItems(array $workspaces): array
+    {
+        $items = [];
+
+        foreach ($workspaces as $workspace) {
+            foreach ($workspace->projects as $project) {
+                if ($project->archivedAt !== null) {
+                    continue;
+                }
+
+                $items[] = [
+                    'type' => 'project',
+                    'id' => (int) $project->id->value,
+                    'workspace' => (int) $workspace->id->value,
+                    'workspaceName' => $workspace->name,
+                    'project' => null,
+                    'text' => $project->name,
+                    'completed' => $project->completedAt !== null,
+                ];
+
+                foreach ($project->tasks as $task) {
+                    if ($task->isText) {
+                        continue;
+                    }
+
+                    $items[] = [
+                        'type' => 'task',
+                        'id' => (int) $task->id->value,
+                        'workspace' => (int) $workspace->id->value,
+                        'workspaceName' => $workspace->name,
+                        'project' => $project->name,
+                        'text' => $task->name,
+                        'completed' => $task->completedAt !== null || $project->completedAt !== null,
+                    ];
+                }
+            }
+        }
+
+        return $items;
     }
 
     /**

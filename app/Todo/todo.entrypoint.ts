@@ -2030,25 +2030,46 @@ function fuzzyMatch(query: string, text: string): { score: number, indices: numb
 }
 
 /**
- * A line on the page that was found while searching
+ * A project or task that was found while searching, on this page, or in another workspace
  */
 type SearchResult = {
-    line: number
+    // The line on this page, or `null` when it's somewhere else
+    line: number | null
     type: 'project' | 'task'
+    // `null` until a newly written project or task has been saved
+    id: number | null
     text: string
     project: string | null
+    // The workspace it's in, when it's not on this page
+    workspace: { id: number, name: string } | null
+    completed: boolean
     indices: number[]
     score: number
+}
+
+/**
+ * The projects and tasks of all workspaces, as loaded with the page, see `TodoController::searchItems()`
+ */
+type SearchItem = {
+    type: 'project' | 'task'
+    id: number
+    workspace: number
+    workspaceName: string
+    project: string | null
+    text: string
+    completed: boolean
 }
 
 const SEARCH_LIMIT = 10
 
 /**
- * Searches the projects and tasks on the page, best matches first. The virtual project only shows tasks again, so it's left out,
- * and so are lines for which `isExcluded` is true, like completed tasks.
+ * Searches the projects and tasks on the page as they are now, followed by the ones of all workspaces that aren't on the page, best matches first.
+ * The virtual project only shows tasks again, so it's left out. Completed ones are only found with `includeCompleted`.
  */
-function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, query: string, isExcluded: (line: Line) => boolean): SearchResult[] {
+function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, items: SearchItem[], query: string, includeCompleted: boolean): SearchResult[] {
     const results: SearchResult[] = []
+    const onPage = new Set<string>()
+    const completed = completedRanges(state, markers)
     let project: string | null = null
 
     for (let number = 1; number <= state.doc.lines; number++) {
@@ -2059,7 +2080,18 @@ function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, q
             project = line.text.slice(2).trim()
         }
 
-        if ((type !== 'project' && type !== 'task') || isVirtual(state, markers, line) || isExcluded(line)) {
+        if ((type !== 'project' && type !== 'task') || isVirtual(state, markers, line)) {
+            continue
+        }
+
+        const id = itemOn(state, markers, line)?.id ?? null
+        const isCompleted = completed.some(({ from, to }) => line.from >= from && line.from <= to)
+
+        if (id !== null) {
+            onPage.add(`${type}-${id}`)
+        }
+
+        if (isCompleted && ! includeCompleted) {
             continue
         }
 
@@ -2067,11 +2099,33 @@ function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, q
         const match = fuzzyMatch(query, text)
 
         if (match) {
-            results.push({ line: number, type, text, project: type === 'task' ? project : null, ...match })
+            results.push({ line: number, type, id, text, project: type === 'task' ? project : null, workspace: null, completed: isCompleted, ...match })
         }
     }
 
-    return results.sort((a, b) => b.score - a.score || a.line - b.line).slice(0, SEARCH_LIMIT)
+    for (const item of items) {
+        if (onPage.has(`${item.type}-${item.id}`) || (item.completed && ! includeCompleted)) {
+            continue
+        }
+
+        const match = fuzzyMatch(query, item.text)
+
+        if (match) {
+            results.push({
+                line: null,
+                type: item.type,
+                id: item.id,
+                text: item.text,
+                project: item.project,
+                workspace: { id: item.workspace, name: item.workspaceName },
+                completed: item.completed,
+                ...match,
+            })
+        }
+    }
+
+    // Sorting keeps the order for equal scores, so what's on this page comes first then
+    return results.sort((a, b) => b.score - a.score).slice(0, SEARCH_LIMIT)
 }
 
 // A line that was jumped to from the search results is highlighted for a moment
@@ -3372,12 +3426,45 @@ if (textarea) {
     // This is the same for both search bars.
     let includeCompleted = false
 
-    const searchFor = (query: string) => {
-        const ranges = completedRanges(view.state, markers)
-        const isCompleted = (line: Line) => ranges.some(({ from, to }) => line.from >= from && line.from <= to)
+    const searchItems: SearchItem[] = JSON.parse(textarea.dataset.searchItems ?? '[]')
+    const openWorkspaceUrl = textarea.dataset.openWorkspaceUrl
+    const searchFor = (query: string) => search(view.state, markers, searchItems, query, includeCompleted)
 
-        return search(view.state, markers, query, (line) => ! includeCompleted && isCompleted(line))
-            .map((result) => ({ ...result, completed: isCompleted(view.state.doc.line(result.line)) }))
+    // A project or task in another workspace is jumped to once that workspace is opened, see below
+    const JUMP_KEY = 'todo-search-jump'
+
+    const show = (result: SearchResult) => {
+        // A completed task that's hidden can only be shown by showing all completed ones again
+        if (result.completed && view.state.field(completedHiding).hidden) {
+            setCompletedHidden(false)
+        }
+
+        if (result.line !== null) {
+            jumpTo(result.line)
+
+            return
+        }
+
+        if (! result.workspace || ! openWorkspaceUrl) {
+            return
+        }
+
+        sessionStorage.setItem(JUMP_KEY, JSON.stringify({ type: result.type, id: result.id }))
+
+        const form = document.createElement('form')
+        const workspace = document.createElement('input')
+
+        form.method = 'post'
+        form.action = openWorkspaceUrl
+        workspace.type = 'hidden'
+        workspace.name = 'workspace'
+        workspace.value = String(result.workspace.id)
+        form.append(workspace)
+        document.body.append(form)
+
+        // Changes that haven't been saved yet are saved first
+        window.clearTimeout(saveTimer)
+        save().finally(() => form.submit())
     }
 
     for (const input of searchInputs) {
@@ -3387,7 +3474,7 @@ if (textarea) {
             continue
         }
 
-        let results: (SearchResult & { completed: boolean })[] = []
+        let results: SearchResult[] = []
         let active = 0
 
         const close = () => {
@@ -3406,13 +3493,7 @@ if (textarea) {
             close()
             input.blur()
             input.closest('details')?.removeAttribute('open')
-
-            // A completed task that's hidden can only be shown by showing all completed ones again
-            if (result.completed && view.state.field(completedHiding).hidden) {
-                setCompletedHidden(false)
-            }
-
-            jumpTo(result.line)
+            show(result)
         }
 
         // The characters that were found are highlighted
@@ -3486,17 +3567,20 @@ if (textarea) {
 
                     sign.className = 'shrink-0 text-gray-400'
                     sign.textContent = '#'
-                    button.append(sign, highlighted(result.text, result.indices, result.completed))
-                } else {
-                    button.append(highlighted(result.text, result.indices, result.completed))
+                    button.append(sign)
+                }
 
-                    if (result.project) {
-                        const project = document.createElement('span')
+                button.append(highlighted(result.text, result.indices, result.completed))
 
-                        project.className = 'ml-auto shrink-0 max-w-[40%] truncate text-xs text-gray-400'
-                        project.textContent = result.project
-                        button.append(project)
-                    }
+                // Where it is: the project of a task, after the workspace when that's another one
+                const where = [result.workspace?.name, result.type === 'task' ? result.project : null].filter((part) => part)
+
+                if (where.length > 0) {
+                    const location = document.createElement('span')
+
+                    location.className = 'ml-auto shrink-0 max-w-[40%] truncate text-xs text-gray-400'
+                    location.textContent = where.join(' / ')
+                    button.append(location)
                 }
 
                 return button
@@ -3736,6 +3820,26 @@ if (textarea) {
     }
 
     view.dispatch({ effects: folds, annotations: restoringFolds.of(true) })
+
+    // A project or task that was picked from the search results in another workspace, see `show`
+    const jump = sessionStorage.getItem(JUMP_KEY)
+
+    if (jump) {
+        sessionStorage.removeItem(JUMP_KEY)
+
+        const { type, id } = JSON.parse(jump) as { type: ItemType, id: number }
+        const line = ownLineOf(view.state, markers, { type, id, key: '', completed: false })
+
+        if (line) {
+            const isCompleted = completedRanges(view.state, markers).some(({ from, to }) => line.from >= from && line.from <= to)
+
+            if (isCompleted && view.state.field(completedHiding).hidden) {
+                setCompletedHidden(false)
+            }
+
+            jumpTo(line.number)
+        }
+    }
 
     if (view.state.facet(EditorView.editable)) {
         view.focus()

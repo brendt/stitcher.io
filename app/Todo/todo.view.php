@@ -137,6 +137,8 @@ use function Tempest\Router\uri;
             name="markdown"
             :data-items="json_encode($items)"
             :data-tags="json_encode($tags)"
+            :data-search-items="json_encode($searchItems)"
+            :data-open-workspace-url="uri([TodoController::class, 'openWorkspace'])"
             :data-filter="implode(' ', $filters)"
             :data-project="$project"
             :data-filter-url="$baseUri"
