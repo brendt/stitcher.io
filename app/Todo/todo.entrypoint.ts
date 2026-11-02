@@ -2322,11 +2322,11 @@ const theme = EditorView.theme({
         cursor: 'pointer',
     },
     '.cm-link': {
-        fontWeight: 'bold',
         cursor: 'pointer',
+        textDecoration: 'underline',
     },
     '.cm-link:hover': {
-        textDecoration: 'underline',
+        textDecoration: 'none',
     },
     '.cm-tag-sign': {
         fontWeight: 'bold',
