@@ -2045,9 +2045,9 @@ const SEARCH_LIMIT = 10
 
 /**
  * Searches the projects and tasks on the page, best matches first. The virtual project only shows tasks again, so it's left out,
- * and so are lines for which `isHidden` is true, like completed tasks that are hidden.
+ * and so are lines for which `isExcluded` is true, like completed tasks.
  */
-function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, query: string, isHidden: (line: Line) => boolean): SearchResult[] {
+function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, query: string, isExcluded: (line: Line) => boolean): SearchResult[] {
     const results: SearchResult[] = []
     let project: string | null = null
 
@@ -2059,7 +2059,7 @@ function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, q
             project = line.text.slice(2).trim()
         }
 
-        if ((type !== 'project' && type !== 'task') || isVirtual(state, markers, line) || isHidden(line)) {
+        if ((type !== 'project' && type !== 'task') || isVirtual(state, markers, line) || isExcluded(line)) {
             continue
         }
 
@@ -3304,40 +3304,41 @@ if (textarea) {
     }
 
     const hideCompletedButton = document.querySelector<HTMLButtonElement>('#todo-hide-completed')
+    const hideCompletedLabel = hideCompletedButton?.querySelector('span')
 
-    if (hideCompletedButton) {
-        const label = hideCompletedButton.querySelector('span')
+    const showHideCompletedState = () => {
+        const isHidden = view.state.field(completedHiding).hidden
 
-        const showState = () => {
-            const isHidden = view.state.field(completedHiding).hidden
+        hideCompletedButton?.setAttribute('aria-pressed', String(isHidden))
 
-            hideCompletedButton.setAttribute('aria-pressed', String(isHidden))
-
-            if (label) {
-                label.textContent = isHidden ? 'Show completed' : 'Hide completed'
-            }
+        if (hideCompletedLabel) {
+            hideCompletedLabel.textContent = isHidden ? 'Show completed' : 'Hide completed'
         }
+    }
 
-        hideCompletedButton.addEventListener('click', () => {
-            hideCompletedButton.closest('details')?.removeAttribute('open')
+    const setCompletedHidden = (isHidden: boolean) => {
+        const ranges = isHidden ? completedRanges(view.state, markers) : []
+        const head = view.state.selection.main.head
+        const hiding = ranges.find(({ from, to }) => head >= from && head <= to)
 
-            const isHidden = ! view.state.field(completedHiding).hidden
-            const ranges = isHidden ? completedRanges(view.state, markers) : []
-            const head = view.state.selection.main.head
-            const hiding = ranges.find(({ from, to }) => head >= from && head <= to)
-
-            view.dispatch({
-                effects: hideCompleted.of(isHidden),
-                // A cursor on a line that's being hidden moves right above it, or below it at the top,
-                // so that typing doesn't change what can't be seen
-                selection: hiding ? { anchor: hiding.from > 0 ? hiding.from - 1 : Math.min(hiding.to + 1, view.state.doc.length) } : undefined,
-            })
-
-            localStorage.setItem(HIDE_COMPLETED_KEY, String(isHidden))
-            showState()
+        view.dispatch({
+            effects: hideCompleted.of(isHidden),
+            // A cursor on a line that's being hidden moves right above it, or below it at the top,
+            // so that typing doesn't change what can't be seen
+            selection: hiding ? { anchor: hiding.from > 0 ? hiding.from - 1 : Math.min(hiding.to + 1, view.state.doc.length) } : undefined,
         })
 
-        showState()
+        localStorage.setItem(HIDE_COMPLETED_KEY, String(isHidden))
+        showHideCompletedState()
+    }
+
+    if (hideCompletedButton) {
+        hideCompletedButton.addEventListener('click', () => {
+            hideCompletedButton.closest('details')?.removeAttribute('open')
+            setCompletedHidden(! view.state.field(completedHiding).hidden)
+        })
+
+        showHideCompletedState()
     }
 
     // Searching projects and tasks, with a search bar in the navigation on wide screens and in the menu on small screens
@@ -3367,19 +3368,16 @@ if (textarea) {
         }
     }
 
-    // Lines that are hidden, like completed tasks while those are hidden, can't be shown, so they aren't found
-    const isHiddenLine = (line: Line) => {
-        let isHidden = false
+    // Completed tasks are only found when asked for, which goes for the tasks of completed projects, and subtasks of completed tasks as well.
+    // This is the same for both search bars.
+    let includeCompleted = false
 
-        view.state.field(completedHiding).decorations.between(line.from, line.from, (from, to) => {
-            if (from <= line.from && to > line.from) {
-                isHidden = true
+    const searchFor = (query: string) => {
+        const ranges = completedRanges(view.state, markers)
+        const isCompleted = (line: Line) => ranges.some(({ from, to }) => line.from >= from && line.from <= to)
 
-                return false
-            }
-        })
-
-        return isHidden
+        return search(view.state, markers, query, (line) => ! includeCompleted && isCompleted(line))
+            .map((result) => ({ ...result, completed: isCompleted(view.state.doc.line(result.line)) }))
     }
 
     for (const input of searchInputs) {
@@ -3389,7 +3387,7 @@ if (textarea) {
             continue
         }
 
-        let results: SearchResult[] = []
+        let results: (SearchResult & { completed: boolean })[] = []
         let active = 0
 
         const close = () => {
@@ -3408,21 +3406,27 @@ if (textarea) {
             close()
             input.blur()
             input.closest('details')?.removeAttribute('open')
+
+            // A completed task that's hidden can only be shown by showing all completed ones again
+            if (result.completed && view.state.field(completedHiding).hidden) {
+                setCompletedHidden(false)
+            }
+
             jumpTo(result.line)
         }
 
         // The characters that were found are highlighted
-        const highlighted = (text: string, indices: number[]) => {
+        const highlighted = (text: string, indices: number[], completed: boolean) => {
             const element = document.createElement('span')
             const found = new Set(indices)
 
-            element.className = 'min-w-0 truncate'
+            element.className = completed ? 'min-w-0 truncate line-through text-gray-400' : 'min-w-0 truncate'
 
             for (const [index, character] of [...text].entries()) {
                 if (found.has(index)) {
                     const mark = document.createElement('mark')
 
-                    mark.className = 'bg-transparent font-bold text-gray-900'
+                    mark.className = completed ? 'bg-transparent font-bold text-gray-500' : 'bg-transparent font-bold text-gray-900'
                     mark.textContent = character
                     element.append(mark)
                 } else {
@@ -3433,6 +3437,20 @@ if (textarea) {
             return element
         }
 
+        // Below the results, completed tasks can be included as well
+        const completedToggle = document.createElement('button')
+
+        completedToggle.type = 'button'
+        completedToggle.className = 'group flex items-center gap-2 mt-1 px-3 pt-2 pb-1.5 border-t border-gray-200 text-left text-xs text-gray-400 hover:text-gray-900 cursor-pointer aria-pressed:text-gray-900'
+        completedToggle.innerHTML = '<span class="flex items-center justify-center w-3.5 h-3.5 rounded-sm border-[1.5px] border-current" aria-hidden="true"><svg viewBox="0 0 16 16" class="hidden w-3 h-3 group-aria-pressed:block"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Include completed'
+        completedToggle.addEventListener('mousedown', (event) => event.preventDefault())
+        completedToggle.addEventListener('click', () => {
+            includeCompleted = ! includeCompleted
+            results = searchFor(input.value)
+            active = 0
+            render()
+        })
+
         const render = () => {
             if (input.value.trim() === '') {
                 close()
@@ -3440,12 +3458,14 @@ if (textarea) {
                 return
             }
 
+            completedToggle.setAttribute('aria-pressed', String(includeCompleted))
+
             if (results.length === 0) {
                 const empty = document.createElement('p')
 
                 empty.className = 'px-3 py-1.5 text-gray-400'
                 empty.textContent = 'Nothing found'
-                resultsElement.replaceChildren(empty)
+                resultsElement.replaceChildren(empty, completedToggle)
                 resultsElement.hidden = false
 
                 return
@@ -3466,9 +3486,9 @@ if (textarea) {
 
                     sign.className = 'shrink-0 text-gray-400'
                     sign.textContent = '#'
-                    button.append(sign, highlighted(result.text, result.indices))
+                    button.append(sign, highlighted(result.text, result.indices, result.completed))
                 } else {
-                    button.append(highlighted(result.text, result.indices))
+                    button.append(highlighted(result.text, result.indices, result.completed))
 
                     if (result.project) {
                         const project = document.createElement('span')
@@ -3480,21 +3500,21 @@ if (textarea) {
                 }
 
                 return button
-            }))
+            }), completedToggle)
 
             resultsElement.hidden = false
             resultsElement.children[active]?.scrollIntoView({ block: 'nearest' })
         }
 
         input.addEventListener('input', () => {
-            results = search(view.state, markers, input.value, isHiddenLine)
+            results = searchFor(input.value)
             active = 0
             render()
         })
 
         input.addEventListener('focus', () => {
             if (input.value.trim() !== '') {
-                results = search(view.state, markers, input.value, isHiddenLine)
+                results = searchFor(input.value)
                 render()
             }
         })
