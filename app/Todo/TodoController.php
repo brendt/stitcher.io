@@ -365,8 +365,31 @@ final readonly class TodoController
             baseUri: $baseUri,
             markdown: $this->markdown->render($groups, $filters),
             items: $this->markdown->items($groups, $filters),
-            tags: $this->markdown->tags(...$workspaces),
+            tags: $this->tags($workspaces, $workspace),
         );
+    }
+
+    /**
+     * The tags that are suggested while writing a task. Hashtags are only suggested when they're used in the workspace that's shown,
+     * mentions are suggested from all workspaces. Without a workspace, like on the Soon page, all of them are suggested.
+     *
+     * @param Workspace[] $workspaces
+     * @return string[]
+     */
+    private function tags(array $workspaces, ?Workspace $workspace): array
+    {
+        $tags = $this->markdown->tags(...$workspaces);
+
+        if ($workspace === null) {
+            return $tags;
+        }
+
+        $ownTags = array_map(mb_strtolower(...), $this->markdown->tags($workspace));
+
+        return array_values(array_filter(
+            $tags,
+            fn (string $tag) => ! str_starts_with($tag, '#') || in_array(mb_strtolower($tag), $ownTags, strict: true),
+        ));
     }
 
     /**
