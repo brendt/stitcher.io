@@ -79,7 +79,7 @@ final readonly class TodoMarkdown
      *
      * @param TodoGroup[] $groups
      * @param string[] $filters Only tasks with all of these tags are included
-     * @return array<int, array{type: 'project'|'task'|'text', id: int|null, completed: bool, collapsed?: bool, virtual?: bool, project?: string}>
+     * @return array<int, array{type: 'project'|'task'|'text'|'group', id: int|null, completed: bool, collapsed?: bool, virtual?: bool, project?: string, shade?: 'light'|'dark'}>
      */
     public function items(array $groups, array $filters = []): array
     {
@@ -116,9 +116,11 @@ final readonly class TodoMarkdown
         $groups = [];
         $shown = [];
 
-        // Today doesn't show the overdue tasks again, those are shown already
+        // Today doesn't show the overdue tasks again, those are shown already. Both get a background, overdue ones a darker one.
+        $shades = ['Overdue' => 'dark', 'Today' => 'light'];
+
         foreach ([['Overdue', null, -1], ...self::UPCOMING] as [$title, $fromDays, $toDays]) {
-            $group = $this->dueBetween($title, $projects, $fromDays, $toDays, $shown, earliestFirst: true);
+            $group = $this->dueBetween($title, $projects, $fromDays, $toDays, $shown, earliestFirst: true, shade: $shades[$title] ?? null);
 
             if ($group === null) {
                 continue;
@@ -158,9 +160,18 @@ final readonly class TodoMarkdown
      *
      * @param Project[] $projects
      * @param array<int, true> $except Tasks to leave out, keyed by their ID
+     * @param 'light'|'dark'|null $shade
      */
-    private function dueBetween(string $title, array $projects, ?int $fromDays, int $toDays, array $except = [], bool $isVirtual = false, bool $earliestFirst = false): ?TodoGroup
-    {
+    private function dueBetween(
+        string $title,
+        array $projects,
+        ?int $fromDays,
+        int $toDays,
+        array $except = [],
+        bool $isVirtual = false,
+        bool $earliestFirst = false,
+        ?string $shade = null,
+    ): ?TodoGroup {
         $today = DateTime::now();
         $from = $fromDays === null ? '' : $today->plusDays($fromDays)->format('yyyy-MM-dd');
         $to = $today->plusDays($toDays)->format('yyyy-MM-dd');
@@ -193,16 +204,16 @@ final readonly class TodoMarkdown
         // Within the same day, tasks keep the order of their projects
         usort($found, fn (array $a, array $b) => $earliestFirst ? $a['date'] <=> $b['date'] : $b['date'] <=> $a['date']);
 
-        return new TodoGroup($title, null, array_column($found, 'task'), $projectNames, $isVirtual);
+        return new TodoGroup($title, null, array_column($found, 'task'), $projectNames, $isVirtual, shade: $shade);
     }
 
     /**
-     * Groups are separated by a blank line. A group that's a project can be completed and collapsed, other groups are just a title.
+     * Groups are separated by a blank line. A group that's a project can be completed and collapsed, other groups are just a title, optionally with a background.
      * Blank lines within a group aren't saved, so one is added wherever tasks and text meet, to keep them apart.
      *
      * @param TodoGroup[] $groups
      * @param string[] $filters
-     * @return Generator<array{0: string, 1: array{type: 'project'|'task'|'text', id: int|null, completed: bool, collapsed?: bool, virtual?: bool, project?: string}|null}>
+     * @return Generator<array{0: string, 1: array{type: 'project'|'task'|'text'|'group', id: int|null, completed: bool, collapsed?: bool, virtual?: bool, project?: string, shade?: 'light'|'dark'}|null}>
      */
     private function lines(array $groups, array $filters): Generator
     {
@@ -247,7 +258,8 @@ final readonly class TodoMarkdown
                         'completed' => $group->project->completedAt !== null,
                         'collapsed' => $group->project->collapsed,
                     ],
-                    default => null,
+                    $group->shade !== null => ['type' => 'group', 'id' => null, 'completed' => false, 'shade' => $group->shade],
+                    default => ['type' => 'group', 'id' => null, 'completed' => false],
                 },
             ];
 

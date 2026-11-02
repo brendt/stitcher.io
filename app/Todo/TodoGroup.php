@@ -14,6 +14,7 @@ final readonly class TodoGroup
      * @param array<int, string> $projectNames When given, tasks are shown together with the name of their project, keyed by task ID
      * @param bool $isVirtual A virtual group only shows tasks that belong to other projects, so it can't be edited or saved
      * @param array<int, non-negative-int> $depths When given, how deep tasks are indented as subtasks, keyed by task ID
+     * @param 'light'|'dark'|null $shade For a group that isn't a project, the background it's shown with, if any
      */
     public function __construct(
         public string $title,
@@ -22,6 +23,7 @@ final readonly class TodoGroup
         public array $projectNames = [],
         public bool $isVirtual = false,
         public array $depths = [],
+        public ?string $shade = null,
     ) {}
 
     /**

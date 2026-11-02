@@ -11,7 +11,8 @@ import type { DecorationSet, ViewUpdate } from '@codemirror/view'
 type ItemType = 'project' | 'task' | 'text'
 
 type Item = {
-    type: ItemType
+    // A group is the title of tasks that aren't grouped by project, like the dates on the Soon page, it's never saved
+    type: ItemType | 'group'
     // `null` until a newly written project or task has been saved
     id: number | null
     // Only for projects, whether it was collapsed when loading the page
@@ -20,6 +21,8 @@ type Item = {
     virtual?: boolean
     // For tasks in the virtual project or on the Soon page, the name of the project they belong to, which is shown in front of them
     project?: string
+    // Only for groups, the background they're shown with, if any
+    shade?: 'light' | 'dark'
     // Identifies the item within the editor, also before it has an ID
     key: string
     completed: boolean
@@ -73,6 +76,10 @@ const mutedLine = Decoration.line({ class: 'cm-muted' })
 const virtualLine = Decoration.line({ class: 'cm-virtual' })
 // The title of a group that isn't a project, like the dates on the Soon page
 const groupLine = Decoration.line({ class: 'cm-group' })
+const shadeLines = {
+    light: Decoration.line({ class: 'cm-shade-light' }),
+    dark: Decoration.line({ class: 'cm-shade-dark' }),
+}
 const virtualSectionLine = Decoration.line({ class: 'cm-virtual-section' })
 const virtualSectionFirstLine = Decoration.line({ class: 'cm-virtual-section cm-virtual-first' })
 const virtualSectionLastLine = Decoration.line({ class: 'cm-virtual-section cm-virtual-last' })
@@ -817,6 +824,27 @@ function itemOn(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, l
     return found
 }
 
+/**
+ * The title of a group that isn't a project, like the dates on the Soon page, which `itemOn` leaves out because it looks like a project.
+ */
+function groupOn(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, line: Line): Item | null {
+    let found: Item | null = null
+
+    if (! isProject(line)) {
+        return null
+    }
+
+    state.field(markers).between(line.from, line.from, (from, _to, marker) => {
+        if (from === line.from && marker.item.type === 'group') {
+            found = marker.item
+
+            return false
+        }
+    })
+
+    return found
+}
+
 function itemLines(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, type: ItemType, from: number, to: number): { line: Line, item: Item }[] {
     const lines: { line: Line, item: Item }[] = []
 
@@ -850,14 +878,17 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
 
         for (let number = 1; number <= state.doc.lines; number++) {
             const line = state.doc.line(number)
-            const item = itemOn(state, markers, line)
+            const item = itemOn(state, markers, line) ?? groupOn(state, markers, line)
 
-            // The virtual project gets a background of its own, from its title until its last task
-            if (isVirtual(state, markers, line)) {
-                const { start, last } = blockOf(state, line)
+            // The virtual project gets a background of its own, from its title until its last task, and so do some groups
+            const { start: blockStart, last } = blockOf(state, line)
+            const shade = groupOn(state, markers, blockStart)?.shade
 
-                if (line.number <= last.number) {
-                    decorations.push((line.number === start.number ? virtualSectionFirstLine : (line.number === last.number ? virtualSectionLastLine : virtualSectionLine)).range(line.from))
+            if ((isVirtual(state, markers, line) || shade) && line.number <= last.number) {
+                decorations.push((line.number === blockStart.number ? virtualSectionFirstLine : (line.number === last.number ? virtualSectionLastLine : virtualSectionLine)).range(line.from))
+
+                if (shade) {
+                    decorations.push(shadeLines[shade].range(line.from))
                 }
             }
 
@@ -869,9 +900,11 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             }
 
             if (! item) {
-                if (isProject(line)) {
-                    decorations.push(groupLine.range(line.from))
-                }
+                continue
+            }
+
+            if (item.type === 'group') {
+                decorations.push(groupLine.range(line.from))
 
                 continue
             }
@@ -2094,7 +2127,7 @@ function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, i
         const id = item?.id ?? null
 
         // The title of a group that isn't a project, like the dates on the Soon page, isn't found
-        if (type === 'project' && ! item) {
+        if (groupOn(state, markers, line)) {
             continue
         }
 
@@ -2365,6 +2398,13 @@ const theme = EditorView.theme({
         paddingLeft: '0.75rem',
         paddingRight: '0.75rem',
     },
+    // Groups with a background of their own, like overdue tasks on the Soon page
+    '.cm-shade-light': {
+        backgroundColor: 'var(--color-gray-50)',
+    },
+    '.cm-shade-dark': {
+        backgroundColor: 'var(--color-gray-100)',
+    },
     '.cm-virtual-first': {
         paddingTop: '0.5rem',
         borderTopLeftRadius: '0.5rem',
@@ -2512,9 +2552,11 @@ if (textarea) {
 
     for (const [lineNumber, item] of Object.entries<Omit<Item, 'key'>>(JSON.parse(textarea.dataset.items ?? '{}'))) {
         // Tasks in the virtual project are shown twice, so they need another key than in their own project
-        items[lineNumber] = { ...item, key: item.virtual ? `today-${item.type}-${item.id ?? 'title'}` : `${item.type}-${item.id}` }
+        // Groups don't have an ID, so they're told apart by where they are
+        const key = item.type === 'group' ? `group-${lineNumber}` : (item.virtual ? `today-${item.type}-${item.id ?? 'title'}` : `${item.type}-${item.id}`)
+        items[lineNumber] = { ...item, key }
 
-        if (! item.virtual && item.id !== null) {
+        if (! item.virtual && item.type !== 'group' && item.id !== null) {
             known[item.type].add(item.id)
         }
     }
@@ -2563,7 +2605,7 @@ if (textarea) {
             return
         }
 
-        if (item.type === 'text') {
+        if (item.type === 'text' || item.type === 'group') {
             return
         }
 
