@@ -94,7 +94,7 @@ final readonly class TodoController
     }
 
     /**
-     * Open tasks with a date from all workspaces, below their project and sorted by date, latest first.
+     * Open tasks from all workspaces that are coming up, grouped by overdue, today, tomorrow, and the coming week, earliest first.
      */
     #[Get('/soon')]
     public function soon(Request $request): View
@@ -120,7 +120,7 @@ final readonly class TodoController
         return $this->view(
             workspaces: $workspaces,
             workspace: null,
-            groups: $this->markdown->soon(...$workspaces),
+            groups: $this->markdown->soon($workspaces, $project),
             request: $request,
             baseUri: uri([self::class, 'soon']),
             mode: TodoMode::SOON,
@@ -343,7 +343,8 @@ final readonly class TodoController
         $filters = $this->filter($request);
         $project = $this->project($request);
 
-        if ($project !== null) {
+        // The groups of the Soon page are dates instead of projects, its tasks are filtered on their project already
+        if ($project !== null && $mode !== TodoMode::SOON) {
             $groups = array_values(array_filter($groups, fn (TodoGroup $group) => mb_strtolower($group->title) === mb_strtolower($project)));
         }
 

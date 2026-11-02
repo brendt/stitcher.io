@@ -18,7 +18,7 @@ type Item = {
     collapsed?: boolean
     // Part of the virtual project at the top, like "Today", which only shows tasks of other projects again
     virtual?: boolean
-    // For tasks in the virtual project, the name of the project they belong to, which is shown in front of them
+    // For tasks in the virtual project or on the Soon page, the name of the project they belong to, which is shown in front of them
     project?: string
     // Identifies the item within the editor, also before it has an ID
     key: string
@@ -71,6 +71,8 @@ const subtaskLine = Decoration.line({ class: 'cm-task cm-subtask' })
 const completedLine = Decoration.line({ class: 'cm-completed' })
 const mutedLine = Decoration.line({ class: 'cm-muted' })
 const virtualLine = Decoration.line({ class: 'cm-virtual' })
+// The title of a group that isn't a project, like the dates on the Soon page
+const groupLine = Decoration.line({ class: 'cm-group' })
 const virtualSectionLine = Decoration.line({ class: 'cm-virtual-section' })
 const virtualSectionFirstLine = Decoration.line({ class: 'cm-virtual-section cm-virtual-first' })
 const virtualSectionLastLine = Decoration.line({ class: 'cm-virtual-section cm-virtual-last' })
@@ -867,6 +869,10 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
             }
 
             if (! item) {
+                if (isProject(line)) {
+                    decorations.push(groupLine.range(line.from))
+                }
+
                 continue
             }
 
@@ -881,8 +887,8 @@ function itemDecorations(markers: StateField<RangeSet<ItemMarker>>, actions: Act
                 decorations.push(virtualLine.range(line.from))
             }
 
-            // In the virtual project, the name of a task's own project can be clicked to only show that project
-            if (item.virtual && item.type === 'task' && item.project && line.text.startsWith(`- ${item.project}: `)) {
+            // In the virtual project and on the Soon page, the name of a task's own project can be clicked to only show that project
+            if (item.type === 'task' && item.project && line.text.startsWith(`- ${item.project}: `)) {
                 decorations.push(Decoration.mark({
                     class: 'cm-project-title cm-project-name cm-filterable',
                     attributes: { 'data-project': item.project },
@@ -2084,7 +2090,14 @@ function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, i
             continue
         }
 
-        const id = itemOn(state, markers, line)?.id ?? null
+        const item = itemOn(state, markers, line)
+        const id = item?.id ?? null
+
+        // The title of a group that isn't a project, like the dates on the Soon page, isn't found
+        if (type === 'project' && ! item) {
+            continue
+        }
+
         const isCompleted = completed.some(({ from, to }) => line.from >= from && line.from <= to)
 
         if (id !== null) {
@@ -2095,11 +2108,13 @@ function search(state: EditorState, markers: StateField<RangeSet<ItemMarker>>, i
             continue
         }
 
-        const text = type === 'project' ? line.text.slice(2).trim() : taskText(line).trim()
+        // On the Soon page, tasks are shown with the name of their own project in front of them
+        const ownProject = item?.project ?? project
+        const text = type === 'project' ? line.text.slice(2).trim() : taskText(line).replace(item?.project ? `${item.project}: ` : '', '').trim()
         const match = fuzzyMatch(query, text)
 
         if (match) {
-            results.push({ line: number, type, id, text, project: type === 'task' ? project : null, workspace: null, completed: isCompleted, ...match })
+            results.push({ line: number, type, id, text, project: type === 'task' ? ownProject : null, workspace: null, completed: isCompleted, ...match })
         }
     }
 
@@ -2366,12 +2381,12 @@ const theme = EditorView.theme({
     '.cm-virtual-last .cm-check': {
         transform: 'translateY(calc(-50% - 0.25rem))',
     },
-    // The virtual project's title can't be clicked to only show that project
-    '.cm-virtual .cm-project-title': {
+    // The titles of the virtual project and of other groups that aren't projects can't be clicked to only show that project
+    '.cm-virtual .cm-project-title, .cm-group .cm-project-title': {
         cursor: 'text',
         textDecoration: 'none',
     },
-    '.cm-virtual .cm-project-title:hover': {
+    '.cm-virtual .cm-project-title:hover, .cm-group .cm-project-title:hover': {
         textDecoration: 'none',
     },
     // The project and tags that are being filtered on look the same
@@ -2803,7 +2818,7 @@ if (textarea) {
             distance = 0
             line = view.state.doc.lineAt(position)
             lineElement = (event.target as HTMLElement).closest<HTMLElement>('.cm-line')
-            tappedProject = (event.target as HTMLElement).closest<HTMLElement>('.cm-line:not(.cm-virtual) .cm-project-title')?.dataset.project ?? null
+            tappedProject = (event.target as HTMLElement).closest<HTMLElement>('.cm-line:not(.cm-virtual, .cm-group) .cm-project-title')?.dataset.project ?? null
             // Tags and links do something of their own when tapped, see `domEventHandlers`, and so does the placeholder of a collapsed project
             tappedLink = (event.target as HTMLElement).closest('.cm-tag, .cm-link, .cm-foldPlaceholder') !== null
 
@@ -3102,7 +3117,7 @@ if (textarea) {
                     }
 
                     // Clicking a project's title only shows that project, clicking it again shows all projects again
-                    const project = (event.target as HTMLElement).closest<HTMLElement>('.cm-line:not(.cm-virtual) .cm-project-title')?.dataset.project
+                    const project = (event.target as HTMLElement).closest<HTMLElement>('.cm-line:not(.cm-virtual, .cm-group) .cm-project-title')?.dataset.project
 
                     if (project) {
                         event.preventDefault()
