@@ -1328,9 +1328,13 @@ function tagCompletions(usedTags: string[], otherTags: () => string[] = () => []
             return true
         })
 
-        // `#today`, `#tomorrow`, and `#nextweek` are suggested first, and are written as their date when picked
+        // `#today`, `#tomorrow`, and `#nextweek` are suggested first, and are written as their date when picked.
+        // `#today+` is written as it is, so that the number of days can be typed after it, see `RELATIVE_DATES`.
         const relativeDates = word.text.startsWith('#')
-            ? Object.keys(DAYS_FROM_TODAY).map((tag) => ({ label: tag, detail: relativeDate(tag), apply: relativeDate(tag) + ' ', boost: 99 }))
+            ? [
+                ...Object.keys(DAYS_FROM_TODAY).map((tag) => ({ label: tag, detail: relativeDate(tag), apply: relativeDate(tag) + ' ', boost: 99 })),
+                { label: '#today+', detail: 'days from today', apply: '#today+', boost: 98 },
+            ]
             : []
 
         return {
