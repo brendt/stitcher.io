@@ -4,7 +4,7 @@ import type { CompletionContext, CompletionResult } from '@codemirror/autocomple
 import { defaultKeymap, history, historyKeymap, indentLess, indentMore, indentWithTab } from '@codemirror/commands'
 import { Annotation, ChangeSet, Compartment, EditorState, MapMode, Prec, RangeSet, RangeSetBuilder, RangeValue, StateEffect, StateField, Transaction } from '@codemirror/state'
 import type { Line, Range, Text, TransactionSpec } from '@codemirror/state'
-import { Decoration, EditorView, keymap, placeholder, ViewPlugin, WidgetType } from '@codemirror/view'
+import { Decoration, EditorView, keymap, placeholder, runScopeHandlers, ViewPlugin, WidgetType } from '@codemirror/view'
 import type { DecorationSet, ViewUpdate } from '@codemirror/view'
 
 // Text is any other line within a project, which is saved but can't be completed
@@ -1465,6 +1465,36 @@ function continueTask(view: EditorView): boolean {
 
     return true
 }
+
+/**
+ * Virtual keyboards on phones don't always send Enter as a key press. Instead, they add the new line to the page themselves,
+ * after which CodeMirror reads it back and turns it into Enter. That doesn't always work: on the last line of a project,
+ * for example, the new line was sometimes read as moving the cursor to the start of the line, and Enter never ran.
+ * So the keyboard isn't allowed to add new lines itself. When a key press for Enter came along, CodeMirror sends Enter on its own
+ * once it sees that nothing changed on the page, otherwise Enter runs here instead.
+ */
+const virtualKeyboardEnter = EditorView.domEventHandlers({
+    beforeinput(event, view) {
+        if (event.inputType !== 'insertParagraph' && event.inputType !== 'insertLineBreak') {
+            return false
+        }
+
+        event.preventDefault()
+
+        const state = view.state
+
+        // Any transaction since, like the one for Enter itself, means it was handled already
+        window.setTimeout(() => {
+            if (view.state !== state) {
+                return
+            }
+
+            runScopeHandlers(view, new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13 }), 'editor')
+        }, 100)
+
+        return true
+    },
+})
 
 /**
  * Deleting a selection that spans multiple lines asks for confirmation first, so that projects and tasks aren't removed by accident.
@@ -3116,6 +3146,7 @@ if (textarea) {
             placeholder(textarea.placeholder),
             EditorView.lineWrapping,
             mirrorVirtualEdits(markers),
+            virtualKeyboardEnter,
             normalizeSpacing,
             replaceRelativeDates,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
