@@ -1504,71 +1504,6 @@ const virtualKeyboardEnter = EditorView.domEventHandlers({
 })
 
 /**
- * Right after Enter, iOS sometimes moves the cursor on the page to the start of an earlier line, next to its checkbox or drag handle.
- * Those ignore events, so the editor doesn't notice, and still has the cursor on the new line while it's shown somewhere else.
- * So shortly after Enter, the cursor on the page is put back where the editor has it.
- */
-const CURSOR_AFTER_ENTER_DELAY = 200
-
-const keepCursorAfterEnter = ViewPlugin.fromClass(class {
-    enterAt = 0
-
-    constructor(readonly view: EditorView) {
-        document.addEventListener('selectionchange', this.restore)
-    }
-
-    update(update: ViewUpdate): void {
-        const isEnter = update.transactions.some((transaction) => {
-            let hasNewLine = false
-
-            transaction.changes.iterChanges((_fromA, _toA, _fromB, _toB, inserted) => {
-                hasNewLine ||= inserted.lines > 1
-            })
-
-            return hasNewLine && transaction.isUserEvent('input')
-        })
-
-        if (isEnter) {
-            this.enterAt = Date.now()
-        }
-    }
-
-    restore = (): void => {
-        if (Date.now() - this.enterAt > CURSOR_AFTER_ENTER_DELAY || ! this.view.hasFocus) {
-            return
-        }
-
-        const selection = document.getSelection()
-
-        if (! selection?.focusNode || ! this.view.contentDOM.contains(selection.focusNode)) {
-            return
-        }
-
-        let head: number
-
-        try {
-            head = this.view.posAtDOM(selection.focusNode, selection.focusOffset)
-        } catch {
-            return
-        }
-
-        if (head === this.view.state.selection.main.head) {
-            return
-        }
-
-        // Only once per Enter, so that this can't keep going back and forth with the browser
-        this.enterAt = 0
-
-        // After the editor itself has seen where the cursor is on the page, otherwise it thinks it's still in the right place
-        window.setTimeout(() => this.view.dispatch({ selection: this.view.state.selection }))
-    }
-
-    destroy(): void {
-        document.removeEventListener('selectionchange', this.restore)
-    }
-})
-
-/**
  * Gboard removes the space right before the cursor when pressing Enter after it, like the one in a new task's `- `.
  * Without the new line that's kept from the page above, that looks like Backspace, which would remove the empty task instead.
  * So a Backspace right after the keyboard's Enter is part of that Enter.
@@ -3236,7 +3171,6 @@ if (textarea) {
             EditorView.lineWrapping,
             mirrorVirtualEdits(markers),
             virtualKeyboardEnter,
-            keepCursorAfterEnter,
             normalizeSpacing,
             replaceRelativeDates,
             autocompletion({ override: [tagCompletions(usedTags)], icons: false }),
