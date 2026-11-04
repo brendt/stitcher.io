@@ -1559,8 +1559,13 @@ const keepCursorAfterEnter = ViewPlugin.fromClass(class {
         // Only once per Enter, so that this can't keep going back and forth with the browser
         this.enterAt = 0
 
-        // After the editor itself has seen where the cursor is on the page, otherwise it thinks it's still in the right place
-        window.setTimeout(() => this.view.dispatch({ selection: this.view.state.selection }))
+        // After the editor itself has seen where the cursor is on the page.
+        // Asking the editor to put the cursor back isn't enough, it thinks it's already in the right place.
+        window.setTimeout(() => {
+            const { node, offset } = this.view.domAtPos(this.view.state.selection.main.head)
+
+            document.getSelection()?.collapse(node, offset)
+        })
     }
 
     destroy(): void {
@@ -4073,7 +4078,17 @@ function enableEditorDebugLog(view: EditorView): void {
 
     button('Copy', () => navigator.clipboard.writeText(entries.join('\n')).then(() => log('-- copied --')))
     button('Clear', () => (entries.length = 0, log('-- cleared --')))
-    button('Doc', () => log(`doc ${JSON.stringify(view.state.doc.toString())} cursor ${at(view.state.selection.main.head)}`))
+    const describe = (node: Node) => node.nodeType === Node.TEXT_NODE
+        ? `text(${JSON.stringify(node.textContent)})`
+        : `<${(node as Element).tagName?.toLowerCase()} class="${(node as Element).className}">`
+
+    button('Doc', () => {
+        log(`doc ${JSON.stringify(view.state.doc.toString())} cursor ${at(view.state.selection.main.head)}`)
+
+        for (const child of Array.from(view.contentDOM.children)) {
+            log(`  ${describe(child)} text=${JSON.stringify(child.textContent)} children=${child.childNodes.length}`)
+        }
+    })
 
     panel.append(actions, output)
     document.body.append(panel)
@@ -4105,11 +4120,10 @@ function enableEditorDebugLog(view: EditorView): void {
             pos = at(view.posAtDOM(selection.focusNode, selection.focusOffset))
         } catch {}
 
-        const node = selection.focusNode.nodeType === Node.TEXT_NODE
-            ? `text(${JSON.stringify(selection.focusNode.textContent)})`
-            : `<${(selection.focusNode as Element).tagName?.toLowerCase()} class="${(selection.focusNode as Element).className}">`
+        const head = view.state.selection.main.head
+        const expected = view.domAtPos(head)
 
-        log(`selectionchange dom=${pos} node=${node} offset=${selection.focusOffset}`)
+        log(`selectionchange dom=${pos} node=${describe(selection.focusNode)} offset=${selection.focusOffset} | editor=${at(head)} node=${describe(expected.node)} offset=${expected.offset}`)
     })
 
     view.dispatch({
