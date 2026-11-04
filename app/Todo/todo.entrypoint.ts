@@ -3441,11 +3441,6 @@ if (textarea) {
     textarea.after(view.dom)
     textarea.hidden = true
 
-    // TODO: temporary, remove once the iOS Enter issues are fixed
-    if (new URLSearchParams(window.location.search).has('debug')) {
-        enableEditorDebugLog(view)
-    }
-
     if (isTouchScreen) {
         enableTouchGestures(view)
     }
@@ -3961,106 +3956,4 @@ if (textarea) {
     if (view.state.facet(EditorView.editable)) {
         view.focus()
     }
-}
-
-/**
- * TODO: temporary, remove once the iOS Enter issues are fixed.
- * Shows what the browser and the editor do while typing, enabled with `?debug`, so that it can be copied from a phone.
- */
-function enableEditorDebugLog(view: EditorView): void {
-    const start = Date.now()
-    const entries: string[] = []
-
-    const panel = document.createElement('div')
-    panel.className = 'fixed inset-x-0 top-0 z-50 flex flex-col max-h-[40vh] bg-black/85 text-white text-[10px] font-mono'
-
-    const actions = document.createElement('div')
-    actions.className = 'flex gap-2 p-1'
-
-    const output = document.createElement('pre')
-    output.className = 'overflow-auto p-1 whitespace-pre-wrap'
-
-    const button = (label: string, onClick: () => void) => {
-        const element = document.createElement('button')
-        element.type = 'button'
-        element.className = 'px-2 py-1 rounded bg-white/20'
-        element.textContent = label
-        // Keep the editor focused, so that the keyboard stays open
-        element.addEventListener('mousedown', (event) => event.preventDefault())
-        element.addEventListener('touchstart', (event) => event.preventDefault(), { passive: false })
-        element.addEventListener('touchend', (event) => (event.preventDefault(), onClick()))
-        element.addEventListener('click', onClick)
-        actions.append(element)
-    }
-
-    const at = (pos: number, doc: Text = view.state.doc) => {
-        const line = doc.lineAt(Math.min(pos, doc.length))
-
-        return `${line.number}:${pos - line.from}`
-    }
-
-    const log = (text: string) => {
-        entries.push(`${String(Date.now() - start).padStart(6)} ${text}`)
-        output.textContent = entries.join('\n')
-        output.scrollTop = output.scrollHeight
-    }
-
-    button('Copy', () => navigator.clipboard.writeText(entries.join('\n')).then(() => log('-- copied --')))
-    button('Clear', () => (entries.length = 0, log('-- cleared --')))
-    button('Doc', () => log(`doc ${JSON.stringify(view.state.doc.toString())} cursor ${at(view.state.selection.main.head)}`))
-
-    panel.append(actions, output)
-    document.body.append(panel)
-
-    const dom = view.contentDOM
-
-    for (const type of ['keydown', 'keyup'] as const) {
-        dom.addEventListener(type, (event) => log(`${type} key=${JSON.stringify(event.key)} code=${event.keyCode}${(event as KeyboardEvent & { synthetic?: boolean }).synthetic ? ' synthetic' : ''} shift=${event.shiftKey} composing=${event.isComposing}`), true)
-    }
-
-    for (const type of ['beforeinput', 'input'] as const) {
-        dom.addEventListener(type, (event) => log(`${type} ${event.inputType} data=${JSON.stringify(event.data)} cancelable=${event.cancelable} prevented=${event.defaultPrevented}`), true)
-    }
-
-    for (const type of ['compositionstart', 'compositionupdate', 'compositionend'] as const) {
-        dom.addEventListener(type, (event) => log(`${type} data=${JSON.stringify(event.data)}`), true)
-    }
-
-    document.addEventListener('selectionchange', () => {
-        const selection = document.getSelection()
-
-        if (! selection?.focusNode || ! dom.contains(selection.focusNode)) {
-            return
-        }
-
-        let pos = '?'
-
-        try {
-            pos = at(view.posAtDOM(selection.focusNode, selection.focusOffset))
-        } catch {}
-
-        const node = selection.focusNode.nodeType === Node.TEXT_NODE
-            ? `text(${JSON.stringify(selection.focusNode.textContent)})`
-            : `<${(selection.focusNode as Element).tagName?.toLowerCase()} class="${(selection.focusNode as Element).className}">`
-
-        log(`selectionchange dom=${pos} node=${node} offset=${selection.focusOffset}`)
-    })
-
-    view.dispatch({
-        effects: StateEffect.appendConfig.of(EditorView.updateListener.of((update) => {
-            for (const transaction of update.transactions) {
-                const changes: string[] = []
-
-                transaction.changes.iterChanges((fromA, toA, _fromB, _toB, inserted) => {
-                    changes.push(`${at(fromA, update.startState.doc)}-${at(toA, update.startState.doc)} ${JSON.stringify(update.startState.sliceDoc(fromA, toA))}→${JSON.stringify(inserted.toString())}`)
-                })
-
-                const label = transaction.annotation(Transaction.userEvent) ?? '-'
-
-                log(`tr ${label}${changes.length > 0 ? ` ${changes.join(', ')}` : ''}${transaction.selection ? ` sel=${at(transaction.newSelection.main.head, transaction.newDoc)}` : ''}`)
-            }
-        })),
-    })
-
-    log('debug log started')
 }
