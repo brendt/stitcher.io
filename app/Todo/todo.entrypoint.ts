@@ -1473,12 +1473,6 @@ function continueTask(view: EditorView): boolean {
  * So the keyboard isn't allowed to add new lines itself. When a key press for Enter came along, CodeMirror sends Enter on its own
  * once it sees that nothing changed on the page, otherwise Enter runs here instead.
  */
-const VIRTUAL_ENTER_DELAY = 100
-
-let virtualEnterAt = 0
-
-const runEnter = (view: EditorView) => runScopeHandlers(view, new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13 }), 'editor')
-
 const virtualKeyboardEnter = EditorView.domEventHandlers({
     beforeinput(event, view) {
         if (event.inputType !== 'insertParagraph' && event.inputType !== 'insertLineBreak') {
@@ -1486,7 +1480,6 @@ const virtualKeyboardEnter = EditorView.domEventHandlers({
         }
 
         event.preventDefault()
-        virtualEnterAt = Date.now()
 
         const state = view.state
 
@@ -1496,28 +1489,12 @@ const virtualKeyboardEnter = EditorView.domEventHandlers({
                 return
             }
 
-            runEnter(view)
-        }, VIRTUAL_ENTER_DELAY)
+            runScopeHandlers(view, new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13 }), 'editor')
+        }, 100)
 
         return true
     },
 })
-
-/**
- * Gboard removes the space right before the cursor when pressing Enter after it, like the one in a new task's `- `.
- * Without the new line that's kept from the page above, that looks like Backspace, which would remove the empty task instead.
- * So a Backspace right after the keyboard's Enter is part of that Enter.
- */
-function enterInsteadOfBackspace(view: EditorView): boolean {
-    if (Date.now() - virtualEnterAt > VIRTUAL_ENTER_DELAY) {
-        return false
-    }
-
-    virtualEnterAt = 0
-    runEnter(view)
-
-    return true
-}
 
 /**
  * Deleting a selection that spans multiple lines asks for confirmation first, so that projects and tasks aren't removed by accident.
@@ -3157,7 +3134,6 @@ if (textarea) {
             history(),
             keymap.of([
                 { key: 'Enter', run: continueTask },
-                { key: 'Backspace', run: enterInsteadOfBackspace },
                 { key: 'Backspace', run: confirmBulkDelete },
                 { key: 'Backspace', run: removeEmptyTask },
                 { key: 'Delete', run: confirmBulkDelete },
