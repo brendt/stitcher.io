@@ -1001,10 +1001,13 @@ const hiddenLines = Decoration.replace({ block: true })
  * completed tasks with their subtasks, and completed projects with their tasks and text.
  * Blank lines right above them are hidden as well, so that there's no more space between what's left than usual.
  * A project at the top has nothing above it, so the blank lines below it are hidden instead.
+ * Blank lines from the cursor onwards are kept, like the one left by pressing Enter on an empty task right above a completed one,
+ * otherwise the cursor would end up somewhere that can't be seen.
  */
 function completedRanges(state: EditorState, markers: StateField<RangeSet<ItemMarker>>): { from: number, to: number }[] {
     const ranges: { from: number, to: number }[] = []
     const { doc } = state
+    const cursorLine = doc.lineAt(state.selection.main.head).number
 
     for (let number = 1; number <= doc.lines; number++) {
         const line = doc.line(number)
@@ -1017,12 +1020,12 @@ function completedRanges(state: EditorState, markers: StateField<RangeSet<ItemMa
         let first = line
         let last = item.type === 'project' ? blockOf(state, line).last : lastDescendant(state, line)
 
-        while (first.number > 1 && doc.line(first.number - 1).text.trim() === '') {
+        while (first.number > 1 && first.number - 1 > cursorLine && doc.line(first.number - 1).text.trim() === '') {
             first = doc.line(first.number - 1)
         }
 
         if (first.number === 1) {
-            while (last.number < doc.lines && doc.line(last.number + 1).text.trim() === '') {
+            while (last.number < doc.lines && last.number + 1 < cursorLine && doc.line(last.number + 1).text.trim() === '') {
                 last = doc.line(last.number + 1)
             }
         }
@@ -1058,8 +1061,12 @@ function createCompletedHiding(markers: StateField<RangeSet<ItemMarker>>, isHidd
             const effect = transaction.effects.find((effect) => effect.is(hideCompleted))
             const hidden = effect ? effect.value as boolean : value.hidden
 
-            // Completing a task changes its marker without changing the document, so any effect could change what's hidden
-            if (! transaction.docChanged && transaction.effects.length === 0) {
+            // Completing a task changes its marker without changing the document, so any effect could change what's hidden.
+            // Moving the cursor to another line changes which blank lines are kept, see `completedRanges`.
+            const cursorMoved = transaction.selection !== undefined
+                && transaction.startState.doc.lineAt(transaction.startState.selection.main.head).number !== transaction.state.doc.lineAt(transaction.state.selection.main.head).number
+
+            if (! transaction.docChanged && transaction.effects.length === 0 && ! cursorMoved) {
                 return value
             }
 
