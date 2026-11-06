@@ -1984,8 +1984,12 @@ function splitVirtualEdit(transaction: Transaction, markers: StateField<RangeSet
 
     const virtualChanges = ChangeSet.of(virtual, startState.doc.length)
 
+    // Undoing puts the cursor back where it was before the edit, which is on its own line then, where the edit is undone
+    const ownEnd = virtualChanges.mapPos(own[own.length - 1].to)
+
     const first = startState.update({
         changes: virtualChanges,
+        selection: { anchor: ownEnd },
         annotations: Transaction.addToHistory.of(false),
         filter: false,
     })
