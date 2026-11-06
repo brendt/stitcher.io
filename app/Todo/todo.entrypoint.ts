@@ -1946,8 +1946,63 @@ function mirrorVirtualEdits(markers: StateField<RangeSet<ItemMarker>>) {
 
         return mirrored.length === 0
             ? transaction
-            : [transaction, { changes: ChangeSet.of(mirrored, state.doc.length).map(transaction.changes), sequential: true }]
+            : [transaction, { changes: ChangeSet.of(mirrored, state.doc.length).map(transaction.changes), sequential: true, annotations: mirroredVirtualEdit.of(true) }]
     })
+}
+
+// Marks a transaction that edited a task in the virtual project, together with its own line, see `splitVirtualEdit`
+const mirroredVirtualEdit = Annotation.define<boolean>()
+
+/**
+ * An edit to a task in the virtual project is split in two: the edit to the virtual project itself, which isn't kept in the history,
+ * and the same edit to its own line, which is. The virtual project is brought up to date afterwards, and might not have that task anymore,
+ * for example when its date was removed. Undoing that edit would then have nowhere to put it back in the virtual project,
+ * so only its own line is changed back, after which the virtual project is brought up to date again.
+ */
+function splitVirtualEdit(transaction: Transaction, markers: StateField<RangeSet<ItemMarker>>): Transaction[] {
+    if (! transaction.annotation(mirroredVirtualEdit)) {
+        return [transaction]
+    }
+
+    const { startState } = transaction
+    const range = virtualRange(startState, markers)
+
+    if (! range) {
+        return [transaction]
+    }
+
+    const virtual: { from: number, to: number, insert: Text }[] = []
+    const own: { from: number, to: number, insert: Text }[] = []
+
+    transaction.changes.iterChanges((fromA, toA, _fromB, _toB, inserted) => {
+        (fromA >= range.from && toA <= range.to ? virtual : own).push({ from: fromA, to: toA, insert: inserted })
+    })
+
+    if (virtual.length === 0 || own.length === 0) {
+        return [transaction]
+    }
+
+    const virtualChanges = ChangeSet.of(virtual, startState.doc.length)
+
+    const first = startState.update({
+        changes: virtualChanges,
+        annotations: Transaction.addToHistory.of(false),
+        filter: false,
+    })
+
+    const userEvent = transaction.annotation(Transaction.userEvent)
+
+    const second = first.state.update({
+        changes: ChangeSet.of(own, startState.doc.length).map(virtualChanges),
+        selection: transaction.newSelection,
+        effects: transaction.effects,
+        scrollIntoView: transaction.scrollIntoView,
+        annotations: transaction.annotation(relativeDateResolved) ? [relativeDateResolved.of(true)] : [],
+        userEvent,
+        filter: false,
+    })
+
+    return [first, second]
 }
 
 type Known = Record<ItemType, Set<number>>
@@ -2783,6 +2838,16 @@ if (textarea) {
             return false
         }
 
+        // When it's not the same as its own line anymore, like after undoing, it's brought up to date right away,
+        // because edits to it are only copied to its own line while they're the same
+        const item = itemOn(view.state, markers, edited.line)
+        const own = item ? ownLineOf(view.state, markers, item) : null
+        const text = virtualTaskText(view.state, markers, edited.line)
+
+        if (! own || ! text || taskText(own) !== view.state.sliceDoc(text.from, text.to)) {
+            return false
+        }
+
         const dates = datesOn(edited.line)
 
         return dates === '' || dates === editingVirtual.dates
@@ -3265,6 +3330,10 @@ if (textarea) {
 
     const view = new EditorView({
         doc: textarea.value,
+        dispatchTransactions(transactions, view) {
+            // Splitting changes where later transactions start, so only a single transaction is split
+            view.update(transactions.length === 1 ? splitVirtualEdit(transactions[0], markers) : transactions)
+        },
         extensions: [
             history(),
             keymap.of([
