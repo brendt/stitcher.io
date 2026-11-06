@@ -2209,6 +2209,68 @@ const flashedLine = StateField.define<DecorationSet>({
     provide: (field) => EditorView.decorations.from(field),
 })
 
+// Undoing or redoing highlights what changed for a moment, so that it's clear what happened
+const clearUndoHighlight = StateEffect.define<null>()
+
+// Two classes with the same animation take turns, so that it starts over when undoing again on the same line
+let undoHighlightTurn = false
+
+const undoHighlight = StateField.define<DecorationSet>({
+    create: () => Decoration.none,
+
+    update(decorations, transaction) {
+        for (const effect of transaction.effects) {
+            if (effect.is(clearUndoHighlight)) {
+                decorations = Decoration.none
+            }
+        }
+
+        if (! transaction.docChanged) {
+            return decorations
+        }
+
+        // Changes made by the editor itself, like bringing the virtual project up to date, keep the highlight where it was
+        if (transaction.annotation(Transaction.addToHistory) === false) {
+            return decorations.map(transaction.changes)
+        }
+
+        // Typing again means the highlight isn't needed anymore
+        if (! transaction.isUserEvent('undo') && ! transaction.isUserEvent('redo')) {
+            return Decoration.none
+        }
+
+        undoHighlightTurn = ! undoHighlightTurn
+
+        const suffix = undoHighlightTurn ? 'a' : 'b'
+        const lineDecoration = Decoration.line({ class: `cm-undone-line cm-undone-line-${suffix}` })
+        const markDecoration = Decoration.mark({ class: `cm-undone cm-undone-${suffix}` })
+        const { doc } = transaction.state
+        const lines = new Set<number>()
+        const ranges: Range<Decoration>[] = []
+
+        transaction.changes.iterChangedRanges((_fromA, _toA, fromB, toB) => {
+            for (let number = doc.lineAt(fromB).number; number <= doc.lineAt(toB).number; number++) {
+                lines.add(number)
+            }
+
+            // Text that came back is highlighted itself, text that went away only shows on its line
+            if (toB > fromB) {
+                ranges.push(markDecoration.range(fromB, toB))
+            }
+        })
+
+        for (const number of lines) {
+            ranges.push(lineDecoration.range(doc.line(number).from))
+        }
+
+        return Decoration.set(ranges, true)
+    },
+
+    provide: (field) => EditorView.decorations.from(field),
+})
+
+const UNDO_HIGHLIGHT_DURATION = 1500
+
 const theme = EditorView.theme({
     '&': {
         fontSize: '1rem',
@@ -2244,6 +2306,34 @@ const theme = EditorView.theme({
     },
     '.cm-flash': {
         backgroundColor: 'rgb(254 249 195)',
+    },
+    '.cm-undone-line-a': {
+        animation: `cm-undone-line-a ${UNDO_HIGHLIGHT_DURATION}ms ease-out forwards`,
+    },
+    '.cm-undone-line-b': {
+        animation: `cm-undone-line-b ${UNDO_HIGHLIGHT_DURATION}ms ease-out forwards`,
+    },
+    '.cm-undone-a': {
+        animation: `cm-undone-a ${UNDO_HIGHLIGHT_DURATION}ms ease-out forwards`,
+    },
+    '.cm-undone-b': {
+        animation: `cm-undone-b ${UNDO_HIGHLIGHT_DURATION}ms ease-out forwards`,
+    },
+    '@keyframes cm-undone-line-a': {
+        from: { backgroundColor: 'rgb(254 249 195)' },
+        to: { backgroundColor: 'transparent' },
+    },
+    '@keyframes cm-undone-line-b': {
+        from: { backgroundColor: 'rgb(254 249 195)' },
+        to: { backgroundColor: 'transparent' },
+    },
+    '@keyframes cm-undone-a': {
+        from: { backgroundColor: 'rgb(253 224 71)' },
+        to: { backgroundColor: 'transparent' },
+    },
+    '@keyframes cm-undone-b': {
+        from: { backgroundColor: 'rgb(253 224 71)' },
+        to: { backgroundColor: 'transparent' },
     },
     // Everything that can be clicked to filter on looks the same: hashtags, mentions, dates, project titles, and project names in the virtual project,
     // except that project titles aren't underlined, see below
@@ -3168,6 +3258,8 @@ if (textarea) {
     const HIDE_COMPLETED_KEY = 'todo-hide-completed'
     const completedHiding = createCompletedHiding(markers, localStorage.getItem(HIDE_COMPLETED_KEY) === 'true')
 
+    let undoHighlightTimer: number | undefined
+
     const editing = new Compartment()
     const editable = (isEditable: boolean) => [EditorState.readOnly.of(! isEditable), EditorView.editable.of(isEditable)]
 
@@ -3211,6 +3303,7 @@ if (textarea) {
             }),
             markers,
             flashedLine,
+            undoHighlight,
             itemDecorations(markers, { drag, toggle, collapse, archive, mode }),
             completedHiding,
             syntax,
@@ -3265,6 +3358,12 @@ if (textarea) {
             }),
             EditorView.updateListener.of((update) => {
                 saveFolds(update)
+
+                // Once the highlight of an undo or redo has faded, it's taken away, so that it doesn't show again when its lines are drawn again
+                if (update.transactions.some((transaction) => transaction.isUserEvent('undo') || transaction.isUserEvent('redo'))) {
+                    window.clearTimeout(undoHighlightTimer)
+                    undoHighlightTimer = window.setTimeout(() => update.view.dispatch({ effects: clearUndoHighlight.of(null) }), UNDO_HIGHLIGHT_DURATION)
+                }
 
                 // Once the cursor moves away from a task in the virtual project, the virtual project is brought up to date
                 if ((update.selectionSet || update.focusChanged || update.docChanged) && trackEditing(update.view)) {
