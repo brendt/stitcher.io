@@ -2635,15 +2635,81 @@ if (textarea) {
             view.dispatch(transaction)
         }
 
-        updateUpcoming(view)
+        updateUpcoming(view, true)
         tidy(view)
     }
 
-    const updateUpcoming = (view: EditorView) => {
+    // The task in the virtual project that's being edited, with the dates it had when the cursor moved onto it
+    let editing: { key: string, dates: string } | null = null
+
+    const datesOn = (line: Line): string => [...line.text.matchAll(TAG)]
+        .map((match) => match[2])
+        .filter((tag) => /^\d{4}-/.test(tag))
+        .sort()
+        .join(' ')
+
+    const editedVirtualTask = (view: EditorView): { key: string, line: Line } | null => {
+        const { state } = view
+        const selection = state.selection.main
+
+        if (! view.hasFocus || state.selection.ranges.length > 1) {
+            return null
+        }
+
+        const line = state.doc.lineAt(selection.head)
+        const item = itemOn(state, markers, line)
+
+        if (! item?.virtual || ! virtualTaskText(state, markers, line) || state.doc.lineAt(selection.anchor).number !== line.number) {
+            return null
+        }
+
+        return { key: item.key, line }
+    }
+
+    // Keeps track of which task in the virtual project is being edited. Returns whether the cursor moved away from one.
+    const trackEditing = (view: EditorView): boolean => {
+        const edited = editedVirtualTask(view)
+
+        if (edited?.key === editing?.key) {
+            return false
+        }
+
+        const wasEditing = editing !== null
+
+        editing = edited ? { key: edited.key, dates: datesOn(edited.line) } : null
+
+        return wasEditing
+    }
+
+    /**
+     * While a task in the virtual project is being edited, the virtual project isn't brought up to date,
+     * so that it doesn't go away as soon as its date is removed to write another one.
+     * That only happens once the cursor moves away from it, or once another date is written in full.
+     */
+    const isEditingVirtualTask = (view: EditorView): boolean => {
+        const edited = editedVirtualTask(view)
+
+        if (! edited || ! editing || edited.key !== editing.key) {
+            return false
+        }
+
+        const dates = datesOn(edited.line)
+
+        return dates === '' || dates === editing.dates
+    }
+
+    const updateUpcoming = (view: EditorView, force: boolean = false) => {
+        if (! force && isEditingVirtualTask(view)) {
+            return
+        }
+
         const spec = mode === 'workspace' ? refreshUpcoming(view.state, markers) : null
 
         if (spec) {
             view.dispatch(spec)
+            // The task might still be there, now with its new date
+            editing = null
+            trackEditing(view)
         }
     }
 
@@ -3199,6 +3265,11 @@ if (textarea) {
             }),
             EditorView.updateListener.of((update) => {
                 saveFolds(update)
+
+                // Once the cursor moves away from a task in the virtual project, the virtual project is brought up to date
+                if ((update.selectionSet || update.focusChanged || update.docChanged) && trackEditing(update.view)) {
+                    scheduleUpcoming(update.view)
+                }
 
                 if (update.docChanged) {
                     textarea.value = update.state.doc.toString()
