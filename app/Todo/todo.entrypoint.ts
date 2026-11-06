@@ -2640,7 +2640,7 @@ if (textarea) {
     }
 
     // The task in the virtual project that's being edited, with the dates it had when the cursor moved onto it
-    let editing: { key: string, dates: string } | null = null
+    let editingVirtual: { key: string, dates: string } | null = null
 
     const datesOn = (line: Line): string => [...line.text.matchAll(TAG)]
         .map((match) => match[2])
@@ -2670,13 +2670,13 @@ if (textarea) {
     const trackEditing = (view: EditorView): boolean => {
         const edited = editedVirtualTask(view)
 
-        if (edited?.key === editing?.key) {
+        if (edited?.key === editingVirtual?.key) {
             return false
         }
 
-        const wasEditing = editing !== null
+        const wasEditing = editingVirtual !== null
 
-        editing = edited ? { key: edited.key, dates: datesOn(edited.line) } : null
+        editingVirtual = edited ? { key: edited.key, dates: datesOn(edited.line) } : null
 
         return wasEditing
     }
@@ -2689,13 +2689,13 @@ if (textarea) {
     const isEditingVirtualTask = (view: EditorView): boolean => {
         const edited = editedVirtualTask(view)
 
-        if (! edited || ! editing || edited.key !== editing.key) {
+        if (! edited || ! editingVirtual || edited.key !== editingVirtual.key) {
             return false
         }
 
         const dates = datesOn(edited.line)
 
-        return dates === '' || dates === editing.dates
+        return dates === '' || dates === editingVirtual.dates
     }
 
     const updateUpcoming = (view: EditorView, force: boolean = false) => {
@@ -2708,7 +2708,7 @@ if (textarea) {
         if (spec) {
             view.dispatch(spec)
             // The task might still be there, now with its new date
-            editing = null
+            editingVirtual = null
             trackEditing(view)
         }
     }
